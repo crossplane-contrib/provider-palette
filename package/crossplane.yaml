@@ -1,0 +1,7 @@
+apiVersion: meta.pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-jet-palette
+spec:
+  controller:
+    image: DOCKER_REGISTRY/provider-jet-palette-controller:VERSION

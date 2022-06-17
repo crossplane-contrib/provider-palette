@@ -1,0 +1,24 @@
+/.cache
+/.work
+/_output
+/config/
+/config
+cover.out
+/vendor
+/.vendor-new
+.DS_Store
+
+
+# gitlab example
+# exclude files generate by running the example
+external-dns-*.tgz
+gitlab-*.tgz
+gitlab-gcp.yaml
+gitlab/
+
+# ignore vscode files (debug config etc...)
+/.vscode
+/.idea
+
+# Crossplane packages
+*.xpkg
