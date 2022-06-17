@@ -1,1 +1,0 @@
-{"buildTargets":["/terraform-1.1.6","cobertura","config/schema.json","crds.clean","crossplane.help","fallthrough","generate.init","go.cachedir","help-special","make","run","submodules"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

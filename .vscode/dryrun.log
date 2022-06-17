@@ -1,9 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/justinbarksdale/git/provider-jet-palette'
-git submodule sync
-git submodule update --init --recursive
-echo Initial setup complete. Running make again . . .
-make
- 
-make: Leaving directory `/Users/justinbarksdale/git/provider-jet-palette'
- 
