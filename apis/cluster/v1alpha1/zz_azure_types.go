@@ -78,14 +78,20 @@ type AzureClusterProfilePackObservation struct {
 
 type AzureClusterProfilePackParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
@@ -100,10 +106,46 @@ type AzureClusterProfileParameters struct {
 	Pack []AzureClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type AzureClusterRbacBindingObservation struct {
+}
+
+type AzureClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []AzureClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type AzureClusterRbacBindingSubjectsObservation struct {
+}
+
+type AzureClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type AzureMachinePoolObservation struct {
 }
 
 type AzureMachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Azs []*string `json:"azs" tf:"azs,omitempty"`
@@ -124,10 +166,46 @@ type AzureMachinePoolParameters struct {
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
 	// +kubebuilder:validation:Required
+	IsSystemNodePool *bool `json:"isSystemNodePool" tf:"is_system_node_pool,omitempty"`
+
+	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Taints []AzureMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type AzureMachinePoolTaintsObservation struct {
+}
+
+type AzureMachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type AzureNamespacesObservation struct {
+}
+
+type AzureNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type AzureObservation struct {
@@ -173,8 +251,14 @@ type AzureParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []AzureClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []AzureClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []AzureMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []AzureNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
@@ -208,6 +292,18 @@ type AzureScanPolicyParameters struct {
 
 	// +kubebuilder:validation:Required
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
+}
+
+type ClusterProfilePackManifestObservation struct {
+}
+
+type ClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type DiskObservation struct {

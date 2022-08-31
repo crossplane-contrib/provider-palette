@@ -75,6 +75,9 @@ type ProfileParameters struct {
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// +kubebuilder:validation:Required

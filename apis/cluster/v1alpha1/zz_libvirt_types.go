@@ -42,6 +42,9 @@ type GpuConfigObservation struct {
 
 type GpuConfigParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Addresses map[string]*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
+
 	// +kubebuilder:validation:Required
 	DeviceModel *string `json:"deviceModel" tf:"device_model,omitempty"`
 

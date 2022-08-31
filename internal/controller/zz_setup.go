@@ -21,6 +21,7 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
+	deployment "github.com/crossplane-contrib/provider-jet-palette/internal/controller/addon/deployment"
 	storagelocation "github.com/crossplane-contrib/provider-jet-palette/internal/controller/backup/storagelocation"
 	aws "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cloudaccount/aws"
 	azure "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cloudaccount/azure"
@@ -49,12 +50,14 @@ import (
 	macro "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/macro"
 	project "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/project"
 	team "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/team"
+	workspace "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/workspace"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		deployment.Setup,
 		storagelocation.Setup,
 		aws.Setup,
 		azure.Setup,
@@ -83,6 +86,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		macro.Setup,
 		project.Setup,
 		team.Setup,
+		workspace.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

@@ -25,24 +25,6 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type ClusterRbacBindingObservation struct {
-}
-
-type ClusterRbacBindingParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Subjects []SubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Type *string `json:"type" tf:"type,omitempty"`
-}
-
 type EdgeBackupPolicyObservation struct {
 }
 
@@ -82,13 +64,25 @@ type EdgeCloudConfigParameters struct {
 type EdgeClusterProfileObservation struct {
 }
 
+type EdgeClusterProfilePackManifestObservation struct {
+}
+
+type EdgeClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type EdgeClusterProfilePackObservation struct {
 }
 
 type EdgeClusterProfilePackParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []EdgeClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -115,6 +109,39 @@ type EdgeClusterProfileParameters struct {
 	Pack []EdgeClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type EdgeClusterRbacBindingObservation struct {
+}
+
+type EdgeClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []EdgeClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type EdgeClusterRbacBindingSubjectsObservation struct {
+}
+
+type EdgeClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type EdgeMachinePoolObservation struct {
 }
 
@@ -139,10 +166,37 @@ type EdgeMachinePoolParameters struct {
 	Placements []PlacementsParameters `json:"placements" tf:"placements,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Taints []TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []EdgeMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type EdgeMachinePoolTaintsObservation struct {
+}
+
+type EdgeMachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type EdgeNamespacesObservation struct {
+}
+
+type EdgeNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type EdgeObservation struct {
@@ -189,13 +243,13 @@ type EdgeParameters struct {
 	ClusterProfile []EdgeClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterRbacBinding []ClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+	ClusterRbacBinding []EdgeClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// +kubebuilder:validation:Required
 	MachinePool []EdgeMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+	Namespaces []EdgeNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
@@ -231,30 +285,6 @@ type EdgeScanPolicyParameters struct {
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
-type ManifestObservation struct {
-}
-
-type ManifestParameters struct {
-
-	// +kubebuilder:validation:Required
-	Content *string `json:"content" tf:"content,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-}
-
-type NamespacesObservation struct {
-}
-
-type NamespacesParameters struct {
-
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-
-	// +kubebuilder:validation:Required
-	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
-}
-
 type PlacementsObservation struct {
 }
 
@@ -262,36 +292,6 @@ type PlacementsParameters struct {
 
 	// +kubebuilder:validation:Required
 	ApplianceID *string `json:"applianceId" tf:"appliance_id,omitempty"`
-}
-
-type SubjectsObservation struct {
-}
-
-type SubjectsParameters struct {
-
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Type *string `json:"type" tf:"type,omitempty"`
-}
-
-type TaintsObservation struct {
-}
-
-type TaintsParameters struct {
-
-	// +kubebuilder:validation:Required
-	Effect *string `json:"effect" tf:"effect,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Key *string `json:"key" tf:"key,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 // EdgeSpec defines the desired state of Edge

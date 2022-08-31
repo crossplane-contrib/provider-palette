@@ -64,6 +64,9 @@ type VsphereCloudConfigParameters struct {
 	Folder *string `json:"folder" tf:"folder,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -79,10 +82,25 @@ type VsphereCloudConfigParameters struct {
 type VsphereClusterProfileObservation struct {
 }
 
+type VsphereClusterProfilePackManifestObservation struct {
+}
+
+type VsphereClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type VsphereClusterProfilePackObservation struct {
 }
 
 type VsphereClusterProfilePackParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Manifest []VsphereClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -90,8 +108,11 @@ type VsphereClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`

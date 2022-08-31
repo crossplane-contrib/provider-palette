@@ -76,10 +76,31 @@ type AwsClusterProfileParameters struct {
 	Pack []ClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type AwsClusterRbacBindingObservation struct {
+}
+
+type AwsClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []ClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type AwsMachinePoolObservation struct {
 }
 
 type AwsMachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Azs []*string `json:"azs" tf:"azs,omitempty"`
@@ -109,7 +130,22 @@ type AwsMachinePoolParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Taints []MachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type AwsNamespacesObservation struct {
+}
+
+type AwsNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type AwsObservation struct {
@@ -158,8 +194,14 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfileID *string `json:"clusterProfileId,omitempty" tf:"cluster_profile_id,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []AwsClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []AwsMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []AwsNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
@@ -200,17 +242,65 @@ type ClusterProfilePackObservation struct {
 
 type ClusterProfilePackParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Manifest []PackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
+}
+
+type ClusterRbacBindingSubjectsObservation struct {
+}
+
+type ClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type MachinePoolTaintsObservation struct {
+}
+
+type MachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type PackManifestObservation struct {
+}
+
+type PackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 // AwsSpec defines the desired state of Aws

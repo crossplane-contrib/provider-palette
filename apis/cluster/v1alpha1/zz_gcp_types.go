@@ -70,10 +70,25 @@ type GCPCloudConfigParameters struct {
 type GCPClusterProfileObservation struct {
 }
 
+type GCPClusterProfilePackManifestObservation struct {
+}
+
+type GCPClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type GCPClusterProfilePackObservation struct {
 }
 
 type GCPClusterProfilePackParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Manifest []GCPClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -81,8 +96,11 @@ type GCPClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
@@ -97,10 +115,46 @@ type GCPClusterProfileParameters struct {
 	Pack []GCPClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type GCPClusterRbacBindingObservation struct {
+}
+
+type GCPClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []GCPClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type GCPClusterRbacBindingSubjectsObservation struct {
+}
+
+type GCPClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type GCPMachinePoolObservation struct {
 }
 
 type GCPMachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Azs []*string `json:"azs" tf:"azs,omitempty"`
@@ -124,7 +178,37 @@ type GCPMachinePoolParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Taints []GCPMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type GCPMachinePoolTaintsObservation struct {
+}
+
+type GCPMachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type GCPNamespacesObservation struct {
+}
+
+type GCPNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type GCPObservation struct {
@@ -170,8 +254,14 @@ type GCPParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []GCPClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []GCPClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []GCPMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []GCPNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`

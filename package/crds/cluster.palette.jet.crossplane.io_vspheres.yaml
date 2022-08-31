@@ -100,6 +100,8 @@ spec:
                           type: string
                         folder:
                           type: string
+                        imageTemplateFolder:
+                          type: string
                         networkSearchDomain:
                           type: string
                         networkType:
@@ -122,17 +124,30 @@ spec:
                         pack:
                           items:
                             properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    content:
+                                      type: string
+                                    name:
+                                      type: string
+                                  required:
+                                  - content
+                                  - name
+                                  type: object
+                                type: array
                               name:
                                 type: string
                               registryUid:
                                 type: string
                               tag:
                                 type: string
+                              type:
+                                type: string
                               values:
                                 type: string
                             required:
                             - name
-                            - tag
                             - values
                             type: object
                           type: array

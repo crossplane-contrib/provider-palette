@@ -64,10 +64,25 @@ type MaasCloudConfigParameters struct {
 type MaasClusterProfileObservation struct {
 }
 
+type MaasClusterProfilePackManifestObservation struct {
+}
+
+type MaasClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type MaasClusterProfilePackObservation struct {
 }
 
 type MaasClusterProfilePackParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Manifest []MaasClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -75,8 +90,11 @@ type MaasClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
@@ -89,6 +107,39 @@ type MaasClusterProfileParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Pack []MaasClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+}
+
+type MaasClusterRbacBindingObservation struct {
+}
+
+type MaasClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []MaasClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type MaasClusterRbacBindingSubjectsObservation struct {
+}
+
+type MaasClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type MaasMachinePoolInstanceTypeObservation struct {
@@ -107,6 +158,9 @@ type MaasMachinePoolObservation struct {
 }
 
 type MaasMachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Azs []*string `json:"azs" tf:"azs,omitempty"`
@@ -130,7 +184,37 @@ type MaasMachinePoolParameters struct {
 	Placement []MachinePoolPlacementParameters `json:"placement" tf:"placement,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Taints []MaasMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type MaasMachinePoolTaintsObservation struct {
+}
+
+type MaasMachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type MaasNamespacesObservation struct {
+}
+
+type MaasNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type MaasObservation struct {
@@ -176,8 +260,14 @@ type MaasParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []MaasClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []MaasClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []MaasMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []MaasNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`

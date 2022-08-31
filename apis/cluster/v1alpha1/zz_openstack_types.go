@@ -85,10 +85,25 @@ type OpenstackCloudConfigParameters struct {
 type OpenstackClusterProfileObservation struct {
 }
 
+type OpenstackClusterProfilePackManifestObservation struct {
+}
+
+type OpenstackClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type OpenstackClusterProfilePackObservation struct {
 }
 
 type OpenstackClusterProfilePackParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Manifest []OpenstackClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -96,8 +111,11 @@ type OpenstackClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
@@ -112,10 +130,46 @@ type OpenstackClusterProfileParameters struct {
 	Pack []OpenstackClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type OpenstackClusterRbacBindingObservation struct {
+}
+
+type OpenstackClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []OpenstackClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type OpenstackClusterRbacBindingSubjectsObservation struct {
+}
+
+type OpenstackClusterRbacBindingSubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type OpenstackMachinePoolObservation struct {
 }
 
 type OpenstackMachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -139,7 +193,37 @@ type OpenstackMachinePoolParameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Taints []OpenstackMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type OpenstackMachinePoolTaintsObservation struct {
+}
+
+type OpenstackMachinePoolTaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type OpenstackNamespacesObservation struct {
+}
+
+type OpenstackNamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type OpenstackObservation struct {
@@ -185,8 +269,14 @@ type OpenstackParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []OpenstackClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []OpenstackClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []OpenstackMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []OpenstackNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
