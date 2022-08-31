@@ -4,7 +4,7 @@
 PROJECT_NAME := provider-jet-palette
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.2.8
+export TERRAFORM_VERSION := 1.1.9
 
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_VERSION := 0.9.0
