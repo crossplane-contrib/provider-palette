@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: edgevspheres.cluster.palette.jet.crossplane.io
+  name: workspaces.spectrocloud.palette.jet.crossplane.io
 spec:
-  group: cluster.palette.jet.crossplane.io
+  group: spectrocloud.palette.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - palettejet
-    kind: EdgeVsphere
-    listKind: EdgeVsphereList
-    plural: edgevspheres
-    singular: edgevsphere
+    kind: Workspace
+    listKind: WorkspaceList
+    plural: workspaces
+    singular: workspace
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EdgeVsphere is the Schema for the EdgeVspheres API
+        description: Workspace is the Schema for the Workspaces API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: EdgeVsphereSpec defines the desired state of EdgeVsphere
+            description: WorkspaceSpec defines the desired state of Workspace
             properties:
               deletionPolicy:
                 default: Delete
@@ -68,11 +68,19 @@ spec:
                       properties:
                         backupLocationId:
                           type: string
+                        clusterUids:
+                          items:
+                            type: string
+                          type: array
                         expiryInHour:
                           type: number
+                        includeAllClusters:
+                          type: boolean
                         includeClusterResources:
                           type: boolean
                         includeDisks:
+                          type: boolean
+                        includeWorkspaceResources:
                           type: boolean
                         namespaces:
                           items:
@@ -87,71 +95,6 @@ spec:
                       - expiryInHour
                       - prefix
                       - schedule
-                      type: object
-                    type: array
-                  cloudConfig:
-                    items:
-                      properties:
-                        datacenter:
-                          type: string
-                        folder:
-                          type: string
-                        imageTemplateFolder:
-                          type: string
-                        networkSearchDomain:
-                          type: string
-                        networkType:
-                          type: string
-                        sshKey:
-                          type: string
-                        staticIp:
-                          type: boolean
-                        vip:
-                          type: string
-                      required:
-                      - datacenter
-                      - folder
-                      - vip
-                      type: object
-                    type: array
-                  clusterProfile:
-                    items:
-                      properties:
-                        id:
-                          type: string
-                        pack:
-                          items:
-                            properties:
-                              manifest:
-                                items:
-                                  properties:
-                                    content:
-                                      type: string
-                                    name:
-                                      type: string
-                                  required:
-                                  - content
-                                  - name
-                                  type: object
-                                type: array
-                              name:
-                                type: string
-                              registryUid:
-                                type: string
-                              tag:
-                                type: string
-                              type:
-                                type: string
-                              values:
-                                type: string
-                            required:
-                            - name
-                            - tag
-                            - values
-                            type: object
-                          type: array
-                      required:
-                      - id
                       type: object
                     type: array
                   clusterRbacBinding:
@@ -183,85 +126,24 @@ spec:
                       - type
                       type: object
                     type: array
-                  edgeHostUid:
-                    type: string
-                  machinePool:
+                  clusters:
                     items:
                       properties:
-                        additionalLabels:
-                          additionalProperties:
-                            type: string
-                          type: object
-                        controlPlane:
-                          type: boolean
-                        controlPlaneAsWorker:
-                          type: boolean
-                        count:
-                          type: number
-                        instanceType:
-                          items:
-                            properties:
-                              cpu:
-                                type: number
-                              diskSizeGb:
-                                type: number
-                              memoryMb:
-                                type: number
-                            required:
-                            - cpu
-                            - diskSizeGb
-                            - memoryMb
-                            type: object
-                          type: array
-                        name:
-                          type: string
-                        placement:
-                          items:
-                            properties:
-                              cluster:
-                                type: string
-                              datastore:
-                                type: string
-                              network:
-                                type: string
-                              resourcePool:
-                                type: string
-                              staticIpPoolId:
-                                type: string
-                            required:
-                            - cluster
-                            - datastore
-                            - network
-                            - resourcePool
-                            type: object
-                          type: array
-                        taints:
-                          items:
-                            properties:
-                              effect:
-                                type: string
-                              key:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - effect
-                            - key
-                            - value
-                            type: object
-                          type: array
-                        updateStrategy:
+                        uid:
                           type: string
                       required:
-                      - count
-                      - instanceType
-                      - name
-                      - placement
+                      - uid
                       type: object
                     type: array
+                  description:
+                    type: string
                   namespaces:
                     items:
                       properties:
+                        imagesBlacklist:
+                          items:
+                            type: string
+                          type: array
                         name:
                           type: string
                         resourceAllocation:
@@ -273,52 +155,12 @@ spec:
                       - resourceAllocation
                       type: object
                     type: array
-                  osPatchAfter:
-                    type: string
-                  osPatchOnBoot:
-                    type: boolean
-                  osPatchSchedule:
-                    type: string
-                  pack:
-                    items:
-                      properties:
-                        name:
-                          type: string
-                        registryUid:
-                          type: string
-                        tag:
-                          type: string
-                        values:
-                          type: string
-                      required:
-                      - name
-                      - tag
-                      - values
-                      type: object
-                    type: array
-                  scanPolicy:
-                    items:
-                      properties:
-                        configurationScanSchedule:
-                          type: string
-                        conformanceScanSchedule:
-                          type: string
-                        penetrationScanSchedule:
-                          type: string
-                      required:
-                      - configurationScanSchedule
-                      - conformanceScanSchedule
-                      - penetrationScanSchedule
-                      type: object
-                    type: array
                   tags:
                     items:
                       type: string
                     type: array
                 required:
-                - cloudConfig
-                - edgeHostUid
-                - machinePool
+                - clusters
                 type: object
               providerConfigRef:
                 default:
@@ -417,15 +259,11 @@ spec:
             - forProvider
             type: object
           status:
-            description: EdgeVsphereStatus defines the observed state of EdgeVsphere.
+            description: WorkspaceStatus defines the observed state of Workspace.
             properties:
               atProvider:
                 properties:
-                  cloudConfigId:
-                    type: string
                   id:
-                    type: string
-                  kubeconfig:
                     type: string
                 type: object
               conditions:

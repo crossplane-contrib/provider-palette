@@ -104,6 +104,14 @@ spec:
                           type: string
                         subscriptionId:
                           type: string
+                        vnetCidrBlock:
+                          type: string
+                        vnetName:
+                          type: string
+                        workerCidr:
+                          type: string
+                        workerSubnetName:
+                          type: string
                       required:
                       - region
                       - resourceGroup
@@ -119,17 +127,30 @@ spec:
                         pack:
                           items:
                             properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    content:
+                                      type: string
+                                    name:
+                                      type: string
+                                  required:
+                                  - content
+                                  - name
+                                  type: object
+                                type: array
                               name:
                                 type: string
                               registryUid:
                                 type: string
                               tag:
                                 type: string
+                              type:
+                                type: string
                               values:
                                 type: string
                             required:
                             - name
-                            - tag
                             - values
                             type: object
                           type: array
@@ -137,9 +158,42 @@ spec:
                       - id
                       type: object
                     type: array
+                  clusterRbacBinding:
+                    items:
+                      properties:
+                        namespace:
+                          type: string
+                        role:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        subjects:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                              type:
+                                type: string
+                            required:
+                            - name
+                            - type
+                            type: object
+                          type: array
+                        type:
+                          type: string
+                      required:
+                      - type
+                      type: object
+                    type: array
                   machinePool:
                     items:
                       properties:
+                        additionalLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
                         count:
                           type: number
                         diskSizeGb:
@@ -148,10 +202,29 @@ spec:
                           type: string
                         isSystemNodePool:
                           type: boolean
+                        max:
+                          type: number
+                        min:
+                          type: number
                         name:
                           type: string
                         storageAccountType:
                           type: string
+                        taints:
+                          items:
+                            properties:
+                              effect:
+                                type: string
+                              key:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - effect
+                            - key
+                            - value
+                            type: object
+                          type: array
                         updateStrategy:
                           type: string
                       required:
@@ -163,6 +236,26 @@ spec:
                       - storageAccountType
                       type: object
                     type: array
+                  namespaces:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        resourceAllocation:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      required:
+                      - name
+                      - resourceAllocation
+                      type: object
+                    type: array
+                  osPatchAfter:
+                    type: string
+                  osPatchOnBoot:
+                    type: boolean
+                  osPatchSchedule:
+                    type: string
                   pack:
                     items:
                       properties:

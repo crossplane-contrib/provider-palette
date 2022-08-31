@@ -25,18 +25,6 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type ClusterProfilePackManifestObservation struct {
-}
-
-type ClusterProfilePackManifestParameters struct {
-
-	// +kubebuilder:validation:Required
-	Content *string `json:"content" tf:"content,omitempty"`
-
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-}
-
 type EksBackupPolicyObservation struct {
 }
 
@@ -99,13 +87,25 @@ type EksCloudConfigParameters struct {
 type EksClusterProfileObservation struct {
 }
 
+type EksClusterProfilePackManifestObservation struct {
+}
+
+type EksClusterProfilePackManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type EksClusterProfilePackObservation struct {
 }
 
 type EksClusterProfilePackParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []EksClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`

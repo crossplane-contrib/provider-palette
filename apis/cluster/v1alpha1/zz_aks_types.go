@@ -68,8 +68,23 @@ type AksParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ClusterRbacBinding []ClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
 	// +kubebuilder:validation:Required
 	MachinePool []MachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Pack []AksPackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -124,6 +139,18 @@ type CloudConfigParameters struct {
 
 	// +kubebuilder:validation:Required
 	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	VnetCidrBlock *string `json:"vnetCidrBlock,omitempty" tf:"vnet_cidr_block,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	VnetName *string `json:"vnetName,omitempty" tf:"vnet_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkerCidr *string `json:"workerCidr,omitempty" tf:"worker_cidr,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkerSubnetName *string `json:"workerSubnetName,omitempty" tf:"worker_subnet_name,omitempty"`
 }
 
 type ClusterProfileObservation struct {
@@ -138,10 +165,31 @@ type ClusterProfileParameters struct {
 	Pack []PackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type ClusterRbacBindingObservation struct {
+}
+
+type ClusterRbacBindingParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Subjects []SubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 type MachinePoolObservation struct {
 }
 
 type MachinePoolParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Count *float64 `json:"count" tf:"count,omitempty"`
@@ -155,6 +203,12 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Required
 	IsSystemNodePool *bool `json:"isSystemNodePool" tf:"is_system_node_pool,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
+
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -162,7 +216,34 @@ type MachinePoolParameters struct {
 	StorageAccountType *string `json:"storageAccountType" tf:"storage_account_type,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	Taints []TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type ManifestObservation struct {
+}
+
+type ManifestParameters struct {
+
+	// +kubebuilder:validation:Required
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type NamespacesObservation struct {
+}
+
+type NamespacesParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Required
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type PackObservation struct {
@@ -170,14 +251,20 @@ type PackObservation struct {
 
 type PackParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Tag *string `json:"tag" tf:"tag,omitempty"`
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	Values *string `json:"values" tf:"values,omitempty"`
@@ -196,6 +283,36 @@ type ScanPolicyParameters struct {
 
 	// +kubebuilder:validation:Required
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
+}
+
+type SubjectsObservation struct {
+}
+
+type SubjectsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type TaintsObservation struct {
+}
+
+type TaintsParameters struct {
+
+	// +kubebuilder:validation:Required
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 // AksSpec defines the desired state of Aks
