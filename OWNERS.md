@@ -10,5 +10,5 @@ guidelines and responsibilities for the steering committee and maintainers.
 
 ## Maintainers
 
-* Justin Barksdale <justin@spectrocloud.com> ([Justin Barksdale](https://github.com/3pings))
-* Saad Malik <saad@spectrocloud.com> ([Saad Malik](https://github.com/saamalik))
+* Maintainer 1 <maintainer1@acme.org> ([maintainer1](https://github.com/maintainer1))
+* Maintainer 2 <maintainer2@acme.org> ([maintainer1](https://github.com/maintainer2))

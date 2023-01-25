@@ -1,17 +1,5 @@
 /*
-Copyright 2021 The Crossplane Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Copyright 2021 Upbound Inc.
 */
 
 package controller
@@ -19,9 +7,10 @@ package controller
 import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/terrajet/pkg/controller"
+	"github.com/upbound/upjet/pkg/controller"
 
 	deployment "github.com/crossplane-contrib/provider-jet-palette/internal/controller/addon/deployment"
+	profile "github.com/crossplane-contrib/provider-jet-palette/internal/controller/application/profile"
 	storagelocation "github.com/crossplane-contrib/provider-jet-palette/internal/controller/backup/storagelocation"
 	aws "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cloudaccount/aws"
 	azure "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cloudaccount/azure"
@@ -33,24 +22,29 @@ import (
 	awscluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/azure"
 	edge "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/edge"
+	edgenative "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/edgenative"
 	edgevsphere "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/edgevsphere"
 	eks "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/eks"
 	gcpcluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/gcp"
+	group "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/group"
 	libvirt "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/libvirt"
 	maascluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/maas"
 	openstackcluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/openstack"
-	profile "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/profile"
+	profilecluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/profile"
 	tke "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/tke"
 	vsphere "github.com/crossplane-contrib/provider-jet-palette/internal/controller/cluster/vsphere"
 	ippool "github.com/crossplane-contrib/provider-jet-palette/internal/controller/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-jet-palette/internal/controller/providerconfig"
 	helm "github.com/crossplane-contrib/provider-jet-palette/internal/controller/registry/helm"
 	oci "github.com/crossplane-contrib/provider-jet-palette/internal/controller/registry/oci"
+	alert "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/alert"
 	appliance "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/appliance"
+	application "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/application"
 	macro "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/macro"
 	project "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/project"
 	team "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/team"
 	workspace "github.com/crossplane-contrib/provider-jet-palette/internal/controller/spectrocloud/workspace"
+	cluster "github.com/crossplane-contrib/provider-jet-palette/internal/controller/virtual/cluster"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -58,6 +52,7 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		deployment.Setup,
+		profile.Setup,
 		storagelocation.Setup,
 		aws.Setup,
 		azure.Setup,
@@ -69,24 +64,29 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		awscluster.Setup,
 		azurecluster.Setup,
 		edge.Setup,
+		edgenative.Setup,
 		edgevsphere.Setup,
 		eks.Setup,
 		gcpcluster.Setup,
+		group.Setup,
 		libvirt.Setup,
 		maascluster.Setup,
 		openstackcluster.Setup,
-		profile.Setup,
+		profilecluster.Setup,
 		tke.Setup,
 		vsphere.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
 		helm.Setup,
 		oci.Setup,
+		alert.Setup,
 		appliance.Setup,
+		application.Setup,
 		macro.Setup,
 		project.Setup,
 		team.Setup,
 		workspace.Setup,
+		cluster.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
