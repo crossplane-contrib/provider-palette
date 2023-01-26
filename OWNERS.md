@@ -12,3 +12,4 @@ guidelines and responsibilities for the steering committee and maintainers.
 
 * Justin Barksdale <justin@spectrocloud.com> ([Justin Barksdale](https://github.com/3pings))
 * Saad Malik <saad@spectrocloud.com> ([Saad Malik](https://github.com/saamalik))
+* Prakash Mishra <prakash@spectrocloud> ([Prakash Mishra](https://github.com/prakashmishra1598))
