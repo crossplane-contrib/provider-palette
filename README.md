@@ -1,9 +1,11 @@
-# Provider JetPalette
+# Provider Palette
 
 `provider-jet-palette` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/upbound/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
-JetPalette API.
+Palette API. The provider helps you create resources declaratively using the Spectrocloud Palette API.
+
+For more information on the Spectrocloud Palette API, visit: https://docs.spectrocloud.com/api/ 
 
 ## Getting Started
 
