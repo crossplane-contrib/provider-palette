@@ -1,0 +1,14 @@
+apiVersion: cloudaccount.jet-palette.upbound.io/v1alpha1
+kind: Aws
+metadata:
+  name: aws-crossplane-test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    context: project
+    type: secret
+    awsAccessKey: "AKIAXXX5RWYJXPRY5VF"
+    awsSecretKeySecretRef:
+      key: data
+      name: aws-secret
+      namespace: crossplane-system
