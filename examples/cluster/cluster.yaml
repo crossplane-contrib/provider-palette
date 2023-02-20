@@ -1,4 +1,4 @@
-apiVersion: cluster.jet-palette.upbound.io/v1alpha1
+apiVersion: cluster.palette.crossplane.io/v1alpha1
 kind: Aws
 metadata:
   name: aws-crossplane-cluster

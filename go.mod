@@ -1,4 +1,4 @@
-module github.com/crossplane-contrib/provider-jet-palette
+module github.com/crossplane-contrib/provider-palette
 
 go 1.19
 

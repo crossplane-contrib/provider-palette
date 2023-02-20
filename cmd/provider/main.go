@@ -24,12 +24,12 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-jet-palette/apis"
-	"github.com/crossplane-contrib/provider-jet-palette/apis/v1alpha1"
-	"github.com/crossplane-contrib/provider-jet-palette/config"
-	"github.com/crossplane-contrib/provider-jet-palette/internal/clients"
-	"github.com/crossplane-contrib/provider-jet-palette/internal/controller"
-	"github.com/crossplane-contrib/provider-jet-palette/internal/features"
+	"github.com/crossplane-contrib/provider-palette/apis"
+	"github.com/crossplane-contrib/provider-palette/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-palette/config"
+	"github.com/crossplane-contrib/provider-palette/internal/clients"
+	"github.com/crossplane-contrib/provider-palette/internal/controller"
+	"github.com/crossplane-contrib/provider-palette/internal/features"
 )
 
 func main() {
@@ -50,7 +50,7 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("provider-jet-palette"))
+	log := logging.NewLogrLogger(zl.WithName("provider-palette"))
 	if *debug {
 		// The controller-runtime runs with a no-op logger by default. It is
 		// *very* verbose even at info level, so we only provide it a real
@@ -65,7 +65,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:             *leaderElection,
-		LeaderElectionID:           "crossplane-leader-election-provider-jet-palette",
+		LeaderElectionID:           "crossplane-leader-election-provider-palette",
 		SyncPeriod:                 syncPeriod,
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),

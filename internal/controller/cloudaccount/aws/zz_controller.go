@@ -18,7 +18,7 @@ import (
 	"github.com/upbound/upjet/pkg/terraform"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-palette/apis/cloudaccount/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
 )
 
 // Setup adds a controller that reconciles Aws managed resources.
