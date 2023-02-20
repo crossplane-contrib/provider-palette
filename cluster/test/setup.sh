@@ -13,7 +13,7 @@ ${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --t
 
 echo "Creating a default provider config..."
 cat <<EOF | ${KUBECTL} apply -f -
-apiVersion: jet-palette.upbound.io/v1beta1
+apiVersion: palette.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
