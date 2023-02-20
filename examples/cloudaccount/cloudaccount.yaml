@@ -1,4 +1,4 @@
-apiVersion: cloudaccount.jet-palette.upbound.io/v1alpha1
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
 kind: Aws
 metadata:
   name: aws-crossplane-test
