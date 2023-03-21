@@ -19,11 +19,13 @@ type MacroObservation struct {
 
 type MacroParameters struct {
 
+	// The Spectro Cloud project name.
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+	// The value that the macro or service output variable will contain.
+	// +kubebuilder:validation:Required
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 // MacroSpec defines the desired state of Macro

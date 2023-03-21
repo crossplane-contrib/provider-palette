@@ -14,10 +14,14 @@ import (
 )
 
 type ClusterProfileObservation struct {
+
+	// +kubebuilder:validation:Optional
+	Pack []PackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
 type ClusterProfileParameters struct {
 
+	// The ID of the cluster profile.
 	// +kubebuilder:validation:Required
 	ID *string `json:"id" tf:"id,omitempty"`
 
@@ -26,6 +30,10 @@ type ClusterProfileParameters struct {
 }
 
 type DeploymentObservation struct {
+
+	// +kubebuilder:validation:Optional
+	ClusterProfile []ClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
@@ -42,18 +50,24 @@ type DeploymentParameters struct {
 }
 
 type ManifestObservation struct {
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ManifestParameters struct {
 
+	// The content of the manifest. The content is the YAML content of the manifest.
 	// +kubebuilder:validation:Required
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type PackObservation struct {
+
+	// +kubebuilder:validation:Optional
+	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 }
 
 type PackParameters struct {
@@ -61,23 +75,28 @@ type PackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// The tag of the pack. The tag is the version of the pack.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// The type of the pack. The default value is `spectro`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// +kubebuilder:validation:Required
+	Values *string `json:"values" tf:"values,omitempty"`
 }
 
 // DeploymentSpec defines the desired state of Deployment

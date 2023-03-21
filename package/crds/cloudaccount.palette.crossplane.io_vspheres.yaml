@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: profiles.cluster.palette.crossplane.io
+  name: vspheres.cloudaccount.palette.crossplane.io
 spec:
-  group: cluster.palette.crossplane.io
+  group: cloudaccount.palette.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - palette
-    kind: Profile
-    listKind: ProfileList
-    plural: profiles
-    singular: profile
+    kind: Vsphere
+    listKind: VsphereList
+    plural: vspheres
+    singular: vsphere
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Profile is the Schema for the Profiles API. <no value>
+        description: Vsphere is the Schema for the Vspheres API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ProfileSpec defines the desired state of Profile
+            description: VsphereSpec defines the desired state of Vsphere
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,69 +63,53 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  cloud:
-                    type: string
                   context:
+                    description: Context of the cloud account. This can be either
+                      project or tenant. If not specified, the default value is project.
                     type: string
-                  description:
+                  privateCloudGatewayId:
+                    description: ID of the private cloud gateway. This is the ID of
+                      the private cloud gateway that is used to connect to the vSphere
+                      cloud.
                     type: string
-                  pack:
-                    items:
-                      properties:
-                        manifest:
-                          items:
-                            properties:
-                              content:
-                                description: The content of the manifest. The content
-                                  is the YAML content of the manifest.
-                                type: string
-                              name:
-                                description: The name of the manifest. The name must
-                                  be unique within the pack.
-                                type: string
-                            required:
-                            - content
-                            - name
-                            type: object
-                          type: array
-                        name:
-                          description: The name of the pack. The name must be unique
-                            within the cluster profile.
-                          type: string
-                        registryUid:
-                          description: The registry UID of the pack. The registry
-                            UID is the unique identifier of the registry.
-                          type: string
-                        tag:
-                          description: The tag of the pack. The tag is the version
-                            of the pack.
-                          type: string
-                        type:
-                          description: The type of the pack. The default value is
-                            `spectro`.
-                          type: string
-                        uid:
-                          type: string
-                        values:
-                          description: The values of the pack. The values are the
-                            configuration values of the pack. The values are specified
-                            in YAML format.
-                          type: string
-                      required:
-                      - name
-                      - values
-                      type: object
-                    type: array
-                  tags:
-                    description: A list of tags to be applied to the cluster. Tags
-                      must be in the form of `key:value`.
-                    items:
-                      type: string
-                    type: array
-                  type:
+                  vsphereIgnoreInsecureError:
+                    description: Ignore insecure error. This is a boolean value that
+                      indicates whether to ignore the insecure error or not. If not
+                      specified, the default value is false.
+                    type: boolean
+                  vspherePasswordSecretRef:
+                    description: Password of the vSphere cloud. This is the password
+                      of the vSphere cloud that is used to connect to the vSphere
+                      cloud.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  vsphereUsername:
+                    description: Username of the vSphere cloud. This is the username
+                      of the vSphere cloud that is used to connect to the vSphere
+                      cloud.
                     type: string
-                  version:
+                  vsphereVcenter:
+                    description: vCenter server address. This is the address of the
+                      vCenter server that is used to connect to the vSphere cloud.
                     type: string
+                required:
+                - privateCloudGatewayId
+                - vspherePasswordSecretRef
+                - vsphereUsername
+                - vsphereVcenter
                 type: object
               providerConfigRef:
                 default:
@@ -299,24 +283,12 @@ spec:
             - forProvider
             type: object
           status:
-            description: ProfileStatus defines the observed state of Profile.
+            description: VsphereStatus defines the observed state of Vsphere.
             properties:
               atProvider:
                 properties:
                   id:
                     type: string
-                  pack:
-                    items:
-                      properties:
-                        manifest:
-                          items:
-                            properties:
-                              uid:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
