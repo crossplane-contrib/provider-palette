@@ -5,7 +5,7 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: clusters.virtual.palette.crossplane.io
+  name: machines.virtual.palette.crossplane.io
 spec:
   group: virtual.palette.crossplane.io
   names:
@@ -13,10 +13,10 @@ spec:
     - crossplane
     - managed
     - palette
-    kind: Cluster
-    listKind: ClusterList
-    plural: clusters
-    singular: cluster
+    kind: Machine
+    listKind: MachineList
+    plural: machines
+    singular: machine
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Cluster is the Schema for the Clusters API. <no value>
+        description: Machine is the Schema for the Machines API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ClusterSpec defines the desired state of Cluster
+            description: MachineSpec defines the desired state of Machine
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,269 +63,165 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  applySetting:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: The annotations of the virtual machine.
+                    type: object
+                  baseVmName:
+                    description: The name of the source virtual machine that a clone
+                      will be created of.
                     type: string
-                  backupPolicy:
-                    items:
-                      properties:
-                        backupLocationId:
-                          description: The ID of the backup location to use for the
-                            backup.
-                          type: string
-                        clusterUids:
-                          description: The list of cluster UIDs to include in the
-                            backup. If `include_all_clusters` is set to `true`, then
-                            all clusters will be included.
-                          items:
-                            type: string
-                          type: array
-                        expiryInHour:
-                          description: The number of hours after which the backup
-                            will be deleted. For example, if the expiry is set to
-                            24, the backup will be deleted after 24 hours.
-                          type: number
-                        includeAllClusters:
-                          description: Whether to include all clusters in the backup.
-                            If set to false, only the clusters specified in `cluster_uids`
-                            will be included.
-                          type: boolean
-                        includeClusterResources:
-                          description: Whether to include the cluster resources in
-                            the backup. If set to false, only the cluster configuration
-                            and disks will be backed up.
-                          type: boolean
-                        includeDisks:
-                          description: Whether to include the disks in the backup.
-                            If set to false, only the cluster configuration will be
-                            backed up.
-                          type: boolean
-                        namespaces:
-                          description: The list of Kubernetes namespaces to include
-                            in the backup. If not specified, all namespaces will be
-                            included.
-                          items:
-                            type: string
-                          type: array
-                        prefix:
-                          description: Prefix for the backup name. The backup name
-                            will be of the format <prefix>-<cluster-name>-<timestamp>.
-                          type: string
-                        schedule:
-                          description: The schedule for the backup. The schedule is
-                            specified in cron format. For example, to run the backup
-                            every day at 1:00 AM, the schedule should be set to `0
-                            1 * * *`.
-                          type: string
-                      required:
-                      - backupLocationId
-                      - expiryInHour
-                      - prefix
-                      - schedule
-                      type: object
-                    type: array
-                  cloudConfig:
-                    items:
-                      properties:
-                        chartName:
-                          type: string
-                        chartRepo:
-                          type: string
-                        chartValues:
-                          type: string
-                        chartVersion:
-                          type: string
-                        k8sVersion:
-                          type: string
-                      type: object
-                    type: array
-                  clusterGroupUid:
+                  cloudInitUserData:
+                    description: 'The cloud-init user data to be used for the virtual
+                      machine. Default value is `#cloud-config ssh_pwauth: True chpasswd:
+                      { expire: False } password: spectro disable_root: false `.'
                     type: string
-                  clusterProfile:
+                  clusterUid:
+                    description: The cluster UID to which the virtual machine belongs
+                      to.
+                    type: string
+                  cpuCores:
+                    description: The number of CPU cores to be allocated to the virtual
+                      machine. Default value is `1`.
+                    type: number
+                  devices:
                     items:
                       properties:
-                        id:
-                          description: The ID of the cluster profile.
-                          type: string
-                        pack:
+                        disk:
                           items:
                             properties:
-                              manifest:
-                                items:
-                                  properties:
-                                    content:
-                                      description: The content of the manifest. The
-                                        content is the YAML content of the manifest.
-                                      type: string
-                                    name:
-                                      description: The name of the manifest. The name
-                                        must be unique within the pack.
-                                      type: string
-                                  required:
-                                  - content
-                                  - name
-                                  type: object
-                                type: array
+                              bus:
+                                description: The bus type of the disk. This is the
+                                  name that will be used to identify the disk in the
+                                  guest OS.
+                                type: string
                               name:
-                                description: The name of the pack. The name must be
-                                  unique within the cluster profile.
-                                type: string
-                              registryUid:
-                                description: The registry UID of the pack. The registry
-                                  UID is the unique identifier of the registry.
-                                type: string
-                              tag:
-                                description: The tag of the pack. The tag is the version
-                                  of the pack.
-                                type: string
-                              type:
-                                description: The type of the pack. The default value
-                                  is `spectro`.
-                                type: string
-                              uid:
-                                type: string
-                              values:
-                                description: The values of the pack. The values are
-                                  the configuration values of the pack. The values
-                                  are specified in YAML format.
+                                description: The name of the disk. This is the name
+                                  that will be used to identify the disk in the guest
+                                  OS.
                                 type: string
                             required:
+                            - bus
                             - name
-                            - values
                             type: object
                           type: array
-                      required:
-                      - id
-                      type: object
-                    type: array
-                  clusterRbacBinding:
-                    items:
-                      properties:
-                        namespace:
-                          description: The Kubernetes namespace of the RBAC binding.
-                            Required if 'type' is set to 'RoleBinding'.
-                          type: string
-                        role:
-                          additionalProperties:
-                            type: string
-                          description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
-                          type: object
-                        subjects:
+                        interface:
                           items:
                             properties:
                               name:
-                                description: The name of the subject. Required if
-                                  'type' is set to 'User' or 'Group'.
-                                type: string
-                              namespace:
-                                description: The Kubernetes namespace of the subject.
-                                  Required if 'type' is set to 'ServiceAccount'.
-                                type: string
-                              type:
-                                description: 'The type of the subject. Can be one
-                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                description: The name of the interface. This is the
+                                  name that will be used to identify the device interface
+                                  in the guest OS.
                                 type: string
                             required:
                             - name
-                            - type
                             type: object
                           type: array
-                        type:
-                          description: 'The type of the RBAC binding. Can be one of
-                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
-                          type: string
                       required:
-                      - type
+                      - disk
+                      - interface
                       type: object
                     type: array
-                  hostClusterUid:
+                  imageUrl:
+                    description: The URL of the VM template image to be used for the
+                      virtual machine.
                     type: string
-                  namespaces:
-                    items:
-                      properties:
-                        imagesBlacklist:
-                          description: List of images to disallow for the namespace.
-                            For example, `['nginx:latest', 'redis:latest']`
-                          items:
-                            type: string
-                          type: array
-                        name:
-                          description: Name of the namespace. This is the name of
-                            the Kubernetes namespace in the cluster.
-                          type: string
-                        resourceAllocation:
-                          additionalProperties:
-                            type: string
-                          description: 'Resource allocation for the namespace. This
-                            is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
-                          type: object
-                      required:
-                      - name
-                      - resourceAllocation
-                      type: object
-                    type: array
-                  osPatchAfter:
-                    description: 'The date and time after which to patch the cluster.
-                      Prefix the time value with the respective RFC. Ex: `RFC3339:
-                      2006-01-02T15:04:05Z07:00`'
-                    type: string
-                  osPatchOnBoot:
-                    description: Whether to apply OS patch on boot. Default is `false`.
-                    type: boolean
-                  osPatchSchedule:
-                    description: Cron schedule for OS patching. This must be in the
-                      form of `0 0 * * *`.
-                    type: string
-                  pauseCluster:
-                    description: To pause and resume cluster state. Set to true to
-                      pause running cluster & false to resume it.
-                    type: boolean
-                  resources:
-                    items:
-                      properties:
-                        maxCpu:
-                          type: number
-                        maxMemInMb:
-                          type: number
-                        maxStorageInGb:
-                          type: number
-                        minCpu:
-                          type: number
-                        minMemInMb:
-                          type: number
-                        minStorageInGb:
-                          type: number
-                      type: object
-                    type: array
-                  scanPolicy:
-                    items:
-                      properties:
-                        configurationScanSchedule:
-                          description: The schedule for configuration scan.
-                          type: string
-                        conformanceScanSchedule:
-                          description: The schedule for conformance scan.
-                          type: string
-                        penetrationScanSchedule:
-                          description: The schedule for penetration scan.
-                          type: string
-                      required:
-                      - configurationScanSchedule
-                      - conformanceScanSchedule
-                      - penetrationScanSchedule
-                      type: object
-                    type: array
-                  skipCompletion:
-                    description: If `true`, the cluster will be created asynchronously.
-                      Default value is `false`.
-                    type: boolean
-                  tags:
-                    description: A list of tags to be applied to the cluster. Tags
-                      must be in the form of `key:value`.
+                  labels:
+                    description: The labels of the virtual machine.
                     items:
                       type: string
                     type: array
+                  memory:
+                    description: The amount of memory to be allocated to the virtual
+                      machine. Default value is `2G`.
+                    type: string
+                  namespace:
+                    description: The namespace of the virtual machine.
+                    type: string
+                  networkSpec:
+                    items:
+                      properties:
+                        network:
+                          description: The network specification for the virtual machine.
+                          items:
+                            properties:
+                              name:
+                                description: The name of the network to be attached
+                                  to the virtual machine.
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  runOnLaunch:
+                    description: If set to `true`, the virtual machine will be started
+                      when the cluster is launched. Default value is `true`.
+                    type: boolean
+                  vmAction:
+                    description: 'The action to be performed on the virtual machine.
+                      Valid values are: `start`, `stop`, `restart`, `pause`, `resume`,
+                      `migrate`. Default value is `start`.'
+                    type: string
+                  vmState:
+                    description: 'The state of the virtual machine.  The virtual machine
+                      can be in one of the following states: `running`, `stopped`,
+                      `paused`, `migrating`, `error`, `unknown`.'
+                    type: string
+                  volumeSpec:
+                    description: The volume specification for the virtual machine.
+                    items:
+                      properties:
+                        volume:
+                          items:
+                            properties:
+                              cloudInitNoCloud:
+                                description: Used to specify a cloud-init `noCloud`
+                                  image. The image is expected to contain a disk image
+                                  in a supported format. The disk image is extracted
+                                  from the cloud-init `noCloud `image and used as
+                                  the disk for the VM
+                                items:
+                                  properties:
+                                    userData:
+                                      description: The user data to use for the cloud-init
+                                        no cloud disk. This can be a local file path,
+                                        a remote URL, or a registry URL.
+                                      type: string
+                                  required:
+                                  - userData
+                                  type: object
+                                type: array
+                              containerDisk:
+                                description: A container disk is a disk that is backed
+                                  by a container image. The container image is expected
+                                  to contain a disk image in a supported format. The
+                                  disk image is extracted from the container image
+                                  and used as the disk for the VM.
+                                items:
+                                  properties:
+                                    imageUrl:
+                                      description: The URL of the container image
+                                        to use as the disk. This can be a local file
+                                        path, a remote URL, or a registry URL.
+                                      type: string
+                                  required:
+                                  - imageUrl
+                                  type: object
+                                type: array
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                required:
+                - clusterUid
+                - namespace
                 type: object
               providerConfigRef:
                 default:
@@ -499,54 +395,12 @@ spec:
             - forProvider
             type: object
           status:
-            description: ClusterStatus defines the observed state of Cluster.
+            description: MachineStatus defines the observed state of Machine.
             properties:
               atProvider:
                 properties:
-                  cloudConfigId:
-                    description: ID of the cloud config used for the cluster. This
-                      cloud config must be of type `azure`.
-                    type: string
-                  clusterProfile:
-                    items:
-                      properties:
-                        pack:
-                          items:
-                            properties:
-                              manifest:
-                                items:
-                                  properties:
-                                    uid:
-                                      type: string
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
-                      type: object
-                    type: array
                   id:
                     type: string
-                  kubeconfig:
-                    description: Kubeconfig for the cluster. This can be used to connect
-                      to the cluster using `kubectl`.
-                    type: string
-                  locationConfig:
-                    items:
-                      properties:
-                        countryCode:
-                          type: string
-                        countryName:
-                          type: string
-                        latitude:
-                          type: number
-                        longitude:
-                          type: number
-                        regionCode:
-                          type: string
-                        regionName:
-                          type: string
-                      type: object
-                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

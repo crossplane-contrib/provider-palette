@@ -64,9 +64,14 @@ spec:
               forProvider:
                 properties:
                   project:
+                    description: The Spectro Cloud project name.
                     type: string
                   value:
+                    description: The value that the macro or service output variable
+                      will contain.
                     type: string
+                required:
+                - value
                 type: object
               providerConfigRef:
                 default:

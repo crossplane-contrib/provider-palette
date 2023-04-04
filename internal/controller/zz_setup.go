@@ -18,6 +18,7 @@ import (
 	maas "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/maas"
 	openstack "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/openstack"
 	tencent "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/tencent"
+	vsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/vsphere"
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/aks"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/azure"
@@ -32,7 +33,7 @@ import (
 	openstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/openstack"
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/profile"
 	tke "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/tke"
-	vsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/vsphere"
+	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/vsphere"
 	ippool "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-palette/internal/controller/providerconfig"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/registry/helm"
@@ -45,6 +46,7 @@ import (
 	team "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/team"
 	workspace "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/workspace"
 	cluster "github.com/crossplane-contrib/provider-palette/internal/controller/virtual/cluster"
+	machine "github.com/crossplane-contrib/provider-palette/internal/controller/virtual/machine"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -60,6 +62,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		maas.Setup,
 		openstack.Setup,
 		tencent.Setup,
+		vsphere.Setup,
 		aks.Setup,
 		awscluster.Setup,
 		azurecluster.Setup,
@@ -74,7 +77,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		openstackcluster.Setup,
 		profilecluster.Setup,
 		tke.Setup,
-		vsphere.Setup,
+		vspherecluster.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
 		helm.Setup,
@@ -87,6 +90,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		team.Setup,
 		workspace.Setup,
 		cluster.Setup,
+		machine.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

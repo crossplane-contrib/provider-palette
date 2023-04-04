@@ -64,25 +64,61 @@ spec:
               forProvider:
                 properties:
                   applySetting:
+                    description: The setting to apply the cluster profile. `DownloadAndInstall`
+                      will download and install packs in one action. `DownloadAndInstallLater`
+                      will only download artifact and postpone install for later.
+                      Default value is `DownloadAndInstall`.
                     type: string
                   backupPolicy:
                     items:
                       properties:
                         backupLocationId:
+                          description: The ID of the backup location to use for the
+                            backup.
                           type: string
+                        clusterUids:
+                          description: The list of cluster UIDs to include in the
+                            backup. If `include_all_clusters` is set to `true`, then
+                            all clusters will be included.
+                          items:
+                            type: string
+                          type: array
                         expiryInHour:
+                          description: The number of hours after which the backup
+                            will be deleted. For example, if the expiry is set to
+                            24, the backup will be deleted after 24 hours.
                           type: number
+                        includeAllClusters:
+                          description: Whether to include all clusters in the backup.
+                            If set to false, only the clusters specified in `cluster_uids`
+                            will be included.
+                          type: boolean
                         includeClusterResources:
+                          description: Whether to include the cluster resources in
+                            the backup. If set to false, only the cluster configuration
+                            and disks will be backed up.
                           type: boolean
                         includeDisks:
+                          description: Whether to include the disks in the backup.
+                            If set to false, only the cluster configuration will be
+                            backed up.
                           type: boolean
                         namespaces:
+                          description: The list of Kubernetes namespaces to include
+                            in the backup. If not specified, all namespaces will be
+                            included.
                           items:
                             type: string
                           type: array
                         prefix:
+                          description: Prefix for the backup name. The backup name
+                            will be of the format <prefix>-<cluster-name>-<timestamp>.
                           type: string
                         schedule:
+                          description: The schedule for the backup. The schedule is
+                            specified in cron format. For example, to run the backup
+                            every day at 1:00 AM, the schedule should be set to `0
+                            1 * * *`.
                           type: string
                       required:
                       - backupLocationId
@@ -92,23 +128,40 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
+                    description: ID of the cloud account to be used for the cluster.
+                      This cloud account must be of type `vsphere`.
                     type: string
                   cloudConfig:
                     items:
                       properties:
                         datacenter:
+                          description: The name of the datacenter in vSphere. This
+                            is the name of the datacenter as it appears in vSphere.
                           type: string
                         folder:
+                          description: The name of the folder in vSphere. This is
+                            the name of the folder as it appears in vSphere.
                           type: string
                         imageTemplateFolder:
+                          description: The name of the image template folder in vSphere.
+                            This is the name of the folder as it appears in vSphere.
                           type: string
                         networkSearchDomain:
+                          description: The search domain to use for the cluster in
+                            case of DHCP.
                           type: string
                         networkType:
+                          description: The type of network to use for the cluster.
+                            This can be `VIP` or `DDNS`.
                           type: string
                         sshKey:
+                          description: The SSH key to be used for the cluster. This
+                            is the public key that will be used to access the cluster.
                           type: string
                         staticIp:
+                          description: Whether to use static IP addresses for the
+                            cluster. If `true`, the cluster will use static IP addresses.
+                            If `false`, the cluster will use DDNS. Default is `false`.
                           type: boolean
                       required:
                       - datacenter
@@ -120,6 +173,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of the cluster profile.
                           type: string
                         pack:
                           items:
@@ -128,8 +182,12 @@ spec:
                                 items:
                                   properties:
                                     content:
+                                      description: The content of the manifest. The
+                                        content is the YAML content of the manifest.
                                       type: string
                                     name:
+                                      description: The name of the manifest. The name
+                                        must be unique within the pack.
                                       type: string
                                   required:
                                   - content
@@ -137,14 +195,27 @@ spec:
                                   type: object
                                 type: array
                               name:
+                                description: The name of the pack. The name must be
+                                  unique within the cluster profile.
                                 type: string
                               registryUid:
+                                description: The registry UID of the pack. The registry
+                                  UID is the unique identifier of the registry.
                                 type: string
                               tag:
+                                description: The tag of the pack. The tag is the version
+                                  of the pack.
                                 type: string
                               type:
+                                description: The type of the pack. The default value
+                                  is `spectro`.
+                                type: string
+                              uid:
                                 type: string
                               values:
+                                description: The values of the pack. The values are
+                                  the configuration values of the pack. The values
+                                  are specified in YAML format.
                                 type: string
                             required:
                             - name
@@ -155,25 +226,33 @@ spec:
                       - id
                       type: object
                     type: array
-                  clusterProfileId:
-                    type: string
                   clusterRbacBinding:
                     items:
                       properties:
                         namespace:
+                          description: The Kubernetes namespace of the RBAC binding.
+                            Required if 'type' is set to 'RoleBinding'.
                           type: string
                         role:
                           additionalProperties:
                             type: string
+                          description: The role of the RBAC binding. Required if 'type'
+                            is set to 'RoleBinding'.
                           type: object
                         subjects:
                           items:
                             properties:
                               name:
+                                description: The name of the subject. Required if
+                                  'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
+                                description: The Kubernetes namespace of the subject.
+                                  Required if 'type' is set to 'ServiceAccount'.
                                 type: string
                               type:
+                                description: 'The type of the subject. Can be one
+                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
                                 type: string
                             required:
                             - name
@@ -181,6 +260,8 @@ spec:
                             type: object
                           type: array
                         type:
+                          description: 'The type of the RBAC binding. Can be one of
+                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
                           type: string
                       required:
                       - type
@@ -242,19 +323,27 @@ spec:
                             type: string
                           type: object
                         controlPlane:
+                          description: Whether this machine pool is a control plane.
+                            Defaults to `false`.
                           type: boolean
                         controlPlaneAsWorker:
+                          description: Whether this machine pool is a control plane
+                            and a worker. Defaults to `false`.
                           type: boolean
                         count:
+                          description: Number of nodes in the machine pool.
                           type: number
                         instanceType:
                           items:
                             properties:
                               cpu:
+                                description: The number of CPUs.
                                 type: number
                               diskSizeGb:
+                                description: The size of the disk in GB.
                                 type: number
                               memoryMb:
+                                description: The amount of memory in MB.
                                 type: number
                             required:
                             - cpu
@@ -263,19 +352,31 @@ spec:
                             type: object
                           type: array
                         name:
+                          description: The name of the machine pool. This is used
+                            to identify the machine pool in the cluster.
                           type: string
                         placement:
                           items:
                             properties:
                               cluster:
+                                description: The name of the cluster to use for the
+                                  machine pool. As it appears in the vSphere.
                                 type: string
                               datastore:
+                                description: The name of the datastore to use for
+                                  the machine pool. As it appears in the vSphere.
                                 type: string
                               network:
+                                description: The name of the network to use for the
+                                  machine pool. As it appears in the vSphere.
                                 type: string
                               resourcePool:
+                                description: The name of the resource pool to use
+                                  for the machine pool. As it appears in the vSphere.
                                 type: string
                               staticIpPoolId:
+                                description: The ID of the static IP pool to use for
+                                  the machine pool in case of static cluster placement.
                                 type: string
                             required:
                             - cluster
@@ -288,10 +389,14 @@ spec:
                           items:
                             properties:
                               effect:
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
                                 type: string
                               key:
+                                description: The key of the taint.
                                 type: string
                               value:
+                                description: The value of the taint.
                                 type: string
                             required:
                             - effect
@@ -300,6 +405,8 @@ spec:
                             type: object
                           type: array
                         updateStrategy:
+                          description: Update strategy for the machine pool. Valid
+                            values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
                           type: string
                       required:
                       - count
@@ -311,11 +418,22 @@ spec:
                   namespaces:
                     items:
                       properties:
+                        imagesBlacklist:
+                          description: List of images to disallow for the namespace.
+                            For example, `['nginx:latest', 'redis:latest']`
+                          items:
+                            type: string
+                          type: array
                         name:
+                          description: Name of the namespace. This is the name of
+                            the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
                           additionalProperties:
                             type: string
+                          description: 'Resource allocation for the namespace. This
+                            is a map containing the resource type and the resource
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
                           type: object
                       required:
                       - name
@@ -323,36 +441,28 @@ spec:
                       type: object
                     type: array
                   osPatchAfter:
+                    description: 'The date and time after which to patch the cluster.
+                      Prefix the time value with the respective RFC. Ex: `RFC3339:
+                      2006-01-02T15:04:05Z07:00`'
                     type: string
                   osPatchOnBoot:
+                    description: Whether to apply OS patch on boot. Default is `false`.
                     type: boolean
                   osPatchSchedule:
+                    description: 'The cron schedule for OS patching. This must be
+                      in the form of cron syntax. Ex: `0 0 * * *`.'
                     type: string
-                  pack:
-                    items:
-                      properties:
-                        name:
-                          type: string
-                        registryUid:
-                          type: string
-                        tag:
-                          type: string
-                        values:
-                          type: string
-                      required:
-                      - name
-                      - tag
-                      - values
-                      type: object
-                    type: array
                   scanPolicy:
                     items:
                       properties:
                         configurationScanSchedule:
+                          description: The schedule for configuration scan.
                           type: string
                         conformanceScanSchedule:
+                          description: The schedule for conformance scan.
                           type: string
                         penetrationScanSchedule:
+                          description: The schedule for penetration scan.
                           type: string
                       required:
                       - configurationScanSchedule
@@ -361,8 +471,12 @@ spec:
                       type: object
                     type: array
                   skipCompletion:
+                    description: If `true`, the cluster will be created asynchronously.
+                      Default value is `false`.
                     type: boolean
                   tags:
+                    description: A list of tags to be applied to the cluster. Tags
+                      must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
@@ -548,10 +662,31 @@ spec:
               atProvider:
                 properties:
                   cloudConfigId:
+                    description: ID of the cloud config used for the cluster. This
+                      cloud config must be of type `azure`.
                     type: string
+                  clusterProfile:
+                    items:
+                      properties:
+                        pack:
+                          items:
+                            properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    uid:
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   id:
                     type: string
                   kubeconfig:
+                    description: Kubeconfig for the cluster. This can be used to connect
+                      to the cluster using `kubectl`.
                     type: string
                   machinePool:
                     items:

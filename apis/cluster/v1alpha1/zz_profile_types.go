@@ -16,7 +16,7 @@ import (
 type ProfileObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Pack []ProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
@@ -26,9 +26,11 @@ type ProfilePackManifestObservation struct {
 
 type ProfilePackManifestParameters struct {
 
+	// The content of the manifest. The content is the YAML content of the manifest.
 	// +kubebuilder:validation:Required
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 }
@@ -44,23 +46,28 @@ type ProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []ProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// The tag of the pack. The tag is the version of the pack.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// The type of the pack. The default value is `spectro`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// +kubebuilder:validation:Required
+	Values *string `json:"values" tf:"values,omitempty"`
 }
 
 type ProfileParameters struct {
@@ -74,9 +81,10 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Pack []ProfilePackParameters `json:"pack" tf:"pack,omitempty"`
+	// +kubebuilder:validation:Optional
+	Pack []ProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
