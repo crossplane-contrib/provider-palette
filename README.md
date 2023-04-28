@@ -14,18 +14,18 @@ Install the provider by using the following command after changing the image tag
 to the [latest
 release](https://marketplace.upbound.io/providers/crossplane-contrib/provider-palette):
 ```
-up ctp provider install crossplane-contrib/provider-palette:v0.1.0
+up ctp provider install crossplane-contrib/provider-palette:v0.12.0
 ```
 
 Alternatively, you can use declarative installation:
 ```
-cat <<EOF | kubectl apply -f -
+cat <<EOF | kubectl apply -f - 
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-palette
 spec:
-  package: crossplane-contrib/provider-palette:v0.1.0
+  package: xpkg.upbound.io/crossplane-contrib/provider-palette:v0.12.0
 EOF
 ```
 
