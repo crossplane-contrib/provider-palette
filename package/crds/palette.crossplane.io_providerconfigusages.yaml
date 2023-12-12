@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: providerconfigusages.template.upbound.io
+  name: providerconfigusages.palette.crossplane.io
 spec:
-  group: template.upbound.io
+  group: palette.crossplane.io
   names:
     categories:
     - crossplane
     - provider
-    - template
+    - palette
     kind: ProviderConfigUsage
     listKind: ProviderConfigUsageList
     plural: providerconfigusages
