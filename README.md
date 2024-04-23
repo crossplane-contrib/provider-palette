@@ -37,6 +37,18 @@ You can see the API reference
 
 ## Developing
 
+Before getting started, you should read the [Upjet docs](https://github.com/crossplane/upjet/tree/main/docs). At a minimum, read about [generating a provider](https://github.com/crossplane/upjet/blob/main/docs/generating-a-provider.md).
+
+Generate/regenerate the provider:
+```console
+go install golang.org/x/tools/cmd/goimports@latest
+
+make submodules
+
+# use the default Terraform configuration variables (see top of Makefile)
+make generate
+```
+
 Run code-generation pipeline:
 ```console
 go run cmd/generator/main.go "$PWD"
