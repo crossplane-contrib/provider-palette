@@ -17,17 +17,14 @@ func (mg *Helm) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this Helm.
+func (mg *Helm) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this Helm.
 func (mg *Helm) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-/*
-GetProviderReference of this Helm.
-Deprecated: Use GetProviderConfigReference.
-*/
-func (mg *Helm) GetProviderReference() *xpv1.Reference {
-	return mg.Spec.ProviderReference
 }
 
 // GetPublishConnectionDetailsTo of this Helm.
@@ -50,17 +47,14 @@ func (mg *Helm) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
+// SetManagementPolicies of this Helm.
+func (mg *Helm) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
 // SetProviderConfigReference of this Helm.
 func (mg *Helm) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-/*
-SetProviderReference of this Helm.
-Deprecated: Use SetProviderConfigReference.
-*/
-func (mg *Helm) SetProviderReference(r *xpv1.Reference) {
-	mg.Spec.ProviderReference = r
 }
 
 // SetPublishConnectionDetailsTo of this Helm.
@@ -83,17 +77,14 @@ func (mg *Oci) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this Oci.
+func (mg *Oci) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this Oci.
 func (mg *Oci) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-/*
-GetProviderReference of this Oci.
-Deprecated: Use GetProviderConfigReference.
-*/
-func (mg *Oci) GetProviderReference() *xpv1.Reference {
-	return mg.Spec.ProviderReference
 }
 
 // GetPublishConnectionDetailsTo of this Oci.
@@ -116,17 +107,14 @@ func (mg *Oci) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
+// SetManagementPolicies of this Oci.
+func (mg *Oci) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
 // SetProviderConfigReference of this Oci.
 func (mg *Oci) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-/*
-SetProviderReference of this Oci.
-Deprecated: Use SetProviderConfigReference.
-*/
-func (mg *Oci) SetProviderReference(r *xpv1.Reference) {
-	mg.Spec.ProviderReference = r
 }
 
 // SetPublishConnectionDetailsTo of this Oci.

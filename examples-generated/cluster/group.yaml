@@ -1,0 +1,21 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/group
+  labels:
+    testing.upbound.io/example-name: cg
+  name: cg
+spec:
+  forProvider:
+    clusters:
+    - clusterUid: ${data.spectrocloud_cluster.host_cluster0.id}
+      host: '*.test.com'
+    - clusterUid: ${data.spectrocloud_cluster.host_cluster1.id}
+      host: '*'
+    config:
+    - cpuMillicore: 6000
+      hostEndpointType: LoadBalancer
+      memoryInMb: 8192
+      oversubscriptionPercent: 120
+      storageInGb: 10

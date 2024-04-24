@@ -1,0 +1,50 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/profile
+  labels:
+    testing.upbound.io/example-name: profile
+  name: profile
+spec:
+  forProvider:
+    cloud: vsphere
+    description: basic cp
+    pack:
+    - name: ubuntu-vsphere
+      tag: LTS__18.4.x
+      uid: ${data.spectrocloud_pack.ubuntu.id}
+      values: 'foo: 1'
+    - name: kubernetes
+      tag: 1.21.5
+      uid: ${data.spectrocloud_pack.k8s.id}
+      values: ${data.spectrocloud_pack.k8s.values}
+    - name: cni-calico
+      tag: 3.16.x
+      uid: ${data.spectrocloud_pack.cni.id}
+      values: ${data.spectrocloud_pack.cni.values}
+    - name: csi-vsphere-csi
+      tag: 2.3.x
+      uid: ${data.spectrocloud_pack.csi.id}
+      values: ${data.spectrocloud_pack.csi.values}
+    - manifest:
+      - content: |
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            labels:
+              app: wordpress
+              app3: wordpress786
+            name: wordpress
+        name: manifest-namespace
+      name: manifest-namespace
+      type: manifest
+    - name: spectro-proxy
+      tag: 1.0.0
+      uid: 60bd99ce9c10082ed8b314c9
+      values: ${local.proxy_val}
+    tags:
+    - dev
+    - department:devops
+    - owner:bob
+    type: cluster

@@ -1,0 +1,18 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/application
+  labels:
+    testing.upbound.io/example-name: application
+  name: application
+spec:
+  forProvider:
+    applicationProfileUid: ${data.spectrocloud_application_profile.id}
+    config:
+    - clusterGroupUid: 6358d799fad5aa39fa26a8c2
+      clusterName: sandbox-scorpius
+      limits:
+      - cpu: 2
+        memory: 4096
+        storage: 10

@@ -1,0 +1,15 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Tencent
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/tencent
+  labels:
+    testing.upbound.io/example-name: tencent-1
+  name: tencent-1
+spec:
+  forProvider:
+    tencentSecretId: ${var.tencent_id}
+    tencentSecretKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

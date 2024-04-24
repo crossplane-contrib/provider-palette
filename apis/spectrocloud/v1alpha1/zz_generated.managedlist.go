@@ -34,8 +34,35 @@ func (l *ApplicationList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DatavolumeList.
+func (l *DatavolumeList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this FilterList.
+func (l *FilterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this MacroList.
 func (l *MacroList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this MacrosList.
+func (l *MacrosList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

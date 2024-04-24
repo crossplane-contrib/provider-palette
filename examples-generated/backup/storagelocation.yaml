@@ -1,0 +1,18 @@
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: backup/v1alpha1/storagelocation
+  labels:
+    testing.upbound.io/example-name: bsl1
+  name: bsl1
+spec:
+  forProvider:
+    bucketName: dev-backup
+    isDefault: false
+    region: us-east-2
+    s3:
+    - accessKey: ${var.aws_access_key}
+      credentialType: ${var.credential_type}
+      s3ForcePathStyle: false
+      secretKey: ${var.aws_secret_key}

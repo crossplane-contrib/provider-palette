@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,41 +17,103 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type VsphereInitParameters struct {
+
+	// (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
+	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
+	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
+
+	// (Boolean) Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
+	// Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
+	VsphereIgnoreInsecureError *bool `json:"vsphereIgnoreInsecureError,omitempty" tf:"vsphere_ignore_insecure_error,omitempty"`
+
+	// (String) Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
+	// Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
+	VsphereUsername *string `json:"vsphereUsername,omitempty" tf:"vsphere_username,omitempty"`
+
+	// (String) vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
+	// vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
+	VsphereVcenter *string `json:"vsphereVcenter,omitempty" tf:"vsphere_vcenter,omitempty"`
+}
+
 type VsphereObservation struct {
+
+	// (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
+	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
+	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
+
+	// (Boolean) Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
+	// Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
+	VsphereIgnoreInsecureError *bool `json:"vsphereIgnoreInsecureError,omitempty" tf:"vsphere_ignore_insecure_error,omitempty"`
+
+	// (String) Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
+	// Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
+	VsphereUsername *string `json:"vsphereUsername,omitempty" tf:"vsphere_username,omitempty"`
+
+	// (String) vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
+	// vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
+	VsphereVcenter *string `json:"vsphereVcenter,omitempty" tf:"vsphere_vcenter,omitempty"`
 }
 
 type VsphereParameters struct {
 
-	// Context of the cloud account. This can be either project or tenant. If not specified, the default value is project.
+	// (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
-	// +kubebuilder:validation:Required
-	PrivateCloudGatewayID *string `json:"privateCloudGatewayId" tf:"private_cloud_gateway_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (Boolean) Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
 	// Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
 	// +kubebuilder:validation:Optional
 	VsphereIgnoreInsecureError *bool `json:"vsphereIgnoreInsecureError,omitempty" tf:"vsphere_ignore_insecure_error,omitempty"`
 
+	// (String, Sensitive) Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
 	// Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	VspherePasswordSecretRef v1.SecretKeySelector `json:"vspherePasswordSecretRef" tf:"-"`
 
+	// (String) Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
 	// Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
-	// +kubebuilder:validation:Required
-	VsphereUsername *string `json:"vsphereUsername" tf:"vsphere_username,omitempty"`
+	// +kubebuilder:validation:Optional
+	VsphereUsername *string `json:"vsphereUsername,omitempty" tf:"vsphere_username,omitempty"`
 
+	// (String) vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
 	// vCenter server address. This is the address of the vCenter server that is used to connect to the vSphere cloud.
-	// +kubebuilder:validation:Required
-	VsphereVcenter *string `json:"vsphereVcenter" tf:"vsphere_vcenter,omitempty"`
+	// +kubebuilder:validation:Optional
+	VsphereVcenter *string `json:"vsphereVcenter,omitempty" tf:"vsphere_vcenter,omitempty"`
 }
 
 // VsphereSpec defines the desired state of Vsphere
 type VsphereSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     VsphereParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider VsphereInitParameters `json:"initProvider,omitempty"`
 }
 
 // VsphereStatus defines the observed state of Vsphere.
@@ -58,7 +124,7 @@ type VsphereStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Vsphere is the Schema for the Vspheres API. <no value>
+// Vsphere is the Schema for the Vspheres API. A resource to manage a vSphere cloud account in Pallette.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -68,8 +134,12 @@ type VsphereStatus struct {
 type Vsphere struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              VsphereSpec   `json:"spec"`
-	Status            VsphereStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vspherePasswordSecretRef)",message="spec.forProvider.vspherePasswordSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vsphereUsername) || (has(self.initProvider) && has(self.initProvider.vsphereUsername))",message="spec.forProvider.vsphereUsername is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vsphereVcenter) || (has(self.initProvider) && has(self.initProvider.vsphereVcenter))",message="spec.forProvider.vsphereVcenter is a required parameter"
+	Spec   VsphereSpec   `json:"spec"`
+	Status VsphereStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

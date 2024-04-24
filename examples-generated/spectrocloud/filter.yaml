@@ -1,0 +1,26 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Filter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/filter
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+    - name: resourcefilter2
+    spec:
+    - filterGroup:
+      - conjunction: and
+        filters:
+        - key: testtag1
+          negation: false
+          operator: eq
+          values:
+          - spectro__tag
+        - key: testtag2
+          negation: true
+          operator: eq
+          values:
+          - spectro__tag

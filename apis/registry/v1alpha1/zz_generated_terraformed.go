@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -9,8 +13,8 @@ package v1alpha1
 import (
 	"github.com/pkg/errors"
 
-	"github.com/upbound/upjet/pkg/resource"
-	"github.com/upbound/upjet/pkg/resource/json"
+	"github.com/crossplane/upjet/pkg/resource"
+	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
 // GetTerraformResourceType returns Terraform resource type for this Helm
@@ -69,6 +73,16 @@ func (tr *Helm) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Helm
+func (tr *Helm) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Helm using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Helm) LateInitialize(attrs []byte) (bool, error) {
@@ -94,7 +108,7 @@ func (mg *Oci) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Oci
 func (tr *Oci) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"credentials[*].secret_key": "spec.forProvider.credentials[*].secretKeySecretRef"}
 }
 
 // GetObservation of this Oci
@@ -141,6 +155,16 @@ func (tr *Oci) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Oci
+func (tr *Oci) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Oci using its observed tfState.

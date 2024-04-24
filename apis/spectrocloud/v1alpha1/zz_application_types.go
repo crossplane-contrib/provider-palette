@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,51 +17,142 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ApplicationInitParameters struct {
+
+	// (String)
+	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+
+	// (Set of String)
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
 type ApplicationObservation struct {
+
+	// (String)
+	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String)
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type ApplicationParameters struct {
 
-	// +kubebuilder:validation:Required
-	ApplicationProfileUID *string `json:"applicationProfileUid" tf:"application_profile_uid,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
 
+	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
+	// (Set of String)
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
+type ConfigInitParameters struct {
+
+	// (String)
+	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
+
+	// (String)
+	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
+
+	// (String)
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// (String)
+	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Limits []LimitsInitParameters `json:"limits,omitempty" tf:"limits,omitempty"`
+}
+
 type ConfigObservation struct {
+
+	// (String)
+	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
+
+	// (String)
+	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
+
+	// (String)
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
+	// (String)
+	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Limits []LimitsObservation `json:"limits,omitempty" tf:"limits,omitempty"`
 }
 
 type ConfigParameters struct {
 
+	// (String)
+	// +kubebuilder:validation:Optional
+	ClusterContext *string `json:"clusterContext" tf:"cluster_context,omitempty"`
+
+	// (String)
 	// +kubebuilder:validation:Optional
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Limits []LimitsParameters `json:"limits,omitempty" tf:"limits,omitempty"`
 }
 
+type LimitsInitParameters struct {
+
+	// (Number)
+	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number)
+	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
+
+	// (Number)
+	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
+}
+
 type LimitsObservation struct {
+
+	// (Number)
+	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number)
+	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
+
+	// (Number)
+	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type LimitsParameters struct {
 
+	// (Number)
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Number)
 	// +kubebuilder:validation:Optional
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// (Number)
 	// +kubebuilder:validation:Optional
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 }
@@ -66,6 +161,17 @@ type LimitsParameters struct {
 type ApplicationSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ApplicationParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ApplicationInitParameters `json:"initProvider,omitempty"`
 }
 
 // ApplicationStatus defines the observed state of Application.
@@ -76,7 +182,7 @@ type ApplicationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Application is the Schema for the Applications API. <no value>
+// Application is the Schema for the Applications API.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -86,8 +192,9 @@ type ApplicationStatus struct {
 type Application struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ApplicationSpec   `json:"spec"`
-	Status            ApplicationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.applicationProfileUid) || (has(self.initProvider) && has(self.initProvider.applicationProfileUid))",message="spec.forProvider.applicationProfileUid is a required parameter"
+	Spec   ApplicationSpec   `json:"spec"`
+	Status ApplicationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
