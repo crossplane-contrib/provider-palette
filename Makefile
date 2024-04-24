@@ -8,7 +8,7 @@ export TERRAFORM_VERSION := 1.3.3
 
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.12.0
+export TERRAFORM_PROVIDER_VERSION := 0.18.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-spectrocloud
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-spectrocloud_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH := docs/resources
@@ -38,7 +38,7 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.19
+GO_REQUIRED_VERSION ?= 1.21
 GOLANGCILINT_VERSION ?= 1.50.0
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
