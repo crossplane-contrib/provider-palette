@@ -45,7 +45,7 @@ go install golang.org/x/tools/cmd/goimports@latest
 
 make submodules
 
-# use the default Terraform configuration variables (see top of Makefile)
+# Generate provider-palette. To upgrade, you must first edit TERRAFORM_PROVIDER_VERSION in the Makefile.
 make generate
 ```
 
