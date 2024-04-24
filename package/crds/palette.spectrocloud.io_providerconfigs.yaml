@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: providerconfigs.palette.spectrocloud.io
+  name: providerconfigs.palette.crossplane.io
 spec:
-  group: palette.spectrocloud.io
+  group: palette.crossplane.io
   names:
     categories:
     - crossplane
