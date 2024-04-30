@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,35 +17,190 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ProjectRoleMappingInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String) List of project roles to be associated with the team.
+	// List of project roles to be associated with the team.
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
 type ProjectRoleMappingObservation struct {
+
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String) List of project roles to be associated with the team.
+	// List of project roles to be associated with the team.
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
 type ProjectRoleMappingParameters struct {
 
-	// +kubebuilder:validation:Required
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// (Set of String) List of project roles to be associated with the team.
+	// List of project roles to be associated with the team.
+	// +kubebuilder:validation:Optional
 	Roles []*string `json:"roles" tf:"roles,omitempty"`
 }
 
+type TeamInitParameters struct {
+
+	// (Block Set) List of project roles to be associated with the team. (see below for nested schema)
+	// List of project roles to be associated with the team.
+	ProjectRoleMapping []ProjectRoleMappingInitParameters `json:"projectRoleMapping,omitempty" tf:"project_role_mapping,omitempty"`
+
+	// (Set of String) List of tenant role ids to be associated with the team.
+	// List of tenant role ids to be associated with the team.
+	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
+
+	// (Set of String) List of user ids to be associated with the team.
+	// List of user ids to be associated with the team.
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	WorkspaceRoleMapping []WorkspaceRoleMappingInitParameters `json:"workspaceRoleMapping,omitempty" tf:"workspace_role_mapping,omitempty"`
+}
+
 type TeamObservation struct {
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block Set) List of project roles to be associated with the team. (see below for nested schema)
+	// List of project roles to be associated with the team.
+	ProjectRoleMapping []ProjectRoleMappingObservation `json:"projectRoleMapping,omitempty" tf:"project_role_mapping,omitempty"`
+
+	// (Set of String) List of tenant role ids to be associated with the team.
+	// List of tenant role ids to be associated with the team.
+	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
+
+	// (Set of String) List of user ids to be associated with the team.
+	// List of user ids to be associated with the team.
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	WorkspaceRoleMapping []WorkspaceRoleMappingObservation `json:"workspaceRoleMapping,omitempty" tf:"workspace_role_mapping,omitempty"`
 }
 
 type TeamParameters struct {
 
+	// (Block Set) List of project roles to be associated with the team. (see below for nested schema)
+	// List of project roles to be associated with the team.
 	// +kubebuilder:validation:Optional
 	ProjectRoleMapping []ProjectRoleMappingParameters `json:"projectRoleMapping,omitempty" tf:"project_role_mapping,omitempty"`
 
+	// (Set of String) List of tenant role ids to be associated with the team.
+	// List of tenant role ids to be associated with the team.
+	// +kubebuilder:validation:Optional
+	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
+
+	// (Set of String) List of user ids to be associated with the team.
+	// List of user ids to be associated with the team.
 	// +kubebuilder:validation:Optional
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	// +kubebuilder:validation:Optional
+	WorkspaceRoleMapping []WorkspaceRoleMappingParameters `json:"workspaceRoleMapping,omitempty" tf:"workspace_role_mapping,omitempty"`
+}
+
+type WorkspaceInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Workspace id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String) List of project roles to be associated with the team.
+	// List of workspace roles to be associated with the team.
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
+type WorkspaceObservation struct {
+
+	// (String) The ID of this resource.
+	// Workspace id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String) List of project roles to be associated with the team.
+	// List of workspace roles to be associated with the team.
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
+type WorkspaceParameters struct {
+
+	// (String) The ID of this resource.
+	// Workspace id to be associated with the team.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// (Set of String) List of project roles to be associated with the team.
+	// List of workspace roles to be associated with the team.
+	// +kubebuilder:validation:Optional
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
+type WorkspaceRoleMappingInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	Workspace []WorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+}
+
+type WorkspaceRoleMappingObservation struct {
+
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	Workspace []WorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+}
+
+type WorkspaceRoleMappingParameters struct {
+
+	// (String) The ID of this resource.
+	// Project id to be associated with the team.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+	// List of workspace roles to be associated with the team.
+	// +kubebuilder:validation:Optional
+	Workspace []WorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 // TeamSpec defines the desired state of Team
 type TeamSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     TeamParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider TeamInitParameters `json:"initProvider,omitempty"`
 }
 
 // TeamStatus defines the observed state of Team.
@@ -52,7 +211,7 @@ type TeamStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Team is the Schema for the Teams API. <no value>
+// Team is the Schema for the Teams API.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

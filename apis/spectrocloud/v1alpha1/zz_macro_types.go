@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,25 +17,59 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type MacroInitParameters struct {
+
+	// (String) The Spectro Cloud project name.
+	// The Spectro Cloud project name.
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (String) The value that the macro or service output variable will contain.
+	// The value that the macro or service output variable will contain.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
 type MacroObservation struct {
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The Spectro Cloud project name.
+	// The Spectro Cloud project name.
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (String) The value that the macro or service output variable will contain.
+	// The value that the macro or service output variable will contain.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type MacroParameters struct {
 
+	// (String) The Spectro Cloud project name.
 	// The Spectro Cloud project name.
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
+	// (String) The value that the macro or service output variable will contain.
 	// The value that the macro or service output variable will contain.
-	// +kubebuilder:validation:Required
-	Value *string `json:"value" tf:"value,omitempty"`
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 // MacroSpec defines the desired state of Macro
 type MacroSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     MacroParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider MacroInitParameters `json:"initProvider,omitempty"`
 }
 
 // MacroStatus defines the observed state of Macro.
@@ -42,7 +80,7 @@ type MacroStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Macro is the Schema for the Macros API. <no value>
+// Macro is the Schema for the Macros API. A resource for creating and managing service output variables and macro.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -52,8 +90,9 @@ type MacroStatus struct {
 type Macro struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              MacroSpec   `json:"spec"`
-	Status            MacroStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
+	Spec   MacroSpec   `json:"spec"`
+	Status MacroStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

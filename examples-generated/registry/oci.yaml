@@ -1,0 +1,17 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Oci
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registry/v1alpha1/oci
+  labels:
+    testing.upbound.io/example-name: r1
+  name: r1
+spec:
+  forProvider:
+    credentials:
+    - arn: arn:aws:iam::123456:role/stage-demo-ecr
+      credentialType: sts
+      externalId: sofiwhgowbrgiornM=
+    endpoint: 123456.dkr.ecr.us-west-1.amazonaws.com
+    isPrivate: true
+    type: ecr

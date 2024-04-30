@@ -17,17 +17,14 @@ func (mg *StorageLocation) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
+// GetManagementPolicies of this StorageLocation.
+func (mg *StorageLocation) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
 // GetProviderConfigReference of this StorageLocation.
 func (mg *StorageLocation) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-/*
-GetProviderReference of this StorageLocation.
-Deprecated: Use GetProviderConfigReference.
-*/
-func (mg *StorageLocation) GetProviderReference() *xpv1.Reference {
-	return mg.Spec.ProviderReference
 }
 
 // GetPublishConnectionDetailsTo of this StorageLocation.
@@ -50,17 +47,14 @@ func (mg *StorageLocation) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
+// SetManagementPolicies of this StorageLocation.
+func (mg *StorageLocation) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
 // SetProviderConfigReference of this StorageLocation.
 func (mg *StorageLocation) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-/*
-SetProviderReference of this StorageLocation.
-Deprecated: Use SetProviderConfigReference.
-*/
-func (mg *StorageLocation) SetProviderReference(r *xpv1.Reference) {
-	mg.Spec.ProviderReference = r
 }
 
 // SetPublishConnectionDetailsTo of this StorageLocation.

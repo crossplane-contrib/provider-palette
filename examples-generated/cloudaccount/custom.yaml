@@ -1,0 +1,17 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Custom
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/custom
+  labels:
+    testing.upbound.io/example-name: cloud_account
+  name: cloud-account
+spec:
+  forProvider:
+    cloud: nutanix
+    context: tenant
+    credentialsSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    privateCloudGatewayId: ${data.spectrocloud_private_cloud_gateway.nutanix_pcg.id}

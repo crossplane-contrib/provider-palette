@@ -1,0 +1,18 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: alert_email
+  name: alert-email
+spec:
+  forProvider:
+    alertAllUsers: true
+    component: ClusterHealth
+    identifiers:
+    - abc@spectrocloud.com
+    - cba@spectrocloud.com
+    isActive: true
+    project: Default
+    type: email

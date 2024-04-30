@@ -1,7 +1,7 @@
 # Provider Palette
 
 `provider-palette` is a [Crossplane](https://crossplane.io/) provider that is
-built using [Upjet](https://github.com/upbound/upjet) code generation tools and
+built using [Upjet](https://github.com/crossplane/upjet) code generation tools and
 exposes XRM-conformant managed resources for the Palette API. The provider helps
 you create resources declaratively using the Spectro Cloud Palette API.
 
@@ -36,6 +36,18 @@ You can see the API reference
 [here](https://doc.crds.dev/github.com/crossplane-contrib/provider-palette).
 
 ## Developing
+
+Before getting started, you should read the [Upjet docs](https://github.com/crossplane/upjet/tree/main/docs). At a minimum, read about [generating a provider](https://github.com/crossplane/upjet/blob/main/docs/generating-a-provider.md).
+
+Generate/regenerate the provider:
+```console
+go install golang.org/x/tools/cmd/goimports@latest
+
+make submodules
+
+# Generate provider-palette. To upgrade, you must first edit TERRAFORM_PROVIDER_VERSION in the Makefile.
+make generate
+```
 
 Run code-generation pipeline:
 ```console

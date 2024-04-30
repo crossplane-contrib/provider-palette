@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -9,8 +13,8 @@ package v1alpha1
 import (
 	"github.com/pkg/errors"
 
-	"github.com/upbound/upjet/pkg/resource"
-	"github.com/upbound/upjet/pkg/resource/json"
+	"github.com/crossplane/upjet/pkg/resource"
+	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
 // GetTerraformResourceType returns Terraform resource type for this Aks
@@ -67,6 +71,16 @@ func (tr *Aks) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Aks
+func (tr *Aks) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Aks using its observed tfState.
@@ -143,6 +157,16 @@ func (tr *Aws) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Aws
+func (tr *Aws) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Aws using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Aws) LateInitialize(attrs []byte) (bool, error) {
@@ -217,6 +241,16 @@ func (tr *Azure) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Azure
+func (tr *Azure) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Azure using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Azure) LateInitialize(attrs []byte) (bool, error) {
@@ -235,18 +269,18 @@ func (tr *Azure) GetTerraformSchemaVersion() int {
 	return 0
 }
 
-// GetTerraformResourceType returns Terraform resource type for this Edge
-func (mg *Edge) GetTerraformResourceType() string {
-	return "spectrocloud_cluster_edge"
+// GetTerraformResourceType returns Terraform resource type for this CustomCloud
+func (mg *CustomCloud) GetTerraformResourceType() string {
+	return "spectrocloud_cluster_custom_cloud"
 }
 
-// GetConnectionDetailsMapping for this Edge
-func (tr *Edge) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this CustomCloud
+func (tr *CustomCloud) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Edge
-func (tr *Edge) GetObservation() (map[string]any, error) {
+// GetObservation of this CustomCloud
+func (tr *CustomCloud) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -255,8 +289,8 @@ func (tr *Edge) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Edge
-func (tr *Edge) SetObservation(obs map[string]any) error {
+// SetObservation for this CustomCloud
+func (tr *CustomCloud) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -264,16 +298,16 @@ func (tr *Edge) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Edge
-func (tr *Edge) GetID() string {
+// GetID returns ID of underlying Terraform resource of this CustomCloud
+func (tr *CustomCloud) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Edge
-func (tr *Edge) GetParameters() (map[string]any, error) {
+// GetParameters of this CustomCloud
+func (tr *CustomCloud) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -282,8 +316,8 @@ func (tr *Edge) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Edge
-func (tr *Edge) SetParameters(params map[string]any) error {
+// SetParameters for this CustomCloud
+func (tr *CustomCloud) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -291,10 +325,20 @@ func (tr *Edge) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this Edge using its observed tfState.
+// GetInitParameters of this CustomCloud
+func (tr *CustomCloud) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// LateInitialize this CustomCloud using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Edge) LateInitialize(attrs []byte) (bool, error) {
-	params := &EdgeParameters{}
+func (tr *CustomCloud) LateInitialize(attrs []byte) (bool, error) {
+	params := &CustomCloudParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -305,7 +349,7 @@ func (tr *Edge) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Edge) GetTerraformSchemaVersion() int {
+func (tr *CustomCloud) GetTerraformSchemaVersion() int {
 	return 2
 }
 
@@ -363,6 +407,16 @@ func (tr *EdgeNative) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this EdgeNative
+func (tr *EdgeNative) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this EdgeNative using its observed tfState.
@@ -439,6 +493,16 @@ func (tr *EdgeVsphere) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this EdgeVsphere
+func (tr *EdgeVsphere) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this EdgeVsphere using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *EdgeVsphere) LateInitialize(attrs []byte) (bool, error) {
@@ -511,6 +575,16 @@ func (tr *Eks) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Eks
+func (tr *Eks) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Eks using its observed tfState.
@@ -587,6 +661,16 @@ func (tr *GCP) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this GCP
+func (tr *GCP) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this GCP using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *GCP) LateInitialize(attrs []byte) (bool, error) {
@@ -603,6 +687,90 @@ func (tr *GCP) LateInitialize(attrs []byte) (bool, error) {
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *GCP) GetTerraformSchemaVersion() int {
 	return 2
+}
+
+// GetTerraformResourceType returns Terraform resource type for this Gke
+func (mg *Gke) GetTerraformResourceType() string {
+	return "spectrocloud_cluster_gke"
+}
+
+// GetConnectionDetailsMapping for this Gke
+func (tr *Gke) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this Gke
+func (tr *Gke) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this Gke
+func (tr *Gke) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this Gke
+func (tr *Gke) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this Gke
+func (tr *Gke) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this Gke
+func (tr *Gke) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Gke
+func (tr *Gke) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// LateInitialize this Gke using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *Gke) LateInitialize(attrs []byte) (bool, error) {
+	params := &GkeParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *Gke) GetTerraformSchemaVersion() int {
+	return 1
 }
 
 // GetTerraformResourceType returns Terraform resource type for this Group
@@ -659,6 +827,16 @@ func (tr *Group) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Group
+func (tr *Group) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Group using its observed tfState.
@@ -735,6 +913,16 @@ func (tr *Libvirt) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Libvirt
+func (tr *Libvirt) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Libvirt using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Libvirt) LateInitialize(attrs []byte) (bool, error) {
@@ -807,6 +995,16 @@ func (tr *Maas) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Maas
+func (tr *Maas) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Maas using its observed tfState.
@@ -883,6 +1081,16 @@ func (tr *Openstack) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Openstack
+func (tr *Openstack) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Openstack using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Openstack) LateInitialize(attrs []byte) (bool, error) {
@@ -955,6 +1163,16 @@ func (tr *Profile) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Profile
+func (tr *Profile) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Profile using its observed tfState.
@@ -1031,6 +1249,16 @@ func (tr *Tke) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this Tke
+func (tr *Tke) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this Tke using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Tke) LateInitialize(attrs []byte) (bool, error) {
@@ -1103,6 +1331,16 @@ func (tr *Vsphere) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Vsphere
+func (tr *Vsphere) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Vsphere using its observed tfState.

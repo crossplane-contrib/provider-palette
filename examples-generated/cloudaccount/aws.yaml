@@ -1,0 +1,15 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: aws-1
+  name: aws-1
+spec:
+  forProvider:
+    awsAccessKey: ${var.aws_access_key}
+    awsSecretKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

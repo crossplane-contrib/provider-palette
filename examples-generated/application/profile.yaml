@@ -1,0 +1,27 @@
+apiVersion: application.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: application/v1alpha1/profile
+  labels:
+    testing.upbound.io/example-name: hello-universe-ui
+  name: hello-universe-ui
+spec:
+  forProvider:
+    description: Hello Universe as a single UI instance
+    pack:
+    - name: hello-universe-ui
+      registryUid: ${data.spectrocloud_registry.container_registry.id}
+      sourceAppTier: ${data.spectrocloud_pack_simple.container_pack.id}
+      type: ${data.spectrocloud_pack_simple.container_pack.type}
+      values: |
+        containerService:
+            serviceName: "hello-universe-ui-test"
+            registryUrl: ""
+            image: ${var.single-container-image}
+            access: public
+            ports:
+              - "8080"
+            serviceType: LoadBalancer
+    tags:
+    - scenario-1
