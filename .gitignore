@@ -8,5 +8,6 @@ cover.out
 
 # ignore IDE folders
 .vscode/
+!.vscode/launch.json
 .idea/
 *__debug_bin*

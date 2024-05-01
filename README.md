@@ -79,6 +79,7 @@ make -j2 build
    ```
 2. Edit the `Debug` configuration in `.vscode/launch.json`:
    - Ensure `env.KUBECONFIG` is correct
+   - Optionally specify `env.TF_REATTACH_PROVIDERS` to hook into your dev Terraform provider
 3. Execute the `Debug` launch configuration
 
 ## Report a Bug
