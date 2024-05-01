@@ -14,7 +14,7 @@ Install the provider by using the following command after changing the image tag
 to the [latest
 release](https://marketplace.upbound.io/providers/crossplane-contrib/provider-palette):
 ```
-up ctp provider install crossplane-contrib/provider-palette:v0.1.0
+up ctp provider install crossplane-contrib/provider-palette:v0.19.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -25,7 +25,7 @@ kind: Provider
 metadata:
   name: provider-palette
 spec:
-  package: crossplane-contrib/provider-palette:v0.1.0
+  package: crossplane-contrib/provider-palette:v0.19.0
 EOF
 ```
 
