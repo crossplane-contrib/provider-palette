@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,59 +17,162 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type S3InitParameters struct {
+
+	// (String)
+	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+
+	// (String)
+	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
+
+	// (String)
+	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// (String)
+	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (Boolean)
+	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
+
+	// (String)
+	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
+
+	// (String)
+	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
+}
+
 type S3Observation struct {
+
+	// (String)
+	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+
+	// (String)
+	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
+
+	// (String)
+	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// (String)
+	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (Boolean)
+	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
+
+	// (String)
+	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
+
+	// (String)
+	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
 
 type S3Parameters struct {
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (Boolean)
 	// +kubebuilder:validation:Optional
 	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
 
+type StorageLocationInitParameters struct {
+
+	// (String)
+	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
+
+	// (String)
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (Boolean)
+	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+
+	// (String)
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+}
+
 type StorageLocationObservation struct {
+
+	// (String)
+	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
+
+	// (String)
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Boolean)
+	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+
+	// (String)
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type StorageLocationParameters struct {
 
-	// +kubebuilder:validation:Required
-	BucketName *string `json:"bucketName" tf:"bucket_name,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// +kubebuilder:validation:Required
-	IsDefault *bool `json:"isDefault" tf:"is_default,omitempty"`
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Region *string `json:"region" tf:"region,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// +kubebuilder:validation:Required
-	S3 []S3Parameters `json:"s3" tf:"s3,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 // StorageLocationSpec defines the desired state of StorageLocation
 type StorageLocationSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     StorageLocationParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider StorageLocationInitParameters `json:"initProvider,omitempty"`
 }
 
 // StorageLocationStatus defines the observed state of StorageLocation.
@@ -76,7 +183,7 @@ type StorageLocationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// StorageLocation is the Schema for the StorageLocations API. <no value>
+// StorageLocation is the Schema for the StorageLocations API.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -86,8 +193,12 @@ type StorageLocationStatus struct {
 type StorageLocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              StorageLocationSpec   `json:"spec"`
-	Status            StorageLocationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucketName) || (has(self.initProvider) && has(self.initProvider.bucketName))",message="spec.forProvider.bucketName is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isDefault) || (has(self.initProvider) && has(self.initProvider.isDefault))",message="spec.forProvider.isDefault is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.s3) || (has(self.initProvider) && has(self.initProvider.s3))",message="spec.forProvider.s3 is a required parameter"
+	Spec   StorageLocationSpec   `json:"spec"`
+	Status StorageLocationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

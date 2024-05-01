@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,44 +17,112 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type CredentialsInitParameters struct {
+
+	// (String)
+	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// (String)
+	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+
+	// (String)
+	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+
+	// (String)
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
 type CredentialsObservation struct {
+
+	// (String)
+	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// (String)
+	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+
+	// (String)
+	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+
+	// (String)
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type CredentialsParameters struct {
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Password *string `json:"password,omitempty" tf:"password,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
+type HelmInitParameters struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	Credentials []CredentialsInitParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
+
+	// (String)
+	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+
+	// (Boolean)
+	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+}
+
 type HelmObservation struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	Credentials []CredentialsObservation `json:"credentials,omitempty" tf:"credentials,omitempty"`
+
+	// (String)
+	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Boolean)
+	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 }
 
 type HelmParameters struct {
 
-	// +kubebuilder:validation:Required
-	Credentials []CredentialsParameters `json:"credentials" tf:"credentials,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Credentials []CredentialsParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Endpoint *string `json:"endpoint" tf:"endpoint,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// +kubebuilder:validation:Required
-	IsPrivate *bool `json:"isPrivate" tf:"is_private,omitempty"`
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 }
 
 // HelmSpec defines the desired state of Helm
 type HelmSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     HelmParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider HelmInitParameters `json:"initProvider,omitempty"`
 }
 
 // HelmStatus defines the observed state of Helm.
@@ -61,7 +133,7 @@ type HelmStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Helm is the Schema for the Helms API. <no value>
+// Helm is the Schema for the Helms API.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -71,8 +143,11 @@ type HelmStatus struct {
 type Helm struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              HelmSpec   `json:"spec"`
-	Status            HelmStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentials) || (has(self.initProvider) && has(self.initProvider.credentials))",message="spec.forProvider.credentials is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpoint) || (has(self.initProvider) && has(self.initProvider.endpoint))",message="spec.forProvider.endpoint is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPrivate) || (has(self.initProvider) && has(self.initProvider.isPrivate))",message="spec.forProvider.isPrivate is a required parameter"
+	Spec   HelmSpec   `json:"spec"`
+	Status HelmStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

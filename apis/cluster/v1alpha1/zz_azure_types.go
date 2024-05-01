@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,409 +17,1454 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AzureBackupPolicyInitParameters struct {
+
+	// (String) The ID of the backup location to use for the backup.
+	// The ID of the backup location to use for the backup.
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
+
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
+
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
+	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
+
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// -.
+	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
+	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
+
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+}
+
 type AzureBackupPolicyObservation struct {
+
+	// (String) The ID of the backup location to use for the backup.
+	// The ID of the backup location to use for the backup.
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
+
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
+
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
+	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
+
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// -.
+	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
+	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
+
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type AzureBackupPolicyParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ExpiryInHour *float64 `json:"expiryInHour" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
 	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
 }
 
+type AzureCloudConfigInitParameters struct {
+
+	// (String) Container name within your azure storage account.
+	// Container name within your azure storage account.
+	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	ControlPlaneSubnet []ControlPlaneSubnetInitParameters `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
+
+	// (String) Azure network resource group in which the cluster is to be provisioned.
+	// Azure network resource group in which the cluster is to be provisioned.
+	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// (String) Azure region. This can be found in the Azure portal under Resource groups.
+	// Azure region. This can be found in the Azure portal under `Resource groups`.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
+	// Azure resource group. This can be found in the Azure portal under `Resource groups`.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// (String) Public SSH key to be used for the cluster nodes.
+	// Public SSH key to be used for the cluster nodes.
+	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
+
+	// (String) Azure storage account name.
+	// Azure storage account name.
+	StorageAccountName *string `json:"storageAccountName,omitempty" tf:"storage_account_name,omitempty"`
+
+	// (String) Azure subscription ID. This can be found in the Azure portal under Subscriptions.
+	// Azure subscription ID. This can be found in the Azure portal under `Subscriptions`.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+
+	// (String) Azure virtual network cidr block in which the cluster is to be provisioned.
+	// Azure virtual network cidr block in which the cluster is to be provisioned.
+	VirtualNetworkCidrBlock *string `json:"virtualNetworkCidrBlock,omitempty" tf:"virtual_network_cidr_block,omitempty"`
+
+	// (String) Azure virtual network in which the cluster is to be provisioned.
+	// Azure virtual network in which the cluster is to be provisioned.
+	VirtualNetworkName *string `json:"virtualNetworkName,omitempty" tf:"virtual_network_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	WorkerNodeSubnet []WorkerNodeSubnetInitParameters `json:"workerNodeSubnet,omitempty" tf:"worker_node_subnet,omitempty"`
+}
+
 type AzureCloudConfigObservation struct {
+
+	// (String) Container name within your azure storage account.
+	// Container name within your azure storage account.
+	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	ControlPlaneSubnet []ControlPlaneSubnetObservation `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
+
+	// (String) Azure network resource group in which the cluster is to be provisioned.
+	// Azure network resource group in which the cluster is to be provisioned.
+	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// (String) Azure region. This can be found in the Azure portal under Resource groups.
+	// Azure region. This can be found in the Azure portal under `Resource groups`.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
+	// Azure resource group. This can be found in the Azure portal under `Resource groups`.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// (String) Public SSH key to be used for the cluster nodes.
+	// Public SSH key to be used for the cluster nodes.
+	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
+
+	// (String) Azure storage account name.
+	// Azure storage account name.
+	StorageAccountName *string `json:"storageAccountName,omitempty" tf:"storage_account_name,omitempty"`
+
+	// (String) Azure subscription ID. This can be found in the Azure portal under Subscriptions.
+	// Azure subscription ID. This can be found in the Azure portal under `Subscriptions`.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+
+	// (String) Azure virtual network cidr block in which the cluster is to be provisioned.
+	// Azure virtual network cidr block in which the cluster is to be provisioned.
+	VirtualNetworkCidrBlock *string `json:"virtualNetworkCidrBlock,omitempty" tf:"virtual_network_cidr_block,omitempty"`
+
+	// (String) Azure virtual network in which the cluster is to be provisioned.
+	// Azure virtual network in which the cluster is to be provisioned.
+	VirtualNetworkName *string `json:"virtualNetworkName,omitempty" tf:"virtual_network_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	WorkerNodeSubnet []WorkerNodeSubnetObservation `json:"workerNodeSubnet,omitempty" tf:"worker_node_subnet,omitempty"`
 }
 
 type AzureCloudConfigParameters struct {
 
+	// (String) Container name within your azure storage account.
+	// Container name within your azure storage account.
+	// +kubebuilder:validation:Optional
+	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	ControlPlaneSubnet []ControlPlaneSubnetParameters `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
+
+	// (String) Azure network resource group in which the cluster is to be provisioned.
+	// Azure network resource group in which the cluster is to be provisioned.
+	// +kubebuilder:validation:Optional
+	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// (String) Azure region. This can be found in the Azure portal under Resource groups.
 	// Azure region. This can be found in the Azure portal under `Resource groups`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
 
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
 	// Azure resource group. This can be found in the Azure portal under `Resource groups`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
 
-	// SSH key to be used for the cluster nodes.
-	// +kubebuilder:validation:Required
+	// (String) Public SSH key to be used for the cluster nodes.
+	// Public SSH key to be used for the cluster nodes.
+	// +kubebuilder:validation:Optional
 	SSHKey *string `json:"sshKey" tf:"ssh_key,omitempty"`
 
+	// (String) Azure storage account name.
+	// Azure storage account name.
+	// +kubebuilder:validation:Optional
+	StorageAccountName *string `json:"storageAccountName,omitempty" tf:"storage_account_name,omitempty"`
+
+	// (String) Azure subscription ID. This can be found in the Azure portal under Subscriptions.
 	// Azure subscription ID. This can be found in the Azure portal under `Subscriptions`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+
+	// (String) Azure virtual network cidr block in which the cluster is to be provisioned.
+	// Azure virtual network cidr block in which the cluster is to be provisioned.
+	// +kubebuilder:validation:Optional
+	VirtualNetworkCidrBlock *string `json:"virtualNetworkCidrBlock,omitempty" tf:"virtual_network_cidr_block,omitempty"`
+
+	// (String) Azure virtual network in which the cluster is to be provisioned.
+	// Azure virtual network in which the cluster is to be provisioned.
+	// +kubebuilder:validation:Optional
+	VirtualNetworkName *string `json:"virtualNetworkName,omitempty" tf:"virtual_network_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	WorkerNodeSubnet []WorkerNodeSubnetParameters `json:"workerNodeSubnet,omitempty" tf:"worker_node_subnet,omitempty"`
+}
+
+type AzureClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
+	Pack []AzureClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
 type AzureClusterProfileObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// (String) The ID of this resource.
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []AzureClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+}
+
+type AzureClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	Manifest []ClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type AzureClusterProfilePackObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// (Block List) (see below for nested schema)
 	Manifest []ClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type AzureClusterProfilePackParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// The tag of the pack. The tag is the version of the pack.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. The default value is `spectro`.
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// +kubebuilder:validation:Required
-	Values *string `json:"values" tf:"values,omitempty"`
+	// +kubebuilder:validation:Optional
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type AzureClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []AzureClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type AzureClusterRbacBindingInitParameters struct {
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Subjects []AzureClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type AzureClusterRbacBindingObservation struct {
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Subjects []AzureClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AzureClusterRbacBindingParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Subjects []AzureClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type AzureClusterRbacBindingSubjectsInitParameters struct {
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type AzureClusterRbacBindingSubjectsObservation struct {
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AzureClusterRbacBindingSubjectsParameters struct {
 
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type AzureHostConfigInitParameters struct {
+
+	// (String) The external traffic policy for the cluster.
+	// The external traffic policy for the cluster.
+	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
+
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
+
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
+
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
+}
+
 type AzureHostConfigObservation struct {
+
+	// (String) The external traffic policy for the cluster.
+	// The external traffic policy for the cluster.
+	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
+
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
+
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
+
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type AzureHostConfigParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// +kubebuilder:validation:Optional
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// +kubebuilder:validation:Optional
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
+type AzureInitParameters struct {
+
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
+	BackupPolicy []AzureBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+
+	// (String) ID of the cloud account to be used for the cluster. This cloud account must be of type azure.
+	// ID of the cloud account to be used for the cluster. This cloud account must be of type `azure`.
+	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	CloudConfig []AzureCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
+
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	ClusterProfile []AzureClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
+	ClusterRbacBinding []AzureClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
+	HostConfig []AzureHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// (Block Set, Min: 1) (see below for nested schema)
+	MachinePool []AzureMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
+	Namespaces []AzureNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// 01-02T15:04:05Z07:00
+	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
+	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
+
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
+	// Whether to apply OS patch on boot. Default is `false`.
+	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
+
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
+	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
+	ScanPolicy []AzureScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+	// If `true`, the cluster will be created asynchronously. Default value is `false`.
+	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
+
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type AzureLocationConfigInitParameters struct {
+}
+
 type AzureLocationConfigObservation struct {
+
+	// (String)
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String)
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number)
 	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number)
 	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String)
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String)
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
 type AzureLocationConfigParameters struct {
 }
 
+type AzureMachinePoolInitParameters struct {
+
+	// (Map of String)
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (Set of String) Availability zones for the machine pool. Check if your region provides availability zones on the Azure documentation. Default value is [""].
+	// Availability zones for the machine pool. Check if your region provides availability zones on [the Azure documentation](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support). Default value is `[""]`.
+	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
+	// Whether this machine pool is a control plane. Defaults to `false`.
+	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
+	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
+
+	// (Number) Number of nodes in the machine pool.
+	// Number of nodes in the machine pool.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Block List, Max: 1) Disk configuration for the machine pool. (see below for nested schema)
+	// Disk configuration for the machine pool.
+	Disk []DiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (String) Azure instance type from the Azure portal.
+	// Azure instance type from the Azure portal.
+	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+
+	// (Boolean) Whether this machine pool is a system node pool. Default value is `false'.
+	// Whether this machine pool is a system node pool. Default value is `false'.
+	IsSystemNodePool *bool `json:"isSystemNodePool,omitempty" tf:"is_system_node_pool,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the machine pool. This must be unique within the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Node []AzureMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
+	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []AzureMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type AzureMachinePoolNodeInitParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type AzureMachinePoolNodeObservation struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type AzureMachinePoolNodeParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	// +kubebuilder:validation:Optional
+	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
+}
+
 type AzureMachinePoolObservation struct {
+
+	// (Map of String)
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (Set of String) Availability zones for the machine pool. Check if your region provides availability zones on the Azure documentation. Default value is [""].
+	// Availability zones for the machine pool. Check if your region provides availability zones on [the Azure documentation](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support). Default value is `[""]`.
+	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
+	// Whether this machine pool is a control plane. Defaults to `false`.
+	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
+	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
+
+	// (Number) Number of nodes in the machine pool.
+	// Number of nodes in the machine pool.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Block List, Max: 1) Disk configuration for the machine pool. (see below for nested schema)
+	// Disk configuration for the machine pool.
+	Disk []DiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (String) Azure instance type from the Azure portal.
+	// Azure instance type from the Azure portal.
+	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+
+	// (Boolean) Whether this machine pool is a system node pool. Default value is `false'.
+	// Whether this machine pool is a system node pool. Default value is `false'.
+	IsSystemNodePool *bool `json:"isSystemNodePool,omitempty" tf:"is_system_node_pool,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the machine pool. This must be unique within the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Node []AzureMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
+	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []AzureMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type AzureMachinePoolParameters struct {
 
+	// (Map of String)
 	// +kubebuilder:validation:Optional
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// Availability zones for the machine pool.
-	// +kubebuilder:validation:Required
-	Azs []*string `json:"azs" tf:"azs,omitempty"`
+	// (Set of String) Availability zones for the machine pool. Check if your region provides availability zones on the Azure documentation. Default value is [""].
+	// Availability zones for the machine pool. Check if your region provides availability zones on [the Azure documentation](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support). Default value is `[""]`.
+	// +kubebuilder:validation:Optional
+	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
+	// (Block List, Max: 1) Disk configuration for the machine pool. (see below for nested schema)
 	// Disk configuration for the machine pool.
 	// +kubebuilder:validation:Optional
 	Disk []DiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// (String) Azure instance type from the Azure portal.
 	// Azure instance type from the Azure portal.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
+	// (Boolean) Whether this machine pool is a system node pool. Default value is `false'.
 	// Whether this machine pool is a system node pool. Default value is `false'.
 	// +kubebuilder:validation:Optional
 	IsSystemNodePool *bool `json:"isSystemNodePool,omitempty" tf:"is_system_node_pool,omitempty"`
 
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// Name of the machine pool. This must be unique within the cluster.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Node []AzureMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	// +kubebuilder:validation:Optional
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []AzureMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
+type AzureMachinePoolTaintsInitParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
 type AzureMachinePoolTaintsObservation struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AzureMachinePoolTaintsParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
 
+type AzureNamespacesInitParameters struct {
+
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
+	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
+	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
+}
+
 type AzureNamespacesObservation struct {
+
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
+	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
+	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type AzureNamespacesParameters struct {
 
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	// +kubebuilder:validation:Optional
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type AzureObservation struct {
 
+	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
+	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
+
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
+	BackupPolicy []AzureBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+
+	// (String) ID of the cloud account to be used for the cluster. This cloud account must be of type azure.
+	// ID of the cloud account to be used for the cluster. This cloud account must be of type `azure`.
+	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	CloudConfig []AzureCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
+
+	// (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
 	// ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// +kubebuilder:validation:Optional
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
 	ClusterProfile []AzureClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
+	ClusterRbacBinding []AzureClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
+	HostConfig []AzureHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
 	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
 	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
 
+	// (List of Object) The location of the cluster. (see below for nested schema)
+	// The location of the cluster.
 	LocationConfig []AzureLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
+
+	// (Block Set, Min: 1) (see below for nested schema)
+	MachinePool []AzureMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
+	Namespaces []AzureNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// 01-02T15:04:05Z07:00
+	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
+	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
+
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
+	// Whether to apply OS patch on boot. Default is `false`.
+	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
+
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
+	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
+	ScanPolicy []AzureScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+	// If `true`, the cluster will be created asynchronously. Default value is `false`.
+	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
+
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type AzureParameters struct {
 
-	// Apply setting for the cluster. This can be set to `on_create` or `on_update`.
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	// +kubebuilder:validation:Optional
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
 	BackupPolicy []AzureBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String) ID of the cloud account to be used for the cluster. This cloud account must be of type azure.
 	// ID of the cloud account to be used for the cluster. This cloud account must be of type `azure`.
-	// +kubebuilder:validation:Required
-	CloudAccountID *string `json:"cloudAccountId" tf:"cloud_account_id,omitempty"`
+	// +kubebuilder:validation:Optional
+	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
-	// +kubebuilder:validation:Required
-	CloudConfig []AzureCloudConfigParameters `json:"cloudConfig" tf:"cloud_config,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	CloudConfig []AzureCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	// +kubebuilder:validation:Optional
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []AzureClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []AzureClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// +kubebuilder:validation:Optional
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// +kubebuilder:validation:Optional
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []AzureHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
-	// +kubebuilder:validation:Required
-	MachinePool []AzureMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+	// (Block Set, Min: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MachinePool []AzureMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []AzureNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	// +kubebuilder:validation:Optional
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	// +kubebuilder:validation:Optional
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	// +kubebuilder:validation:Optional
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	// +kubebuilder:validation:Optional
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ScanPolicy []AzureScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
+type AzureScanPolicyInitParameters struct {
+
+	// (String) The schedule for configuration scan.
+	// The schedule for configuration scan.
+	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
+
+	// (String) The schedule for conformance scan.
+	// The schedule for conformance scan.
+	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
+
+	// (String) The schedule for penetration scan.
+	// The schedule for penetration scan.
+	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
+}
+
 type AzureScanPolicyObservation struct {
+
+	// (String) The schedule for configuration scan.
+	// The schedule for configuration scan.
+	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
+
+	// (String) The schedule for conformance scan.
+	// The schedule for conformance scan.
+	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
+
+	// (String) The schedule for penetration scan.
+	// The schedule for penetration scan.
+	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type AzureScanPolicyParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
+type ClusterProfilePackManifestInitParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
 type ClusterProfilePackManifestObservation struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ClusterProfilePackManifestParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
+type ControlPlaneSubnetInitParameters struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
+}
+
+type ControlPlaneSubnetObservation struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
+}
+
+type ControlPlaneSubnetParameters struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// +kubebuilder:validation:Optional
+	CidrBlock *string `json:"cidrBlock" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	// +kubebuilder:validation:Optional
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
+}
+
+type DiskInitParameters struct {
+
+	// (Number) Size of the disk in GB.
+	// Size of the disk in GB.
+	SizeGb *float64 `json:"sizeGb,omitempty" tf:"size_gb,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// Type of the disk. Valid values are `Standard_LRS`, `StandardSSD_LRS`, `Premium_LRS`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type DiskObservation struct {
+
+	// (Number) Size of the disk in GB.
+	// Size of the disk in GB.
+	SizeGb *float64 `json:"sizeGb,omitempty" tf:"size_gb,omitempty"`
+
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
+	// Type of the disk. Valid values are `Standard_LRS`, `StandardSSD_LRS`, `Premium_LRS`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type DiskParameters struct {
 
+	// (Number) Size of the disk in GB.
 	// Size of the disk in GB.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	SizeGb *float64 `json:"sizeGb" tf:"size_gb,omitempty"`
 
+	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
 	// Type of the disk. Valid values are `Standard_LRS`, `StandardSSD_LRS`, `Premium_LRS`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type WorkerNodeSubnetInitParameters struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
+}
+
+type WorkerNodeSubnetObservation struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
+}
+
+type WorkerNodeSubnetParameters struct {
+
+	// (String) CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// CidrBlock is the CIDR block to be used when the provider creates a managed virtual network.
+	// +kubebuilder:validation:Optional
+	CidrBlock *string `json:"cidrBlock" tf:"cidr_block,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// Name of the subnet.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Network Security Group(NSG) to be attached to subnet.
+	// Network Security Group(NSG) to be attached to subnet.
+	// +kubebuilder:validation:Optional
+	SecurityGroupName *string `json:"securityGroupName,omitempty" tf:"security_group_name,omitempty"`
 }
 
 // AzureSpec defines the desired state of Azure
 type AzureSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     AzureParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider AzureInitParameters `json:"initProvider,omitempty"`
 }
 
 // AzureStatus defines the observed state of Azure.
@@ -426,7 +1475,7 @@ type AzureStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Azure is the Schema for the Azures API. <no value>
+// Azure is the Schema for the Azures API. Resource for managing Azure clusters in Spectro Cloud through Palette.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -436,8 +1485,11 @@ type AzureStatus struct {
 type Azure struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AzureSpec   `json:"spec"`
-	Status            AzureStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccountId) || (has(self.initProvider) && has(self.initProvider.cloudAccountId))",message="spec.forProvider.cloudAccountId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	Spec   AzureSpec   `json:"spec"`
+	Status AzureStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

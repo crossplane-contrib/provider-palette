@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,371 +17,1273 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type EdgeHostInitParameters struct {
+
+	// (String) Edge host name
+	// Edge host name
+	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
+
+	// (String) Edge host id
+	// Edge host id
+	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
+
+	// (String) Edge host static IP
+	// Edge host static IP
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Two node role for edge host. Valid values are primary and secondary.
+	// Two node role for edge host. Valid values are `primary` and `secondary`.
+	TwoNodeRole *string `json:"twoNodeRole,omitempty" tf:"two_node_role,omitempty"`
+}
+
+type EdgeHostObservation struct {
+
+	// (String) Edge host name
+	// Edge host name
+	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
+
+	// (String) Edge host id
+	// Edge host id
+	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
+
+	// (String) Edge host static IP
+	// Edge host static IP
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Two node role for edge host. Valid values are primary and secondary.
+	// Two node role for edge host. Valid values are `primary` and `secondary`.
+	TwoNodeRole *string `json:"twoNodeRole,omitempty" tf:"two_node_role,omitempty"`
+}
+
+type EdgeHostParameters struct {
+
+	// (String) Edge host name
+	// Edge host name
+	// +kubebuilder:validation:Optional
+	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
+
+	// (String) Edge host id
+	// Edge host id
+	// +kubebuilder:validation:Optional
+	HostUID *string `json:"hostUid" tf:"host_uid,omitempty"`
+
+	// (String) Edge host static IP
+	// Edge host static IP
+	// +kubebuilder:validation:Optional
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Two node role for edge host. Valid values are primary and secondary.
+	// Two node role for edge host. Valid values are `primary` and `secondary`.
+	// +kubebuilder:validation:Optional
+	TwoNodeRole *string `json:"twoNodeRole,omitempty" tf:"two_node_role,omitempty"`
+}
+
+type EdgeNativeBackupPolicyInitParameters struct {
+
+	// (String) The ID of the backup location to use for the backup.
+	// The ID of the backup location to use for the backup.
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
+
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
+
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
+	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
+
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// -.
+	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
+	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
+
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+}
+
 type EdgeNativeBackupPolicyObservation struct {
+
+	// (String) The ID of the backup location to use for the backup.
+	// The ID of the backup location to use for the backup.
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
+
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
+
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
+	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
+
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// -.
+	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
+	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
+
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type EdgeNativeBackupPolicyParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ExpiryInHour *float64 `json:"expiryInHour" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
 	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
 }
 
+type EdgeNativeCloudConfigInitParameters struct {
+
+	// (Set of String) A list of NTP servers to be used by the cluster.
+	// A list of NTP servers to be used by the cluster.
+	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`
+	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
+
+	// (Set of String) List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	// List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
+
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
+	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
+}
+
 type EdgeNativeCloudConfigObservation struct {
+
+	// (Set of String) A list of NTP servers to be used by the cluster.
+	// A list of NTP servers to be used by the cluster.
+	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`
+	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
+
+	// (Set of String) List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	// List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
+
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
+	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
 type EdgeNativeCloudConfigParameters struct {
 
+	// (Set of String) A list of NTP servers to be used by the cluster.
+	// A list of NTP servers to be used by the cluster.
 	// +kubebuilder:validation:Optional
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
-	// +kubebuilder:validation:Required
-	SSHKey *string `json:"sshKey" tf:"ssh_key,omitempty"`
+	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`
+	// +kubebuilder:validation:Optional
+	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
 
+	// (Set of String) List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	// List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
+	// +kubebuilder:validation:Optional
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
+
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
 	// +kubebuilder:validation:Optional
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
+type EdgeNativeClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
+	Pack []EdgeNativeClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+}
+
 type EdgeNativeClusterProfileObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// (String) The ID of this resource.
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []EdgeNativeClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type EdgeNativeClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	Manifest []EdgeNativeClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String)
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type EdgeNativeClusterProfilePackManifestInitParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String)
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
 type EdgeNativeClusterProfilePackManifestObservation struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String)
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type EdgeNativeClusterProfilePackManifestParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// (String)
 	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type EdgeNativeClusterProfilePackObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// (Block List) (see below for nested schema)
 	Manifest []EdgeNativeClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String)
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type EdgeNativeClusterProfilePackParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Manifest []EdgeNativeClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String)
 	// The name of the pack. The name must be unique within the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// The tag of the pack. The tag is the version of the pack.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// +kubebuilder:validation:Required
-	Values *string `json:"values" tf:"values,omitempty"`
+	// +kubebuilder:validation:Optional
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type EdgeNativeClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []EdgeNativeClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type EdgeNativeClusterRbacBindingInitParameters struct {
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Subjects []EdgeNativeClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type EdgeNativeClusterRbacBindingObservation struct {
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Subjects []EdgeNativeClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeNativeClusterRbacBindingParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Subjects []EdgeNativeClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type EdgeNativeClusterRbacBindingSubjectsInitParameters struct {
+
+	// (String)
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type EdgeNativeClusterRbacBindingSubjectsObservation struct {
+
+	// (String)
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeNativeClusterRbacBindingSubjectsParameters struct {
 
+	// (String)
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type EdgeNativeHostConfigInitParameters struct {
+
+	// (String) The external traffic policy for the cluster.
+	// The external traffic policy for the cluster.
+	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
+
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
+
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
+
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
+}
+
 type EdgeNativeHostConfigObservation struct {
+
+	// (String) The external traffic policy for the cluster.
+	// The external traffic policy for the cluster.
+	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
+
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
+
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
+
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type EdgeNativeHostConfigParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// +kubebuilder:validation:Optional
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// +kubebuilder:validation:Optional
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
+type EdgeNativeInitParameters struct {
+
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
+	BackupPolicy []EdgeNativeBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+
+	// (String)
+	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	CloudConfig []EdgeNativeCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
+
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	ClusterProfile []EdgeNativeClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
+	ClusterRbacBinding []EdgeNativeClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
+	HostConfig []EdgeNativeHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	LocationConfig []EdgeNativeLocationConfigInitParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
+
+	// (Block Set, Min: 1) (see below for nested schema)
+	MachinePool []EdgeNativeMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
+	Namespaces []EdgeNativeNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// 01-02T15:04:05Z07:00
+	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
+	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
+
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
+	// Whether to apply OS patch on boot. Default is `false`.
+	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
+
+	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
+	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
+	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
+	ScanPolicy []EdgeNativeScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+	// If `true`, the cluster will be created asynchronously. Default value is `false`.
+	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
+
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type EdgeNativeLocationConfigInitParameters struct {
+
+	// (String) The country code of the country the cluster is located in.
+	// The country code of the country the cluster is located in.
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// (String) The name of the country.
+	// The name of the country.
+	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
+
+	// (Number) The latitude coordinates value.
+	// The latitude coordinates value.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// (Number) The longitude coordinates value.
+	// The longitude coordinates value.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// (String) The region code of where the cluster is located in.
+	// The region code of where the cluster is located in.
+	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
+
+	// (String) The name of the region.
+	// The name of the region.
+	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
+}
+
 type EdgeNativeLocationConfigObservation struct {
+
+	// (String) The country code of the country the cluster is located in.
+	// The country code of the country the cluster is located in.
+	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
+
+	// (String) The name of the country.
+	// The name of the country.
+	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
+
+	// (Number) The latitude coordinates value.
+	// The latitude coordinates value.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// (Number) The longitude coordinates value.
+	// The longitude coordinates value.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// (String) The region code of where the cluster is located in.
+	// The region code of where the cluster is located in.
+	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
+
+	// (String) The name of the region.
+	// The name of the region.
+	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
 type EdgeNativeLocationConfigParameters struct {
 
+	// (String) The country code of the country the cluster is located in.
 	// The country code of the country the cluster is located in.
 	// +kubebuilder:validation:Optional
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String) The name of the country.
 	// The name of the country.
 	// +kubebuilder:validation:Optional
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number) The latitude coordinates value.
 	// The latitude coordinates value.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Latitude *float64 `json:"latitude" tf:"latitude,omitempty"`
 
+	// (Number) The longitude coordinates value.
 	// The longitude coordinates value.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Longitude *float64 `json:"longitude" tf:"longitude,omitempty"`
 
+	// (String) The region code of where the cluster is located in.
 	// The region code of where the cluster is located in.
 	// +kubebuilder:validation:Optional
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String) The name of the region.
 	// The name of the region.
 	// +kubebuilder:validation:Optional
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
+type EdgeNativeMachinePoolInitParameters struct {
+
+	// (Map of String)
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
+	// Whether this machine pool is a control plane. Defaults to `false`.
+	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
+	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
+
+	// (Block List, Min: 1) (see below for nested schema)
+	EdgeHost []EdgeHostInitParameters `json:"edgeHost,omitempty" tf:"edge_host,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Node []EdgeNativeMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []EdgeNativeMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type EdgeNativeMachinePoolNodeInitParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type EdgeNativeMachinePoolNodeObservation struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type EdgeNativeMachinePoolNodeParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	// +kubebuilder:validation:Optional
+	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
+}
+
 type EdgeNativeMachinePoolObservation struct {
+
+	// (Map of String)
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
+	// Whether this machine pool is a control plane. Defaults to `false`.
+	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
+
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
+	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
+
+	// (Block List, Min: 1) (see below for nested schema)
+	EdgeHost []EdgeHostObservation `json:"edgeHost,omitempty" tf:"edge_host,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Node []EdgeNativeMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []EdgeNativeMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
+
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type EdgeNativeMachinePoolParameters struct {
 
+	// (Map of String)
 	// +kubebuilder:validation:Optional
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	HostUids []*string `json:"hostUids,omitempty" tf:"host_uids,omitempty"`
+	EdgeHost []EdgeHostParameters `json:"edgeHost" tf:"edge_host,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Node []EdgeNativeMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []EdgeNativeMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
+type EdgeNativeMachinePoolTaintsInitParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
 type EdgeNativeMachinePoolTaintsObservation struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type EdgeNativeMachinePoolTaintsParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
 
+type EdgeNativeNamespacesInitParameters struct {
+
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
+	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
+	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
+
+	// (String)
+	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
+}
+
 type EdgeNativeNamespacesObservation struct {
+
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
+	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
+	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
+
+	// (String)
+	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type EdgeNativeNamespacesParameters struct {
 
+	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	// +kubebuilder:validation:Optional
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
+	// (String)
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
 type EdgeNativeObservation struct {
 
+	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
+	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
+
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
+	BackupPolicy []EdgeNativeBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+
+	// (String)
+	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	CloudConfig []EdgeNativeCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
+
+	// (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
 	// ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// +kubebuilder:validation:Optional
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
 	ClusterProfile []EdgeNativeClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
+	ClusterRbacBinding []EdgeNativeClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
+	HostConfig []EdgeNativeHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
 	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
 	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	LocationConfig []EdgeNativeLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
+
+	// (Block Set, Min: 1) (see below for nested schema)
+	MachinePool []EdgeNativeMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
+	Namespaces []EdgeNativeNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+
+	// 01-02T15:04:05Z07:00
+	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
+	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
+
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
+	// Whether to apply OS patch on boot. Default is `false`.
+	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
+
+	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
+	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
+	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
+	ScanPolicy []EdgeNativeScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+	// If `true`, the cluster will be created asynchronously. Default value is `false`.
+	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
+
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type EdgeNativeParameters struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	// +kubebuilder:validation:Optional
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
 	BackupPolicy []EdgeNativeBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
-	// +kubebuilder:validation:Required
-	CloudConfig []EdgeNativeCloudConfigParameters `json:"cloudConfig" tf:"cloud_config,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	CloudConfig []EdgeNativeCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
+	// +kubebuilder:validation:Optional
+	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []EdgeNativeClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
+	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The description of the cluster. Default value is empty string.
+	// The description of the cluster. Default value is empty string.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+	// +kubebuilder:validation:Optional
+	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
+
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+	// +kubebuilder:validation:Optional
+	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
+
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
+	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []EdgeNativeHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	LocationConfig []EdgeNativeLocationConfigParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// +kubebuilder:validation:Required
-	MachinePool []EdgeNativeMachinePoolParameters `json:"machinePool" tf:"machine_pool,omitempty"`
+	// (Block Set, Min: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MachinePool []EdgeNativeMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []EdgeNativeNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	// +kubebuilder:validation:Optional
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
 	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
 	// +kubebuilder:validation:Optional
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+	// +kubebuilder:validation:Optional
+	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
+	// +kubebuilder:validation:Optional
+	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
+
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ScanPolicy []EdgeNativeScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
+type EdgeNativeScanPolicyInitParameters struct {
+
+	// (String) The schedule for configuration scan.
+	// The schedule for configuration scan.
+	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
+
+	// (String) The schedule for conformance scan.
+	// The schedule for conformance scan.
+	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
+
+	// (String) The schedule for penetration scan.
+	// The schedule for penetration scan.
+	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
+}
+
 type EdgeNativeScanPolicyObservation struct {
+
+	// (String) The schedule for configuration scan.
+	// The schedule for configuration scan.
+	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
+
+	// (String) The schedule for conformance scan.
+	// The schedule for conformance scan.
+	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
+
+	// (String) The schedule for penetration scan.
+	// The schedule for penetration scan.
+	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type EdgeNativeScanPolicyParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
@@ -385,6 +1291,17 @@ type EdgeNativeScanPolicyParameters struct {
 type EdgeNativeSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     EdgeNativeParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider EdgeNativeInitParameters `json:"initProvider,omitempty"`
 }
 
 // EdgeNativeStatus defines the observed state of EdgeNative.
@@ -395,7 +1312,7 @@ type EdgeNativeStatus struct {
 
 // +kubebuilder:object:root=true
 
-// EdgeNative is the Schema for the EdgeNatives API. <no value>
+// EdgeNative is the Schema for the EdgeNatives API. Resource for managing Edge Native clusters in Spectro Cloud through Palette.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -405,8 +1322,10 @@ type EdgeNativeStatus struct {
 type EdgeNative struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              EdgeNativeSpec   `json:"spec"`
-	Status            EdgeNativeStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	Spec   EdgeNativeSpec   `json:"spec"`
+	Status EdgeNativeStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

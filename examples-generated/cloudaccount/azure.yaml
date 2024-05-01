@@ -1,0 +1,16 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/azure
+  labels:
+    testing.upbound.io/example-name: azure-1
+  name: azure-1
+spec:
+  forProvider:
+    azureClientId: ${var.azure_client_id}
+    azureClientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    azureTenantId: ${var.azure_tenant_id}

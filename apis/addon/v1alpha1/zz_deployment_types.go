@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,61 +17,153 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ClusterProfileInitParameters struct {
+
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
+	Pack []PackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+}
+
 type ClusterProfileObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// The ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []PackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
 type ClusterProfileParameters struct {
 
 	// The ID of the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
 
+	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []PackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 }
 
+type DeploymentInitParameters struct {
+
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
+	ClusterProfile []ClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// Specifies cluster context where addon profile is attached. Allowed values are `project` or `tenant`. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+}
+
 type DeploymentObservation struct {
 
-	// +kubebuilder:validation:Optional
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
+	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
+
 	ClusterProfile []ClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// Specifies cluster context where addon profile is attached. Allowed values are `project` or `tenant`. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type DeploymentParameters struct {
 
+	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	// +kubebuilder:validation:Optional
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
-	// +kubebuilder:validation:Required
-	ClusterUID *string `json:"clusterUid" tf:"cluster_uid,omitempty"`
+	// +kubebuilder:validation:Optional
+	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// Specifies cluster context where addon profile is attached. Allowed values are `project` or `tenant`. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+}
+
+type ManifestInitParameters struct {
+
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ManifestObservation struct {
+
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ManifestParameters struct {
 
 	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
 	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
-type PackObservation struct {
+type PackInitParameters struct {
+	Manifest []ManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// +kubebuilder:validation:Optional
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type PackObservation struct {
 	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type PackParameters struct {
@@ -76,33 +172,45 @@ type PackParameters struct {
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// The name of the pack. The name must be unique within the cluster profile.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// The tag of the pack. The tag is the version of the pack.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// +kubebuilder:validation:Required
-	Values *string `json:"values" tf:"values,omitempty"`
+	// +kubebuilder:validation:Optional
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 // DeploymentSpec defines the desired state of Deployment
 type DeploymentSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     DeploymentParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider DeploymentInitParameters `json:"initProvider,omitempty"`
 }
 
 // DeploymentStatus defines the observed state of Deployment.
@@ -123,8 +231,9 @@ type DeploymentStatus struct {
 type Deployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              DeploymentSpec   `json:"spec"`
-	Status            DeploymentStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterUid) || (has(self.initProvider) && has(self.initProvider.clusterUid))",message="spec.forProvider.clusterUid is a required parameter"
+	Spec   DeploymentSpec   `json:"spec"`
+	Status DeploymentStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

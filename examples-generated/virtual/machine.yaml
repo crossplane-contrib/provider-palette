@@ -1,0 +1,61 @@
+apiVersion: virtual.palette.crossplane.io/v1alpha1
+kind: Machine
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtual/v1alpha1/machine
+  labels:
+    testing.upbound.io/example-name: tf-test-vm-basic-type
+  name: tf-test-vm-basic-type
+spec:
+  forProvider:
+    clusterContext: ${data.spectrocloud_cluster.vm_enabled_base_cluster.context}
+    clusterUid: ${data.spectrocloud_cluster.vm_enabled_base_cluster.id}
+    cpu:
+    - cores: 2
+      sockets: 1
+      threads: 10
+    disk:
+    - diskDevice:
+      - disk:
+        - bus: virtio
+      name: containerdisk
+    - diskDevice:
+      - disk:
+        - bus: virtio
+      name: cloudintdisk
+    interface:
+    - interfaceBindingMethod: InterfaceMasquerade
+      name: default
+    labels:
+      tf: test
+    memory:
+    - guest: 1Gi
+    namespace: default
+    network:
+    - name: default
+      networkSource:
+      - pod:
+        - {}
+    resources:
+    - limits:
+        cpu: 2
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+    runOnLaunch: true
+    volume:
+    - name: containerdisk
+      volumeSource:
+      - containerDisk:
+        - imageUrl: gcr.io/spectro-images-public/release/vm-dashboard/os/ubuntu-container-disk:20.04
+    - name: cloudintdisk
+      volumeSource:
+      - cloudInitConfigDrive:
+        - userData: |2
+
+            #cloud-config
+            ssh_pwauth: True
+            chpasswd: { expire: False }
+            password: spectro
+            disable_root: false

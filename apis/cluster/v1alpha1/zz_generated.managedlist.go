@@ -34,8 +34,8 @@ func (l *AzureList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this EdgeList.
-func (l *EdgeList) GetItems() []resource.Managed {
+// GetItems of this CustomCloudList.
+func (l *CustomCloudList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -72,6 +72,15 @@ func (l *EksList) GetItems() []resource.Managed {
 
 // GetItems of this GCPList.
 func (l *GCPList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this GkeList.
+func (l *GkeList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

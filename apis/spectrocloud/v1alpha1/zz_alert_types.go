@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,69 +17,192 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AlertInitParameters struct {
+
+	// (Boolean)
+	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
+
+	// (String)
+	Component *string `json:"component,omitempty" tf:"component,omitempty"`
+
+	// (String)
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	HTTP []HTTPInitParameters `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Set of String)
+	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
+
+	// (Boolean)
+	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
+
+	// (String)
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Status []StatusInitParameters `json:"status,omitempty" tf:"status,omitempty"`
+
+	// (String)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type AlertObservation struct {
+
+	// (Boolean)
+	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
+
+	// (String)
+	Component *string `json:"component,omitempty" tf:"component,omitempty"`
+
+	// (String)
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	HTTP []HTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Set of String)
+	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
+
+	// (Boolean)
+	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
+
+	// (String)
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
+
+	// (String)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AlertParameters struct {
 
+	// (Boolean)
 	// +kubebuilder:validation:Optional
 	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Component *string `json:"component" tf:"component,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	HTTP []HTTPParameters `json:"http,omitempty" tf:"http,omitempty"`
 
+	// (Set of String)
 	// +kubebuilder:validation:Optional
 	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
 
-	// +kubebuilder:validation:Required
-	IsActive *bool `json:"isActive" tf:"is_active,omitempty"`
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Project *string `json:"project" tf:"project,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Status []StatusParameters `json:"status,omitempty" tf:"status,omitempty"`
 
-	// +kubebuilder:validation:Required
-	Type *string `json:"type" tf:"type,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type HTTPInitParameters struct {
+
+	// (String)
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Map of String)
+	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String)
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (String)
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type HTTPObservation struct {
+
+	// (String)
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Map of String)
+	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String)
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (String)
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type HTTPParameters struct {
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	Body *string `json:"body" tf:"body,omitempty"`
 
+	// (Map of String)
 	// +kubebuilder:validation:Optional
 	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	Method *string `json:"method" tf:"method,omitempty"`
 
-	// +kubebuilder:validation:Required
+	// (String)
+	// +kubebuilder:validation:Optional
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type StatusInitParameters struct {
+
+	// (Boolean)
+	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
+
+	// (String)
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String)
+	Time *string `json:"time,omitempty" tf:"time,omitempty"`
+}
+
 type StatusObservation struct {
+
+	// (Boolean)
+	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
+
+	// (String)
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String)
+	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
 
 type StatusParameters struct {
 
+	// (Boolean)
 	// +kubebuilder:validation:Optional
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
@@ -84,6 +211,17 @@ type StatusParameters struct {
 type AlertSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     AlertParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider AlertInitParameters `json:"initProvider,omitempty"`
 }
 
 // AlertStatus defines the observed state of Alert.
@@ -94,7 +232,7 @@ type AlertStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Alert is the Schema for the Alerts API. <no value>
+// Alert is the Schema for the Alerts API.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -104,8 +242,12 @@ type AlertStatus struct {
 type Alert struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AlertSpec   `json:"spec"`
-	Status            AlertStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.component) || (has(self.initProvider) && has(self.initProvider.component))",message="spec.forProvider.component is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isActive) || (has(self.initProvider) && has(self.initProvider.isActive))",message="spec.forProvider.isActive is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.project) || (has(self.initProvider) && has(self.initProvider.project))",message="spec.forProvider.project is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
+	Spec   AlertSpec   `json:"spec"`
+	Status AlertStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
