@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,6 +17,7 @@ type MacrosInitParameters struct {
 
 	// value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
+	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
 
 	// (String) The Spectro Cloud project name.
@@ -35,6 +32,7 @@ type MacrosObservation struct {
 
 	// value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
+	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
 
 	// (String) The Spectro Cloud project name.
@@ -47,6 +45,7 @@ type MacrosParameters struct {
 	// value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
 
 	// (String) The Spectro Cloud project name.
@@ -79,13 +78,14 @@ type MacrosStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Macros is the Schema for the Macross API. A resource for creating and managing service output variables and macros.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Macros struct {
 	metav1.TypeMeta   `json:",inline"`

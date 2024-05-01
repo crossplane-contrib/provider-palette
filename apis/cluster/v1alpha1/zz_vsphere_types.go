@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -23,6 +19,7 @@ type VsphereBackupPolicyInitParameters struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -38,6 +35,7 @@ type VsphereBackupPolicyInitParameters struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -53,6 +51,7 @@ type VsphereBackupPolicyObservation struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -68,6 +67,7 @@ type VsphereBackupPolicyObservation struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -85,6 +85,7 @@ type VsphereBackupPolicyParameters struct {
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -105,6 +106,7 @@ type VsphereBackupPolicyParameters struct {
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -134,12 +136,14 @@ type VsphereCloudConfigInitParameters struct {
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
 	// A list of NTP servers to be used by the cluster.
+	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
 	// The SSH key to be used for the cluster. This is the public key that will be used to access the cluster nodes. `ssh_key & ssh_keys` are mutually exclusive.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	// Whether to use static IP addresses for the cluster. If `true`, the cluster will use static IP addresses. If `false`, the cluster will use DDNS. Default is `false`.
@@ -164,12 +168,14 @@ type VsphereCloudConfigObservation struct {
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
 	// A list of NTP servers to be used by the cluster.
+	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
 	// The SSH key to be used for the cluster. This is the public key that will be used to access the cluster nodes. `ssh_key & ssh_keys` are mutually exclusive.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	// Whether to use static IP addresses for the cluster. If `true`, the cluster will use static IP addresses. If `false`, the cluster will use DDNS. Default is `false`.
@@ -200,6 +206,7 @@ type VsphereCloudConfigParameters struct {
 
 	// A list of NTP servers to be used by the cluster.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
 	// The SSH key to be used for the cluster. This is the public key that will be used to access the cluster nodes. `ssh_key & ssh_keys` are mutually exclusive.
@@ -208,6 +215,7 @@ type VsphereCloudConfigParameters struct {
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	// Whether to use static IP addresses for the cluster. If `true`, the cluster will use static IP addresses. If `false`, the cluster will use DDNS. Default is `false`.
@@ -355,6 +363,7 @@ type VsphereClusterRbacBindingInitParameters struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []VsphereClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -369,6 +378,7 @@ type VsphereClusterRbacBindingObservation struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []VsphereClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -385,6 +395,7 @@ type VsphereClusterRbacBindingParameters struct {
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -548,6 +559,7 @@ type VsphereInitParameters struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -621,6 +633,8 @@ type VsphereLocationConfigParameters struct {
 }
 
 type VsphereMachinePoolInitParameters struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -725,6 +739,8 @@ type VsphereMachinePoolNodeParameters struct {
 }
 
 type VsphereMachinePoolObservation struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -763,6 +779,7 @@ type VsphereMachinePoolObservation struct {
 type VsphereMachinePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -919,6 +936,7 @@ type VsphereNamespacesInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -931,6 +949,7 @@ type VsphereNamespacesObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -946,6 +965,7 @@ type VsphereNamespacesParameters struct {
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
@@ -1025,6 +1045,7 @@ type VsphereObservation struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -1116,6 +1137,7 @@ type VsphereParameters struct {
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -1182,13 +1204,14 @@ type VsphereStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Vsphere is the Schema for the Vspheres API. <no value>
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Vsphere struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -101,6 +97,7 @@ type AksInitParameters struct {
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -207,6 +204,7 @@ type AksObservation struct {
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -316,6 +314,7 @@ type AksParameters struct {
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -327,6 +326,7 @@ type BackupPolicyInitParameters struct {
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -347,6 +347,7 @@ type BackupPolicyInitParameters struct {
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -366,6 +367,7 @@ type BackupPolicyObservation struct {
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -386,6 +388,7 @@ type BackupPolicyObservation struct {
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -407,6 +410,7 @@ type BackupPolicyParameters struct {
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -432,6 +436,7 @@ type BackupPolicyParameters struct {
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -643,6 +648,7 @@ type ClusterRbacBindingInitParameters struct {
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -661,6 +667,7 @@ type ClusterRbacBindingObservation struct {
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -681,6 +688,7 @@ type ClusterRbacBindingParameters struct {
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -784,6 +792,7 @@ type LocationConfigParameters struct {
 type MachinePoolInitParameters struct {
 
 	// (Map of String)
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
@@ -827,6 +836,7 @@ type MachinePoolInitParameters struct {
 type MachinePoolObservation struct {
 
 	// (Map of String)
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
@@ -871,6 +881,7 @@ type MachinePoolParameters struct {
 
 	// (Map of String)
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
@@ -972,6 +983,7 @@ type NamespacesInitParameters struct {
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -987,6 +999,7 @@ type NamespacesObservation struct {
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -1005,6 +1018,7 @@ type NamespacesParameters struct {
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
@@ -1308,13 +1322,14 @@ type AksStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Aks is the Schema for the Akss API. Resource for managing AKS clusters in Spectro Cloud through Palette.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Aks struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -96,6 +96,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -123,6 +124,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -241,6 +243,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -373,6 +376,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -430,6 +434,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: |-
@@ -467,6 +472,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -494,6 +500,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -612,6 +619,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -744,6 +752,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -801,6 +810,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -1019,6 +1029,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -1046,6 +1057,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -1173,6 +1185,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -1323,6 +1336,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -1380,6 +1394,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

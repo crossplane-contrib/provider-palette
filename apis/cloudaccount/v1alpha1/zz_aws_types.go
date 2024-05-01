@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -38,6 +34,7 @@ type AwsInitParameters struct {
 
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
+	// +listType=set
 	PolicyArns []*string `json:"policyArns,omitempty" tf:"policy_arns,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -73,6 +70,7 @@ type AwsObservation struct {
 
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
+	// +listType=set
 	PolicyArns []*string `json:"policyArns,omitempty" tf:"policy_arns,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -118,6 +116,7 @@ type AwsParameters struct {
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	PolicyArns []*string `json:"policyArns,omitempty" tf:"policy_arns,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -155,13 +154,14 @@ type AwsStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Aws is the Schema for the Awss API.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Aws struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -82,10 +82,12 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   nameserverSearchSuffix:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   networkType:
                     type: string
                   prefix:
@@ -120,10 +122,12 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   nameserverSearchSuffix:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   networkType:
                     type: string
                   prefix:
@@ -336,10 +340,12 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   nameserverSearchSuffix:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   networkType:
                     type: string
                   prefix:

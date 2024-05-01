@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -212,6 +212,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   type:
                     description: |-
                       on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
@@ -375,6 +376,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   type:
                     description: |-
                       on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
@@ -706,6 +708,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   type:
                     description: |-
                       on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.

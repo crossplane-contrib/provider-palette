@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -96,6 +96,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -123,6 +124,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -150,6 +152,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
                             (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
@@ -162,6 +165,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         vip:
                           description: |-
                             (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
@@ -257,6 +261,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -378,6 +383,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -492,6 +498,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -554,6 +561,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: |-
@@ -591,6 +599,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -618,6 +627,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -645,6 +655,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
                             (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
@@ -657,6 +668,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         vip:
                           description: |-
                             (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
@@ -752,6 +764,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -873,6 +886,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -987,6 +1001,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -1049,6 +1064,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -1259,6 +1275,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: |-
                             (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -1286,6 +1303,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: |-
                             -.
@@ -1313,6 +1331,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
                             (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
@@ -1325,6 +1344,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         vip:
                           description: |-
                             (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
@@ -1431,6 +1451,7 @@ spec:
                             (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -1560,6 +1581,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -1674,6 +1696,7 @@ spec:
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
                             Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
@@ -1736,6 +1759,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.
