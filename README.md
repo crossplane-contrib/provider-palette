@@ -66,11 +66,24 @@ Build, push, and install:
 make all
 ```
 
-Build binary:
+Build binaries:
 
 ```console
-make build
+make -j2 build
 ```
+
+### Debug with VSCode
+1. Build provider binaries:
+   ```console
+   make -j2 build
+   ```
+2. Install CRDs
+   ```console
+   kubectl apply -f package/crds/
+   ```
+3. Edit the `Debug` configuration in `.vscode/launch.json`:
+   - Ensure `env.KUBECONFIG` is correct
+4. Execute the `Debug` launch configuration
 
 ## Report a Bug
 
