@@ -4,7 +4,11 @@ Copyright 2022 Upbound Inc.
 
 package config
 
-import "github.com/crossplane/upjet/pkg/config"
+import (
+	"errors"
+
+	"github.com/crossplane/upjet/pkg/config"
+)
 
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
@@ -20,6 +24,10 @@ func ExternalNameConfigurations() config.ResourceOption {
 	return func(r *config.Resource) {
 		if e, ok := ExternalNameConfigs[r.Name]; ok {
 			r.ExternalName = e
+		} else {
+			// Default to NameAsExternalName, unless overridden via ExternalNameConfigs.
+			r.ExternalName = config.NameAsIdentifier
+			r.ExternalName.GetExternalNameFn = NameAsExternalName
 		}
 	}
 }
@@ -35,4 +43,12 @@ func ExternalNameConfigured() []string {
 		i++
 	}
 	return l
+}
+
+// NameAsExternalName returns tfstate["name"] as the resource's external name.
+func NameAsExternalName(tfstate map[string]any) (string, error) {
+	if id, ok := tfstate["name"].(string); ok && id != "" {
+		return id, nil
+	}
+	return "", errors.New("cannot find name in tfstate")
 }
