@@ -13,11 +13,11 @@
             "args": [
                 "--debug",
                 "--terraform-version=1.3.3",
-                "--terraform-provider-version=0.18.0",
+                "--terraform-provider-version=0.19.2",
                 "--terraform-provider-source=spectrocloud/spectrocloud"
             ],
             "env": {
-                "KUBECONFIG": "/Users/tylergillson/Downloads/ocm-spoke.kubeconfig",
+                "KUBECONFIG": "/Users/tylergillson/Downloads/oam-dev.kubeconfig",
                 // "TF_REATTACH_PROVIDERS": "{\"registry.terraform.io/spectrocloud/spectrocloud\":{\"Protocol\":\"grpc\",\"ProtocolVersion\":5,\"Pid\":100,\"Test\":true,\"Addr\":{\"Network\":\"unix\",\"String\":\"/var/folders/w1/sm7f2fb959j2xkxln196ksj40000gn/T/plugin2559404211\"}}}",
                 "UPBOUND_CONTEXT": "local"
             },
