@@ -1,6 +1,6 @@
 # Provider Palette
 
-`provider-palette` is a [Crossplane](https://crossplane.io/) provider built using [Upjet](https://github.com/crossplane/upjet) code generation tools. It exposes XRM-conformant managed resources for the [Palette API](https://docs.spectrocloud.com/api/). `provider-palette`, manages Palette resources declaratively using the [Spectro Cloud Palette Terraform provider](https://github.com/spectrocloud/terraform-provider-spectrocloud).
+`provider-palette` is a [Crossplane](https://crossplane.io/) provider built using [Upjet](https://github.com/crossplane/upjet) code generation tools. It exposes XRM-conformant managed resources for the [Palette API](https://docs.spectrocloud.com/api/). `provider-palette` manages Palette resources declaratively using the [Spectro Cloud Palette Terraform provider](https://github.com/spectrocloud/terraform-provider-spectrocloud).
 
 ## Getting Started
 
