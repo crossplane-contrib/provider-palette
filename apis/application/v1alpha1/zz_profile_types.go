@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -71,6 +67,7 @@ type PackInitParameters struct {
 
 	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// (String) The unique id of the registry to be used for the pack.
@@ -114,6 +111,7 @@ type PackObservation struct {
 
 	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// (String) The unique id of the registry to be used for the pack.
@@ -161,6 +159,7 @@ type PackParameters struct {
 	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// (String) The unique id of the registry to be used for the pack.
@@ -214,6 +213,7 @@ type ProfileInitParameters struct {
 
 	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String) Version of the profile. Default value is 1.0.0.
@@ -244,6 +244,7 @@ type ProfileObservation struct {
 
 	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String) Version of the profile. Default value is 1.0.0.
@@ -276,6 +277,7 @@ type ProfileParameters struct {
 	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String) Version of the profile. Default value is 1.0.0.
@@ -308,13 +310,14 @@ type ProfileStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Profile is the Schema for the Profiles API. Provisions an Application Profile. App Profiles are templates created with preconfigured services. You can create as many profiles as required, with multiple tiers serving different functionalities per use case.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Profile struct {
 	metav1.TypeMeta   `json:",inline"`

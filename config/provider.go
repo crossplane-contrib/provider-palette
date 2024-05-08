@@ -8,7 +8,7 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	ujconfig "github.com/crossplane/upjet/pkg/config"
+	"github.com/crossplane/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-palette/config/null"
 )
@@ -25,18 +25,19 @@ var providerSchema string
 var providerMetadata string
 
 // GetProvider returns provider configuration
-func GetProvider() *ujconfig.Provider {
-	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithRootGroup("palette.crossplane.io"),
-		ujconfig.WithDefaultResourceOptions(
+func GetProvider() *config.Provider {
+	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		config.WithShortName("palette"),
+		config.WithRootGroup("palette.crossplane.io"),
+		config.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
 		),
-		ujconfig.WithSkipList([]string{
+		config.WithSkipList([]string{
 			"import",
 		}),
 	)
 
-	for _, configure := range []func(provider *ujconfig.Provider){
+	for _, configure := range []func(provider *config.Provider){
 		// add custom config functions
 		null.Configure,
 	} {

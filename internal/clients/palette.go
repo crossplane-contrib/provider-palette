@@ -28,9 +28,9 @@ const (
 )
 
 const (
-	keyAPIURL      = "host"
-	keyProjectName = "project_name"
+	keyAPIEndpoint = "host"
 	keyAPIKey      = "api_key"
+	keyProjectName = "project_name"
 
 	// Palette credentials environment variable names
 
@@ -75,7 +75,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		// set provider configuration
 
 		ps.Configuration = map[string]interface{}{
-			keyAPIURL:      paletteCreds[keyAPIURL],
+			keyAPIEndpoint: paletteCreds[keyAPIEndpoint],
 			keyProjectName: paletteCreds[keyProjectName],
 		}
 

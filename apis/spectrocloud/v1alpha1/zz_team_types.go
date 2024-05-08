@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -25,6 +21,7 @@ type ProjectRoleMappingInitParameters struct {
 
 	// (Set of String) List of project roles to be associated with the team.
 	// List of project roles to be associated with the team.
+	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
@@ -36,6 +33,7 @@ type ProjectRoleMappingObservation struct {
 
 	// (Set of String) List of project roles to be associated with the team.
 	// List of project roles to be associated with the team.
+	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
@@ -49,6 +47,7 @@ type ProjectRoleMappingParameters struct {
 	// (Set of String) List of project roles to be associated with the team.
 	// List of project roles to be associated with the team.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Roles []*string `json:"roles" tf:"roles,omitempty"`
 }
 
@@ -60,10 +59,12 @@ type TeamInitParameters struct {
 
 	// (Set of String) List of tenant role ids to be associated with the team.
 	// List of tenant role ids to be associated with the team.
+	// +listType=set
 	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
 
 	// (Set of String) List of user ids to be associated with the team.
 	// List of user ids to be associated with the team.
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -82,10 +83,12 @@ type TeamObservation struct {
 
 	// (Set of String) List of tenant role ids to be associated with the team.
 	// List of tenant role ids to be associated with the team.
+	// +listType=set
 	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
 
 	// (Set of String) List of user ids to be associated with the team.
 	// List of user ids to be associated with the team.
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -103,11 +106,13 @@ type TeamParameters struct {
 	// (Set of String) List of tenant role ids to be associated with the team.
 	// List of tenant role ids to be associated with the team.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	TenantRoleMapping []*string `json:"tenantRoleMapping,omitempty" tf:"tenant_role_mapping,omitempty"`
 
 	// (Set of String) List of user ids to be associated with the team.
 	// List of user ids to be associated with the team.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -124,6 +129,7 @@ type WorkspaceInitParameters struct {
 
 	// (Set of String) List of project roles to be associated with the team.
 	// List of workspace roles to be associated with the team.
+	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
@@ -135,6 +141,7 @@ type WorkspaceObservation struct {
 
 	// (Set of String) List of project roles to be associated with the team.
 	// List of workspace roles to be associated with the team.
+	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
@@ -148,6 +155,7 @@ type WorkspaceParameters struct {
 	// (Set of String) List of project roles to be associated with the team.
 	// List of workspace roles to be associated with the team.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
 
@@ -210,13 +218,14 @@ type TeamStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Team is the Schema for the Teams API.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Team struct {
 	metav1.TypeMeta   `json:",inline"`

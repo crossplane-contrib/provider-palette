@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -93,6 +93,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         method:
                           description: (String)
                           type: string
@@ -106,6 +107,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   isActive:
                     description: (Boolean)
                     type: boolean
@@ -165,6 +167,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         method:
                           description: (String)
                           type: string
@@ -178,6 +181,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   isActive:
                     description: (Boolean)
                     type: boolean
@@ -413,6 +417,7 @@ spec:
                             type: string
                           description: (Map of String)
                           type: object
+                          x-kubernetes-map-type: granular
                         method:
                           description: (String)
                           type: string
@@ -429,6 +434,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   isActive:
                     description: (Boolean)
                     type: boolean

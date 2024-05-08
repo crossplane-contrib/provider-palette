@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -121,6 +121,7 @@ spec:
                             the DataVolume that may be used to store arbitrary metadata.
                             More info: http://kubernetes.io/docs/user-guide/annotations'
                           type: object
+                          x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
@@ -129,6 +130,7 @@ spec:
                             DataVolume. May match selectors of replication controllers
                             and services. More info: http://kubernetes.io/docs/user-guide/labels'
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: 'Name of the DataVolume, must be unique. Cannot
                             be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
@@ -158,6 +160,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               resources:
                                 description: 'A list of the minimum resources the
                                   volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
@@ -169,6 +172,7 @@ spec:
                                       description: 'Map describing the maximum amount
                                         of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
@@ -179,6 +183,7 @@ spec:
                                         to an implementation-defined value. More info:
                                         http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
@@ -211,6 +216,7 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                            x-kubernetes-list-type: set
                                         type: object
                                       type: array
                                     matchLabels:
@@ -223,6 +229,7 @@ spec:
                                         and the values array contains only "value".
                                         The requirements are ANDed.
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
@@ -385,6 +392,7 @@ spec:
                             the DataVolume that may be used to store arbitrary metadata.
                             More info: http://kubernetes.io/docs/user-guide/annotations'
                           type: object
+                          x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
@@ -393,6 +401,7 @@ spec:
                             DataVolume. May match selectors of replication controllers
                             and services. More info: http://kubernetes.io/docs/user-guide/labels'
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: 'Name of the DataVolume, must be unique. Cannot
                             be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
@@ -422,6 +431,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               resources:
                                 description: 'A list of the minimum resources the
                                   volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
@@ -433,6 +443,7 @@ spec:
                                       description: 'Map describing the maximum amount
                                         of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
@@ -443,6 +454,7 @@ spec:
                                         to an implementation-defined value. More info:
                                         http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
@@ -475,6 +487,7 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                            x-kubernetes-list-type: set
                                         type: object
                                       type: array
                                     matchLabels:
@@ -487,6 +500,7 @@ spec:
                                         and the values array contains only "value".
                                         The requirements are ANDed.
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
@@ -827,6 +841,7 @@ spec:
                             the DataVolume that may be used to store arbitrary metadata.
                             More info: http://kubernetes.io/docs/user-guide/annotations'
                           type: object
+                          x-kubernetes-map-type: granular
                         generation:
                           description: A sequence number representing a specific generation
                             of the desired state.
@@ -839,6 +854,7 @@ spec:
                             DataVolume. May match selectors of replication controllers
                             and services. More info: http://kubernetes.io/docs/user-guide/labels'
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: 'Name of the DataVolume, must be unique. Cannot
                             be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
@@ -880,6 +896,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               resources:
                                 description: 'A list of the minimum resources the
                                   volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
@@ -891,6 +908,7 @@ spec:
                                       description: 'Map describing the maximum amount
                                         of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
@@ -901,6 +919,7 @@ spec:
                                         to an implementation-defined value. More info:
                                         http://kubernetes.io/docs/user-guide/compute-resources/'
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
@@ -933,6 +952,7 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                            x-kubernetes-list-type: set
                                         type: object
                                       type: array
                                     matchLabels:
@@ -945,6 +965,7 @@ spec:
                                         and the values array contains only "value".
                                         The requirements are ANDed.
                                       type: object
+                                      x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:

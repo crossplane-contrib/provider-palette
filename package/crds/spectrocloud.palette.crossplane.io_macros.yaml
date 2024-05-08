@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -80,6 +80,7 @@ spec:
                       value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
+                    x-kubernetes-map-type: granular
                   project:
                     description: |-
                       (String) The Spectro Cloud project name.
@@ -106,6 +107,7 @@ spec:
                       value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
+                    x-kubernetes-map-type: granular
                   project:
                     description: |-
                       (String) The Spectro Cloud project name.
@@ -299,6 +301,7 @@ spec:
                       value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
+                    x-kubernetes-map-type: granular
                   project:
                     description: |-
                       (String) The Spectro Cloud project name.

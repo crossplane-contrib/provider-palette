@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -94,6 +94,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: The number of hours after which the backup
                             will be deleted. For example, if the expiry is set to
@@ -121,6 +122,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: Prefix for the backup name. The backup name
                             will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -142,6 +144,7 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -152,6 +155,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         region:
                           type: string
                         sshKeyName:
@@ -239,6 +243,7 @@ spec:
                           description: The role of the RBAC binding. Required if 'type'
                             is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           items:
                             properties:
@@ -308,10 +313,12 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azSubnets:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -392,6 +399,7 @@ spec:
                             is a map containing the resource type and the resource
                             value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   pauseAgentUpgrades:
@@ -431,6 +439,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: |-
@@ -467,6 +476,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: The number of hours after which the backup
                             will be deleted. For example, if the expiry is set to
@@ -494,6 +504,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: Prefix for the backup name. The backup name
                             will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -515,6 +526,7 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -525,6 +537,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         region:
                           type: string
                         sshKeyName:
@@ -612,6 +625,7 @@ spec:
                           description: The role of the RBAC binding. Required if 'type'
                             is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           items:
                             properties:
@@ -681,10 +695,12 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azSubnets:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -765,6 +781,7 @@ spec:
                             is a map containing the resource type and the resource
                             value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   pauseAgentUpgrades:
@@ -804,6 +821,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -1016,6 +1034,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         expiryInHour:
                           description: The number of hours after which the backup
                             will be deleted. For example, if the expiry is set to
@@ -1043,6 +1062,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         prefix:
                           description: Prefix for the backup name. The backup name
                             will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -1064,6 +1084,7 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -1074,6 +1095,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         region:
                           type: string
                         sshKeyName:
@@ -1167,6 +1189,7 @@ spec:
                           description: The role of the RBAC binding. Required if 'type'
                             is set to 'RoleBinding'.
                           type: object
+                          x-kubernetes-map-type: granular
                         subjects:
                           items:
                             properties:
@@ -1260,10 +1283,12 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azSubnets:
                           additionalProperties:
                             type: string
                           type: object
+                          x-kubernetes-map-type: granular
                         azs:
                           items:
                             type: string
@@ -1344,6 +1369,7 @@ spec:
                             is a map containing the resource type and the resource
                             value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
                           type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   pauseAgentUpgrades:
@@ -1383,6 +1409,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

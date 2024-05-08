@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -726,6 +722,7 @@ type LabelSelectorInitParameters struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -741,6 +738,7 @@ type LabelSelectorMatchExpressionsInitParameters struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -756,6 +754,7 @@ type LabelSelectorMatchExpressionsObservation struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -774,6 +773,7 @@ type LabelSelectorMatchExpressionsParameters struct {
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -785,6 +785,7 @@ type LabelSelectorObservation struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -798,6 +799,7 @@ type LabelSelectorParameters struct {
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -818,6 +820,7 @@ type MachineInitParameters struct {
 
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The name of the source virtual machine that a clone will be created of.
@@ -866,6 +869,7 @@ type MachineInitParameters struct {
 
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Block List, Max: 1) Specification of the desired behavior of the VirtualMachineInstance on the host. (see below for nested schema)
@@ -886,6 +890,7 @@ type MachineInitParameters struct {
 
 	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
 	// NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+	// +mapType=granular
 	NodeSelector map[string]*string `json:"nodeSelector,omitempty" tf:"node_selector,omitempty"`
 
 	// (Block List, Max: 1) Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy. Optional: Defaults to empty (see below for nested schema)
@@ -949,6 +954,7 @@ type MachineObservation struct {
 
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The name of the source virtual machine that a clone will be created of.
@@ -1004,6 +1010,7 @@ type MachineObservation struct {
 
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Block List, Max: 1) Specification of the desired behavior of the VirtualMachineInstance on the host. (see below for nested schema)
@@ -1024,6 +1031,7 @@ type MachineObservation struct {
 
 	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
 	// NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+	// +mapType=granular
 	NodeSelector map[string]*string `json:"nodeSelector,omitempty" tf:"node_selector,omitempty"`
 
 	// (Block List, Max: 1) Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy. Optional: Defaults to empty (see below for nested schema)
@@ -1101,6 +1109,7 @@ type MachineParameters struct {
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The name of the source virtual machine that a clone will be created of.
@@ -1161,6 +1170,7 @@ type MachineParameters struct {
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Block List, Max: 1) Specification of the desired behavior of the VirtualMachineInstance on the host. (see below for nested schema)
@@ -1186,6 +1196,7 @@ type MachineParameters struct {
 	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
 	// NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	NodeSelector map[string]*string `json:"nodeSelector,omitempty" tf:"node_selector,omitempty"`
 
 	// (Block List, Max: 1) Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy. Optional: Defaults to empty (see below for nested schema)
@@ -1258,6 +1269,7 @@ type MachineResourcesInitParameters struct {
 
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// management overhead into account. Instead put the overhead only into the container's memory limit. This can lead to crashes if all memory is in use on a node. Defaults to false.
@@ -1266,6 +1278,7 @@ type MachineResourcesInitParameters struct {
 
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Requests is a description of the initial vmi resources.
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -1273,6 +1286,7 @@ type MachineResourcesObservation struct {
 
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// management overhead into account. Instead put the overhead only into the container's memory limit. This can lead to crashes if all memory is in use on a node. Defaults to false.
@@ -1281,6 +1295,7 @@ type MachineResourcesObservation struct {
 
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Requests is a description of the initial vmi resources.
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -1289,6 +1304,7 @@ type MachineResourcesParameters struct {
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// management overhead into account. Instead put the overhead only into the container's memory limit. This can lead to crashes if all memory is in use on a node. Defaults to false.
@@ -1299,6 +1315,7 @@ type MachineResourcesParameters struct {
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Requests is a description of the initial vmi resources.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -1314,6 +1331,7 @@ type MatchExpressionsInitParameters struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1329,6 +1347,7 @@ type MatchExpressionsObservation struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1347,6 +1366,7 @@ type MatchExpressionsParameters struct {
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1389,10 +1409,12 @@ type MetadataInitParameters struct {
 
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) Name of the virtual machine, must be unique. Cannot be updated.
@@ -1408,6 +1430,7 @@ type MetadataObservation struct {
 
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (Number) A sequence number representing a specific generation of the desired state.
@@ -1416,6 +1439,7 @@ type MetadataObservation struct {
 
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) Name of the virtual machine, must be unique. Cannot be updated.
@@ -1444,11 +1468,13 @@ type MetadataParameters struct {
 	// (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
 	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
 	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) Name of the virtual machine, must be unique. Cannot be updated.
@@ -1643,6 +1669,7 @@ type NodeSelectorTermMatchExpressionsInitParameters struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1658,6 +1685,7 @@ type NodeSelectorTermMatchExpressionsObservation struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1676,6 +1704,7 @@ type NodeSelectorTermMatchExpressionsParameters struct {
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1842,6 +1871,7 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionInitParameters str
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -1857,6 +1887,7 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionObservation struct
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -1874,6 +1905,7 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionParameters struct 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -1890,6 +1922,7 @@ type PodAffinityTermInitParameters struct {
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -1905,6 +1938,7 @@ type PodAffinityTermLabelSelectorInitParameters struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -1920,6 +1954,7 @@ type PodAffinityTermLabelSelectorMatchExpressionsInitParameters struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1935,6 +1970,7 @@ type PodAffinityTermLabelSelectorMatchExpressionsObservation struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1953,6 +1989,7 @@ type PodAffinityTermLabelSelectorMatchExpressionsParameters struct {
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -1964,6 +2001,7 @@ type PodAffinityTermLabelSelectorObservation struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -1977,6 +2015,7 @@ type PodAffinityTermLabelSelectorParameters struct {
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -1988,6 +2027,7 @@ type PodAffinityTermObservation struct {
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2005,6 +2045,7 @@ type PodAffinityTermParameters struct {
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2091,6 +2132,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionInitParameters
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2106,6 +2148,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorI
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2121,6 +2164,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorM
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2136,6 +2180,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorM
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2154,6 +2199,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorM
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2165,6 +2211,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorO
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2178,6 +2225,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorP
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2189,6 +2237,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionObservation st
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2206,6 +2255,7 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionParameters str
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2349,6 +2399,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermInitParameter
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2364,6 +2415,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermObservation s
 
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2381,6 +2433,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermParameters st
 	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
@@ -2393,6 +2446,7 @@ type PvcInitParameters struct {
 
 	// guide/persistent-volumes#access-modes-1
 	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Resources describes the Compute Resources required by this vmi. (see below for nested schema)
@@ -2420,6 +2474,7 @@ type PvcObservation struct {
 
 	// guide/persistent-volumes#access-modes-1
 	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Resources describes the Compute Resources required by this vmi. (see below for nested schema)
@@ -2448,6 +2503,7 @@ type PvcParameters struct {
 	// guide/persistent-volumes#access-modes-1
 	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	AccessModes []*string `json:"accessModes" tf:"access_modes,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Resources describes the Compute Resources required by this vmi. (see below for nested schema)
@@ -2480,10 +2536,12 @@ type PvcResourcesInitParameters struct {
 
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -2491,10 +2549,12 @@ type PvcResourcesObservation struct {
 
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -2503,11 +2563,13 @@ type PvcResourcesParameters struct {
 	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
 	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
 	// (Map of String) Requests is a description of the initial vmi resources.
 	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
@@ -2557,6 +2619,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorInitParameters s
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2572,6 +2635,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorMatchExpressions
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2587,6 +2651,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorMatchExpressions
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2605,6 +2670,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorMatchExpressions
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2616,6 +2682,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorObservation stru
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2629,6 +2696,7 @@ type RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorParameters struc
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2655,6 +2723,7 @@ type SelectorInitParameters struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2670,6 +2739,7 @@ type SelectorMatchExpressionsInitParameters struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2685,6 +2755,7 @@ type SelectorMatchExpressionsObservation struct {
 
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2703,6 +2774,7 @@ type SelectorMatchExpressionsParameters struct {
 	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -2714,6 +2786,7 @@ type SelectorObservation struct {
 
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2727,6 +2800,7 @@ type SelectorParameters struct {
 	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
@@ -2904,6 +2978,7 @@ type StateChangeRequestsInitParameters struct {
 
 	// (Map of String) Provides additional data in order to perform the Action.
 	// Provides additional data in order to perform the Action.
+	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
 	// (String) The unique in time and space value for this VM.
@@ -2919,6 +2994,7 @@ type StateChangeRequestsObservation struct {
 
 	// (Map of String) Provides additional data in order to perform the Action.
 	// Provides additional data in order to perform the Action.
+	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
 	// (String) The unique in time and space value for this VM.
@@ -2936,6 +3012,7 @@ type StateChangeRequestsParameters struct {
 	// (Map of String) Provides additional data in order to perform the Action.
 	// Provides additional data in order to perform the Action.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
 	// (String) The unique in time and space value for this VM.
@@ -3334,13 +3411,14 @@ type MachineStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Machine is the Schema for the Machines API.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Machine struct {
 	metav1.TypeMeta   `json:",inline"`

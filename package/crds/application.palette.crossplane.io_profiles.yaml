@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -131,6 +131,7 @@ spec:
                             (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
                             The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
                           type: object
+                          x-kubernetes-map-type: granular
                         registryUid:
                           description: |-
                             (String) The unique id of the registry to be used for the pack.
@@ -170,6 +171,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   version:
                     description: |-
                       (String) Version of the profile. Default value is 1.0.0.
@@ -245,6 +247,7 @@ spec:
                             (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
                             The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
                           type: object
+                          x-kubernetes-map-type: granular
                         registryUid:
                           description: |-
                             (String) The unique id of the registry to be used for the pack.
@@ -284,6 +287,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   version:
                     description: |-
                       (String) Version of the profile. Default value is 1.0.0.
@@ -530,6 +534,7 @@ spec:
                             (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
                             The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
                           type: object
+                          x-kubernetes-map-type: granular
                         registryUid:
                           description: |-
                             (String) The unique id of the registry to be used for the pack.
@@ -569,6 +574,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   version:
                     description: |-
                       (String) Version of the profile. Default value is 1.0.0.

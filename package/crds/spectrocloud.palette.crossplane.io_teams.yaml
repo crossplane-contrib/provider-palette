@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -90,6 +90,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   tenantRoleMapping:
@@ -99,6 +100,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   users:
                     description: |-
                       (Set of String) List of user ids to be associated with the team.
@@ -106,6 +108,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   workspaceRoleMapping:
                     description: |-
                       (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -135,6 +138,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                       type: object
@@ -171,6 +175,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   tenantRoleMapping:
@@ -180,6 +185,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   users:
                     description: |-
                       (Set of String) List of user ids to be associated with the team.
@@ -187,6 +193,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   workspaceRoleMapping:
                     description: |-
                       (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -216,6 +223,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                       type: object
@@ -414,6 +422,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   tenantRoleMapping:
@@ -423,6 +432,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   users:
                     description: |-
                       (Set of String) List of user ids to be associated with the team.
@@ -430,6 +440,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   workspaceRoleMapping:
                     description: |-
                       (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
@@ -459,6 +470,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                       type: object
