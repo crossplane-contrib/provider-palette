@@ -14,7 +14,30 @@
 
 1. If you have access to a kubernetes cluster with crossplane pre-installed, ensure that your `KUBECONFIG` is properly configured. Otherwise, deploy a kind cluster locally, then follow the [crossplane installation instructions](https://docs.crossplane.io/latest/software/install/).
 
-2. Install `provider-palette` using the following command:
+2. Create a secret containing your Palette credentials:
+   ```
+   export PALETTE_API_KEY="" # Edit me
+   export PALETTE_PROJECT_NAME=Default
+   export PALETTE_HOST=api.spectrocloud.com
+
+   cat <<EOF | kubectl apply -f -
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: palette-creds
+     namespace: crossplane-system
+   type: Opaque
+   stringData:
+     credentials: |
+       {
+       "api_key": "$PALETTE_API_KEY",
+       "project_name": "$PALETTE_PROJECT_NAME",
+       "host": "$PALETTE_HOST"
+       }
+   EOF
+   ```
+
+3. Install `provider-palette` using the following command:
    ```
    up ctp provider install crossplane-contrib/provider-palette:v0.19.2
    ```
@@ -33,7 +56,24 @@
 > [!IMPORTANT]
 > Ensure the image tag you use matches the [latest release](https://marketplace.upbound.io/providers/crossplane-contrib/provider-palette)
 
-3. Refer to the [examples](./examples/), [examples-generated](./examples-generated/), and [API reference](https://doc.crds.dev/github.com/crossplane-contrib/provider-palette) to learn how to start creating Palette resources.
+4. Create a ProviderConfig to authenticate the Provider:
+   ```
+   cat <<EOF | kubectl apply -f -
+   apiVersion: palette.crossplane.io/v1beta1
+   kind: ProviderConfig
+   metadata:
+     name: provider-palette-config
+   spec:
+     credentials:
+       source: Secret
+       secretRef:
+         name: palette-creds
+         namespace: crossplane-system
+         key: credentials
+   EOF
+   ```
+
+5. Refer to the [examples](./examples/), [examples-generated](./examples-generated/), and [API reference](https://doc.crds.dev/github.com/crossplane-contrib/provider-palette) to learn how to start creating Palette resources.
 
 ## Developing
 
