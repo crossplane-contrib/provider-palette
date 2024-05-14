@@ -162,6 +162,7 @@ run: go.build
 # Integration Testing
 
 test-integration: init-envtest ## Run integration tests
+	@mkdir -p $(GO_TEST_OUTPUT) || $(FAIL)
 	KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS} go test -v -timeout 10m \
 		-covermode=atomic -coverpkg=./... -coverprofile=$(GO_TEST_OUTPUT)/integration.out ./tests/...
 
