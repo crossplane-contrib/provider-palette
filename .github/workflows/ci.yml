@@ -210,7 +210,7 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
-      - name: Run Unit Tests
+      - name: Run Integration Tests
         run: make -j2 test-integration
 
   local-deploy:
