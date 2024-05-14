@@ -12,7 +12,7 @@ func RegisterProject(router *mux.Router) {
 	router.Handle("/v1/dashboard/projects/metadata", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`
+		_, _ = w.Write([]byte(`
 		{
 			"items": [
 				{

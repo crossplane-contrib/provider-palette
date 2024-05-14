@@ -14,7 +14,7 @@ func RegisterCloudAccount(router *mux.Router) {
 		switch r.Method {
 		case http.MethodPost:
 			w.WriteHeader(http.StatusCreated)
-			w.Write([]byte(`{"uid": "1"}`))
+			_, _ = w.Write([]byte(`{"uid": "1"}`))
 		default:
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
@@ -26,7 +26,7 @@ func RegisterCloudAccount(router *mux.Router) {
 		switch r.Method {
 		case http.MethodGet:
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(`
+			_, _ = w.Write([]byte(`
 			{
 				"apiVersion": "v1",
 				"kind": "AwsCloudAccount",
