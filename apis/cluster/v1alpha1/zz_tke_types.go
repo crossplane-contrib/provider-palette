@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -23,6 +19,7 @@ type TkeBackupPolicyInitParameters struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -38,6 +35,7 @@ type TkeBackupPolicyInitParameters struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -53,6 +51,7 @@ type TkeBackupPolicyObservation struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -68,6 +67,7 @@ type TkeBackupPolicyObservation struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -85,6 +85,7 @@ type TkeBackupPolicyParameters struct {
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -105,6 +106,7 @@ type TkeBackupPolicyParameters struct {
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -117,12 +119,15 @@ type TkeBackupPolicyParameters struct {
 }
 
 type TkeCloudConfigInitParameters struct {
+
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// +listType=set
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -134,12 +139,15 @@ type TkeCloudConfigInitParameters struct {
 }
 
 type TkeCloudConfigObservation struct {
+
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// +listType=set
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -153,6 +161,7 @@ type TkeCloudConfigObservation struct {
 type TkeCloudConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -162,6 +171,7 @@ type TkeCloudConfigParameters struct {
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -315,6 +325,7 @@ type TkeClusterRbacBindingInitParameters struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []TkeClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -329,6 +340,7 @@ type TkeClusterRbacBindingObservation struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []TkeClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -345,6 +357,7 @@ type TkeClusterRbacBindingParameters struct {
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -496,6 +509,7 @@ type TkeInitParameters struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -520,8 +534,11 @@ type TkeLocationConfigParameters struct {
 }
 
 type TkeMachinePoolInitParameters struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -583,8 +600,11 @@ type TkeMachinePoolNodeParameters struct {
 }
 
 type TkeMachinePoolObservation struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -619,9 +639,11 @@ type TkeMachinePoolObservation struct {
 type TkeMachinePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -713,6 +735,7 @@ type TkeNamespacesInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -725,6 +748,7 @@ type TkeNamespacesObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -740,6 +764,7 @@ type TkeNamespacesParameters struct {
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
@@ -810,6 +835,7 @@ type TkeObservation struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -885,6 +911,7 @@ type TkeParameters struct {
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -951,13 +978,14 @@ type TkeStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Tke is the Schema for the Tkes API. <no value>
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Tke struct {
 	metav1.TypeMeta   `json:",inline"`

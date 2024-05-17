@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -23,6 +19,7 @@ type EdgeVsphereBackupPolicyInitParameters struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -38,6 +35,7 @@ type EdgeVsphereBackupPolicyInitParameters struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -53,6 +51,7 @@ type EdgeVsphereBackupPolicyObservation struct {
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -68,6 +67,7 @@ type EdgeVsphereBackupPolicyObservation struct {
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -85,6 +85,7 @@ type EdgeVsphereBackupPolicyParameters struct {
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -105,6 +106,7 @@ type EdgeVsphereBackupPolicyParameters struct {
 
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
@@ -131,6 +133,7 @@ type EdgeVsphereCloudConfigInitParameters struct {
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
@@ -153,6 +156,7 @@ type EdgeVsphereCloudConfigObservation struct {
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
@@ -183,6 +187,7 @@ type EdgeVsphereCloudConfigParameters struct {
 
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -332,6 +337,7 @@ type EdgeVsphereClusterRbacBindingInitParameters struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []EdgeVsphereClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -346,6 +352,7 @@ type EdgeVsphereClusterRbacBindingObservation struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	Subjects []EdgeVsphereClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
@@ -362,6 +369,7 @@ type EdgeVsphereClusterRbacBindingParameters struct {
 
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -521,6 +529,7 @@ type EdgeVsphereInitParameters struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -594,6 +603,8 @@ type EdgeVsphereLocationConfigParameters struct {
 }
 
 type EdgeVsphereMachinePoolInitParameters struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -652,6 +663,8 @@ type EdgeVsphereMachinePoolNodeParameters struct {
 }
 
 type EdgeVsphereMachinePoolObservation struct {
+
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -683,6 +696,7 @@ type EdgeVsphereMachinePoolObservation struct {
 type EdgeVsphereMachinePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -769,6 +783,7 @@ type EdgeVsphereNamespacesInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -781,6 +796,7 @@ type EdgeVsphereNamespacesObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -796,6 +812,7 @@ type EdgeVsphereNamespacesParameters struct {
 
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
@@ -871,6 +888,7 @@ type EdgeVsphereObservation struct {
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -957,6 +975,7 @@ type EdgeVsphereParameters struct {
 
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -1095,13 +1114,14 @@ type EdgeVsphereStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // EdgeVsphere is the Schema for the EdgeVspheres API. <no value>
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type EdgeVsphere struct {
 	metav1.TypeMeta   `json:",inline"`

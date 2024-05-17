@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -25,6 +21,7 @@ type MaasBackupPolicyInitParameters struct {
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -45,6 +42,7 @@ type MaasBackupPolicyInitParameters struct {
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -64,6 +62,7 @@ type MaasBackupPolicyObservation struct {
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -84,6 +83,7 @@ type MaasBackupPolicyObservation struct {
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -105,6 +105,7 @@ type MaasBackupPolicyParameters struct {
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
 	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -130,6 +131,7 @@ type MaasBackupPolicyParameters struct {
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// -.
@@ -343,6 +345,7 @@ type MaasClusterRbacBindingInitParameters struct {
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -361,6 +364,7 @@ type MaasClusterRbacBindingObservation struct {
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -381,6 +385,7 @@ type MaasClusterRbacBindingParameters struct {
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -590,6 +595,7 @@ type MaasInitParameters struct {
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -684,10 +690,12 @@ type MaasMachinePoolInitParameters struct {
 
 	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
 	// Availability zones in which the machine pool nodes to be provisioned.
+	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -726,6 +734,7 @@ type MaasMachinePoolInitParameters struct {
 
 	// (Set of String) Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
 	// Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
+	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -813,10 +822,12 @@ type MaasMachinePoolObservation struct {
 
 	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
 	// Availability zones in which the machine pool nodes to be provisioned.
+	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -855,6 +866,7 @@ type MaasMachinePoolObservation struct {
 
 	// (Set of String) Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
 	// Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
+	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -873,11 +885,13 @@ type MaasMachinePoolParameters struct {
 	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
 	// Availability zones in which the machine pool nodes to be provisioned.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -926,6 +940,7 @@ type MaasMachinePoolParameters struct {
 	// (Set of String) Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
 	// Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -1002,6 +1017,7 @@ type MaasNamespacesInitParameters struct {
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -1017,6 +1033,7 @@ type MaasNamespacesObservation struct {
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
@@ -1035,6 +1052,7 @@ type MaasNamespacesParameters struct {
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
@@ -1141,6 +1159,7 @@ type MaasObservation struct {
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -1255,6 +1274,7 @@ type MaasParameters struct {
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -1356,13 +1376,14 @@ type MaasStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Maas is the Schema for the Maass API. Resource for managing MAAS clusters in Spectro Cloud through Palette.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Maas struct {
 	metav1.TypeMeta   `json:",inline"`

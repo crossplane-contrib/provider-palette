@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -24,8 +20,10 @@ type IppoolInitParameters struct {
 
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
@@ -48,8 +46,10 @@ type IppoolObservation struct {
 
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
@@ -75,9 +75,11 @@ type IppoolParameters struct {
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -120,13 +122,14 @@ type IppoolStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Ippool is the Schema for the Ippools API. <no value>
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
 type Ippool struct {
 	metav1.TypeMeta   `json:",inline"`

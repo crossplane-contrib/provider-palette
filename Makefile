@@ -5,10 +5,9 @@ PROJECT_NAME := provider-palette
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.3.3
-
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.18.0
+export TERRAFORM_PROVIDER_VERSION := 0.19.2
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-spectrocloud
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-spectrocloud_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH := docs/resources
@@ -110,6 +109,7 @@ $(TERRAFORM):
 
 $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 	@$(INFO) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
+	@rm -rf $(TERRAFORM_WORKDIR)
 	@mkdir -p $(TERRAFORM_WORKDIR)
 	@echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'","version":"'"$(TERRAFORM_PROVIDER_VERSION)"'"}}],"required_version":"'"$(TERRAFORM_VERSION)"'"}]}' > $(TERRAFORM_WORKDIR)/main.tf.json
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1
@@ -157,6 +157,25 @@ run: go.build
 	@$(INFO) Running Crossplane locally out-of-cluster . . .
 	@# To see other arguments that can be provided, run the command with --help instead
 	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
+
+# ===================
+# Integration Testing
+
+test-integration: init-envtest ## Run integration tests
+	@mkdir -p $(GO_TEST_OUTPUT) || $(FAIL)
+	KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS} go test -v -timeout 10m \
+		-covermode=atomic -coverpkg=./... -coverprofile=$(GO_TEST_OUTPUT)/integration.out ./tests/...
+
+init-envtest: setup-envtest
+	$(TOOLS_HOST_DIR)/setup-envtest use --bin-dir $(TOOLS_HOST_DIR) $(ENVTEST_VERSION)
+KUBEBUILDER_ASSETS = $(shell $(TOOLS_HOST_DIR)/setup-envtest use -p path --bin-dir $(TOOLS_HOST_DIR) $(ENVTEST_VERSION))
+
+setup-envtest:
+ifeq ("$(wildcard $(TOOLS_HOST_DIR)/setup-envtest)", "")
+	go get sigs.k8s.io/controller-runtime/tools/setup-envtest
+	GOBIN=$(TOOLS_HOST_DIR) go install sigs.k8s.io/controller-runtime/tools/setup-envtest
+endif
+SETUP_ENVTEST=$(TOOLS_HOST_DIR)/setup-envtest
 
 # ====================================================================================
 # End to End Testing
