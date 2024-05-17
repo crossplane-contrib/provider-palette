@@ -158,6 +158,25 @@ run: go.build
 	@# To see other arguments that can be provided, run the command with --help instead
 	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
 
+# ===================
+# Integration Testing
+
+test-integration: init-envtest ## Run integration tests
+	@mkdir -p $(GO_TEST_OUTPUT) || $(FAIL)
+	KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS} go test -v -timeout 10m \
+		-covermode=atomic -coverpkg=./... -coverprofile=$(GO_TEST_OUTPUT)/integration.out ./tests/...
+
+init-envtest: setup-envtest
+	$(TOOLS_HOST_DIR)/setup-envtest use --bin-dir $(TOOLS_HOST_DIR) $(ENVTEST_VERSION)
+KUBEBUILDER_ASSETS = $(shell $(TOOLS_HOST_DIR)/setup-envtest use -p path --bin-dir $(TOOLS_HOST_DIR) $(ENVTEST_VERSION))
+
+setup-envtest:
+ifeq ("$(wildcard $(TOOLS_HOST_DIR)/setup-envtest)", "")
+	go get sigs.k8s.io/controller-runtime/tools/setup-envtest
+	GOBIN=$(TOOLS_HOST_DIR) go install sigs.k8s.io/controller-runtime/tools/setup-envtest
+endif
+SETUP_ENVTEST=$(TOOLS_HOST_DIR)/setup-envtest
+
 # ====================================================================================
 # End to End Testing
 CROSSPLANE_NAMESPACE = upbound-system
