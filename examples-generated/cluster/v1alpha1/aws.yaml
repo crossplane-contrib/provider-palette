@@ -26,7 +26,7 @@ spec:
     - additionalLabels:
         owner: siva
         purpose: testing
-        type: cp
+        type: master
       azSubnets:
         eu-west-1a: subnet-08c7ad2affe1f1250,subnet-04dbeac9aba098d0e
         eu-west-1c: ${join(",", var.subnet_ids_eu_west_1c)}
@@ -35,7 +35,7 @@ spec:
       count: 1
       diskSizeGb: 60
       instanceType: m4.large
-      name: cp-pool
+      name: master-pool
     - additionalLabels:
         owner: siva
         purpose: testing

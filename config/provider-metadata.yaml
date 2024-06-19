@@ -799,7 +799,7 @@ resources:
                       "additional_labels": {
                         "owner": "siva",
                         "purpose": "testing",
-                        "type": "cp"
+                        "type": "master"
                       },
                       "az_subnets": {
                         "eu-west-1a": "subnet-08c7ad2affe1f1250,subnet-04dbeac9aba098d0e",
@@ -810,7 +810,7 @@ resources:
                       "count": 1,
                       "disk_size_gb": 60,
                       "instance_type": "m4.large",
-                      "name": "cp-pool"
+                      "name": "master-pool"
                     },
                     {
                       "additional_labels": {
@@ -978,7 +978,7 @@ resources:
                         }
                       ],
                       "instance_type": "Standard_D2_v3",
-                      "name": "cp-pool"
+                      "name": "master-pool"
                     },
                     {
                       "azs": [
@@ -1168,7 +1168,7 @@ resources:
                       "additional_labels": {
                         "owner": "tf",
                         "purpose": "testing",
-                        "type": "cp"
+                        "type": "master"
                       },
                       "control_plane": true,
                       "control_plane_as_worker": true,
@@ -1324,7 +1324,7 @@ resources:
                           "static_ip": "4.1.2.3"
                         }
                       ],
-                      "name": "cp-pool"
+                      "name": "master-pool"
                     },
                     {
                       "edge_host": [
@@ -1731,7 +1731,7 @@ resources:
                       "count": 1,
                       "disk_size_gb": 62,
                       "instance_type": "e2-standard-2",
-                      "name": "cp-pool"
+                      "name": "master-pool"
                     },
                     {
                       "azs": [
@@ -2388,7 +2388,7 @@ resources:
                       "control_plane_as_worker": true,
                       "count": 1,
                       "instance_type": "spectro-xlarge",
-                      "name": "cp-pool"
+                      "name": "master-pool"
                     },
                     {
                       "azs": [

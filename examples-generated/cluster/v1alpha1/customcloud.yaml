@@ -42,7 +42,7 @@ spec:
     - additional_labels:
         owner: tf
         purpose: testing
-        type: cp
+        type: master
       controlPlane: true
       controlPlaneAsWorker: true
       nodePoolConfig: ${templatefile("config_templates/master_pool_config.yaml", local.node_pool_config_variables)}

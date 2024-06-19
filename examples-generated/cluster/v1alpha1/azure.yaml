@@ -26,7 +26,7 @@ spec:
       - sizeGb: 65
         type: Standard_LRS
       instanceType: Standard_D2_v3
-      name: cp-pool
+      name: master-pool
     - azs:
       - ""
       count: 1

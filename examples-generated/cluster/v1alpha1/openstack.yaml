@@ -34,7 +34,7 @@ spec:
       controlPlaneAsWorker: true
       count: 1
       instanceType: spectro-xlarge
-      name: cp-pool
+      name: master-pool
     - azs:
       - zone1
       count: 2
