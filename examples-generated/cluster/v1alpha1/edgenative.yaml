@@ -22,7 +22,7 @@ spec:
       edgeHost:
       - hostUid: test-dec9
         staticIp: 4.1.2.3
-      name: master-pool
+      name: cp-pool
     - edgeHost:
       - hostUid: test-dec9
         staticIp: 1.2.3.4

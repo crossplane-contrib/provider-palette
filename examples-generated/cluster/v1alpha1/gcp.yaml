@@ -23,7 +23,7 @@ spec:
       count: 1
       diskSizeGb: 62
       instanceType: e2-standard-2
-      name: master-pool
+      name: cp-pool
     - azs:
       - us-west3-a
       count: 1
