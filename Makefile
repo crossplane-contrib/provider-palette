@@ -47,6 +47,7 @@ GO_SUBDIRS += cmd internal apis
 # ====================================================================================
 # Setup Kubernetes tools
 
+ENVTEST_VERSION = 1.29.3
 KIND_VERSION = v0.15.0
 UP_VERSION = v0.28.0
 UP_CHANNEL = stable
