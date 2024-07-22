@@ -157,6 +157,7 @@ type EksCloudConfigInitParameters struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (String)
+	// The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
 	EncryptionConfigArn *string `json:"encryptionConfigArn,omitempty" tf:"encryption_config_arn,omitempty"`
 
 	// (String) Choose between private, public, or private_and_public to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is public.
@@ -196,6 +197,7 @@ type EksCloudConfigObservation struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (String)
+	// The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
 	EncryptionConfigArn *string `json:"encryptionConfigArn,omitempty" tf:"encryption_config_arn,omitempty"`
 
 	// (String) Choose between private, public, or private_and_public to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is public.
@@ -237,6 +239,7 @@ type EksCloudConfigParameters struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (String)
+	// The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
 	// +kubebuilder:validation:Optional
 	EncryptionConfigArn *string `json:"encryptionConfigArn,omitempty" tf:"encryption_config_arn,omitempty"`
 
@@ -315,7 +318,7 @@ type EksClusterProfilePackInitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -383,7 +386,7 @@ type EksClusterProfilePackObservation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -418,7 +421,7 @@ type EksClusterProfilePackParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 

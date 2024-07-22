@@ -256,7 +256,7 @@ type VsphereClusterProfilePackInitParameters struct {
 	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -309,7 +309,7 @@ type VsphereClusterProfilePackObservation struct {
 	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -337,7 +337,7 @@ type VsphereClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
