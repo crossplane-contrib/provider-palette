@@ -164,7 +164,9 @@ spec:
                             type: string
                           type: array
                         encryptionConfigArn:
-                          description: (String)
+                          description: |-
+                            (String)
+                            The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
                           type: string
                         endpointAccess:
                           description: |-
@@ -259,7 +261,7 @@ spec:
                               uid:
                                 description: |-
                                   (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
                                 type: string
                               values:
                                 description: |-
@@ -732,7 +734,9 @@ spec:
                             type: string
                           type: array
                         encryptionConfigArn:
-                          description: (String)
+                          description: |-
+                            (String)
+                            The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
                           type: string
                         endpointAccess:
                           description: |-
@@ -827,7 +831,7 @@ spec:
                               uid:
                                 description: |-
                                   (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
                                 type: string
                               values:
                                 description: |-
@@ -1477,7 +1481,9 @@ spec:
                             type: string
                           type: array
                         encryptionConfigArn:
-                          description: (String)
+                          description: |-
+                            (String)
+                            The ARN of the KMS encryption key to use for the cluster. Refer to the [Enable Secrets Encryption for EKS Cluster](https://docs.spectrocloud.com/clusters/public-cloud/aws/enable-secrets-encryption-kms-key/) for additional guidance.
                           type: string
                         endpointAccess:
                           description: |-
@@ -1583,7 +1589,7 @@ spec:
                               uid:
                                 description: |-
                                   (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro.
-                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro`.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
                                 type: string
                               values:
                                 description: |-
