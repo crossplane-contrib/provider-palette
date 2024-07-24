@@ -23,10 +23,6 @@ env:
   # credentials have been provided before trying to run steps that need them.
   UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
 
-  # Release vars. If version is set via workflow dispatch, create a
-  # GitHub release and publish release xpkg to the Upbound Marketplace.
-  VERSION: ${{ github.event.inputs.tag }}
-
 jobs:
   detect-noop:
     runs-on: ubuntu-22.04
@@ -336,6 +332,10 @@ jobs:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
           BUILD_ARGS: "--load"
+          # The xpkg will only be indexed on Upbound Marketplace
+          # if version is a semver tag. Set via workflow dispatch
+          # to publish a formal release.
+          VERSION: ${{ github.event.inputs.tag }}
 
       - name: Publish Artifacts to GitHub
         uses: actions/upload-artifact@v2
@@ -356,6 +356,10 @@ jobs:
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         env:
           GIT_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The xpkg will only be indexed on Upbound Marketplace
+          # if version is a semver tag. Set via workflow dispatch
+          # to publish a formal release.
+          VERSION: ${{ github.event.inputs.tag }}
 
       - name: Trigger docs.crd.dev index
         if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
