@@ -6,7 +6,11 @@ on:
       - main
       - release-*
   pull_request: {}
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Semver release tag (e.g. v0.1.0)'
+        required: true
 
 env:
   # Common versions
@@ -18,6 +22,10 @@ env:
   # step 'if env.XXX != ""', so we copy these to succinctly test whether
   # credentials have been provided before trying to run steps that need them.
   UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+
+  # Release vars. If version is set via workflow dispatch, create a
+  # GitHub release and publish release xpkg to the Upbound Marketplace.
+  VERSION: ${{ github.event.inputs.tag }}
 
 jobs:
   detect-noop:
@@ -32,7 +40,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           paths_ignore: '["**.md", "**.png", "**.jpg"]'
           do_not_skip: '["workflow_dispatch", "schedule", "push"]'
-
 
   lint:
     runs-on: ubuntu-22.04
@@ -256,6 +263,22 @@ jobs:
       - name: Deploying locally built provider package
         run: make local-deploy
 
+  release-vars:
+    runs-on: ubuntu-22.04
+    needs: detect-noop
+    if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
+
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          tag_name: ${{ github.event.inputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   publish-artifacts:
     runs-on: ubuntu-22.04
     needs: detect-noop
@@ -333,3 +356,9 @@ jobs:
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         env:
           GIT_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger docs.crd.dev index
+        if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
+        run: |
+          curl -v https://doc.crds.dev/github.com/crossplane-contrib/provider-palette@${{ github.event.inputs.tag }}
+          echo "Triggered docs.crd.dev to index provider-palette@${{ github.event.inputs.tag }}"
