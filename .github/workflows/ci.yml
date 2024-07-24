@@ -326,16 +326,20 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
+      # The xpkg will only be indexed on Upbound Marketplace
+      # if version is a semver tag. Set a tag via workflow dispatch
+      # to publish a formal release. VERSION is picked up by the
+      # Build Artifacts and Publish Artifacts to Upbound Marketplace steps.
+      - name: Set release version
+        if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''  
+        run: echo "VERSION=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
+
       - name: Build Artifacts
         run: make -j2 build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
           BUILD_ARGS: "--load"
-          # The xpkg will only be indexed on Upbound Marketplace
-          # if version is a semver tag. Set via workflow dispatch
-          # to publish a formal release.
-          VERSION: ${{ github.event.inputs.tag }}
 
       - name: Publish Artifacts to GitHub
         uses: actions/upload-artifact@v2
@@ -356,10 +360,6 @@ jobs:
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         env:
           GIT_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # The xpkg will only be indexed on Upbound Marketplace
-          # if version is a semver tag. Set via workflow dispatch
-          # to publish a formal release.
-          VERSION: ${{ github.event.inputs.tag }}
 
       - name: Trigger docs.crd.dev index
         if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
