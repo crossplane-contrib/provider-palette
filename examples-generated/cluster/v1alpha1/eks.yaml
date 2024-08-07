@@ -26,6 +26,7 @@ spec:
         us-west-2a: subnet-0d4978ddbff16c
       count: 1
       diskSizeGb: 60
+      encryption_config_arn: arn:aws:kms:us-west-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab
       instanceType: t3.large
       name: worker-basic
     scanPolicy:

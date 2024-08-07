@@ -18,7 +18,7 @@ spec:
           - us-east-1a
         count: 1
         instanceType: t3.xlarge
-        name: masterPool1
+        name: cpPool1
         controlPlane: true
     clusterProfile:
       - id: 633abcdfcacb8794e0c54cd7
