@@ -45,7 +45,7 @@ spec:
         type: cp
       controlPlane: true
       controlPlaneAsWorker: true
-      nodePoolConfig: ${templatefile("config_templates/master_pool_config.yaml", local.node_pool_config_variables)}
+      nodePoolConfig: ${templatefile("config_templates/cp_pool_config.yaml", local.node_pool_config_variables)}
     - additional_labels:
         owner: tf
         purpose: testing

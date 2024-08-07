@@ -6,7 +6,11 @@ on:
       - main
       - release-*
   pull_request: {}
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Semver release tag (e.g. v0.1.0)'
+        required: true
 
 env:
   # Common versions
@@ -32,7 +36,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           paths_ignore: '["**.md", "**.png", "**.jpg"]'
           do_not_skip: '["workflow_dispatch", "schedule", "push"]'
-
 
   lint:
     runs-on: ubuntu-22.04
@@ -256,6 +259,22 @@ jobs:
       - name: Deploying locally built provider package
         run: make local-deploy
 
+  release-vars:
+    runs-on: ubuntu-22.04
+    needs: detect-noop
+    if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
+
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          tag_name: ${{ github.event.inputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   publish-artifacts:
     runs-on: ubuntu-22.04
     needs: detect-noop
@@ -307,6 +326,14 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
+      # The xpkg will only be indexed on Upbound Marketplace
+      # if version is a semver tag. Set a tag via workflow dispatch
+      # to publish a formal release. VERSION is picked up by the
+      # Build Artifacts and Publish Artifacts to Upbound Marketplace steps.
+      - name: Set release version
+        if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''  
+        run: echo "VERSION=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
+
       - name: Build Artifacts
         run: make -j2 build.all
         env:
@@ -333,3 +360,9 @@ jobs:
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         env:
           GIT_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger docs.crd.dev index
+        if: needs.detect-noop.outputs.noop != 'true' && github.event.inputs.tag != ''
+        run: |
+          curl -v https://doc.crds.dev/github.com/crossplane-contrib/provider-palette@${{ github.event.inputs.tag }}
+          echo "Triggered docs.crd.dev to index provider-palette@${{ github.event.inputs.tag }}"
