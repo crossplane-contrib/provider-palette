@@ -220,8 +220,8 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-                                  The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
                                 description: |-
@@ -272,14 +272,14 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                                   The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                             The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object
@@ -715,8 +715,8 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-                                  The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
                                 description: |-
@@ -767,14 +767,14 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                                   The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                             The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object
@@ -1400,8 +1400,8 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-                                  The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
                                 description: |-
@@ -1452,14 +1452,14 @@ spec:
                                 type: string
                               type:
                                 description: |-
-                                  (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                                   The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                             The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object

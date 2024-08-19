@@ -206,8 +206,8 @@ type CustomCloudClusterProfilePackInitParameters struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -274,8 +274,8 @@ type CustomCloudClusterProfilePackObservation struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -308,8 +308,8 @@ type CustomCloudClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -351,7 +351,7 @@ type CustomCloudClusterRbacBindingInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Subjects []CustomCloudClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -370,7 +370,7 @@ type CustomCloudClusterRbacBindingObservation struct {
 	// (Block List) (see below for nested schema)
 	Subjects []CustomCloudClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -392,7 +392,7 @@ type CustomCloudClusterRbacBindingParameters struct {
 	// +kubebuilder:validation:Optional
 	Subjects []CustomCloudClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -408,7 +408,7 @@ type CustomCloudClusterRbacBindingSubjectsInitParameters struct {
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -423,7 +423,7 @@ type CustomCloudClusterRbacBindingSubjectsObservation struct {
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -440,7 +440,7 @@ type CustomCloudClusterRbacBindingSubjectsParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`

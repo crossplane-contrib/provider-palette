@@ -215,7 +215,7 @@ type TkeClusterProfilePackInitParameters struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
@@ -268,7 +268,7 @@ type TkeClusterProfilePackObservation struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
@@ -295,7 +295,7 @@ type TkeClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 

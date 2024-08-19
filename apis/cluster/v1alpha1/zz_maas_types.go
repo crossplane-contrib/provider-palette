@@ -206,8 +206,8 @@ type MaasClusterProfilePackInitParameters struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -274,8 +274,8 @@ type MaasClusterProfilePackObservation struct {
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -308,8 +308,8 @@ type MaasClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -351,7 +351,7 @@ type MaasClusterRbacBindingInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Subjects []MaasClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -370,7 +370,7 @@ type MaasClusterRbacBindingObservation struct {
 	// (Block List) (see below for nested schema)
 	Subjects []MaasClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -392,7 +392,7 @@ type MaasClusterRbacBindingParameters struct {
 	// +kubebuilder:validation:Optional
 	Subjects []MaasClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -408,7 +408,7 @@ type MaasClusterRbacBindingSubjectsInitParameters struct {
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -423,7 +423,7 @@ type MaasClusterRbacBindingSubjectsObservation struct {
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -440,7 +440,7 @@ type MaasClusterRbacBindingSubjectsParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest or helm. The default value is spectro.
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -711,7 +711,7 @@ type MaasMachinePoolInitParameters struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
-	InstanceType []MaasMachinePoolInstanceTypeInitParameters `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+	InstanceType []MachinePoolInstanceTypeInitParameters `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -746,41 +746,6 @@ type MaasMachinePoolInitParameters struct {
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
-}
-
-type MaasMachinePoolInstanceTypeInitParameters struct {
-
-	// (Number) Minimum number of CPU required for the machine pool node.
-	// Minimum number of CPU required for the machine pool node.
-	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
-
-	// (Number) Minimum memory in MB required for the machine pool node.
-	// Minimum memory in MB required for the machine pool node.
-	MinMemoryMb *float64 `json:"minMemoryMb,omitempty" tf:"min_memory_mb,omitempty"`
-}
-
-type MaasMachinePoolInstanceTypeObservation struct {
-
-	// (Number) Minimum number of CPU required for the machine pool node.
-	// Minimum number of CPU required for the machine pool node.
-	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
-
-	// (Number) Minimum memory in MB required for the machine pool node.
-	// Minimum memory in MB required for the machine pool node.
-	MinMemoryMb *float64 `json:"minMemoryMb,omitempty" tf:"min_memory_mb,omitempty"`
-}
-
-type MaasMachinePoolInstanceTypeParameters struct {
-
-	// (Number) Minimum number of CPU required for the machine pool node.
-	// Minimum number of CPU required for the machine pool node.
-	// +kubebuilder:validation:Optional
-	MinCPU *float64 `json:"minCpu" tf:"min_cpu,omitempty"`
-
-	// (Number) Minimum memory in MB required for the machine pool node.
-	// Minimum memory in MB required for the machine pool node.
-	// +kubebuilder:validation:Optional
-	MinMemoryMb *float64 `json:"minMemoryMb" tf:"min_memory_mb,omitempty"`
 }
 
 type MaasMachinePoolNodeInitParameters struct {
@@ -843,7 +808,7 @@ type MaasMachinePoolObservation struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
-	InstanceType []MaasMachinePoolInstanceTypeObservation `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+	InstanceType []MachinePoolInstanceTypeObservation `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -911,7 +876,7 @@ type MaasMachinePoolParameters struct {
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	InstanceType []MaasMachinePoolInstanceTypeParameters `json:"instanceType" tf:"instance_type,omitempty"`
+	InstanceType []MachinePoolInstanceTypeParameters `json:"instanceType" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -1324,6 +1289,41 @@ type MaasScanPolicyParameters struct {
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
+}
+
+type MachinePoolInstanceTypeInitParameters struct {
+
+	// (Number) Minimum number of CPU required for the machine pool node.
+	// Minimum number of CPU required for the machine pool node.
+	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
+
+	// (Number) Minimum memory in MB required for the machine pool node.
+	// Minimum memory in MB required for the machine pool node.
+	MinMemoryMb *float64 `json:"minMemoryMb,omitempty" tf:"min_memory_mb,omitempty"`
+}
+
+type MachinePoolInstanceTypeObservation struct {
+
+	// (Number) Minimum number of CPU required for the machine pool node.
+	// Minimum number of CPU required for the machine pool node.
+	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
+
+	// (Number) Minimum memory in MB required for the machine pool node.
+	// Minimum memory in MB required for the machine pool node.
+	MinMemoryMb *float64 `json:"minMemoryMb,omitempty" tf:"min_memory_mb,omitempty"`
+}
+
+type MachinePoolInstanceTypeParameters struct {
+
+	// (Number) Minimum number of CPU required for the machine pool node.
+	// Minimum number of CPU required for the machine pool node.
+	// +kubebuilder:validation:Optional
+	MinCPU *float64 `json:"minCpu" tf:"min_cpu,omitempty"`
+
+	// (Number) Minimum memory in MB required for the machine pool node.
+	// Minimum memory in MB required for the machine pool node.
+	// +kubebuilder:validation:Optional
+	MinMemoryMb *float64 `json:"minMemoryMb" tf:"min_memory_mb,omitempty"`
 }
 
 type MachinePoolPlacementInitParameters struct {

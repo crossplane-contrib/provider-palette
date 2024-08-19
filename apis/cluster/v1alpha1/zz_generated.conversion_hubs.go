@@ -37,9 +37,6 @@ func (tr *Gke) Hub() {}
 func (tr *Group) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Libvirt) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Maas) Hub() {}
 
 // Hub marks this type as a conversion hub.
