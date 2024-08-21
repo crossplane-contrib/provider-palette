@@ -30,8 +30,10 @@ const (
 const (
 	keyAPIEndpoint = "host"
 	keyAPIKey      = "api_key"
-	keyProjectName = "project_name"
 	keyInsecure    = "ignore_insecure_tls_error"
+	keyProjectName = "project_name"
+	keyRetries     = "retry_attempts"
+	keyTrace       = "trace"
 
 	// Palette credentials environment variable names
 
@@ -74,14 +76,15 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// set provider configuration
-
 		ps.Configuration = map[string]interface{}{
 			keyAPIEndpoint: paletteCreds[keyAPIEndpoint],
-			keyProjectName: paletteCreds[keyProjectName],
 			keyAPIKey:      paletteCreds[keyAPIKey],
+			keyProjectName: paletteCreds[keyProjectName],
 		}
-		if v, ok := paletteCreds[keyInsecure]; ok {
-			ps.Configuration[keyInsecure] = v
+		for _, k := range []string{keyInsecure, keyRetries, keyTrace} {
+			if v, ok := paletteCreds[k]; ok {
+				ps.Configuration[k] = v
+			}
 		}
 
 		// set environment variables for sensitive provider configuration
