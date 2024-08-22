@@ -331,7 +331,7 @@ type AzureClusterProfilePackInitParameters struct {
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -361,7 +361,7 @@ type AzureClusterProfilePackObservation struct {
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
@@ -395,7 +395,7 @@ type AzureClusterProfilePackParameters struct {
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
-	// The type of the pack. Allowed values are `spectro`, `manifest` or `helm`. The default value is `spectro`.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 

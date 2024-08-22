@@ -30,7 +30,6 @@ import (
 	gcpcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/gcp"
 	gke "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/gke"
 	group "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/group"
-	libvirt "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/libvirt"
 	maascluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/maas"
 	openstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/openstack"
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/profile"
@@ -79,7 +78,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		gcpcluster.Setup,
 		gke.Setup,
 		group.Setup,
-		libvirt.Setup,
 		maascluster.Setup,
 		openstackcluster.Setup,
 		profilecluster.Setup,
