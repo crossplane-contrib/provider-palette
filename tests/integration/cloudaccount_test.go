@@ -32,8 +32,10 @@ var _ = Describe("Cloud Account Tests", Ordered, func() {
 					},
 				},
 			}
-
 			err := kclient.Create(tc, awsCloudAccount)
+			if err != nil {
+				_ = kclient.Delete(tc, awsCloudAccount)
+			}
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Eventually(func() bool {

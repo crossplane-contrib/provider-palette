@@ -14,7 +14,9 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	corev1 "k8s.io/api/core/v1"
+	kerrs "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes/scheme"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
@@ -40,6 +42,28 @@ var (
 	te      *envtest.Environment
 	ts      *httptest.Server
 )
+
+func init() {
+	// Configure TF_REATTACH_PROVIDERS
+	addr := os.Getenv("TF_ADDR")
+	pid := os.Getenv("TF_PID")
+	if addr == "" || pid == "" {
+		return
+	}
+	reattachProvider := fmt.Sprintf(`{
+		"registry.terraform.io/spectrocloud/spectrocloud": {
+			"Protocol": "grpc",
+			"ProtocolVersion": 5,
+			"Pid": %s,
+			"Test": true,
+			"Addr": {
+				"Network": "unix",
+				"String": "%s"
+			}
+		}
+	}`, pid, addr)
+	os.Setenv("TF_REATTACH_PROVIDERS", reattachProvider)
+}
 
 func TestFunctionality(t *testing.T) {
 	RegisterFailHandler(Fail)
@@ -138,8 +162,9 @@ func initResources() {
 			Name: "crossplane-system",
 		},
 	}
-	err := kclient.Create(tc, ns)
-	Expect(err).ShouldNot(HaveOccurred())
+	if err := kclient.Create(tc, ns); err != nil && !kerrs.IsAlreadyExists(err) {
+		Fail(fmt.Sprintf("failed to create namespace: %v", err))
+	}
 
 	s := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
@@ -151,15 +176,19 @@ func initResources() {
 					"api_key": "dummy",
 					"project_name": "Default",
 					"host": "%s",
-					"ignore_insecure_tls_error": "true"
+					"ignore_insecure_tls_error": "true",
+					"retry_attempts": "1",
+					"trace": "true"
 				}`,
-				// Configure provider-palette to use the mock Palette server
-				ts.Listener.Addr().String(),
+				ts.Listener.Addr().String(), // hook provider-palette's TF host into the Palette mock server
 			),
 		},
 	}
-	err = kclient.Create(tc, s)
-	Expect(err).ShouldNot(HaveOccurred())
+	if err := kclient.Get(tc, types.NamespacedName{Name: s.Name, Namespace: s.Namespace}, &corev1.Secret{}); err == nil {
+		Expect(kclient.Delete(tc, s)).Should(Succeed())
+		time.Sleep(interval)
+	}
+	Expect(kclient.Create(tc, s)).Should(Succeed())
 
 	pc := &v1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{
@@ -181,6 +210,7 @@ func initResources() {
 			},
 		},
 	}
-	err = kclient.Create(tc, pc)
-	Expect(err).ShouldNot(HaveOccurred())
+	if err := kclient.Create(tc, pc); err != nil && !kerrs.IsAlreadyExists(err) {
+		Fail(fmt.Sprintf("failed to create ProviderConfig: %v", err))
+	}
 }
