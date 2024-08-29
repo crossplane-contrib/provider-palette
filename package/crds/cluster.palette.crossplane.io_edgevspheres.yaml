@@ -100,9 +100,12 @@ spec:
                             will be included.
                           type: boolean
                         includeClusterResources:
-                          description: Whether to include the cluster resources in
+                          description: 'Whether to include the cluster resources in
                             the backup. If set to false, only the cluster configuration
-                            and disks will be backed up.
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the `include_cluster_resources` attribute
+                            will be changed to a string type, supporting the values
+                            `always`, `never`, and `auto`.)'
                           type: boolean
                         includeDisks:
                           description: Whether to include the disks in the backup.
@@ -532,9 +535,12 @@ spec:
                             will be included.
                           type: boolean
                         includeClusterResources:
-                          description: Whether to include the cluster resources in
+                          description: 'Whether to include the cluster resources in
                             the backup. If set to false, only the cluster configuration
-                            and disks will be backed up.
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the `include_cluster_resources` attribute
+                            will be changed to a string type, supporting the values
+                            `always`, `never`, and `auto`.)'
                           type: boolean
                         includeDisks:
                           description: Whether to include the disks in the backup.
@@ -1140,9 +1146,12 @@ spec:
                             will be included.
                           type: boolean
                         includeClusterResources:
-                          description: Whether to include the cluster resources in
+                          description: 'Whether to include the cluster resources in
                             the backup. If set to false, only the cluster configuration
-                            and disks will be backed up.
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the `include_cluster_resources` attribute
+                            will be changed to a string type, supporting the values
+                            `always`, `never`, and `auto`.)'
                           type: boolean
                         includeDisks:
                           description: Whether to include the disks in the backup.
