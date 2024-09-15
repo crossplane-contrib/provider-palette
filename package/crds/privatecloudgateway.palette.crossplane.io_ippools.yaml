@@ -73,30 +73,51 @@ spec:
               forProvider:
                 properties:
                   gateway:
+                    description: The network gateway IP address for the IP pool. Typically,
+                      this is the default network gateway for the subnet.
                     type: string
                   ipEndRange:
+                    description: The end IP address of the IP pool. Required if `network_type`
+                      is `range`.
                     type: string
                   ipStartRange:
+                    description: The start IP address of the IP pool. Required if
+                      `network_type` is `range`.
                     type: string
                   nameserverAddresses:
+                    description: The list of nameserver IP addresses for the IP pool.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   nameserverSearchSuffix:
+                    description: The list of nameserver search suffixes for the IP
+                      pool. For example, `example.org`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   networkType:
+                    description: 'The type of network for the IP pool. Allowed values
+                      are: `range` and `subnet`.'
                     type: string
                   prefix:
+                    description: The prefix of the IP pool provided network range
+                      or subnet. For example `24` for a `/24` subnet or a range that
+                      falls inside a `24` subnet.
                     type: number
                   privateCloudGatewayId:
+                    description: The ID of the Private Cloud Gateway.
                     type: string
                   restrictToSingleCluster:
+                    description: Restrict the IP pool to a single cluster. If set
+                      to `true`, the IP pool is restricted to a single cluster. We
+                      recommend setting this to `true` for production environments
+                      and creating separate IP pools for each cluster.
                     type: boolean
                   subnetCidr:
+                    description: The subnet CIDR of the IP pool. Required if `network_type`
+                      is `subnet`.
                     type: string
                 type: object
               initProvider:
@@ -113,30 +134,51 @@ spec:
                   autoscaler.
                 properties:
                   gateway:
+                    description: The network gateway IP address for the IP pool. Typically,
+                      this is the default network gateway for the subnet.
                     type: string
                   ipEndRange:
+                    description: The end IP address of the IP pool. Required if `network_type`
+                      is `range`.
                     type: string
                   ipStartRange:
+                    description: The start IP address of the IP pool. Required if
+                      `network_type` is `range`.
                     type: string
                   nameserverAddresses:
+                    description: The list of nameserver IP addresses for the IP pool.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   nameserverSearchSuffix:
+                    description: The list of nameserver search suffixes for the IP
+                      pool. For example, `example.org`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   networkType:
+                    description: 'The type of network for the IP pool. Allowed values
+                      are: `range` and `subnet`.'
                     type: string
                   prefix:
+                    description: The prefix of the IP pool provided network range
+                      or subnet. For example `24` for a `/24` subnet or a range that
+                      falls inside a `24` subnet.
                     type: number
                   privateCloudGatewayId:
+                    description: The ID of the Private Cloud Gateway.
                     type: string
                   restrictToSingleCluster:
+                    description: Restrict the IP pool to a single cluster. If set
+                      to `true`, the IP pool is restricted to a single cluster. We
+                      recommend setting this to `true` for production environments
+                      and creating separate IP pools for each cluster.
                     type: boolean
                   subnetCidr:
+                    description: The subnet CIDR of the IP pool. Required if `network_type`
+                      is `subnet`.
                     type: string
                 type: object
               managementPolicies:
@@ -329,32 +371,53 @@ spec:
               atProvider:
                 properties:
                   gateway:
+                    description: The network gateway IP address for the IP pool. Typically,
+                      this is the default network gateway for the subnet.
                     type: string
                   id:
                     type: string
                   ipEndRange:
+                    description: The end IP address of the IP pool. Required if `network_type`
+                      is `range`.
                     type: string
                   ipStartRange:
+                    description: The start IP address of the IP pool. Required if
+                      `network_type` is `range`.
                     type: string
                   nameserverAddresses:
+                    description: The list of nameserver IP addresses for the IP pool.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   nameserverSearchSuffix:
+                    description: The list of nameserver search suffixes for the IP
+                      pool. For example, `example.org`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   networkType:
+                    description: 'The type of network for the IP pool. Allowed values
+                      are: `range` and `subnet`.'
                     type: string
                   prefix:
+                    description: The prefix of the IP pool provided network range
+                      or subnet. For example `24` for a `/24` subnet or a range that
+                      falls inside a `24` subnet.
                     type: number
                   privateCloudGatewayId:
+                    description: The ID of the Private Cloud Gateway.
                     type: string
                   restrictToSingleCluster:
+                    description: Restrict the IP pool to a single cluster. If set
+                      to `true`, the IP pool is restricted to a single cluster. We
+                      recommend setting this to `true` for production environments
+                      and creating separate IP pools for each cluster.
                     type: boolean
                   subnetCidr:
+                    description: The subnet CIDR of the IP pool. Required if `network_type`
+                      is `subnet`.
                     type: string
                 type: object
               conditions:

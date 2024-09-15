@@ -14,86 +14,118 @@ import (
 )
 
 type IppoolInitParameters struct {
+
+	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// The ID of the Private Cloud Gateway.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
 type IppoolObservation struct {
+
+	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// The ID of the Private Cloud Gateway.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
 type IppoolParameters struct {
 
+	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	// +kubebuilder:validation:Optional
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	// +kubebuilder:validation:Optional
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// The list of nameserver IP addresses for the IP pool.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	// +kubebuilder:validation:Optional
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	// +kubebuilder:validation:Optional
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// The ID of the Private Cloud Gateway.
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	// +kubebuilder:validation:Optional
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	// +kubebuilder:validation:Optional
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
