@@ -16,48 +16,60 @@ import (
 type CredentialsInitParameters struct {
 
 	// (String)
+	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
 	// (String)
+	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
 	Password *string `json:"password,omitempty" tf:"password,omitempty"`
 
 	// (String)
+	// The authentication token. Required if 'credential_type' is set to 'token'.
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String)
+	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type CredentialsObservation struct {
 
 	// (String)
+	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
 	// (String)
+	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
 	Password *string `json:"password,omitempty" tf:"password,omitempty"`
 
 	// (String)
+	// The authentication token. Required if 'credential_type' is set to 'token'.
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String)
+	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type CredentialsParameters struct {
 
 	// (String)
+	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
 	// (String)
+	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// +kubebuilder:validation:Optional
 	Password *string `json:"password,omitempty" tf:"password,omitempty"`
 
 	// (String)
+	// The authentication token. Required if 'credential_type' is set to 'token'.
 	// +kubebuilder:validation:Optional
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String)
+	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -65,41 +77,50 @@ type CredentialsParameters struct {
 type HelmInitParameters struct {
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// Authentication credentials for accessing the Helm registry.
 	Credentials []CredentialsInitParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
 	// (String)
+	// The URL endpoint of the Helm registry where the charts are hosted.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (Boolean)
+	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 }
 
 type HelmObservation struct {
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// Authentication credentials for accessing the Helm registry.
 	Credentials []CredentialsObservation `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
 	// (String)
+	// The URL endpoint of the Helm registry where the charts are hosted.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean)
+	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 }
 
 type HelmParameters struct {
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// Authentication credentials for accessing the Helm registry.
 	// +kubebuilder:validation:Optional
 	Credentials []CredentialsParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
 	// (String)
+	// The URL endpoint of the Helm registry where the charts are hosted.
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (Boolean)
+	// Specifies whether the Helm registry is private or public.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 }

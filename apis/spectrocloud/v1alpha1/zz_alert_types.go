@@ -16,104 +16,131 @@ import (
 type AlertInitParameters struct {
 
 	// (Boolean)
+	// If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
 	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
 
 	// (String)
+	// The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
 	// (String)
+	// The user who created the alert.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
 	HTTP []HTTPInitParameters `json:"http,omitempty" tf:"http,omitempty"`
 
 	// (Set of String)
+	// A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
 	// +listType=set
 	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
 
 	// (Boolean)
+	// Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
 	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
 
 	// (String)
+	// The project to which the alert belongs to.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
 	Status []StatusInitParameters `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String)
+	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AlertObservation struct {
 
 	// (Boolean)
+	// If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
 	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
 
 	// (String)
+	// The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
 	// (String)
+	// The user who created the alert.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
 	HTTP []HTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Set of String)
+	// A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
 	// +listType=set
 	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
 
 	// (Boolean)
+	// Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
 	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
 
 	// (String)
+	// The project to which the alert belongs to.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String)
+	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AlertParameters struct {
 
 	// (Boolean)
+	// If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
 	// +kubebuilder:validation:Optional
 	AlertAllUsers *bool `json:"alertAllUsers,omitempty" tf:"alert_all_users,omitempty"`
 
 	// (String)
+	// The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
 	// +kubebuilder:validation:Optional
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
 	// (String)
+	// The user who created the alert.
 	// +kubebuilder:validation:Optional
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
 	// +kubebuilder:validation:Optional
 	HTTP []HTTPParameters `json:"http,omitempty" tf:"http,omitempty"`
 
 	// (Set of String)
+	// A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Identifiers []*string `json:"identifiers,omitempty" tf:"identifiers,omitempty"`
 
 	// (Boolean)
+	// Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
 	// +kubebuilder:validation:Optional
 	IsActive *bool `json:"isActive,omitempty" tf:"is_active,omitempty"`
 
 	// (String)
+	// The project to which the alert belongs to.
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// (Block List) (see below for nested schema)
+	// A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
 	// +kubebuilder:validation:Optional
 	Status []StatusParameters `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String)
+	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -121,51 +148,63 @@ type AlertParameters struct {
 type HTTPInitParameters struct {
 
 	// (String)
+	// The payload to include in the HTTP request body when the alert is triggered.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
 	// (Map of String)
+	// Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
 	// +mapType=granular
 	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String)
+	// The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
 	Method *string `json:"method,omitempty" tf:"method,omitempty"`
 
 	// (String)
+	// The target URL to send the HTTP request to when the alert is triggered.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type HTTPObservation struct {
 
 	// (String)
+	// The payload to include in the HTTP request body when the alert is triggered.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
 	// (Map of String)
+	// Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
 	// +mapType=granular
 	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String)
+	// The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
 	Method *string `json:"method,omitempty" tf:"method,omitempty"`
 
 	// (String)
+	// The target URL to send the HTTP request to when the alert is triggered.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type HTTPParameters struct {
 
 	// (String)
+	// The payload to include in the HTTP request body when the alert is triggered.
 	// +kubebuilder:validation:Optional
 	Body *string `json:"body" tf:"body,omitempty"`
 
 	// (Map of String)
+	// Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String)
+	// The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
 	// +kubebuilder:validation:Optional
 	Method *string `json:"method" tf:"method,omitempty"`
 
 	// (String)
+	// The target URL to send the HTTP request to when the alert is triggered.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url" tf:"url,omitempty"`
 }

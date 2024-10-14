@@ -74,19 +74,27 @@ spec:
               forProvider:
                 properties:
                   pairingKey:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The pairing key used for appliance pairing.
                     type: string
                   tags:
                     additionalProperties:
                       type: string
-                    description: (Map of String)
+                    description: |-
+                      (Map of String)
+                      A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
                   uid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The unique identifier (UID) for the appliance.
                     type: string
                   wait:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean)
+                      If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
                     type: boolean
                 type: object
               initProvider:
@@ -103,19 +111,27 @@ spec:
                   autoscaler.
                 properties:
                   pairingKey:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The pairing key used for appliance pairing.
                     type: string
                   tags:
                     additionalProperties:
                       type: string
-                    description: (Map of String)
+                    description: |-
+                      (Map of String)
+                      A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
                   uid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The unique identifier (UID) for the appliance.
                     type: string
                   wait:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean)
+                      If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
                     type: boolean
                 type: object
               managementPolicies:
@@ -299,19 +315,27 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   pairingKey:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The pairing key used for appliance pairing.
                     type: string
                   tags:
                     additionalProperties:
                       type: string
-                    description: (Map of String)
+                    description: |-
+                      (Map of String)
+                      A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
                   uid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The unique identifier (UID) for the appliance.
                     type: string
                   wait:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean)
+                      If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
                     type: boolean
                 type: object
               conditions:

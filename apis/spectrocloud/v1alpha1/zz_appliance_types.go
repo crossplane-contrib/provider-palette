@@ -16,16 +16,20 @@ import (
 type ApplianceInitParameters struct {
 
 	// (String)
+	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
 	// (Map of String)
+	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String)
+	// The unique identifier (UID) for the appliance.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (Boolean)
+	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
@@ -35,35 +39,43 @@ type ApplianceObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String)
+	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
 	// (Map of String)
+	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String)
+	// The unique identifier (UID) for the appliance.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (Boolean)
+	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
 type ApplianceParameters struct {
 
 	// (String)
+	// The pairing key used for appliance pairing.
 	// +kubebuilder:validation:Optional
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
 	// (Map of String)
+	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (String)
+	// The unique identifier (UID) for the appliance.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (Boolean)
+	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }

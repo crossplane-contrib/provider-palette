@@ -16,78 +16,99 @@ import (
 type S3InitParameters struct {
 
 	// (String)
+	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
 	// (String)
+	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// (String)
+	// The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
 	// (String)
+	// An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
 	// (Boolean)
+	// A boolean flag indicating whether to enforce the path-style URL for accessing S3.
 	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
 
 	// (String)
+	// The S3 URL endpoint.
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
 	// (String)
+	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
 
 type S3Observation struct {
 
 	// (String)
+	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
 	// (String)
+	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// (String)
+	// The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
 	// (String)
+	// An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
 	// (Boolean)
+	// A boolean flag indicating whether to enforce the path-style URL for accessing S3.
 	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
 
 	// (String)
+	// The S3 URL endpoint.
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
 	// (String)
+	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
 
 type S3Parameters struct {
 
 	// (String)
+	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
 	// (String)
+	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// (String)
+	// The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
 	// (String)
+	// An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
 	// +kubebuilder:validation:Optional
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
 	// (Boolean)
+	// A boolean flag indicating whether to enforce the path-style URL for accessing S3.
 	// +kubebuilder:validation:Optional
 	S3ForcePathStyle *bool `json:"s3ForcePathStyle,omitempty" tf:"s3_force_path_style,omitempty"`
 
 	// (String)
+	// The S3 URL endpoint.
 	// +kubebuilder:validation:Optional
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
 	// (String)
+	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
 	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
@@ -95,61 +116,76 @@ type S3Parameters struct {
 type StorageLocationInitParameters struct {
 
 	// (String)
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// (String)
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
 	// (Boolean)
+	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
 	// (String)
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// S3-specific settings for configuring the backup storage location.
 	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type StorageLocationObservation struct {
 
 	// (String)
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// (String)
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean)
+	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
 	// (String)
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// S3-specific settings for configuring the backup storage location.
 	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type StorageLocationParameters struct {
 
 	// (String)
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
 	// +kubebuilder:validation:Optional
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// (String)
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
 	// (Boolean)
+	// Specifies if this backup storage location should be used as the default location for storing backups.
 	// +kubebuilder:validation:Optional
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
 	// (String)
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// S3-specific settings for configuring the backup storage location.
 	// +kubebuilder:validation:Optional
 	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }

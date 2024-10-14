@@ -78,10 +78,14 @@ spec:
                       The context of the Tencent account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   tencentSecretId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The secret ID associated with the Tencent account for authentication.
                     type: string
                   tencentSecretKeySecretRef:
-                    description: (String, Sensitive)
+                    description: |-
+                      (String, Sensitive)
+                      The secret key associated with the Tencent account for authentication.
                     properties:
                       key:
                         description: The key to select.
@@ -117,7 +121,9 @@ spec:
                       The context of the Tencent account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   tencentSecretId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The secret ID associated with the Tencent account for authentication.
                     type: string
                 type: object
               managementPolicies:
@@ -301,7 +307,9 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   tencentSecretId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      The secret ID associated with the Tencent account for authentication.
                     type: string
                 type: object
               conditions:

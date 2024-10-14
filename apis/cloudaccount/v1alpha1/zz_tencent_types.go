@@ -20,6 +20,7 @@ type TencentInitParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String)
+	// The secret ID associated with the Tencent account for authentication.
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 }
 
@@ -33,6 +34,7 @@ type TencentObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String)
+	// The secret ID associated with the Tencent account for authentication.
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 }
 
@@ -44,10 +46,12 @@ type TencentParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String)
+	// The secret ID associated with the Tencent account for authentication.
 	// +kubebuilder:validation:Optional
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 
 	// (String, Sensitive)
+	// The secret key associated with the Tencent account for authentication.
 	// +kubebuilder:validation:Optional
 	TencentSecretKeySecretRef *v1.SecretKeySelector `json:"tencentSecretKeySecretRef,omitempty" tf:"-"`
 }
