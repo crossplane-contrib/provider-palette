@@ -63,27 +63,27 @@ resources:
                   "type": "http"
                 }
         argumentDocs:
-            alert_all_users: (Boolean)
-            body: (String)
-            component: (String)
+            alert_all_users: (Boolean) If set to true, the alert will be sent to all users. If false, it will target specific users or identifiers.
+            body: (String) The payload to include in the HTTP request body when the alert is triggered.
+            component: (String) The component of the system that the alert is associated with. Currently, ClusterHealth is the only supported value.
             create: (String)
-            created_by: (String)
+            created_by: (String) The user who created the alert.
             delete: (String)
-            headers: (Map of String)
-            http: (Block List) (see below for nested schema)
+            headers: (Map of String) Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
+            http: (Block List) The configuration block for HTTP-based alerts. This is used when the type is set to http. (see below for nested schema)
             id: (String) The ID of this resource.
-            identifiers: (Set of String)
-            is_active: (Boolean)
+            identifiers: (Set of String) A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
+            is_active: (Boolean) Indicates whether the alert is active. Set to true to activate the alert, or false to deactivate it.
             is_succeeded: (Boolean)
             message: (String)
-            method: (String)
-            project: (String)
-            status: (Block List) (see below for nested schema)
+            method: (String) The HTTP method to use for the alert. Supported values are POST, GET, and PUT.
+            project: (String) The project to which the alert belongs to.
+            status: (Block List) A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly. (see below for nested schema)
             time: (String)
             timeouts: (Block, Optional) (see below for nested schema)
-            type: (String)
+            type: (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
             update: (String)
-            url: (String)
+            url: (String) The target URL to send the HTTP request to when the alert is triggered.
         importStatements: []
     spectrocloud_appliance:
         subCategory: ""
@@ -104,12 +104,12 @@ resources:
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
-            pairing_key: (String)
-            tags: (Map of String)
+            pairing_key: (String) The pairing key used for appliance pairing.
+            tags: (Map of String) A set of key-value pairs that can be used to organize and categorize the appliance.
             timeouts: (Block, Optional) (see below for nested schema)
-            uid: (String)
+            uid: (String) The unique identifier (UID) for the appliance.
             update: (String)
-            wait: (Boolean)
+            wait: (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
         importStatements: []
     spectrocloud_application:
         subCategory: ""
@@ -138,21 +138,21 @@ resources:
               references:
                 application_profile_uid: data.spectrocloud_application_profile.id
         argumentDocs:
-            application_profile_uid: (String)
-            cluster_context: (String)
-            cluster_group_uid: (String)
-            cluster_name: (String)
-            cluster_uid: (String)
-            config: '(Block List, Max: 1) (see below for nested schema)'
-            cpu: (Number)
+            application_profile_uid: (String) The unique identifier (UID) of the application profile to use for this application.
+            cluster_context: (String) The context for the cluster,  Either tenant or project can be provided.
+            cluster_group_uid: (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
+            cluster_name: (String) An optional name for the target cluster.
+            cluster_uid: (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
+            config: '(Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)'
+            cpu: (Number) The CPU allocation for the application, specified in integer values.
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
-            limits: (Block List) (see below for nested schema)
-            memory: (Number)
-            name: (String)
-            storage: (Number)
-            tags: (Set of String)
+            limits: (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
+            memory: (Number) The memory allocation for the application, specified in megabytes.
+            name: (String) The name of the application being created.
+            storage: (Number) The storage allocation for the application, specified in gigabytes.
+            tags: (Set of String) A set of tags to associate with the application for easier identification and categorization.
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
@@ -356,22 +356,22 @@ resources:
                 s3.credential_type: var.credential_type
                 s3.external_id: var.external_id
         argumentDocs:
-            access_key: (String)
-            arn: (String)
-            bucket_name: (String)
-            ca_cert: (String)
+            access_key: (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+            arn: (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
+            bucket_name: (String) The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+            ca_cert: (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
             create: (String)
-            credential_type: (String)
+            credential_type: (String) The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
             delete: (String)
-            external_id: (String)
+            external_id: (String) An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
             id: (String) The ID of this resource.
-            is_default: (Boolean)
-            name: (String)
-            region: (String)
-            s3: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
-            s3_force_path_style: (Boolean)
-            s3_url: (String)
-            secret_key: (String)
+            is_default: (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
+            name: (String) The name of the backup storage location. This is a unique identifier for the backup location.
+            region: (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+            s3: '(Block List, Min: 1, Max: 1) S3-specific settings for configuring the backup storage location. (see below for nested schema)'
+            s3_force_path_style: (Boolean) A boolean flag indicating whether to enforce the path-style URL for accessing S3.
+            s3_url: (String) The S3 URL endpoint.
+            secret_key: (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
@@ -391,11 +391,11 @@ resources:
                 aws_access_key: var.aws_access_key
                 aws_secret_key: var.aws_secret_key
         argumentDocs:
-            arn: (String)
-            aws_access_key: (String)
-            aws_secret_key: (String, Sensitive)
+            arn: (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+            aws_access_key: (String) The AWS access key used to authenticate.
+            aws_secret_key: (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
             context: (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            external_id: (String, Sensitive)
+            external_id: (String, Sensitive) An optional external ID that can be used for cross-account access in AWS.
             id: (String) The ID of this resource.
             name: (String)
             partition: |-
@@ -483,9 +483,9 @@ resources:
                 gcp_json_credentials: var.gcp_serviceaccount_json
         argumentDocs:
             context: (String) The context of the GCP configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            gcp_json_credentials: (String, Sensitive)
+            gcp_json_credentials: (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
             id: (String) The ID of this resource.
-            name: (String)
+            name: (String) The name of the GCP account.
         importStatements: []
     spectrocloud_cloudaccount_maas:
         subCategory: ""
@@ -566,9 +566,9 @@ resources:
         argumentDocs:
             context: (String) The context of the Tencent account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             id: (String) The ID of this resource.
-            name: (String)
-            tencent_secret_id: (String)
-            tencent_secret_key: (String, Sensitive)
+            name: (String) The name of the Tencent account to be managed.
+            tencent_secret_id: (String) The secret ID associated with the Tencent account for authentication.
+            tencent_secret_key: (String, Sensitive) The secret key associated with the Tencent account for authentication.
         importStatements: []
     spectrocloud_cloudaccount_vsphere:
         subCategory: ""
@@ -702,7 +702,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -888,7 +888,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) The instance type to use for the machine pool nodes.
@@ -1045,7 +1045,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) Azure instance type from the Azure portal.
@@ -1254,7 +1254,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
             latitude: (Number) The latitude coordinates value.
@@ -1380,7 +1380,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             key: (String) The key of the taint.
@@ -1477,7 +1477,7 @@ resources:
             image_template_folder: (String)
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -1641,7 +1641,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -1795,7 +1795,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -1922,7 +1922,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -2175,7 +2175,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -2341,7 +2341,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -2399,6 +2399,60 @@ resources:
         name: spectrocloud_cluster_profile
         title: spectrocloud_cluster_profile Resource - terraform-provider-spectrocloud
         examples:
+            - name: aws-profile
+              manifest: |-
+                {
+                  "cloud": "aws",
+                  "count": "${var.deploy-aws ? 1 : 0}",
+                  "description": "A basic cluster profile for AWS",
+                  "name": "tf-aws-profile",
+                  "pack": [
+                    {
+                      "name": "${data.spectrocloud_pack.aws_ubuntu.name}",
+                      "tag": "${data.spectrocloud_pack.aws_ubuntu.version}",
+                      "uid": "${data.spectrocloud_pack.aws_ubuntu.id}",
+                      "values": "${data.spectrocloud_pack.aws_ubuntu.values}"
+                    },
+                    {
+                      "name": "${data.spectrocloud_pack.aws_k8s.name}",
+                      "tag": "${data.spectrocloud_pack.aws_k8s.version}",
+                      "uid": "${data.spectrocloud_pack.aws_k8s.id}",
+                      "values": "${data.spectrocloud_pack.aws_k8s.values}"
+                    },
+                    {
+                      "name": "${data.spectrocloud_pack.aws_cni.name}",
+                      "tag": "${data.spectrocloud_pack.aws_cni.version}",
+                      "uid": "${data.spectrocloud_pack.aws_cni.id}",
+                      "values": "${data.spectrocloud_pack.aws_cni.values}"
+                    },
+                    {
+                      "name": "${data.spectrocloud_pack.aws_csi.name}",
+                      "tag": "${data.spectrocloud_pack.aws_csi.version}",
+                      "uid": "${data.spectrocloud_pack.aws_csi.id}",
+                      "values": "${data.spectrocloud_pack.aws_csi.values}"
+                    },
+                    {
+                      "manifest": [
+                        {
+                          "content": "${file(\"manifests/hello-universe.yaml\")}",
+                          "name": "hello-universe"
+                        }
+                      ],
+                      "name": "hello-universe",
+                      "tag": "1.0.0",
+                      "type": "manifest",
+                      "values": ""
+                    }
+                  ],
+                  "tags": "${concat(var.tags, [\"env:aws\"])}",
+                  "type": "cluster",
+                  "version": "1.0.0"
+                }
+              references:
+                pack.name: data.spectrocloud_pack.aws_csi.name
+                pack.tag: data.spectrocloud_pack.aws_csi.version
+                pack.uid: data.spectrocloud_pack.aws_csi.id
+                pack.values: data.spectrocloud_pack.aws_csi.values
             - name: profile
               manifest: |-
                 {
@@ -2457,6 +2511,84 @@ resources:
               references:
                 pack.uid: data.spectrocloud_pack.csi.id
                 pack.values: local.proxy_val
+            - name: this
+              manifest: |-
+                {
+                  "dynamic": {
+                    "pack": [
+                      {
+                        "for_each": "${var.my-packs}"
+                      }
+                    ]
+                  },
+                  "name": "security-profile"
+                }
+              references:
+                dynamic.for_each: var.my-packs
+            - name: profile
+              manifest: |-
+                {
+                  "cloud": "vsphere",
+                  "description": "basic cp",
+                  "name": "vsphere-picard-4",
+                  "pack": [
+                    {
+                      "name": "ubuntu-vsphere",
+                      "tag": "LTS__18.4.x",
+                      "uid": "${data.spectrocloud_pack.ubuntu.id}",
+                      "values": "foo: 1"
+                    },
+                    {
+                      "name": "kubernetes",
+                      "tag": "1.21.5",
+                      "uid": "${data.spectrocloud_pack.k8s.id}",
+                      "values": "${data.spectrocloud_pack.k8s.values}"
+                    },
+                    {
+                      "name": "cni-calico",
+                      "tag": "3.16.x",
+                      "uid": "${data.spectrocloud_pack.cni.id}",
+                      "values": "${data.spectrocloud_pack.cni.values}"
+                    },
+                    {
+                      "name": "csi-vsphere-csi",
+                      "tag": "2.3.x",
+                      "uid": "${data.spectrocloud_pack.csi.id}",
+                      "values": "${data.spectrocloud_pack.csi.values}"
+                    }
+                  ],
+                  "profile_variables": [
+                    {
+                      "variable": [
+                        {
+                          "display_name": "Default Password",
+                          "format": "string",
+                          "hidden": true,
+                          "name": "default_password"
+                        },
+                        {
+                          "default_value": "0.0.1",
+                          "description": "description hard-version",
+                          "display_name": "Version",
+                          "format": "version",
+                          "immutable": false,
+                          "name": "default_version",
+                          "regex": "*.*",
+                          "required": true
+                        }
+                      ]
+                    }
+                  ],
+                  "tags": [
+                    "dev",
+                    "department:devops",
+                    "owner:bob"
+                  ],
+                  "type": "cluster"
+                }
+              references:
+                pack.uid: data.spectrocloud_pack.csi.id
+                pack.values: data.spectrocloud_pack.csi.values
         argumentDocs:
             cloud: (String) Specify the infrastructure provider the cluster profile is for. Only Palette supported infrastructure providers can be used. The  supported cloud types are - all, aws, azure, gcp, vsphere, openstack, maas, virtual, baremetal, eks, aks, edge, edge-native, tencent, tke, generic, and gke,If the value is set to all, then the type must be set to add-on. Otherwise, the cluster profile may be incompatible with other providers. Default value is all.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
@@ -2547,7 +2679,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String)
@@ -2644,7 +2776,7 @@ resources:
             image_template_folder: (String) The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -2878,25 +3010,59 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
-    spectrocloud_privatecloudgateway_ippool Resource - terraform-provider-spectrocloud:
+    spectrocloud_privatecloudgateway_ippool:
         subCategory: ""
-        name: spectrocloud_privatecloudgateway_ippool Resource - terraform-provider-spectrocloud
+        description: A Resource to manage IP pools for Private Cloud Gateway.
+        name: spectrocloud_privatecloudgateway_ippool
         title: spectrocloud_privatecloudgateway_ippool Resource - terraform-provider-spectrocloud
+        examples:
+            - name: ippool
+              manifest: |-
+                {
+                  "gateway": "192.168.1.1",
+                  "ip_end_range": "192.168.1.100",
+                  "ip_start_range": "192.168.1.10",
+                  "name": "primary-compute-pool-1",
+                  "nameserver_addresses": [
+                    "192.168.1.8"
+                  ],
+                  "network_type": "range",
+                  "prefix": "24",
+                  "private_cloud_gateway_id": "${data.spectrocloud_private_cloud_gateway.pcg.id}",
+                  "restrict_to_single_cluster": true
+                }
+              references:
+                private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.pcg.id
+            - name: ippool
+              manifest: |-
+                {
+                  "gateway": "10.10.192.1",
+                  "name": "backup-compute-pool",
+                  "nameserver_addresses": [
+                    "192.168.1.8"
+                  ],
+                  "network_type": "subnet",
+                  "prefix": "24",
+                  "private_cloud_gateway_id": "${data.spectrocloud_private_cloud_gateway.pcg.id}",
+                  "subnet_cidr": "10.10.100.0/24"
+                }
+              references:
+                private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.pcg.id
         argumentDocs:
             create: (String)
             delete: (String)
-            gateway: (String)
+            gateway: (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
             id: (String) The ID of this resource.
-            ip_end_range: (String)
-            ip_start_range: (String)
-            name: (String)
-            nameserver_addresses: (Set of String)
-            nameserver_search_suffix: (Set of String)
-            network_type: (String)
-            prefix: (Number)
-            private_cloud_gateway_id: (String)
-            restrict_to_single_cluster: (Boolean)
-            subnet_cidr: (String)
+            ip_end_range: (String) The end IP address of the IP pool. Required if network_type is range.
+            ip_start_range: (String) The start IP address of the IP pool. Required if network_type is range.
+            name: (String) The name of the IP pool.
+            nameserver_addresses: (Set of String) The list of nameserver IP addresses for the IP pool.
+            nameserver_search_suffix: (Set of String) The list of nameserver search suffixes for the IP pool. For example, example.org.
+            network_type: '(String) The type of network for the IP pool. Allowed values are: range and subnet.'
+            prefix: (Number) The prefix of the IP pool provided network range or subnet. For example 24 for a /24 subnet or a range that falls inside a 24 subnet.
+            private_cloud_gateway_id: (String) The ID of the Private Cloud Gateway.
+            restrict_to_single_cluster: (Boolean) Restrict the IP pool to a single cluster. If set to true, the IP pool is restricted to a single cluster. We recommend setting this to true for production environments and creating separate IP pools for each cluster.
+            subnet_cidr: (String) The subnet CIDR of the IP pool. Required if network_type is subnet.
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
@@ -2952,18 +3118,18 @@ resources:
                 }
         argumentDocs:
             create: (String)
-            credential_type: (String)
-            credentials: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
+            credential_type: (String) The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
+            credentials: '(Block List, Min: 1, Max: 1) Authentication credentials for accessing the Helm registry. (see below for nested schema)'
             delete: (String)
-            endpoint: (String)
+            endpoint: (String) The URL endpoint of the Helm registry where the charts are hosted.
             id: (String) The ID of this resource.
-            is_private: (Boolean)
-            name: (String)
-            password: (String)
+            is_private: (Boolean) Specifies whether the Helm registry is private or public.
+            name: (String) The name of the Helm registry. This must be unique
+            password: (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
             timeouts: (Block, Optional) (see below for nested schema)
-            token: (String)
+            token: (String) The authentication token. Required if 'credential_type' is set to 'token'.
             update: (String)
-            username: (String)
+            username: (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
         importStatements: []
     spectrocloud_registry_oci:
         subCategory: ""
@@ -2986,21 +3152,24 @@ resources:
                   "type": "ecr"
                 }
         argumentDocs:
-            access_key: (String)
-            arn: (String)
+            access_key: (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+            arn: (String) The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
             create: (String)
-            credential_type: (String)
-            credentials: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
+            credential_type: (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
+            credentials: '(Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)'
             delete: (String)
-            endpoint: (String)
-            external_id: (String)
+            endpoint: (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
+            external_id: (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
             id: (String) The ID of this resource.
-            is_private: (Boolean)
-            name: (String)
-            secret_key: (String, Sensitive)
+            is_private: (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
+            name: (String) The name of the OCI registry.
+            password: (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
+            provider_type: (String) The type of provider used for interacting with the registry. The default is 'helm'.
+            secret_key: (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
             timeouts: (Block, Optional) (see below for nested schema)
-            type: (String)
+            type: (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
             update: (String)
+            username: (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
         importStatements: []
     spectrocloud_team:
         subCategory: ""
@@ -3099,7 +3268,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             k8s_version: (String)
             kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
@@ -3495,7 +3664,7 @@ resources:
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+            include_cluster_resources: '(Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)'
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.

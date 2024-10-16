@@ -73,42 +73,65 @@ spec:
               forProvider:
                 properties:
                   bucketName:
-                    description: (String)
+                    description: |-
+                      compatible storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
                     type: string
                   caCert:
-                    description: (String)
+                    description: |-
+                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
                     type: string
                   isDefault:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
+                      Specifies if this backup storage location should be used as the default location for storing backups.
                     type: boolean
                   region:
-                    description: (String)
+                    description: |-
+                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
                     type: string
                   s3:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      specific settings for configuring the backup storage location. (see below for nested schema)
+                      S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
+                            The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based credentials.
+                            The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            account access to the S3 storage when using 'sts' credentials.
+                            An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
                           type: string
                         s3ForcePathStyle:
-                          description: (Boolean)
+                          description: |-
+                            style URL for accessing S3.
+                            A boolean flag indicating whether to enforce the path-style URL for accessing S3.
                           type: boolean
                         s3Url:
-                          description: (String)
+                          description: |-
+                            (String) The S3 URL endpoint.
+                            The S3 URL endpoint.
                           type: string
                         secretKey:
-                          description: (String)
+                          description: |-
+                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                       type: object
                     type: array
@@ -127,42 +150,65 @@ spec:
                   autoscaler.
                 properties:
                   bucketName:
-                    description: (String)
+                    description: |-
+                      compatible storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
                     type: string
                   caCert:
-                    description: (String)
+                    description: |-
+                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
                     type: string
                   isDefault:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
+                      Specifies if this backup storage location should be used as the default location for storing backups.
                     type: boolean
                   region:
-                    description: (String)
+                    description: |-
+                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
                     type: string
                   s3:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      specific settings for configuring the backup storage location. (see below for nested schema)
+                      S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
+                            The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based credentials.
+                            The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            account access to the S3 storage when using 'sts' credentials.
+                            An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
                           type: string
                         s3ForcePathStyle:
-                          description: (Boolean)
+                          description: |-
+                            style URL for accessing S3.
+                            A boolean flag indicating whether to enforce the path-style URL for accessing S3.
                           type: boolean
                         s3Url:
-                          description: (String)
+                          description: |-
+                            (String) The S3 URL endpoint.
+                            The S3 URL endpoint.
                           type: string
                         secretKey:
-                          description: (String)
+                          description: |-
+                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                       type: object
                     type: array
@@ -357,45 +403,68 @@ spec:
               atProvider:
                 properties:
                   bucketName:
-                    description: (String)
+                    description: |-
+                      compatible storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
                     type: string
                   caCert:
-                    description: (String)
+                    description: |-
+                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   isDefault:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
+                      Specifies if this backup storage location should be used as the default location for storing backups.
                     type: boolean
                   region:
-                    description: (String)
+                    description: |-
+                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
                     type: string
                   s3:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      specific settings for configuring the backup storage location. (see below for nested schema)
+                      S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
+                            The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based credentials.
+                            The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            account access to the S3 storage when using 'sts' credentials.
+                            An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
                           type: string
                         s3ForcePathStyle:
-                          description: (Boolean)
+                          description: |-
+                            style URL for accessing S3.
+                            A boolean flag indicating whether to enforce the path-style URL for accessing S3.
                           type: boolean
                         s3Url:
-                          description: (String)
+                          description: |-
+                            (String) The S3 URL endpoint.
+                            The S3 URL endpoint.
                           type: string
                         secretKey:
-                          description: (String)
+                          description: |-
+                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                       type: object
                     type: array

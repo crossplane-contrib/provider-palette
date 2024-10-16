@@ -73,29 +73,42 @@ spec:
               forProvider:
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Helm registry. (see below for nested schema)
+                      Authentication credentials for accessing the Helm registry.
                     items:
                       properties:
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based authentication.
+                            The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
                         password:
-                          description: (String)
+                          description: |-
+                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                         token:
-                          description: (String)
+                          description: |-
+                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
+                            The authentication token. Required if 'credential_type' is set to 'token'.
                           type: string
                         username:
-                          description: (String)
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the Helm registry where the charts are hosted.
+                      The URL endpoint of the Helm registry where the charts are hosted.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public.
                     type: boolean
                 type: object
               initProvider:
@@ -112,29 +125,42 @@ spec:
                   autoscaler.
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Helm registry. (see below for nested schema)
+                      Authentication credentials for accessing the Helm registry.
                     items:
                       properties:
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based authentication.
+                            The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
                         password:
-                          description: (String)
+                          description: |-
+                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                         token:
-                          description: (String)
+                          description: |-
+                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
+                            The authentication token. Required if 'credential_type' is set to 'token'.
                           type: string
                         username:
-                          description: (String)
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the Helm registry where the charts are hosted.
+                      The URL endpoint of the Helm registry where the charts are hosted.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public.
                     type: boolean
                 type: object
               managementPolicies:
@@ -323,32 +349,45 @@ spec:
               atProvider:
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Helm registry. (see below for nested schema)
+                      Authentication credentials for accessing the Helm registry.
                     items:
                       properties:
                         credentialType:
-                          description: (String)
+                          description: |-
+                            based authentication.
+                            The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
                         password:
-                          description: (String)
+                          description: |-
+                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                         token:
-                          description: (String)
+                          description: |-
+                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
+                            The authentication token. Required if 'credential_type' is set to 'token'.
                           type: string
                         username:
-                          description: (String)
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is set to 'basic'.
                           type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the Helm registry where the charts are hosted.
+                      The URL endpoint of the Helm registry where the charts are hosted.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public.
                     type: boolean
                 type: object
               conditions:

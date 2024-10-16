@@ -32,7 +32,7 @@ type GkeBackupPolicyInitParameters struct {
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
 	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
@@ -73,7 +73,7 @@ type GkeBackupPolicyObservation struct {
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
 	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
@@ -118,7 +118,7 @@ type GkeBackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up.
+	// (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
 	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`

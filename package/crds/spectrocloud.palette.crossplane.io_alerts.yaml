@@ -73,49 +73,73 @@ spec:
               forProvider:
                 properties:
                   alertAllUsers:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) If set to true, the alert will be sent to all users. If false, it will target specific users or identifiers.
+                      If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
                     type: boolean
                   component:
-                    description: (String)
+                    description: |-
+                      (String) The component of the system that the alert is associated with. Currently, ClusterHealth is the only supported value.
+                      The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
                     type: string
                   createdBy:
-                    description: (String)
+                    description: |-
+                      (String) The user who created the alert.
+                      The user who created the alert.
                     type: string
                   http:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      based alerts. This is used when the type is set to http. (see below for nested schema)
+                      The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
                     items:
                       properties:
                         body:
-                          description: (String)
+                          description: |-
+                            (String) The payload to include in the HTTP request body when the alert is triggered.
+                            The payload to include in the HTTP request body when the alert is triggered.
                           type: string
                         headers:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            value pair.
+                            Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
                           type: object
                           x-kubernetes-map-type: granular
                         method:
-                          description: (String)
+                          description: |-
+                            (String) The HTTP method to use for the alert. Supported values are POST, GET, and PUT.
+                            The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
                           type: string
                         url:
-                          description: (String)
+                          description: |-
+                            (String) The target URL to send the HTTP request to when the alert is triggered.
+                            The target URL to send the HTTP request to when the alert is triggered.
                           type: string
                       type: object
                     type: array
                   identifiers:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
+                      A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   isActive:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Indicates whether the alert is active. Set to true to activate the alert, or false to deactivate it.
+                      Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
                     type: boolean
                   project:
-                    description: (String)
+                    description: |-
+                      (String) The project to which the alert belongs to.
+                      The project to which the alert belongs to.
                     type: string
                   status:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      (Block List) A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly. (see below for nested schema)
+                      A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
                     items:
                       properties:
                         isSucceeded:
@@ -130,7 +154,9 @@ spec:
                       type: object
                     type: array
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
                     type: string
                 type: object
               initProvider:
@@ -147,49 +173,73 @@ spec:
                   autoscaler.
                 properties:
                   alertAllUsers:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) If set to true, the alert will be sent to all users. If false, it will target specific users or identifiers.
+                      If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
                     type: boolean
                   component:
-                    description: (String)
+                    description: |-
+                      (String) The component of the system that the alert is associated with. Currently, ClusterHealth is the only supported value.
+                      The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
                     type: string
                   createdBy:
-                    description: (String)
+                    description: |-
+                      (String) The user who created the alert.
+                      The user who created the alert.
                     type: string
                   http:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      based alerts. This is used when the type is set to http. (see below for nested schema)
+                      The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
                     items:
                       properties:
                         body:
-                          description: (String)
+                          description: |-
+                            (String) The payload to include in the HTTP request body when the alert is triggered.
+                            The payload to include in the HTTP request body when the alert is triggered.
                           type: string
                         headers:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            value pair.
+                            Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
                           type: object
                           x-kubernetes-map-type: granular
                         method:
-                          description: (String)
+                          description: |-
+                            (String) The HTTP method to use for the alert. Supported values are POST, GET, and PUT.
+                            The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
                           type: string
                         url:
-                          description: (String)
+                          description: |-
+                            (String) The target URL to send the HTTP request to when the alert is triggered.
+                            The target URL to send the HTTP request to when the alert is triggered.
                           type: string
                       type: object
                     type: array
                   identifiers:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
+                      A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   isActive:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Indicates whether the alert is active. Set to true to activate the alert, or false to deactivate it.
+                      Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
                     type: boolean
                   project:
-                    description: (String)
+                    description: |-
+                      (String) The project to which the alert belongs to.
+                      The project to which the alert belongs to.
                     type: string
                   status:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      (Block List) A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly. (see below for nested schema)
+                      A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
                     items:
                       properties:
                         isSucceeded:
@@ -204,7 +254,9 @@ spec:
                       type: object
                     type: array
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
                     type: string
                 type: object
               managementPolicies:
@@ -397,32 +449,48 @@ spec:
               atProvider:
                 properties:
                   alertAllUsers:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) If set to true, the alert will be sent to all users. If false, it will target specific users or identifiers.
+                      If set to `true`, the alert will be sent to all users. If `false`, it will target specific users or identifiers.
                     type: boolean
                   component:
-                    description: (String)
+                    description: |-
+                      (String) The component of the system that the alert is associated with. Currently, ClusterHealth is the only supported value.
+                      The component of the system that the alert is associated with. Currently, `ClusterHealth` is the only supported value.
                     type: string
                   createdBy:
-                    description: (String)
+                    description: |-
+                      (String) The user who created the alert.
+                      The user who created the alert.
                     type: string
                   http:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      based alerts. This is used when the type is set to http. (see below for nested schema)
+                      The configuration block for HTTP-based alerts. This is used when the `type` is set to `http`.
                     items:
                       properties:
                         body:
-                          description: (String)
+                          description: |-
+                            (String) The payload to include in the HTTP request body when the alert is triggered.
+                            The payload to include in the HTTP request body when the alert is triggered.
                           type: string
                         headers:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            value pair.
+                            Optional HTTP headers to include in the request. Each header should be specified as a key-value pair.
                           type: object
                           x-kubernetes-map-type: granular
                         method:
-                          description: (String)
+                          description: |-
+                            (String) The HTTP method to use for the alert. Supported values are POST, GET, and PUT.
+                            The HTTP method to use for the alert. Supported values are `POST`, `GET`, and `PUT`.
                           type: string
                         url:
-                          description: (String)
+                          description: |-
+                            (String) The target URL to send the HTTP request to when the alert is triggered.
+                            The target URL to send the HTTP request to when the alert is triggered.
                           type: string
                       type: object
                     type: array
@@ -430,19 +498,27 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   identifiers:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
+                      A set of unique identifiers to which the alert will be sent. This is used to target specific users or groups.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   isActive:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Indicates whether the alert is active. Set to true to activate the alert, or false to deactivate it.
+                      Indicates whether the alert is active. Set to `true` to activate the alert, or `false` to deactivate it.
                     type: boolean
                   project:
-                    description: (String)
+                    description: |-
+                      (String) The project to which the alert belongs to.
+                      The project to which the alert belongs to.
                     type: string
                   status:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      (Block List) A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly. (see below for nested schema)
+                      A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
                     items:
                       properties:
                         isSucceeded:
@@ -457,7 +533,9 @@ spec:
                       type: object
                     type: array
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
                     type: string
                 type: object
               conditions:

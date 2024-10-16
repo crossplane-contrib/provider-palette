@@ -73,43 +73,65 @@ spec:
               forProvider:
                 properties:
                   applicationProfileUid:
-                    description: (String)
+                    description: |-
+                      (String) The unique identifier (UID) of the application profile to use for this application.
+                      The unique identifier (UID) of the application profile to use for this application.
                     type: string
                   config:
-                    description: '(Block List, Max: 1) (see below for nested schema)'
+                    description: |-
+                      (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
+                      The configuration block for specifying cluster and resource limits for the application.
                     items:
                       properties:
                         clusterContext:
-                          description: (String)
+                          description: |-
+                            (String) The context for the cluster,  Either tenant or project can be provided.
+                            The context for the cluster,  Either `tenant` or `project` can be provided.
                           type: string
                         clusterGroupUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         clusterName:
-                          description: (String)
+                          description: |-
+                            (String) An optional name for the target cluster.
+                            An optional name for the target cluster.
                           type: string
                         clusterUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         limits:
-                          description: (Block List) (see below for nested schema)
+                          description: |-
+                            (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
+                            Optional resource limits for the application, including CPU, memory, and storage constraints.
                           items:
                             properties:
                               cpu:
-                                description: (Number)
+                                description: |-
+                                  (Number) The CPU allocation for the application, specified in integer values.
+                                  The CPU allocation for the application, specified in integer values.
                                 type: number
                               memory:
-                                description: (Number)
+                                description: |-
+                                  (Number) The memory allocation for the application, specified in megabytes.
+                                  The memory allocation for the application, specified in megabytes.
                                 type: number
                               storage:
-                                description: (Number)
+                                description: |-
+                                  (Number) The storage allocation for the application, specified in gigabytes.
+                                  The storage allocation for the application, specified in gigabytes.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of tags to associate with the application for easier identification and categorization.
+                      A set of tags to associate with the application for easier identification and categorization.
                     items:
                       type: string
                     type: array
@@ -129,43 +151,65 @@ spec:
                   autoscaler.
                 properties:
                   applicationProfileUid:
-                    description: (String)
+                    description: |-
+                      (String) The unique identifier (UID) of the application profile to use for this application.
+                      The unique identifier (UID) of the application profile to use for this application.
                     type: string
                   config:
-                    description: '(Block List, Max: 1) (see below for nested schema)'
+                    description: |-
+                      (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
+                      The configuration block for specifying cluster and resource limits for the application.
                     items:
                       properties:
                         clusterContext:
-                          description: (String)
+                          description: |-
+                            (String) The context for the cluster,  Either tenant or project can be provided.
+                            The context for the cluster,  Either `tenant` or `project` can be provided.
                           type: string
                         clusterGroupUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         clusterName:
-                          description: (String)
+                          description: |-
+                            (String) An optional name for the target cluster.
+                            An optional name for the target cluster.
                           type: string
                         clusterUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         limits:
-                          description: (Block List) (see below for nested schema)
+                          description: |-
+                            (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
+                            Optional resource limits for the application, including CPU, memory, and storage constraints.
                           items:
                             properties:
                               cpu:
-                                description: (Number)
+                                description: |-
+                                  (Number) The CPU allocation for the application, specified in integer values.
+                                  The CPU allocation for the application, specified in integer values.
                                 type: number
                               memory:
-                                description: (Number)
+                                description: |-
+                                  (Number) The memory allocation for the application, specified in megabytes.
+                                  The memory allocation for the application, specified in megabytes.
                                 type: number
                               storage:
-                                description: (Number)
+                                description: |-
+                                  (Number) The storage allocation for the application, specified in gigabytes.
+                                  The storage allocation for the application, specified in gigabytes.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of tags to associate with the application for easier identification and categorization.
+                      A set of tags to associate with the application for easier identification and categorization.
                     items:
                       type: string
                     type: array
@@ -349,36 +393,56 @@ spec:
               atProvider:
                 properties:
                   applicationProfileUid:
-                    description: (String)
+                    description: |-
+                      (String) The unique identifier (UID) of the application profile to use for this application.
+                      The unique identifier (UID) of the application profile to use for this application.
                     type: string
                   config:
-                    description: '(Block List, Max: 1) (see below for nested schema)'
+                    description: |-
+                      (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
+                      The configuration block for specifying cluster and resource limits for the application.
                     items:
                       properties:
                         clusterContext:
-                          description: (String)
+                          description: |-
+                            (String) The context for the cluster,  Either tenant or project can be provided.
+                            The context for the cluster,  Either `tenant` or `project` can be provided.
                           type: string
                         clusterGroupUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         clusterName:
-                          description: (String)
+                          description: |-
+                            (String) An optional name for the target cluster.
+                            An optional name for the target cluster.
                           type: string
                         clusterUid:
-                          description: (String)
+                          description: |-
+                            (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
+                            The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
                           type: string
                         limits:
-                          description: (Block List) (see below for nested schema)
+                          description: |-
+                            (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
+                            Optional resource limits for the application, including CPU, memory, and storage constraints.
                           items:
                             properties:
                               cpu:
-                                description: (Number)
+                                description: |-
+                                  (Number) The CPU allocation for the application, specified in integer values.
+                                  The CPU allocation for the application, specified in integer values.
                                 type: number
                               memory:
-                                description: (Number)
+                                description: |-
+                                  (Number) The memory allocation for the application, specified in megabytes.
+                                  The memory allocation for the application, specified in megabytes.
                                 type: number
                               storage:
-                                description: (Number)
+                                description: |-
+                                  (Number) The storage allocation for the application, specified in gigabytes.
+                                  The storage allocation for the application, specified in gigabytes.
                                 type: number
                             type: object
                           type: array
@@ -388,7 +452,9 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) A set of tags to associate with the application for easier identification and categorization.
+                      A set of tags to associate with the application for easier identification and categorization.
                     items:
                       type: string
                     type: array

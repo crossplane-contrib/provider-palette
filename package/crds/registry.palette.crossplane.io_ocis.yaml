@@ -73,24 +73,35 @@ spec:
               forProvider:
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
+                      Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            based authentication. Required if 'credential_type' is 'sts'.
+                            The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
+                            The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
+                            The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                           type: string
-                        secretKeySecretRef:
-                          description: (String, Sensitive)
+                        passwordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
+                            The password for basic authentication. Required if 'credential_type' is 'basic'.
                           properties:
                             key:
                               description: The key to select.
@@ -106,16 +117,51 @@ spec:
                           - name
                           - namespace
                           type: object
+                        secretKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                            The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        username:
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is 'basic'.
+                          type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
+                      The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
+                      Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  providerType:
+                    description: |-
+                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
+                      The type of provider used for interacting with the registry. The default is 'helm'.
+                    type: string
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
+                      The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                 type: object
               initProvider:
@@ -132,32 +178,57 @@ spec:
                   autoscaler.
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
+                      Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            based authentication. Required if 'credential_type' is 'sts'.
+                            The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
+                            The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
+                            The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
+                          type: string
+                        username:
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is 'basic'.
                           type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
+                      The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
+                      Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  providerType:
+                    description: |-
+                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
+                      The type of provider used for interacting with the registry. The default is 'helm'.
+                    type: string
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
+                      The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                 type: object
               managementPolicies:
@@ -350,35 +421,60 @@ spec:
               atProvider:
                 properties:
                   credentials:
-                    description: '(Block List, Min: 1, Max: 1) (see below for nested
-                      schema)'
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
+                      Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
                         accessKey:
-                          description: (String)
+                          description: |-
+                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
                           type: string
                         arn:
-                          description: (String)
+                          description: |-
+                            based authentication. Required if 'credential_type' is 'sts'.
+                            The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
                           type: string
                         credentialType:
-                          description: (String)
+                          description: |-
+                            (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
+                            The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
                           type: string
                         externalId:
-                          description: (String)
+                          description: |-
+                            (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
+                            The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
+                          type: string
+                        username:
+                          description: |-
+                            (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
+                            The username for basic authentication. Required if 'credential_type' is 'basic'.
                           type: string
                       type: object
                     type: array
                   endpoint:
-                    description: (String)
+                    description: |-
+                      (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
+                      The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   isPrivate:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
+                      Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  providerType:
+                    description: |-
+                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
+                      The type of provider used for interacting with the registry. The default is 'helm'.
+                    type: string
                   type:
-                    description: (String)
+                    description: |-
+                      (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
+                      The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                 type: object
               conditions:

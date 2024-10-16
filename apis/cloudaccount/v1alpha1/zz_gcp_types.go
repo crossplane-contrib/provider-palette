@@ -37,7 +37,8 @@ type GCPParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String, Sensitive)
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// +kubebuilder:validation:Optional
 	GCPJSONCredentialsSecretRef v1.SecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
 }

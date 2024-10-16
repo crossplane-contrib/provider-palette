@@ -15,10 +15,12 @@ import (
 
 type AwsInitParameters struct {
 
-	// (String)
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The AWS access key used to authenticate.
+	// The AWS access key used to authenticate.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -48,10 +50,12 @@ type AwsInitParameters struct {
 
 type AwsObservation struct {
 
-	// (String)
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The AWS access key used to authenticate.
+	// The AWS access key used to authenticate.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -84,15 +88,18 @@ type AwsObservation struct {
 
 type AwsParameters struct {
 
-	// (String)
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The AWS access key used to authenticate.
+	// The AWS access key used to authenticate.
 	// +kubebuilder:validation:Optional
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
-	// (String, Sensitive)
+	// (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
+	// The AWS secret key used in conjunction with the access key for authentication.
 	// +kubebuilder:validation:Optional
 	AwsSecretKeySecretRef *v1.SecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
 
@@ -101,7 +108,8 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String, Sensitive)
+	// account access in AWS.
+	// An optional external ID that can be used for cross-account access in AWS.
 	// +kubebuilder:validation:Optional
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
