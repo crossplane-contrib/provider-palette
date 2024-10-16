@@ -15,15 +15,15 @@ import (
 
 type ApplicationInitParameters struct {
 
-	// (String)
+	// (String) The unique identifier (UID) of the application profile to use for this application.
 	// The unique identifier (UID) of the application profile to use for this application.
 	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
 	// The configuration block for specifying cluster and resource limits for the application.
 	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
 
-	// (Set of String)
+	// (Set of String) A set of tags to associate with the application for easier identification and categorization.
 	// A set of tags to associate with the application for easier identification and categorization.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -31,18 +31,18 @@ type ApplicationInitParameters struct {
 
 type ApplicationObservation struct {
 
-	// (String)
+	// (String) The unique identifier (UID) of the application profile to use for this application.
 	// The unique identifier (UID) of the application profile to use for this application.
 	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
 	// The configuration block for specifying cluster and resource limits for the application.
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Set of String)
+	// (Set of String) A set of tags to associate with the application for easier identification and categorization.
 	// A set of tags to associate with the application for easier identification and categorization.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -50,17 +50,17 @@ type ApplicationObservation struct {
 
 type ApplicationParameters struct {
 
-	// (String)
+	// (String) The unique identifier (UID) of the application profile to use for this application.
 	// The unique identifier (UID) of the application profile to use for this application.
 	// +kubebuilder:validation:Optional
 	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
 	// The configuration block for specifying cluster and resource limits for the application.
 	// +kubebuilder:validation:Optional
 	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
-	// (Set of String)
+	// (Set of String) A set of tags to associate with the application for easier identification and categorization.
 	// A set of tags to associate with the application for easier identification and categorization.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -69,73 +69,73 @@ type ApplicationParameters struct {
 
 type ConfigInitParameters struct {
 
-	// (String)
+	// (String) The context for the cluster,  Either tenant or project can be provided.
 	// The context for the cluster,  Either `tenant` or `project` can be provided.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
-	// (String)
+	// (String) An optional name for the target cluster.
 	// An optional name for the target cluster.
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
 	// Optional resource limits for the application, including CPU, memory, and storage constraints.
 	Limits []LimitsInitParameters `json:"limits,omitempty" tf:"limits,omitempty"`
 }
 
 type ConfigObservation struct {
 
-	// (String)
+	// (String) The context for the cluster,  Either tenant or project can be provided.
 	// The context for the cluster,  Either `tenant` or `project` can be provided.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
-	// (String)
+	// (String) An optional name for the target cluster.
 	// An optional name for the target cluster.
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
 	// Optional resource limits for the application, including CPU, memory, and storage constraints.
 	Limits []LimitsObservation `json:"limits,omitempty" tf:"limits,omitempty"`
 }
 
 type ConfigParameters struct {
 
-	// (String)
+	// (String) The context for the cluster,  Either tenant or project can be provided.
 	// The context for the cluster,  Either `tenant` or `project` can be provided.
 	// +kubebuilder:validation:Optional
 	ClusterContext *string `json:"clusterContext" tf:"cluster_context,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	// +kubebuilder:validation:Optional
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
-	// (String)
+	// (String) An optional name for the target cluster.
 	// An optional name for the target cluster.
 	// +kubebuilder:validation:Optional
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
 	// +kubebuilder:validation:Optional
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
 	// Optional resource limits for the application, including CPU, memory, and storage constraints.
 	// +kubebuilder:validation:Optional
 	Limits []LimitsParameters `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -143,47 +143,47 @@ type ConfigParameters struct {
 
 type LimitsInitParameters struct {
 
-	// (Number)
+	// (Number) The CPU allocation for the application, specified in integer values.
 	// The CPU allocation for the application, specified in integer values.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
-	// (Number)
+	// (Number) The memory allocation for the application, specified in megabytes.
 	// The memory allocation for the application, specified in megabytes.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (Number)
+	// (Number) The storage allocation for the application, specified in gigabytes.
 	// The storage allocation for the application, specified in gigabytes.
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type LimitsObservation struct {
 
-	// (Number)
+	// (Number) The CPU allocation for the application, specified in integer values.
 	// The CPU allocation for the application, specified in integer values.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
-	// (Number)
+	// (Number) The memory allocation for the application, specified in megabytes.
 	// The memory allocation for the application, specified in megabytes.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (Number)
+	// (Number) The storage allocation for the application, specified in gigabytes.
 	// The storage allocation for the application, specified in gigabytes.
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type LimitsParameters struct {
 
-	// (Number)
+	// (Number) The CPU allocation for the application, specified in integer values.
 	// The CPU allocation for the application, specified in integer values.
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
-	// (Number)
+	// (Number) The memory allocation for the application, specified in megabytes.
 	// The memory allocation for the application, specified in megabytes.
 	// +kubebuilder:validation:Optional
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (Number)
+	// (Number) The storage allocation for the application, specified in gigabytes.
 	// The storage allocation for the application, specified in gigabytes.
 	// +kubebuilder:validation:Optional
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`

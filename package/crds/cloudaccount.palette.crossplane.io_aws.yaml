@@ -74,17 +74,17 @@ spec:
                 properties:
                   arn:
                     description: |-
-                      (String)
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                       The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String)
+                      (String) The AWS access key used to authenticate.
                       The AWS access key used to authenticate.
                     type: string
                   awsSecretKeySecretRef:
                     description: |-
-                      (String, Sensitive)
+                      (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
                       The AWS secret key used in conjunction with the access key for authentication.
                     properties:
                       key:
@@ -108,7 +108,7 @@ spec:
                     type: string
                   externalIdSecretRef:
                     description: |-
-                      (String, Sensitive)
+                      account access in AWS.
                       An optional external ID that can be used for cross-account access in AWS.
                     properties:
                       key:
@@ -167,12 +167,12 @@ spec:
                 properties:
                   arn:
                     description: |-
-                      (String)
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                       The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String)
+                      (String) The AWS access key used to authenticate.
                       The AWS access key used to authenticate.
                     type: string
                   context:
@@ -381,12 +381,12 @@ spec:
                 properties:
                   arn:
                     description: |-
-                      (String)
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                       The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String)
+                      (String) The AWS access key used to authenticate.
                       The AWS access key used to authenticate.
                     type: string
                   context:

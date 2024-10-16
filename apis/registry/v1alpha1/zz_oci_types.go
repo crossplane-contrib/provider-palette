@@ -15,82 +15,83 @@ import (
 
 type OciCredentialsInitParameters struct {
 
-	// (String)
+	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
-	// (String)
+	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	// The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
-	// (String)
+	// (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
-	// (String)
+	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type OciCredentialsObservation struct {
 
-	// (String)
+	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
-	// (String)
+	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	// The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
-	// (String)
+	// (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
-	// (String)
+	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type OciCredentialsParameters struct {
 
-	// (String)
+	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
 	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
 
-	// (String)
+	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String)
+	// (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	// The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
-	// (String)
+	// (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	// +kubebuilder:validation:Optional
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
 	// The password for basic authentication. Required if 'credential_type' is 'basic'.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// (String, Sensitive)
+	// (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
 	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
-	// (String)
+	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -98,76 +99,76 @@ type OciCredentialsParameters struct {
 
 type OciInitParameters struct {
 
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
 	Credentials []OciCredentialsInitParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
-	// (String)
+	// (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	// The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String)
+	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
 	// The type of provider used for interacting with the registry. The default is 'helm'.
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
-	// (String)
+	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type OciObservation struct {
 
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
 	Credentials []OciCredentialsObservation `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
-	// (String)
+	// (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	// The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String)
+	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
 	// The type of provider used for interacting with the registry. The default is 'helm'.
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
-	// (String)
+	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type OciParameters struct {
 
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
 	// +kubebuilder:validation:Optional
 	Credentials []OciCredentialsParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
-	// (String)
+	// (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	// The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String)
+	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
 	// The type of provider used for interacting with the registry. The default is 'helm'.
 	// +kubebuilder:validation:Optional
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
-	// (String)
+	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`

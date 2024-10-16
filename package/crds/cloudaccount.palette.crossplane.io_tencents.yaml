@@ -79,12 +79,12 @@ spec:
                     type: string
                   tencentSecretId:
                     description: |-
-                      (String)
+                      (String) The secret ID associated with the Tencent account for authentication.
                       The secret ID associated with the Tencent account for authentication.
                     type: string
                   tencentSecretKeySecretRef:
                     description: |-
-                      (String, Sensitive)
+                      (String, Sensitive) The secret key associated with the Tencent account for authentication.
                       The secret key associated with the Tencent account for authentication.
                     properties:
                       key:
@@ -122,7 +122,7 @@ spec:
                     type: string
                   tencentSecretId:
                     description: |-
-                      (String)
+                      (String) The secret ID associated with the Tencent account for authentication.
                       The secret ID associated with the Tencent account for authentication.
                     type: string
                 type: object
@@ -308,7 +308,7 @@ spec:
                     type: string
                   tencentSecretId:
                     description: |-
-                      (String)
+                      (String) The secret ID associated with the Tencent account for authentication.
                       The secret ID associated with the Tencent account for authentication.
                     type: string
                 type: object

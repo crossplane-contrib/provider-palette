@@ -79,7 +79,7 @@ spec:
                     type: string
                   gcpjsonCredentialsSecretRef:
                     description: |-
-                      (String, Sensitive)
+                      (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
                       The GCP credentials in JSON format. These credentials are required to authenticate and manage.
                     properties:
                       key:

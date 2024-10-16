@@ -15,20 +15,20 @@ import (
 
 type ApplianceInitParameters struct {
 
-	// (String)
+	// (String) The pairing key used for appliance pairing.
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// (Map of String)
+	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Boolean)
+	// (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
 	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
@@ -38,43 +38,43 @@ type ApplianceObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) The pairing key used for appliance pairing.
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// (Map of String)
+	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Boolean)
+	// (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
 	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
 type ApplianceParameters struct {
 
-	// (String)
+	// (String) The pairing key used for appliance pairing.
 	// The pairing key used for appliance pairing.
 	// +kubebuilder:validation:Optional
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// (Map of String)
+	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String)
+	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Boolean)
+	// (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
 	// If set to `true`, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`

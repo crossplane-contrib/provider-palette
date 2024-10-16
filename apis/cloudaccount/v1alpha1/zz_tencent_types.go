@@ -19,7 +19,7 @@ type TencentInitParameters struct {
 	// The context of the Tencent account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String)
+	// (String) The secret ID associated with the Tencent account for authentication.
 	// The secret ID associated with the Tencent account for authentication.
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 }
@@ -33,7 +33,7 @@ type TencentObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) The secret ID associated with the Tencent account for authentication.
 	// The secret ID associated with the Tencent account for authentication.
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 }
@@ -45,12 +45,12 @@ type TencentParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String)
+	// (String) The secret ID associated with the Tencent account for authentication.
 	// The secret ID associated with the Tencent account for authentication.
 	// +kubebuilder:validation:Optional
 	TencentSecretID *string `json:"tencentSecretId,omitempty" tf:"tencent_secret_id,omitempty"`
 
-	// (String, Sensitive)
+	// (String, Sensitive) The secret key associated with the Tencent account for authentication.
 	// The secret key associated with the Tencent account for authentication.
 	// +kubebuilder:validation:Optional
 	TencentSecretKeySecretRef *v1.SecretKeySelector `json:"tencentSecretKeySecretRef,omitempty" tf:"-"`

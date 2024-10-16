@@ -4,47 +4,37 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cluster/v1alpha1/profile
   labels:
-    testing.upbound.io/example-name: profile
-  name: profile
+    testing.upbound.io/example-name: aws-profile
+  name: aws-profile
 spec:
   forProvider:
-    cloud: vsphere
-    description: basic cp
+    cloud: aws
+    count: '${var.deploy-aws ? 1 : 0}'
+    description: A basic cluster profile for AWS
     pack:
-    - name: ubuntu-vsphere
-      tag: LTS__18.4.x
-      uid: ${data.spectrocloud_pack.ubuntu.id}
-      values: 'foo: 1'
-    - name: kubernetes
-      tag: 1.21.5
-      uid: ${data.spectrocloud_pack.k8s.id}
-      values: ${data.spectrocloud_pack.k8s.values}
-    - name: cni-calico
-      tag: 3.16.x
-      uid: ${data.spectrocloud_pack.cni.id}
-      values: ${data.spectrocloud_pack.cni.values}
-    - name: csi-vsphere-csi
-      tag: 2.3.x
-      uid: ${data.spectrocloud_pack.csi.id}
-      values: ${data.spectrocloud_pack.csi.values}
+    - name: ${data.spectrocloud_pack.aws_ubuntu.name}
+      tag: ${data.spectrocloud_pack.aws_ubuntu.version}
+      uid: ${data.spectrocloud_pack.aws_ubuntu.id}
+      values: ${data.spectrocloud_pack.aws_ubuntu.values}
+    - name: ${data.spectrocloud_pack.aws_k8s.name}
+      tag: ${data.spectrocloud_pack.aws_k8s.version}
+      uid: ${data.spectrocloud_pack.aws_k8s.id}
+      values: ${data.spectrocloud_pack.aws_k8s.values}
+    - name: ${data.spectrocloud_pack.aws_cni.name}
+      tag: ${data.spectrocloud_pack.aws_cni.version}
+      uid: ${data.spectrocloud_pack.aws_cni.id}
+      values: ${data.spectrocloud_pack.aws_cni.values}
+    - name: ${data.spectrocloud_pack.aws_csi.name}
+      tag: ${data.spectrocloud_pack.aws_csi.version}
+      uid: ${data.spectrocloud_pack.aws_csi.id}
+      values: ${data.spectrocloud_pack.aws_csi.values}
     - manifest:
-      - content: |
-          apiVersion: v1
-          kind: Namespace
-          metadata:
-            labels:
-              app: wordpress
-              app3: wordpress786
-            name: wordpress
-        name: manifest-namespace
-      name: manifest-namespace
-      type: manifest
-    - name: spectro-proxy
+      - content: ${file("manifests/hello-universe.yaml")}
+        name: hello-universe
+      name: hello-universe
       tag: 1.0.0
-      uid: 60bd99ce9c10082ed8b314c9
-      values: ${local.proxy_val}
-    tags:
-    - dev
-    - department:devops
-    - owner:bob
+      type: manifest
+      values: ""
+    tags: ${concat(var.tags, ["env:aws"])}
     type: cluster
+    version: 1.0.0

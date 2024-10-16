@@ -15,116 +15,147 @@ import (
 
 type IppoolInitParameters struct {
 
+	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The end IP address of the IP pool. Required if network_type is range.
 	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// (String) The start IP address of the IP pool. Required if network_type is range.
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// (Set of String) The list of nameserver search suffixes for the IP pool. For example, example.org.
 	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// (String) The type of network for the IP pool. Allowed values are: range and subnet.
 	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (Number) The prefix of the IP pool provided network range or subnet. For example 24 for a /24 subnet or a range that falls inside a 24 subnet.
 	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The ID of the Private Cloud Gateway.
 	// The ID of the Private Cloud Gateway.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (Boolean) Restrict the IP pool to a single cluster. If set to true, the IP pool is restricted to a single cluster. We recommend setting this to true for production environments and creating separate IP pools for each cluster.
 	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// (String) The subnet CIDR of the IP pool. Required if network_type is subnet.
 	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
 type IppoolObservation struct {
 
+	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The end IP address of the IP pool. Required if network_type is range.
 	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// (String) The start IP address of the IP pool. Required if network_type is range.
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// (Set of String) The list of nameserver search suffixes for the IP pool. For example, example.org.
 	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// (String) The type of network for the IP pool. Allowed values are: range and subnet.
 	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (Number) The prefix of the IP pool provided network range or subnet. For example 24 for a /24 subnet or a range that falls inside a 24 subnet.
 	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The ID of the Private Cloud Gateway.
 	// The ID of the Private Cloud Gateway.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (Boolean) Restrict the IP pool to a single cluster. If set to true, the IP pool is restricted to a single cluster. We recommend setting this to true for production environments and creating separate IP pools for each cluster.
 	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// (String) The subnet CIDR of the IP pool. Required if network_type is subnet.
 	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
 type IppoolParameters struct {
 
+	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The end IP address of the IP pool. Required if network_type is range.
 	// The end IP address of the IP pool. Required if `network_type` is `range`.
 	// +kubebuilder:validation:Optional
 	IPEndRange *string `json:"ipEndRange,omitempty" tf:"ip_end_range,omitempty"`
 
+	// (String) The start IP address of the IP pool. Required if network_type is range.
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	// +kubebuilder:validation:Optional
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NameserverAddresses []*string `json:"nameserverAddresses,omitempty" tf:"nameserver_addresses,omitempty"`
 
+	// (Set of String) The list of nameserver search suffixes for the IP pool. For example, example.org.
 	// The list of nameserver search suffixes for the IP pool. For example, `example.org`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NameserverSearchSuffix []*string `json:"nameserverSearchSuffix,omitempty" tf:"nameserver_search_suffix,omitempty"`
 
+	// (String) The type of network for the IP pool. Allowed values are: range and subnet.
 	// The type of network for the IP pool. Allowed values are: `range` and `subnet`.
 	// +kubebuilder:validation:Optional
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (Number) The prefix of the IP pool provided network range or subnet. For example 24 for a /24 subnet or a range that falls inside a 24 subnet.
 	// The prefix of the IP pool provided network range or subnet. For example `24` for a `/24` subnet or a range that falls inside a `24` subnet.
 	// +kubebuilder:validation:Optional
 	Prefix *float64 `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The ID of the Private Cloud Gateway.
 	// The ID of the Private Cloud Gateway.
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (Boolean) Restrict the IP pool to a single cluster. If set to true, the IP pool is restricted to a single cluster. We recommend setting this to true for production environments and creating separate IP pools for each cluster.
 	// Restrict the IP pool to a single cluster. If set to `true`, the IP pool is restricted to a single cluster. We recommend setting this to `true` for production environments and creating separate IP pools for each cluster.
 	// +kubebuilder:validation:Optional
 	RestrictToSingleCluster *bool `json:"restrictToSingleCluster,omitempty" tf:"restrict_to_single_cluster,omitempty"`
 
+	// (String) The subnet CIDR of the IP pool. Required if network_type is subnet.
 	// The subnet CIDR of the IP pool. Required if `network_type` is `subnet`.
 	// +kubebuilder:validation:Optional
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
@@ -157,7 +188,7 @@ type IppoolStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Ippool is the Schema for the Ippools API. <no value>
+// Ippool is the Schema for the Ippools API. A Resource to manage IP pools for Private Cloud Gateway.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
