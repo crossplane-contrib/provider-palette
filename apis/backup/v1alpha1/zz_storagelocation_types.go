@@ -123,6 +123,10 @@ type StorageLocationInitParameters struct {
 	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
+	// (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
 	// (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
@@ -145,6 +149,10 @@ type StorageLocationObservation struct {
 	// (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -173,6 +181,11 @@ type StorageLocationParameters struct {
 	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
 	// Specifies if this backup storage location should be used as the default location for storing backups.

@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     bucketName: dev-backup
+    context: tenant
     isDefault: false
     region: us-east-2
     s3:
