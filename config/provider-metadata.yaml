@@ -319,6 +319,7 @@ resources:
               manifest: |-
                 {
                   "bucket_name": "dev-backup",
+                  "context": "tenant",
                   "is_default": false,
                   "name": "dev-backup-s3",
                   "region": "us-east-2",
@@ -360,6 +361,7 @@ resources:
             arn: (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
             bucket_name: (String) The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
             ca_cert: (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+            context: (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
             credential_type: (String) The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
             delete: (String)

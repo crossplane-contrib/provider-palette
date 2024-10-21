@@ -202,6 +202,11 @@ func (in *StorageLocationInitParameters) DeepCopyInto(out *StorageLocationInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.IsDefault != nil {
 		in, out := &in.IsDefault, &out.IsDefault
 		*out = new(bool)
@@ -276,6 +281,11 @@ func (in *StorageLocationObservation) DeepCopyInto(out *StorageLocationObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -320,6 +330,11 @@ func (in *StorageLocationParameters) DeepCopyInto(out *StorageLocationParameters
 	}
 	if in.CACert != nil {
 		in, out := &in.CACert, &out.CACert
+		*out = new(string)
+		**out = **in
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
 		*out = new(string)
 		**out = **in
 	}
