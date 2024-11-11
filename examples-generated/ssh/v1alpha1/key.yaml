@@ -1,0 +1,15 @@
+apiVersion: ssh.palette.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ssh/v1alpha1/key
+  labels:
+    testing.upbound.io/example-name: ssh_tenant
+  name: ssh-tenant
+spec:
+  forProvider:
+    context: project
+    sshKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

@@ -7,7 +7,7 @@ PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 export TERRAFORM_VERSION := 1.3.3
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.21.6
+export TERRAFORM_PROVIDER_VERSION := 0.22.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-spectrocloud
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-spectrocloud_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH := docs/resources
@@ -195,9 +195,19 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
 	@$(OK) running locally built provider
 
+# Directory to delete before setup
+WORK_DIR := .work
+
+# Delete the specified directory if it exists
+clean-work:
+	@if [ -d "$(WORK_DIR)" ]; then \
+		echo "Deleting $(WORK_DIR) directory..."; \
+		rm -rf $(WORK_DIR); \
+	fi
+
 e2e: local-deploy uptest
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+.PHONY: clean-work cobertura submodules fallthrough run crds.clean
 
 # ====================================================================================
 # Special Targets

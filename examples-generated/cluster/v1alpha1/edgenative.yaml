@@ -24,7 +24,12 @@ spec:
         staticIp: 4.1.2.3
       name: cp-pool
     - edgeHost:
-      - hostUid: test-dec9
+      - dnsServers:
+        - tf.test.com
+        hostName: test-test
+        hostUid: test-dec9
+        nicName: auto160
         staticIp: 1.2.3.4
+        subnetMask: 2.2.1.0
       name: worker-pool
     skipCompletion: true
