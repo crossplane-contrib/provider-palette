@@ -126,6 +126,9 @@ type VsphereCloudConfigInitParameters struct {
 	// The name of the folder in vSphere. This is the name of the folder as it appears in vSphere.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
+	// The host endpoint to use for the cluster. This can be `IP` or `FQDN(External/DDNS)`.
+	HostEndpoint *string `json:"hostEndpoint,omitempty" tf:"host_endpoint,omitempty"`
+
 	// The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
@@ -157,6 +160,9 @@ type VsphereCloudConfigObservation struct {
 
 	// The name of the folder in vSphere. This is the name of the folder as it appears in vSphere.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
+
+	// The host endpoint to use for the cluster. This can be `IP` or `FQDN(External/DDNS)`.
+	HostEndpoint *string `json:"hostEndpoint,omitempty" tf:"host_endpoint,omitempty"`
 
 	// The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
@@ -191,6 +197,10 @@ type VsphereCloudConfigParameters struct {
 	// The name of the folder in vSphere. This is the name of the folder as it appears in vSphere.
 	// +kubebuilder:validation:Optional
 	Folder *string `json:"folder" tf:"folder,omitempty"`
+
+	// The host endpoint to use for the cluster. This can be `IP` or `FQDN(External/DDNS)`.
+	// +kubebuilder:validation:Optional
+	HostEndpoint *string `json:"hostEndpoint,omitempty" tf:"host_endpoint,omitempty"`
 
 	// The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
 	// +kubebuilder:validation:Optional

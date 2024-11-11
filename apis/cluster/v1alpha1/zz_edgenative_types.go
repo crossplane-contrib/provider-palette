@@ -15,6 +15,15 @@ import (
 
 type EdgeHostInitParameters struct {
 
+	// (Set of String) Edge host DNS servers
+	// Edge host DNS servers
+	// +listType=set
+	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
+
+	// (String) Edge host default gateway
+	// Edge host default gateway
+	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
+
 	// (String) Edge host name
 	// Edge host name
 	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
@@ -23,9 +32,17 @@ type EdgeHostInitParameters struct {
 	// Edge host id
 	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
 
-	// (String) Edge host static IP
-	// Edge host static IP
+	// (String) NIC Name for edge host.
+	// NIC Name for edge host.
+	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
+
+	// (String) Edge host static IP address
+	// Edge host static IP address
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Edge host subnet mask
+	// Edge host subnet mask
+	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
@@ -34,6 +51,15 @@ type EdgeHostInitParameters struct {
 
 type EdgeHostObservation struct {
 
+	// (Set of String) Edge host DNS servers
+	// Edge host DNS servers
+	// +listType=set
+	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
+
+	// (String) Edge host default gateway
+	// Edge host default gateway
+	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
+
 	// (String) Edge host name
 	// Edge host name
 	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
@@ -42,9 +68,17 @@ type EdgeHostObservation struct {
 	// Edge host id
 	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
 
-	// (String) Edge host static IP
-	// Edge host static IP
+	// (String) NIC Name for edge host.
+	// NIC Name for edge host.
+	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
+
+	// (String) Edge host static IP address
+	// Edge host static IP address
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Edge host subnet mask
+	// Edge host subnet mask
+	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
@@ -52,6 +86,17 @@ type EdgeHostObservation struct {
 }
 
 type EdgeHostParameters struct {
+
+	// (Set of String) Edge host DNS servers
+	// Edge host DNS servers
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
+
+	// (String) Edge host default gateway
+	// Edge host default gateway
+	// +kubebuilder:validation:Optional
+	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
 
 	// (String) Edge host name
 	// Edge host name
@@ -63,10 +108,20 @@ type EdgeHostParameters struct {
 	// +kubebuilder:validation:Optional
 	HostUID *string `json:"hostUid" tf:"host_uid,omitempty"`
 
-	// (String) Edge host static IP
-	// Edge host static IP
+	// (String) NIC Name for edge host.
+	// NIC Name for edge host.
+	// +kubebuilder:validation:Optional
+	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
+
+	// (String) Edge host static IP address
+	// Edge host static IP address
 	// +kubebuilder:validation:Optional
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+
+	// (String) Edge host subnet mask
+	// Edge host subnet mask
+	// +kubebuilder:validation:Optional
+	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
