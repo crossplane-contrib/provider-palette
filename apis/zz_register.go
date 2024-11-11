@@ -18,6 +18,7 @@ import (
 	v1alpha1privatecloudgateway "github.com/crossplane-contrib/provider-palette/apis/privatecloudgateway/v1alpha1"
 	v1alpha1registry "github.com/crossplane-contrib/provider-palette/apis/registry/v1alpha1"
 	v1alpha1spectrocloud "github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1"
+	v1alpha1ssh "github.com/crossplane-contrib/provider-palette/apis/ssh/v1alpha1"
 	v1alpha1apis "github.com/crossplane-contrib/provider-palette/apis/v1alpha1"
 	v1beta1 "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
 	v1alpha1virtual "github.com/crossplane-contrib/provider-palette/apis/virtual/v1alpha1"
@@ -34,6 +35,7 @@ func init() {
 		v1alpha1privatecloudgateway.SchemeBuilder.AddToScheme,
 		v1alpha1registry.SchemeBuilder.AddToScheme,
 		v1alpha1spectrocloud.SchemeBuilder.AddToScheme,
+		v1alpha1ssh.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 		v1alpha1virtual.SchemeBuilder.AddToScheme,
