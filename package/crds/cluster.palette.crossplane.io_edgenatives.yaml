@@ -399,6 +399,19 @@ spec:
                             schema)'
                           items:
                             properties:
+                              defaultGateway:
+                                description: |-
+                                  (String) Edge host default gateway
+                                  Edge host default gateway
+                                type: string
+                              dnsServers:
+                                description: |-
+                                  (Set of String) Edge host DNS servers
+                                  Edge host DNS servers
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               hostName:
                                 description: |-
                                   (String) Edge host name
@@ -409,10 +422,20 @@ spec:
                                   (String) Edge host id
                                   Edge host id
                                 type: string
+                              nicName:
+                                description: |-
+                                  (String) NIC Name for edge host.
+                                  NIC Name for edge host.
+                                type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP
-                                  Edge host static IP
+                                  (String) Edge host static IP address
+                                  Edge host static IP address
+                                type: string
+                              subnetMask:
+                                description: |-
+                                  (String) Edge host subnet mask
+                                  Edge host subnet mask
                                 type: string
                               twoNodeRole:
                                 description: |-
@@ -902,6 +925,19 @@ spec:
                             schema)'
                           items:
                             properties:
+                              defaultGateway:
+                                description: |-
+                                  (String) Edge host default gateway
+                                  Edge host default gateway
+                                type: string
+                              dnsServers:
+                                description: |-
+                                  (Set of String) Edge host DNS servers
+                                  Edge host DNS servers
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               hostName:
                                 description: |-
                                   (String) Edge host name
@@ -912,10 +948,20 @@ spec:
                                   (String) Edge host id
                                   Edge host id
                                 type: string
+                              nicName:
+                                description: |-
+                                  (String) NIC Name for edge host.
+                                  NIC Name for edge host.
+                                type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP
-                                  Edge host static IP
+                                  (String) Edge host static IP address
+                                  Edge host static IP address
+                                type: string
+                              subnetMask:
+                                description: |-
+                                  (String) Edge host subnet mask
+                                  Edge host subnet mask
                                 type: string
                               twoNodeRole:
                                 description: |-
@@ -1599,6 +1645,19 @@ spec:
                             schema)'
                           items:
                             properties:
+                              defaultGateway:
+                                description: |-
+                                  (String) Edge host default gateway
+                                  Edge host default gateway
+                                type: string
+                              dnsServers:
+                                description: |-
+                                  (Set of String) Edge host DNS servers
+                                  Edge host DNS servers
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               hostName:
                                 description: |-
                                   (String) Edge host name
@@ -1609,10 +1668,20 @@ spec:
                                   (String) Edge host id
                                   Edge host id
                                 type: string
+                              nicName:
+                                description: |-
+                                  (String) NIC Name for edge host.
+                                  NIC Name for edge host.
+                                type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP
-                                  Edge host static IP
+                                  (String) Edge host static IP address
+                                  Edge host static IP address
+                                type: string
+                              subnetMask:
+                                description: |-
+                                  (String) Edge host subnet mask
+                                  Edge host subnet mask
                                 type: string
                               twoNodeRole:
                                 description: |-

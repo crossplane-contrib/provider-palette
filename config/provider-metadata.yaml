@@ -1331,8 +1331,14 @@ resources:
                     {
                       "edge_host": [
                         {
+                          "dns_servers": [
+                            "tf.test.com"
+                          ],
+                          "host_name": "test-test",
                           "host_uid": "${spectrocloud_appliance.appliance1.uid}",
-                          "static_ip": "1.2.3.4"
+                          "nic_name": "auto160",
+                          "static_ip": "1.2.3.4",
+                          "subnet_mask": "2.2.1.0"
                         }
                       ],
                       "name": "worker-pool"
@@ -1367,8 +1373,10 @@ resources:
             country_code: (String) The country code of the country the cluster is located in.
             country_name: (String) The name of the country.
             create: (String)
+            default_gateway: (String) Edge host default gateway
             delete: (String)
             description: (String) The description of the cluster. Default value is empty string.
+            dns_servers: (Set of String) Edge host DNS servers
             edge_host: '(Block List, Min: 1) (see below for nested schema)'
             effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
@@ -1396,6 +1404,7 @@ resources:
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
+            nic_name: (String) NIC Name for edge host.
             node: (Block List) (see below for nested schema)
             node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
             node_repave_interval: (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
@@ -1418,8 +1427,9 @@ resources:
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             ssh_keys: (Set of String) List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
-            static_ip: (String) Edge host static IP
+            static_ip: (String) Edge host static IP address
             subjects: (Block List) (see below for nested schema)
+            subnet_mask: (String) Edge host subnet mask
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
@@ -2773,6 +2783,7 @@ resources:
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
+            host_endpoint: (String) The host endpoint to use for the cluster. This can be IP or FQDN(External/DDNS).
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
             image_template_folder: (String) The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
@@ -3012,6 +3023,33 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
+    spectrocloud_privatecloudgateway_dns_map:
+        subCategory: ""
+        description: This resource allows for the management of DNS mappings for private cloud gateways. This helps ensure proper DNS resolution for resources within the private cloud environment.
+        name: spectrocloud_privatecloudgateway_dns_map
+        title: spectrocloud_privatecloudgateway_dns_map Resource - terraform-provider-spectrocloud
+        examples:
+            - name: dns_map_test
+              manifest: |-
+                {
+                  "data_center": "DataCenterTest",
+                  "network": "TEST-VM-NETWORK",
+                  "private_cloud_gateway_id": "${data.spectrocloud_private_cloud_gateway.gateway.id}",
+                  "search_domain_name": "test1.spectro.com"
+                }
+              references:
+                private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.gateway.id
+        argumentDocs:
+            create: (String)
+            data_center: (String) The data center in which the private cloud resides.
+            delete: (String)
+            id: (String) The ID of this resource.
+            network: (String) The network to which the private cloud gateway is mapped.
+            private_cloud_gateway_id: (String) The ID of the Private Cloud Gateway.
+            search_domain_name: (String) The domain name used for DNS search queries within the private cloud.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+        importStatements: []
     spectrocloud_privatecloudgateway_ippool:
         subCategory: ""
         description: A Resource to manage IP pools for Private Cloud Gateway.
@@ -3172,6 +3210,51 @@ resources:
             type: (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
+        importStatements: []
+    spectrocloud_ssh_key:
+        subCategory: ""
+        description: The SSH key resource allows you to manage SSH keys in Palette.
+        name: spectrocloud_ssh_key
+        title: spectrocloud_ssh_key Resource - terraform-provider-spectrocloud
+        examples:
+            - name: ssh_tenant
+              manifest: |-
+                {
+                  "context": "project",
+                  "name": "ssh-dev-1",
+                  "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ....."
+                }
+            - name: ssh_tenant
+              manifest: |-
+                {
+                  "context": "tenant",
+                  "name": "ssh-dev-1",
+                  "ssh_key": "${var.ssh_key_value}"
+                }
+              references:
+                ssh_key: var.ssh_key_value
+            - name: primary_key_1
+              manifest: |-
+                {
+                  "context": "tenant",
+                  "name": "ssh-dev-1",
+                  "ssh_key": "${trimspace(tls_private_key.default_ssh_key.public_key_openssh)}"
+                }
+              dependencies:
+                tls_private_key.default_ssh_key: |-
+                    {
+                      "algorithm": "RSA",
+                      "rsa_bits": "4096"
+                    }
+        argumentDocs:
+            context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+            create: (String)
+            delete: (String)
+            id: (String) The ID of this resource.
+            name: (String) The name of the SSH key resource.
+            ssh_key: (String, Sensitive) The SSH key value. This is the public key that will be used to access the cluster. Must be in the Authorized Keys format, such as ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
         importStatements: []
     spectrocloud_team:
         subCategory: ""

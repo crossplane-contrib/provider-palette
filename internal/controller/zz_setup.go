@@ -35,6 +35,7 @@ import (
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/profile"
 	tke "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/tke"
 	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/vsphere"
+	dnsmap "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/dnsmap"
 	ippool "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-palette/internal/controller/providerconfig"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/registry/helm"
@@ -49,6 +50,7 @@ import (
 	project "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/project"
 	team "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/team"
 	workspace "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/workspace"
+	key "github.com/crossplane-contrib/provider-palette/internal/controller/ssh/key"
 	cluster "github.com/crossplane-contrib/provider-palette/internal/controller/virtual/cluster"
 	machine "github.com/crossplane-contrib/provider-palette/internal/controller/virtual/machine"
 )
@@ -83,6 +85,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		profilecluster.Setup,
 		tke.Setup,
 		vspherecluster.Setup,
+		dnsmap.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
 		helm.Setup,
@@ -97,6 +100,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		project.Setup,
 		team.Setup,
 		workspace.Setup,
+		key.Setup,
 		cluster.Setup,
 		machine.Setup,
 	} {
