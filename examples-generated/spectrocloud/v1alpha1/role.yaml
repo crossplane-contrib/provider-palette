@@ -1,0 +1,12 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: custom_role
+  name: custom-role
+spec:
+  forProvider:
+    permissions: '${flatten([for role in data.spectrocloud_role.roles : role.permissions])}'
+    type: project

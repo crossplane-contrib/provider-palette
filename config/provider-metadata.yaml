@@ -359,21 +359,34 @@ resources:
         argumentDocs:
             access_key: (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
             arn: (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
-            bucket_name: (String) The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
-            ca_cert: (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+            azure_client_id: (String) Unique client Id from Azure console.
+            azure_client_secret: (String, Sensitive) Azure secret for authentication.
+            azure_storage_config: '(Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)'
+            azure_tenant_id: (String) Unique tenant Id from Azure console.
+            bucket_name: (String) The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
+            ca_cert: (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
+            container_name: (String) The container name.
             context: (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
             credential_type: (String) The type of credentials used to access the S3 storage. Supported values are 'secret' for static credentials and 'sts' for temporary, token-based credentials.
             delete: (String)
             external_id: (String) An external ID used for cross-account access to the S3 storage when using 'sts' credentials.
+            gcp_json_credentials: (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+            gcp_storage_config: '(Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)'
             id: (String) The ID of this resource.
             is_default: (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
             name: (String) The name of the backup storage location. This is a unique identifier for the backup location.
-            region: (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-            s3: '(Block List, Min: 1, Max: 1) S3-specific settings for configuring the backup storage location. (see below for nested schema)'
+            project_id: (String) The GCP project ID.
+            region: (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
+            resource_group: (String) The resource group name.
+            s3: '(Block List, Max: 1) S3-specific settings for configuring the backup storage location. (see below for nested schema)'
             s3_force_path_style: (Boolean) A boolean flag indicating whether to enforce the path-style URL for accessing S3.
             s3_url: (String) The S3 URL endpoint.
             secret_key: (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+            stock_keeping_unit: '(String) The stop-keeping unit. eg: Standard_LRS'
+            storage_name: (String) The storage name.
+            storage_provider: (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+            subscription_id: (String) Unique subscription Id from Azure console.
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
@@ -3211,6 +3224,29 @@ resources:
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
         importStatements: []
+    spectrocloud_role:
+        subCategory: ""
+        description: The role resource allows you to manage roles in Palette.
+        name: spectrocloud_role
+        title: spectrocloud_role Resource - terraform-provider-spectrocloud
+        examples:
+            - name: custom_role
+              manifest: |-
+                {
+                  "name": "Test Cluster Role",
+                  "permissions": "${flatten([for role in data.spectrocloud_role.roles : role.permissions])}",
+                  "type": "project"
+                }
+        argumentDocs:
+            create: (String)
+            delete: (String)
+            id: (String) The ID of this resource.
+            name: (String) The name of the role.
+            permissions: (Set of String) The permission's assigned to the role.
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: (String) The role type. Allowed values are project or tenant or resource
+            update: (String)
+        importStatements: []
     spectrocloud_ssh_key:
         subCategory: ""
         description: The SSH key resource allows you to manage SSH keys in Palette.
@@ -3299,6 +3335,105 @@ resources:
             users: (Set of String) List of user ids to be associated with the team.
             workspace: (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
             workspace_role_mapping: (Block Set) List of workspace roles to be associated with the team. (see below for nested schema)
+        importStatements: []
+    spectrocloud_user:
+        subCategory: ""
+        description: Create and manage projects in Palette.
+        name: spectrocloud_user
+        title: spectrocloud_user Resource - terraform-provider-spectrocloud
+        examples:
+            - name: user-test
+              manifest: |-
+                {
+                  "email": "test-tf@spectrocloud.com",
+                  "first_name": "tf",
+                  "last_name": "test",
+                  "project_role": [
+                    {
+                      "project_id": "${data.spectrocloud_project.default.id}",
+                      "role_ids": "${[for r in data.spectrocloud_role.app_roles : r.id]}"
+                    },
+                    {
+                      "project_id": "${data.spectrocloud_project.ranjith.id}",
+                      "role_ids": "${[for r in data.spectrocloud_role.app_roles : r.id]}"
+                    }
+                  ],
+                  "resource_role": [
+                    {
+                      "filter_ids": [
+                        "${data.spectrocloud_filter.filter.id}"
+                      ],
+                      "project_ids": [
+                        "${data.spectrocloud_project.default.id}",
+                        "${data.spectrocloud_project.ranjith.id}"
+                      ],
+                      "role_ids": "${[for r in data.spectrocloud_role.resource_roles : r.id]}"
+                    },
+                    {
+                      "filter_ids": [
+                        "${data.spectrocloud_filter.filter.id}"
+                      ],
+                      "project_ids": [
+                        "${data.spectrocloud_project.ranjith.id}"
+                      ],
+                      "role_ids": "${[for re in data.spectrocloud_role.resource_roles_editor : re.id]}"
+                    }
+                  ],
+                  "team_ids": [
+                    "${data.spectrocloud_team.team2.id}"
+                  ],
+                  "tenant_role": "${[for t in data.spectrocloud_role.tenant_roles : t.id]}",
+                  "workspace_role": [
+                    {
+                      "project_id": "${data.spectrocloud_project.default.id}",
+                      "workspace": [
+                        {
+                          "id": "${data.spectrocloud_workspace.workspace.id}",
+                          "role_ids": "${[for w in data.spectrocloud_role.workspace_roles : w.id]}"
+                        },
+                        {
+                          "id": "${data.spectrocloud_workspace.workspace2.id}",
+                          "role_ids": [
+                            "66fbea622947f81fc26983e6"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                project_role.project_id: data.spectrocloud_project.ranjith.id
+                workspace_role.project_id: data.spectrocloud_project.default.id
+                workspace_role.workspace.id: data.spectrocloud_workspace.workspace2.id
+            - name: user-test
+              manifest: |-
+                {
+                  "email": "test-tf@spectrocloud.com",
+                  "first_name": "tf",
+                  "last_name": "test",
+                  "team_ids": [
+                    "${data.spectrocloud_team.team2.id}"
+                  ]
+                }
+        argumentDocs:
+            create: (String)
+            delete: (String)
+            email: (String) The email of the user.
+            filter_ids: (Set of String) List of filter ids.
+            first_name: (String) The first name of the user.
+            id: (String) The ID of this resource.
+            last_name: (String) The last name of the user.
+            project_id: (String) Project id to be associated with the user.
+            project_ids: (Set of String) Project id's to be associated with the user.
+            project_role: (Block Set) List of project roles to be associated with the user. (see below for nested schema)
+            resource_role: (Block Set) (see below for nested schema)
+            role_ids: (Set of String) List of project role ids to be associated with the user.
+            team_ids: (List of String) The team id's assigned to the user.
+            tenant_role: (Set of String) List of tenant role ids to be associated with the user.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            workspace: '(Block Set, Min: 1) List of workspace roles to be associated with the user. (see below for nested schema)'
+            workspace_role: (Block Set) List of workspace roles to be associated with the user. (see below for nested schema)
         importStatements: []
     spectrocloud_virtual_cluster:
         subCategory: ""

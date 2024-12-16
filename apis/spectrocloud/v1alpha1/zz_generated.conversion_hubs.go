@@ -31,7 +31,13 @@ func (tr *Macros) Hub() {}
 func (tr *Project) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Role) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Team) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *User) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Workspace) Hub() {}

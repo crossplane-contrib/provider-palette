@@ -13,6 +13,138 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AzureStorageConfigInitParameters struct {
+
+	// (String) Unique client Id from Azure console.
+	// Unique client Id from Azure console.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) Unique tenant Id from Azure console.
+	// Unique tenant Id from Azure console.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) The container name.
+	// The container name.
+	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+
+	// (String) The resource group name.
+	// The resource group name.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// keeping unit. eg: Standard_LRS
+	// The stop-keeping unit. eg: `Standard_LRS`
+	StockKeepingUnit *string `json:"stockKeepingUnit,omitempty" tf:"stock_keeping_unit,omitempty"`
+
+	// (String) The storage name.
+	// The storage name.
+	StorageName *string `json:"storageName,omitempty" tf:"storage_name,omitempty"`
+
+	// (String) Unique subscription Id from Azure console.
+	// Unique subscription Id from Azure console.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type AzureStorageConfigObservation struct {
+
+	// (String) Unique client Id from Azure console.
+	// Unique client Id from Azure console.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) Unique tenant Id from Azure console.
+	// Unique tenant Id from Azure console.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) The container name.
+	// The container name.
+	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+
+	// (String) The resource group name.
+	// The resource group name.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// keeping unit. eg: Standard_LRS
+	// The stop-keeping unit. eg: `Standard_LRS`
+	StockKeepingUnit *string `json:"stockKeepingUnit,omitempty" tf:"stock_keeping_unit,omitempty"`
+
+	// (String) The storage name.
+	// The storage name.
+	StorageName *string `json:"storageName,omitempty" tf:"storage_name,omitempty"`
+
+	// (String) Unique subscription Id from Azure console.
+	// Unique subscription Id from Azure console.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type AzureStorageConfigParameters struct {
+
+	// (String) Unique client Id from Azure console.
+	// Unique client Id from Azure console.
+	// +kubebuilder:validation:Optional
+	AzureClientID *string `json:"azureClientId" tf:"azure_client_id,omitempty"`
+
+	// (String, Sensitive) Azure secret for authentication.
+	// Azure secret for authentication.
+	// +kubebuilder:validation:Required
+	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
+
+	// (String) Unique tenant Id from Azure console.
+	// Unique tenant Id from Azure console.
+	// +kubebuilder:validation:Optional
+	AzureTenantID *string `json:"azureTenantId" tf:"azure_tenant_id,omitempty"`
+
+	// (String) The container name.
+	// The container name.
+	// +kubebuilder:validation:Optional
+	ContainerName *string `json:"containerName" tf:"container_name,omitempty"`
+
+	// (String) The resource group name.
+	// The resource group name.
+	// +kubebuilder:validation:Optional
+	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
+
+	// keeping unit. eg: Standard_LRS
+	// The stop-keeping unit. eg: `Standard_LRS`
+	// +kubebuilder:validation:Optional
+	StockKeepingUnit *string `json:"stockKeepingUnit" tf:"stock_keeping_unit,omitempty"`
+
+	// (String) The storage name.
+	// The storage name.
+	// +kubebuilder:validation:Optional
+	StorageName *string `json:"storageName" tf:"storage_name,omitempty"`
+
+	// (String) Unique subscription Id from Azure console.
+	// Unique subscription Id from Azure console.
+	// +kubebuilder:validation:Optional
+	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+}
+
+type GCPStorageConfigInitParameters struct {
+
+	// (String) The GCP project ID.
+	// The GCP project ID.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+}
+
+type GCPStorageConfigObservation struct {
+
+	// (String) The GCP project ID.
+	// The GCP project ID.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+}
+
+type GCPStorageConfigParameters struct {
+
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// +kubebuilder:validation:Required
+	GCPJSONCredentialsSecretRef v1.SecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
+
+	// (String) The GCP project ID.
+	// The GCP project ID.
+	// +kubebuilder:validation:Optional
+	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
+}
+
 type S3InitParameters struct {
 
 	// (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
@@ -115,44 +247,64 @@ type S3Parameters struct {
 
 type StorageLocationInitParameters struct {
 
-	// compatible storage services.
-	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+	// (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+	// Azure storage settings for configuring the backup storage location.
+	AzureStorageConfig []AzureStorageConfigInitParameters `json:"azureStorageConfig,omitempty" tf:"azure_storage_config,omitempty"`
+
+	// compatible(minio) or gcp storage services.
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
-	// (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+	// compatible(minio) storage services.
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
 	// (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+	// GCP storage settings for configuring the backup storage location.
+	GCPStorageConfig []GCPStorageConfigInitParameters `json:"gcpStorageConfig,omitempty" tf:"gcp_storage_config,omitempty"`
 
 	// (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
-	// (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+	// compatible(minio) storage services.
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// specific settings for configuring the backup storage location. (see below for nested schema)
 	// S3-specific settings for configuring the backup storage location.
 	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+	// The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 }
 
 type StorageLocationObservation struct {
 
-	// compatible storage services.
-	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+	// (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+	// Azure storage settings for configuring the backup storage location.
+	AzureStorageConfig []AzureStorageConfigObservation `json:"azureStorageConfig,omitempty" tf:"azure_storage_config,omitempty"`
+
+	// compatible(minio) or gcp storage services.
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
-	// (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+	// compatible(minio) storage services.
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
 	// (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+	// GCP storage settings for configuring the backup storage location.
+	GCPStorageConfig []GCPStorageConfigObservation `json:"gcpStorageConfig,omitempty" tf:"gcp_storage_config,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -161,24 +313,33 @@ type StorageLocationObservation struct {
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
-	// (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+	// compatible(minio) storage services.
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// specific settings for configuring the backup storage location. (see below for nested schema)
 	// S3-specific settings for configuring the backup storage location.
 	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+	// The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 }
 
 type StorageLocationParameters struct {
 
-	// compatible storage services.
-	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+	// (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+	// Azure storage settings for configuring the backup storage location.
+	// +kubebuilder:validation:Optional
+	AzureStorageConfig []AzureStorageConfigParameters `json:"azureStorageConfig,omitempty" tf:"azure_storage_config,omitempty"`
+
+	// compatible(minio) or gcp storage services.
+	// The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
 	// +kubebuilder:validation:Optional
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
-	// (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+	// compatible(minio) storage services.
+	// An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
@@ -187,13 +348,18 @@ type StorageLocationParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+	// GCP storage settings for configuring the backup storage location.
+	// +kubebuilder:validation:Optional
+	GCPStorageConfig []GCPStorageConfigParameters `json:"gcpStorageConfig,omitempty" tf:"gcp_storage_config,omitempty"`
+
 	// (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	// +kubebuilder:validation:Optional
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
-	// (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-	// The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+	// compatible(minio) storage services.
+	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -201,6 +367,11 @@ type StorageLocationParameters struct {
 	// S3-specific settings for configuring the backup storage location.
 	// +kubebuilder:validation:Optional
 	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+	// The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+	// +kubebuilder:validation:Optional
+	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 }
 
 // StorageLocationSpec defines the desired state of StorageLocation
@@ -239,12 +410,8 @@ type StorageLocationStatus struct {
 type StorageLocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucketName) || (has(self.initProvider) && has(self.initProvider.bucketName))",message="spec.forProvider.bucketName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isDefault) || (has(self.initProvider) && has(self.initProvider.isDefault))",message="spec.forProvider.isDefault is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.s3) || (has(self.initProvider) && has(self.initProvider.s3))",message="spec.forProvider.s3 is a required parameter"
-	Spec   StorageLocationSpec   `json:"spec"`
-	Status StorageLocationStatus `json:"status,omitempty"`
+	Spec              StorageLocationSpec   `json:"spec"`
+	Status            StorageLocationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

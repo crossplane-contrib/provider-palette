@@ -48,7 +48,9 @@ import (
 	macro "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/macro"
 	macros "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/macros"
 	project "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/project"
+	role "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/role"
 	team "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/team"
+	user "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/user"
 	workspace "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/workspace"
 	key "github.com/crossplane-contrib/provider-palette/internal/controller/ssh/key"
 	cluster "github.com/crossplane-contrib/provider-palette/internal/controller/virtual/cluster"
@@ -98,7 +100,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		macro.Setup,
 		macros.Setup,
 		project.Setup,
+		role.Setup,
 		team.Setup,
+		user.Setup,
 		workspace.Setup,
 		key.Setup,
 		cluster.Setup,
