@@ -72,21 +72,119 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  azureStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+                      Azure storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        azureClientId:
+                          description: |-
+                            (String) Unique client Id from Azure console.
+                            Unique client Id from Azure console.
+                          type: string
+                        azureClientSecretSecretRef:
+                          description: |-
+                            (String, Sensitive) Azure secret for authentication.
+                            Azure secret for authentication.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        azureTenantId:
+                          description: |-
+                            (String) Unique tenant Id from Azure console.
+                            Unique tenant Id from Azure console.
+                          type: string
+                        containerName:
+                          description: |-
+                            (String) The container name.
+                            The container name.
+                          type: string
+                        resourceGroup:
+                          description: |-
+                            (String) The resource group name.
+                            The resource group name.
+                          type: string
+                        stockKeepingUnit:
+                          description: |-
+                            keeping unit. eg: Standard_LRS
+                            The stop-keeping unit. eg: `Standard_LRS`
+                          type: string
+                        storageName:
+                          description: |-
+                            (String) The storage name.
+                            The storage name.
+                          type: string
+                        subscriptionId:
+                          description: |-
+                            (String) Unique subscription Id from Azure console.
+                            Unique subscription Id from Azure console.
+                          type: string
+                      required:
+                      - azureClientSecretSecretRef
+                      type: object
+                    type: array
                   bucketName:
                     description: |-
-                      compatible storage services.
-                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+                      compatible(minio) or gcp storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
                     type: string
                   caCert:
                     description: |-
-                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      compatible(minio) storage services.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   context:
                     description: |-
                       (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  gcpStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+                      GCP storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        gcpjsonCredentialsSecretRef:
+                          description: |-
+                            (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+                            The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        projectId:
+                          description: |-
+                            (String) The GCP project ID.
+                            The GCP project ID.
+                          type: string
+                      required:
+                      - gcpjsonCredentialsSecretRef
+                      type: object
+                    type: array
                   isDefault:
                     description: |-
                       (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
@@ -94,8 +192,8 @@ spec:
                     type: boolean
                   region:
                     description: |-
-                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      compatible(minio) storage services.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   s3:
                     description: |-
@@ -140,6 +238,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  storageProvider:
+                    description: |-
+                      (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+                      The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -154,21 +257,77 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  azureStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+                      Azure storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        azureClientId:
+                          description: |-
+                            (String) Unique client Id from Azure console.
+                            Unique client Id from Azure console.
+                          type: string
+                        azureTenantId:
+                          description: |-
+                            (String) Unique tenant Id from Azure console.
+                            Unique tenant Id from Azure console.
+                          type: string
+                        containerName:
+                          description: |-
+                            (String) The container name.
+                            The container name.
+                          type: string
+                        resourceGroup:
+                          description: |-
+                            (String) The resource group name.
+                            The resource group name.
+                          type: string
+                        stockKeepingUnit:
+                          description: |-
+                            keeping unit. eg: Standard_LRS
+                            The stop-keeping unit. eg: `Standard_LRS`
+                          type: string
+                        storageName:
+                          description: |-
+                            (String) The storage name.
+                            The storage name.
+                          type: string
+                        subscriptionId:
+                          description: |-
+                            (String) Unique subscription Id from Azure console.
+                            Unique subscription Id from Azure console.
+                          type: string
+                      type: object
+                    type: array
                   bucketName:
                     description: |-
-                      compatible storage services.
-                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+                      compatible(minio) or gcp storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
                     type: string
                   caCert:
                     description: |-
-                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      compatible(minio) storage services.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   context:
                     description: |-
                       (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  gcpStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+                      GCP storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        projectId:
+                          description: |-
+                            (String) The GCP project ID.
+                            The GCP project ID.
+                          type: string
+                      type: object
+                    type: array
                   isDefault:
                     description: |-
                       (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
@@ -176,8 +335,8 @@ spec:
                     type: boolean
                   region:
                     description: |-
-                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      compatible(minio) storage services.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   s3:
                     description: |-
@@ -222,6 +381,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  storageProvider:
+                    description: |-
+                      (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+                      The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -390,43 +554,82 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.bucketName is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.bucketName)
-                || (has(self.initProvider) && has(self.initProvider.bucketName))'
-            - message: spec.forProvider.isDefault is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.isDefault)
-                || (has(self.initProvider) && has(self.initProvider.isDefault))'
-            - message: spec.forProvider.region is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.region)
-                || (has(self.initProvider) && has(self.initProvider.region))'
-            - message: spec.forProvider.s3 is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.s3)
-                || (has(self.initProvider) && has(self.initProvider.s3))'
           status:
             description: StorageLocationStatus defines the observed state of StorageLocation.
             properties:
               atProvider:
                 properties:
+                  azureStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) Azure storage settings for configuring the backup storage location. (see below for nested schema)
+                      Azure storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        azureClientId:
+                          description: |-
+                            (String) Unique client Id from Azure console.
+                            Unique client Id from Azure console.
+                          type: string
+                        azureTenantId:
+                          description: |-
+                            (String) Unique tenant Id from Azure console.
+                            Unique tenant Id from Azure console.
+                          type: string
+                        containerName:
+                          description: |-
+                            (String) The container name.
+                            The container name.
+                          type: string
+                        resourceGroup:
+                          description: |-
+                            (String) The resource group name.
+                            The resource group name.
+                          type: string
+                        stockKeepingUnit:
+                          description: |-
+                            keeping unit. eg: Standard_LRS
+                            The stop-keeping unit. eg: `Standard_LRS`
+                          type: string
+                        storageName:
+                          description: |-
+                            (String) The storage name.
+                            The storage name.
+                          type: string
+                        subscriptionId:
+                          description: |-
+                            (String) Unique subscription Id from Azure console.
+                            Unique subscription Id from Azure console.
+                          type: string
+                      type: object
+                    type: array
                   bucketName:
                     description: |-
-                      compatible storage services.
-                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible storage services.
+                      compatible(minio) or gcp storage services.
+                      The name of the storage bucket where backups are stored. This is relevant for S3 or S3-compatible(minio) or gcp storage services.
                     type: string
                   caCert:
                     description: |-
-                      (String) An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
-                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider.
+                      compatible(minio) storage services.
+                      An optional CA certificate used for SSL connections to ensure secure communication with the storage provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   context:
                     description: |-
                       (String) The context of the backup storage location. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the backup storage location. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  gcpStorageConfig:
+                    description: |-
+                      (Block List, Max: 1) GCP storage settings for configuring the backup storage location. (see below for nested schema)
+                      GCP storage settings for configuring the backup storage location.
+                    items:
+                      properties:
+                        projectId:
+                          description: |-
+                            (String) The GCP project ID.
+                            The GCP project ID.
+                          type: string
+                      type: object
+                    type: array
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -437,8 +640,8 @@ spec:
                     type: boolean
                   region:
                     description: |-
-                      (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider.
-                      The region where the backup storage is located, typically corresponding to the region of the cloud provider.
+                      compatible(minio) storage services.
+                      The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
                     type: string
                   s3:
                     description: |-
@@ -483,6 +686,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  storageProvider:
+                    description: |-
+                      (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
+                      The storage location provider for backup storage. Allowed values are `aws` or `minio` or `gcp` or `azure`. Default value is `aws`.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
