@@ -154,6 +154,11 @@ type GroupClusterProfileInitParameters struct {
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []GroupClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type GroupClusterProfileObservation struct {
@@ -165,6 +170,11 @@ type GroupClusterProfileObservation struct {
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []GroupClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type GroupClusterProfilePackInitParameters struct {
@@ -313,6 +323,12 @@ type GroupClusterProfileParameters struct {
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []GroupClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type GroupInitParameters struct {
