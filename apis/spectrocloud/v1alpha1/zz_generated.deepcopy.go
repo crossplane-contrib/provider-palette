@@ -907,6 +907,11 @@ func (in *BackupPolicyInitParameters) DeepCopyInto(out *BackupPolicyInitParamete
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IncludeClusterResourcesMode != nil {
+		in, out := &in.IncludeClusterResourcesMode, &out.IncludeClusterResourcesMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.IncludeDisks != nil {
 		in, out := &in.IncludeDisks, &out.IncludeDisks
 		*out = new(bool)
@@ -979,6 +984,11 @@ func (in *BackupPolicyObservation) DeepCopyInto(out *BackupPolicyObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IncludeClusterResourcesMode != nil {
+		in, out := &in.IncludeClusterResourcesMode, &out.IncludeClusterResourcesMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.IncludeDisks != nil {
 		in, out := &in.IncludeDisks, &out.IncludeDisks
 		*out = new(bool)
@@ -1049,6 +1059,11 @@ func (in *BackupPolicyParameters) DeepCopyInto(out *BackupPolicyParameters) {
 	if in.IncludeClusterResources != nil {
 		in, out := &in.IncludeClusterResources, &out.IncludeClusterResources
 		*out = new(bool)
+		**out = **in
+	}
+	if in.IncludeClusterResourcesMode != nil {
+		in, out := &in.IncludeClusterResourcesMode, &out.IncludeClusterResourcesMode
+		*out = new(string)
 		**out = **in
 	}
 	if in.IncludeDisks != nil {

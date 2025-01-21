@@ -109,9 +109,14 @@ spec:
                           type: boolean
                         includeClusterResources:
                           description: |-
-                            (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
-                            Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
+                        includeClusterResourcesMode:
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+                          type: string
                         includeDisks:
                           description: |-
                             (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
@@ -235,6 +240,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:
@@ -604,9 +617,14 @@ spec:
                           type: boolean
                         includeClusterResources:
                           description: |-
-                            (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
-                            Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
+                        includeClusterResourcesMode:
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+                          type: string
                         includeDisks:
                           description: |-
                             (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
@@ -730,6 +748,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:
@@ -1276,9 +1302,14 @@ spec:
                           type: boolean
                         includeClusterResources:
                           description: |-
-                            (Boolean) Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be changed to a string type, supporting the values always, never, and auto.)
-                            Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
+                        includeClusterResourcesMode:
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+                          type: string
                         includeDisks:
                           description: |-
                             (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
@@ -1415,6 +1446,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:

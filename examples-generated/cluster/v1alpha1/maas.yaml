@@ -17,19 +17,25 @@ spec:
       schedule: 0 0 * * SUN
     cloudAccountId: ${data.spectrocloud_cloudaccount_maas.account.id}
     cloudConfig:
-    - region: centralus
-      resource_group: dev
-      ssh_key: ssh key value
-      subscription_id: subscription-id
+    - domain: maas.mycompany.com
     clusterProfile:
     - id: ${data.spectrocloud_cluster_profile.profile.id}
     machinePool:
+    - controlPlane: true
+      count: 1
+      instanceType:
+      - minCpu: 8
+        minMemoryMb: 16000
+      name: control-plane
+      placement:
+      - resourcePool: Production-Compute-Pool-1
     - count: 1
-      disk_size_gb: 60
-      instanceType: Standard_DS4
-      is_system_node_pool: true
+      instanceType:
+      - minCpu: 8
+        minMemoryMb: 32000
       name: worker-basic
-      storage_account_type: Standard_LRS
+      placement:
+      - resourcePool: Production-Compute-Pool-2
     scanPolicy:
     - configurationScanSchedule: 0 0 * * SUN
       conformanceScanSchedule: 0 0 1 * *
