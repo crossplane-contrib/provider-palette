@@ -135,6 +135,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusters:
@@ -290,6 +298,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusters:
@@ -617,6 +633,14 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                          type: object
+                          x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusters:
