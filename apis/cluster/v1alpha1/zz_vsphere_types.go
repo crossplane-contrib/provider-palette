@@ -28,8 +28,11 @@ type VsphereBackupPolicyInitParameters struct {
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
@@ -60,8 +63,11 @@ type VsphereBackupPolicyObservation struct {
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
@@ -96,9 +102,13 @@ type VsphereBackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
-	// Whether to include the cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the `include_cluster_resources` attribute will be changed to a string type, supporting the values `always`, `never`, and `auto`.)
+	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
+
+	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
+	// +kubebuilder:validation:Optional
+	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
@@ -240,6 +250,10 @@ type VsphereClusterProfileInitParameters struct {
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []VsphereClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type VsphereClusterProfileObservation struct {
@@ -249,6 +263,10 @@ type VsphereClusterProfileObservation struct {
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []VsphereClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type VsphereClusterProfilePackInitParameters struct {
@@ -365,6 +383,11 @@ type VsphereClusterProfileParameters struct {
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []VsphereClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type VsphereClusterRbacBindingInitParameters struct {

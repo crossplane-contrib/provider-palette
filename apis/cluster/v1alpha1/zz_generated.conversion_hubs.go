@@ -46,7 +46,4 @@ func (tr *Openstack) Hub() {}
 func (tr *Profile) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Tke) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Vsphere) Hub() {}
