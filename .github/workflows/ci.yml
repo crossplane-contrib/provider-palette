@@ -14,7 +14,7 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.22.11'
+  GO_VERSION: '1.22'
   GOLANGCI_VERSION: 'v1.54.0'
   DOCKER_BUILDX_VERSION: 'v0.8.2'
 
@@ -87,6 +87,10 @@ jobs:
     if: needs.detect-noop.outputs.noop != 'true'
 
     steps:
+      - name: Debug Go Version
+        run: go version
+      - name: Debug Go Env
+        run: go env
       - name: Checkout
         uses: actions/checkout@v2
         with:
