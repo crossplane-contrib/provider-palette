@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Tencent
-func (mg *Tencent) GetTerraformResourceType() string {
-	return "spectrocloud_cloudaccount_tencent"
+// GetTerraformResourceType returns Terraform resource type for this Policy
+func (mg *Policy) GetTerraformResourceType() string {
+	return "spectrocloud_password_policy"
 }
 
-// GetConnectionDetailsMapping for this Tencent
-func (tr *Tencent) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"tencent_secret_key": "spec.forProvider.tencentSecretKeySecretRef"}
+// GetConnectionDetailsMapping for this Policy
+func (tr *Policy) GetConnectionDetailsMapping() map[string]string {
+	return nil
 }
 
-// GetObservation of this Tencent
-func (tr *Tencent) GetObservation() (map[string]any, error) {
+// GetObservation of this Policy
+func (tr *Policy) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Tencent) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Tencent
-func (tr *Tencent) SetObservation(obs map[string]any) error {
+// SetObservation for this Policy
+func (tr *Policy) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Tencent) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Tencent
-func (tr *Tencent) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Policy
+func (tr *Policy) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Tencent
-func (tr *Tencent) GetParameters() (map[string]any, error) {
+// GetParameters of this Policy
+func (tr *Policy) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Tencent) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Tencent
-func (tr *Tencent) SetParameters(params map[string]any) error {
+// SetParameters for this Policy
+func (tr *Policy) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Tencent) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Tencent
-func (tr *Tencent) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this Policy
+func (tr *Policy) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Tencent) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Tencent
-func (tr *Tencent) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this Policy
+func (tr *Policy) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *Tencent) GetMergedParameters(shouldMergeInitProvider bool) (map[string
 	return params, nil
 }
 
-// LateInitialize this Tencent using its observed tfState.
+// LateInitialize this Policy using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Tencent) LateInitialize(attrs []byte) (bool, error) {
-	params := &TencentParameters{}
+func (tr *Policy) LateInitialize(attrs []byte) (bool, error) {
+	params := &PolicyParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *Tencent) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Tencent) GetTerraformSchemaVersion() int {
-	return 0
+func (tr *Policy) GetTerraformSchemaVersion() int {
+	return 2
 }
