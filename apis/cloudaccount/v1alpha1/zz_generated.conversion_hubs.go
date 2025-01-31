@@ -25,7 +25,4 @@ func (tr *Maas) Hub() {}
 func (tr *Openstack) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Tencent) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Vsphere) Hub() {}
