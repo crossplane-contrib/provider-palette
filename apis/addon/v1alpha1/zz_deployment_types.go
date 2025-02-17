@@ -20,6 +20,10 @@ type ClusterProfileInitParameters struct {
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []PackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type ClusterProfileObservation struct {
@@ -29,6 +33,10 @@ type ClusterProfileObservation struct {
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []PackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type ClusterProfileParameters struct {
@@ -40,6 +48,11 @@ type ClusterProfileParameters struct {
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []PackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type DeploymentInitParameters struct {

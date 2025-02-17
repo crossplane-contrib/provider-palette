@@ -18,7 +18,6 @@ import (
 	gcp "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/gcp"
 	maas "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/maas"
 	openstack "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/openstack"
-	tencent "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/tencent"
 	vsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cloudaccount/vsphere"
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/aks"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/aws"
@@ -33,13 +32,14 @@ import (
 	maascluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/maas"
 	openstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/openstack"
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/profile"
-	tke "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/tke"
 	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/vsphere"
+	policy "github.com/crossplane-contrib/provider-palette/internal/controller/password/policy"
 	dnsmap "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/dnsmap"
 	ippool "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-palette/internal/controller/providerconfig"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/registry/helm"
 	oci "github.com/crossplane-contrib/provider-palette/internal/controller/registry/oci"
+	limit "github.com/crossplane-contrib/provider-palette/internal/controller/resource/limit"
 	alert "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/alert"
 	appliance "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/appliance"
 	application "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/application"
@@ -70,7 +70,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		gcp.Setup,
 		maas.Setup,
 		openstack.Setup,
-		tencent.Setup,
 		vsphere.Setup,
 		aks.Setup,
 		awscluster.Setup,
@@ -85,13 +84,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		maascluster.Setup,
 		openstackcluster.Setup,
 		profilecluster.Setup,
-		tke.Setup,
 		vspherecluster.Setup,
+		policy.Setup,
 		dnsmap.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
 		helm.Setup,
 		oci.Setup,
+		limit.Setup,
 		alert.Setup,
 		appliance.Setup,
 		application.Setup,
