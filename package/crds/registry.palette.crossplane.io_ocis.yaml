@@ -72,6 +72,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  baseContentPath:
+                    description: |-
+                      (String) The relative path to the endpoint specified.
+                      The relative path to the endpoint specified.
+                    type: string
                   credentials:
                     description: |-
                       (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
@@ -136,6 +141,24 @@ spec:
                           - name
                           - namespace
                           type: object
+                        tlsConfig:
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+                            TLS configuration for the registry.
+                          items:
+                            properties:
+                              certificate:
+                                description: |-
+                                  (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                  Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                type: string
+                              insecureSkipVerify:
+                                description: |-
+                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                type: boolean
+                            type: object
+                          type: array
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -148,15 +171,25 @@ spec:
                       (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                       The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
+                  endpointSuffix:
+                    description: |-
+                      (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                      Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                    type: string
                   isPrivate:
                     description: |-
                       (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
                       Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  isSynchronization:
+                    description: |-
+                      (Boolean) Specifies whether the registry is synchronized.
+                      Specifies whether the registry is synchronized.
+                    type: boolean
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
-                      The type of provider used for interacting with the registry. The default is 'helm'.
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
                     type: string
                   type:
                     description: |-
@@ -177,6 +210,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  baseContentPath:
+                    description: |-
+                      (String) The relative path to the endpoint specified.
+                      The relative path to the endpoint specified.
+                    type: string
                   credentials:
                     description: |-
                       (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
@@ -203,6 +241,24 @@ spec:
                             (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                             The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                           type: string
+                        tlsConfig:
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+                            TLS configuration for the registry.
+                          items:
+                            properties:
+                              certificate:
+                                description: |-
+                                  (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                  Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                type: string
+                              insecureSkipVerify:
+                                description: |-
+                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                type: boolean
+                            type: object
+                          type: array
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -215,15 +271,25 @@ spec:
                       (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                       The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
+                  endpointSuffix:
+                    description: |-
+                      (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                      Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                    type: string
                   isPrivate:
                     description: |-
                       (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
                       Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  isSynchronization:
+                    description: |-
+                      (Boolean) Specifies whether the registry is synchronized.
+                      Specifies whether the registry is synchronized.
+                    type: boolean
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
-                      The type of provider used for interacting with the registry. The default is 'helm'.
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
                     type: string
                   type:
                     description: |-
@@ -420,6 +486,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  baseContentPath:
+                    description: |-
+                      (String) The relative path to the endpoint specified.
+                      The relative path to the endpoint specified.
+                    type: string
                   credentials:
                     description: |-
                       (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
@@ -446,6 +517,24 @@ spec:
                             (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                             The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                           type: string
+                        tlsConfig:
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+                            TLS configuration for the registry.
+                          items:
+                            properties:
+                              certificate:
+                                description: |-
+                                  (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                  Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+                                type: string
+                              insecureSkipVerify:
+                                description: |-
+                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                type: boolean
+                            type: object
+                          type: array
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -458,6 +547,11 @@ spec:
                       (String) The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                       The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
                     type: string
+                  endpointSuffix:
+                    description: |-
+                      (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                      Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -466,10 +560,15 @@ spec:
                       (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
                       Specifies whether the registry is private or public. Private registries require authentication to access.
                     type: boolean
+                  isSynchronization:
+                    description: |-
+                      (Boolean) Specifies whether the registry is synchronized.
+                      Specifies whether the registry is synchronized.
+                    type: boolean
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. The default is 'helm'.
-                      The type of provider used for interacting with the registry. The default is 'helm'.
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
                     type: string
                   type:
                     description: |-

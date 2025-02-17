@@ -31,6 +31,10 @@ type OciCredentialsInitParameters struct {
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+	// TLS configuration for the registry.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -53,6 +57,10 @@ type OciCredentialsObservation struct {
 	// (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+	// TLS configuration for the registry.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -91,6 +99,11 @@ type OciCredentialsParameters struct {
 	// +kubebuilder:validation:Optional
 	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
+	// TLS configuration for the registry.
+	// +kubebuilder:validation:Optional
+	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// +kubebuilder:validation:Optional
@@ -98,6 +111,10 @@ type OciCredentialsParameters struct {
 }
 
 type OciInitParameters struct {
+
+	// (String) The relative path to the endpoint specified.
+	// The relative path to the endpoint specified.
+	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
@@ -107,12 +124,20 @@ type OciInitParameters struct {
 	// The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	// Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty" tf:"endpoint_suffix,omitempty"`
+
 	// (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
-	// The type of provider used for interacting with the registry. The default is 'helm'.
+	// (Boolean) Specifies whether the registry is synchronized.
+	// Specifies whether the registry is synchronized.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
+
+	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
@@ -122,6 +147,10 @@ type OciInitParameters struct {
 
 type OciObservation struct {
 
+	// (String) The relative path to the endpoint specified.
+	// The relative path to the endpoint specified.
+	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
+
 	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
 	Credentials []OciCredentialsObservation `json:"credentials,omitempty" tf:"credentials,omitempty"`
@@ -130,6 +159,10 @@ type OciObservation struct {
 	// The URL endpoint of the OCI registry. This is where the container images are hosted and accessed.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	// Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty" tf:"endpoint_suffix,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -137,8 +170,12 @@ type OciObservation struct {
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
-	// The type of provider used for interacting with the registry. The default is 'helm'.
+	// (Boolean) Specifies whether the registry is synchronized.
+	// Specifies whether the registry is synchronized.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
+
+	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
@@ -147,6 +184,11 @@ type OciObservation struct {
 }
 
 type OciParameters struct {
+
+	// (String) The relative path to the endpoint specified.
+	// The relative path to the endpoint specified.
+	// +kubebuilder:validation:Optional
+	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
 	// Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
@@ -158,13 +200,23 @@ type OciParameters struct {
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	// Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
+	// +kubebuilder:validation:Optional
+	EndpointSuffix *string `json:"endpointSuffix,omitempty" tf:"endpoint_suffix,omitempty"`
+
 	// (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
 	// Specifies whether the registry is private or public. Private registries require authentication to access.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The type of provider used for interacting with the registry. The default is 'helm'.
-	// The type of provider used for interacting with the registry. The default is 'helm'.
+	// (Boolean) Specifies whether the registry is synchronized.
+	// Specifies whether the registry is synchronized.
+	// +kubebuilder:validation:Optional
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
+
+	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
 	// +kubebuilder:validation:Optional
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
@@ -172,6 +224,41 @@ type OciParameters struct {
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type TLSConfigInitParameters struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigObservation struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigParameters struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// +kubebuilder:validation:Optional
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
 // OciSpec defines the desired state of Oci
