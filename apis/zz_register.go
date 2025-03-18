@@ -15,8 +15,11 @@ import (
 	v1alpha1backup "github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1"
 	v1alpha1cloudaccount "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
 	v1alpha1cluster "github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1"
+	v1alpha1developer "github.com/crossplane-contrib/provider-palette/apis/developer/v1alpha1"
 	v1alpha1password "github.com/crossplane-contrib/provider-palette/apis/password/v1alpha1"
+	v1alpha1platform "github.com/crossplane-contrib/provider-palette/apis/platform/v1alpha1"
 	v1alpha1privatecloudgateway "github.com/crossplane-contrib/provider-palette/apis/privatecloudgateway/v1alpha1"
+	v1alpha1registration "github.com/crossplane-contrib/provider-palette/apis/registration/v1alpha1"
 	v1alpha1registry "github.com/crossplane-contrib/provider-palette/apis/registry/v1alpha1"
 	v1alpha1resource "github.com/crossplane-contrib/provider-palette/apis/resource/v1alpha1"
 	v1alpha1spectrocloud "github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1"
@@ -34,8 +37,11 @@ func init() {
 		v1alpha1backup.SchemeBuilder.AddToScheme,
 		v1alpha1cloudaccount.SchemeBuilder.AddToScheme,
 		v1alpha1cluster.SchemeBuilder.AddToScheme,
+		v1alpha1developer.SchemeBuilder.AddToScheme,
 		v1alpha1password.SchemeBuilder.AddToScheme,
+		v1alpha1platform.SchemeBuilder.AddToScheme,
 		v1alpha1privatecloudgateway.SchemeBuilder.AddToScheme,
+		v1alpha1registration.SchemeBuilder.AddToScheme,
 		v1alpha1registry.SchemeBuilder.AddToScheme,
 		v1alpha1resource.SchemeBuilder.AddToScheme,
 		v1alpha1spectrocloud.SchemeBuilder.AddToScheme,
