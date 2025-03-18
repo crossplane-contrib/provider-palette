@@ -1,0 +1,14 @@
+apiVersion: registration.palette.crossplane.io/v1alpha1
+kind: Token
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registration/v1alpha1/token
+  labels:
+    testing.upbound.io/example-name: tf_token
+  name: tf-token
+spec:
+  forProvider:
+    description: test token description updated
+    expiryDate: "2025-03-25"
+    projectUid: 6514216503b
+    status: active

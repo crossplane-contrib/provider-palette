@@ -33,10 +33,13 @@ import (
 	openstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/openstack"
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/profile"
 	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/vsphere"
+	setting "github.com/crossplane-contrib/provider-palette/internal/controller/developer/setting"
 	policy "github.com/crossplane-contrib/provider-palette/internal/controller/password/policy"
+	settingplatform "github.com/crossplane-contrib/provider-palette/internal/controller/platform/setting"
 	dnsmap "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/dnsmap"
 	ippool "github.com/crossplane-contrib/provider-palette/internal/controller/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-palette/internal/controller/providerconfig"
+	token "github.com/crossplane-contrib/provider-palette/internal/controller/registration/token"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/registry/helm"
 	oci "github.com/crossplane-contrib/provider-palette/internal/controller/registry/oci"
 	limit "github.com/crossplane-contrib/provider-palette/internal/controller/resource/limit"
@@ -85,10 +88,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		openstackcluster.Setup,
 		profilecluster.Setup,
 		vspherecluster.Setup,
+		setting.Setup,
 		policy.Setup,
+		settingplatform.Setup,
 		dnsmap.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
+		token.Setup,
 		helm.Setup,
 		oci.Setup,
 		limit.Setup,

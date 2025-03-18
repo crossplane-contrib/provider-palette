@@ -2805,6 +2805,32 @@ resources:
             volume_name: (String) The binding reference to the PersistentVolume backing this claim.
             volume_source: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
         importStatements: []
+    spectrocloud_developer_setting:
+        subCategory: ""
+        name: spectrocloud_developer_setting
+        title: spectrocloud_developer_setting Resource - terraform-provider-spectrocloud
+        examples:
+            - name: dev_setting
+              manifest: |-
+                {
+                  "cpu": 20,
+                  "hide_system_cluster_group": false,
+                  "memory": 100,
+                  "storage": 100,
+                  "virtual_clusters_limit": 10
+                }
+        argumentDocs:
+            cpu: (Number) Defines the number of CPU cores allocated to the cluster.
+            create: (String)
+            delete: (String)
+            hide_system_cluster_group: (Boolean) If set to true, hides the system cluster.
+            id: (String) The ID of this resource.
+            memory: (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
+            storage: (Number) Defines the storage capacity (in GiB) allocated to the cluster.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            virtual_clusters_limit: (Number) Specifies the number of virtual clusters to be created.
+        importStatements: []
     spectrocloud_filter:
         subCategory: ""
         description: A resource for creating and managing filters.
@@ -2955,6 +2981,47 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
+    spectrocloud_platform_setting:
+        subCategory: ""
+        name: spectrocloud_platform_setting
+        title: spectrocloud_platform_setting Resource - terraform-provider-spectrocloud
+        examples:
+            - name: platform_settings
+              manifest: |-
+                {
+                  "cluster_auto_remediation": false,
+                  "context": "tenant",
+                  "enable_auto_remediation": true,
+                  "login_banner": [
+                    {
+                      "message": "test",
+                      "title": "test"
+                    }
+                  ],
+                  "non_fips_addon_pack": true,
+                  "non_fips_cluster_import": true,
+                  "non_fips_features": true,
+                  "pause_agent_upgrades": "lock",
+                  "session_timeout": 230
+                }
+        argumentDocs:
+            cluster_auto_remediation: (Boolean) Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
+            context: (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+            create: (String)
+            delete: (String)
+            enable_auto_remediation: (Boolean) Enables automatic remediation. set only with `project' context
+            id: (String) The ID of this resource.
+            login_banner: '(Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)'
+            message: (String) Specify the message displayed in the login banner.
+            non_fips_addon_pack: (Boolean) Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
+            non_fips_cluster_import: (Boolean) Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The non_fips_cluster_import only supported in palette vertex environment.
+            non_fips_features: (Boolean) Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
+            pause_agent_upgrades: (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
+            session_timeout: (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+            timeouts: (Block, Optional) (see below for nested schema)
+            title: (String) Specify the title of the login banner.
+            update: (String)
+        importStatements: []
     spectrocloud_privatecloudgateway_dns_map:
         subCategory: ""
         description: This resource allows for the management of DNS mappings for private cloud gateways. This helps ensure proper DNS resolution for resources within the private cloud environment.
@@ -3067,6 +3134,33 @@ resources:
             name: (String) The name of the project.
             tags: (Set of String) Assign tags to the project.
             timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+        importStatements: []
+    spectrocloud_registration_token:
+        subCategory: ""
+        name: spectrocloud_registration_token
+        title: spectrocloud_registration_token Resource - terraform-provider-spectrocloud
+        examples:
+            - name: tf_token
+              manifest: |-
+                {
+                  "description": "test token description updated",
+                  "expiry_date": "2025-03-25",
+                  "name": "tf_siva",
+                  "project_uid": "6514216503b",
+                  "status": "active"
+                }
+        argumentDocs:
+            create: (String)
+            delete: (String)
+            description: (String) A brief description of the registration token.
+            expiry_date: (String) The expiration date of the registration token in YYYY-MM-DD format.
+            id: (String) The ID of this resource.
+            name: (String) The name of the registration token.
+            project_uid: (String) The unique identifier of the project associated with the registration token.
+            status: (String) The status of the registration token. Allowed values are active or inactive. Default is active.
+            timeouts: (Block, Optional) (see below for nested schema)
+            token: (String)
             update: (String)
         importStatements: []
     spectrocloud_registry_helm:
