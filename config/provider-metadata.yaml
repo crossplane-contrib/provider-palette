@@ -926,7 +926,8 @@ resources:
             ssh_key_name: (String) Public SSH key to be used for the cluster nodes.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+            tags_map: (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
@@ -1707,7 +1708,8 @@ resources:
             subjects: (Block List) (see below for nested schema)
             subnets: (List of String)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+            tags_map: (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
@@ -2567,7 +2569,7 @@ resources:
                         {
                           "display_name": "Default Password",
                           "format": "string",
-                          "hidden": true,
+                          "is_sensitive": true,
                           "name": "default_password"
                         },
                         {
@@ -2610,7 +2612,7 @@ resources:
             manifest: (Block List) (see below for nested schema)
             name: (String)
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
-            profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the edge_native cloud type and general add-on profiles. (see below for nested schema)'
+            profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)'
             regex: (String) Regular expression pattern which the variable value must match.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
             required: (Boolean) The required to specify if the variable is optional or mandatory. If it is mandatory then default value must be provided.
@@ -3371,6 +3373,75 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
         importStatements: []
+    spectrocloud_sso:
+        subCategory: ""
+        name: spectrocloud_sso
+        title: spectrocloud_sso Resource - terraform-provider-spectrocloud
+        examples:
+            - name: sso_setting
+              manifest: |-
+                {
+                  "auth_providers": [
+                    "github",
+                    "google"
+                  ],
+                  "domains": [
+                    "test.com",
+                    "test-login.com"
+                  ],
+                  "saml": [
+                    {
+                      "default_team_ids": [
+                        "${data.spectrocloud_team.team.id}"
+                      ],
+                      "email": "test@test.com",
+                      "enable_single_logout": true,
+                      "first_name": "testfirst",
+                      "identity_provider_metadata": "\u003cnote\u003etest\u003c/note\u003e",
+                      "last_name": "testlast",
+                      "name_id_format": "name_id_format",
+                      "service_provider": "Microsoft ADFS",
+                      "spectro_team": "SpectroTeam"
+                    }
+                  ],
+                  "sso_auth_type": "saml"
+                }
+        argumentDocs:
+            auth_providers: (Set of String) A set of external authentication providers such as GitHub and Google.
+            callback_url: (String) URL to which the identity provider redirects after authentication.
+            certificate: (String) Certificate for SAML authentication.
+            client_id: (String) Client ID for OIDC authentication.
+            client_secret: (String, Sensitive) Client secret for OIDC authentication (sensitive).
+            create: (String)
+            default_team_ids: (Set of String) A set of default team IDs assigned to users.
+            delete: (String)
+            domains: (Set of String) A set of domains associated with the SSO configuration.
+            email: (String) User's email address retrieved from identity provider.
+            enable_single_logout: (Boolean) Boolean to enable SAML single logout feature.
+            entity_id: (String) Entity ID used to identify the service provider.
+            first_name: (String) User's first name retrieved from identity provider.
+            id: (String) The ID of this resource.
+            identity_provider_ca_certificate: (String) Certificate authority (CA) certificate for the identity provider.
+            identity_provider_metadata: (String) Metadata XML of the SAML identity provider.
+            insecure_skip_tls_verify: (Boolean) Boolean to skip TLS verification for identity provider communication.
+            issuer: (String) SAML identity provider issuer URL.
+            issuer_url: (String) URL of the OIDC issuer.
+            last_name: (String) User's last name retrieved from identity provider.
+            login_url: (String) Login URL for the SAML identity provider.
+            logout_url: (String) URL used for logging out of the OIDC session.
+            name_id_format: (String) Format of the NameID attribute in SAML responses.
+            oidc: '(Block List, Max: 1) (see below for nested schema)'
+            saml: '(Block List, Max: 1) Configuration for Security Assertion Markup Language (SAML) authentication. (see below for nested schema)'
+            scopes: (Set of String) Scopes requested during OIDC authentication.
+            service_provider: (String) The identity provider service used for SAML authentication.
+            service_provider_metadata: (String) Metadata XML of the SAML service provider.
+            single_logout_url: (String) URL used for initiating SAML single logout.
+            spectro_team: (String) The SpectroCloud team the user belongs to.
+            sso_auth_type: '(String) Defines the type of SSO authentication. Supported values: none, saml, oidc.'
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            user_info_endpoint: '(Block List, Max: 1) To allow Palette to query the OIDC userinfo endpoint using the provided Issuer URL. Palette will first attempt to retrieve role and group information from userInfo endpoint. If unavailable, Palette will fall back to using Required Claims as specified above. Use the following fields to specify what Required Claims Palette will include when querying the userinfo endpoint. (see below for nested schema)'
+        importStatements: []
     spectrocloud_team:
         subCategory: ""
         name: spectrocloud_team
@@ -3960,6 +4031,7 @@ resources:
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             clusters: '(Block Set, Min: 1) (see below for nested schema)'
+            cpu: (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             description: (String)
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             id: (String) The ID of this resource.
@@ -3968,6 +4040,7 @@ resources:
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+            memory: (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -3979,4 +4052,5 @@ resources:
             tags: (Set of String)
             type: '(String) The type of the RBAC binding. Can be one of the following values: RoleBinding, or ClusterRoleBinding.'
             uid: (String)
+            workspace_quota: '(Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)'
         importStatements: []

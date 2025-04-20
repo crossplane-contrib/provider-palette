@@ -474,10 +474,15 @@ type AwsInitParameters struct {
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type AwsLocationConfigInitParameters struct {
@@ -905,10 +910,15 @@ type AwsObservation struct {
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type AwsParameters struct {
@@ -1014,11 +1024,17 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type AwsScanPolicyInitParameters struct {

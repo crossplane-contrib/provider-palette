@@ -731,10 +731,15 @@ type EksInitParameters struct {
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type EksLaunchTemplateInitParameters struct {
@@ -848,10 +853,12 @@ type EksMachinePoolInitParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+	// Mutually exclusive with `azs`. Use for Static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+	// Mutually exclusive with `az_subnets`.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
@@ -938,10 +945,12 @@ type EksMachinePoolObservation struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+	// Mutually exclusive with `azs`. Use for Static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+	// Mutually exclusive with `az_subnets`.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
@@ -994,11 +1003,13 @@ type EksMachinePoolParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+	// Mutually exclusive with `azs`. Use for Static provisioning.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+	// Mutually exclusive with `az_subnets`.
 	// +kubebuilder:validation:Optional
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -1262,10 +1273,15 @@ type EksObservation struct {
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type EksParameters struct {
@@ -1378,11 +1394,17 @@ type EksParameters struct {
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
 type EksScanPolicyInitParameters struct {

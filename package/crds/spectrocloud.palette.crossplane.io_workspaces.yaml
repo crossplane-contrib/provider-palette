@@ -229,6 +229,24 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  workspaceQuota:
+                    description: |-
+                      (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+                      Workspace quota default limits assigned to the namespace.
+                    items:
+                      properties:
+                        cpu:
+                          description: |-
+                            (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        memory:
+                          description: |-
+                            (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -400,6 +418,24 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  workspaceQuota:
+                    description: |-
+                      (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+                      Workspace quota default limits assigned to the namespace.
+                    items:
+                      properties:
+                        cpu:
+                          description: |-
+                            (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        memory:
+                          description: |-
+                            (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -738,6 +774,24 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  workspaceQuota:
+                    description: |-
+                      (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+                      Workspace quota default limits assigned to the namespace.
+                    items:
+                      properties:
+                        cpu:
+                          description: |-
+                            (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        memory:
+                          description: |-
+                            (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                            Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
