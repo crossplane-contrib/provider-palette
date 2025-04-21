@@ -30,8 +30,8 @@ type ProfileInitParameters struct {
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// on profiles. (see below for nested schema)
-	// List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+	// List of variables for the cluster profile.
 	ProfileVariables []ProfileVariablesInitParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -68,8 +68,8 @@ type ProfileObservation struct {
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// on profiles. (see below for nested schema)
-	// List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+	// List of variables for the cluster profile.
 	ProfileVariables []ProfileVariablesObservation `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -242,8 +242,8 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Pack []ProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// on profiles. (see below for nested schema)
-	// List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+	// List of variables for the cluster profile.
 	// +kubebuilder:validation:Optional
 	ProfileVariables []ProfileVariablesParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 

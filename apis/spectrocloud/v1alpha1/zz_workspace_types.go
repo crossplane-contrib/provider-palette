@@ -360,6 +360,10 @@ type WorkspaceInitParameters_2 struct {
 	// (Set of String)
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+	// Workspace quota default limits assigned to the namespace.
+	WorkspaceQuota []WorkspaceQuotaInitParameters `json:"workspaceQuota,omitempty" tf:"workspace_quota,omitempty"`
 }
 
 type WorkspaceObservation_2 struct {
@@ -388,6 +392,10 @@ type WorkspaceObservation_2 struct {
 	// (Set of String)
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+	// Workspace quota default limits assigned to the namespace.
+	WorkspaceQuota []WorkspaceQuotaObservation `json:"workspaceQuota,omitempty" tf:"workspace_quota,omitempty"`
 }
 
 type WorkspaceParameters_2 struct {
@@ -419,6 +427,46 @@ type WorkspaceParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Block List, Max: 1) Workspace quota default limits assigned to the namespace. (see below for nested schema)
+	// Workspace quota default limits assigned to the namespace.
+	// +kubebuilder:validation:Optional
+	WorkspaceQuota []WorkspaceQuotaParameters `json:"workspaceQuota,omitempty" tf:"workspace_quota,omitempty"`
+}
+
+type WorkspaceQuotaInitParameters struct {
+
+	// (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type WorkspaceQuotaObservation struct {
+
+	// (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type WorkspaceQuotaParameters struct {
+
+	// (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// +kubebuilder:validation:Optional
+	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// +kubebuilder:validation:Optional
+	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 }
 
 // WorkspaceSpec defines the desired state of Workspace

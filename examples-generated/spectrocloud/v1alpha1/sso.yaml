@@ -1,0 +1,28 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Sso
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/sso
+  labels:
+    testing.upbound.io/example-name: sso_setting
+  name: sso-setting
+spec:
+  forProvider:
+    authProviders:
+    - github
+    - google
+    domains:
+    - test.com
+    - test-login.com
+    saml:
+    - defaultTeamIds:
+      - ${data.spectrocloud_team.team.id}
+      email: test@test.com
+      enableSingleLogout: true
+      firstName: testfirst
+      identityProviderMetadata: <note>test</note>
+      lastName: testlast
+      nameIdFormat: name_id_format
+      serviceProvider: Microsoft ADFS
+      spectroTeam: SpectroTeam
+    ssoAuthType: saml

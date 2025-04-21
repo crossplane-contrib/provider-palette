@@ -142,8 +142,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      on profiles. (see below for nested schema)
-                      List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+                      List of variables for the cluster profile.
                     items:
                       properties:
                         variable:
@@ -306,8 +306,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      on profiles. (see below for nested schema)
-                      List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+                      List of variables for the cluster profile.
                     items:
                       properties:
                         variable:
@@ -639,8 +639,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      on profiles. (see below for nested schema)
-                      List of variables for the cluster profile. Note: This is a preview feature and is currently only supported for the `edge_native` cloud type and general `add-on` profiles.
+                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
+                      List of variables for the cluster profile.
                     items:
                       properties:
                         variable:

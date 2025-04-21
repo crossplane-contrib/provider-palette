@@ -432,13 +432,15 @@ spec:
                         azSubnets:
                           additionalProperties:
                             type: string
-                          description: (Map of String) Mutually exclusive with azs.
-                            Use for Static provisioning.
+                          description: |-
+                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            Mutually exclusive with `azs`. Use for Static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (List of String) Mutually exclusive with az_subnets.
-                            Use for Dynamic provisioning.
+                          description: |-
+                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            Mutually exclusive with `az_subnets`.
                           items:
                             type: string
                           type: array
@@ -636,12 +638,20 @@ spec:
                     type: boolean
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  tagsMap:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               initProvider:
                 description: |-
@@ -1015,13 +1025,15 @@ spec:
                         azSubnets:
                           additionalProperties:
                             type: string
-                          description: (Map of String) Mutually exclusive with azs.
-                            Use for Static provisioning.
+                          description: |-
+                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            Mutually exclusive with `azs`. Use for Static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (List of String) Mutually exclusive with az_subnets.
-                            Use for Dynamic provisioning.
+                          description: |-
+                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            Mutually exclusive with `az_subnets`.
                           items:
                             type: string
                           type: array
@@ -1219,12 +1231,20 @@ spec:
                     type: boolean
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  tagsMap:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               managementPolicies:
                 default:
@@ -1822,13 +1842,15 @@ spec:
                         azSubnets:
                           additionalProperties:
                             type: string
-                          description: (Map of String) Mutually exclusive with azs.
-                            Use for Static provisioning.
+                          description: |-
+                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            Mutually exclusive with `azs`. Use for Static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (List of String) Mutually exclusive with az_subnets.
-                            Use for Dynamic provisioning.
+                          description: |-
+                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            Mutually exclusive with `az_subnets`.
                           items:
                             type: string
                           type: array
@@ -2026,12 +2048,20 @@ spec:
                     type: boolean
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  tagsMap:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               conditions:
                 description: Conditions of the resource.
