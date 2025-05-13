@@ -13,14 +13,14 @@
             "args": [
                 "--debug",
                 "--terraform-version=1.3.3",
-                "--terraform-provider-version=0.21.0",
+                "--terraform-provider-version=0.23.5",
                 "--terraform-provider-source=spectrocloud/spectrocloud"
             ],
             "env": {
-                "KUBECONFIG": "",
+                "KUBECONFIG": "/Users/tylergillson/Downloads/hub.kubeconfig",
                 "UPBOUND_CONTEXT": "local",
-                "TF_PID": "",
-                "TF_ADDR": "",
+                "TF_PID": "40348",
+                "TF_ADDR": "/var/folders/w1/sm7f2fb959j2xkxln196ksj40000gn/T/plugin2952085873",
             },
             // "showLog": true,
             // "trace": "verbose",

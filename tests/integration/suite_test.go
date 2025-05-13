@@ -44,25 +44,9 @@ var (
 )
 
 func init() {
-	// Configure TF_REATTACH_PROVIDERS
-	addr := os.Getenv("TF_ADDR")
-	pid := os.Getenv("TF_PID")
-	if addr == "" || pid == "" {
-		return
+	if err := utils.ConfigureTFReattachProvider(); err != nil {
+		panic(err)
 	}
-	reattachProvider := fmt.Sprintf(`{
-		"registry.terraform.io/spectrocloud/spectrocloud": {
-			"Protocol": "grpc",
-			"ProtocolVersion": 5,
-			"Pid": %s,
-			"Test": true,
-			"Addr": {
-				"Network": "unix",
-				"String": "%s"
-			}
-		}
-	}`, pid, addr)
-	os.Setenv("TF_REATTACH_PROVIDERS", reattachProvider)
 }
 
 func TestFunctionality(t *testing.T) {

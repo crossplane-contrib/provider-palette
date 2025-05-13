@@ -29,6 +29,7 @@ import (
 	"github.com/crossplane-contrib/provider-palette/internal/clients"
 	"github.com/crossplane-contrib/provider-palette/internal/controller"
 	"github.com/crossplane-contrib/provider-palette/internal/features"
+	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
 
 var cancel context.CancelFunc
@@ -62,6 +63,10 @@ func Run() {
 	}
 
 	log.Debug("Starting")
+
+	// If TF_PID and TF_ADDR are set, configure the TF_REATTACH_PROVIDERS environment variable
+	err := utils.ConfigureTFReattachProvider()
+	kingpin.FatalIfError(err, "Cannot configure TF_REATTACH_PROVIDERS")
 
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
