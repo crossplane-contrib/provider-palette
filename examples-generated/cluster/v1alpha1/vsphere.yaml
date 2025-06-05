@@ -1,0 +1,45 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Vsphere
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/vsphere
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    cloudAccountId: ${data.spectrocloud_cloudaccount_vsphere.vmware_account.id}
+    cloudConfig:
+    - datacenter: ${var.vsphere_datacenter}
+      folder: ${var.vsphere_folder}
+      networkSearchDomain: ${var.cluster_network_search}
+      networkType: DDNS
+      sshKey: ${var.cluster_ssh_public_key}
+    clusterProfile:
+    - id: ${data.spectrocloud_cluster_profile.vmware_profile.id}
+    machinePool:
+    - controlPlane: true
+      controlPlaneAsWorker: true
+      count: 1
+      instanceType:
+      - cpu: 2
+        diskSizeGb: 40
+        memoryMb: 4096
+      name: cp-pool
+      placement:
+      - cluster: ${var.vsphere_cluster}
+        datastore: ${var.vsphere_datastore}
+        network: ${var.vsphere_network}
+        resourcePool: ${var.vsphere_resource_pool}
+    - count: 1
+      instanceType:
+      - cpu: 4
+        diskSizeGb: 40
+        memoryMb: 8192
+      name: worker-basic
+      nodeRepaveInterval: 30
+      placement:
+      - cluster: ${var.vsphere_cluster}
+        datastore: ${var.vsphere_datastore}
+        network: ${var.vsphere_network}
+        resourcePool: ${var.vsphere_resource_pool}

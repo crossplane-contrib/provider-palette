@@ -5,6 +5,7 @@ cover.out
 /vendor
 /.vendor-new
 .DS_Store
+crossplane.code-workspace
 
 # ignore IDE folders
 .vscode/

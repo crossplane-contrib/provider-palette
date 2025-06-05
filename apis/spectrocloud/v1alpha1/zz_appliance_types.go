@@ -19,10 +19,18 @@ type ApplianceInitParameters struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
+	// management/remote-shell/
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
+
 	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	// Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
 	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.
@@ -42,10 +50,18 @@ type ApplianceObservation struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
+	// management/remote-shell/
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
+
 	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	// Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
 	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.
@@ -63,11 +79,21 @@ type ApplianceParameters struct {
 	// +kubebuilder:validation:Optional
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
+	// management/remote-shell/
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	// +kubebuilder:validation:Optional
+	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
+
 	// value pairs that can be used to organize and categorize the appliance.
 	// A set of key-value pairs that can be used to organize and categorize the appliance.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	// Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+	// +kubebuilder:validation:Optional
+	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
 	// (String) The unique identifier (UID) for the appliance.
 	// The unique identifier (UID) for the appliance.

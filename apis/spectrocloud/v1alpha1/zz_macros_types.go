@@ -15,17 +15,21 @@ import (
 
 type MacrosInitParameters struct {
 
+	// (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
 	// value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
-
-	// (String) The Spectro Cloud project name.
-	// The Spectro Cloud project name.
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 }
 
 type MacrosObservation struct {
+
+	// (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -34,24 +38,20 @@ type MacrosObservation struct {
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
-
-	// (String) The Spectro Cloud project name.
-	// The Spectro Cloud project name.
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 }
 
 type MacrosParameters struct {
+
+	// (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Macros map[string]*string `json:"macros,omitempty" tf:"macros,omitempty"`
-
-	// (String) The Spectro Cloud project name.
-	// The Spectro Cloud project name.
-	// +kubebuilder:validation:Optional
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 }
 
 // MacrosSpec defines the desired state of Macros

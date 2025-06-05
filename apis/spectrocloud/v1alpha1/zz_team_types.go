@@ -156,7 +156,7 @@ type WorkspaceParameters struct {
 	// List of workspace roles to be associated with the team.
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+	Roles []*string `json:"roles" tf:"roles,omitempty"`
 }
 
 type WorkspaceRoleMappingInitParameters struct {
