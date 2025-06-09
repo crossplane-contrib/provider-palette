@@ -17,6 +17,7 @@ func Configure(p *ujconfig.Provider) {
 
 	// List of resources that need external name configuration
 	resources := []string{
+		"spectrocloud_filter",
 		"spectrocloud_macros",
 		"spectrocloud_addon_deployment",
 		"spectrocloud_alert",
@@ -24,8 +25,8 @@ func Configure(p *ujconfig.Provider) {
 		"spectrocloud_cluster_profile_import",
 		"spectrocloud_datavolume",
 		"spectrocloud_developer_setting",
-		"spectrocloud_password_policy",
 		"spectrocloud_platform_setting",
+		"spectrocloud_password_policy",
 		"spectrocloud_privatecloudgateway_dns_map",
 		"spectrocloud_resource_limit",
 		"spectrocloud_sso",
