@@ -34,7 +34,7 @@ jobs:
 
   publish-docs:
     runs-on: ubuntu-22.04
-    needs: [publish-github-release, publish-provider-package]
+    needs: [publish-github-release]
     steps:
       - name: Trigger docs.crd.dev index
         run: |
