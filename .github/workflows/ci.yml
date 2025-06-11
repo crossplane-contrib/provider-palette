@@ -164,11 +164,12 @@ jobs:
       - name: Run Unit Tests
         run: make -j2 test
 
-      - name: Publish Unit Test Coverage
-        uses: codecov/codecov-action@v1
-        with:
-          flags: unittests
-          file: _output/tests/linux_amd64/coverage.txt
+      # TODO: get crossplane maintainers to enable codecov and add a token secret to the repo
+      # - name: Publish Unit Test Coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     flags: unittests
+      #     file: _output/tests/linux_amd64/coverage.txt
 
   integration-tests:
     runs-on: ubuntu-22.04
