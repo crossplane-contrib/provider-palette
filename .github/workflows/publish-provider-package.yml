@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version string to use while publishing the package (e.g. v1.0.0-alpha.1)"
+        default: ''
+        required: true
+
+jobs:
+  publish-github-release:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          tag_name: ${{ github.event.inputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+  
+  publish-provider-package:
+    uses: crossplane-contrib/provider-workflows/.github/workflows/publish-provider-non-family.yml@main
+    with:
+      repository: provider-palette
+      version: ${{ github.event.inputs.version }}
+      cleanup-disk: true
+    secrets:
+      GHCR_PAT: ${{ secrets.GITHUB_TOKEN }}
+      XPKG_UPBOUND_TOKEN: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+
+  publish-docs:
+    runs-on: ubuntu-22.04
+    needs: [publish-github-release, publish-provider-package]
+    steps:
+      - name: Trigger docs.crd.dev index
+        run: |
+          curl -v https://doc.crds.dev/github.com/crossplane-contrib/provider-palette@${{ github.event.inputs.version }}
+          echo "Triggered docs.crd.dev to index provider-palette@${{ github.event.inputs.version }}"
