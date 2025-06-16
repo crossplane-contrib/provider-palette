@@ -26,6 +26,17 @@
             // "trace": "verbose",
         },
         {
+            "name": "Debug with Delve",
+            "type": "go",
+            "request": "attach",
+            "mode": "remote",
+            "remotePath": "${workspaceFolder}",
+            "port": 2346,
+            "host": "127.0.0.1",
+            "showLog": true,
+            "trace": "verbose"
+        },
+        {
             "name": "Integration Tests",
             "type": "go",
             "request": "launch",
