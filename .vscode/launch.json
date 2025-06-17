@@ -20,7 +20,7 @@
                 "KUBECONFIG": "/Users/tylergillson/Downloads/hub.kubeconfig",
                 "UPBOUND_CONTEXT": "local",
                 "TF_PID": "40348",
-                "TF_ADDR": "/var/folders/w1/sm7f2fb959j2xkxln196ksj40000gn/T/plugin2952085873",
+                "TF_ADDR": "/var/folders/w1/sm7f2fb959j2xkxln196ksj40000gn/T/plugin2952085873"
             },
             // "showLog": true,
             // "trace": "verbose",
