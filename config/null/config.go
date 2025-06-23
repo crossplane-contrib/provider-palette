@@ -15,6 +15,35 @@ func Configure(p *ujconfig.Provider) {
 		// And other overrides.
 	})
 
+	// Special configuration for platform settings to override customdiff
+	p.AddResourceConfigurator("spectrocloud_platform_setting", func(r *ujconfig.Resource) {
+		r.ExternalName = ujconfig.IdentifierFromProvider
+		// Override customdiff to prevent forced recreation
+		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
+			r.TerraformResource.CustomizeDiff = nil
+		}
+		r.UseAsync = true
+	})
+
+	// Special configuration for platform settings to override customdiff
+	p.AddResourceConfigurator("spectrocloud_sso", func(r *ujconfig.Resource) {
+		r.ExternalName = ujconfig.IdentifierFromProvider
+		// Override customdiff to prevent forced recreation
+		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
+			r.TerraformResource.CustomizeDiff = nil
+		}
+		r.UseAsync = true
+	})
+	// Special configuration for platform settings to override customdiff
+	p.AddResourceConfigurator("spectrocloud_password_policy", func(r *ujconfig.Resource) {
+		r.ExternalName = ujconfig.IdentifierFromProvider
+		// Override customdiff to prevent forced recreation
+		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
+			r.TerraformResource.CustomizeDiff = nil
+		}
+		r.UseAsync = true
+	})
+
 	// List of resources that need external name configuration
 	resources := []string{
 		"spectrocloud_filter",
@@ -25,11 +54,8 @@ func Configure(p *ujconfig.Provider) {
 		"spectrocloud_cluster_profile_import",
 		"spectrocloud_datavolume",
 		"spectrocloud_developer_setting",
-		"spectrocloud_platform_setting",
-		"spectrocloud_password_policy",
 		"spectrocloud_privatecloudgateway_dns_map",
 		"spectrocloud_resource_limit",
-		"spectrocloud_sso",
 		"spectrocloud_user",
 	}
 
