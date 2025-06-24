@@ -21,7 +21,7 @@ func (mg *GCP) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GCP
 func (tr *GCP) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"gcp_json_credentials": "spec.forProvider.gcpJsonCredentialsSecretRef"}
+	return map[string]string{"gcp_json_credentials": "spec.forProvider.gcpjsonCredentialsSecretRef"}
 }
 
 // GetObservation of this GCP
