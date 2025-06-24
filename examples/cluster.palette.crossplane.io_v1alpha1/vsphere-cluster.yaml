@@ -1,0 +1,40 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Vsphere
+metadata:
+  name: vsphere-cluster
+spec:
+  forProvider:
+    description: "VSphere Cluster for testing"
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 7200
+        includeClusterResources: true
+        includeDisks: true
+        prefix: prod-backup
+        schedule: "0 0 * * SUN"
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"  # Reference to your vSphere cloud account
+    applySetting: "DownloadAndInstall"  # Options: DownloadAndInstall, DownloadAndInstallLater
+    cloudConfig:
+      - datacenter: "Datacenter"  # Replace with your vSphere datacenter name
+        folder: "sp-shruthi"  # Replace with your vSphere folder name
+        networkType: "DDNS"
+        networkSearchDomain: "<YOUR_NETWORK_DOMAIN>"
+        sshKeys:
+          - "<YOUR_SSH_PUBLIC_KEY>"  # Replace with your SSH public key
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"  # Reference to your cluster profile
+    machinePool:
+      - name: "control-pool"
+        count: 3
+        placement:
+          - cluster: "Cluster1"  # Replace with your vSphere cluster name
+            resourcePool: "rp-cluster1-palette-qa"  # Replace with your resource pool name
+            datastore: "vsanDatastore1"  # Replace with your datastore name
+            network: "VM-NETWORK"  # Replace with your network name
+        controlPlane: true
+        controlPlaneAsWorker: true
+        instanceType:
+          - cpu: 6  # Number of CPUs
+            diskSizeGb: 45  # Memory in MB
+            memoryMb: 8192  # Disk size in GB
+

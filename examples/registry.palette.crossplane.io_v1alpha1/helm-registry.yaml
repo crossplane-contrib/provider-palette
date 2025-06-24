@@ -1,0 +1,17 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Helm
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registry/v1alpha1/helm
+    description: "AWS ECR Helm Registry"
+  labels:
+    testing.upbound.io/example-name: r1
+  name: r1
+spec:
+  forProvider:
+    credentials:
+      - credentialType: "basic"
+        username: "AWS"
+        password: "your-aws-token"
+    endpoint: "https://123456.dkr.ecr.us-west-1.amazonaws.com"
+    isPrivate: true

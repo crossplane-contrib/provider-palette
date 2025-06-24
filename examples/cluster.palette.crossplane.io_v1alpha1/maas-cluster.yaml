@@ -1,0 +1,46 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Maas
+metadata:
+  name: maas-cp-cluster
+spec:
+  forProvider:
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"  # References the MAAS account we created earlier
+    cloudConfig:
+      - domain: "<YOUR_MAAS_DOMAIN>"  # Replace with your MAAS domain
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"  # Replace with your cluster profile ID
+    applySetting: "DownloadAndInstall"
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"  # Optional: Replace with your backup location ID
+        includeDisks: true
+        includeClusterResources: true
+        schedule: "0 1 * * *"  # Daily backup at 1 AM
+        expiryInHour: 24
+        prefix: "maas-backup"
+    machinePool:
+      - name: "control-pool"
+        count: 1
+        controlPlane: true
+        controlPlaneAsWorker: true
+        instanceType:
+          - minCpu: 4
+            minMemoryMb: 8192
+        placement:
+          - resourcePool: "default"
+        azs:
+          - "az3"
+        # nodeTags:
+        #   - "cp-maas"
+      - name: "worker-pool"
+        count: 3
+        controlPlane: false
+        instanceType:
+          - minCpu: 4
+            minMemoryMb: 8192
+        placement:
+          - resourcePool: "default"
+        # nodeTags:
+        #   - "k8s-worker"
+        max: 3
+        min: 1
+        nodeRepaveInterval: 300

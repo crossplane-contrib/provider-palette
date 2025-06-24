@@ -1,0 +1,15 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Vsphere
+metadata:
+  name: vsphere-account
+spec:
+  forProvider:
+    context: project  # Can be either 'project' or 'tenant'
+    vsphereVcenter: "<YOUR_VCENTER_SERVER>"  # Replace with your vCenter server address
+    vsphereUsername: "<YOUR_VSPHERE_USERNAME>"  # Replace with your vSphere username
+    vspherePasswordSecretRef:
+      name: vsphere-credentials  # Name of the secret containing the password
+      namespace: crossplane-system  # Namespace where the secret is stored
+      key: password  # Key in the secret that contains the password
+    vsphereIgnoreInsecureError: false  # Set to true if you want to ignore SSL certificate errors
+    privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"  # Optional: Add if you're using a private cloud gateway

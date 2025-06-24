@@ -1,0 +1,16 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/user
+    description: "Test user for Palette project"
+  labels:
+    testing.upbound.io/example-name: user-test
+  name: user-test
+spec:
+  forProvider:
+    email: "<YOUR_USER_EMAIL>"
+    firstName: "<YOUR_FIRST_NAME>"
+    lastName: "<YOUR_LAST_NAME>"
+    teamIds:
+      - "<YOUR_TEAM_ID>"

@@ -1,0 +1,11 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: GCP
+metadata:
+  name: ran-gcp-acc
+spec:
+  forProvider:
+    context: project  # Can be either 'project' or 'tenant'
+    gcpjsonCredentialsSecretRef:
+      name: gcp-credentials  # Name of the secret containing GCP credentials
+      namespace: crossplane-system  # Namespace where the secret is stored
+      key: credentials.json  # Key in the secret containing the GCP credentials JSON

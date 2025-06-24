@@ -1,0 +1,18 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/azure
+  labels:
+    testing.upbound.io/example-name: azure
+  name: ran-cp-azure
+spec:
+  forProvider:
+    context: project
+    cloud: AzurePublicCloud
+    azureClientId: "<YOUR_AZURE_CLIENT_ID>"
+    azureClientSecretSecretRef:
+      key: azure-client-secret
+      name: azure-credentials
+      namespace: crossplane-system
+    azureTenantId: "<YOUR_AZURE_TENANT_ID>"

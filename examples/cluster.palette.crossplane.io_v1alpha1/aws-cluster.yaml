@@ -1,0 +1,57 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: aws-cluster-cp
+spec:
+  forProvider:
+    context: project
+    description: "AWS Cluster for testing"
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 7200
+        includeClusterResources: true
+        includeDisks: true
+        prefix: prod-backup
+        schedule: "0 0 * * SUN"
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"
+    cloudConfig:
+      - region: ap-south-1
+        sshKeyName: spectro2023
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    machinePool:
+      - additionalLabels:
+          owner: ranjith
+          purpose: testing
+          type: cp
+        azs:
+          - "ap-south-1a"
+          - "ap-south-1b"
+        controlPlane: true
+        controlPlaneAsWorker: true
+        count: 1
+        diskSizeGb: 60
+        instanceType: t3.xlarge
+        name: cp-pool
+      - additionalLabels:
+          owner: ranjith
+          purpose: testing
+          type: worker
+        azs:
+          - "ap-south-1a"
+          - "ap-south-1b"
+        count: 1
+        instanceType: t3.xlarge
+        name: worker-basic
+    scanPolicy:
+      - configurationScanSchedule: "0 0 * * SUN"
+        conformanceScanSchedule: "0 0 1 * *"
+        penetrationScanSchedule: "0 0 * * SUN"
+    tags:
+      - "dev"
+      - "department:qa"
+      - "owner:roy"

@@ -1,0 +1,13 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Maas
+metadata:
+  name: maas-cp-account
+spec:
+  forProvider:
+    context: tenant
+    maasApiEndpoint: "<YOUR_MAAS_API_ENDPOINT>"
+    maasApiKeySecretRef:
+      name: maas-credentials
+      namespace: crossplane-system
+      key: apiKey
+    privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"  # Replace with actual gateway ID

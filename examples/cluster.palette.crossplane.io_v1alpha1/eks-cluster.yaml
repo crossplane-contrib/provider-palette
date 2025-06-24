@@ -1,0 +1,38 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Eks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/eks
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: eks-cluster-cp
+spec:
+  forProvider:
+    context: tenant
+    description: "EKS Cluster for testing"
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 7200
+        includeClusterResources: true
+        includeDisks: true
+        prefix: prod-backup
+        schedule: "0 0 * * SUN"
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"
+    cloudConfig:
+      - region: "ap-south-1"
+        sshKeyName: "spectro2023"
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    machinePool:
+      - additionalLabels:
+          owner: ranjith
+          purpose: testing
+          type: cp
+        azs: []
+        count: 2
+        instanceType: "t3.2xlarge"
+        diskSizeGb: 60
+        name: worker-basic
+    tags:
+      - "cloud:eks"
+      - "owner:QA"

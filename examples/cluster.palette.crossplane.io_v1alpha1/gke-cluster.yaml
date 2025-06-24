@@ -1,0 +1,45 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Gke
+metadata:
+  name: ran-cp-gke-cluster
+spec:
+  forProvider:
+    # Reference to the GCP cloud account
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"  # This should match the name of your GCP cloud account
+
+    # GKE environment configuration
+    cloudConfig:
+      - project: <YOUR_GCP_PROJECT_NAME>  # Your GCP project name
+        region: us-east1  # Your desired GCP region
+
+    # Cluster profile configuration
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"  # Replace with your actual cluster profile ID
+
+    # Machine pool configuration
+    machinePool:
+      - name: control-pool
+        count: 3
+        instanceType: n2-standard-8
+        diskSizeGb: 30
+
+      # - name: worker-pool
+      #   count: 3
+      #   instanceType: n2-standard-4
+      #   diskSizeGb: 100
+
+    # Tags for the cluster
+    tags:
+      - "dev"
+      - "department:qa"
+      - "owner:roy"
+
+    # Backup policy (optional)
+    # backupPolicy:
+    #   - backupLocationId: default-backup-location  # Replace with your backup location ID
+    #     schedule: "0 1 * * *"  # Daily at 1 AM
+    #     expiryInHour: 24
+    #     includeAllClusters: true
+    #     includeDisks: true
+    #     includeClusterResources: true
+    #     prefix: "gke-backup"

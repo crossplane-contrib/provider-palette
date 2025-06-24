@@ -1,0 +1,16 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Helm
+metadata:
+  name: ran-cp-helm-registry
+spec:
+  forProvider:
+    baseContentPath: "testchart"
+    endpoint: "<YOUR_ARTIFACTORY_ENDPOINT>"
+    isPrivate: false
+    isSynchronization: true
+    credentials:
+      - credentialType: "basic"
+        username: "<YOUR_USERNAME>"
+        password: "<YOUR_PASSWORD>"
+  deletionPolicy: Delete
+ 

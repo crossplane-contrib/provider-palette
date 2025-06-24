@@ -1,0 +1,89 @@
+apiVersion: virtual.palette.crossplane.io/v1alpha1
+kind: Machine
+metadata:
+  name: ranvirtualmachine
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required fields
+    clusterUid: "<YOUR_CLUSTER_UID>"
+    clusterContext: "project"
+    
+    # Basic VM configuration
+    runStrategy: Manual
+    
+    # CPU configuration
+    cpu:
+      - cores: 2
+        sockets: 1
+        threads: 10
+    
+    # Memory configuration
+    memory:
+      - guest: "1G"
+    
+    # Resources (required - must be array with single item)
+    resources:
+      - limits:
+          cpu: "2"
+          memory: "1G"
+        requests:
+          cpu: "2"
+          memory: "1G"
+        overCommitGuestOverhead: false
+    
+    # Data volume templates
+    dataVolumeTemplates:
+      - metadata:
+          - name: "test-vm-bootvolume"
+            namespace: "default"
+        spec:
+          - source:
+              - pvc:
+                  - name: "ubuntu-2204-datavolume"
+                    namespace: "vmo-golden-images"
+            pvc:
+              - accessModes: ["ReadWriteMany"]
+                resources:
+                  - requests:
+                      storage: "50Gi"
+                storageClassName: "fast-ssd"
+                volumeMode: "Block"
+    
+    # Volumes
+    volume:
+      - name: "test-vm-datavolumedisk1"
+        volumeSource:
+          - dataVolume:
+              - name: "test-vm-bootvolume"
+    
+    # Disk devices
+    disk:
+      - name: "test-vm-datavolumedisk1"
+        diskDevice:
+          - disk:
+              - bus: "virtio"
+    
+    # Network interfaces
+    interface:
+      - name: "main"
+        interfaceBindingMethod: "InterfaceBridge"
+    
+    # Networks
+    network:
+      - name: "main"
+        networkSource:
+          - multus:
+              - networkName: "default/vlan-101"
+    
+    # Node selector for placement
+    nodeSelector:
+      node-type: "compute"
+      zone: "us-west-1a"
+    
+    # Labels
+    labels:
+      tf: "test"
+      app: "web-server"
+      version: "v1.0.0"
+      environment: "production"

@@ -1,0 +1,16 @@
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: gcp-backup-location
+spec:
+  forProvider:
+    bucketName: shru-gcp-bck
+    context: project
+    isDefault: false
+    storageProvider: gcp
+    gcpStorageConfig:
+      - gcpjsonCredentialsSecretRef:
+          name: gcp-credentials
+          namespace: crossplane-system
+          key: credentials.json
+        projectId: <YOUR_GCP_PROJECT_ID>

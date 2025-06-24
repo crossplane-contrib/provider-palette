@@ -1,0 +1,16 @@
+apiVersion: ssh.palette.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ssh/v1alpha1/key
+    description: "SSH Key for Cluster Access"
+  labels:
+    testing.upbound.io/example-name: ssh_tenant
+  name: ssh-tenant
+spec:
+  forProvider:
+    context: project
+    sshKeySecretRef:
+      key: ssh-public-key
+      name: palette-ssh-key
+      namespace: crossplane-system

@@ -1,0 +1,18 @@
+apiVersion: privatecloudgateway.palette.crossplane.io/v1alpha1
+kind: Ippool
+metadata:
+  name: ran-cp-ip-pool
+spec:
+  forProvider:
+    privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"  # Using the same gateway ID as in dns-map
+    networkType: "range"  # Can be either "range" or "subnet"
+    ipStartRange: "192.168.1.100"
+    ipEndRange: "192.168.1.200"
+    prefix: 24
+    gateway: "192.168.1.1"
+    nameserverAddresses:
+      - "8.8.8.8"
+      - "8.8.4.4"
+    nameserverSearchSuffix:
+      - "test123.spectro.com"  # Using the same domain as in dns-map
+    restrictToSingleCluster: true

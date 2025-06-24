@@ -1,0 +1,17 @@
+apiVersion: developer.palette.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: developer/v1alpha1/setting
+    description: "Developer settings for Palette project"
+    crossplane.io/external-name: "default"
+  labels:
+    testing.upbound.io/example-name: dev_setting
+  name: ran-cp-dev-setting
+spec:
+  forProvider:
+    cpu: 4
+    hideSystemClusterGroup: false
+    memory: 99
+    storage: 99
+    virtualClustersLimit: 9
