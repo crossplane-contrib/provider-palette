@@ -78,7 +78,7 @@ type MacroStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Macro is the Schema for the Macros API. A resource for creating and managing service output variables and macro.
+// Macro is the Schema for the Macros API. A resource for creating and managing service output variables and macro. (Deprecated)
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

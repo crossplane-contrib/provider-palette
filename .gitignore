@@ -6,8 +6,10 @@ cover.out
 /.vendor-new
 .DS_Store
 
+
 # ignore IDE folders
 .vscode/
 !.vscode/launch.json
 .idea/
 *__debug_bin*
+crossplane.code-workspace

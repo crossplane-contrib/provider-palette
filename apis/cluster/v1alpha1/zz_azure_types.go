@@ -171,6 +171,10 @@ type AzureCloudConfigInitParameters struct {
 	// Azure network resource group in which the cluster is to be provisioned.
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
 
+	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
+	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
+	PrivateAPIServer []PrivateAPIServerInitParameters `json:"privateApiServer,omitempty" tf:"private_api_server,omitempty"`
+
 	// (String) Azure region. This can be found in the Azure portal under Resource groups.
 	// Azure region. This can be found in the Azure portal under `Resource groups`.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -215,6 +219,10 @@ type AzureCloudConfigObservation struct {
 	// (String) Azure network resource group in which the cluster is to be provisioned.
 	// Azure network resource group in which the cluster is to be provisioned.
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
+	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
+	PrivateAPIServer []PrivateAPIServerObservation `json:"privateApiServer,omitempty" tf:"private_api_server,omitempty"`
 
 	// (String) Azure region. This can be found in the Azure portal under Resource groups.
 	// Azure region. This can be found in the Azure portal under `Resource groups`.
@@ -263,6 +271,11 @@ type AzureCloudConfigParameters struct {
 	// Azure network resource group in which the cluster is to be provisioned.
 	// +kubebuilder:validation:Optional
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
+	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
+	// +kubebuilder:validation:Optional
+	PrivateAPIServer []PrivateAPIServerParameters `json:"privateApiServer,omitempty" tf:"private_api_server,omitempty"`
 
 	// (String) Azure region. This can be found in the Azure portal under Resource groups.
 	// Azure region. This can be found in the Azure portal under `Resource groups`.
@@ -1446,6 +1459,54 @@ type DiskParameters struct {
 	// Type of the disk. Valid values are `Standard_LRS`, `StandardSSD_LRS`, `Premium_LRS`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type PrivateAPIServerInitParameters struct {
+
+	// (String) The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	// The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	PrivateDNSZone *string `json:"privateDnsZone,omitempty" tf:"private_dns_zone,omitempty"`
+
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
+	// The resource group of the private DNS zone.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// (String) Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	// Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type PrivateAPIServerObservation struct {
+
+	// (String) The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	// The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	PrivateDNSZone *string `json:"privateDnsZone,omitempty" tf:"private_dns_zone,omitempty"`
+
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
+	// The resource group of the private DNS zone.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// (String) Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	// Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type PrivateAPIServerParameters struct {
+
+	// (String) The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	// The private DNS zone for the cluster. This is optional. If not provided, a new private DNS zone will be created.
+	// +kubebuilder:validation:Optional
+	PrivateDNSZone *string `json:"privateDnsZone,omitempty" tf:"private_dns_zone,omitempty"`
+
+	// (String) Azure resource group. This can be found in the Azure portal under Resource groups.
+	// The resource group of the private DNS zone.
+	// +kubebuilder:validation:Optional
+	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
+
+	// (String) Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	// Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
+	// +kubebuilder:validation:Optional
+	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 }
 
 type WorkerNodeSubnetInitParameters struct {

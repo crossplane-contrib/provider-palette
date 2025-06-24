@@ -73,6 +73,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  context:
+                    description: |-
+                      (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
                   macros:
                     additionalProperties:
                       type: string
@@ -81,11 +86,6 @@ spec:
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
                     x-kubernetes-map-type: granular
-                  project:
-                    description: |-
-                      (String) The Spectro Cloud project name.
-                      The Spectro Cloud project name.
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -100,6 +100,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  context:
+                    description: |-
+                      (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
                   macros:
                     additionalProperties:
                       type: string
@@ -108,11 +113,6 @@ spec:
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
                     x-kubernetes-map-type: granular
-                  project:
-                    description: |-
-                      (String) The Spectro Cloud project name.
-                      The Spectro Cloud project name.
-                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -291,6 +291,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  context:
+                    description: |-
+                      (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -302,11 +307,6 @@ spec:
                       The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
                     type: object
                     x-kubernetes-map-type: granular
-                  project:
-                    description: |-
-                      (String) The Spectro Cloud project name.
-                      The Spectro Cloud project name.
-                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
