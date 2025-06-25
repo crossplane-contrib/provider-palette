@@ -1,0 +1,26 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Filter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/filter
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+      - name: resource-filter
+    spec:
+      - filterGroup:
+          - conjunction: and
+            filters:
+              - key: environment
+                negation: false
+                operator: eq
+                values:
+                  - production
+              - key: region
+                negation: false
+                operator: eq
+                values:
+                  - us-west-2

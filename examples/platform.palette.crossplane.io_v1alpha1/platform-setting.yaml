@@ -1,0 +1,23 @@
+apiVersion: platform.palette.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: platform/v1alpha1/setting
+    description: "Platform settings for Palette tenant"
+    crossplane.io/external-name: "default"
+  labels:
+    testing.upbound.io/example-name: platform_settings
+  name: platform-settings
+spec:
+  forProvider:
+    clusterAutoRemediation: true
+    context: "tenant"
+    # enableAutoRemediation: true
+    loginBanner:
+      - message: "test1"
+        title: "test1"
+    # nonFipsAddonPack: true
+    # nonFipsClusterImport: true
+    # nonFipsFeatures: true
+    pauseAgentUpgrades: "lock"
+    sessionTimeout: 230

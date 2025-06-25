@@ -39,8 +39,8 @@ type PolicyInitParameters struct {
 	// The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be `1`.
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry.
-	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry.
+	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
+	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 
 	// (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
@@ -77,8 +77,8 @@ type PolicyObservation struct {
 	// The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be `1`.
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry.
-	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry.
+	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
+	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 
 	// (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
@@ -118,8 +118,8 @@ type PolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry.
-	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry.
+	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
+	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	// +kubebuilder:validation:Optional
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 

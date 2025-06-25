@@ -1,0 +1,27 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Oci
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registry/v1alpha1/oci
+    description: "AWS ECR OCI Registry"
+  labels:
+    testing.upbound.io/example-name: ran-cp-oci-registry
+  name: ran-cp-oci-registry2
+spec:
+  forProvider:
+    type: "basic"
+    providerType: "helm"
+    # baseContentPath: "testchart"
+    endpoint: "<YOUR_HARBOR_ENDPOINT>"
+    isPrivate: false
+    isSynchronization: false
+    credentials:
+      - credentialType: "basic"
+        username: "<YOUR_USERNAME>"
+        passwordSecretRef:
+          name: oci-registry-secret
+          namespace: crossplane-system
+          key: password
+        tlsConfig:
+          - insecureSkipVerify: false
+  deletionPolicy: Delete

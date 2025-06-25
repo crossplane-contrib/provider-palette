@@ -1,0 +1,53 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Sso
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/sso
+    description: "SSO configuration for Palette tenant"
+  labels:
+    testing.upbound.io/example-name: sso_setting
+  name: sso-setting
+spec:
+  forProvider:
+    authProviders:
+      - "github"
+      - "google"
+    domains:
+      - "test.com"
+      - "test-login.com"
+    # saml:
+    #   - defaultTeamIds:
+    #       - "team-id-1"  # Replace with actual team ID
+    #     email: "test@test.com"
+    #     enableSingleLogout: true
+    #     firstName: "testfirst"
+    #     identityProviderMetadata: "<note>test123</note>"
+    #     lastName: "testlast"
+    #     nameIdFormat: "name_id_format"
+    #     serviceProvider: "Microsoft ADFS"
+    #     spectroTeam: "SpectroTeam"
+    oidc:
+      - clientId: "<YOUR_OIDC_CLIENT_ID>"
+        clientSecretSecretRef:
+          name: "oidc-client-secret"
+          namespace: "crossplane-system"
+          key: "clientSecret"
+        issuerUrl: "<YOUR_OIDC_ISSUER_URL>"
+        defaultTeamIds:
+          - "<YOUR_DEFAULT_TEAM_ID>"
+        # Optional fields:
+        email: "<YOUR_EMAIL>"
+        firstName: "testfirst"
+        lastName: "testlast"
+        # identityProviderCaCertificate: "<CA-certificate>"
+        insecureSkipTlsVerify: false
+        scopes:
+          - "email"
+          - "profile"
+        spectroTeam: "groups"
+        # userInfoEndpoint:
+        #   - email: "test@test.com"
+        #     firstName: "testfirst"
+        #     lastName: "testlast"
+        #     spectroTeam: "SpectroTeam"
+    ssoAuthType: "oidc"

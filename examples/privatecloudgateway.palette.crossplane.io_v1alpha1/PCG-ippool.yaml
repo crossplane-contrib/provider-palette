@@ -1,0 +1,23 @@
+apiVersion: privatecloudgateway.palette.crossplane.io/v1alpha1
+kind: Ippool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: privatecloudgateway/v1alpha1/ippool
+    description: "IP Pool for Private Cloud Gateway"
+  labels:
+    testing.upbound.io/example-name: ippool_test
+  name: ippool-test
+spec:
+  forProvider:
+    gateway: "192.168.1.1"
+    networkType: "range"
+    ipStartRange: "192.168.1.10"
+    ipEndRange: "192.168.1.100"
+    prefix: 24
+    privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"
+    nameserverAddresses:
+      - "8.8.8.8"
+      - "8.8.4.4"
+    nameserverSearchSuffix:
+      - "test1.spectro.com"
+    restrictToSingleCluster: true

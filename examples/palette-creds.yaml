@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: palette-creds
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  credentials: |
+    {
+      "api_key": "<YOUR_API_KEY_BASE64_ENCODED>",
+      "project_name": "<YOUR_PROJECT_NAME>",
+      "host": "<YOUR_PALETTE_HOST>",
+      "ignore_insecure_tls_error": "true",
+      "retry_attempts": "1",
+      "trace": "true"
+    } 

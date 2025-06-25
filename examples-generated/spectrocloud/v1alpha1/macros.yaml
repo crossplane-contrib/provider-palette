@@ -8,7 +8,7 @@ metadata:
   name: project-macro
 spec:
   forProvider:
+    context: project
     macros:
       project_macro_1: val1
       project_macro_2: val2
-    project: Default

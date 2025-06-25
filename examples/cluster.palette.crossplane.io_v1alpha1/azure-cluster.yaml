@@ -1,0 +1,47 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/azure
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: azure-cluster-cp
+spec:
+  forProvider:
+    context: project
+    description: "Azure Cluster for testing"
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 7200
+        includeClusterResources: true
+        includeDisks: true
+        prefix: prod-backup
+        schedule: "0 0 * * SUN"
+    cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"
+    cloudConfig:
+      - subscriptionId: "<YOUR_AZURE_SUBSCRIPTION_ID>"
+        resourceGroup: "<YOUR_RESOURCE_GROUP>"
+        region: "northeurope"
+        sshKey: "<YOUR_SSH_PUBLIC_KEY>"
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    machinePool:
+      - additionalLabels:
+          owner: ranjith
+          purpose: testing
+          type: cp
+        azs: []
+        controlPlane: true
+        controlPlaneAsWorker: true
+        count: 3
+        instanceType: "Standard_D4_v2"
+        disk:
+          - sizeGb: 65
+            type: "Standard_LRS"
+        name: cp-pool
+    scanPolicy: []
+    osPatchAfter: "2025-06-12T12:40:57+05:30"
+    tags:
+      - "QA"
+      - "department:qa"
+      - "owner:roy123" 

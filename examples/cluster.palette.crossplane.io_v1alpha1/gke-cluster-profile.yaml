@@ -1,0 +1,51 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: ran-cp-gke-profile
+  annotations:
+    description: "GKE Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    cloud: gke
+    context: project
+    type: cluster
+    description: "A basic cluster profile for GKE"
+    version: "1.0.0"
+    pack:
+      - name: "cos-gke"
+        type: oci
+        tag: "1.0.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # No customizations allowed for this OS type
+
+      - name: "kubernetes-gke"
+        tag: "1.31"
+        type: oci
+        uid: "<YOUR_RESOURCE_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # No customisation is supported
+
+      - name: "cni-vpc-native-gke"
+        type: oci
+        tag: "1.0.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # No customization is supported default values from VPC Native CNI will be applied
+    
+      - name: "gke-csi-gcp-driver"
+        type: oci
+        tag: "1.0.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # No customization is supported
+          # Refer https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver for FIPS compliance should perform their own independent evaluation
+
+    tags:
+      - "cloud:gke"
+      - "owner:qa"
+

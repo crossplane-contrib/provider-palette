@@ -1,0 +1,25 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/group
+    description: "Cluster Group for testing"
+  labels:
+    testing.upbound.io/example-name: cg
+  name: ran-cp-cluster-group
+spec:
+  forProvider:
+    context: tenant
+    description: "Cluster Group for reverting back"
+    clusters:
+      - clusterUid: "<YOUR_CLUSTER_UID>"
+        hostDns: "*.dev.<YOUR_DOMAIN>.com"
+    config:
+      - cpuMillicore: 6000
+        hostEndpointType: LoadBalancer
+        memoryInMb: 8192
+        oversubscriptionPercent: 120
+        storageInGb: 10
+    tags:
+      - "env:qa"
+      - "type:cluster-group"

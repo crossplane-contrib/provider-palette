@@ -1,0 +1,94 @@
+apiVersion: application.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: hello-universe-ui
+  annotations:
+    description: "Hello Universe UI Application Profile"
+spec:
+  forProvider:
+    context: tenant
+    description: "Hello Universe as a single UI instance - updated"
+    version: "1.0.0"
+    pack:
+      - name: hello-universe-ui
+        type: container
+        registryUid: "<YOUR_REGISTRY_UID>"  # Replace with actual registry UID
+        sourceAppTier: "<YOUR_SOURCE_APP_TIER>"     # Replace with actual pack ID
+        values: |
+            pack:
+              namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+              releaseNameOverride: "{{.spectro.system.appdeployment.tiername}}"
+              spectrocloud.com/install-priority: "1"
+
+            postReadinessHooks:
+              outputParameters:
+                - name: CONTAINER_NAMESPACE
+                  type: lookupSecret
+                  spec:
+                    namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                    secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                    ownerReference:
+                      apiVersion: v1
+                      kind: Service
+                      name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                    keyToCheck: metadata.namespace
+
+                - name: CONTAINER_SVC
+                  type: lookupSecret
+                  spec:
+                    namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                    secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                    ownerReference:
+                      apiVersion: v1
+                      kind: Service
+                      name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                    keyToCheck: metadata.annotations["spectrocloud.com/service-fqdn"]
+
+                - name: CONTAINER_SVC_EXTERNALHOSTNAME
+                  type: lookupSecret
+                  spec:
+                    namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                    secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                    ownerReference:
+                      apiVersion: v1
+                      kind: Service
+                      name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                    keyToCheck: status.loadBalancer.ingress[0].hostname
+                    conditional: true
+
+                - name: CONTAINER_SVC_EXTERNALIP
+                  type: lookupSecret
+                  spec:
+                    namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                    secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                    ownerReference:
+                      apiVersion: v1
+                      kind: Service
+                      name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                    keyToCheck: status.loadBalancer.ingress[0].ip
+                    conditional: true
+
+                - name: CONTAINER_SVC_PORT
+                  type: lookupSecret
+                  spec:
+                    namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                    secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                    ownerReference:
+                      apiVersion: v1
+                      kind: Service
+                      name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                    keyToCheck: spec.ports[0].port
+
+            containerService:
+              serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
+              registryUrl: ""
+              image: gio.ss/test-image
+              replicas: 1
+              ingressHost: "{{.spectro.system.appdeployment.ingress.host}}"
+              access: private
+              ports:
+                - "8080"
+              serviceType: ClusterIP
+
+    tags:
+      - "scenario-1"

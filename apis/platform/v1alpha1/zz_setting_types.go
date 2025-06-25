@@ -62,28 +62,28 @@ type SettingInitParameters struct {
 	// Enables automatic remediation. set only with `project' context
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-	// Configure a login banner that users must acknowledge before signing in.
+	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	LoginBanner []LoginBannerInitParameters `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
 	// (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
 	// Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`
 }
 
@@ -104,28 +104,28 @@ type SettingObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-	// Configure a login banner that users must acknowledge before signing in.
+	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	LoginBanner []LoginBannerObservation `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
 	// (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
 	// Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`
 }
 
@@ -146,23 +146,23 @@ type SettingParameters struct {
 	// +kubebuilder:validation:Optional
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-	// Configure a login banner that users must acknowledge before signing in.
+	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	LoginBanner []LoginBannerParameters `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
@@ -171,8 +171,8 @@ type SettingParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`
 }

@@ -1,0 +1,61 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: EdgeNative
+metadata:
+  name: example-edge-native-cluster
+  annotations:
+    crossplane.io/external-name: "example-edge-native-cluster"
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    description: "Example Edge Native cluster for testing"
+    cloudConfig:
+      # - overlayCidrRange: "100.12.22.11/12"
+      - vip: "10.10.232.51"
+        sshKeys:
+          - "spectro2023"
+    
+    machinePool:
+      - name: "control-plane"
+        controlPlane: true
+        controlPlaneAsWorker: false
+        edgeHost:
+          - hostUid: "edge-basic-stack-lifecycle-016t1"
+            staticIp: "10.10.145.103"
+            nicName: "roy"
+        additionalLabels:
+          environment: "qa"
+        updateStrategy: "RollingUpdateScaleOut"
+    
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * 0"
+        conformanceScanSchedule: "0 4 * * 0"
+        penetrationScanSchedule: "0 5 * * 0"
+    
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+        imagesBlacklist:
+          - "nginx:latest"
+          - "redis:latest"
+      - name: "applications"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+    
+    osPatchOnBoot: false
+    osPatchSchedule: "0 1 * * 0"
+    osPatchAfter: "2025-06-18T14:00:00+05:30"
+    
+    applySetting: "DownloadAndInstall"
+    forceDelete: false
+    clusterMetaAttribute: '{"nic_name": "roy", "env": "qa"}'
+    
+    tags:
+      - "environment:qa"
+      - "project:edge-native"
+      - "managed-by:crossplane"

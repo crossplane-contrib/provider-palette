@@ -89,8 +89,8 @@ spec:
                     type: boolean
                   loginBanner:
                     description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in.
+                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
@@ -107,18 +107,18 @@ spec:
                     type: array
                   nonFipsAddonPack:
                     description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsClusterImport:
                     description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsFeatures:
                     description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
                     description: |-
@@ -127,8 +127,8 @@ spec:
                     type: string
                   sessionTimeout:
                     description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               initProvider:
@@ -161,8 +161,8 @@ spec:
                     type: boolean
                   loginBanner:
                     description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in.
+                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
@@ -179,18 +179,18 @@ spec:
                     type: array
                   nonFipsAddonPack:
                     description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsClusterImport:
                     description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsFeatures:
                     description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
                     description: |-
@@ -199,8 +199,8 @@ spec:
                     type: string
                   sessionTimeout:
                     description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               managementPolicies:
@@ -395,8 +395,8 @@ spec:
                     type: string
                   loginBanner:
                     description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in.
+                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
+                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
@@ -413,18 +413,18 @@ spec:
                     type: array
                   nonFipsAddonPack:
                     description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment.
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment.
+                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsClusterImport:
                     description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment.
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment.
+                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   nonFipsFeatures:
                     description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment.
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment.
+                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
+                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
                     description: |-
@@ -433,8 +433,8 @@ spec:
                     type: string
                   sessionTimeout:
                     description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette
+                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
+                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               conditions:

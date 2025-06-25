@@ -1,0 +1,18 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: eks
+  name: eks-cp-account
+spec:
+  forProvider:
+    context: tenant
+    type: secret
+    partition: aws
+    awsAccessKey: "<YOUR_AWS_ACCESS_KEY_ID>"    # Replace with your actual AWS access key
+    awsSecretKeySecretRef:
+      key: aws-secret-key
+      name: aws-credentials
+      namespace: crossplane-system

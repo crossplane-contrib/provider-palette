@@ -1,0 +1,554 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: ran-cp-azure-profile
+  annotations:
+    description: "Azure Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    cloud: azure
+    context: project
+    type: cluster
+    description: "A basic cluster profile for Azure"
+    version: "1.0.0"
+    pack:
+      - name: "ubuntu-azure"
+        type: oci
+        tag: "22.04"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # Spectro Golden images includes most of the hardening as per CIS Ubuntu Linux 22.04 LTS Server L1 v1.0.0 standards
+          # Uncomment below section to
+          # 1. Include custom files to be copied over to the nodes and/or
+          # 2. Execute list of commands before or after kubeadm init/join is executed
+          #
+          #kubeadmconfig:
+          #  preKubeadmCommands:
+          #  - echo "Executing pre kube admin config commands"
+          #  - update-ca-certificates
+          #  - 'systemctl restart containerd; sleep 3'
+          #  - 'while [ ! -S /var/run/containerd/containerd.sock ]; do echo "Waiting for containerd..."; sleep 1; done'
+          #  postKubeadmCommands:
+          #  - echo "Executing post kube admin config commands"
+          #  files:
+          #  - targetPath: /usr/local/share/ca-certificates/mycom.crt
+          #    targetOwner: "root:root"
+          #    targetPermissions: "0644"
+          #    content: |
+          #      -----BEGIN CERTIFICATE-----
+          #      MIICyzCCAbOgAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+          #      cm5ldGVzMB4XDTIwMDkyMjIzNDMyM1oXDTMwMDkyMDIzNDgyM1owFTETMBEGA1UE
+          #      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMdA
+          #      nZYs1el/6f9PgV/aO9mzy7MvqaZoFnqO7Qi4LZfYzixLYmMUzi+h8/RLPFIoYLiz
+          #      qiDn+P8c9I1uxB6UqGrBt7dkXfjrUZPs0JXEOX9U/6GFXL5C+n3AUlAxNCS5jobN
+          #      fbLt7DH3WoT6tLcQefTta2K+9S7zJKcIgLmBlPNDijwcQsbenSwDSlSLkGz8v6N2
+          #      7SEYNCV542lbYwn42kbcEq2pzzAaCqa5uEPsR9y+uzUiJpv5tDHUdjbFT8tme3vL
+          #      9EdCPODkqtMJtCvz0hqd5SxkfeC2L+ypaiHIxbwbWe7GtliROvz9bClIeGY7gFBK
+          #      jZqpLdbBVjo0NZBTJFUCAwEAAaMmMCQwDgYDVR0PAQH/BAQDAgKkMBIGA1UdEwEB
+          #      /wQIMAYBAf8CAQAwDQYJKoZIhvcNAQELBQADggEBADIKoE0P+aVJGV9LWGLiOhki
+          #      HFv/vPPAQ2MPk02rLjWzCaNrXD7aPPgT/1uDMYMHD36u8rYyf4qPtB8S5REWBM/Y
+          #      g8uhnpa/tGsaqO8LOFj6zsInKrsXSbE6YMY6+A8qvv5lPWpJfrcCVEo2zOj7WGoJ
+          #      ixi4B3fFNI+wih8/+p4xW+n3fvgqVYHJ3zo8aRLXbXwztp00lXurXUyR8EZxyR+6
+          #      b+IDLmHPEGsY9KOZ9VLLPcPhx5FR9njFyXvDKmjUMJJgUpRkmsuU1mCFC+OHhj56
+          #      IkLaSJf6z/p2a3YjTxvHNCqFMLbJ2FvJwYCRzsoT2wm2oulnUAMWPI10vdVM+Nc=
+          #      -----END CERTIFICATE-----
+
+      - name: "kubernetes"
+        tag: "1.31.7"
+        type: oci
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          pack:
+            content:
+              images:
+                - image: registry.k8s.io/coredns/coredns:v1.11.3
+                - image: registry.k8s.io/etcd:3.5.15-0
+                - image: registry.k8s.io/kube-apiserver:v1.31.7
+                - image: registry.k8s.io/kube-controller-manager:v1.31.7
+                - image: registry.k8s.io/kube-proxy:v1.31.7
+                - image: registry.k8s.io/kube-scheduler:v1.31.7
+                - image: registry.k8s.io/pause:3.9
+                - image: registry.k8s.io/pause:3.8
+            #CIDR Range for Pods in cluster
+            # Note : This must not overlap with any of the host or service network
+            podCIDR: "192.168.0.0/16"
+            #CIDR notation IP range from which to assign service cluster IPs
+            # Note : This must not overlap with any IP ranges assigned to nodes for pods.
+            serviceClusterIpRange: "10.96.0.0/12"
+            # serviceDomain: "cluster.local"
+
+          kubeadmconfig:
+            apiServer:
+              extraArgs:
+                # Note : secure-port flag is used during kubeadm init. Do not change this flag on a running cluster
+                secure-port: "6443"
+                anonymous-auth: "true"
+                profiling: "false"
+                disable-admission-plugins: "AlwaysAdmit"
+                default-not-ready-toleration-seconds: "60"
+                default-unreachable-toleration-seconds: "60"
+                enable-admission-plugins: "AlwaysPullImages,NamespaceLifecycle,ServiceAccount,NodeRestriction,PodSecurity"
+                admission-control-config-file: "/etc/kubernetes/pod-security-standard.yaml"
+                audit-log-path: /var/log/apiserver/audit.log
+                audit-policy-file: /etc/kubernetes/audit-policy.yaml
+                audit-log-maxage: "30"
+                audit-log-maxbackup: "10"
+                audit-log-maxsize: "100"
+                authorization-mode: RBAC,Node
+                kubelet-certificate-authority: "/etc/kubernetes/pki/ca.crt"
+                tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256"
+              extraVolumes:
+                - name: audit-log
+                  hostPath: /var/log/apiserver
+                  mountPath: /var/log/apiserver
+                  pathType: DirectoryOrCreate
+                - name: audit-policy
+                  hostPath: /etc/kubernetes/audit-policy.yaml
+                  mountPath: /etc/kubernetes/audit-policy.yaml
+                  readOnly: true
+                  pathType: File
+                - name: pod-security-standard
+                  hostPath: /etc/kubernetes/pod-security-standard.yaml
+                  mountPath: /etc/kubernetes/pod-security-standard.yaml
+                  readOnly: true
+                  pathType: File
+            controllerManager:
+              extraArgs:
+                profiling: "false"
+                terminated-pod-gc-threshold: "25"
+                use-service-account-credentials: "true"
+                feature-gates: "RotateKubeletServerCertificate=true"
+            scheduler:
+              extraArgs:
+                profiling: "false"
+            kubeletExtraArgs:
+              read-only-port: "0"
+              event-qps: "0"
+              feature-gates: "RotateKubeletServerCertificate=true"
+              protect-kernel-defaults: "true"
+              rotate-server-certificates: "true"
+              tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256"
+            files:
+              - path: hardening/audit-policy.yaml
+                targetPath: /etc/kubernetes/audit-policy.yaml
+                targetOwner: "root:root"
+                targetPermissions: "0600"
+              - path: hardening/90-kubelet.conf
+                targetPath: /etc/sysctl.d/90-kubelet.conf
+                targetOwner: "root:root"
+                targetPermissions: "0600"
+              - targetPath: /etc/kubernetes/pod-security-standard.yaml
+                targetOwner: "root:root"
+                targetPermissions: "0600"
+                content: |
+                  apiVersion: apiserver.config.k8s.io/v1
+                  kind: AdmissionConfiguration
+                  plugins:
+                  - name: PodSecurity
+                    configuration:
+                      apiVersion: pod-security.admission.config.k8s.io/v1
+                      kind: PodSecurityConfiguration
+                      defaults:
+                        enforce: "baseline"
+                        enforce-version: "v1.31"
+                        audit: "baseline"
+                        audit-version: "v1.31"
+                        warn: "restricted"
+                        warn-version: "v1.31"
+                        audit: "restricted"
+                        audit-version: "v1.31"
+                      exemptions:
+                        # Array of authenticated usernames to exempt.
+                        usernames: []
+                        # Array of runtime class names to exempt.
+                        runtimeClasses: []
+                        # Array of namespaces to exempt.
+                        namespaces: [kube-system]
+
+            preKubeadmCommands:
+              # For enabling 'protect-kernel-defaults' flag to kubelet, kernel parameters changes are required
+              - 'echo "====> Applying kernel parameters for Kubelet"'
+              - 'sysctl -p /etc/sysctl.d/90-kubelet.conf'
+            
+            postKubeadmCommands:
+              - 'chmod 600 /var/lib/kubelet/config.yaml'
+              # - 'echo "List of post kubeadm commands to be executed"'
+
+          # Client configuration to add OIDC based authentication flags in kubeconfig
+          #clientConfig:
+            #oidc-issuer-url: "{{ .spectro.pack.kubernetes.kubeadmconfig.apiServer.extraArgs.oidc-issuer-url }}"
+            #oidc-client-id: "{{ .spectro.pack.kubernetes.kubeadmconfig.apiServer.extraArgs.oidc-client-id }}"
+            #oidc-client-secret: "<YOUR_OIDC_CLIENT_SECRET>"
+            #oidc-extra-scope: profile,email
+
+      - name: "cni-calico-azure"
+        type: oci
+        tag: "3.29.3"
+        uid: "<YOUR_CNI_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          pack:
+            content:
+              images:
+                - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.3/cni:v3.29.3
+                - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.3/node:v3.29.3
+                - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.3/kube-controllers:v3.29.3
+
+          manifests:
+            calico:
+              images:
+                cni: ""
+                node: ""
+                kubecontroller: ""
+              # IPAM type to use. Supported types are calico-ipam, host-local
+              ipamType: "calico-ipam"
+
+              calico_ipam:
+                assign_ipv4: true
+                assign_ipv6: false
+
+              # Should be one of CALICO_IPV4POOL_IPIP or CALICO_IPV4POOL_VXLAN  
+              encapsulationType: "CALICO_IPV4POOL_VXLAN"
+
+              # Should be one of Always, CrossSubnet, Never
+              encapsulationMode: "Always"
+
+              env:
+                # Additional env variables for calico-node
+                calicoNode:
+                  #IPV6: "autodetect"
+                  #FELIX_IPV6SUPPORT: "true"
+                  #CALICO_IPV6POOL_NAT_OUTGOING: "true"
+                  #CALICO_IPV4POOL_CIDR: "192.168.0.0/16"
+                  #IP_AUTODETECTION_METHOD: "first-found"
+
+                # Additional env variables for calico-kube-controller deployment
+                calicoKubeControllers:
+                  #LOG_LEVEL: "info"
+                  #SYNC_NODE_LABELS: "true"
+      - name: "csi-azure"
+        type: oci
+        tag: "1.32.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          pack:
+            content:
+              images:
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/azuredisk-csi:v1.32.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/csi-provisioner:v5.2.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/csi-attacher:v4.8.1
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/csi-resizer:v1.13.2
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/livenessprobe:v2.15.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/csi-node-driver-registrar:v2.13.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/csi-snapshotter:v8.2.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-azure/1.32.0/snapshot-controller:v8.2.0
+              charts:
+                - repo: https://raw.githubusercontent.com/kubernetes-sigs/azuredisk-csi-driver/master/charts
+                  name: azuredisk-csi-driver
+                  version: 1.32.0
+            namespace: "kube-system"
+          charts:
+            azuredisk-csi-driver:
+              storageclass:
+                # Azure storage account Sku tier. Default is empty
+                storageaccounttype: "StandardSSD_LRS"
+                # Possible values are shared (default), dedicated, and managed
+                kind: "managed"
+                #Allowed reclaim policies are Delete, Retain
+                reclaimPolicy: "Delete"
+                #Toggle for Volume expansion
+                allowVolumeExpansion: "true"
+                #Toggle for Default class
+                isDefaultClass: "true"
+                #Supported binding modes are Immediate, WaitForFirstConsumer
+                #Setting binding mode to WaitForFirstConsumer, so that the volumes gets created in the same AZ as that of the pods
+                volumeBindingMode: "WaitForFirstConsumer"
+              image:
+                baseRepo: us-docker.pkg.dev
+                azuredisk:
+                  repository: /palette-images/packs/csi-azure/1.32.0/azuredisk-csi
+                  tag: v1.32.0
+                  pullPolicy: IfNotPresent
+                csiProvisioner:
+                  repository: /palette-images/packs/csi-azure/1.32.0/csi-provisioner
+                  tag: v5.2.0
+                  pullPolicy: IfNotPresent
+                csiAttacher:
+                  repository: /palette-images/packs/csi-azure/1.32.0/csi-attacher
+                  tag: v4.8.1
+                  pullPolicy: IfNotPresent
+                csiResizer:
+                  repository: /palette-images/packs/csi-azure/1.32.0/csi-resizer
+                  tag: v1.13.2
+                  pullPolicy: IfNotPresent
+                livenessProbe:
+                  repository: /palette-images/packs/csi-azure/1.32.0/livenessprobe
+                  tag: v2.15.0
+                  pullPolicy: IfNotPresent
+                nodeDriverRegistrar:
+                  repository: /palette-images/packs/csi-azure/1.32.0/csi-node-driver-registrar
+                  tag: v2.13.0
+                  pullPolicy: IfNotPresent
+              serviceAccount:
+                create: true # When true, service accounts will be created for you. Set to false if you want to use your own.
+                controller: csi-azuredisk-controller-sa # Name of Service Account to be created or used
+                node: csi-azuredisk-node-sa # Name of Service Account to be created or used
+                snapshotController: csi-snapshot-controller-sa # Name of Service Account to be created or used
+              rbac:
+                create: true
+                name: azuredisk
+              controller:
+                name: csi-azuredisk-controller
+                cloudConfigSecretName: azure-cloud-provider
+                cloudConfigSecretNamespace: kube-system
+                allowEmptyCloudConfig: false
+                enableTrafficManager: false
+                trafficManagerPort: 7788
+                replicas: 2
+                metricsPort: 29604
+                livenessProbe:
+                  healthPort: 29602
+                runOnMaster: false
+                runOnControlPlane: false
+                disableAvailabilitySetNodes: false
+                vmType: ""
+                provisionerWorkerThreads: 100
+                attacherWorkerThreads: 1000
+                vmssCacheTTLInSeconds: -1
+                logLevel: 5
+                extraArgs: []
+                otelTracing:
+                  enabled: false
+                  otelServiceName: csi-azuredisk-controller
+                  otelExporterEndpoint: "http://localhost:4317"
+                tolerations:
+                  - key: "node-role.kubernetes.io/master"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                  - key: "node-role.kubernetes.io/controlplane"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                  - key: "node-role.kubernetes.io/control-plane"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                  - key: "CriticalAddonsOnly"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                hostNetwork: true # this setting could be disabled if controller does not depend on MSI setting
+                labels: {}
+                annotations: {}
+                podLabels: {}
+                podAnnotations: {}
+                nodeSelector: {}
+                affinity: {}
+                resources:
+                  csiProvisioner:
+                    limits:
+                      memory: 500Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  csiAttacher:
+                    limits:
+                      memory: 500Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  csiResizer:
+                    limits:
+                      memory: 500Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  csiSnapshotter:
+                    limits:
+                      memory: 400Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  livenessProbe:
+                    limits:
+                      memory: 100Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  azuredisk:
+                    limits:
+                      memory: 500Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+              node:
+                cloudConfigSecretName: azure-cloud-provider
+                cloudConfigSecretNamespace: kube-system
+                # reserved data disk slot number per node, driver.volumeAttachLimit must be < 0
+                reservedDataDiskSlotNum: 0
+                supportZone: true
+                allowEmptyCloudConfig: true
+                getNodeIDFromIMDS: false
+                maxUnavailable: 1
+                logLevel: 5
+                livenessProbe:
+                  healthPort: 29603
+              snapshot:
+                enabled: false
+                name: csi-snapshot-controller
+                image:
+                  csiSnapshotter:
+                    repository: /palette-images/packs/csi-azure/1.32.0/csi-snapshotter
+                    tag: v8.2.0
+                    pullPolicy: IfNotPresent
+                  csiSnapshotController:
+                    repository: /palette-images/packs/csi-azure/1.32.0/snapshot-controller
+                    tag: v8.2.0
+                    pullPolicy: IfNotPresent
+                snapshotController:
+                  name: csi-snapshot-controller
+                  replicas: 2
+                  labels: {}
+                  annotations: {}
+                  podLabels: {}
+                  podAnnotations: {}
+                  resources:
+                    limits:
+                      memory: 500Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                VolumeSnapshotClass:
+                  enabled: false
+                  name: csi-azuredisk-vsc
+                  deletionPolicy: Delete
+                  parameters:
+                    incremental: '"true"' # available values: "true", "false" ("true" by default for Azure Public Cloud, and "false" by default for Azure Stack Cloud)
+                    resourceGroup: "" # available values: EXISTING RESOURCE GROUP (If not specified, snapshot will be stored in the same resource group as source Azure disk)
+                    tags: "" # tag format: 'key1=val1,key2=val2'
+                  additionalLabels: {}
+              feature:
+                enableFSGroupPolicy: true
+              driver:
+                name: disk.csi.azure.com
+                # maximum number of attachable volumes per node,
+                # maximum number is defined according to node instance type by default(-1)
+                volumeAttachLimit: -1
+                customUserAgent: ""
+                userAgentSuffix: "OSS-helm"
+                azureGoSDKLogLevel: "" # available values: ""(no logs), DEBUG, INFO, WARNING, ERROR
+                httpsProxy: ""
+                httpProxy: ""
+                noProxy: ""
+              linux:
+                enabled: true
+                dsName: csi-azuredisk-node # daemonset name
+                kubelet: /var/lib/kubelet
+                distro: debian # available values: debian, fedora
+                enablePerfOptimization: true
+                otelTracing:
+                  enabled: false
+                  otelServiceName: csi-azuredisk-node
+                  otelExporterEndpoint: "http://localhost:4317"
+                tolerations:
+                  - operator: "Exists"
+                hostNetwork: true # this setting could be disabled if perfProfile is `none`
+                getNodeInfoFromLabels: false # get node info from node labels instead of IMDS
+                labels: {}
+                annotations: {}
+                podLabels: {}
+                podAnnotations: {}
+                nodeSelector: {}
+                affinity: {}
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                      - matchExpressions:
+                          - key: type
+                            operator: NotIn
+                            values:
+                              - virtual-kubelet
+                resources:
+                  livenessProbe:
+                    limits:
+                      memory: 100Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  nodeDriverRegistrar:
+                    limits:
+                      memory: 100Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+                  azuredisk:
+                    limits:
+                      memory: 1000Mi
+                    requests:
+                      cpu: 10m
+                      memory: 20Mi
+              windows:
+                enabled: true
+                useHostProcessContainers: true
+                dsName: csi-azuredisk-node-win # daemonset name
+                kubelet: 'C:\var\lib\kubelet'
+                getNodeInfoFromLabels: false # get node info from node labels instead of IMDS
+                enableRegistrationProbe: true
+                otelTracing:
+                  enabled: false
+                  otelServiceName: csi-azuredisk-node-win
+                  otelExporterEndpoint: "http://localhost:4317"
+                tolerations:
+                  - key: "node.kubernetes.io/os"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                labels: {}
+                annotations: {}
+                podLabels: {}
+                podAnnotations: {}
+                nodeSelector: {}
+                affinity: {}
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                      - matchExpressions:
+                          - key: type
+                            operator: NotIn
+                            values:
+                              - virtual-kubelet
+                resources:
+                  livenessProbe:
+                    limits:
+                      memory: 150Mi
+                    requests:
+                      cpu: 10m
+                      memory: 40Mi
+                  nodeDriverRegistrar:
+                    limits:
+                      memory: 150Mi
+                    requests:
+                      cpu: 30m
+                      memory: 40Mi
+                  azuredisk:
+                    limits:
+                      memory: 1000Mi
+                    requests:
+                      cpu: 10m
+                      memory: 40Mi
+              cloud: AzurePublicCloud
+              ## Reference to one or more secrets to be used when pulling images
+              ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+              ##
+              imagePullSecrets: []
+              # - name: "image-pull-secret"
+
+              workloadIdentity:
+                clientID: ""
+                # [optional] If the AAD application or user-assigned managed identity is not in the same tenant as the cluster
+                # then set tenantID with the application or user-assigned managed identity tenant ID
+                tenantID: ""
+              azureCredentialFileConfigMap: azure-cred-file
+
+    tags:
+      - "env:azure"
+      - "type:qa"

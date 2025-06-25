@@ -1,0 +1,34 @@
+apiVersion: resource.palette.crossplane.io/v1alpha1
+kind: Limit
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resource/v1alpha1/limit
+    description: "Resource limits for Palette project"
+    crossplane.io/external-name: "default"
+  labels:
+    testing.upbound.io/example-name: resource_limit
+  name: resource-limit
+spec:
+  forProvider:
+    alert: 110
+    apiKeys: 201
+    appliance: 6001
+    applianceToken: 201
+    applicationDeployment: 200
+    applicationProfile: 200
+    certificate: 20
+    cloudAccount: 355
+    cluster: 1001
+    clusterGroup: 50
+    clusterProfile: 2500
+    filter: 200
+    location: 100
+    macro: 6000
+    privateGateway: 100
+    project: 200
+    registry: 200
+    role: 100
+    sshKey: 300
+    team: 100
+    user: 300
+    workspace: 60

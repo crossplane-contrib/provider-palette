@@ -78,6 +78,11 @@ spec:
                       (String) The pairing key used for appliance pairing.
                       The pairing key used for appliance pairing.
                     type: string
+                  remoteShell:
+                    description: |-
+                      management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
@@ -86,6 +91,11 @@ spec:
                       A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
+                  temporaryShellCredentials:
+                    description: |-
+                      (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                      Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                    type: string
                   uid:
                     description: |-
                       (String) The unique identifier (UID) for the appliance.
@@ -115,6 +125,11 @@ spec:
                       (String) The pairing key used for appliance pairing.
                       The pairing key used for appliance pairing.
                     type: string
+                  remoteShell:
+                    description: |-
+                      management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
@@ -123,6 +138,11 @@ spec:
                       A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
+                  temporaryShellCredentials:
+                    description: |-
+                      (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                      Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                    type: string
                   uid:
                     description: |-
                       (String) The unique identifier (UID) for the appliance.
@@ -319,6 +339,11 @@ spec:
                       (String) The pairing key used for appliance pairing.
                       The pairing key used for appliance pairing.
                     type: string
+                  remoteShell:
+                    description: |-
+                      management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
@@ -327,6 +352,11 @@ spec:
                       A set of key-value pairs that can be used to organize and categorize the appliance.
                     type: object
                     x-kubernetes-map-type: granular
+                  temporaryShellCredentials:
+                    description: |-
+                      (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                      Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
+                    type: string
                   uid:
                     description: |-
                       (String) The unique identifier (UID) for the appliance.

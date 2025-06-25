@@ -1,0 +1,22 @@
+apiVersion: virtual.palette.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtual/v1alpha1/cluster
+    description: "Virtual Cluster for testing"
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: virtual-cluster-cp
+spec:
+  forProvider:
+    context: project
+    description: "Virtual Cluster for testing"
+    clusterGroupUid: "<YOUR_CLUSTER_GROUP_UID>"
+    resources:
+      - maxCpu: 4
+        maxMemInMb: 6144
+        minCpu: 0
+        minMemInMb: 0
+    tags:
+      - "env:dev"
+      - "type:virtual"
