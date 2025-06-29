@@ -7,4 +7,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *Setting) Hub() {}
+func (tr *PlatformSetting) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ResourceLimit) Hub() {}

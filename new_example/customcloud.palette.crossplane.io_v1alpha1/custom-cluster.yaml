@@ -1,0 +1,25 @@
+apiVersion: customcloud.palette.crossplane.io/v1alpha1
+kind: CustomCluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: customcloud/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: custom-cluster
+  name: custom-test-cluster
+spec:
+  forProvider:
+    context: project
+    name: "Custom Cloud Test Cluster"
+    description: "Custom cloud cluster for testing"
+    cloudAccountIdRef:
+      name: custom-cloud-account
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    # Custom cloud specific configuration
+    # This will depend on your specific custom cloud provider
+    cloudConfig:
+      - endpoint: "<YOUR_CUSTOM_CLOUD_ENDPOINT>"
+        region: "<YOUR_CUSTOM_REGION>"
+    tags:
+      - "custom-cloud"
+      - "test-cluster" 

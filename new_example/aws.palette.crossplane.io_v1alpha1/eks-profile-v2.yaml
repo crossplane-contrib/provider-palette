@@ -1,0 +1,714 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: ran-cp-eks-profile
+  annotations:
+    description: "EKS Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    cloud: eks
+    context: tenant
+    type: cluster
+    description: "A basic cluster profile for EKS"
+    version: "1.0.2"
+    pack:
+      - name: "amazon-linux-eks"
+        type: oci
+        tag: "1.0.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # AMI will be selected automatically based on the kubernetes version, region chosen
+
+      - name: "kubernetes-eks"
+        tag: "1.31"
+        type: oci
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          ## EKS settings
+          managedControlPlane:
+            
+            # Disable creation of an identity provider for the controller
+            # for use with IAM roles for service accounts
+            # Changes to this field after the cluster is provisioned
+            # will have no effect on the associated OIDC Identity provider.
+            # Defaults to false
+            #disableAssociateOIDCProvider: true
+
+            ## Controlplane Logging
+            logging:
+
+              # Setting to toggle Kubernetes API Server logging (kube-apiserver)
+              apiServer: false
+
+              # Setting to toggle the Kubernetes API audit logging
+              audit: false
+
+              # Setting to toggle the cluster authentication logging
+              authenticator: false
+
+              # Setting to toggle the controller manager (kube-controller-manager) logging
+              controllerManager: false
+
+              # Setting to toggle the Kubernetes scheduler (kube-scheduler) logging
+              scheduler: false
+
+            ## IRSA Roles will be created, additional policy ARNs attached and IRSA trust policy added.
+            ## To lock to a single ServiceAccount use serviceAccount name and namespace
+            #irsaRoles:
+            #- name: "{{.spectro.system.cluster.name}}-irsa-cni"
+            #  policies:
+            #    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+            #  serviceAccount: # optional, defaults to audience sts.amazonaws.com
+            #    name: aws-node
+            #    namespace: kube-system
+            #- name: "{{.spectro.system.cluster.name}}-irsa-csi"
+            #  policies:
+            #    - arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy
+
+            ## Security Group Overrides, if you use static VPC placement you can also force the SecurityGroup for the
+            ## EKS components, this is optional and if you do not set an override a SecurityGroup will be created and assigned
+            #securityGroupOverrides:
+              #controlplane: "sg-12345"
+              #bastion: "sg-12345"
+              #node: "sg-12345"
+              #node-eks-additional: "sg-12345"
+              #apiserver-lb: "sg-12345"
+              #lb: "sg-12345"
+
+            ## OIDC related config
+            #oidcIdentityProvider:
+              #identityProviderConfigName: 'eks-oidc'     # The name of the OIDC provider configuration
+              #issuerUrl: 'https://tenant.okta.com'       # The URL of the OpenID identity provider
+              #clientId: '<your oidc client ID>'      # The ID for the client application that makes authentication requests to the OpenID identity provider
+              #usernameClaim: "email"                     # The JSON Web Token (JWT) claim to use as the username
+              #usernamePrefix: "-"                        # The prefix that is prepended to username claims to prevent clashes with existing names
+              #groupsClaim: "groups"                      # The JWT claim that the provider uses to return your groups
+              #groupsPrefix: "-"                          # The prefix that is prepended to group claims to prevent clashes with existing names
+              #requiredClaims:                            # The key value pairs that describe required claims in the identity token
+
+            ## A list of additional policies to attach to the control plane role
+            #roleAdditionalPolicies:
+
+            ## Enable IAM user and role access to your cluster
+            ## https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+            #iamAuthenticatorConfig:
+            #  mapRoles:
+            #  - rolearn: arn:aws:iam::000000000000:role/KubernetesNode
+            #    groups:
+            #    - system:bootstrappers
+            #    - system:nodes
+            #  mapUsers:
+            #  - userarn: arn:aws:iam::000000000000:user/Alice
+            #    username: alice
+            #    groups:
+            #    - system:masters
+
+          ## Custom EKS node roleName for all the node groups
+          ## This self-managed IAM role(https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) should include the required
+          ## policies - 'AmazonEKSWorkerNodePolicy','AmazonEC2ContainerRegistryReadOnly', 'AmazonSSMManagedInstanceCore' and 'AmazonEKS_CNI_Policy'
+          ## NOTE: The roleName cannot have the prefix 'ng-role_' since this is reserved for spectro-generated roles
+          #managedMachinePool:
+
+            ## A list of additional policies to attach to the node group role
+            #roleAdditionalPolicies:
+
+          ## Client configuration to add OIDC based authentication flags in kubeconfig
+          #clientConfig:
+            #oidc-issuer-url: "{{ .spectro.pack.kubernetes-eks.managedControlPlane.oidcIdentityProvider.issuerUrl }}"
+            #oidc-client-id: "{{ .spectro.pack.kubernetes-eks.managedControlPlane.oidcIdentityProvider.clientId }}"
+            #oidc-client-secret: "<your oidc client secret>"
+            #oidc-extra-scope: profile,email
+
+      - name: "cni-aws-vpc-eks"
+        type: oci
+        tag: "1.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          # AWS VPC CNI will be auto-installed
+    
+      - name: "csi-aws-ebs"
+        type: oci
+        tag: "1.41.0"
+        uid: "<YOUR_PACK_UID>"
+        registryUid: "<YOUR_REGISTRY_UID>"
+        values: |
+          pack:
+            content:
+              images:
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/aws-ebs-csi-driver:v1.41.0
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-provisioner:v5.2.0-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-attacher:v4.8.1-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-resizer:v1.13.2-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/livenessprobe:v2.14.0-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/node-driver-registrar:v2.13.0-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-snapshotter/csi-snapshotter:v8.2.1-eks-1-32-7
+                - image: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/volume-modifier-for-k8s:v0.5.1
+              charts:
+                - repo: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+                  name: aws-ebs-csi-driver
+                  version: 2.41.0
+            namespace: "kube-system"
+          charts:
+            aws-ebs-csi-driver:
+              storageClasses:
+                # Default Storage Class
+                - name: spectro-storage-class
+                  # annotation metadata
+                  annotations:
+                    storageclass.kubernetes.io/is-default-class: "true"
+                    # label metadata
+                    # labels:
+                    #   my-label-is: supercool
+                    # defaults to WaitForFirstConsumer
+                  volumeBindingMode: WaitForFirstConsumer
+                  # defaults to Delete
+                  reclaimPolicy: Delete
+                  parameters:
+                    # File system type: xfs, ext2, ext3, ext4
+                    csi.storage.k8s.io/fstype: "ext4"
+                    # EBS volume type: io1, io2, gp2, gp3, sc1, st1, standard
+                    type: "gp2"
+                    # I/O operations per second per GiB. Required when io1 or io2 volume type is specified.
+                    # iopsPerGB: ""
+                    # Applicable only when io1 or io2 volume type is specified
+                    # allowAutoIOPSPerGBIncrease: false
+                    # I/O operations per second. Applicable only for gp3 volumes.
+                    # iops: ""
+                    # Throughput in MiB/s. Applicable only for gp3 volumes.
+                    # throughput: ""
+                    # Whether the volume should be encrypted or not
+                    # encrypted: ""
+                    # The full ARN of the key to use when encrypting the volume. When not specified, the default KMS key is used.
+                    # kmsKeyId: ""
+              # Additional Storage Class 
+              # - name: addon-storage-class
+              # annotations:
+              #   storageclass.kubernetes.io/is-default-class: "false"
+              # labels:
+              #   my-label-is: supercool
+              # volumeBindingMode: WaitForFirstConsumer
+              # reclaimPolicy: Delete
+              # parameters:
+              # csi.storage.k8s.io/fstype: "ext4"
+              # type: "gp2"
+              # iopsPerGB: ""
+              # allowAutoIOPSPerGBIncrease: false
+              # iops: ""
+              # throughput: ""
+              # encrypted: ""
+              # kmsKeyId: ""
+
+              image:
+                repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/aws-ebs-csi-driver
+                tag: "v1.41.0"
+                pullPolicy: IfNotPresent
+              # -- Custom labels to add into metadata
+              customLabels: {}
+              # k8s-app: aws-ebs-csi-driver
+
+              sidecars:
+                provisioner:
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-provisioner
+                    tag: "v5.2.0-eks-1-32-7"
+                  logLevel: 2
+                  # Additional parameters provided by external-provisioner.
+                  additionalArgs: []
+                  # Grant additional permissions to external-provisioner
+                  additionalClusterRoleRules:
+                  resources: {}
+                  # Tune leader lease election for csi-provisioner.
+                  # Leader election is on by default.
+                  leaderElection:
+                    enabled: true
+                    # Optional values to tune lease behavior.
+                    # The arguments provided must be in an acceptable time.ParseDuration format.
+                    # Ref: https://pkg.go.dev/flag#Duration
+                    # leaseDuration: "15s"
+                    # renewDeadline: "10s"
+                    # retryPeriod: "5s"
+                  securityContext:
+                    seccompProfile:
+                      type: RuntimeDefault
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                attacher:
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-attacher
+                    tag: "v4.8.1-eks-1-32-7"
+                  # Tune leader lease election for csi-attacher.
+                  # Leader election is on by default.
+                  leaderElection:
+                    enabled: true
+                    # Optional values to tune lease behavior.
+                    # The arguments provided must be in an acceptable time.ParseDuration format.
+                    # Ref: https://pkg.go.dev/flag#Duration
+                    # leaseDuration: "15s"
+                    # renewDeadline: "10s"
+                    # retryPeriod: "5s"
+                  logLevel: 2
+                  # Additional parameters provided by external-attacher.
+                  additionalArgs: []
+                  # Grant additional permissions to external-attacher
+                  additionalClusterRoleRules: []
+                  resources: {}
+                  securityContext:
+                    seccompProfile:
+                      type: RuntimeDefault
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                snapshotter:
+                  # Enables the snapshotter sidecar even if the snapshot CRDs are not installed
+                  forceEnable: false
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-snapshotter/csi-snapshotter
+                    tag: "v8.2.1-eks-1-32-7"
+                  logLevel: 2
+                  # Additional parameters provided by csi-snapshotter.
+                  additionalArgs: []
+                  # Grant additional permissions to csi-snapshotter
+                  additionalClusterRoleRules: []
+                  resources: {}
+                  securityContext:
+                    seccompProfile:
+                      type: RuntimeDefault
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                livenessProbe:
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/livenessprobe
+                    tag: "v2.14.0-eks-1-32-7"
+                  # Additional parameters provided by livenessprobe.
+                  additionalArgs: []
+                  resources: {}
+                  securityContext:
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                resizer:
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/external-resizer
+                    tag: "v1.13.2-eks-1-32-7"
+                  # Tune leader lease election for csi-resizer.
+                  # Leader election is on by default.
+                  leaderElection:
+                    enabled: true
+                    # Optional values to tune lease behavior.
+                    # The arguments provided must be in an acceptable time.ParseDuration format.
+                    # Ref: https://pkg.go.dev/flag#Duration
+                    # leaseDuration: "15s"
+                    # renewDeadline: "10s"
+                    # retryPeriod: "5s"
+                  logLevel: 2
+                  # Additional parameters provided by external-resizer.
+                  additionalArgs: []
+                  # Grant additional permissions to external-resizer
+                  additionalClusterRoleRules: []
+                  resources: {}
+                  securityContext:
+                    seccompProfile:
+                      type: RuntimeDefault
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                nodeDriverRegistrar:
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/node-driver-registrar
+                    tag: "v2.13.0-eks-1-32-7"
+                  logLevel: 2
+                  # Additional parameters provided by node-driver-registrar.
+                  additionalArgs: []
+                  resources: {}
+                  securityContext:
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+                  livenessProbe:
+                    exec:
+                      command:
+                        - /csi-node-driver-registrar
+                        - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+                        - --mode=kubelet-registration-probe
+                    initialDelaySeconds: 30
+                    periodSeconds: 90
+                    timeoutSeconds: 15
+                volumemodifier:
+                  env: []
+                  image:
+                    pullPolicy: IfNotPresent
+                    repository: us-docker.pkg.dev/palette-images/packs/csi-aws-ebs/1.41.0/volume-modifier-for-k8s
+                    tag: "v0.5.1"
+                  leaderElection:
+                    enabled: true
+                    # Optional values to tune lease behavior.
+                    # The arguments provided must be in an acceptable time.ParseDuration format.
+                    # Ref: https://pkg.go.dev/flag#Duration
+                    # leaseDuration: "15s"
+                    # renewDeadline: "10s"
+                    # retryPeriod: "5s"
+                  logLevel: 2
+                  # Additional parameters provided by volume-modifier-for-k8s.
+                  additionalArgs: []
+                  resources: {}
+                  securityContext:
+                    seccompProfile:
+                      type: RuntimeDefault
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
+              proxy:
+                http_proxy:
+                no_proxy:
+              imagePullSecrets: []
+              nameOverride:
+              fullnameOverride:
+              awsAccessSecret:
+                name: aws-secret
+                keyId: key_id
+                accessKey: access_key
+              controller:
+                batching: true
+                volumeModificationFeature:
+                  enabled: false
+                # Additional parameters provided by aws-ebs-csi-driver controller.
+                additionalArgs: []
+                sdkDebugLog: false
+                loggingFormat: text
+                affinity:
+                  nodeAffinity:
+                    preferredDuringSchedulingIgnoredDuringExecution:
+                      - weight: 1
+                        preference:
+                          matchExpressions:
+                            - key: eks.amazonaws.com/compute-type
+                              operator: NotIn
+                              values:
+                                - fargate
+                                - auto
+                                - hybrid
+                  podAntiAffinity:
+                    preferredDuringSchedulingIgnoredDuringExecution:
+                      - podAffinityTerm:
+                          labelSelector:
+                            matchExpressions:
+                              - key: app
+                                operator: In
+                                values:
+                                  - ebs-csi-controller
+                          topologyKey: kubernetes.io/hostname
+                        weight: 100
+                # The default filesystem type of the volume to provision when fstype is unspecified in the StorageClass.
+                # If the default is not set and fstype is unset in the StorageClass, then no fstype will be set
+                defaultFsType: ext4
+                env: []
+                # Use envFrom to reference ConfigMaps and Secrets across all containers in the deployment
+                envFrom: []
+                # If set, add pv/pvc metadata to plugin create and modify requests as parameters.
+                extraCreateMetadata: true
+                # Extra volume tags to attach to each dynamically provisioned volume.
+                # ---
+                # extraVolumeTags:
+                #   key1: value1
+                #   key2: value2
+                extraVolumeTags: {}
+                httpEndpoint:
+                # (deprecated) The TCP network address where the prometheus metrics endpoint
+                # will run (example: `:8080` which corresponds to port 8080 on local host).
+                # The default is empty string, which means metrics endpoint is disabled.
+                # ---
+                enableMetrics: false
+                serviceMonitor:
+                  # Enables the ServiceMonitor resource even if the prometheus-operator CRDs are not installed
+                  forceEnable: false
+                  # Additional labels for ServiceMonitor object
+                  labels:
+                    release: prometheus
+                  interval: "15s"
+                # If set to true, AWS API call metrics will be exported to the following
+                # TCP endpoint: "0.0.0.0:3301"
+                # ---
+                # ID of the Kubernetes cluster used for tagging provisioned EBS volumes (optional).
+                k8sTagClusterId:
+                logLevel: 2
+                userAgentExtra: "helm"
+                nodeSelector: {}
+                deploymentAnnotations: {}
+                podAnnotations: {}
+                podLabels: {}
+                podDisruptionBudget:
+                  # Warning: Disabling PodDisruptionBudget may lead to delays in stateful workloads starting due to controller
+                  # pod restarts or evictions.
+                  enabled: true
+                  # unhealthyPodEvictionPolicy:
+                priorityClassName: system-cluster-critical
+                # AWS region to use. If not specified then the region will be looked up via the AWS EC2 metadata
+                # service.
+                # ---
+                # region: us-east-1
+                region:
+                replicaCount: 2
+                revisionHistoryLimit: 10
+                socketDirVolume:
+                  emptyDir: {}
+                updateStrategy:
+                  type: RollingUpdate
+                  rollingUpdate:
+                    maxUnavailable: 1
+                # type: RollingUpdate
+                # rollingUpdate:
+                #   maxSurge: 0
+                #   maxUnavailable: 1
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 40Mi
+                  limits:
+                    memory: 256Mi
+                    cpu: 100m
+                serviceAccount:
+                  # A service account will be created for you if set to true. Set to false if you want to use your own.
+                  create: true
+                  name: ebs-csi-controller-sa
+                  annotations: {}
+                  ## Enable if EKS IAM for SA is used
+                  # eks.amazonaws.com/role-arn: arn:<partition>:iam::<account>:role/ebs-csi-role
+                  automountServiceAccountToken: true
+                tolerations:
+                  - key: CriticalAddonsOnly
+                    operator: Exists
+                  - effect: NoExecute
+                    operator: Exists
+                    tolerationSeconds: 300
+                # TSCs without the label selector stanza
+                #
+                # Example:
+                #
+                # topologySpreadConstraints:
+                #  - maxSkew: 1
+                #    topologyKey: topology.kubernetes.io/zone
+                #    whenUnsatisfiable: ScheduleAnyway
+                #  - maxSkew: 1
+                #    topologyKey: kubernetes.io/hostname
+                #    whenUnsatisfiable: ScheduleAnyway
+                topologySpreadConstraints: []
+                # securityContext on the controller pod
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1000
+                  runAsGroup: 1000
+                  fsGroup: 1000
+                # Add additional volume mounts on the controller with controller.volumes and controller.volumeMounts
+                volumes: []
+                # Add additional volumes to be mounted onto the controller:
+                # - name: custom-dir
+                #   hostPath:
+                #     path: /path/to/dir
+                #     type: Directory
+                volumeMounts: []
+                # And add mount paths for those additional volumes:
+                # - name: custom-dir
+                #   mountPath: /mount/path
+                # ---
+                # securityContext on the controller container (see sidecars for securityContext on sidecar containers)
+                containerSecurityContext:
+                  seccompProfile:
+                    type: RuntimeDefault
+                  readOnlyRootFilesystem: true
+                  allowPrivilegeEscalation: false
+                initContainers: []
+                # containers to be run before the controller's container starts.
+                #
+                # Example:
+                #
+                # - name: wait
+                #   image: busybox
+                #   command: [ 'sh', '-c', "sleep 20" ]
+                # Enable opentelemetry tracing for the plugin running on the daemonset
+                otelTracing: {}
+                #  otelServiceName: ebs-csi-controller
+                #  otelExporterEndpoint: "http://localhost:4317"
+
+                # Enable dnsConfig for the controller and node pods
+                dnsConfig: {}
+              node:
+                # Enable SELinux-only optimizations on the EBS CSI Driver node pods
+                # Must only be set true if all linux nodes in the DaemonSet have SELinux enabled
+                selinux: false
+                env: []
+                envFrom: []
+                kubeletPath: /var/lib/kubelet
+                loggingFormat: text
+                logLevel: 2
+                enableMetrics: false
+                priorityClassName:
+                additionalArgs: []
+                affinity:
+                  nodeAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                      nodeSelectorTerms:
+                        - matchExpressions:
+                            - key: eks.amazonaws.com/compute-type
+                              operator: NotIn
+                              values:
+                                - fargate
+                                - auto
+                                - hybrid
+                            - key: node.kubernetes.io/instance-type
+                              operator: NotIn
+                              values:
+                                - a1.medium
+                                - a1.large
+                                - a1.xlarge
+                                - a1.2xlarge
+                                - a1.4xlarge
+                nodeSelector: {}
+                daemonSetAnnotations: {}
+                podAnnotations: {}
+                podLabels: {}
+                terminationGracePeriodSeconds: 30
+                tolerateAllTaints: true
+                tolerations:
+                  - operator: Exists
+                    effect: NoExecute
+                    tolerationSeconds: 300
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 40Mi
+                  limits:
+                    memory: 256Mi
+                    cpu: 100m
+                revisionHistoryLimit: 10
+                probeDirVolume:
+                  emptyDir: {}
+                serviceAccount:
+                  create: true
+                  name: ebs-csi-node-sa
+                  annotations: {}
+                  ## Enable if EKS IAM for SA is used
+                  # eks.amazonaws.com/role-arn: arn:<partition>:iam::<account>:role/ebs-csi-role
+                  automountServiceAccountToken: true
+                # Enable the linux daemonset creation
+                enableLinux: true
+                enableWindows: true
+                # Warning: This option will be removed in a future release. It is a temporary workaround for users unable to immediately migrate off of older kernel versions.
+                # Formats XFS volumes with bigtime=0,inobtcount=0,reflink=0, for mounting onto nodes with linux kernel version <= 5.4.
+                # Note that XFS volumes formatted with this option will only have timestamp records until 2038.
+                legacyXFS: false
+                # The number of attachment slots to reserve for system use (and not to be used for CSI volumes)
+                # When this parameter is not specified (or set to -1), the EBS CSI Driver will attempt to determine the number of reserved slots via heuristic
+                # Cannot be specified at the same time as `node.volumeAttachLimit`
+                reservedVolumeAttachments:
+                # The "maximum number of attachable volumes" per node
+                # Cannot be specified at the same time as `node.reservedVolumeAttachments`
+                volumeAttachLimit:
+                updateStrategy:
+                  type: RollingUpdate
+                  rollingUpdate:
+                    maxUnavailable: "10%"
+                hostNetwork: false
+                # securityContext on the node pod
+                securityContext:
+                  # The node pod must be run as root to bind to the registration/driver sockets
+                  runAsNonRoot: false
+                  runAsUser: 0
+                  runAsGroup: 0
+                  fsGroup: 0
+                # allows you to deploy aws-ebs-csi-node daemonset to separate namespace (make sure namespace exists before deploy)
+                namespaceOverride: ""
+                # Add additional volume mounts on the node pods with node.volumes and node.volumeMounts
+                volumes: []
+                # Add additional volumes to be mounted onto the node pods:
+                # - name: custom-dir
+                #   hostPath:
+                #     path: /path/to/dir
+                #     type: Directory
+                volumeMounts: []
+                # And add mount paths for those additional volumes:
+                # - name: custom-dir
+                #   mountPath: /mount/path
+                # ---
+                # securityContext on the node container (see sidecars for securityContext on sidecar containers)
+                # Privileged containers always run as `Unconfined`, which means that they are not restricted by a seccomp profile.
+                containerSecurityContext:
+                  readOnlyRootFilesystem: true
+                  privileged: true
+                initContainers: []
+                # containers to be run before the csi-node's container starts.
+                #
+                # Example:
+                #
+                # - name: wait
+                #   image: busybox
+                #   command: [ 'sh', '-c', "sleep 20" ]
+                # Enable opentelemetry tracing for the plugin running on the daemonset
+                otelTracing: {}
+                #  otelServiceName: ebs-csi-node
+                #  otelExporterEndpoint: "http://localhost:4317"
+              additionalDaemonSets:
+              # Additional node DaemonSets, using the node config structure
+              # See docs/additional-daemonsets.md for more information
+              #
+              # example:
+              #   nodeSelector:
+              #     node.kubernetes.io/instance-type: c5.large
+              #   volumeAttachLimit: 15
+
+              # Enable compatibility for the A1 instance family via use of an AL2-based image in a separate DaemonSet
+              # a1CompatibilityDaemonSet: true
+              # storageClasses: []
+              # Add StorageClass resources like:
+              # - name: ebs-sc
+              #   # annotation metadata
+              #   annotations:
+              #     storageclass.kubernetes.io/is-default-class: "true"
+              #   # label metadata
+              #   labels:
+              #     my-label-is: supercool
+              #   # defaults to WaitForFirstConsumer
+              #   volumeBindingMode: WaitForFirstConsumer
+              #   # defaults to Delete
+              #   reclaimPolicy: Retain
+              #   parameters:
+              #     encrypted: "true"
+              defaultStorageClass:
+                enabled: false
+              volumeSnapshotClasses: []
+              # Add VolumeSnapshotClass resources like:
+              # - name: ebs-vsc
+              #   # annotation metadata
+              #   annotations:
+              #     snapshot.storage.kubernetes.io/is-default-class: "true"
+              #   # label metadata
+              #   labels:
+              #     my-label-is: supercool
+              #   # deletionPolicy must be specified
+              #   deletionPolicy: Delete
+              #   parameters:
+
+              # Use old CSIDriver without an fsGroupPolicy set
+              # Intended for use with older clusters that cannot easily replace the CSIDriver object
+              # This parameter should always be false for new installations
+              useOldCSIDriver: false
+              # Deploy EBS CSI Driver without controller and associated resources
+              nodeComponentOnly: false
+              # Instruct the AWS SDK to use AWS FIPS endpoints, and deploy container built with BoringCrypto (a FIPS-validated cryptographic library) instead of the Go default
+              #
+              # The EBS CSI Driver FIPS images have not undergone FIPS certification, and no official guarnatee is made about the compliance of these images under the FIPS standard
+              # Users relying on these images for FIPS compliance should perform their own independent evaluation
+              fips: false
+
+    tags:
+      - "cloud:eks"
+      - "owner:qa"
+

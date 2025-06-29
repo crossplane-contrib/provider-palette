@@ -10,7 +10,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/config"
 
-	"github.com/crossplane-contrib/provider-palette/config/null"
+	"github.com/crossplane-contrib/provider-palette/config/resources"
 )
 
 const (
@@ -39,7 +39,7 @@ func GetProvider() *config.Provider {
 
 	for _, configure := range []func(provider *config.Provider){
 		// add custom config functions
-		null.Configure,
+		resources.Configure,
 	} {
 		configure(pc)
 	}

@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Ippool
-func (mg *Ippool) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this IPPool
+func (mg *IPPool) GetTerraformResourceType() string {
 	return "spectrocloud_privatecloudgateway_ippool"
 }
 
-// GetConnectionDetailsMapping for this Ippool
-func (tr *Ippool) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this IPPool
+func (tr *IPPool) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Ippool
-func (tr *Ippool) GetObservation() (map[string]any, error) {
+// GetObservation of this IPPool
+func (tr *IPPool) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Ippool) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Ippool
-func (tr *Ippool) SetObservation(obs map[string]any) error {
+// SetObservation for this IPPool
+func (tr *IPPool) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Ippool) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Ippool
-func (tr *Ippool) GetID() string {
+// GetID returns ID of underlying Terraform resource of this IPPool
+func (tr *IPPool) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Ippool
-func (tr *Ippool) GetParameters() (map[string]any, error) {
+// GetParameters of this IPPool
+func (tr *IPPool) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Ippool) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Ippool
-func (tr *Ippool) SetParameters(params map[string]any) error {
+// SetParameters for this IPPool
+func (tr *IPPool) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Ippool) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Ippool
-func (tr *Ippool) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this IPPool
+func (tr *IPPool) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Ippool) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Ippool
-func (tr *Ippool) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this IPPool
+func (tr *IPPool) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *Ippool) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 	return params, nil
 }
 
-// LateInitialize this Ippool using its observed tfState.
+// LateInitialize this IPPool using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Ippool) LateInitialize(attrs []byte) (bool, error) {
-	params := &IppoolParameters{}
+func (tr *IPPool) LateInitialize(attrs []byte) (bool, error) {
+	params := &IPPoolParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *Ippool) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Ippool) GetTerraformSchemaVersion() int {
+func (tr *IPPool) GetTerraformSchemaVersion() int {
 	return 2
 }

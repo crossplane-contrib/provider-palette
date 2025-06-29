@@ -16,8 +16,8 @@ func (l *DNSMapList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IppoolList.
-func (l *IppoolList) GetItems() []resource.Managed {
+// GetItems of this IPPoolList.
+func (l *IPPoolList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

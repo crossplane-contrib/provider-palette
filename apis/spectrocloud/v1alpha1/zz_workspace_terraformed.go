@@ -113,7 +113,7 @@ func (tr *Workspace) GetMergedParameters(shouldMergeInitProvider bool) (map[stri
 // LateInitialize this Workspace using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Workspace) LateInitialize(attrs []byte) (bool, error) {
-	params := &WorkspaceParameters_2{}
+	params := &WorkspaceParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}

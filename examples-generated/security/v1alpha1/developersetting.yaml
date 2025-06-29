@@ -1,0 +1,15 @@
+apiVersion: security.palette.crossplane.io/v1alpha1
+kind: DeveloperSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/developersetting
+  labels:
+    testing.upbound.io/example-name: dev_setting
+  name: dev-setting
+spec:
+  forProvider:
+    cpu: 20
+    hideSystemClusterGroup: false
+    memory: 100
+    storage: 100
+    virtualClustersLimit: 10

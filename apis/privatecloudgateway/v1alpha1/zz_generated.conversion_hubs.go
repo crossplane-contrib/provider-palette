@@ -10,4 +10,4 @@ package v1alpha1
 func (tr *DNSMap) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Ippool) Hub() {}
+func (tr *IPPool) Hub() {}

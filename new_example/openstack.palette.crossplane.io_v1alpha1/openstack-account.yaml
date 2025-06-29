@@ -1,0 +1,23 @@
+apiVersion: openstack.palette.crossplane.io/v1alpha1
+kind: OpenstackCloudAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: openstack/v1alpha1/cloudaccount
+  labels:
+    testing.upbound.io/example-name: openstack-account
+  name: openstack-cloud-account
+spec:
+  forProvider:
+    context: project
+    name: "OpenStack Cloud Account"
+    openstackUsername: "<YOUR_OPENSTACK_USERNAME>"
+    openstackPasswordSecretRef:
+      key: openstack-password
+      name: openstack-credentials
+      namespace: crossplane-system
+    openstackDomain: "<YOUR_OPENSTACK_DOMAIN>"
+    openstackRegion: "<YOUR_OPENSTACK_REGION>"
+    openstackDefaultProject: "<YOUR_OPENSTACK_PROJECT>"
+    openstackAuthUrl: "<YOUR_OPENSTACK_AUTH_URL>"
+    openstackCaCert: "<YOUR_OPENSTACK_CA_CERT>"
+    openstackInsecure: false 

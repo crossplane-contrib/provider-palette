@@ -12,8 +12,8 @@ spec:
     - crossplane
     - managed
     - palette
-    kind: Ippool
-    listKind: IppoolList
+    kind: IPPool
+    listKind: IPPoolList
     plural: ippools
     singular: ippool
   scope: Cluster
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Ippool is the Schema for the Ippools API. A Resource to manage
+        description: IPPool is the Schema for the IPPools API. A Resource to manage
           IP pools for Private Cloud Gateway.
         properties:
           apiVersion:
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: IppoolSpec defines the desired state of Ippool
+            description: IPPoolSpec defines the desired state of IPPool
             properties:
               deletionPolicy:
                 default: Delete
@@ -87,6 +87,11 @@ spec:
                     description: |-
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
                     type: string
                   nameserverAddresses:
                     description: |-
@@ -157,6 +162,11 @@ spec:
                     description: |-
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
                     type: string
                   nameserverAddresses:
                     description: |-
@@ -372,6 +382,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.gateway)
                 || (has(self.initProvider) && has(self.initProvider.gateway))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.networkType is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.networkType)
@@ -385,7 +399,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId)
                 || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))'
           status:
-            description: IppoolStatus defines the observed state of Ippool.
+            description: IPPoolStatus defines the observed state of IPPool.
             properties:
               atProvider:
                 properties:
@@ -406,6 +420,11 @@ spec:
                     description: |-
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
                     type: string
                   nameserverAddresses:
                     description: |-

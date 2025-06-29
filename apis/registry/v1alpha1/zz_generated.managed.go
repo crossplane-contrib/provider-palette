@@ -7,122 +7,122 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
-// GetCondition of this Helm.
-func (mg *Helm) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this HelmRegistry.
+func (mg *HelmRegistry) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Helm.
-func (mg *Helm) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this HelmRegistry.
+func (mg *HelmRegistry) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Helm.
-func (mg *Helm) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this HelmRegistry.
+func (mg *HelmRegistry) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Helm.
-func (mg *Helm) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this HelmRegistry.
+func (mg *HelmRegistry) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Helm.
-func (mg *Helm) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this HelmRegistry.
+func (mg *HelmRegistry) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Helm.
-func (mg *Helm) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this HelmRegistry.
+func (mg *HelmRegistry) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Helm.
-func (mg *Helm) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this HelmRegistry.
+func (mg *HelmRegistry) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Helm.
-func (mg *Helm) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this HelmRegistry.
+func (mg *HelmRegistry) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Helm.
-func (mg *Helm) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this HelmRegistry.
+func (mg *HelmRegistry) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Helm.
-func (mg *Helm) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this HelmRegistry.
+func (mg *HelmRegistry) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Helm.
-func (mg *Helm) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this HelmRegistry.
+func (mg *HelmRegistry) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Helm.
-func (mg *Helm) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this HelmRegistry.
+func (mg *HelmRegistry) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Oci.
-func (mg *Oci) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this OCIRegistry.
+func (mg *OCIRegistry) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Oci.
-func (mg *Oci) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this OCIRegistry.
+func (mg *OCIRegistry) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Oci.
-func (mg *Oci) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this OCIRegistry.
+func (mg *OCIRegistry) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Oci.
-func (mg *Oci) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this OCIRegistry.
+func (mg *OCIRegistry) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Oci.
-func (mg *Oci) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this OCIRegistry.
+func (mg *OCIRegistry) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Oci.
-func (mg *Oci) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this OCIRegistry.
+func (mg *OCIRegistry) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Oci.
-func (mg *Oci) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this OCIRegistry.
+func (mg *OCIRegistry) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Oci.
-func (mg *Oci) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this OCIRegistry.
+func (mg *OCIRegistry) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Oci.
-func (mg *Oci) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this OCIRegistry.
+func (mg *OCIRegistry) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Oci.
-func (mg *Oci) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this OCIRegistry.
+func (mg *OCIRegistry) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Oci.
-func (mg *Oci) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this OCIRegistry.
+func (mg *OCIRegistry) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Oci.
-func (mg *Oci) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this OCIRegistry.
+func (mg *OCIRegistry) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

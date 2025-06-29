@@ -15,6 +15,10 @@ import (
 
 type MacroInitParameters struct {
 
+	// (String) The name of the macro or service variable output.
+	// The name of the macro or service variable output.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) The Spectro Cloud project name.
 	// The Spectro Cloud project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -29,6 +33,10 @@ type MacroObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the macro or service variable output.
+	// The name of the macro or service variable output.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) The Spectro Cloud project name.
 	// The Spectro Cloud project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -39,6 +47,11 @@ type MacroObservation struct {
 }
 
 type MacroParameters struct {
+
+	// (String) The name of the macro or service variable output.
+	// The name of the macro or service variable output.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The Spectro Cloud project name.
 	// The Spectro Cloud project name.
@@ -87,6 +100,7 @@ type MacroStatus struct {
 type Macro struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	Spec   MacroSpec   `json:"spec"`
 	Status MacroStatus `json:"status,omitempty"`

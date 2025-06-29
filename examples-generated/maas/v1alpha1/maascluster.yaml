@@ -1,0 +1,53 @@
+apiVersion: maas.palette.crossplane.io/v1alpha1
+kind: MAASCluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: maas/v1alpha1/maascluster
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    backupPolicy:
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_backup_storage_location
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: true
+      prefix: prod-backup
+      schedule: 0 0 * * SUN
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_maas
+    cloudConfig:
+    - domain: maas.mycompany.com
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
+    machinePool:
+    - controlPlane: true
+      count: 1
+      instanceType:
+      - minCpu: 8
+        minMemoryMb: 16000
+      name: control-plane
+      placement:
+      - resourcePool: Production-Compute-Pool-1
+    - count: 1
+      instanceType:
+      - minCpu: 8
+        minMemoryMb: 32000
+      name: worker-basic
+      placement:
+      - resourcePool: Production-Compute-Pool-2
+    name: ${var.cluster_name}
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - dev
+    - department:devops
+    - owner:bob

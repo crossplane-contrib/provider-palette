@@ -7,62 +7,62 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
-// GetCondition of this StorageLocation.
-func (mg *StorageLocation) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this StorageLocation.
-func (mg *StorageLocation) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this StorageLocation.
-func (mg *StorageLocation) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this StorageLocation.
-func (mg *StorageLocation) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this StorageLocation.
-func (mg *StorageLocation) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this StorageLocation.
-func (mg *StorageLocation) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this BackupStorageLocation.
+func (mg *BackupStorageLocation) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this StorageLocation.
-func (mg *StorageLocation) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this StorageLocation.
-func (mg *StorageLocation) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this StorageLocation.
-func (mg *StorageLocation) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this StorageLocation.
-func (mg *StorageLocation) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this StorageLocation.
-func (mg *StorageLocation) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this StorageLocation.
-func (mg *StorageLocation) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this BackupStorageLocation.
+func (mg *BackupStorageLocation) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

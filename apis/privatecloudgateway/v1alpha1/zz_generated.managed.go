@@ -67,62 +67,62 @@ func (mg *DNSMap) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Ippool.
-func (mg *Ippool) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this IPPool.
+func (mg *IPPool) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Ippool.
-func (mg *Ippool) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this IPPool.
+func (mg *IPPool) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Ippool.
-func (mg *Ippool) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this IPPool.
+func (mg *IPPool) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Ippool.
-func (mg *Ippool) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this IPPool.
+func (mg *IPPool) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Ippool.
-func (mg *Ippool) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this IPPool.
+func (mg *IPPool) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Ippool.
-func (mg *Ippool) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this IPPool.
+func (mg *IPPool) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Ippool.
-func (mg *Ippool) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this IPPool.
+func (mg *IPPool) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Ippool.
-func (mg *Ippool) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this IPPool.
+func (mg *IPPool) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Ippool.
-func (mg *Ippool) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this IPPool.
+func (mg *IPPool) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Ippool.
-func (mg *Ippool) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this IPPool.
+func (mg *IPPool) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Ippool.
-func (mg *Ippool) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this IPPool.
+func (mg *IPPool) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Ippool.
-func (mg *Ippool) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this IPPool.
+func (mg *IPPool) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

@@ -1,0 +1,16 @@
+apiVersion: maas.palette.crossplane.io/v1alpha1
+kind: MAASCloudAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: maas/v1alpha1/maascloudaccount
+  labels:
+    testing.upbound.io/example-name: maas-1
+  name: maas-1
+spec:
+  forProvider:
+    maasApiEndpoint: ${var.maas_api_endpoint}
+    maasApiKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    name: maas-1

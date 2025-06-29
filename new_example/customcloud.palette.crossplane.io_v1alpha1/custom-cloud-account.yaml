@@ -1,0 +1,16 @@
+apiVersion: customcloud.palette.crossplane.io/v1alpha1
+kind: CustomCloudAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: customcloud/v1alpha1/cloudaccount
+  labels:
+    testing.upbound.io/example-name: custom-cloud-account
+  name: custom-cloud-account
+spec:
+  forProvider:
+    context: project
+    name: "Custom Cloud Account"
+    description: "Custom cloud provider account"
+    type: "custom"
+    # Add custom cloud specific configuration here
+    # This will depend on your specific custom cloud provider requirements 

@@ -8,5 +8,6 @@ metadata:
   name: project-macro
 spec:
   forProvider:
+    name: project1
     project: Default
     value: project_val2

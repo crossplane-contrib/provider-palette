@@ -8,7 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
-	cloudaccountv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
+	awsv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/aws/v1alpha1"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
 
@@ -16,18 +16,18 @@ var _ = Describe("Cloud Account Tests", Ordered, func() {
 
 	Describe("Creating an AWS cloud account", func() {
 		It("should succeed", func() {
-			awsCloudAccount := &cloudaccountv1alpha1.Aws{
+			awsCloudAccount := &awsv1alpha1.AWSCloudAccount{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "aws-cloud-account",
 					Namespace: "default",
 				},
-				Spec: cloudaccountv1alpha1.AwsSpec{
+				Spec: awsv1alpha1.AWSCloudAccountSpec{
 					ResourceSpec: v1.ResourceSpec{
 						ProviderConfigReference: &v1.Reference{
 							Name: "provider-palette-config",
 						},
 					},
-					ForProvider: cloudaccountv1alpha1.AwsParameters{
+					ForProvider: awsv1alpha1.AWSCloudAccountParameters{
 						Type: utils.Ptr("secret"),
 					},
 				},

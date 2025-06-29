@@ -7,62 +7,122 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
-// GetCondition of this Setting.
-func (mg *Setting) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this PlatformSetting.
+func (mg *PlatformSetting) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Setting.
-func (mg *Setting) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this PlatformSetting.
+func (mg *PlatformSetting) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Setting.
-func (mg *Setting) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this PlatformSetting.
+func (mg *PlatformSetting) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Setting.
-func (mg *Setting) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this PlatformSetting.
+func (mg *PlatformSetting) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Setting.
-func (mg *Setting) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this PlatformSetting.
+func (mg *PlatformSetting) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Setting.
-func (mg *Setting) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this PlatformSetting.
+func (mg *PlatformSetting) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Setting.
-func (mg *Setting) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this PlatformSetting.
+func (mg *PlatformSetting) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Setting.
-func (mg *Setting) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this PlatformSetting.
+func (mg *PlatformSetting) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Setting.
-func (mg *Setting) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this PlatformSetting.
+func (mg *PlatformSetting) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Setting.
-func (mg *Setting) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this PlatformSetting.
+func (mg *PlatformSetting) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Setting.
-func (mg *Setting) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this PlatformSetting.
+func (mg *PlatformSetting) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Setting.
-func (mg *Setting) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this PlatformSetting.
+func (mg *PlatformSetting) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this ResourceLimit.
+func (mg *ResourceLimit) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this ResourceLimit.
+func (mg *ResourceLimit) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this ResourceLimit.
+func (mg *ResourceLimit) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this ResourceLimit.
+func (mg *ResourceLimit) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this ResourceLimit.
+func (mg *ResourceLimit) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this ResourceLimit.
+func (mg *ResourceLimit) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this ResourceLimit.
+func (mg *ResourceLimit) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this ResourceLimit.
+func (mg *ResourceLimit) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this ResourceLimit.
+func (mg *ResourceLimit) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this ResourceLimit.
+func (mg *ResourceLimit) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this ResourceLimit.
+func (mg *ResourceLimit) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this ResourceLimit.
+func (mg *ResourceLimit) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

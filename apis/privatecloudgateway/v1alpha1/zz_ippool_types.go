@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type IppoolInitParameters struct {
+type IPPoolInitParameters struct {
 
 	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
@@ -26,6 +26,10 @@ type IppoolInitParameters struct {
 	// (String) The start IP address of the IP pool. Required if network_type is range.
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
+
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
@@ -58,7 +62,7 @@ type IppoolInitParameters struct {
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
-type IppoolObservation struct {
+type IPPoolObservation struct {
 
 	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
@@ -75,6 +79,10 @@ type IppoolObservation struct {
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
@@ -106,7 +114,7 @@ type IppoolObservation struct {
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
-type IppoolParameters struct {
+type IPPoolParameters struct {
 
 	// (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
 	// The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
@@ -123,6 +131,11 @@ type IppoolParameters struct {
 	// +kubebuilder:validation:Optional
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +kubebuilder:validation:Optional
@@ -161,10 +174,10 @@ type IppoolParameters struct {
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 }
 
-// IppoolSpec defines the desired state of Ippool
-type IppoolSpec struct {
+// IPPoolSpec defines the desired state of IPPool
+type IPPoolSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     IppoolParameters `json:"forProvider"`
+	ForProvider     IPPoolParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -175,53 +188,54 @@ type IppoolSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider IppoolInitParameters `json:"initProvider,omitempty"`
+	InitProvider IPPoolInitParameters `json:"initProvider,omitempty"`
 }
 
-// IppoolStatus defines the observed state of Ippool.
-type IppoolStatus struct {
+// IPPoolStatus defines the observed state of IPPool.
+type IPPoolStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        IppoolObservation `json:"atProvider,omitempty"`
+	AtProvider        IPPoolObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Ippool is the Schema for the Ippools API. A Resource to manage IP pools for Private Cloud Gateway.
+// IPPool is the Schema for the IPPools API. A Resource to manage IP pools for Private Cloud Gateway.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
-type Ippool struct {
+type IPPool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.gateway) || (has(self.initProvider) && has(self.initProvider.gateway))",message="spec.forProvider.gateway is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkType) || (has(self.initProvider) && has(self.initProvider.networkType))",message="spec.forProvider.networkType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.prefix) || (has(self.initProvider) && has(self.initProvider.prefix))",message="spec.forProvider.prefix is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
-	Spec   IppoolSpec   `json:"spec"`
-	Status IppoolStatus `json:"status,omitempty"`
+	Spec   IPPoolSpec   `json:"spec"`
+	Status IPPoolStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// IppoolList contains a list of Ippools
-type IppoolList struct {
+// IPPoolList contains a list of IPPools
+type IPPoolList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Ippool `json:"items"`
+	Items           []IPPool `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Ippool_Kind             = "Ippool"
-	Ippool_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Ippool_Kind}.String()
-	Ippool_KindAPIVersion   = Ippool_Kind + "." + CRDGroupVersion.String()
-	Ippool_GroupVersionKind = CRDGroupVersion.WithKind(Ippool_Kind)
+	IPPool_Kind             = "IPPool"
+	IPPool_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: IPPool_Kind}.String()
+	IPPool_KindAPIVersion   = IPPool_Kind + "." + CRDGroupVersion.String()
+	IPPool_GroupVersionKind = CRDGroupVersion.WithKind(IPPool_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Ippool{}, &IppoolList{})
+	SchemeBuilder.Register(&IPPool{}, &IPPoolList{})
 }

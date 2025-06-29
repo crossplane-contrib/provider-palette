@@ -1,0 +1,17 @@
+apiVersion: virtualcluster.palette.crossplane.io/v1alpha1
+kind: VirtualCluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualcluster/v1alpha1/virtualcluster
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    hostClusterUid: ${var.host_cluster_uid}
+    name: virtual-cluster-demo
+    resources:
+    - maxCpu: 6
+      maxMemInMb: 6000
+      minCpu: 0
+      minMemInMb: 0

@@ -1,0 +1,10 @@
+apiVersion: privatecloudgateway.palette.crossplane.io/v1alpha1
+kind: DNSMap
+metadata:
+  name: ran-cp-dns-map
+spec:
+  forProvider:
+    dataCenter: "DataCenterTest"
+    network: "TEST-VM-NETWORK"
+    privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"
+    searchDomainName: "test123.spectro.com"

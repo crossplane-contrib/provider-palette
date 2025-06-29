@@ -1,0 +1,23 @@
+apiVersion: application.palette.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    meta.upbound.io/example-id: application/v1alpha1/application
+  labels:
+    testing.upbound.io/example-name: application
+  name: application
+spec:
+  forProvider:
+    applicationProfileUidSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_application_profile
+    config:
+    - clusterGroupUidSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      clusterName: sandbox-scorpius
+      limits:
+      - cpu: 2
+        memory: 4096
+        storage: 10
+    name: app-beru-whitesun-lars

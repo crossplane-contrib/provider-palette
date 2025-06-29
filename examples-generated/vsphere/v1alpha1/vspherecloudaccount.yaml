@@ -1,0 +1,20 @@
+apiVersion: vsphere.palette.crossplane.io/v1alpha1
+kind: VSphereCloudAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vsphere/v1alpha1/vspherecloudaccount
+  labels:
+    testing.upbound.io/example-name: account
+  name: account
+spec:
+  forProvider:
+    context: tenant
+    name: vs
+    privateCloudGatewayId: ${var.private_cloud_gateway_id}
+    vsphereIgnoreInsecureError: true
+    vspherePasswordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    vsphereUsername: ${var.vsphere_username}
+    vsphereVcenter: ${var.vsphere_vcenter}

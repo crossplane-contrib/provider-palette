@@ -7,19 +7,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *Alert) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Appliance) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Application) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Datavolume) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Filter) Hub() {}
+func (tr *AddonDeployment) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Macro) Hub() {}
@@ -29,18 +17,6 @@ func (tr *Macros) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Project) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Role) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Sso) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Team) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *User) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Workspace) Hub() {}

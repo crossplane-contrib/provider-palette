@@ -78,6 +78,11 @@ spec:
                       (String) The description of the project.
                       The description of the project.
                     type: string
+                  name:
+                    description: |-
+                      (String) The name of the project.
+                      The name of the project.
+                    type: string
                   tags:
                     description: |-
                       (Set of String) Assign tags to the project.
@@ -104,6 +109,11 @@ spec:
                     description: |-
                       (String) The description of the project.
                       The description of the project.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the project.
+                      The name of the project.
                     type: string
                   tags:
                     description: |-
@@ -281,6 +291,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: ProjectStatus defines the observed state of Project.
             properties:
@@ -293,6 +308,11 @@ spec:
                     type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the project.
+                      The name of the project.
                     type: string
                   tags:
                     description: |-

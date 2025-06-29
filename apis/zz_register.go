@@ -10,23 +10,29 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-palette/apis/addon/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-palette/apis/accesscontrol/v1alpha1"
 	v1alpha1application "github.com/crossplane-contrib/provider-palette/apis/application/v1alpha1"
+	v1alpha1aws "github.com/crossplane-contrib/provider-palette/apis/aws/v1alpha1"
+	v1alpha1azure "github.com/crossplane-contrib/provider-palette/apis/azure/v1alpha1"
 	v1alpha1backup "github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1"
-	v1alpha1cloudaccount "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
-	v1alpha1cluster "github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1"
-	v1alpha1developer "github.com/crossplane-contrib/provider-palette/apis/developer/v1alpha1"
-	v1alpha1password "github.com/crossplane-contrib/provider-palette/apis/password/v1alpha1"
+	v1alpha1clustergroup "github.com/crossplane-contrib/provider-palette/apis/clustergroup/v1alpha1"
+	v1alpha1clusterprofile "github.com/crossplane-contrib/provider-palette/apis/clusterprofile/v1alpha1"
+	v1alpha1customcloud "github.com/crossplane-contrib/provider-palette/apis/customcloud/v1alpha1"
+	v1alpha1edge "github.com/crossplane-contrib/provider-palette/apis/edge/v1alpha1"
+	v1alpha1gcp "github.com/crossplane-contrib/provider-palette/apis/gcp/v1alpha1"
+	v1alpha1maas "github.com/crossplane-contrib/provider-palette/apis/maas/v1alpha1"
+	v1alpha1monitoring "github.com/crossplane-contrib/provider-palette/apis/monitoring/v1alpha1"
+	v1alpha1openstack "github.com/crossplane-contrib/provider-palette/apis/openstack/v1alpha1"
 	v1alpha1platform "github.com/crossplane-contrib/provider-palette/apis/platform/v1alpha1"
 	v1alpha1privatecloudgateway "github.com/crossplane-contrib/provider-palette/apis/privatecloudgateway/v1alpha1"
-	v1alpha1registration "github.com/crossplane-contrib/provider-palette/apis/registration/v1alpha1"
 	v1alpha1registry "github.com/crossplane-contrib/provider-palette/apis/registry/v1alpha1"
-	v1alpha1resource "github.com/crossplane-contrib/provider-palette/apis/resource/v1alpha1"
+	v1alpha1security "github.com/crossplane-contrib/provider-palette/apis/security/v1alpha1"
 	v1alpha1spectrocloud "github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1"
-	v1alpha1ssh "github.com/crossplane-contrib/provider-palette/apis/ssh/v1alpha1"
 	v1alpha1apis "github.com/crossplane-contrib/provider-palette/apis/v1alpha1"
 	v1beta1 "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
-	v1alpha1virtual "github.com/crossplane-contrib/provider-palette/apis/virtual/v1alpha1"
+	v1alpha1virtualcluster "github.com/crossplane-contrib/provider-palette/apis/virtualcluster/v1alpha1"
+	v1alpha1virtualmachine "github.com/crossplane-contrib/provider-palette/apis/virtualmachine/v1alpha1"
+	v1alpha1vsphere "github.com/crossplane-contrib/provider-palette/apis/vsphere/v1alpha1"
 )
 
 func init() {
@@ -34,21 +40,27 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1application.SchemeBuilder.AddToScheme,
+		v1alpha1aws.SchemeBuilder.AddToScheme,
+		v1alpha1azure.SchemeBuilder.AddToScheme,
 		v1alpha1backup.SchemeBuilder.AddToScheme,
-		v1alpha1cloudaccount.SchemeBuilder.AddToScheme,
-		v1alpha1cluster.SchemeBuilder.AddToScheme,
-		v1alpha1developer.SchemeBuilder.AddToScheme,
-		v1alpha1password.SchemeBuilder.AddToScheme,
+		v1alpha1clustergroup.SchemeBuilder.AddToScheme,
+		v1alpha1clusterprofile.SchemeBuilder.AddToScheme,
+		v1alpha1customcloud.SchemeBuilder.AddToScheme,
+		v1alpha1edge.SchemeBuilder.AddToScheme,
+		v1alpha1gcp.SchemeBuilder.AddToScheme,
+		v1alpha1maas.SchemeBuilder.AddToScheme,
+		v1alpha1monitoring.SchemeBuilder.AddToScheme,
+		v1alpha1openstack.SchemeBuilder.AddToScheme,
 		v1alpha1platform.SchemeBuilder.AddToScheme,
 		v1alpha1privatecloudgateway.SchemeBuilder.AddToScheme,
-		v1alpha1registration.SchemeBuilder.AddToScheme,
 		v1alpha1registry.SchemeBuilder.AddToScheme,
-		v1alpha1resource.SchemeBuilder.AddToScheme,
+		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1alpha1spectrocloud.SchemeBuilder.AddToScheme,
-		v1alpha1ssh.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
-		v1alpha1virtual.SchemeBuilder.AddToScheme,
+		v1alpha1virtualcluster.SchemeBuilder.AddToScheme,
+		v1alpha1virtualmachine.SchemeBuilder.AddToScheme,
+		v1alpha1vsphere.SchemeBuilder.AddToScheme,
 	)
 }
 

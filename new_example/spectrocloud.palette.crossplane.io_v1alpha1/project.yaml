@@ -1,0 +1,14 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/project
+  labels:
+    testing.upbound.io/example-name: project
+  name: project-testing
+spec:
+  forProvider:
+    description: "crossplane testing project - updated"
+    tags:
+      - "TF:Ranjith"
+    

@@ -1,0 +1,44 @@
+apiVersion: openstack.palette.crossplane.io/v1alpha1
+kind: OpenstackCluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: openstack/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: openstack-cluster
+  name: openstack-test-cluster
+spec:
+  forProvider:
+    context: project
+    name: "OpenStack Test Cluster"
+    description: "OpenStack cluster for testing"
+    cloudAccountIdRef:
+      name: openstack-cloud-account
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    cloudConfig:
+      - region: "<YOUR_OPENSTACK_REGION>"
+        azs:
+          - "<YOUR_AVAILABILITY_ZONE>"
+        networkId: "<YOUR_NETWORK_ID>"
+        subnetId: "<YOUR_SUBNET_ID>"
+        sshKeyName: "<YOUR_SSH_KEY_NAME>"
+    machinePool:
+      - name: "control-plane-pool"
+        controlPlane: true
+        controlPlaneAsWorker: true
+        count: 1
+        instanceType: "<YOUR_INSTANCE_FLAVOR>"
+        rootVolumeSize: 60
+        rootVolumeType: "<YOUR_VOLUME_TYPE>"
+        additionalLabels:
+          purpose: "control-plane"
+      - name: "worker-pool"
+        count: 2
+        instanceType: "<YOUR_INSTANCE_FLAVOR>"
+        rootVolumeSize: 60
+        rootVolumeType: "<YOUR_VOLUME_TYPE>"
+        additionalLabels:
+          purpose: "worker"
+    tags:
+      - "openstack"
+      - "test-cluster" 
