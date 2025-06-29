@@ -2,6 +2,12 @@ package resources
 
 import "github.com/crossplane/upjet/pkg/config"
 
+const (
+	// Common short group names
+	shortGroupSecurity     = "security"
+	shortGroupSpectrocloud = "spectrocloud"
+)
+
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 
@@ -17,7 +23,7 @@ func Configure(p *config.Provider) {
 
 	// Special configuration for sso to override customdiff
 	p.AddResourceConfigurator("spectrocloud_sso", func(r *config.Resource) {
-		r.ShortGroup = "security"
+		r.ShortGroup = shortGroupSecurity
 		r.Kind = "SSO"
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
@@ -27,7 +33,7 @@ func Configure(p *config.Provider) {
 
 	// Special configuration for password policy to override customdiff
 	p.AddResourceConfigurator("spectrocloud_password_policy", func(r *config.Resource) {
-		r.ShortGroup = "security"
+		r.ShortGroup = shortGroupSecurity
 		r.Kind = "PasswordPolicy"
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
@@ -37,12 +43,12 @@ func Configure(p *config.Provider) {
 
 	// Spectrocloud core resources
 	p.AddResourceConfigurator("spectrocloud_project", func(r *config.Resource) {
-		r.ShortGroup = "spectrocloud"
+		r.ShortGroup = shortGroupSpectrocloud
 		r.Kind = "Project"
 	})
 
 	p.AddResourceConfigurator("spectrocloud_workspace", func(r *config.Resource) {
-		r.ShortGroup = "spectrocloud"
+		r.ShortGroup = shortGroupSpectrocloud
 		r.Kind = "Workspace"
 		r.References["backup_policy.backup_location_id"] = config.Reference{
 			TerraformName: "spectrocloud_backup_storage_location",
@@ -50,12 +56,12 @@ func Configure(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_macro", func(r *config.Resource) {
-		r.ShortGroup = "spectrocloud"
+		r.ShortGroup = shortGroupSpectrocloud
 		r.Kind = "Macro"
 	})
 
 	p.AddResourceConfigurator("spectrocloud_macros", func(r *config.Resource) {
-		r.ShortGroup = "spectrocloud"
+		r.ShortGroup = shortGroupSpectrocloud
 		r.Kind = "Macros"
 	})
 
@@ -184,7 +190,7 @@ func Configure(p *config.Provider) {
 
 	// Addon resources
 	p.AddResourceConfigurator("spectrocloud_addon_deployment", func(r *config.Resource) {
-		r.ShortGroup = "spectrocloud"
+		r.ShortGroup = shortGroupSpectrocloud
 		r.Kind = "AddonDeployment"
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{
@@ -366,6 +372,10 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_gcp", func(r *config.Resource) {
 		r.ShortGroup = "gcp"
 		r.Kind = "GCPCloudAccount"
+		if s, ok := r.TerraformResource.Schema["gcp_json_credentials"]; ok {
+			s.Required = true
+			s.Sensitive = true
+		}
 	})
 
 	// Custom cloud resources
@@ -427,12 +437,12 @@ func Configure(p *config.Provider) {
 
 	// Security resources
 	p.AddResourceConfigurator("spectrocloud_ssh_key", func(r *config.Resource) {
-		r.ShortGroup = "security"
+		r.ShortGroup = shortGroupSecurity
 		r.Kind = "SSHKey"
 	})
 
 	p.AddResourceConfigurator("spectrocloud_registration_token", func(r *config.Resource) {
-		r.ShortGroup = "security"
+		r.ShortGroup = shortGroupSecurity
 		r.Kind = "RegistrationToken"
 		r.References["project_uid"] = config.Reference{
 			TerraformName: "spectrocloud_project",
@@ -440,7 +450,7 @@ func Configure(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_developer_setting", func(r *config.Resource) {
-		r.ShortGroup = "security"
+		r.ShortGroup = shortGroupSecurity
 		r.Kind = "DeveloperSetting"
 	})
 
