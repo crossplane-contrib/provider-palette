@@ -9,7 +9,7 @@ spec:
     context: project
     isDefault: false
     storageProvider: gcp
-     gcpStorageConfig:
+    gcpStorageConfig:
       - projectId: gcpproject
         gcpJsonCredentials: |
           {
