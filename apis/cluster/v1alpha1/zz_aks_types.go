@@ -24,7 +24,16 @@ type AksInitParameters struct {
 	BackupPolicy []BackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1.Azure
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Azure in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Azure in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	CloudConfig []CloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
@@ -62,6 +71,9 @@ type AksInitParameters struct {
 
 	// (Block List, Min: 1) (see below for nested schema)
 	MachinePool []MachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
@@ -170,6 +182,9 @@ type AksObservation struct {
 	// (Block List, Min: 1) (see below for nested schema)
 	MachinePool []MachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []NamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -221,8 +236,17 @@ type AksParameters struct {
 	BackupPolicy []BackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1.Azure
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Azure in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Azure in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -270,6 +294,10 @@ type AksParameters struct {
 	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	MachinePool []MachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
@@ -322,7 +350,16 @@ type BackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -412,8 +449,17 @@ type BackupPolicyParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
-	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -622,7 +668,16 @@ type ClusterProfileInitParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -654,8 +709,17 @@ type ClusterProfileParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -1363,9 +1427,9 @@ type AksStatus struct {
 type Aks struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccountId) || (has(self.initProvider) && has(self.initProvider.cloudAccountId))",message="spec.forProvider.cloudAccountId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   AksSpec   `json:"spec"`
 	Status AksStatus `json:"status,omitempty"`
 }

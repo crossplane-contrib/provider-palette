@@ -186,6 +186,11 @@ spec:
                       (Boolean) Specifies whether the registry is synchronized.
                       Specifies whether the registry is synchronized.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the OCI registry.
+                      The name of the OCI registry.
+                    type: string
                   providerType:
                     description: |-
                       (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
@@ -286,6 +291,11 @@ spec:
                       (Boolean) Specifies whether the registry is synchronized.
                       Specifies whether the registry is synchronized.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the OCI registry.
+                      The name of the OCI registry.
+                    type: string
                   providerType:
                     description: |-
                       (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
@@ -477,6 +487,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.isPrivate)
                 || (has(self.initProvider) && has(self.initProvider.isPrivate))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.type is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
@@ -565,6 +579,11 @@ spec:
                       (Boolean) Specifies whether the registry is synchronized.
                       Specifies whether the registry is synchronized.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the OCI registry.
+                      The name of the OCI registry.
+                    type: string
                   providerType:
                     description: |-
                       (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"

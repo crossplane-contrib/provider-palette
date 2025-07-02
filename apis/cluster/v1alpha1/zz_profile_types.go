@@ -26,6 +26,9 @@ type ProfileInitParameters struct {
 	// (String)
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -63,6 +66,9 @@ type ProfileObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -236,6 +242,10 @@ type ProfileParameters struct {
 	// (String)
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -458,8 +468,9 @@ type ProfileStatus struct {
 type Profile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ProfileSpec   `json:"spec"`
-	Status            ProfileStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   ProfileSpec   `json:"spec"`
+	Status ProfileStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

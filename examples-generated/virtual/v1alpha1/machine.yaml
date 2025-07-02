@@ -30,6 +30,7 @@ spec:
       tf: test
     memory:
     - guest: 1Gi
+    name: tf-test-vm-basic-type
     namespace: default
     network:
     - name: default

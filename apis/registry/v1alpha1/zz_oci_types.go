@@ -136,6 +136,10 @@ type OciInitParameters struct {
 	// Specifies whether the registry is synchronized.
 	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
+	// (String) The name of the OCI registry.
+	// The name of the OCI registry.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
 	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
@@ -173,6 +177,10 @@ type OciObservation struct {
 	// (Boolean) Specifies whether the registry is synchronized.
 	// Specifies whether the registry is synchronized.
 	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
+
+	// (String) The name of the OCI registry.
+	// The name of the OCI registry.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
 	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
@@ -214,6 +222,11 @@ type OciParameters struct {
 	// Specifies whether the registry is synchronized.
 	// +kubebuilder:validation:Optional
 	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
+
+	// (String) The name of the OCI registry.
+	// The name of the OCI registry.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
 	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
@@ -300,6 +313,7 @@ type Oci struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentials) || (has(self.initProvider) && has(self.initProvider.credentials))",message="spec.forProvider.credentials is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpoint) || (has(self.initProvider) && has(self.initProvider.endpoint))",message="spec.forProvider.endpoint is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPrivate) || (has(self.initProvider) && has(self.initProvider.isPrivate))",message="spec.forProvider.isPrivate is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   OciSpec   `json:"spec"`
 	Status OciStatus `json:"status,omitempty"`

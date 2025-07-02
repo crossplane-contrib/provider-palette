@@ -87,6 +87,10 @@ type HelmInitParameters struct {
 	// (Boolean) Specifies whether the Helm registry is private or public.
 	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (String) The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type HelmObservation struct {
@@ -105,6 +109,10 @@ type HelmObservation struct {
 	// (Boolean) Specifies whether the Helm registry is private or public.
 	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (String) The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type HelmParameters struct {
@@ -123,6 +131,11 @@ type HelmParameters struct {
 	// Specifies whether the Helm registry is private or public.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (String) The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // HelmSpec defines the desired state of Helm
@@ -164,6 +177,7 @@ type Helm struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentials) || (has(self.initProvider) && has(self.initProvider.credentials))",message="spec.forProvider.credentials is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpoint) || (has(self.initProvider) && has(self.initProvider.endpoint))",message="spec.forProvider.endpoint is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPrivate) || (has(self.initProvider) && has(self.initProvider.isPrivate))",message="spec.forProvider.isPrivate is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   HelmSpec   `json:"spec"`
 	Status HelmStatus `json:"status,omitempty"`
 }

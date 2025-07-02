@@ -149,7 +149,16 @@ type GroupClusterProfileInitParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -316,8 +325,17 @@ type GroupClusterProfileParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -351,6 +369,10 @@ type GroupInitParameters struct {
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Name of the cluster group
+	// Name of the cluster group
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster group. Tags must be in the form of `key:value`.
 	// +listType=set
@@ -379,6 +401,10 @@ type GroupObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Name of the cluster group
+	// Name of the cluster group
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster group. Tags must be in the form of `key:value`.
@@ -410,6 +436,11 @@ type GroupParameters struct {
 	// The description of the cluster. Default value is empty string.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) Name of the cluster group
+	// Name of the cluster group
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster group. Tags must be in the form of `key:value`.
@@ -455,6 +486,7 @@ type Group struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.config) || (has(self.initProvider) && has(self.initProvider.config))",message="spec.forProvider.config is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   GroupSpec   `json:"spec"`
 	Status GroupStatus `json:"status,omitempty"`
 }

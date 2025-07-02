@@ -17,12 +17,30 @@ type ProjectRoleInitParameters struct {
 
 	// (String) Project id to be associated with the user.
 	// Project id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of project role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +listType=set
 	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 type ProjectRoleObservation struct {
@@ -41,32 +59,77 @@ type ProjectRoleParameters struct {
 
 	// (String) Project id to be associated with the user.
 	// Project id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
-	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of project role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	RoleIds []*string `json:"roleIds" tf:"role_ids,omitempty"`
+	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 type ResourceRoleInitParameters struct {
 
 	// (Set of String) List of filter ids.
 	// List of filter ids.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Filter
 	// +listType=set
 	FilterIds []*string `json:"filterIds,omitempty" tf:"filter_ids,omitempty"`
 
+	// References to Filter in spectrocloud to populate filterIds.
+	// +kubebuilder:validation:Optional
+	FilterIdsRefs []v1.Reference `json:"filterIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Filter in spectrocloud to populate filterIds.
+	// +kubebuilder:validation:Optional
+	FilterIdsSelector *v1.Selector `json:"filterIdsSelector,omitempty" tf:"-"`
+
 	// (Set of String) Project id's to be associated with the user.
 	// Project id's to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	// +listType=set
 	ProjectIds []*string `json:"projectIds,omitempty" tf:"project_ids,omitempty"`
 
+	// References to Project in spectrocloud to populate projectIds.
+	// +kubebuilder:validation:Optional
+	ProjectIdsRefs []v1.Reference `json:"projectIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Project in spectrocloud to populate projectIds.
+	// +kubebuilder:validation:Optional
+	ProjectIdsSelector *v1.Selector `json:"projectIdsSelector,omitempty" tf:"-"`
+
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of resource role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +listType=set
 	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 type ResourceRoleObservation struct {
@@ -91,21 +154,48 @@ type ResourceRoleParameters struct {
 
 	// (Set of String) List of filter ids.
 	// List of filter ids.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Filter
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	FilterIds []*string `json:"filterIds" tf:"filter_ids,omitempty"`
+	FilterIds []*string `json:"filterIds,omitempty" tf:"filter_ids,omitempty"`
+
+	// References to Filter in spectrocloud to populate filterIds.
+	// +kubebuilder:validation:Optional
+	FilterIdsRefs []v1.Reference `json:"filterIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Filter in spectrocloud to populate filterIds.
+	// +kubebuilder:validation:Optional
+	FilterIdsSelector *v1.Selector `json:"filterIdsSelector,omitempty" tf:"-"`
 
 	// (Set of String) Project id's to be associated with the user.
 	// Project id's to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	ProjectIds []*string `json:"projectIds" tf:"project_ids,omitempty"`
+	ProjectIds []*string `json:"projectIds,omitempty" tf:"project_ids,omitempty"`
+
+	// References to Project in spectrocloud to populate projectIds.
+	// +kubebuilder:validation:Optional
+	ProjectIdsRefs []v1.Reference `json:"projectIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Project in spectrocloud to populate projectIds.
+	// +kubebuilder:validation:Optional
+	ProjectIdsSelector *v1.Selector `json:"projectIdsSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of resource role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	RoleIds []*string `json:"roleIds" tf:"role_ids,omitempty"`
+	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 type UserInitParameters struct {
@@ -131,12 +221,30 @@ type UserInitParameters struct {
 
 	// (List of String) The team id's assigned to the user.
 	// The team id's assigned to the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Team
 	TeamIds []*string `json:"teamIds,omitempty" tf:"team_ids,omitempty"`
+
+	// References to Team in spectrocloud to populate teamIds.
+	// +kubebuilder:validation:Optional
+	TeamIdsRefs []v1.Reference `json:"teamIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Team in spectrocloud to populate teamIds.
+	// +kubebuilder:validation:Optional
+	TeamIdsSelector *v1.Selector `json:"teamIdsSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of tenant role ids to be associated with the user.
 	// List of tenant role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +listType=set
 	TenantRole []*string `json:"tenantRole,omitempty" tf:"tenant_role,omitempty"`
+
+	// References to Role in spectrocloud to populate tenantRole.
+	// +kubebuilder:validation:Optional
+	TenantRoleRefs []v1.Reference `json:"tenantRoleRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate tenantRole.
+	// +kubebuilder:validation:Optional
+	TenantRoleSelector *v1.Selector `json:"tenantRoleSelector,omitempty" tf:"-"`
 
 	// (Block Set) List of workspace roles to be associated with the user. (see below for nested schema)
 	// List of workspace roles to be associated with the user.
@@ -209,14 +317,32 @@ type UserParameters struct {
 
 	// (List of String) The team id's assigned to the user.
 	// The team id's assigned to the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Team
 	// +kubebuilder:validation:Optional
 	TeamIds []*string `json:"teamIds,omitempty" tf:"team_ids,omitempty"`
 
+	// References to Team in spectrocloud to populate teamIds.
+	// +kubebuilder:validation:Optional
+	TeamIdsRefs []v1.Reference `json:"teamIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Team in spectrocloud to populate teamIds.
+	// +kubebuilder:validation:Optional
+	TeamIdsSelector *v1.Selector `json:"teamIdsSelector,omitempty" tf:"-"`
+
 	// (Set of String) List of tenant role ids to be associated with the user.
 	// List of tenant role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	TenantRole []*string `json:"tenantRole,omitempty" tf:"tenant_role,omitempty"`
+
+	// References to Role in spectrocloud to populate tenantRole.
+	// +kubebuilder:validation:Optional
+	TenantRoleRefs []v1.Reference `json:"tenantRoleRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate tenantRole.
+	// +kubebuilder:validation:Optional
+	TenantRoleSelector *v1.Selector `json:"tenantRoleSelector,omitempty" tf:"-"`
 
 	// (Block Set) List of workspace roles to be associated with the user. (see below for nested schema)
 	// List of workspace roles to be associated with the user.
@@ -228,7 +354,16 @@ type WorkspaceRoleInitParameters struct {
 
 	// (String) Project id to be associated with the user.
 	// Project id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Block Set, Min: 1) List of workspace roles to be associated with the user. (see below for nested schema)
 	// List of workspace roles to be associated with the user.
@@ -250,8 +385,17 @@ type WorkspaceRoleParameters struct {
 
 	// (String) Project id to be associated with the user.
 	// Project id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
-	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Block Set, Min: 1) List of workspace roles to be associated with the user. (see below for nested schema)
 	// List of workspace roles to be associated with the user.
@@ -263,12 +407,30 @@ type WorkspaceRoleWorkspaceInitParameters struct {
 
 	// (String) The ID of this resource.
 	// Workspace id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Workspace
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Workspace in spectrocloud to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Workspace in spectrocloud to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of workspace role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +listType=set
 	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 type WorkspaceRoleWorkspaceObservation struct {
@@ -287,14 +449,32 @@ type WorkspaceRoleWorkspaceParameters struct {
 
 	// (String) The ID of this resource.
 	// Workspace id to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Workspace
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Workspace in spectrocloud to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Workspace in spectrocloud to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of project role ids to be associated with the user.
 	// List of workspace role ids to be associated with the user.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Role
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	RoleIds []*string `json:"roleIds" tf:"role_ids,omitempty"`
+	RoleIds []*string `json:"roleIds,omitempty" tf:"role_ids,omitempty"`
+
+	// References to Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsRefs []v1.Reference `json:"roleIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Role in spectrocloud to populate roleIds.
+	// +kubebuilder:validation:Optional
+	RoleIdsSelector *v1.Selector `json:"roleIdsSelector,omitempty" tf:"-"`
 }
 
 // UserSpec defines the desired state of User

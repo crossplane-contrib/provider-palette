@@ -11,6 +11,7 @@ spec:
     gateway: 192.168.1.1
     ipEndRange: 192.168.1.100
     ipStartRange: 192.168.1.10
+    name: primary-compute-pool-1
     nameserverAddresses:
     - 192.168.1.8
     networkType: range

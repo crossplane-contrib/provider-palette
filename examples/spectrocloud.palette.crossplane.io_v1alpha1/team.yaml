@@ -8,6 +8,7 @@ metadata:
   name: aa-team-cp
 spec:
   forProvider:
+    name: aa-team-cp
     projectRoleMapping:
     - id: "<YOUR_PROJECT_ID>"
       roles:

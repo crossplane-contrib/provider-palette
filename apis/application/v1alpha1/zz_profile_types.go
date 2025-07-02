@@ -207,6 +207,10 @@ type ProfileInitParameters struct {
 	// Description of the profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Name of the application profile
+	// Name of the application profile
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
 	Pack []PackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -238,6 +242,10 @@ type ProfileObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name of the application profile
+	// Name of the application profile
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
 	Pack []PackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -268,6 +276,11 @@ type ProfileParameters struct {
 	// Description of the profile.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) Name of the application profile
+	// Name of the application profile
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
@@ -322,6 +335,7 @@ type ProfileStatus struct {
 type Profile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.pack) || (has(self.initProvider) && has(self.initProvider.pack))",message="spec.forProvider.pack is a required parameter"
 	Spec   ProfileSpec   `json:"spec"`
 	Status ProfileStatus `json:"status,omitempty"`

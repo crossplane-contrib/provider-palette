@@ -6,6 +6,7 @@ metadata:
     description: "Azure Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-azure-profile
     cloud: azure
     context: project
     type: cluster

@@ -10,5 +10,8 @@ spec:
   forProvider:
     description: test token description updated
     expiryDate: "2025-03-25"
-    projectUid: 6514216503b
+    name: tf_siva
+    projectUidSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     status: active

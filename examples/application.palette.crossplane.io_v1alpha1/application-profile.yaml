@@ -6,6 +6,7 @@ metadata:
     description: "Hello Universe UI Application Profile"
 spec:
   forProvider:
+    name: hello-universe-ui
     context: tenant
     description: "Hello Universe as a single UI instance - updated"
     version: "1.0.0"

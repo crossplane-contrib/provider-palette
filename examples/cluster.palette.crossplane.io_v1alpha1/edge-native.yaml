@@ -5,7 +5,7 @@ metadata:
   annotations:
     crossplane.io/external-name: "example-edge-native-cluster"
 spec:
-  deletionPolicy: Delete
+  name: example-edge-native-cluster
   forProvider:
     description: "Example Edge Native cluster for testing"
     cloudConfig:

@@ -9,6 +9,7 @@ metadata:
   name: workspace
 spec:
   forProvider:
+    name: workspace
     backupPolicy:
       - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
         clusterUids:

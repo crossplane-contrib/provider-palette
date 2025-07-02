@@ -13,3 +13,4 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
+    name: maas-1

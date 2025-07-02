@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     context: project
+    name: ssh-dev-1
     sshKeySecretRef:
       key: example-key
       name: example-secret

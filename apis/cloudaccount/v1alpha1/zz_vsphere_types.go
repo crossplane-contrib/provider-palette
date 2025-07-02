@@ -19,6 +19,10 @@ type VsphereInitParameters struct {
 	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	// Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
@@ -45,6 +49,10 @@ type VsphereObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	// Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
@@ -68,6 +76,11 @@ type VsphereParameters struct {
 	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	// Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the vSphere cloud.
@@ -131,6 +144,7 @@ type VsphereStatus struct {
 type Vsphere struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vspherePasswordSecretRef)",message="spec.forProvider.vspherePasswordSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vsphereUsername) || (has(self.initProvider) && has(self.initProvider.vsphereUsername))",message="spec.forProvider.vsphereUsername is a required parameter"

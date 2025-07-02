@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -725,12 +726,27 @@ func (in *ApplicationInitParameters) DeepCopyInto(out *ApplicationInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.ApplicationProfileUIDRef != nil {
+		in, out := &in.ApplicationProfileUIDRef, &out.ApplicationProfileUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ApplicationProfileUIDSelector != nil {
+		in, out := &in.ApplicationProfileUIDSelector, &out.ApplicationProfileUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
 		*out = make([]ConfigInitParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -807,6 +823,11 @@ func (in *ApplicationObservation) DeepCopyInto(out *ApplicationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]*string, len(*in))
@@ -838,12 +859,27 @@ func (in *ApplicationParameters) DeepCopyInto(out *ApplicationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ApplicationProfileUIDRef != nil {
+		in, out := &in.ApplicationProfileUIDRef, &out.ApplicationProfileUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ApplicationProfileUIDSelector != nil {
+		in, out := &in.ApplicationProfileUIDSelector, &out.ApplicationProfileUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
 		*out = make([]ConfigParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -910,6 +946,16 @@ func (in *BackupPolicyInitParameters) DeepCopyInto(out *BackupPolicyInitParamete
 		in, out := &in.BackupLocationID, &out.BackupLocationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
@@ -1064,6 +1110,16 @@ func (in *BackupPolicyParameters) DeepCopyInto(out *BackupPolicyParameters) {
 		in, out := &in.BackupLocationID, &out.BackupLocationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
@@ -1396,6 +1452,16 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterGroupUIDRef != nil {
+		in, out := &in.ClusterGroupUIDRef, &out.ClusterGroupUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterGroupUIDSelector != nil {
+		in, out := &in.ClusterGroupUIDSelector, &out.ClusterGroupUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterName != nil {
 		in, out := &in.ClusterName, &out.ClusterName
 		*out = new(string)
@@ -1405,6 +1471,16 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 		in, out := &in.ClusterUID, &out.ClusterUID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterUIDRef != nil {
+		in, out := &in.ClusterUIDRef, &out.ClusterUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterUIDSelector != nil {
+		in, out := &in.ClusterUIDSelector, &out.ClusterUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Limits != nil {
 		in, out := &in.Limits, &out.Limits
@@ -1480,6 +1556,16 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterGroupUIDRef != nil {
+		in, out := &in.ClusterGroupUIDRef, &out.ClusterGroupUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterGroupUIDSelector != nil {
+		in, out := &in.ClusterGroupUIDSelector, &out.ClusterGroupUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterName != nil {
 		in, out := &in.ClusterName, &out.ClusterName
 		*out = new(string)
@@ -1489,6 +1575,16 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 		in, out := &in.ClusterUID, &out.ClusterUID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterUIDRef != nil {
+		in, out := &in.ClusterUIDRef, &out.ClusterUIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterUIDSelector != nil {
+		in, out := &in.ClusterUIDSelector, &out.ClusterUIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Limits != nil {
 		in, out := &in.Limits, &out.Limits
@@ -2767,180 +2863,6 @@ func (in *LimitsParameters) DeepCopy() *LimitsParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *Macro) DeepCopyInto(out *Macro) {
-	*out = *in
-	out.TypeMeta = in.TypeMeta
-	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	in.Spec.DeepCopyInto(&out.Spec)
-	in.Status.DeepCopyInto(&out.Status)
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new Macro.
-func (in *Macro) DeepCopy() *Macro {
-	if in == nil {
-		return nil
-	}
-	out := new(Macro)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyObject is an autogenerated deepcopy function, copying the receiver, creating a new runtime.Object.
-func (in *Macro) DeepCopyObject() runtime.Object {
-	if c := in.DeepCopy(); c != nil {
-		return c
-	}
-	return nil
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroInitParameters) DeepCopyInto(out *MacroInitParameters) {
-	*out = *in
-	if in.Project != nil {
-		in, out := &in.Project, &out.Project
-		*out = new(string)
-		**out = **in
-	}
-	if in.Value != nil {
-		in, out := &in.Value, &out.Value
-		*out = new(string)
-		**out = **in
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroInitParameters.
-func (in *MacroInitParameters) DeepCopy() *MacroInitParameters {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroInitParameters)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroList) DeepCopyInto(out *MacroList) {
-	*out = *in
-	out.TypeMeta = in.TypeMeta
-	in.ListMeta.DeepCopyInto(&out.ListMeta)
-	if in.Items != nil {
-		in, out := &in.Items, &out.Items
-		*out = make([]Macro, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroList.
-func (in *MacroList) DeepCopy() *MacroList {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroList)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyObject is an autogenerated deepcopy function, copying the receiver, creating a new runtime.Object.
-func (in *MacroList) DeepCopyObject() runtime.Object {
-	if c := in.DeepCopy(); c != nil {
-		return c
-	}
-	return nil
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroObservation) DeepCopyInto(out *MacroObservation) {
-	*out = *in
-	if in.ID != nil {
-		in, out := &in.ID, &out.ID
-		*out = new(string)
-		**out = **in
-	}
-	if in.Project != nil {
-		in, out := &in.Project, &out.Project
-		*out = new(string)
-		**out = **in
-	}
-	if in.Value != nil {
-		in, out := &in.Value, &out.Value
-		*out = new(string)
-		**out = **in
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroObservation.
-func (in *MacroObservation) DeepCopy() *MacroObservation {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroObservation)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroParameters) DeepCopyInto(out *MacroParameters) {
-	*out = *in
-	if in.Project != nil {
-		in, out := &in.Project, &out.Project
-		*out = new(string)
-		**out = **in
-	}
-	if in.Value != nil {
-		in, out := &in.Value, &out.Value
-		*out = new(string)
-		**out = **in
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroParameters.
-func (in *MacroParameters) DeepCopy() *MacroParameters {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroParameters)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroSpec) DeepCopyInto(out *MacroSpec) {
-	*out = *in
-	in.ResourceSpec.DeepCopyInto(&out.ResourceSpec)
-	in.ForProvider.DeepCopyInto(&out.ForProvider)
-	in.InitProvider.DeepCopyInto(&out.InitProvider)
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroSpec.
-func (in *MacroSpec) DeepCopy() *MacroSpec {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroSpec)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *MacroStatus) DeepCopyInto(out *MacroStatus) {
-	*out = *in
-	in.ResourceStatus.DeepCopyInto(&out.ResourceStatus)
-	in.AtProvider.DeepCopyInto(&out.AtProvider)
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MacroStatus.
-func (in *MacroStatus) DeepCopy() *MacroStatus {
-	if in == nil {
-		return nil
-	}
-	out := new(MacroStatus)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *Macros) DeepCopyInto(out *Macros) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
@@ -3885,6 +3807,11 @@ func (in *ProjectInitParameters) DeepCopyInto(out *ProjectInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]*string, len(*in))
@@ -3953,6 +3880,11 @@ func (in *ProjectObservation) DeepCopyInto(out *ProjectObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]*string, len(*in))
@@ -3981,6 +3913,11 @@ func (in *ProjectParameters) DeepCopyInto(out *ProjectParameters) {
 	*out = *in
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -4015,6 +3952,16 @@ func (in *ProjectRoleInitParameters) DeepCopyInto(out *ProjectRoleInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -4025,6 +3972,18 @@ func (in *ProjectRoleInitParameters) DeepCopyInto(out *ProjectRoleInitParameters
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4046,6 +4005,16 @@ func (in *ProjectRoleMappingInitParameters) DeepCopyInto(out *ProjectRoleMapping
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Roles != nil {
 		in, out := &in.Roles, &out.Roles
 		*out = make([]*string, len(*in))
@@ -4056,6 +4025,18 @@ func (in *ProjectRoleMappingInitParameters) DeepCopyInto(out *ProjectRoleMapping
 				**out = **in
 			}
 		}
+	}
+	if in.RolesRefs != nil {
+		in, out := &in.RolesRefs, &out.RolesRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RolesSelector != nil {
+		in, out := &in.RolesSelector, &out.RolesSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4108,6 +4089,16 @@ func (in *ProjectRoleMappingParameters) DeepCopyInto(out *ProjectRoleMappingPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Roles != nil {
 		in, out := &in.Roles, &out.Roles
 		*out = make([]*string, len(*in))
@@ -4118,6 +4109,18 @@ func (in *ProjectRoleMappingParameters) DeepCopyInto(out *ProjectRoleMappingPara
 				**out = **in
 			}
 		}
+	}
+	if in.RolesRefs != nil {
+		in, out := &in.RolesRefs, &out.RolesRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RolesSelector != nil {
+		in, out := &in.RolesSelector, &out.RolesSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4170,6 +4173,16 @@ func (in *ProjectRoleParameters) DeepCopyInto(out *ProjectRoleParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -4180,6 +4193,18 @@ func (in *ProjectRoleParameters) DeepCopyInto(out *ProjectRoleParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4467,6 +4492,18 @@ func (in *ResourceRoleInitParameters) DeepCopyInto(out *ResourceRoleInitParamete
 			}
 		}
 	}
+	if in.FilterIdsRefs != nil {
+		in, out := &in.FilterIdsRefs, &out.FilterIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.FilterIdsSelector != nil {
+		in, out := &in.FilterIdsSelector, &out.FilterIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectIds != nil {
 		in, out := &in.ProjectIds, &out.ProjectIds
 		*out = make([]*string, len(*in))
@@ -4478,6 +4515,18 @@ func (in *ResourceRoleInitParameters) DeepCopyInto(out *ResourceRoleInitParamete
 			}
 		}
 	}
+	if in.ProjectIdsRefs != nil {
+		in, out := &in.ProjectIdsRefs, &out.ProjectIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ProjectIdsSelector != nil {
+		in, out := &in.ProjectIdsSelector, &out.ProjectIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -4488,6 +4537,18 @@ func (in *ResourceRoleInitParameters) DeepCopyInto(out *ResourceRoleInitParamete
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4563,6 +4624,18 @@ func (in *ResourceRoleParameters) DeepCopyInto(out *ResourceRoleParameters) {
 			}
 		}
 	}
+	if in.FilterIdsRefs != nil {
+		in, out := &in.FilterIdsRefs, &out.FilterIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.FilterIdsSelector != nil {
+		in, out := &in.FilterIdsSelector, &out.FilterIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectIds != nil {
 		in, out := &in.ProjectIds, &out.ProjectIds
 		*out = make([]*string, len(*in))
@@ -4574,6 +4647,18 @@ func (in *ResourceRoleParameters) DeepCopyInto(out *ResourceRoleParameters) {
 			}
 		}
 	}
+	if in.ProjectIdsRefs != nil {
+		in, out := &in.ProjectIdsRefs, &out.ProjectIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ProjectIdsSelector != nil {
+		in, out := &in.ProjectIdsSelector, &out.ProjectIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -4584,6 +4669,18 @@ func (in *ResourceRoleParameters) DeepCopyInto(out *ResourceRoleParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4768,6 +4865,11 @@ func (in *Role) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleInitParameters) DeepCopyInto(out *RoleInitParameters) {
 	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]*string, len(*in))
@@ -4836,6 +4938,11 @@ func (in *RoleObservation) DeepCopyInto(out *RoleObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]*string, len(*in))
@@ -4867,6 +4974,11 @@ func (in *RoleObservation) DeepCopy() *RoleObservation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleParameters) DeepCopyInto(out *RoleParameters) {
 	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]*string, len(*in))
@@ -6139,6 +6251,11 @@ func (in *Team) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *TeamInitParameters) DeepCopyInto(out *TeamInitParameters) {
 	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProjectRoleMapping != nil {
 		in, out := &in.ProjectRoleMapping, &out.ProjectRoleMapping
 		*out = make([]ProjectRoleMappingInitParameters, len(*in))
@@ -6157,6 +6274,18 @@ func (in *TeamInitParameters) DeepCopyInto(out *TeamInitParameters) {
 			}
 		}
 	}
+	if in.TenantRoleMappingRefs != nil {
+		in, out := &in.TenantRoleMappingRefs, &out.TenantRoleMappingRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TenantRoleMappingSelector != nil {
+		in, out := &in.TenantRoleMappingSelector, &out.TenantRoleMappingSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
 		*out = make([]*string, len(*in))
@@ -6167,6 +6296,18 @@ func (in *TeamInitParameters) DeepCopyInto(out *TeamInitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.UsersRefs != nil {
+		in, out := &in.UsersRefs, &out.UsersRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.UsersSelector != nil {
+		in, out := &in.UsersSelector, &out.UsersSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceRoleMapping != nil {
 		in, out := &in.WorkspaceRoleMapping, &out.WorkspaceRoleMapping
@@ -6227,6 +6368,11 @@ func (in *TeamObservation) DeepCopyInto(out *TeamObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProjectRoleMapping != nil {
 		in, out := &in.ProjectRoleMapping, &out.ProjectRoleMapping
 		*out = make([]ProjectRoleMappingObservation, len(*in))
@@ -6278,6 +6424,11 @@ func (in *TeamObservation) DeepCopy() *TeamObservation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *TeamParameters) DeepCopyInto(out *TeamParameters) {
 	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProjectRoleMapping != nil {
 		in, out := &in.ProjectRoleMapping, &out.ProjectRoleMapping
 		*out = make([]ProjectRoleMappingParameters, len(*in))
@@ -6296,6 +6447,18 @@ func (in *TeamParameters) DeepCopyInto(out *TeamParameters) {
 			}
 		}
 	}
+	if in.TenantRoleMappingRefs != nil {
+		in, out := &in.TenantRoleMappingRefs, &out.TenantRoleMappingRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TenantRoleMappingSelector != nil {
+		in, out := &in.TenantRoleMappingSelector, &out.TenantRoleMappingSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
 		*out = make([]*string, len(*in))
@@ -6306,6 +6469,18 @@ func (in *TeamParameters) DeepCopyInto(out *TeamParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.UsersRefs != nil {
+		in, out := &in.UsersRefs, &out.UsersRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.UsersSelector != nil {
+		in, out := &in.UsersSelector, &out.UsersSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceRoleMapping != nil {
 		in, out := &in.WorkspaceRoleMapping, &out.WorkspaceRoleMapping
@@ -6536,6 +6711,18 @@ func (in *UserInitParameters) DeepCopyInto(out *UserInitParameters) {
 			}
 		}
 	}
+	if in.TeamIdsRefs != nil {
+		in, out := &in.TeamIdsRefs, &out.TeamIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TeamIdsSelector != nil {
+		in, out := &in.TeamIdsSelector, &out.TeamIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TenantRole != nil {
 		in, out := &in.TenantRole, &out.TenantRole
 		*out = make([]*string, len(*in))
@@ -6546,6 +6733,18 @@ func (in *UserInitParameters) DeepCopyInto(out *UserInitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.TenantRoleRefs != nil {
+		in, out := &in.TenantRoleRefs, &out.TenantRoleRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TenantRoleSelector != nil {
+		in, out := &in.TenantRoleSelector, &out.TenantRoleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceRole != nil {
 		in, out := &in.WorkspaceRole, &out.WorkspaceRole
@@ -6719,6 +6918,18 @@ func (in *UserParameters) DeepCopyInto(out *UserParameters) {
 			}
 		}
 	}
+	if in.TeamIdsRefs != nil {
+		in, out := &in.TeamIdsRefs, &out.TeamIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TeamIdsSelector != nil {
+		in, out := &in.TeamIdsSelector, &out.TeamIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TenantRole != nil {
 		in, out := &in.TenantRole, &out.TenantRole
 		*out = make([]*string, len(*in))
@@ -6729,6 +6940,18 @@ func (in *UserParameters) DeepCopyInto(out *UserParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.TenantRoleRefs != nil {
+		in, out := &in.TenantRoleRefs, &out.TenantRoleRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TenantRoleSelector != nil {
+		in, out := &in.TenantRoleSelector, &out.TenantRoleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceRole != nil {
 		in, out := &in.WorkspaceRole, &out.WorkspaceRole
@@ -6885,6 +7108,16 @@ func (in *WorkspaceInitParameters) DeepCopyInto(out *WorkspaceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Roles != nil {
 		in, out := &in.Roles, &out.Roles
 		*out = make([]*string, len(*in))
@@ -6895,6 +7128,18 @@ func (in *WorkspaceInitParameters) DeepCopyInto(out *WorkspaceInitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.RolesRefs != nil {
+		in, out := &in.RolesRefs, &out.RolesRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RolesSelector != nil {
+		in, out := &in.RolesSelector, &out.RolesSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6934,6 +7179,11 @@ func (in *WorkspaceInitParameters_2) DeepCopyInto(out *WorkspaceInitParameters_2
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -7071,6 +7321,11 @@ func (in *WorkspaceObservation_2) DeepCopyInto(out *WorkspaceObservation_2) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Namespaces != nil {
 		in, out := &in.Namespaces, &out.Namespaces
 		*out = make([]NamespacesObservation, len(*in))
@@ -7116,6 +7371,16 @@ func (in *WorkspaceParameters) DeepCopyInto(out *WorkspaceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Roles != nil {
 		in, out := &in.Roles, &out.Roles
 		*out = make([]*string, len(*in))
@@ -7126,6 +7391,18 @@ func (in *WorkspaceParameters) DeepCopyInto(out *WorkspaceParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.RolesRefs != nil {
+		in, out := &in.RolesRefs, &out.RolesRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RolesSelector != nil {
+		in, out := &in.RolesSelector, &out.RolesSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7165,6 +7442,11 @@ func (in *WorkspaceParameters_2) DeepCopyInto(out *WorkspaceParameters_2) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -7288,6 +7570,16 @@ func (in *WorkspaceRoleInitParameters) DeepCopyInto(out *WorkspaceRoleInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
 		*out = make([]WorkspaceRoleWorkspaceInitParameters, len(*in))
@@ -7314,6 +7606,16 @@ func (in *WorkspaceRoleMappingInitParameters) DeepCopyInto(out *WorkspaceRoleMap
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
@@ -7369,6 +7671,16 @@ func (in *WorkspaceRoleMappingParameters) DeepCopyInto(out *WorkspaceRoleMapping
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
 		*out = make([]WorkspaceParameters, len(*in))
@@ -7423,6 +7735,16 @@ func (in *WorkspaceRoleParameters) DeepCopyInto(out *WorkspaceRoleParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
 		*out = make([]WorkspaceRoleWorkspaceParameters, len(*in))
@@ -7450,6 +7772,16 @@ func (in *WorkspaceRoleWorkspaceInitParameters) DeepCopyInto(out *WorkspaceRoleW
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -7460,6 +7792,18 @@ func (in *WorkspaceRoleWorkspaceInitParameters) DeepCopyInto(out *WorkspaceRoleW
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7512,6 +7856,16 @@ func (in *WorkspaceRoleWorkspaceParameters) DeepCopyInto(out *WorkspaceRoleWorks
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleIds != nil {
 		in, out := &in.RoleIds, &out.RoleIds
 		*out = make([]*string, len(*in))
@@ -7522,6 +7876,18 @@ func (in *WorkspaceRoleWorkspaceParameters) DeepCopyInto(out *WorkspaceRoleWorks
 				**out = **in
 			}
 		}
+	}
+	if in.RoleIdsRefs != nil {
+		in, out := &in.RoleIdsRefs, &out.RoleIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RoleIdsSelector != nil {
+		in, out := &in.RoleIdsSelector, &out.RoleIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -863,6 +863,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      (String) Name of the virtual machine, must be unique. Cannot be updated.
+                      Name of the virtual machine, must be unique. Cannot be updated.
+                    type: string
                   namespace:
                     description: |-
                       (String) Namespace defines the space within, Name must be unique.
@@ -2176,6 +2181,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      (String) Name of the virtual machine, must be unique. Cannot be updated.
+                      Name of the virtual machine, must be unique. Cannot be updated.
+                    type: string
                   namespace:
                     description: |-
                       (String) Namespace defines the space within, Name must be unique.
@@ -2857,6 +2867,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.clusterUid)
                 || (has(self.initProvider) && has(self.initProvider.clusterUid))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.resources is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.resources)
@@ -3685,6 +3699,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      (String) Name of the virtual machine, must be unique. Cannot be updated.
+                      Name of the virtual machine, must be unique. Cannot be updated.
+                    type: string
                   namespace:
                     description: |-
                       (String) Namespace defines the space within, Name must be unique.

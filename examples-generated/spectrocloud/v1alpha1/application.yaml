@@ -8,11 +8,16 @@ metadata:
   name: application
 spec:
   forProvider:
-    applicationProfileUid: ${data.spectrocloud_application_profile.id}
+    applicationProfileUidSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_application_profile
     config:
-    - clusterGroupUid: 6358d799fad5aa39fa26a8c2
+    - clusterGroupUidSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       clusterName: sandbox-scorpius
       limits:
       - cpu: 2
         memory: 4096
         storage: 10
+    name: app-beru-whitesun-lars

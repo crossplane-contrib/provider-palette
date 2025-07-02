@@ -261,6 +261,11 @@ func (in *IppoolInitParameters) DeepCopyInto(out *IppoolInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.NameserverAddresses != nil {
 		in, out := &in.NameserverAddresses, &out.NameserverAddresses
 		*out = make([]*string, len(*in))
@@ -375,6 +380,11 @@ func (in *IppoolObservation) DeepCopyInto(out *IppoolObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.NameserverAddresses != nil {
 		in, out := &in.NameserverAddresses, &out.NameserverAddresses
 		*out = make([]*string, len(*in))
@@ -449,6 +459,11 @@ func (in *IppoolParameters) DeepCopyInto(out *IppoolParameters) {
 	}
 	if in.IPStartRange != nil {
 		in, out := &in.IPStartRange, &out.IPStartRange
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

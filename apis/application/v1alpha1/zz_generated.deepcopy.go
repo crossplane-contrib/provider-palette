@@ -371,6 +371,11 @@ func (in *ProfileInitParameters) DeepCopyInto(out *ProfileInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]PackInitParameters, len(*in))
@@ -461,6 +466,11 @@ func (in *ProfileObservation) DeepCopyInto(out *ProfileObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]PackObservation, len(*in))
@@ -511,6 +521,11 @@ func (in *ProfileParameters) DeepCopyInto(out *ProfileParameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

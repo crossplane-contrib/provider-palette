@@ -8,6 +8,7 @@ metadata:
   name: eks-cluster-cp
 spec:
   forProvider:
+    name: eks-cluster-cp
     context: tenant
     description: "EKS Cluster for testing"
     backupPolicy:

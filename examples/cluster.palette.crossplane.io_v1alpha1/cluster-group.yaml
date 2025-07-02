@@ -9,6 +9,7 @@ metadata:
   name: ran-cp-cluster-group
 spec:
   forProvider:
+    name: ran-cp-cluster-group
     context: tenant
     description: "Cluster Group for reverting back"
     clusters:

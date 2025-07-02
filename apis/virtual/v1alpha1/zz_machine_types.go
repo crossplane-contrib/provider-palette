@@ -880,6 +880,10 @@ type MachineInitParameters struct {
 	// Memory allows specifying the vmi memory features.
 	Memory []MemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// Name of the virtual machine, must be unique. Cannot be updated.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) Namespace defines the space within, Name must be unique.
 	// Namespace defines the space within, Name must be unique.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
@@ -1020,6 +1024,10 @@ type MachineObservation struct {
 	// (Block List, Max: 1) Memory allows specifying the vmi memory features. (see below for nested schema)
 	// Memory allows specifying the vmi memory features.
 	Memory []MemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
+
+	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// Name of the virtual machine, must be unique. Cannot be updated.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Namespace defines the space within, Name must be unique.
 	// Namespace defines the space within, Name must be unique.
@@ -1182,6 +1190,11 @@ type MachineParameters struct {
 	// Memory allows specifying the vmi memory features.
 	// +kubebuilder:validation:Optional
 	Memory []MemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+
+	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// Name of the virtual machine, must be unique. Cannot be updated.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Namespace defines the space within, Name must be unique.
 	// Namespace defines the space within, Name must be unique.
@@ -3424,6 +3437,7 @@ type Machine struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterUid) || (has(self.initProvider) && has(self.initProvider.clusterUid))",message="spec.forProvider.clusterUid is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.resources) || (has(self.initProvider) && has(self.initProvider.resources))",message="spec.forProvider.resources is a required parameter"
 	Spec   MachineSpec   `json:"spec"`
 	Status MachineStatus `json:"status,omitempty"`

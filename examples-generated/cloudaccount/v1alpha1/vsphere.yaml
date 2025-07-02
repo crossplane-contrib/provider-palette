@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     context: tenant
+    name: vs
     privateCloudGatewayId: ${var.private_cloud_gateway_id}
     vsphereIgnoreInsecureError: true
     vspherePasswordSecretRef:

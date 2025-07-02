@@ -4,8 +4,18 @@ metadata:
   name: ran-gcp-acc
 spec:
   forProvider:
+    name: ran-gcp-acc
     context: project  # Can be either 'project' or 'tenant'
-    gcpjsonCredentialsSecretRef:
-      name: gcp-credentials  # Name of the secret containing GCP credentials
-      namespace: crossplane-system  # Namespace where the secret is stored
-      key: credentials.json  # Key in the secret containing the GCP credentials JSON
+    gcpJsonCredentials: |
+      {
+      "type": "",
+      "project_id": "",
+      "private_key_id": "",
+      "private_key": "",
+      "client_email": "",
+      "client_id": "",
+      "auth_uri": "",
+      "token_uri": "",
+      "auth_provider_x509_cert_url": "",
+      "client_x509_cert_url": ""
+      }

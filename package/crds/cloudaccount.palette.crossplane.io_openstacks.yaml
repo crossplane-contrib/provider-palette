@@ -97,6 +97,11 @@ spec:
                       (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
                       The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
                     type: string
+                  name:
+                    description: |-
+                      (String) Name of the OpenStack cloud account.
+                      Name of the OpenStack cloud account.
+                    type: string
                   openstackAllowInsecure:
                     description: |-
                       (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
@@ -174,6 +179,11 @@ spec:
                     description: |-
                       (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
                       The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the OpenStack cloud account.
+                      Name of the OpenStack cloud account.
                     type: string
                   openstackAllowInsecure:
                     description: |-
@@ -376,6 +386,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.identityEndpoint)
                 || (has(self.initProvider) && has(self.initProvider.identityEndpoint))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.openstackPasswordSecretRef is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.openstackPasswordSecretRef)'
@@ -423,6 +437,11 @@ spec:
                     description: |-
                       (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
                       The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the OpenStack cloud account.
+                      Name of the OpenStack cloud account.
                     type: string
                   openstackAllowInsecure:
                     description: |-

@@ -97,6 +97,11 @@ spec:
                     - name
                     - namespace
                     type: object
+                  name:
+                    description: |-
+                      (String) The name of the cloud account.
+                      The name of the cloud account.
+                    type: string
                   privateCloudGatewayId:
                     description: |-
                       (String) ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
@@ -125,6 +130,11 @@ spec:
                     description: |-
                       (String) The context of the custom cloud configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the custom cloud configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the cloud account.
+                      The name of the cloud account.
                     type: string
                   privateCloudGatewayId:
                     description: |-
@@ -307,6 +317,10 @@ spec:
             - message: spec.forProvider.credentialsSecretRef is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.credentialsSecretRef)'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.privateCloudGatewayId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId)
@@ -328,6 +342,11 @@ spec:
                     type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the cloud account.
+                      The name of the cloud account.
                     type: string
                   privateCloudGatewayId:
                     description: |-

@@ -4,6 +4,7 @@ metadata:
   name: ran-cp-application
 spec:
   forProvider:
+    name: ran-cp-application
     applicationProfileUid: "<YOUR_APPLICATION_PROFILE_UID>"
     config:
       - clusterContext: "project"  # or "project"

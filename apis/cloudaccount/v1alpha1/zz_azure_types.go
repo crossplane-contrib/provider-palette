@@ -39,6 +39,10 @@ type AzureInitParameters struct {
 	// Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
 	DisablePropertiesRequest *bool `json:"disablePropertiesRequest,omitempty" tf:"disable_properties_request,omitempty"`
 
+	// (String) The name of the Azure cloud account.
+	// The name of the Azure cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
@@ -76,6 +80,10 @@ type AzureObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the Azure cloud account.
+	// The name of the Azure cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -121,6 +129,11 @@ type AzureParameters struct {
 	// Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
 	// +kubebuilder:validation:Optional
 	DisablePropertiesRequest *bool `json:"disablePropertiesRequest,omitempty" tf:"disable_properties_request,omitempty"`
+
+	// (String) The name of the Azure cloud account.
+	// The name of the Azure cloud account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -172,6 +185,7 @@ type Azure struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureClientId) || (has(self.initProvider) && has(self.initProvider.azureClientId))",message="spec.forProvider.azureClientId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureClientSecretSecretRef)",message="spec.forProvider.azureClientSecretSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureTenantId) || (has(self.initProvider) && has(self.initProvider.azureTenantId))",message="spec.forProvider.azureTenantId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   AzureSpec   `json:"spec"`
 	Status AzureStatus `json:"status,omitempty"`
 }

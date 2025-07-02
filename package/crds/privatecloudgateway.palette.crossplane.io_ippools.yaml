@@ -88,6 +88,11 @@ spec:
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
                     type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
+                    type: string
                   nameserverAddresses:
                     description: |-
                       (Set of String) The list of nameserver IP addresses for the IP pool.
@@ -157,6 +162,11 @@ spec:
                     description: |-
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
                     type: string
                   nameserverAddresses:
                     description: |-
@@ -372,6 +382,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.gateway)
                 || (has(self.initProvider) && has(self.initProvider.gateway))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.networkType is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.networkType)
@@ -406,6 +420,11 @@ spec:
                     description: |-
                       (String) The start IP address of the IP pool. Required if network_type is range.
                       The start IP address of the IP pool. Required if `network_type` is `range`.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the IP pool.
+                      The name of the IP pool.
                     type: string
                   nameserverAddresses:
                     description: |-

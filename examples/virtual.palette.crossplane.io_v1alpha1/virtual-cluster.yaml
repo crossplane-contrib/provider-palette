@@ -9,6 +9,7 @@ metadata:
   name: virtual-cluster-cp
 spec:
   forProvider:
+    name: virtual-cluster-cp
     context: project
     description: "Virtual Cluster for testing"
     clusterGroupUid: "<YOUR_CLUSTER_GROUP_UID>"

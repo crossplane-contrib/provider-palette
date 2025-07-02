@@ -73,6 +73,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  name:
+                    description: |-
+                      (String) The name of the role.
+                      The name of the role.
+                    type: string
                   permissions:
                     description: |-
                       (Set of String) The permission's assigned to the role.
@@ -100,6 +105,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  name:
+                    description: |-
+                      (String) The name of the role.
+                      The name of the role.
+                    type: string
                   permissions:
                     description: |-
                       (Set of String) The permission's assigned to the role.
@@ -282,6 +292,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.permissions is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.permissions)
@@ -293,6 +307,11 @@ spec:
                 properties:
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the role.
+                      The name of the role.
                     type: string
                   permissions:
                     description: |-

@@ -9,6 +9,7 @@ metadata:
   name: ran-cp-oci-registry2
 spec:
   forProvider:
+    name: ran-cp-oci-registry2
     type: "basic"
     providerType: "helm"
     # baseContentPath: "testchart"

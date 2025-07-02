@@ -19,3 +19,4 @@ spec:
       memoryInMb: 8192
       oversubscriptionPercent: 120
       storageInGb: 10
+    name: cluster-group-demo

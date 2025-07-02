@@ -6,6 +6,7 @@ metadata:
     description: "Azure Addon Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-addon-profile
     context: project
     type: add-on
     description: "A basic addon profile for Azure"

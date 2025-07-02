@@ -8,6 +8,7 @@ metadata:
   name: project-testing
 spec:
   forProvider:
+    name: project-testing
     description: "crossplane testing project - updated"
     tags:
       - "TF:Ranjith"

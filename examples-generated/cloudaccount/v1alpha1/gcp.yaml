@@ -8,7 +8,5 @@ metadata:
   name: gcp-1
 spec:
   forProvider:
-    gcpJsonCredentialsSecretRef:
-      key: example-key
-      name: example-secret
-      namespace: upbound-system
+    gcpJsonCredentials: ${var.gcp_serviceaccount_json}
+    name: gcp-1

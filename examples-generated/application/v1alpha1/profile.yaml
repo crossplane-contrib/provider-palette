@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     description: Hello Universe as a single UI instance
+    name: hello-universe
     pack:
     - name: hello-universe-ui
       registryUid: ${data.spectrocloud_registry.container_registry.id}

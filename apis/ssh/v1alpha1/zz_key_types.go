@@ -18,6 +18,10 @@ type KeyInitParameters struct {
 	// (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The name of the SSH key resource.
+	// The name of the SSH key resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type KeyObservation struct {
@@ -28,6 +32,10 @@ type KeyObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the SSH key resource.
+	// The name of the SSH key resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type KeyParameters struct {
@@ -36,6 +44,11 @@ type KeyParameters struct {
 	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) The name of the SSH key resource.
+	// The name of the SSH key resource.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...
 	// The SSH key value. This is the public key that will be used to access the cluster. Must be in the [Authorized Keys](https://www.ssh.com/academy/ssh/authorized-keys-openssh#format-of-the-authorized-keys-file) format, such as `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...`
@@ -79,6 +92,7 @@ type KeyStatus struct {
 type Key struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.sshKeySecretRef)",message="spec.forProvider.sshKeySecretRef is a required parameter"
 	Spec   KeySpec   `json:"spec"`
 	Status KeyStatus `json:"status,omitempty"`

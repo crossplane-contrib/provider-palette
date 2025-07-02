@@ -8,9 +8,8 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/crossplane-contrib/provider-palette/config/resources"
 	"github.com/crossplane/upjet/pkg/config"
-
-	"github.com/crossplane-contrib/provider-palette/config/null"
 )
 
 const (
@@ -33,13 +32,14 @@ func GetProvider() *config.Provider {
 			ExternalNameConfigurations(),
 		),
 		config.WithSkipList([]string{
-			"import",
+			"spectrocloud_cluster_profile_import", // Specific resource to skip
+			"^spectrocloud_macro$",                // Only skip exact singular match, keep spectrocloud_macros
 		}),
 	)
 
 	for _, configure := range []func(provider *config.Provider){
 		// add custom config functions
-		null.Configure,
+		resources.Configure,
 	} {
 		configure(pc)
 	}

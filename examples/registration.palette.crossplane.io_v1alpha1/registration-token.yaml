@@ -9,6 +9,7 @@ metadata:
   name: tf-token
 spec:
   forProvider:
+    name: tf-token
     description: "test token description updated"
     expiryDate: "2025-08-25"
     projectUid: "<YOUR_PROJECT_UID>"

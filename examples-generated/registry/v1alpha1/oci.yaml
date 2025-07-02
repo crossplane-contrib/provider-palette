@@ -14,4 +14,5 @@ spec:
       externalId: sofiwhgowbrgiornM=
     endpoint: 123456.dkr.ecr.us-west-1.amazonaws.com
     isPrivate: true
+    name: test-nik2
     type: ecr

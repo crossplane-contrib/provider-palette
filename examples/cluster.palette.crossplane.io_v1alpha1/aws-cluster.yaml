@@ -8,6 +8,7 @@ metadata:
   name: aws-cluster-cp
 spec:
   forProvider:
+    name: aws-cluster-cp
     context: project
     description: "AWS Cluster for testing"
     backupPolicy:

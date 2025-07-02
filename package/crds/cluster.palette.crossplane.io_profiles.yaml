@@ -86,6 +86,9 @@ spec:
                   description:
                     description: (String)
                     type: string
+                  name:
+                    description: (String)
+                    type: string
                   pack:
                     description: |-
                       (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -248,6 +251,9 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
+                    description: (String)
+                    type: string
+                  name:
                     description: (String)
                     type: string
                   pack:
@@ -555,6 +561,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: ProfileStatus defines the observed state of Profile.
             properties:
@@ -575,6 +586,9 @@ spec:
                     type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: (String)
                     type: string
                   pack:
                     description: |-

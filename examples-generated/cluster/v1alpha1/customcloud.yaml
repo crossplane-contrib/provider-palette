@@ -10,18 +10,24 @@ spec:
   forProvider:
     applySetting: DownloadAndInstall
     backupPolicy:
-    - backupLocationId: test-backup-uid
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       expiryInHour: 7200
       includeClusterResources: true
       includeDisks: false
       prefix: prod-backup
       schedule: 0 0 * * SUN
     cloud: nutanix
-    cloudAccountId: ${data.spectrocloud_cloudaccount_custom.nutanix_account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_custom
     cloudConfig:
     - values: ${templatefile("config_templates/cloud_config.yaml", local.cloud_config_override_variables)}
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     clusterRbacBinding:
     - role:
         kind: ClusterRole
@@ -57,6 +63,7 @@ spec:
       - effect: NoSchedule
         key: taintkey2
         value: taintvalue2
+    name: ${local.cloud_config_override_variables.CLUSTER_NAME}
     namespaces:
     - name: test5ns
       resourceAllocation:

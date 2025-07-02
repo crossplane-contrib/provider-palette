@@ -8,5 +8,6 @@ metadata:
   name: custom-role
 spec:
   forProvider:
+    name: Test Cluster Role
     permissions: '${flatten([for role in data.spectrocloud_role.roles : role.permissions])}'
     type: project
