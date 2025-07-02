@@ -8,8 +8,9 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	"github.com/crossplane-contrib/provider-palette/config/resources"
 	"github.com/crossplane/upjet/pkg/config"
+
+	"github.com/crossplane-contrib/provider-palette/config/resources"
 )
 
 const (
