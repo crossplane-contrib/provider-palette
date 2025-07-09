@@ -29,6 +29,7 @@ func GetProvider() *config.Provider {
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		config.WithShortName("palette"),
 		config.WithRootGroup("palette.crossplane.io"),
+		config.WithFeaturesPackage("internal/features"),
 		config.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
 		),

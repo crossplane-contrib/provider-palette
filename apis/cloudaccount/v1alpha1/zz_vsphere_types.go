@@ -15,10 +15,6 @@ import (
 
 type VsphereInitParameters struct {
 
-	// (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
 	// Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

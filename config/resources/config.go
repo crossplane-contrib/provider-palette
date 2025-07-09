@@ -23,6 +23,8 @@ func Configure(p *config.Provider) {
 func configurePlatformResources(p *config.Provider) {
 	// Special configuration for platform settings to override customdiff
 	p.AddResourceConfigurator("spectrocloud_platform_setting", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
 			r.TerraformResource.CustomizeDiff = nil
@@ -76,7 +78,10 @@ func configureCoreResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_application_profile", func(r *config.Resource) {})
 
 	// Cluster profile resources
-	p.AddResourceConfigurator("spectrocloud_cluster_profile", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cluster_profile", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	// Cluster group resources
 	p.AddResourceConfigurator("spectrocloud_cluster_group", func(r *config.Resource) {
@@ -197,7 +202,10 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	// VSphere resources
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_vsphere", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_vsphere", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_vsphere", func(r *config.Resource) {
 		r.UseAsync = true
@@ -298,6 +306,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_gke", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_gcp",
@@ -311,6 +321,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_gcp", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		if s, ok := r.TerraformResource.Schema["gcp_json_credentials"]; ok {
 			s.Sensitive = false
 			s.Computed = false

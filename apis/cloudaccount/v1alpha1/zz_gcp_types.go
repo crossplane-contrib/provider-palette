@@ -15,10 +15,6 @@ import (
 
 type GCPInitParameters struct {
 
-	// (String) The context of the GCP configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the GCP configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
