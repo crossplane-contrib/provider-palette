@@ -23,7 +23,7 @@ func Configure(p *config.Provider) {
 func configurePlatformResources(p *config.Provider) {
 	// Special configuration for platform settings to override customdiff
 	p.AddResourceConfigurator("spectrocloud_platform_setting", func(r *config.Resource) {
-		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "platformsetting-{{ .external_name }}:{{ .parameters.context }}")
 		r.ExternalName.DisableNameInitializer = true
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
@@ -33,6 +33,7 @@ func configurePlatformResources(p *config.Provider) {
 
 	// Special configuration for sso to override customdiff
 	p.AddResourceConfigurator("spectrocloud_sso", func(r *config.Resource) {
+		// Need fix import(Observe) support for this resource in terraform provider
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
 			r.TerraformResource.CustomizeDiff = nil
@@ -41,6 +42,7 @@ func configurePlatformResources(p *config.Provider) {
 
 	// Special configuration for password policy to override customdiff
 	p.AddResourceConfigurator("spectrocloud_password_policy", func(r *config.Resource) {
+		// Need fix import(Observe) support for this resource in terraform provider
 		// Override customdiff to prevent forced recreation and handle schema validation errors
 		if r.TerraformResource != nil && r.TerraformResource.CustomizeDiff != nil {
 			r.TerraformResource.CustomizeDiff = nil
@@ -51,19 +53,25 @@ func configurePlatformResources(p *config.Provider) {
 // configureCoreResources configures core Spectrocloud resources
 func configureCoreResources(p *config.Provider) {
 	// Spectrocloud core resources
-	p.AddResourceConfigurator("spectrocloud_project", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_project", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
 	p.AddResourceConfigurator("spectrocloud_workspace", func(r *config.Resource) {
+		// Need to add import(Observe) support for this resource in terraform provider
 		r.References["backup_policy.backup_location_id"] = config.Reference{
 			TerraformName: "spectrocloud_backup_storage_location",
 		}
 	})
 
 	// "spectrocloud_macro" - skipped via SkipList (singular only)
-	p.AddResourceConfigurator("spectrocloud_macros", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_macros", func(r *config.Resource) {
+		// Need fix import(Observe) support for this resource in terraform provider
+	})
 
 	// Application resources
 	p.AddResourceConfigurator("spectrocloud_application", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
 		r.References["application_profile_uid"] = config.Reference{
 			TerraformName: "spectrocloud_application_profile",
 		}
@@ -75,7 +83,9 @@ func configureCoreResources(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("spectrocloud_application_profile", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_application_profile", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
 	// Cluster profile resources
 	p.AddResourceConfigurator("spectrocloud_cluster_profile", func(r *config.Resource) {
@@ -85,6 +95,7 @@ func configureCoreResources(p *config.Provider) {
 
 	// Cluster group resources
 	p.AddResourceConfigurator("spectrocloud_cluster_group", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
 		r.References["cluster_profile.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_profile",
 		}
@@ -92,6 +103,7 @@ func configureCoreResources(p *config.Provider) {
 
 	// Addon resources
 	p.AddResourceConfigurator("spectrocloud_addon_deployment", func(r *config.Resource) {
+		// Import case is not supported for this resource in terraform provider
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_profile",
@@ -99,13 +111,16 @@ func configureCoreResources(p *config.Provider) {
 	})
 
 	// Platform resources
-	p.AddResourceConfigurator("spectrocloud_resource_limit", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_resource_limit", func(r *config.Resource) {
+		// Need fix import(Observe) support for this resource in terraform provider
+	})
 }
 
 // configureVirtualResources configures virtual cluster and virtual machine resources
 func configureVirtualResources(p *config.Provider) {
 	// Virtual cluster resources
 	p.AddResourceConfigurator("spectrocloud_virtual_cluster", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
 		r.UseAsync = true
 		r.References["cluster_group_uid"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_group",
@@ -119,16 +134,24 @@ func configureVirtualResources(p *config.Provider) {
 	})
 
 	// Virtual machine resources
-	p.AddResourceConfigurator("spectrocloud_virtual_machine", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_virtual_machine", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
-	p.AddResourceConfigurator("spectrocloud_datavolume", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_datavolume", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 }
 
 // configureAccessControlResources configures user, team, and role resources
 func configureAccessControlResources(p *config.Provider) {
-	p.AddResourceConfigurator("spectrocloud_role", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_role", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	p.AddResourceConfigurator("spectrocloud_team", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
 		r.References["project_role_mapping.id"] = config.Reference{
 			TerraformName: "spectrocloud_project",
 		}
@@ -153,6 +176,8 @@ func configureAccessControlResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_user", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.References["project_role.role_ids"] = config.Reference{
 			TerraformName: "spectrocloud_role",
 		}
@@ -189,9 +214,13 @@ func configureAccessControlResources(p *config.Provider) {
 // configureClusterResources configures cluster resources for all cloud providers
 func configureClusterResources(p *config.Provider) {
 	// Edge resources
-	p.AddResourceConfigurator("spectrocloud_appliance", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_appliance", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_edge_native", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_profile",
@@ -208,6 +237,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_vsphere", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_vsphere",
@@ -221,6 +252,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_edge_vsphere", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_profile",
@@ -232,6 +265,8 @@ func configureClusterResources(p *config.Provider) {
 
 	// OpenStack resources
 	p.AddResourceConfigurator("spectrocloud_cluster_openstack", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_openstack",
@@ -244,10 +279,15 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_openstack", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_openstack", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	// MAAS resources
 	p.AddResourceConfigurator("spectrocloud_cluster_maas", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_maas",
@@ -260,12 +300,20 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_maas", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_maas", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	// Azure resources
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_azure", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_azure", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_azure", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_azure",
@@ -279,6 +327,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_aks", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_azure",
@@ -293,6 +343,8 @@ func configureClusterResources(p *config.Provider) {
 
 	// GCP resources
 	p.AddResourceConfigurator("spectrocloud_cluster_gcp", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_gcp",
@@ -332,6 +384,8 @@ func configureClusterResources(p *config.Provider) {
 
 	// Custom cloud resources
 	p.AddResourceConfigurator("spectrocloud_cluster_custom_cloud", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_custom",
@@ -344,12 +398,20 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_custom", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_custom", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	// AWS resources
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_aws", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_aws", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
+	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_aws", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_aws",
@@ -363,6 +425,8 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_eks", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}:{{ .parameters.context }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_aws",
@@ -378,9 +442,13 @@ func configureClusterResources(p *config.Provider) {
 
 // configureSecurityResources configures security-related resources
 func configureSecurityResources(p *config.Provider) {
-	p.AddResourceConfigurator("spectrocloud_ssh_key", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_ssh_key", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
 	p.AddResourceConfigurator("spectrocloud_registration_token", func(r *config.Resource) {
+		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}")
+		r.ExternalName.DisableNameInitializer = true
 		r.References["project_uid"] = config.Reference{
 			TerraformName: "spectrocloud_project",
 		}
@@ -391,28 +459,41 @@ func configureSecurityResources(p *config.Provider) {
 
 // configureMonitoringResources configures monitoring and alerting resources
 func configureMonitoringResources(p *config.Provider) {
-	p.AddResourceConfigurator("spectrocloud_alert", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_alert", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
-	p.AddResourceConfigurator("spectrocloud_filter", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_filter", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 }
 
 // configureRegistryResources configures registry resources
 func configureRegistryResources(p *config.Provider) {
-	p.AddResourceConfigurator("spectrocloud_registry_helm", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_registry_helm", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
-	p.AddResourceConfigurator("spectrocloud_registry_oci", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_registry_oci", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 }
 
 // configurePrivateCloudGatewayResources configures private cloud gateway resources
 func configurePrivateCloudGatewayResources(p *config.Provider) {
-	p.AddResourceConfigurator("spectrocloud_privatecloudgateway_dns_map", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_privatecloudgateway_dns_map", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
+	})
 
-	p.AddResourceConfigurator("spectrocloud_privatecloudgateway_ippool", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_privatecloudgateway_ippool", func(r *config.Resource) {
+		// Need add import(Observe)  support for this resource in terraform provider
+	})
 }
 
 // configureBackupResources configures backup-related resources
 func configureBackupResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_backup_storage_location", func(r *config.Resource) {
+		// Need add import(Observe) support for this resource in terraform provider
 		r.UseAsync = true
 		if gcpBlock, ok := r.TerraformResource.Schema["gcp_storage_config"]; ok {
 			if gcpBlockResource, ok := gcpBlock.Elem.(*schema.Resource); ok {

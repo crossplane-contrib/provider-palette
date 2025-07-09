@@ -31,10 +31,6 @@ type AzureInitParameters struct {
 	// Default is 'AzurePublicCloud'.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) The context of the Azure configuration. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the Azure configuration. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (Boolean) Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is false.
 	// Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
 	DisablePropertiesRequest *bool `json:"disablePropertiesRequest,omitempty" tf:"disable_properties_request,omitempty"`
