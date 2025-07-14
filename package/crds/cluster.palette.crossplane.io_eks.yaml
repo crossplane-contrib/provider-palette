@@ -658,7 +658,7 @@ spec:
                         amiType:
                           description: |-
                             (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-                            AMI type is the type of AMI to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
                           type: string
                         azSubnets:
                           additionalProperties:
@@ -1482,7 +1482,7 @@ spec:
                         amiType:
                           description: |-
                             (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-                            AMI type is the type of AMI to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
                           type: string
                         azSubnets:
                           additionalProperties:
@@ -2309,7 +2309,7 @@ spec:
                         amiType:
                           description: |-
                             (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-                            AMI type is the type of AMI to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
                           type: string
                         azSubnets:
                           additionalProperties:
