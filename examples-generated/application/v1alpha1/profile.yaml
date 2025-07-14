@@ -4,25 +4,28 @@ metadata:
   annotations:
     meta.upbound.io/example-id: application/v1alpha1/profile
   labels:
-    testing.upbound.io/example-name: hello-universe-ui
-  name: hello-universe-ui
+    testing.upbound.io/example-name: profile
+  name: profile
 spec:
   forProvider:
-    description: Hello Universe as a single UI instance
-    name: hello-universe
+    cloud: all
+    context: tenant
+    description: basic cp
+    name: gcp-picard-2
     pack:
-    - name: hello-universe-ui
-      registryUid: ${data.spectrocloud_registry.container_registry.id}
-      sourceAppTier: ${data.spectrocloud_pack_simple.container_pack.id}
-      type: ${data.spectrocloud_pack_simple.container_pack.type}
+    - name: manifest-1
+      sourceAppTier: spectro-manifest-pack
+      tag: 1.0.0
+      type: manifest
       values: |
-        containerService:
-            serviceName: "hello-universe-ui-test"
-            registryUrl: ""
-            image: ${var.single-container-image}
-            access: public
-            ports:
-              - "8080"
-            serviceType: LoadBalancer
-    tags:
-    - scenario-1
+        manifests:
+          byo-manifest:
+            contents: |
+              apiVersion: v1
+              kind: Namespace
+              metadata:
+                labels:
+                  app: wordpress
+                  app3: wordpress3
+                name: wordpress
+    version: 1.0.0
