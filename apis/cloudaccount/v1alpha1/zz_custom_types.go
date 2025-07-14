@@ -19,9 +19,9 @@ type CustomInitParameters struct {
 	// The cloud provider name.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) The context of the custom cloud configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the custom cloud configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+	// (String) The name of the cloud account.
+	// The name of the cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
 	// ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
@@ -40,6 +40,10 @@ type CustomObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the cloud account.
+	// The name of the cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
 	// ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
@@ -62,6 +66,11 @@ type CustomParameters struct {
 	// The credentials required for accessing the cloud.
 	// +kubebuilder:validation:Optional
 	CredentialsSecretRef v1.SecretReference `json:"credentialsSecretRef" tf:"-"`
+
+	// (String) The name of the cloud account.
+	// The name of the cloud account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
 	// ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
@@ -107,6 +116,7 @@ type Custom struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloud) || (has(self.initProvider) && has(self.initProvider.cloud))",message="spec.forProvider.cloud is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentialsSecretRef)",message="spec.forProvider.credentialsSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	Spec   CustomSpec   `json:"spec"`
 	Status CustomStatus `json:"status,omitempty"`

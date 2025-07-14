@@ -28,6 +28,7 @@ var _ = Describe("Cloud Account Tests", Ordered, func() {
 						},
 					},
 					ForProvider: cloudaccountv1alpha1.AwsParameters{
+						Name: utils.Ptr("aws-cloud-account"),
 						Type: utils.Ptr("secret"),
 					},
 				},

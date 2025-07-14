@@ -8,18 +8,23 @@ metadata:
   name: cluster
 spec:
   forProvider:
-    cloudAccountId: ${data.spectrocloud_cloudaccount_gcp.account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_gcp
     cloudConfig:
     - project: ${var.gcp_project}
       region: ${var.gcp_region}
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     context: project
     description: Gke Cluster
     machinePool:
     - count: 3
       instanceType: n2-standard-4
       name: worker-basic
+    name: ${var.cluster_name}
     tags:
     - dev
     - department:pax

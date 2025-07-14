@@ -14,3 +14,4 @@ spec:
       username: abc
     endpoint: https://123456.dkr.ecr.us-west-1.amazonaws.com
     isPrivate: true
+    name: us-artifactory

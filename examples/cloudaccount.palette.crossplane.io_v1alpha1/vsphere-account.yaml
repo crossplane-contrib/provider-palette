@@ -4,6 +4,7 @@ metadata:
   name: vsphere-account
 spec:
   forProvider:
+    name: vsphere-account
     context: project  # Can be either 'project' or 'tenant'
     vsphereVcenter: "<YOUR_VCENTER_SERVER>"  # Replace with your vCenter server address
     vsphereUsername: "<YOUR_VSPHERE_USERNAME>"  # Replace with your vSphere username

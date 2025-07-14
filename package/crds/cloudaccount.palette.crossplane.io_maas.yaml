@@ -101,6 +101,11 @@ spec:
                     - name
                     - namespace
                     type: object
+                  name:
+                    description: |-
+                      (String) Name of the MAAS cloud account.
+                      Name of the MAAS cloud account.
+                    type: string
                   privateCloudGatewayId:
                     description: |-
                       (String) ID of the private cloud gateway that is used to connect to the MAAS cloud.
@@ -120,15 +125,15 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  context:
-                    description: |-
-                      (String) The context of the MAAS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the MAAS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-                    type: string
                   maasApiEndpoint:
                     description: |-
                       (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
                       Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the MAAS cloud account.
+                      Name of the MAAS cloud account.
                     type: string
                   privateCloudGatewayId:
                     description: |-
@@ -311,6 +316,10 @@ spec:
             - message: spec.forProvider.maasApiKeySecretRef is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.maasApiKeySecretRef)'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.privateCloudGatewayId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId)
@@ -332,6 +341,11 @@ spec:
                     description: |-
                       (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
                       Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the MAAS cloud account.
+                      Name of the MAAS cloud account.
                     type: string
                   privateCloudGatewayId:
                     description: |-

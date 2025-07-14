@@ -23,9 +23,22 @@ type TokenInitParameters struct {
 	// The expiration date of the registration token in `YYYY-MM-DD` format.
 	ExpiryDate *string `json:"expiryDate,omitempty" tf:"expiry_date,omitempty"`
 
+	// (String) The name of the registration token.
+	// The name of the registration token.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDRef *v1.Reference `json:"projectUidRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDSelector *v1.Selector `json:"projectUidSelector,omitempty" tf:"-"`
 
 	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
@@ -44,6 +57,10 @@ type TokenObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the registration token.
+	// The name of the registration token.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
@@ -69,10 +86,24 @@ type TokenParameters struct {
 	// +kubebuilder:validation:Optional
 	ExpiryDate *string `json:"expiryDate,omitempty" tf:"expiry_date,omitempty"`
 
+	// (String) The name of the registration token.
+	// The name of the registration token.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDRef *v1.Reference `json:"projectUidRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDSelector *v1.Selector `json:"projectUidSelector,omitempty" tf:"-"`
 
 	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
@@ -117,6 +148,7 @@ type Token struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.expiryDate) || (has(self.initProvider) && has(self.initProvider.expiryDate))",message="spec.forProvider.expiryDate is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   TokenSpec   `json:"spec"`
 	Status TokenStatus `json:"status,omitempty"`
 }

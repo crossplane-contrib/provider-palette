@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: Vsphere is the Schema for the Vspheres API. A resource to manage
-          a vSphere cloud account in Pallette.
+          a vSphere cloud account in Palette.
         properties:
           apiVersion:
             description: |-
@@ -77,6 +77,11 @@ spec:
                     description: |-
                       (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+                      Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
                     type: string
                   privateCloudGatewayId:
                     description: |-
@@ -131,10 +136,10 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  context:
+                  name:
                     description: |-
-                      (String) Context of the cloud account. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Context of the cloud account. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                      (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+                      Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
                     type: string
                   privateCloudGatewayId:
                     description: |-
@@ -325,6 +330,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.privateCloudGatewayId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId)
@@ -352,6 +361,11 @@ spec:
                     type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
+                      Name of the cloud account. This name is used to identify the cloud account in the Spectro Cloud UI.
                     type: string
                   privateCloudGatewayId:
                     description: |-

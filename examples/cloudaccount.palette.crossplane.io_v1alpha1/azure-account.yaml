@@ -8,6 +8,7 @@ metadata:
   name: ran-cp-azure
 spec:
   forProvider:
+    name: ran-cp-azure
     context: project
     cloud: AzurePublicCloud
     azureClientId: "<YOUR_AZURE_CLIENT_ID>"

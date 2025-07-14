@@ -8,6 +8,7 @@ metadata:
   name: eks-cp-account
 spec:
   forProvider:
+    name: eks-cp-account
     context: tenant
     type: secret
     partition: aws

@@ -27,6 +27,10 @@ type IppoolInitParameters struct {
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
@@ -75,6 +79,10 @@ type IppoolObservation struct {
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
 
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
 	// +listType=set
@@ -122,6 +130,11 @@ type IppoolParameters struct {
 	// The start IP address of the IP pool. Required if `network_type` is `range`.
 	// +kubebuilder:validation:Optional
 	IPStartRange *string `json:"ipStartRange,omitempty" tf:"ip_start_range,omitempty"`
+
+	// (String) The name of the IP pool.
+	// The name of the IP pool.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) The list of nameserver IP addresses for the IP pool.
 	// The list of nameserver IP addresses for the IP pool.
@@ -198,6 +211,7 @@ type Ippool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.gateway) || (has(self.initProvider) && has(self.initProvider.gateway))",message="spec.forProvider.gateway is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkType) || (has(self.initProvider) && has(self.initProvider.networkType))",message="spec.forProvider.networkType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.prefix) || (has(self.initProvider) && has(self.initProvider.prefix))",message="spec.forProvider.prefix is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"

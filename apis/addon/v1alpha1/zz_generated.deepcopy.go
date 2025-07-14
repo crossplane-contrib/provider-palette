@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -19,6 +20,16 @@ func (in *ClusterProfileInitParameters) DeepCopyInto(out *ClusterProfileInitPara
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
@@ -105,6 +116,16 @@ func (in *ClusterProfileParameters) DeepCopyInto(out *ClusterProfileParameters) 
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack

@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     hostClusterUid: ${var.host_cluster_uid}
+    name: virtual-cluster-demo
     resources:
     - maxCpu: 6
       maxMemInMb: 6000

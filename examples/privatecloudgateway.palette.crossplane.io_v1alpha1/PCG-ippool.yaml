@@ -9,6 +9,7 @@ metadata:
   name: ippool-test
 spec:
   forProvider:
+    name: ippool-test
     gateway: "192.168.1.1"
     networkType: "range"
     ipStartRange: "192.168.1.10"

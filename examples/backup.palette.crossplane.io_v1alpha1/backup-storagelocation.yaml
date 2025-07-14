@@ -4,13 +4,23 @@ metadata:
   name: gcp-backup-location
 spec:
   forProvider:
+    name: gcp-backup-location
     bucketName: shru-gcp-bck
     context: project
     isDefault: false
     storageProvider: gcp
     gcpStorageConfig:
-      - gcpjsonCredentialsSecretRef:
-          name: gcp-credentials
-          namespace: crossplane-system
-          key: credentials.json
-        projectId: <YOUR_GCP_PROJECT_ID>
+      - projectId: gcpproject
+        gcpJsonCredentials: |
+          {
+          "type": "",
+          "project_id": "",
+          "private_key_id": "",
+          "private_key": "",
+          "client_email": "",
+          "client_id": "",
+          "auth_uri": "",
+          "token_uri": "",
+          "auth_provider_x509_cert_url": "",
+          "client_x509_cert_url": ""
+          }

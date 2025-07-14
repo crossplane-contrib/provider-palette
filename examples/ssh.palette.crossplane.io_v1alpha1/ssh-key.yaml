@@ -10,6 +10,7 @@ metadata:
 spec:
   forProvider:
     context: project
+    name: ssh-tenant
     sshKeySecretRef:
       key: ssh-public-key
       name: palette-ssh-key

@@ -120,6 +120,11 @@ spec:
                       (Boolean) Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is false.
                       Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the Azure cloud account.
+                      The name of the Azure cloud account.
+                    type: string
                   privateCloudGatewayId:
                     description: |-
                       (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -163,16 +168,16 @@ spec:
                       Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
                       Default is 'AzurePublicCloud'.
                     type: string
-                  context:
-                    description: |-
-                      (String) The context of the Azure configuration. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the Azure configuration. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-                    type: string
                   disablePropertiesRequest:
                     description: |-
                       (Boolean) Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is false.
                       Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the Azure cloud account.
+                      The name of the Azure cloud account.
+                    type: string
                   privateCloudGatewayId:
                     description: |-
                       (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
@@ -363,6 +368,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.azureTenantId)
                 || (has(self.initProvider) && has(self.initProvider.azureTenantId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: AzureStatus defines the observed state of Azure.
             properties:
@@ -399,6 +408,11 @@ spec:
                     type: boolean
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The name of the Azure cloud account.
+                      The name of the Azure cloud account.
                     type: string
                   privateCloudGatewayId:
                     description: |-

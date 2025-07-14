@@ -4,6 +4,7 @@ metadata:
   name: vsphere-cluster
 spec:
   forProvider:
+    name: vsphere-cluster-cp
     description: "VSphere Cluster for testing"
     backupPolicy:
       - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"

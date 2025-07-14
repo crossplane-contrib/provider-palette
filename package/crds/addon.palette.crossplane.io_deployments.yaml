@@ -84,6 +84,82 @@ spec:
                         id:
                           description: The ID of the cluster profile.
                           type: string
+                        idRef:
+                          description: Reference to a Profile in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a Profile in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
                         pack:
                           description: For packs of type `spectro`, `helm`, and `manifest`,
                             at least one pack must be specified.
@@ -111,11 +187,16 @@ spec:
                                   UID is the unique identifier of the registry. This
                                   attribute is required if there is more than one
                                   registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
                                 type: string
                               tag:
                                 description: The tag of the pack. The tag is the version
                                   of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`.
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: The type of the pack. Allowed values
@@ -128,7 +209,9 @@ spec:
                                   value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
                                   data source. This value is required if the pack
                                   type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry.
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
                                 type: string
                               values:
                                 description: The values of the pack. The values are
@@ -181,6 +264,82 @@ spec:
                         id:
                           description: The ID of the cluster profile.
                           type: string
+                        idRef:
+                          description: Reference to a Profile in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a Profile in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
                         pack:
                           description: For packs of type `spectro`, `helm`, and `manifest`,
                             at least one pack must be specified.
@@ -208,11 +367,16 @@ spec:
                                   UID is the unique identifier of the registry. This
                                   attribute is required if there is more than one
                                   registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
                                 type: string
                               tag:
                                 description: The tag of the pack. The tag is the version
                                   of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`.
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: The type of the pack. Allowed values
@@ -225,7 +389,9 @@ spec:
                                   value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
                                   data source. This value is required if the pack
                                   type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry.
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
                                 type: string
                               values:
                                 description: The values of the pack. The values are
@@ -471,11 +637,16 @@ spec:
                                   UID is the unique identifier of the registry. This
                                   attribute is required if there is more than one
                                   registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
                                 type: string
                               tag:
                                 description: The tag of the pack. The tag is the version
                                   of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`.
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: The type of the pack. Allowed values
@@ -488,7 +659,9 @@ spec:
                                   value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
                                   data source. This value is required if the pack
                                   type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry.
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
                                 type: string
                               values:
                                 description: The values of the pack. The values are

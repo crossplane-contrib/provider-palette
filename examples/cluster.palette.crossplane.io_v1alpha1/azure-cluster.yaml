@@ -8,6 +8,7 @@ metadata:
   name: azure-cluster-cp
 spec:
   forProvider:
+    name: azure-cluster-cp
     context: project
     description: "Azure Cluster for testing"
     backupPolicy:

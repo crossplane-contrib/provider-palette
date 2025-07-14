@@ -110,6 +110,11 @@ spec:
                       (Boolean) Specifies whether the Helm registry is private or public.
                       Specifies whether the Helm registry is private or public.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -162,6 +167,11 @@ spec:
                       (Boolean) Specifies whether the Helm registry is private or public.
                       Specifies whether the Helm registry is private or public.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -343,6 +353,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.isPrivate)
                 || (has(self.initProvider) && has(self.initProvider.isPrivate))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: HelmStatus defines the observed state of Helm.
             properties:
@@ -389,6 +403,11 @@ spec:
                       (Boolean) Specifies whether the Helm registry is private or public.
                       Specifies whether the Helm registry is private or public.
                     type: boolean
+                  name:
+                    description: |-
+                      (String) The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

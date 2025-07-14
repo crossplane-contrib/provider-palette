@@ -9,18 +9,24 @@ metadata:
 spec:
   forProvider:
     backupPolicy:
-    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_backup_storage_location
       expiryInHour: 7200
       includeClusterResources: true
       includeDisks: true
       prefix: prod-backup
       schedule: 0 0 * * SUN
-    cloudAccountId: ${data.spectrocloud_cloudaccount_aws.account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_aws
     cloudConfig:
     - region: us-west-2
       sshKeyName: default
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
     - azSubnets:
         us-west-2a: subnet-0d4978ddbff16c
@@ -29,6 +35,7 @@ spec:
       encryption_config_arn: arn:aws:kms:us-west-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab
       instanceType: t3.large
       name: worker-basic
+    name: ${var.cluster_name}
     scanPolicy:
     - configurationScanSchedule: 0 0 * * SUN
       conformanceScanSchedule: 0 0 1 * *

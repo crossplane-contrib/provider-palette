@@ -4,6 +4,7 @@ metadata:
   name: ran-cp-ip-pool
 spec:
   forProvider:
+    name: ran-cp-ip-pool
     privateCloudGatewayId: "<YOUR_PRIVATE_CLOUD_GATEWAY_ID>"  # Using the same gateway ID as in dns-map
     networkType: "range"  # Can be either "range" or "subnet"
     ipStartRange: "192.168.1.100"

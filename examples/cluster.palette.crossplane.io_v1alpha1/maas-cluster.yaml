@@ -4,6 +4,7 @@ metadata:
   name: maas-cp-cluster
 spec:
   forProvider:
+    name: maas-cp-cluster
     cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"  # References the MAAS account we created earlier
     cloudConfig:
       - domain: "<YOUR_MAAS_DOMAIN>"  # Replace with your MAAS domain

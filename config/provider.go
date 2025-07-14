@@ -10,7 +10,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/config"
 
-	"github.com/crossplane-contrib/provider-palette/config/null"
+	"github.com/crossplane-contrib/provider-palette/config/resources"
 )
 
 const (
@@ -29,17 +29,19 @@ func GetProvider() *config.Provider {
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		config.WithShortName("palette"),
 		config.WithRootGroup("palette.crossplane.io"),
+		config.WithFeaturesPackage("internal/features"),
 		config.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
 		),
 		config.WithSkipList([]string{
-			"import",
+			"spectrocloud_cluster_profile_import", // Specific resource to skip
+			"^spectrocloud_macro$",                // Only skip exact singular match, keep spectrocloud_macros
 		}),
 	)
 
 	for _, configure := range []func(provider *config.Provider){
 		// add custom config functions
-		null.Configure,
+		resources.Configure,
 	} {
 		configure(pc)
 	}

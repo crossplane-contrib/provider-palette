@@ -11,6 +11,7 @@ spec:
     bucketName: dev-backup
     context: tenant
     isDefault: false
+    name: dev-backup-s3
     region: us-east-2
     s3:
     - accessKey: ${var.aws_access_key}

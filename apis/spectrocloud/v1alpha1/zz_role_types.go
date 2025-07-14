@@ -15,6 +15,10 @@ import (
 
 type RoleInitParameters struct {
 
+	// (String) The name of the role.
+	// The name of the role.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The permission's assigned to the role.
 	// The permission's assigned to the role.
 	// +listType=set
@@ -30,6 +34,10 @@ type RoleObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the role.
+	// The name of the role.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) The permission's assigned to the role.
 	// The permission's assigned to the role.
 	// +listType=set
@@ -41,6 +49,11 @@ type RoleObservation struct {
 }
 
 type RoleParameters struct {
+
+	// (String) The name of the role.
+	// The name of the role.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) The permission's assigned to the role.
 	// The permission's assigned to the role.
@@ -90,6 +103,7 @@ type RoleStatus struct {
 type Role struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
 	Spec   RoleSpec   `json:"spec"`
 	Status RoleStatus `json:"status,omitempty"`

@@ -4,6 +4,7 @@ metadata:
   name: maas-cp-account
 spec:
   forProvider:
+    name: maas-cp-account
     context: tenant
     maasApiEndpoint: "<YOUR_MAAS_API_ENDPOINT>"
     maasApiKeySecretRef:

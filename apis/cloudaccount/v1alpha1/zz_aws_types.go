@@ -23,9 +23,8 @@ type AwsInitParameters struct {
 	// The AWS access key used to authenticate.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
-	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// us-gov' for AWS GovCloud (US) regions.
 	// Default is 'aws'.
@@ -64,6 +63,9 @@ type AwsObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// us-gov' for AWS GovCloud (US) regions.
 	// Default is 'aws'.
@@ -112,6 +114,10 @@ type AwsParameters struct {
 	// An optional external ID that can be used for cross-account access in AWS.
 	// +kubebuilder:validation:Optional
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// us-gov' for AWS GovCloud (US) regions.
 	// Default is 'aws'.
@@ -174,8 +180,9 @@ type AwsStatus struct {
 type Aws struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AwsSpec   `json:"spec"`
-	Status            AwsStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   AwsSpec   `json:"spec"`
+	Status AwsStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

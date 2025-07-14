@@ -6,6 +6,7 @@ spec:
   deletionPolicy: Delete
   forProvider:
     # Required fields
+    name: ranvirtualmachine
     clusterUid: "<YOUR_CLUSTER_UID>"
     clusterContext: "project"
     

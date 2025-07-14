@@ -4,6 +4,7 @@ metadata:
   name: ran-cp-registration-token
 spec:
   forProvider:
+    name: ran-cp-registration-token
     description: "Registration token for project access"
     expiryDate: "2025-12-31"
     projectUid: "<YOUR_PROJECT_UID>"

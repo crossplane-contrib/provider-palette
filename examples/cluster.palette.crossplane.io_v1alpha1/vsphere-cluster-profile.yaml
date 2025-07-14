@@ -6,6 +6,7 @@ metadata:
     description: "VSphere Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-vsphere-profile
     cloud: vsphere
     context: project
     type: cluster

@@ -8,6 +8,7 @@ metadata:
   name: aws-cp-account-2
 spec:
   forProvider:
+    name: aws-cp-account-2
     context: project
     type: secret
     partition: aws

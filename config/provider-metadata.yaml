@@ -16,11 +16,11 @@ resources:
             manifest: (Block List) (see below for nested schema)
             name: (String) The name of the pack. The name must be unique within the cluster profile.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -165,6 +165,24 @@ resources:
         name: spectrocloud_application_profile
         title: spectrocloud_application_profile Resource - terraform-provider-spectrocloud
         examples:
+            - name: profile
+              manifest: |-
+                {
+                  "cloud": "all",
+                  "context": "tenant",
+                  "description": "basic cp",
+                  "name": "gcp-picard-2",
+                  "pack": [
+                    {
+                      "name": "manifest-1",
+                      "source_app_tier": "spectro-manifest-pack",
+                      "tag": "1.0.0",
+                      "type": "manifest",
+                      "values": "manifests:\n  byo-manifest:\n    contents: |\n      apiVersion: v1\n      kind: Namespace\n      metadata:\n        labels:\n          app: wordpress\n          app3: wordpress3\n        name: wordpress\n"
+                    }
+                  ],
+                  "version": "1.0.0"
+                }
             - name: hello-universe-ui
               manifest: |-
                 {
@@ -568,7 +586,7 @@ resources:
         importStatements: []
     spectrocloud_cloudaccount_vsphere:
         subCategory: ""
-        description: A resource to manage a vSphere cloud account in Pallette.
+        description: A resource to manage a vSphere cloud account in Palette.
         name: spectrocloud_cloudaccount_vsphere
         title: spectrocloud_cloudaccount_vsphere Resource - terraform-provider-spectrocloud
         examples:
@@ -730,7 +748,7 @@ resources:
             region: (String)
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resource_group: (String)
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -742,12 +760,12 @@ resources:
             storage_account_type: (String)
             subjects: (Block List) (see below for nested schema)
             subscription_id: (String)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -918,7 +936,7 @@ resources:
             region: (String) The AWS region to deploy the cluster in.
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -927,13 +945,13 @@ resources:
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             ssh_key_name: (String) Public SSH key to be used for the cluster nodes.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
             tags_map: (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1080,7 +1098,7 @@ resources:
             region: (String) Azure region. This can be found in the Azure portal under Resource groups.
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resource_group: (String) Azure resource group. This can be found in the Azure portal under Resource groups.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -1095,12 +1113,12 @@ resources:
             storage_account_name: (String) Azure storage account name.
             subjects: (Block List) (see below for nested schema)
             subscription_id: (String) Azure subscription ID. This can be found in the Azure portal under Subscriptions.
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1282,18 +1300,18 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             values: (String) The values of the cloud config. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1427,7 +1445,7 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1438,13 +1456,13 @@ resources:
             static_ip: (String) Edge host static IP address
             subjects: (Block List) (see below for nested schema)
             subnet_mask: (String) Edge host subnet mask
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             two_node_role: (String) Two node role for edge host. Valid values are primary and secondary.
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1531,7 +1549,7 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resource_pool: (String)
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -1544,12 +1562,12 @@ resources:
             static_ip: (Boolean)
             static_ip_pool_id: (String)
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1626,6 +1644,7 @@ resources:
             additional_tags: (Map of String)
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             ami_id: (String) The ID of the custom Amazon Machine Image (AMI).
+            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             az_subnets: (Map of String) Mutually exclusive with azs. Use for Static provisioning.
             azs: (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
@@ -1698,7 +1717,7 @@ resources:
             region: (String)
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1712,13 +1731,13 @@ resources:
             ssh_key_name: (String) Public SSH key to be used for the cluster nodes.
             subjects: (Block List) (see below for nested schema)
             subnets: (List of String)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
             tags_map: (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1852,7 +1871,7 @@ resources:
             region: (String)
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1860,12 +1879,12 @@ resources:
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -1979,7 +1998,7 @@ resources:
             region: (String)
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1987,12 +2006,12 @@ resources:
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             update_worker_pool_in_parallel: (Boolean)
@@ -2051,13 +2070,13 @@ resources:
             name: (String) Name of the cluster group
             oversubscription_percent: (Number) The allowed oversubscription percentage.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             storage_in_gb: (Number) The storage limit in gigabytes (GB).
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             values: (String)
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2216,7 +2235,7 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resource_pool: (String) The name of the resource pool in the Maas cloud.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -2225,12 +2244,12 @@ resources:
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -2381,7 +2400,7 @@ resources:
             region: (String)
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -2392,12 +2411,12 @@ resources:
             subjects: (Block List) (see below for nested schema)
             subnet_cidr: (String)
             subnet_id: (String)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -2619,13 +2638,13 @@ resources:
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)'
             regex: (String) Regular expression pattern which the variable value must match.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             required: (Boolean) The required to specify if the variable is optional or mandatory. If it is mandatory then default value must be provided.
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) Specify the cluster profile type to use. Allowed values are cluster, infra, add-on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variable: '(Block List, Min: 1) (see below for nested schema)'
@@ -2806,7 +2825,7 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resource_pool: (String) The name of the resource pool to use for the machine pool. As it appears in the vSphere.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -2819,12 +2838,12 @@ resources:
             static_ip: (Boolean) Whether to use static IP addresses for the cluster. If true, the cluster will use static IP addresses. If false, the cluster will use DDNS. Default is false.
             static_ip_pool_id: (String) The ID of the static IP pool to use for the machine pool in case of static cluster placement.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
             value: (String) The value of the taint.
@@ -3746,7 +3765,7 @@ resources:
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String)
             region_name: (String)
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
             resources: (Block List) (see below for nested schema)
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -3754,11 +3773,11 @@ resources:
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
             subjects: (Block List) (see below for nested schema)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'

@@ -22,9 +22,6 @@ func (tr *Datavolume) Hub() {}
 func (tr *Filter) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Macro) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Macros) Hub() {}
 
 // Hub marks this type as a conversion hub.

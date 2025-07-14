@@ -4,6 +4,7 @@ metadata:
   name: ran-cp-helm-registry
 spec:
   forProvider:
+    name: ran-cp-helm-registry
     baseContentPath: "testchart"
     endpoint: "<YOUR_ARTIFACTORY_ENDPOINT>"
     isPrivate: false

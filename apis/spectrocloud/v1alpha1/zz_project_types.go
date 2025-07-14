@@ -19,6 +19,10 @@ type ProjectInitParameters struct {
 	// The description of the project.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) The name of the project.
+	// The name of the project.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) Assign tags to the project.
 	// Assign tags to the project.
 	// +listType=set
@@ -34,6 +38,10 @@ type ProjectObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the project.
+	// The name of the project.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) Assign tags to the project.
 	// Assign tags to the project.
 	// +listType=set
@@ -46,6 +54,11 @@ type ProjectParameters struct {
 	// The description of the project.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The name of the project.
+	// The name of the project.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) Assign tags to the project.
 	// Assign tags to the project.
@@ -90,8 +103,9 @@ type ProjectStatus struct {
 type Project struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ProjectSpec   `json:"spec"`
-	Status            ProjectStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   ProjectSpec   `json:"spec"`
+	Status ProjectStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

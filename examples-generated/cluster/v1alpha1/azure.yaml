@@ -8,14 +8,18 @@ metadata:
   name: cluster
 spec:
   forProvider:
-    cloudAccountId: ${data.spectrocloud_cloudaccount_azure.account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_azure
     cloudConfig:
     - region: ${var.azure_region}
       resourceGroup: ${var.azure_resource_group}
       sshKey: ${var.cluster_ssh_public_key}
       subscriptionId: ${var.azure_subscription_id}
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
     - azs:
       - ""
@@ -32,6 +36,7 @@ spec:
       count: 1
       instanceType: Standard_D2_v3
       name: worker-basic
+    name: ${var.cluster_name}
     tags:
     - dev
     - department:devops

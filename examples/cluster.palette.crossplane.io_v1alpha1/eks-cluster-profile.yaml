@@ -6,6 +6,7 @@ metadata:
     description: "EKS Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-eks-profile
     cloud: eks
     context: tenant
     type: cluster

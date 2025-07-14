@@ -19,12 +19,11 @@ type ProfileInitParameters struct {
 	// Specify the infrastructure provider the cluster profile is for. Only Palette supported infrastructure providers can be used. The supported cloud types are - `all, aws, azure, gcp, vsphere, openstack, maas, virtual, baremetal, eks, aks, edge-native, generic, and gke` or any custom cloud provider registered in Palette, e.g., `nutanix`.If the value is set to `all`, then the type must be set to `add-on`. Otherwise, the cluster profile may be incompatible with other providers. Default value is `all`.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (String)
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -64,6 +63,9 @@ type ProfileObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -95,20 +97,20 @@ type ProfilePackInitParameters struct {
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -137,7 +139,7 @@ type ProfilePackManifestObservation struct {
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -163,20 +165,20 @@ type ProfilePackObservation struct {
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -195,13 +197,13 @@ type ProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
@@ -210,8 +212,8 @@ type ProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
@@ -236,6 +238,10 @@ type ProfileParameters struct {
 	// (String)
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -458,8 +464,9 @@ type ProfileStatus struct {
 type Profile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ProfileSpec   `json:"spec"`
-	Status            ProfileStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   ProfileSpec   `json:"spec"`
+	Status ProfileStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -48,7 +48,6 @@ import (
 	application "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/application"
 	datavolume "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/datavolume"
 	filter "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/filter"
-	macro "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/macro"
 	macros "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/macros"
 	project "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/project"
 	role "github.com/crossplane-contrib/provider-palette/internal/controller/spectrocloud/role"
@@ -104,7 +103,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		application.Setup,
 		datavolume.Setup,
 		filter.Setup,
-		macro.Setup,
 		macros.Setup,
 		project.Setup,
 		role.Setup,

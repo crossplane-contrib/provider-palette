@@ -4,6 +4,7 @@ metadata:
   name: ran-cp-gke-cluster
 spec:
   forProvider:
+    name: ran-cp-gke-cluster
     # Reference to the GCP cloud account
     cloudAccountId: "<YOUR_CLOUD_ACCOUNT_ID>"  # This should match the name of your GCP cloud account
 

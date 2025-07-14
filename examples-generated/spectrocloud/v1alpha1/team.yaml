@@ -8,13 +8,18 @@ metadata:
   name: t1
 spec:
   forProvider:
+    name: team1
     projectRoleMapping:
-    - id: ${data.spectrocloud_project.project1.id}
-      roles:
-      - ${data.spectrocloud_role.role1.id}
-      - ${data.spectrocloud_role.role2.id}
-    - id: ${data.spectrocloud_project.project2.id}
-      roles:
-      - ${data.spectrocloud_role.role3.id}
-    users:
-    - ${data.spectrocloud_user.user1.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      rolesRefs:
+      - name: spectrocloud_role
+      - name: spectrocloud_role
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      rolesRefs:
+      - name: spectrocloud_role
+    usersRefs:
+    - name: spectrocloud_user

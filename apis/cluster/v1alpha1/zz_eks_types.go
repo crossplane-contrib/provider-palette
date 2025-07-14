@@ -17,7 +17,16 @@ type EksBackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -107,8 +116,17 @@ type EksBackupPolicyParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
-	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -291,7 +309,16 @@ type EksClusterProfileInitParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -328,20 +355,20 @@ type EksClusterProfilePackInitParameters struct {
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -370,7 +397,7 @@ type EksClusterProfilePackManifestObservation struct {
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -396,20 +423,20 @@ type EksClusterProfilePackObservation struct {
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -428,13 +455,13 @@ type EksClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name.
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`.
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
@@ -443,8 +470,8 @@ type EksClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry.
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
@@ -458,8 +485,17 @@ type EksClusterProfileParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -655,7 +691,16 @@ type EksInitParameters struct {
 
 	// (String) The AWS cloud account id to use for this cluster.
 	// The AWS cloud account id to use for this cluster.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1.Aws
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Aws in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Aws in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) The AWS environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)
 	// The AWS environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
@@ -671,10 +716,6 @@ type EksInitParameters struct {
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EksClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
-
-	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
@@ -698,6 +739,10 @@ type EksInitParameters struct {
 	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	MachinePool []EksMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String) The name of the cluster.
+	// The name of the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
@@ -848,6 +893,10 @@ type EksLocationConfigParameters struct {
 
 type EksMachinePoolInitParameters struct {
 
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
+
 	// (Map of String)
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
@@ -940,6 +989,10 @@ type EksMachinePoolNodeParameters struct {
 
 type EksMachinePoolObservation struct {
 
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
+
 	// (Map of String)
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
@@ -996,6 +1049,11 @@ type EksMachinePoolObservation struct {
 }
 
 type EksMachinePoolParameters struct {
+
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette **v4.7.0**. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	// +kubebuilder:validation:Optional
+	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
 	// (Map of String)
 	// +kubebuilder:validation:Optional
@@ -1241,6 +1299,10 @@ type EksObservation struct {
 	// The machine pool configuration for the cluster.
 	MachinePool []EksMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster.
+	// The name of the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []EksNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -1298,8 +1360,17 @@ type EksParameters struct {
 
 	// (String) The AWS cloud account id to use for this cluster.
 	// The AWS cloud account id to use for this cluster.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1.Aws
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Aws in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Aws in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) The AWS environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)
 	// The AWS environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
@@ -1353,6 +1424,11 @@ type EksParameters struct {
 	// The machine pool configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	MachinePool []EksMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String) The name of the cluster.
+	// The name of the cluster.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
@@ -1575,9 +1651,9 @@ type EksStatus struct {
 type Eks struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccountId) || (has(self.initProvider) && has(self.initProvider.cloudAccountId))",message="spec.forProvider.cloudAccountId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   EksSpec   `json:"spec"`
 	Status EksStatus `json:"status,omitempty"`
 }

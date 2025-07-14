@@ -6,6 +6,7 @@ metadata:
     description: "Edge Native Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-edge-native-profile
     cloud: edge-native
     type: cluster
     description: "A basic cluster profile for Edge Native"

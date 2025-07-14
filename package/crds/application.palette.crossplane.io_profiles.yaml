@@ -90,6 +90,11 @@ spec:
                       (String) Description of the profile.
                       Description of the profile.
                     type: string
+                  name:
+                    description: |-
+                      (String) Name of the application profile
+                      Name of the application profile
+                    type: string
                   pack:
                     description: |-
                       (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
@@ -205,6 +210,11 @@ spec:
                     description: |-
                       (String) Description of the profile.
                       Description of the profile.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the application profile
+                      Name of the application profile
                     type: string
                   pack:
                     description: |-
@@ -462,6 +472,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.pack is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.pack)
@@ -488,6 +502,11 @@ spec:
                     type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the application profile
+                      Name of the application profile
                     type: string
                   pack:
                     description: |-

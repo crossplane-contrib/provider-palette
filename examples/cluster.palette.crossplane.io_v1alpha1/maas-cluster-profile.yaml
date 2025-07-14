@@ -6,6 +6,7 @@ metadata:
     description: "MAAS Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: maas-cp-profile
     cloud: maas
     context: tenant
     type: cluster

@@ -120,12 +120,20 @@ type AzureStorageConfigParameters struct {
 
 type GCPStorageConfigInitParameters struct {
 
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
+
 	// (String) The GCP project ID.
 	// The GCP project ID.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
 
 type GCPStorageConfigObservation struct {
+
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
 
 	// (String) The GCP project ID.
 	// The GCP project ID.
@@ -136,8 +144,8 @@ type GCPStorageConfigParameters struct {
 
 	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
-	// +kubebuilder:validation:Required
-	GCPJSONCredentialsSecretRef v1.SecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	GCPJSONCredentials *string `json:"gcpJsonCredentials" tf:"gcp_json_credentials,omitempty"`
 
 	// (String) The GCP project ID.
 	// The GCP project ID.
@@ -271,6 +279,10 @@ type StorageLocationInitParameters struct {
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
+	// (String) The name of the backup storage location. This is a unique identifier for the backup location.
+	// The name of the backup storage location. This is a unique identifier for the backup location.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// compatible(minio) storage services.
 	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -312,6 +324,10 @@ type StorageLocationObservation struct {
 	// (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+
+	// (String) The name of the backup storage location. This is a unique identifier for the backup location.
+	// The name of the backup storage location. This is a unique identifier for the backup location.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// compatible(minio) storage services.
 	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
@@ -357,6 +373,11 @@ type StorageLocationParameters struct {
 	// Specifies if this backup storage location should be used as the default location for storing backups.
 	// +kubebuilder:validation:Optional
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+
+	// (String) The name of the backup storage location. This is a unique identifier for the backup location.
+	// The name of the backup storage location. This is a unique identifier for the backup location.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// compatible(minio) storage services.
 	// The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
@@ -410,8 +431,9 @@ type StorageLocationStatus struct {
 type StorageLocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              StorageLocationSpec   `json:"spec"`
-	Status            StorageLocationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   StorageLocationSpec   `json:"spec"`
+	Status StorageLocationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

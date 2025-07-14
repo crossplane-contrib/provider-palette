@@ -6,6 +6,7 @@ metadata:
     description: "GKE Cluster Profile for Kubernetes deployment"
 spec:
   forProvider:
+    name: ran-cp-gke-profile
     cloud: gke
     context: project
     type: cluster

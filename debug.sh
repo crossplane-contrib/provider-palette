@@ -75,6 +75,7 @@ if [ "$DEBUG_MODE" = true ]; then
     # Run the provider with Delve in headless mode for Terraform debugging
     dlv debug --headless --listen=:2346 --api-version=2 --accept-multiclient cmd/provider/main.go -- \
         --debug \
+        --enable-management-policies \
         --terraform-version="$TERRAFORM_VERSION" \
         --terraform-provider-source="$TERRAFORM_PROVIDER_SOURCE" \
         --terraform-provider-version="$TERRAFORM_PROVIDER_VERSION"
@@ -88,6 +89,7 @@ else
     # Run the Crossplane provider with verbose logging (--debug flag)
     go run cmd/provider/main.go \
         --debug \
+        --enable-management-policies \
         --terraform-version="$TERRAFORM_VERSION" \
         --terraform-provider-source="$TERRAFORM_PROVIDER_SOURCE" \
         --terraform-provider-version="$TERRAFORM_PROVIDER_VERSION"

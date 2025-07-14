@@ -11,6 +11,7 @@ spec:
     cloud: aws
     count: '${var.deploy-aws ? 1 : 0}'
     description: A basic cluster profile for AWS
+    name: tf-aws-profile
     pack:
     - name: ${data.spectrocloud_pack.aws_ubuntu.name}
       tag: ${data.spectrocloud_pack.aws_ubuntu.version}

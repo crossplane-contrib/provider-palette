@@ -15,13 +15,13 @@ import (
 
 type MaasInitParameters struct {
 
-	// (String) The context of the MAAS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the MAAS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
 	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
+
+	// (String) Name of the MAAS cloud account.
+	// Name of the MAAS cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway that is used to connect to the MAAS cloud.
 	// ID of the private cloud gateway that is used to connect to the MAAS cloud.
@@ -40,6 +40,10 @@ type MaasObservation struct {
 	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
 	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
+
+	// (String) Name of the MAAS cloud account.
+	// Name of the MAAS cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway that is used to connect to the MAAS cloud.
 	// ID of the private cloud gateway that is used to connect to the MAAS cloud.
@@ -62,6 +66,11 @@ type MaasParameters struct {
 	// API key that is used to connect to the MAAS cloud.
 	// +kubebuilder:validation:Optional
 	MaasAPIKeySecretRef v1.SecretKeySelector `json:"maasApiKeySecretRef" tf:"-"`
+
+	// (String) Name of the MAAS cloud account.
+	// Name of the MAAS cloud account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) ID of the private cloud gateway that is used to connect to the MAAS cloud.
 	// ID of the private cloud gateway that is used to connect to the MAAS cloud.
@@ -107,6 +116,7 @@ type Maas struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.maasApiEndpoint) || (has(self.initProvider) && has(self.initProvider.maasApiEndpoint))",message="spec.forProvider.maasApiEndpoint is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.maasApiKeySecretRef)",message="spec.forProvider.maasApiKeySecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	Spec   MaasSpec   `json:"spec"`
 	Status MaasStatus `json:"status,omitempty"`

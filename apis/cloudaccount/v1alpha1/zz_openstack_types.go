@@ -19,10 +19,6 @@ type OpenstackInitParameters struct {
 	// The CA certificate of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	CACertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
 
-	// (String) The context of the OpenStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the OpenStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
-
 	// (String) The default domain of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The default domain of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	DefaultDomain *string `json:"defaultDomain,omitempty" tf:"default_domain,omitempty"`
@@ -34,6 +30,10 @@ type OpenstackInitParameters struct {
 	// (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	IdentityEndpoint *string `json:"identityEndpoint,omitempty" tf:"identity_endpoint,omitempty"`
+
+	// (String) Name of the OpenStack cloud account.
+	// Name of the OpenStack cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
 	// Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
@@ -76,6 +76,10 @@ type OpenstackObservation struct {
 	// (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	IdentityEndpoint *string `json:"identityEndpoint,omitempty" tf:"identity_endpoint,omitempty"`
+
+	// (String) Name of the OpenStack cloud account.
+	// Name of the OpenStack cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
 	// Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
@@ -120,6 +124,11 @@ type OpenstackParameters struct {
 	// The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// +kubebuilder:validation:Optional
 	IdentityEndpoint *string `json:"identityEndpoint,omitempty" tf:"identity_endpoint,omitempty"`
+
+	// (String) Name of the OpenStack cloud account.
+	// Name of the OpenStack cloud account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
 	// Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
@@ -186,6 +195,7 @@ type Openstack struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultDomain) || (has(self.initProvider) && has(self.initProvider.defaultDomain))",message="spec.forProvider.defaultDomain is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultProject) || (has(self.initProvider) && has(self.initProvider.defaultProject))",message="spec.forProvider.defaultProject is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.identityEndpoint) || (has(self.initProvider) && has(self.initProvider.identityEndpoint))",message="spec.forProvider.identityEndpoint is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.openstackPasswordSecretRef)",message="spec.forProvider.openstackPasswordSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.openstackUsername) || (has(self.initProvider) && has(self.initProvider.openstackUsername))",message="spec.forProvider.openstackUsername is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.parentRegion) || (has(self.initProvider) && has(self.initProvider.parentRegion))",message="spec.forProvider.parentRegion is a required parameter"

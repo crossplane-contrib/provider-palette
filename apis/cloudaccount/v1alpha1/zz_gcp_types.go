@@ -15,9 +15,13 @@ import (
 
 type GCPInitParameters struct {
 
-	// (String) The context of the GCP configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the GCP configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
+
+	// (String) The name of the GCP account.
+	// The name of the GCP account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type GCPObservation struct {
@@ -26,8 +30,16 @@ type GCPObservation struct {
 	// The context of the GCP configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the GCP account.
+	// The name of the GCP account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type GCPParameters struct {
@@ -40,7 +52,12 @@ type GCPParameters struct {
 	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// +kubebuilder:validation:Optional
-	GCPJSONCredentialsSecretRef v1.SecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
+
+	// (String) The name of the GCP account.
+	// The name of the GCP account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // GCPSpec defines the desired state of GCP
@@ -79,7 +96,8 @@ type GCPStatus struct {
 type GCP struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.gcpjsonCredentialsSecretRef)",message="spec.forProvider.gcpjsonCredentialsSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.gcpJsonCredentials) || (has(self.initProvider) && has(self.initProvider.gcpJsonCredentials))",message="spec.forProvider.gcpJsonCredentials is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   GCPSpec   `json:"spec"`
 	Status GCPStatus `json:"status,omitempty"`
 }

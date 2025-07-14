@@ -8,7 +8,9 @@ metadata:
   name: cluster
 spec:
   forProvider:
-    cloudAccountId: ${data.spectrocloud_cloudaccount_vsphere.vmware_account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_vsphere
     cloudConfig:
     - datacenter: ${var.vsphere_datacenter}
       folder: ${var.vsphere_folder}
@@ -16,7 +18,9 @@ spec:
       networkType: DDNS
       sshKey: ${var.cluster_ssh_public_key}
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.vmware_profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
     - controlPlane: true
       controlPlaneAsWorker: true
@@ -43,3 +47,4 @@ spec:
         datastore: ${var.vsphere_datastore}
         network: ${var.vsphere_network}
         resourcePool: ${var.vsphere_resource_pool}
+    name: vsphere-picard-3
