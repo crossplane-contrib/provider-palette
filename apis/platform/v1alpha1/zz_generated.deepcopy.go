@@ -122,6 +122,11 @@ func (in *SettingInitParameters) DeepCopyInto(out *SettingInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnableAutoRemediation != nil {
 		in, out := &in.EnableAutoRemediation, &out.EnableAutoRemediation
 		*out = new(bool)
