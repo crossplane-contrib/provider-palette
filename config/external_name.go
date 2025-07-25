@@ -36,12 +36,6 @@ func FormattedIdentifierFromProvider() config.ExternalName {
 			identifier = name
 		}
 
-		// context, ok := parameters["context"].(string)
-		// if !ok {
-		// 	context = "project" // default context
-		// }
-		// return fmt.Sprintf("%s:%s", identifier, context), nil
-
 		return identifier, nil
 	}
 
@@ -92,12 +86,6 @@ func platformSetting() config.ExternalName {
 			}
 			identifier = name
 		}
-
-		// context, ok := parameters["context"].(string)
-		// if !ok {
-		// 	context = "project" // default context
-		// }
-		// return fmt.Sprintf("platformsetting-%s:%s", identifier, context), nil
 
 		// Add the "platformsetting-" prefix
 		return fmt.Sprintf("platformsetting-%s", identifier), nil
