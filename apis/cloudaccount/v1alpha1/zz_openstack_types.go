@@ -19,6 +19,10 @@ type OpenstackInitParameters struct {
 	// The CA certificate of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	CACertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
 
+	// (String) The context of the OpenStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context of the OpenStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
 	// (String) The default domain of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The default domain of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	DefaultDomain *string `json:"defaultDomain,omitempty" tf:"default_domain,omitempty"`

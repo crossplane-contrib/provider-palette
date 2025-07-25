@@ -101,6 +101,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  context:
+                    description: |-
+                      (String) The context of the GCP configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the GCP configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
                   gcpJsonCredentials:
                     description: |-
                       (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.

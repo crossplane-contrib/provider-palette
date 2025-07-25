@@ -96,6 +96,11 @@ func (in *AksInitParameters) DeepCopyInto(out *AksInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1441,6 +1446,11 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -3954,6 +3964,11 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -7712,6 +7727,11 @@ func (in *CustomCloudInitParameters) DeepCopyInto(out *CustomCloudInitParameters
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -10126,6 +10146,11 @@ func (in *EdgeNativeInitParameters) DeepCopyInto(out *EdgeNativeInitParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -12637,6 +12662,11 @@ func (in *EdgeVsphereInitParameters) DeepCopyInto(out *EdgeVsphereInitParameters
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -15268,6 +15298,11 @@ func (in *EksInitParameters) DeepCopyInto(out *EksInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -18153,6 +18188,11 @@ func (in *GCPInitParameters) DeepCopyInto(out *GCPInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -20553,6 +20593,11 @@ func (in *GkeInitParameters) DeepCopyInto(out *GkeInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -23816,6 +23861,11 @@ func (in *MaasInitParameters) DeepCopyInto(out *MaasInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -27346,6 +27396,11 @@ func (in *OpenstackInitParameters) DeepCopyInto(out *OpenstackInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -29171,6 +29226,11 @@ func (in *ProfileInitParameters) DeepCopyInto(out *ProfileInitParameters) {
 	*out = *in
 	if in.Cloud != nil {
 		in, out := &in.Cloud, &out.Cloud
+		*out = new(string)
+		**out = **in
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
 		*out = new(string)
 		**out = **in
 	}
@@ -31606,6 +31666,11 @@ func (in *VsphereInitParameters) DeepCopyInto(out *VsphereInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Context != nil {
+		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description

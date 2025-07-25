@@ -54,6 +54,10 @@ type SettingInitParameters struct {
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
 	ClusterAutoRemediation *bool `json:"clusterAutoRemediation,omitempty" tf:"cluster_auto_remediation,omitempty"`
 
+	// (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
 	// (Boolean) Enables automatic remediation. set only with `project' context
 	// Enables automatic remediation. set only with `project' context
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
