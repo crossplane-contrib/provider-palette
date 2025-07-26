@@ -1,0 +1,32 @@
+apiVersion: meta.pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-palette
+  annotations:
+    meta.crossplane.io/maintainer: Spectro Cloud <support@spectrocloud.com>
+    meta.crossplane.io/source: github.com/crossplane-contrib/provider-palette
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: |
+      Crossplane provider for Spectro Cloud Palette platform.
+      
+      This provider enables management of Spectro Cloud Palette resources
+      including clusters, cloud accounts, applications, and more through
+      Crossplane composite resources.
+    meta.crossplane.io/readme: |
+      This provider offers Spectro Cloud Palette support for Crossplane.
+      
+      ## Features
+      - Cluster lifecycle management (AWS, Azure, GCP, vSphere, etc.)
+      - Cloud account management
+      - Application and pack management  
+      - SSO and RBAC configuration
+      - Registry and workspace management
+      
+      ## Getting Started
+      Check out the getting started guide at:
+      https://github.com/crossplane-contrib/provider-palette
+spec:
+  controller:
+    image: index.docker.io/3pings/provider-palette:v2-alpha-4
+  crossplane:
+    version: ">=v1.14.0 || >=v2.0.0-0"

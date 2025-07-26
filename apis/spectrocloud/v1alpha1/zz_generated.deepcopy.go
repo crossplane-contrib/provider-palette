@@ -3517,6 +3517,7 @@ func (in *OidcInitParameters) DeepCopyInto(out *OidcInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	out.ClientSecretSecretRef = in.ClientSecretSecretRef
 	if in.DefaultTeamIds != nil {
 		in, out := &in.DefaultTeamIds, &out.DefaultTeamIds
 		*out = make([]*string, len(*in))

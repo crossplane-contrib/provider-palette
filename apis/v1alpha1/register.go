@@ -5,8 +5,6 @@ Copyright 2021 Upbound Inc.
 package v1alpha1
 
 import (
-	"reflect"
-
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/scheme"
 )
@@ -25,14 +23,7 @@ var (
 	SchemeBuilder = &scheme.Builder{GroupVersion: SchemeGroupVersion}
 )
 
-// StoreConfig type metadata.
-var (
-	StoreConfigKind             = reflect.TypeOf(StoreConfig{}).Name()
-	StoreConfigGroupKind        = schema.GroupKind{Group: Group, Kind: StoreConfigKind}.String()
-	StoreConfigKindAPIVersion   = StoreConfigKind + "." + SchemeGroupVersion.String()
-	StoreConfigGroupVersionKind = SchemeGroupVersion.WithKind(StoreConfigKind)
-)
-
 func init() {
-	SchemeBuilder.Register(&StoreConfig{}, &StoreConfigList{})
+	// Note: StoreConfig registration removed as ESS functionality
+	// was removed in Crossplane v2
 }

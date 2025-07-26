@@ -378,6 +378,16 @@ func (in *OciCredentialsInitParameters) DeepCopyInto(out *OciCredentialsInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.SecretKeySecretRef != nil {
+		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.TLSConfig != nil {
 		in, out := &in.TLSConfig, &out.TLSConfig
 		*out = make([]TLSConfigInitParameters, len(*in))

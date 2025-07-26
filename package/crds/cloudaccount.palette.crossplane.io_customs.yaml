@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: customs.cloudaccount.palette.crossplane.io
 spec:
   group: cloudaccount.palette.crossplane.io
@@ -131,6 +131,10 @@ spec:
                       (String) The context of the custom cloud configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the custom cloud configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  credentialsSecretRef:
+                    additionalProperties:
+                      type: string
+                    type: object
                   name:
                     description: |-
                       (String) The name of the cloud account.
@@ -141,6 +145,8 @@ spec:
                       (String) ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
                       ID of the private cloud gateway, which serves as the connection point to establish connectivity with the cloud infrastructure.
                     type: string
+                required:
+                - credentialsSecretRef
                 type: object
               managementPolicies:
                 default:

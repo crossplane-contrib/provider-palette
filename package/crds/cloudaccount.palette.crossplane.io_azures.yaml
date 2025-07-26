@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: azures.cloudaccount.palette.crossplane.io
 spec:
   group: cloudaccount.palette.crossplane.io
@@ -154,6 +154,25 @@ spec:
                       (String) Unique client Id from Azure console.
                       Unique client Id from Azure console.
                     type: string
+                  azureClientSecretSecretRef:
+                    description: |-
+                      (String, Sensitive) Azure secret for authentication.
+                      Azure secret for authentication.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   azureTenantId:
                     description: |-
                       (String) Unique tenant Id from Azure console.
@@ -193,6 +212,8 @@ spec:
                       (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
                       The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
                     type: string
+                required:
+                - azureClientSecretSecretRef
                 type: object
               managementPolicies:
                 default:

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: ssoes.spectrocloud.palette.crossplane.io
 spec:
   group: spectrocloud.palette.crossplane.io
@@ -195,8 +195,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                      required:
-                      - clientSecretSecretRef
                       type: object
                     type: array
                   saml:
@@ -299,6 +297,25 @@ spec:
                             (String) Client ID for OIDC authentication.
                             Client ID for OIDC authentication.
                           type: string
+                        clientSecretSecretRef:
+                          description: |-
+                            (String, Sensitive) Client secret for OIDC authentication (sensitive).
+                            Client secret for OIDC authentication (sensitive).
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         defaultTeamIds:
                           description: |-
                             (Set of String) A set of default team IDs assigned to users.
@@ -378,6 +395,8 @@ spec:
                                 type: string
                             type: object
                           type: array
+                      required:
+                      - clientSecretSecretRef
                       type: object
                     type: array
                   saml:

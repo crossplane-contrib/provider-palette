@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: openstacks.cloudaccount.palette.crossplane.io
 spec:
   group: cloudaccount.palette.crossplane.io
@@ -190,6 +190,25 @@ spec:
                       (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
                       Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
                     type: boolean
+                  openstackPasswordSecretRef:
+                    description: |-
+                      (String, Sensitive) The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+                      The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   openstackUsername:
                     description: |-
                       (String) The username of the OpenStack cloud that is used to connect to the OpenStack cloud.
@@ -205,6 +224,8 @@ spec:
                       (String) ID of the private cloud gateway that is used to connect to the OpenStack cloud.
                       ID of the private cloud gateway that is used to connect to the OpenStack cloud.
                     type: string
+                required:
+                - openstackPasswordSecretRef
                 type: object
               managementPolicies:
                 default:

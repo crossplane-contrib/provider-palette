@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: aws.cloudaccount.palette.crossplane.io
 spec:
   group: cloudaccount.palette.crossplane.io
@@ -178,11 +178,49 @@ spec:
                       (String) The AWS access key used to authenticate.
                       The AWS access key used to authenticate.
                     type: string
+                  awsSecretKeySecretRef:
+                    description: |-
+                      (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
+                      The AWS secret key used in conjunction with the access key for authentication.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   context:
                     description: |-
                       (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
                       The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  externalIdSecretRef:
+                    description: |-
+                      account access in AWS.
+                      An optional external ID that can be used for cross-account access in AWS.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   name:
                     description: (String)
                     type: string

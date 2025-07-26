@@ -31,6 +31,14 @@ type OciCredentialsInitParameters struct {
 	// The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
+	// The password for basic authentication. Required if 'credential_type' is 'basic'.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+	// The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
+
 	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
 	// TLS configuration for the registry.
 	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`

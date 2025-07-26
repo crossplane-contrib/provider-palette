@@ -21,7 +21,7 @@ func (mg *Maas) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Maas
 func (tr *Maas) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"maas_api_key": "spec.forProvider.maasApiKeySecretRef"}
+	return map[string]string{"maas_api_key": "maasApiKeySecretRef"}
 }
 
 // GetObservation of this Maas
