@@ -1,0 +1,75 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane:provider:provider-palette:system
+rules:
+# Core Crossplane resources
+- apiGroups: ["palette.crossplane.io"]
+  resources: ["providerconfigs", "providerconfigusages"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["secrets", "configmaps"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "patch"]
+
+# Palette API Groups
+- apiGroups: ["addon.palette.crossplane.io"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["application.palette.crossplane.io"]
+  resources: ["profiles"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["backup.palette.crossplane.io"]
+  resources: ["storagelocations"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["cloudaccount.palette.crossplane.io"]
+  resources: ["aws", "azures", "gcps", "vspheres", "openstacks", "customs", "maas"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["cluster.palette.crossplane.io"]
+  resources: ["aws", "aks", "eks", "gkes", "azures", "vspheres", "openstacks", "maas", "edgenatives", "edgevspheres", "gcps", "customclouds", "profiles", "groups"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["developer.palette.crossplane.io"]
+  resources: ["settings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["password.palette.crossplane.io"]
+  resources: ["policies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["platform.palette.crossplane.io"]
+  resources: ["settings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["privatecloudgateway.palette.crossplane.io"]
+  resources: ["dnsmaps", "ippools"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["registration.palette.crossplane.io"]
+  resources: ["tokens"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["registry.palette.crossplane.io"]
+  resources: ["helms", "ocis"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["resource.palette.crossplane.io"]
+  resources: ["limits"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["spectrocloud.palette.crossplane.io"]
+  resources: ["projects", "users", "roles", "teams", "workspaces", "applications", "appliances", "datavolumes", "alerts", "filters", "macros", "ssoes"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["ssh.palette.crossplane.io"]
+  resources: ["keys"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["virtual.palette.crossplane.io"]
+  resources: ["clusters", "machines"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: crossplane:provider:provider-palette:system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: crossplane:provider:provider-palette:system
+subjects:
+- kind: ServiceAccount
+  name: provider-palette
+  namespace: crossplane-system 

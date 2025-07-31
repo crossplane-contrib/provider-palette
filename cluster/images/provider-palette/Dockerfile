@@ -4,8 +4,8 @@ RUN apk --no-cache add ca-certificates bash
 ARG TARGETOS
 ARG TARGETARCH
 
-ADD "bin/${TARGETOS}_${TARGETARCH}/provider" /usr/local/bin/provider
-ADD "package/package.yaml" /package.yaml
+COPY "bin/${TARGETOS}_${TARGETARCH}/provider" /usr/local/bin/provider
+COPY "pkg/package.yaml" /package.yaml
 
 ENV USER_ID=65532
 

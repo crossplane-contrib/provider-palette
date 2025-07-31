@@ -14,6 +14,9 @@ export TERRAFORM_DOCS_PATH := docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
+# Build registry for Docker images
+BUILD_REGISTRY ?= build-$(shell echo $(HOSTNAME)-$(ROOT_DIR) | shasum | cut -c1-8)
+
 # -include will silently skip missing files, which allows us
 # to load those files with a target in the Makefile. If only
 # "include" was used, the make command would fail and refuse
@@ -43,55 +46,6 @@ GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
 -include build/makelib/golang.mk
-
-# ====================================================================================
-# Setup Kubernetes tools
-
-ENVTEST_VERSION = 1.29.3
-KIND_VERSION = v0.15.0
-UP_VERSION = v0.28.0
-UP_CHANNEL = stable
-UPTEST_VERSION = v0.5.0
--include build/makelib/k8s_tools.mk
-
-# ====================================================================================
-# Setup Images
-
-REGISTRY_ORGS ?= xpkg.upbound.io/crossplane-contrib
-IMAGES = $(PROJECT_NAME)
--include build/makelib/imagelight.mk
-
-# ====================================================================================
-# Setup XPKG
-
-XPKG_REG_ORGS ?= xpkg.upbound.io/crossplane-contrib
-# NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
-# inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/crossplane-contrib
-XPKGS = $(PROJECT_NAME)
--include build/makelib/xpkg.mk
-
-# NOTE(hasheddan): we force image building to happen prior to xpkg build so that
-# we ensure image is present in daemon.
-xpkg.build.provider-palette: do.build.images
-
-# NOTE(hasheddan): we ensure up is installed prior to running platform-specific
-# build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP)
-
-# ====================================================================================
-# Fallthrough
-
-# run `make help` to see the targets and options
-
-# We want submodules to be set up the first time `make` is run.
-# We manage the build/ folder and its Makefiles as a submodule.
-# The first time `make` is run, the includes of build/*.mk files will
-# all fail, and this target will be run. The next time, the default as defined
-# by the includes will be run instead.
-fallthrough: submodules
-	@echo Initial setup complete. Running make again . . .
-	@make
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
@@ -127,6 +81,43 @@ pull-docs:
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 
 .PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+
+# ====================================================================================
+# Provider Build Targets
+
+# Build the provider package using Crossplane CLI
+provider.build: go.build
+	@$(INFO) Building provider package $(PROJECT_NAME)-$(VERSION).xpkg
+	@mkdir -p $(OUTPUT_DIR)/xpkg
+	@crossplane xpkg build \
+		--embed-runtime-image $(BUILD_REGISTRY)/$(PROJECT_NAME)-$(ARCH) \
+		--package-root pkg \
+		--package-file $(OUTPUT_DIR)/xpkg/$(PROJECT_NAME)-$(VERSION).xpkg || $(FAIL)
+	@$(OK) Built provider package $(PROJECT_NAME)-$(VERSION).xpkg
+
+# Build the provider image
+provider.image: go.build
+	@$(INFO) Building provider image $(PROJECT_NAME)-$(ARCH)
+	@mkdir -p cluster/images/$(PROJECT_NAME)/bin/linux_$(ARCH)
+	@cp $(GO_OUT_DIR)/provider cluster/images/$(PROJECT_NAME)/bin/linux_$(ARCH)/
+	@mkdir -p cluster/images/$(PROJECT_NAME)/pkg
+	@cp pkg/package.yaml cluster/images/$(PROJECT_NAME)/pkg/
+	@docker build \
+		--build-arg TARGETOS=linux \
+		--build-arg TARGETARCH=$(ARCH) \
+		--build-arg TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
+		--build-arg TERRAFORM_PROVIDER_SOURCE=$(TERRAFORM_PROVIDER_SOURCE) \
+		--build-arg TERRAFORM_PROVIDER_VERSION=$(TERRAFORM_PROVIDER_VERSION) \
+		--build-arg TERRAFORM_PROVIDER_DOWNLOAD_NAME=$(TERRAFORM_PROVIDER_DOWNLOAD_NAME) \
+		--build-arg TERRAFORM_NATIVE_PROVIDER_BINARY=$(TERRAFORM_NATIVE_PROVIDER_BINARY) \
+		-t $(BUILD_REGISTRY)/$(PROJECT_NAME)-$(ARCH) \
+		-f cluster/images/$(PROJECT_NAME)/Dockerfile \
+		cluster/images/$(PROJECT_NAME) || $(FAIL)
+	@$(OK) Built provider image $(PROJECT_NAME)-$(ARCH)
+
+# Build everything needed for the provider
+provider: generate provider.image provider.build
+
 # ====================================================================================
 # Targets
 
@@ -182,25 +173,20 @@ endif
 SETUP_ENVTEST=$(TOOLS_HOST_DIR)/setup-envtest
 
 # ====================================================================================
-# End to End Testing
-CROSSPLANE_NAMESPACE = upbound-system
--include build/makelib/local.xpkg.mk
--include build/makelib/controlplane.mk
+# Fallthrough
 
-uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
-	@$(INFO) running automated tests
-	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --setup-script=cluster/test/setup.sh || $(FAIL)
-	@$(OK) running automated tests
+# run `make help` to see the targets and options
 
-local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
-	@$(INFO) running locally built provider
-	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 5m
-	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
-	@$(OK) running locally built provider
+# We want submodules to be set up the first time `make` is run.
+# We manage the build/ folder and its Makefiles as a submodule.
+# The first time `make` is run, the includes of build/*.mk files will
+# all fail, and this target will be run. The next time, the default as defined
+# by the includes will be run instead.
+fallthrough: submodules
+	@echo Initial setup complete. Running make again . . .
+	@make
 
-e2e: local-deploy uptest
-
-.PHONY: cobertura submodules fallthrough run crds.clean
+.PHONY: cobertura submodules fallthrough run crds.clean provider provider.build provider.image
 
 # ====================================================================================
 # Special Targets
@@ -210,6 +196,9 @@ Crossplane Targets:
     cobertura             Generate a coverage report for cobertura applying exclusions on generated files.
     submodules            Update the submodules, such as the common build scripts.
     run                   Run crossplane locally, out-of-cluster. Useful for development.
+    provider              Build the complete provider package (image + xpkg).
+    provider.build        Build the provider package (.xpkg file).
+    provider.image        Build the provider Docker image.
 
 endef
 # The reason CROSSPLANE_MAKE_HELP is used instead of CROSSPLANE_HELP is because the crossplane
