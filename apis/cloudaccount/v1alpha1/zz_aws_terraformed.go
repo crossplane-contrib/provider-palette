@@ -21,7 +21,7 @@ func (mg *Aws) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Aws
 func (tr *Aws) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"aws_secret_key": "spec.forProvider.awsSecretKeySecretRef", "external_id": "spec.forProvider.externalIdSecretRef"}
+	return map[string]string{"aws_secret_key": "awsSecretKeySecretRef", "external_id": "externalIdSecretRef"}
 }
 
 // GetObservation of this Aws

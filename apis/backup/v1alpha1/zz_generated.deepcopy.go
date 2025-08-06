@@ -20,6 +20,7 @@ func (in *AzureStorageConfigInitParameters) DeepCopyInto(out *AzureStorageConfig
 		*out = new(string)
 		**out = **in
 	}
+	out.AzureClientSecretSecretRef = in.AzureClientSecretSecretRef
 	if in.AzureTenantID != nil {
 		in, out := &in.AzureTenantID, &out.AzureTenantID
 		*out = new(string)

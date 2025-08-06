@@ -21,7 +21,7 @@ func (mg *Openstack) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Openstack
 func (tr *Openstack) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"openstack_password": "spec.forProvider.openstackPasswordSecretRef"}
+	return map[string]string{"openstack_password": "openstackPasswordSecretRef"}
 }
 
 // GetObservation of this Openstack

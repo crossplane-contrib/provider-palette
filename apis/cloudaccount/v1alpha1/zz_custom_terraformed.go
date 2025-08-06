@@ -21,7 +21,7 @@ func (mg *Custom) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Custom
 func (tr *Custom) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"credentials": "spec.forProvider.credentialsSecretRef"}
+	return map[string]string{"credentials": "credentialsSecretRef"}
 }
 
 // GetObservation of this Custom

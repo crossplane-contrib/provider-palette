@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.5
   name: ocis.registry.palette.crossplane.io
 spec:
   group: registry.palette.crossplane.io
@@ -246,6 +246,44 @@ spec:
                             (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                             The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
                           type: string
+                        passwordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
+                            The password for basic authentication. Required if 'credential_type' is 'basic'.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        secretKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                            The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         tlsConfig:
                           description: |-
                             (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)

@@ -23,6 +23,10 @@ type MaasInitParameters struct {
 	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 
+	// (String, Sensitive) API key that is used to connect to the MAAS cloud.
+	// API key that is used to connect to the MAAS cloud.
+	MaasAPIKeySecretRef v1.SecretKeySelector `json:"maasApiKeySecretRef" tf:"-"`
+
 	// (String) Name of the MAAS cloud account.
 	// Name of the MAAS cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
