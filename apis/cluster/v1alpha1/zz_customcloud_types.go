@@ -178,6 +178,19 @@ type CustomCloudBackupPolicyParameters struct {
 
 type CustomCloudCloudConfigInitParameters struct {
 
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
+
 	// (String) The values of the cloud config. The values are specified in YAML format.
 	// The values of the cloud config. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -185,12 +198,39 @@ type CustomCloudCloudConfigInitParameters struct {
 
 type CustomCloudCloudConfigObservation struct {
 
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
+
 	// (String) The values of the cloud config. The values are specified in YAML format.
 	// The values of the cloud config. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type CustomCloudCloudConfigParameters struct {
+
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
 
 	// (String) The values of the cloud config. The values are specified in YAML format.
 	// The values of the cloud config. The values are specified in YAML format.
@@ -710,6 +750,22 @@ type CustomCloudMachinePoolInitParameters struct {
 	// (String) The values of the node pool config. The values are specified in YAML format.
 	// The values of the node pool config. The values are specified in YAML format.
 	NodePoolConfig *string `json:"nodePoolConfig,omitempty" tf:"node_pool_config,omitempty"`
+
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []CustomCloudMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 }
 
 type CustomCloudMachinePoolObservation struct {
@@ -733,6 +789,22 @@ type CustomCloudMachinePoolObservation struct {
 	// (String) The values of the node pool config. The values are specified in YAML format.
 	// The values of the node pool config. The values are specified in YAML format.
 	NodePoolConfig *string `json:"nodePoolConfig,omitempty" tf:"node_pool_config,omitempty"`
+
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []CustomCloudMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 }
 
 type CustomCloudMachinePoolParameters struct {
@@ -751,6 +823,72 @@ type CustomCloudMachinePoolParameters struct {
 	// The values of the node pool config. The values are specified in YAML format.
 	// +kubebuilder:validation:Optional
 	NodePoolConfig *string `json:"nodePoolConfig" tf:"node_pool_config,omitempty"`
+
+	// value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	// Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
+	//
+	// Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
+	// Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
+	// Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
+	// Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
+	// Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
+	//
+	// Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Overrides map[string]*string `json:"overrides,omitempty" tf:"overrides,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Taints []CustomCloudMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+}
+
+type CustomCloudMachinePoolTaintsInitParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type CustomCloudMachinePoolTaintsObservation struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type CustomCloudMachinePoolTaintsParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	// +kubebuilder:validation:Optional
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 type CustomCloudNamespacesInitParameters struct {
