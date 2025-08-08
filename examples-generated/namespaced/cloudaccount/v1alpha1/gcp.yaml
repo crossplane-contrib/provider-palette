@@ -1,0 +1,15 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: GCP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/gcp
+  labels:
+    testing.upbound.io/example-name: gcp-1
+  name: gcp-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    gcpJsonCredentialsSecretRef:
+      key: example-key
+      name: example-secret
+    name: gcp-1
