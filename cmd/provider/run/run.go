@@ -19,7 +19,8 @@ import (
 	ctrllog "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-palette/apis"
+	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
+	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
 	"github.com/crossplane-contrib/provider-palette/config"
 	"github.com/crossplane-contrib/provider-palette/internal/clients"
 	"github.com/crossplane-contrib/provider-palette/internal/controller"
@@ -39,7 +40,6 @@ func Run() {
 		providerVersion  = app.Flag("terraform-provider-version", "Terraform provider version.").Required().Envar("TERRAFORM_PROVIDER_VERSION").String()
 		maxReconcileRate = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("10").Int()
 
-		namespace                  = app.Flag("namespace", "Namespace used to set as default scope in default secret store config.").Default("crossplane-system").Envar("POD_NAMESPACE").String()
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
 		enableManagementPolicies   = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 	)
@@ -74,7 +74,8 @@ func Run() {
 		RenewDeadline:              func() *time.Duration { d := 50 * time.Second; return &d }(),
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
-	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add Palette APIs to scheme")
+	kingpin.FatalIfError(clusterapis.AddToScheme(mgr.GetScheme()), "Cannot add Palette cluster APIs to scheme")
+	kingpin.FatalIfError(namespacedapis.AddToScheme(mgr.GetScheme()), "Cannot add Palette namespaced APIs to scheme")
 	o := tjcontroller.Options{
 		Options: xpcontroller.Options{
 			Logger:                  log,

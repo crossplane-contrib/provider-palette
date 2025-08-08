@@ -1,4 +1,4 @@
-package resources
+package cluster
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"

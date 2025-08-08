@@ -23,7 +23,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-palette/apis"
+	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
+	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
 	"github.com/crossplane-contrib/provider-palette/apis/v1beta1"
 
 	// "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
@@ -87,7 +88,8 @@ var _ = BeforeSuite(func() {
 	Expect(err).ShouldNot(HaveOccurred())
 
 	scheme := scheme.Scheme
-	Expect(apis.AddToScheme(scheme)).To(Succeed())
+	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
+	Expect(namespacedapis.AddToScheme(scheme)).To(Succeed())
 
 	kclient, err = client.New(cfg, client.Options{Scheme: scheme})
 	Expect(err).ShouldNot(HaveOccurred())

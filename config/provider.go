@@ -10,7 +10,8 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 
-	"github.com/crossplane-contrib/provider-palette/config/resources"
+	"github.com/crossplane-contrib/provider-palette/config/cluster"
+	"github.com/crossplane-contrib/provider-palette/config/namespaced"
 )
 
 const (
@@ -30,6 +31,7 @@ func GetProvider() *config.Provider {
 		config.WithShortName("palette"),
 		config.WithRootGroup("palette.crossplane.io"),
 		config.WithFeaturesPackage("internal/features"),
+
 		config.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
 		),
@@ -41,7 +43,34 @@ func GetProvider() *config.Provider {
 
 	for _, configure := range []func(provider *config.Provider){
 		// add custom config functions
-		resources.Configure,
+		cluster.Configure,
+	} {
+		configure(pc)
+	}
+
+	pc.ConfigureResources()
+	return pc
+}
+
+// GetProviderNamespaced returns provider configuration for namespaced resources
+func GetProviderNamespaced() *config.Provider {
+	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		config.WithShortName("palette"),
+		config.WithRootGroup("palette.m.crossplane.io"), // Note: .m. for managed/namespaced
+		config.WithFeaturesPackage("internal/features"),
+
+		config.WithDefaultResourceOptions(
+			ExternalNameConfigurations(),
+		),
+		config.WithSkipList([]string{
+			"spectrocloud_cluster_profile_import", // Specific resource to skip
+			"^spectrocloud_macro$",                // Only skip exact singular match, keep spectrocloud_macros
+		}),
+	)
+
+	for _, configure := range []func(provider *config.Provider){
+		// add custom config functions
+		namespaced.Configure,
 	} {
 		configure(pc)
 	}
