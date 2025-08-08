@@ -1272,7 +1272,6 @@ resources:
             create: (String)
             delete: (String)
             description: (String) The description of the cluster. Default value is empty string.
-            effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
@@ -1282,7 +1281,6 @@ resources:
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
-            key: (String) The key of the taint.
             kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
             latitude: (Number) The latitude coordinates value.
             location_config: (Block List) (see below for nested schema)
@@ -1296,7 +1294,6 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
-            overrides: (Map of String) Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -1312,12 +1309,10 @@ resources:
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-            taints: (Block List) (see below for nested schema)
             timeouts: (Block, Optional) (see below for nested schema)
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            value: (String) The value of the taint.
             values: (String) The values of the cloud config. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
         importStatements: []
