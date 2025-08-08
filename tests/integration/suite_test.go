@@ -24,8 +24,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
-	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
 	"github.com/crossplane-contrib/provider-palette/apis/cluster/v1beta1"
+	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
 
 	// "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
 	"github.com/crossplane-contrib/provider-palette/cmd/provider/run"
