@@ -3506,6 +3506,8 @@ resources:
                   ],
                   "sso_auth_type": "saml"
                 }
+              references:
+                saml.default_team_ids: data.spectrocloud_team.team.id
         argumentDocs:
             auth_providers: (Set of String) A set of external authentication providers such as GitHub and Google.
             callback_url: (String) URL to which the identity provider redirects after authentication.
@@ -3572,6 +3574,8 @@ resources:
                 }
               references:
                 project_role_mapping.id: data.spectrocloud_project.project2.id
+                project_role_mapping.roles: data.spectrocloud_role.role3.id
+                users: data.spectrocloud_user.user1.id
         argumentDocs:
             create: (String)
             delete: (String)
@@ -3653,6 +3657,9 @@ resources:
                 }
               references:
                 project_role.project_id: data.spectrocloud_project.ranjith.id
+                resource_role.filter_ids: data.spectrocloud_filter.filter.id
+                resource_role.project_ids: data.spectrocloud_project.ranjith.id
+                team_ids: data.spectrocloud_team.team2.id
                 workspace_role.project_id: data.spectrocloud_project.default.id
                 workspace_role.workspace.id: data.spectrocloud_workspace.workspace2.id
             - name: user-test
@@ -3665,6 +3672,8 @@ resources:
                     "${data.spectrocloud_team.team2.id}"
                   ]
                 }
+              references:
+                team_ids: data.spectrocloud_team.team2.id
         argumentDocs:
             create: (String)
             delete: (String)
@@ -4124,6 +4133,7 @@ resources:
                 }
               references:
                 backup_policy.backup_location_id: data.spectrocloud_backup_storage_location.bsl.id
+                backup_policy.cluster_uids: data.spectrocloud_cluster.cluster1.id
                 clusters.uid: data.spectrocloud_cluster.cluster1.id
         argumentDocs:
             backup_location_id: (String) The ID of the backup location to use for the backup.

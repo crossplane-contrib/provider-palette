@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/gorilla/mux"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -25,6 +25,8 @@ import (
 
 	"github.com/crossplane-contrib/provider-palette/apis"
 	"github.com/crossplane-contrib/provider-palette/apis/v1beta1"
+
+	// "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
 	"github.com/crossplane-contrib/provider-palette/cmd/provider/run"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 	"github.com/crossplane-contrib/provider-palette/tests/integration/routes"

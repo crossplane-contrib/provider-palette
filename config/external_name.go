@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/crossplane/upjet/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
 // FormattedIdentifierFromProvider returns external name configuration for resources that use
