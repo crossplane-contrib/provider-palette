@@ -314,7 +314,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -612,7 +611,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -627,23 +625,17 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         taints:
-                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
                                 type: string
                               key:
-                                description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                description: The key of the taint.
                                 type: string
                               value:
-                                description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                description: The value of the taint.
                                 type: string
                             type: object
                           type: array
@@ -993,7 +985,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -1291,7 +1282,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -1306,23 +1296,17 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         taints:
-                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
                                 type: string
                               key:
-                                description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                description: The key of the taint.
                                 type: string
                               value:
-                                description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                description: The value of the taint.
                                 type: string
                             type: object
                           type: array
@@ -1701,7 +1685,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -1954,7 +1937,6 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
                             Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
 
 
@@ -1969,23 +1951,17 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         taints:
-                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
                                 type: string
                               key:
-                                description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                description: The key of the taint.
                                 type: string
                               value:
-                                description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                description: The value of the taint.
                                 type: string
                             type: object
                           type: array
