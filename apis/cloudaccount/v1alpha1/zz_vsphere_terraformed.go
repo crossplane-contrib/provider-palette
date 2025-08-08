@@ -21,7 +21,7 @@ func (mg *Vsphere) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Vsphere
 func (tr *Vsphere) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"vsphere_password": "spec.forProvider.vspherePasswordSecretRef"}
+	return map[string]string{"vsphere_password": "vspherePasswordSecretRef"}
 }
 
 // GetObservation of this Vsphere

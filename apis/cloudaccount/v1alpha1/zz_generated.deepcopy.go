@@ -53,9 +53,19 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AwsSecretKeySecretRef != nil {
+		in, out := &in.AwsSecretKeySecretRef, &out.AwsSecretKeySecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
+		**out = **in
+	}
+	if in.ExternalIDSecretRef != nil {
+		in, out := &in.ExternalIDSecretRef, &out.ExternalIDSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -340,6 +350,7 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	out.AzureClientSecretSecretRef = in.AzureClientSecretSecretRef
 	if in.AzureTenantID != nil {
 		in, out := &in.AzureTenantID, &out.AzureTenantID
 		*out = new(string)
@@ -609,6 +620,22 @@ func (in *CustomInitParameters) DeepCopyInto(out *CustomInitParameters) {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
 		**out = **in
+	}
+	if in.Credentials != nil {
+		in, out := &in.Credentials, &out.Credentials
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1004,6 +1031,7 @@ func (in *MaasInitParameters) DeepCopyInto(out *MaasInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	out.MaasAPIKeySecretRef = in.MaasAPIKeySecretRef
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1234,6 +1262,7 @@ func (in *OpenstackInitParameters) DeepCopyInto(out *OpenstackInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	out.OpenstackPasswordSecretRef = in.OpenstackPasswordSecretRef
 	if in.OpenstackUsername != nil {
 		in, out := &in.OpenstackUsername, &out.OpenstackUsername
 		*out = new(string)
@@ -1514,6 +1543,7 @@ func (in *VsphereInitParameters) DeepCopyInto(out *VsphereInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	out.VspherePasswordSecretRef = in.VspherePasswordSecretRef
 	if in.VsphereUsername != nil {
 		in, out := &in.VsphereUsername, &out.VsphereUsername
 		*out = new(string)

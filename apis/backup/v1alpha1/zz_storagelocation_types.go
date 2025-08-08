@@ -19,6 +19,10 @@ type AzureStorageConfigInitParameters struct {
 	// Unique client Id from Azure console.
 	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
 
+	// (String, Sensitive) Azure secret for authentication.
+	// Azure secret for authentication.
+	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
+
 	// (String) Unique tenant Id from Azure console.
 	// Unique tenant Id from Azure console.
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
@@ -84,7 +88,7 @@ type AzureStorageConfigParameters struct {
 
 	// (String, Sensitive) Azure secret for authentication.
 	// Azure secret for authentication.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
 
 	// (String) Unique tenant Id from Azure console.

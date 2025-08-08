@@ -43,6 +43,10 @@ type OpenstackInitParameters struct {
 	// Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
 	OpenstackAllowInsecure *bool `json:"openstackAllowInsecure,omitempty" tf:"openstack_allow_insecure,omitempty"`
 
+	// (String, Sensitive) The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+	// The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+	OpenstackPasswordSecretRef v1.SecretKeySelector `json:"openstackPasswordSecretRef" tf:"-"`
+
 	// (String) The username of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The username of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	OpenstackUsername *string `json:"openstackUsername,omitempty" tf:"openstack_username,omitempty"`

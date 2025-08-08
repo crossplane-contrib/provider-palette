@@ -21,7 +21,7 @@ func (mg *Oci) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Oci
 func (tr *Oci) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"credentials[*].password": "spec.forProvider.credentials[*].passwordSecretRef", "credentials[*].secret_key": "spec.forProvider.credentials[*].secretKeySecretRef"}
+	return map[string]string{"credentials[*].password": "credentials[*].passwordSecretRef", "credentials[*].secret_key": "credentials[*].secretKeySecretRef"}
 }
 
 // GetObservation of this Oci

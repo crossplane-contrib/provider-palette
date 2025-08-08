@@ -21,7 +21,7 @@ func (mg *Sso) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Sso
 func (tr *Sso) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"oidc[*].client_secret": "spec.forProvider.oidc[*].clientSecretSecretRef"}
+	return map[string]string{"oidc[*].client_secret": "oidc[*].clientSecretSecretRef"}
 }
 
 // GetObservation of this Sso

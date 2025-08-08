@@ -19,6 +19,10 @@ type OidcInitParameters struct {
 	// Client ID for OIDC authentication.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
+	// (String, Sensitive) Client secret for OIDC authentication (sensitive).
+	// Client secret for OIDC authentication (sensitive).
+	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+
 	// (Set of String) A set of default team IDs assigned to users.
 	// A set of default team IDs assigned to users.
 	// +listType=set
@@ -128,7 +132,7 @@ type OidcParameters struct {
 
 	// (String, Sensitive) Client secret for OIDC authentication (sensitive).
 	// Client secret for OIDC authentication (sensitive).
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// (Set of String) A set of default team IDs assigned to users.

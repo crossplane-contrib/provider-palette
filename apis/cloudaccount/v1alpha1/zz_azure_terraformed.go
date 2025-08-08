@@ -21,7 +21,7 @@ func (mg *Azure) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Azure
 func (tr *Azure) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"azure_client_secret": "spec.forProvider.azureClientSecretSecretRef"}
+	return map[string]string{"azure_client_secret": "azureClientSecretSecretRef"}
 }
 
 // GetObservation of this Azure

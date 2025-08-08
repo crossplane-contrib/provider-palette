@@ -23,6 +23,8 @@ type CustomInitParameters struct {
 	// The context of the custom cloud configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	Credentials map[string]*string `json:"credentialsSecretRef" tf:"-"`
+
 	// (String) The name of the cloud account.
 	// The name of the cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

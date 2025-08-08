@@ -31,6 +31,10 @@ type VsphereInitParameters struct {
 	// Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
 	VsphereIgnoreInsecureError *bool `json:"vsphereIgnoreInsecureError,omitempty" tf:"vsphere_ignore_insecure_error,omitempty"`
 
+	// (String, Sensitive) Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
+	// Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
+	VspherePasswordSecretRef v1.SecretKeySelector `json:"vspherePasswordSecretRef" tf:"-"`
+
 	// (String) Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
 	// Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
 	VsphereUsername *string `json:"vsphereUsername,omitempty" tf:"vsphere_username,omitempty"`

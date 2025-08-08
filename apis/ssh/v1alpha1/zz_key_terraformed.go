@@ -21,7 +21,7 @@ func (mg *Key) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Key
 func (tr *Key) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"ssh_key": "spec.forProvider.sshKeySecretRef"}
+	return map[string]string{"ssh_key": "sshKeySecretRef"}
 }
 
 // GetObservation of this Key
