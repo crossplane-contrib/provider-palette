@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type AwsInitParameters struct {
@@ -23,9 +23,17 @@ type AwsInitParameters struct {
 	// The AWS access key used to authenticate.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
+	// (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
+	// The AWS secret key used in conjunction with the access key for authentication.
+	AwsSecretKeySecretRef *v1.SecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
+
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// account access in AWS.
+	// An optional external ID that can be used for cross-account access in AWS.
+	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
 	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

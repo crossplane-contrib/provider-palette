@@ -9,7 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
-	"github.com/crossplane/crossplane-runtime/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -3517,6 +3517,7 @@ func (in *OidcInitParameters) DeepCopyInto(out *OidcInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	in.ClientSecretSecretRef.DeepCopyInto(&out.ClientSecretSecretRef)
 	if in.DefaultTeamIds != nil {
 		in, out := &in.DefaultTeamIds, &out.DefaultTeamIds
 		*out = make([]*string, len(*in))
@@ -3695,7 +3696,7 @@ func (in *OidcParameters) DeepCopyInto(out *OidcParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.ClientSecretSecretRef = in.ClientSecretSecretRef
+	in.ClientSecretSecretRef.DeepCopyInto(&out.ClientSecretSecretRef)
 	if in.DefaultTeamIds != nil {
 		in, out := &in.DefaultTeamIds, &out.DefaultTeamIds
 		*out = make([]*string, len(*in))

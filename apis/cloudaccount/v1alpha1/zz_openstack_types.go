@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type OpenstackInitParameters struct {
@@ -42,6 +42,10 @@ type OpenstackInitParameters struct {
 	// (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
 	// Whether to allow insecure connections to the OpenStack cloud. Default is `false`.
 	OpenstackAllowInsecure *bool `json:"openstackAllowInsecure,omitempty" tf:"openstack_allow_insecure,omitempty"`
+
+	// (String, Sensitive) The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+	// The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
+	OpenstackPasswordSecretRef v1.SecretKeySelector `json:"openstackPasswordSecretRef" tf:"-"`
 
 	// (String) The username of the OpenStack cloud that is used to connect to the OpenStack cloud.
 	// The username of the OpenStack cloud that is used to connect to the OpenStack cloud.

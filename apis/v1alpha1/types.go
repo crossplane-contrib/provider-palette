@@ -6,18 +6,20 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	// TODO: Re-enable when we fix the v2 types
+	// xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 // A StoreConfigSpec defines the desired state of a ProviderConfig.
 type StoreConfigSpec struct {
-	xpv1.SecretStoreConfig `json:",inline"`
+	// TODO: Fix this - SecretStoreConfig might have moved in v2
+	// xpv1.SecretStoreConfig `json:",inline"`
 }
 
 // A StoreConfigStatus represents the status of a StoreConfig.
 type StoreConfigStatus struct {
-	xpv1.ConditionedStatus `json:",inline"`
+	// TODO: Fix this - ConditionedStatus might have moved in v2
+	// xpv1.ConditionedStatus `json:",inline"`
 }
 
 // +kubebuilder:object:root=true
@@ -48,16 +50,19 @@ type StoreConfigList struct {
 // Note(turkenh): To be generated with AngryJet
 
 // GetStoreConfig returns SecretStoreConfig
-func (in *StoreConfig) GetStoreConfig() xpv1.SecretStoreConfig {
-	return in.Spec.SecretStoreConfig
-}
+// TODO: Fix this when SecretStoreConfig is available in v2
+// func (in *StoreConfig) GetStoreConfig() xpv1.SecretStoreConfig {
+//	return in.Spec.SecretStoreConfig
+// }
 
 // GetCondition of this StoreConfig.
-func (in *StoreConfig) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return in.Status.GetCondition(ct)
-}
+// TODO: Fix this when ConditionedStatus is available in v2
+// func (in *StoreConfig) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+//	return in.Status.GetCondition(ct)
+// }
 
 // SetConditions of this StoreConfig.
-func (in *StoreConfig) SetConditions(c ...xpv1.Condition) {
-	in.Status.SetConditions(c...)
-}
+// TODO: Fix this when ConditionedStatus is available in v2
+// func (in *StoreConfig) SetConditions(c ...xpv1.Condition) {
+//	in.Status.SetConditions(c...)
+// }
