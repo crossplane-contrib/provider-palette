@@ -1,0 +1,12 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/project
+  labels:
+    testing.upbound.io/example-name: project
+  name: project
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: dev1

@@ -1,0 +1,37 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: GCP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/gcp
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloudAccountId: ${data.spectrocloud_cloudaccount_gcp.account.id}
+    cloudConfig:
+    - network: ${var.gcp_network}
+      project: ${var.gcp_project}
+      region: ${var.gcp_region}
+    clusterProfile:
+    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    machinePool:
+    - azs:
+      - us-west3-a
+      controlPlane: true
+      controlPlaneAsWorker: true
+      count: 1
+      diskSizeGb: 62
+      instanceType: e2-standard-2
+      name: cp-pool
+    - azs:
+      - us-west3-a
+      count: 1
+      instanceType: e2-standard-2
+      name: worker-basic
+    name: ${var.cluster_name}
+    tags:
+    - dev
+    - department:devops
+    - owner:bob

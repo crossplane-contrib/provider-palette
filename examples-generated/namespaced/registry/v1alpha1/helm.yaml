@@ -1,0 +1,18 @@
+apiVersion: registry.palette.m.crossplane.io/v1alpha1
+kind: Helm
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registry/v1alpha1/helm
+  labels:
+    testing.upbound.io/example-name: r1
+  name: r1
+  namespace: upbound-system
+spec:
+  forProvider:
+    credentials:
+    - credentialType: noAuth
+      password: def
+      username: abc
+    endpoint: https://123456.dkr.ecr.us-west-1.amazonaws.com
+    isPrivate: true
+    name: us-artifactory
