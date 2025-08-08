@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type KeyInitParameters struct {
@@ -22,6 +22,10 @@ type KeyInitParameters struct {
 	// (String) The name of the SSH key resource.
 	// The name of the SSH key resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...
+	// The SSH key value. This is the public key that will be used to access the cluster. Must be in the [Authorized Keys](https://www.ssh.com/academy/ssh/authorized-keys-openssh#format-of-the-authorized-keys-file) format, such as `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...`
+	SSHKeySecretRef v1.SecretKeySelector `json:"sshKeySecretRef" tf:"-"`
 }
 
 type KeyObservation struct {

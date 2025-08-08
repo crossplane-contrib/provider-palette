@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type VsphereInitParameters struct {
@@ -30,6 +30,10 @@ type VsphereInitParameters struct {
 	// (Boolean) Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
 	// Ignore insecure error. This is a boolean value that indicates whether to ignore the insecure error or not. If not specified, the default value is false.
 	VsphereIgnoreInsecureError *bool `json:"vsphereIgnoreInsecureError,omitempty" tf:"vsphere_ignore_insecure_error,omitempty"`
+
+	// (String, Sensitive) Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
+	// Password of the vSphere cloud. This is the password of the vSphere cloud that is used to connect to the vSphere cloud.
+	VspherePasswordSecretRef v1.SecretKeySelector `json:"vspherePasswordSecretRef" tf:"-"`
 
 	// (String) Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.
 	// Username of the vSphere cloud. This is the username of the vSphere cloud that is used to connect to the vSphere cloud.

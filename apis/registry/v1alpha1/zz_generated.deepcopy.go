@@ -9,7 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
-	"github.com/crossplane/crossplane-runtime/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -376,6 +376,16 @@ func (in *OciCredentialsInitParameters) DeepCopyInto(out *OciCredentialsInitPara
 	if in.ExternalID != nil {
 		in, out := &in.ExternalID, &out.ExternalID
 		*out = new(string)
+		**out = **in
+	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.SecretKeySecretRef != nil {
+		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.TLSConfig != nil {

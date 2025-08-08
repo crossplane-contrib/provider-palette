@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type AzureInitParameters struct {
@@ -18,6 +18,10 @@ type AzureInitParameters struct {
 	// (String) Unique client Id from Azure console.
 	// Unique client Id from Azure console.
 	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String, Sensitive) Azure secret for authentication.
+	// Azure secret for authentication.
+	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
 
 	// (String) Unique tenant Id from Azure console.
 	// Unique tenant Id from Azure console.
