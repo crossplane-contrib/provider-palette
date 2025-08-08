@@ -1,14 +1,14 @@
 package integration
 
 import (
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
-	cloudaccountv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
+	// cloudaccountv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
 
