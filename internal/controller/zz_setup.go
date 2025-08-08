@@ -7,7 +7,7 @@ package controller
 import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/v2/pkg/controller"
 
 	deployment "github.com/crossplane-contrib/provider-palette/internal/controller/addon/deployment"
 	profile "github.com/crossplane-contrib/provider-palette/internal/controller/application/profile"
@@ -113,6 +113,67 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		key.Setup,
 		cluster.Setup,
 		machine.Setup,
+	} {
+		if err := setup(mgr, o); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// SetupGated creates all controllers with the supplied logger and adds them to
+// the supplied manager gated.
+func SetupGated(mgr ctrl.Manager, o controller.Options) error {
+	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		deployment.SetupGated,
+		profile.SetupGated,
+		storagelocation.SetupGated,
+		aws.SetupGated,
+		azure.SetupGated,
+		custom.SetupGated,
+		gcp.SetupGated,
+		maas.SetupGated,
+		openstack.SetupGated,
+		vsphere.SetupGated,
+		aks.SetupGated,
+		awscluster.SetupGated,
+		azurecluster.SetupGated,
+		customcloud.SetupGated,
+		edgenative.SetupGated,
+		edgevsphere.SetupGated,
+		eks.SetupGated,
+		gcpcluster.SetupGated,
+		gke.SetupGated,
+		group.SetupGated,
+		maascluster.SetupGated,
+		openstackcluster.SetupGated,
+		profilecluster.SetupGated,
+		vspherecluster.SetupGated,
+		setting.SetupGated,
+		policy.SetupGated,
+		settingplatform.SetupGated,
+		dnsmap.SetupGated,
+		ippool.SetupGated,
+		providerconfig.SetupGated,
+		token.SetupGated,
+		helm.SetupGated,
+		oci.SetupGated,
+		limit.SetupGated,
+		alert.SetupGated,
+		appliance.SetupGated,
+		application.SetupGated,
+		datavolume.SetupGated,
+		filter.SetupGated,
+		macros.SetupGated,
+		project.SetupGated,
+		role.SetupGated,
+		sso.SetupGated,
+		team.SetupGated,
+		user.SetupGated,
+		workspace.SetupGated,
+		key.SetupGated,
+		cluster.SetupGated,
+		machine.SetupGated,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
