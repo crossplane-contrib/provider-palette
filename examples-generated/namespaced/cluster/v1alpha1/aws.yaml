@@ -1,0 +1,58 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    backupPolicy:
+    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: true
+      prefix: prod-backup
+      schedule: 0 0 * * SUN
+    cloudAccountId: ${data.spectrocloud_cloudaccount_aws.account.id}
+    cloudConfig:
+    - region: eu-west-1
+      sshKeyName: spectro2022
+      vpcId: vpc-0a38a86f3bf3c6cf5
+    clusterProfile:
+    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    machinePool:
+    - additionalLabels:
+        owner: siva
+        purpose: testing
+        type: cp
+      azSubnets:
+        eu-west-1a: subnet-08c7ad2affe1f1250,subnet-04dbeac9aba098d0e
+        eu-west-1c: ${join(",", var.subnet_ids_eu_west_1c)}
+      controlPlane: true
+      controlPlaneAsWorker: true
+      count: 1
+      diskSizeGb: 60
+      instanceType: m4.large
+      name: cp-pool
+    - additionalLabels:
+        owner: siva
+        purpose: testing
+        type: worker
+      azSubnets:
+        eu-west-1a: subnet-04dbeac9aba098d0e
+        eu-west-1c: subnet-039c3beb3da69172f
+      count: 1
+      instanceType: m5.large
+      name: worker-basic
+    name: ${var.cluster_name}
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - dev
+    - department:devops
+    - owner:bob

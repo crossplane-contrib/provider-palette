@@ -1,0 +1,50 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Openstack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/openstack
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    backupPolicy:
+    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: true
+      prefix: prod-backup
+      schedule: 0 0 * * SUN
+    cloudAccountId: ${data.spectrocloud_cloudaccount_openstack.account.id}
+    cloudConfig:
+    - dnsServers:
+      - 10.10.128.8
+      - 8.8.8.8
+      domain: Default
+      project: dev
+      region: RegionOne
+      sshKey: Spectro2021
+      subnetCidr: 192.168.151.0/24
+    clusterProfile:
+    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    machinePool:
+    - azs:
+      - zone1
+      controlPlane: true
+      controlPlaneAsWorker: true
+      count: 1
+      instanceType: spectro-xlarge
+      name: cp-pool
+    - azs:
+      - zone1
+      count: 2
+      instanceType: spectro-large
+      name: worker-basic
+    name: openstack-piyush-tf-1
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - dev

@@ -1,0 +1,1561 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: edgevspheres.cluster.palette.m.crossplane.io
+spec:
+  group: cluster.palette.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - palette
+    kind: EdgeVsphere
+    listKind: EdgeVsphereList
+    plural: edgevspheres
+    singular: edgevsphere
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: EdgeVsphere is the Schema for the EdgeVspheres API. <no value>
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EdgeVsphereSpec defines the desired state of EdgeVsphere
+            properties:
+              forProvider:
+                properties:
+                  backupPolicy:
+                    description: The backup policy for the cluster. If not specified,
+                      no backups will be taken.
+                    items:
+                      properties:
+                        backupLocationId:
+                          description: The ID of the backup location to use for the
+                            backup.
+                          type: string
+                        clusterUids:
+                          description: The list of cluster UIDs to include in the
+                            backup. If `include_all_clusters` is set to `true`, then
+                            all clusters will be included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        expiryInHour:
+                          description: The number of hours after which the backup
+                            will be deleted. For example, if the expiry is set to
+                            24, the backup will be deleted after 24 hours.
+                          type: number
+                        includeAllClusters:
+                          description: Whether to include all clusters in the backup.
+                            If set to false, only the clusters specified in `cluster_uids`
+                            will be included.
+                          type: boolean
+                        includeClusterResources:
+                          description: 'Indicates whether to include cluster resources
+                            in the backup. If set to false, only the cluster configuration
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the include_cluster_resources attribute will
+                            be deprecated, and a new attribute, include_cluster_resources_mode,
+                            will be introduced.)'
+                          type: boolean
+                        includeClusterResourcesMode:
+                          description: Specifies whether to include the cluster resources
+                            in the backup. Supported values are `always`, `never`,
+                            and `auto`.
+                          type: string
+                        includeDisks:
+                          description: Whether to include the disks in the backup.
+                            If set to false, only the cluster configuration will be
+                            backed up.
+                          type: boolean
+                        namespaces:
+                          description: The list of Kubernetes namespaces to include
+                            in the backup. If not specified, all namespaces will be
+                            included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        prefix:
+                          description: Prefix for the backup name. The backup name
+                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          type: string
+                        schedule:
+                          description: The schedule for the backup. The schedule is
+                            specified in cron format. For example, to run the backup
+                            every day at 1:00 AM, the schedule should be set to `0
+                            1 * * *`.
+                          type: string
+                      type: object
+                    type: array
+                  cloudConfig:
+                    items:
+                      properties:
+                        datacenter:
+                          type: string
+                        folder:
+                          type: string
+                        imageTemplateFolder:
+                          type: string
+                        networkSearchDomain:
+                          type: string
+                        networkType:
+                          type: string
+                        sshKey:
+                          description: Public SSH Key (Secure Shell) to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          type: string
+                        sshKeys:
+                          description: List of public SSH (Secure Shell) keys to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        staticIp:
+                          type: boolean
+                        vip:
+                          type: string
+                      type: object
+                    type: array
+                  clusterMetaAttribute:
+                    description: '`cluster_meta_attribute` can be used to set additional
+                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
+                      ''stage''}`'
+                    type: string
+                  clusterProfile:
+                    items:
+                      properties:
+                        id:
+                          description: The ID of the cluster profile.
+                          type: string
+                        pack:
+                          description: For packs of type `spectro`, `helm`, and `manifest`,
+                            at least one pack must be specified.
+                          items:
+                            properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    content:
+                                      description: The content of the manifest. The
+                                        content is the YAML content of the manifest.
+                                      type: string
+                                    name:
+                                      description: The name of the manifest. The name
+                                        must be unique within the pack.
+                                      type: string
+                                  type: object
+                                type: array
+                              name:
+                                description: The name of the pack. The name must be
+                                  unique within the cluster profile.
+                                type: string
+                              registryUid:
+                                description: The registry UID of the pack. The registry
+                                  UID is the unique identifier of the registry. This
+                                  attribute is required if there is more than one
+                                  registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
+                                type: string
+                              tag:
+                                description: The tag of the pack. The tag is the version
+                                  of the pack. This attribute is required if the pack
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
+                                type: string
+                              type:
+                                description: The type of the pack. Allowed values
+                                  are `spectro`, `manifest`, `helm`, or `oci`. The
+                                  default value is spectro. If using an OCI registry
+                                  for pack, set the type to `oci`.
+                                type: string
+                              uid:
+                                description: The unique identifier of the pack. The
+                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
+                                  data source. This value is required if the pack
+                                  type is `spectro` and for `helm` if the chart is
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
+                                type: string
+                              values:
+                                description: The values of the pack. The values are
+                                  the configuration values of the pack. The values
+                                  are specified in YAML format.
+                                type: string
+                            type: object
+                          type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: 'A map of cluster profile variables, specified
+                            as key-value pairs. For example: `priority = "5"`.'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  clusterRbacBinding:
+                    description: The RBAC binding for the cluster.
+                    items:
+                      properties:
+                        namespace:
+                          description: The Kubernetes namespace of the RBAC binding.
+                            Required if 'type' is set to 'RoleBinding'.
+                          type: string
+                        role:
+                          additionalProperties:
+                            type: string
+                          description: The role of the RBAC binding. Required if 'type'
+                            is set to 'RoleBinding'.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        subjects:
+                          items:
+                            properties:
+                              name:
+                                description: The name of the subject. Required if
+                                  'type' is set to 'User' or 'Group'.
+                                type: string
+                              namespace:
+                                description: The Kubernetes namespace of the subject.
+                                  Required if 'type' is set to 'ServiceAccount'.
+                                type: string
+                              type:
+                                description: 'The type of the subject. Can be one
+                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                type: string
+                            type: object
+                          type: array
+                        type:
+                          description: 'The type of the RBAC binding. Can be one of
+                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          type: string
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the Edge cluster. Allowed values are
+                      `project` or `tenant`. Default is `project`. If  the `project`
+                      context is specified, the project name will sourced from the
+                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster. Default value is
+                      empty string.
+                    type: string
+                  edgeHostUid:
+                    type: string
+                  forceDelete:
+                    description: If set to `true`, the cluster will be force deleted
+                      and user has to manually clean up the provisioned cloud resources.
+                    type: boolean
+                  forceDeleteDelay:
+                    description: Delay duration in minutes to before invoking cluster
+                      force delete. Default and minimum is 20.
+                    type: number
+                  hostConfig:
+                    description: The host configuration for the cluster.
+                    items:
+                      properties:
+                        externalTrafficPolicy:
+                          description: The external traffic policy for the cluster.
+                          type: string
+                        hostEndpointType:
+                          description: The type of endpoint for the cluster. Can be
+                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          type: string
+                        ingressHost:
+                          description: The host for the Ingress endpoint. Required
+                            if 'host_endpoint_type' is set to 'Ingress'.
+                          type: string
+                        loadBalancerSourceRanges:
+                          description: The source ranges for the load balancer. Required
+                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          type: string
+                      type: object
+                    type: array
+                  locationConfig:
+                    items:
+                      properties:
+                        countryCode:
+                          description: The country code of the country the cluster
+                            is located in.
+                          type: string
+                        countryName:
+                          description: The name of the country.
+                          type: string
+                        latitude:
+                          description: The latitude coordinates value.
+                          type: number
+                        longitude:
+                          description: The longitude coordinates value.
+                          type: number
+                        regionCode:
+                          description: The region code of where the cluster is located
+                            in.
+                          type: string
+                        regionName:
+                          description: The name of the region.
+                          type: string
+                      type: object
+                    type: array
+                  machinePool:
+                    items:
+                      properties:
+                        additionalLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                          x-kubernetes-map-type: granular
+                        controlPlane:
+                          description: Whether this machine pool is a control plane.
+                            Defaults to `false`.
+                          type: boolean
+                        controlPlaneAsWorker:
+                          description: Whether this machine pool is a control plane
+                            and a worker. Defaults to `false`.
+                          type: boolean
+                        count:
+                          description: Number of nodes in the machine pool.
+                          type: number
+                        instanceType:
+                          items:
+                            properties:
+                              cpu:
+                                type: number
+                              diskSizeGb:
+                                type: number
+                              memoryMb:
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          type: string
+                        node:
+                          items:
+                            properties:
+                              action:
+                                description: 'The action to perform on the node. Valid
+                                  values are: `cordon`, `uncordon`.'
+                                type: string
+                              nodeId:
+                                description: The node_id of the node, For example
+                                  `i-07f899a33dee624f7`
+                                type: string
+                            type: object
+                          type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
+                        placement:
+                          items:
+                            properties:
+                              cluster:
+                                type: string
+                              datastore:
+                                type: string
+                              network:
+                                type: string
+                              resourcePool:
+                                type: string
+                              staticIpPoolId:
+                                type: string
+                            type: object
+                          type: array
+                        taints:
+                          items:
+                            properties:
+                              effect:
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                type: string
+                              key:
+                                description: The key of the taint.
+                                type: string
+                              value:
+                                description: The value of the taint.
+                                type: string
+                            type: object
+                          type: array
+                        updateStrategy:
+                          description: Update strategy for the machine pool. Valid
+                            values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    type: string
+                  namespaces:
+                    description: The namespaces for the cluster.
+                    items:
+                      properties:
+                        imagesBlacklist:
+                          description: List of images to disallow for the namespace.
+                            For example, `['nginx:latest', 'redis:latest']`
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: Name of the namespace. This is the name of
+                            the Kubernetes namespace in the cluster.
+                          type: string
+                        resourceAllocation:
+                          additionalProperties:
+                            type: string
+                          description: 'Resource allocation for the namespace. This
+                            is a map containing the resource type and the resource
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  osPatchAfter:
+                    description: 'Date and time after which to patch cluster `RFC3339:
+                      2006-01-02T15:04:05Z07:00`'
+                    type: string
+                  osPatchOnBoot:
+                    description: Whether to apply OS patch on boot. Default is `false`.
+                    type: boolean
+                  osPatchSchedule:
+                    description: Cron schedule for OS patching. This must be in the
+                      form of `0 0 * * *`.
+                    type: string
+                  pauseAgentUpgrades:
+                    description: The pause agent upgrades setting allows to control
+                      the automatic upgrade of the Palette component and agent for
+                      an individual cluster. The default value is `unlock`, meaning
+                      upgrades occur automatically. Setting it to `lock` pauses automatic
+                      agent upgrades for the cluster.
+                    type: string
+                  reviewRepaveState:
+                    description: To authorize the cluster repave, set the value to
+                      `Approved` for approval and `""` to decline. Default value is
+                      `""`.
+                    type: string
+                  scanPolicy:
+                    description: The scan policy for the cluster.
+                    items:
+                      properties:
+                        configurationScanSchedule:
+                          description: The schedule for configuration scan.
+                          type: string
+                        conformanceScanSchedule:
+                          description: The schedule for conformance scan.
+                          type: string
+                        penetrationScanSchedule:
+                          description: The schedule for penetration scan.
+                          type: string
+                      type: object
+                    type: array
+                  skipCompletion:
+                    description: If `true`, the cluster will be created asynchronously.
+                      Default value is `false`.
+                    type: boolean
+                  tags:
+                    description: A list of tags to be applied to the cluster. Tags
+                      must be in the form of `key:value`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  backupPolicy:
+                    description: The backup policy for the cluster. If not specified,
+                      no backups will be taken.
+                    items:
+                      properties:
+                        backupLocationId:
+                          description: The ID of the backup location to use for the
+                            backup.
+                          type: string
+                        clusterUids:
+                          description: The list of cluster UIDs to include in the
+                            backup. If `include_all_clusters` is set to `true`, then
+                            all clusters will be included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        expiryInHour:
+                          description: The number of hours after which the backup
+                            will be deleted. For example, if the expiry is set to
+                            24, the backup will be deleted after 24 hours.
+                          type: number
+                        includeAllClusters:
+                          description: Whether to include all clusters in the backup.
+                            If set to false, only the clusters specified in `cluster_uids`
+                            will be included.
+                          type: boolean
+                        includeClusterResources:
+                          description: 'Indicates whether to include cluster resources
+                            in the backup. If set to false, only the cluster configuration
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the include_cluster_resources attribute will
+                            be deprecated, and a new attribute, include_cluster_resources_mode,
+                            will be introduced.)'
+                          type: boolean
+                        includeClusterResourcesMode:
+                          description: Specifies whether to include the cluster resources
+                            in the backup. Supported values are `always`, `never`,
+                            and `auto`.
+                          type: string
+                        includeDisks:
+                          description: Whether to include the disks in the backup.
+                            If set to false, only the cluster configuration will be
+                            backed up.
+                          type: boolean
+                        namespaces:
+                          description: The list of Kubernetes namespaces to include
+                            in the backup. If not specified, all namespaces will be
+                            included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        prefix:
+                          description: Prefix for the backup name. The backup name
+                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          type: string
+                        schedule:
+                          description: The schedule for the backup. The schedule is
+                            specified in cron format. For example, to run the backup
+                            every day at 1:00 AM, the schedule should be set to `0
+                            1 * * *`.
+                          type: string
+                      type: object
+                    type: array
+                  cloudConfig:
+                    items:
+                      properties:
+                        datacenter:
+                          type: string
+                        folder:
+                          type: string
+                        imageTemplateFolder:
+                          type: string
+                        networkSearchDomain:
+                          type: string
+                        networkType:
+                          type: string
+                        sshKey:
+                          description: Public SSH Key (Secure Shell) to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          type: string
+                        sshKeys:
+                          description: List of public SSH (Secure Shell) keys to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        staticIp:
+                          type: boolean
+                        vip:
+                          type: string
+                      type: object
+                    type: array
+                  clusterMetaAttribute:
+                    description: '`cluster_meta_attribute` can be used to set additional
+                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
+                      ''stage''}`'
+                    type: string
+                  clusterProfile:
+                    items:
+                      properties:
+                        id:
+                          description: The ID of the cluster profile.
+                          type: string
+                        pack:
+                          description: For packs of type `spectro`, `helm`, and `manifest`,
+                            at least one pack must be specified.
+                          items:
+                            properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    content:
+                                      description: The content of the manifest. The
+                                        content is the YAML content of the manifest.
+                                      type: string
+                                    name:
+                                      description: The name of the manifest. The name
+                                        must be unique within the pack.
+                                      type: string
+                                  type: object
+                                type: array
+                              name:
+                                description: The name of the pack. The name must be
+                                  unique within the cluster profile.
+                                type: string
+                              registryUid:
+                                description: The registry UID of the pack. The registry
+                                  UID is the unique identifier of the registry. This
+                                  attribute is required if there is more than one
+                                  registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
+                                type: string
+                              tag:
+                                description: The tag of the pack. The tag is the version
+                                  of the pack. This attribute is required if the pack
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
+                                type: string
+                              type:
+                                description: The type of the pack. Allowed values
+                                  are `spectro`, `manifest`, `helm`, or `oci`. The
+                                  default value is spectro. If using an OCI registry
+                                  for pack, set the type to `oci`.
+                                type: string
+                              uid:
+                                description: The unique identifier of the pack. The
+                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
+                                  data source. This value is required if the pack
+                                  type is `spectro` and for `helm` if the chart is
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
+                                type: string
+                              values:
+                                description: The values of the pack. The values are
+                                  the configuration values of the pack. The values
+                                  are specified in YAML format.
+                                type: string
+                            type: object
+                          type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: 'A map of cluster profile variables, specified
+                            as key-value pairs. For example: `priority = "5"`.'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  clusterRbacBinding:
+                    description: The RBAC binding for the cluster.
+                    items:
+                      properties:
+                        namespace:
+                          description: The Kubernetes namespace of the RBAC binding.
+                            Required if 'type' is set to 'RoleBinding'.
+                          type: string
+                        role:
+                          additionalProperties:
+                            type: string
+                          description: The role of the RBAC binding. Required if 'type'
+                            is set to 'RoleBinding'.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        subjects:
+                          items:
+                            properties:
+                              name:
+                                description: The name of the subject. Required if
+                                  'type' is set to 'User' or 'Group'.
+                                type: string
+                              namespace:
+                                description: The Kubernetes namespace of the subject.
+                                  Required if 'type' is set to 'ServiceAccount'.
+                                type: string
+                              type:
+                                description: 'The type of the subject. Can be one
+                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                type: string
+                            type: object
+                          type: array
+                        type:
+                          description: 'The type of the RBAC binding. Can be one of
+                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          type: string
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the Edge cluster. Allowed values are
+                      `project` or `tenant`. Default is `project`. If  the `project`
+                      context is specified, the project name will sourced from the
+                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster. Default value is
+                      empty string.
+                    type: string
+                  edgeHostUid:
+                    type: string
+                  forceDelete:
+                    description: If set to `true`, the cluster will be force deleted
+                      and user has to manually clean up the provisioned cloud resources.
+                    type: boolean
+                  forceDeleteDelay:
+                    description: Delay duration in minutes to before invoking cluster
+                      force delete. Default and minimum is 20.
+                    type: number
+                  hostConfig:
+                    description: The host configuration for the cluster.
+                    items:
+                      properties:
+                        externalTrafficPolicy:
+                          description: The external traffic policy for the cluster.
+                          type: string
+                        hostEndpointType:
+                          description: The type of endpoint for the cluster. Can be
+                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          type: string
+                        ingressHost:
+                          description: The host for the Ingress endpoint. Required
+                            if 'host_endpoint_type' is set to 'Ingress'.
+                          type: string
+                        loadBalancerSourceRanges:
+                          description: The source ranges for the load balancer. Required
+                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          type: string
+                      type: object
+                    type: array
+                  locationConfig:
+                    items:
+                      properties:
+                        countryCode:
+                          description: The country code of the country the cluster
+                            is located in.
+                          type: string
+                        countryName:
+                          description: The name of the country.
+                          type: string
+                        latitude:
+                          description: The latitude coordinates value.
+                          type: number
+                        longitude:
+                          description: The longitude coordinates value.
+                          type: number
+                        regionCode:
+                          description: The region code of where the cluster is located
+                            in.
+                          type: string
+                        regionName:
+                          description: The name of the region.
+                          type: string
+                      type: object
+                    type: array
+                  machinePool:
+                    items:
+                      properties:
+                        additionalLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                          x-kubernetes-map-type: granular
+                        controlPlane:
+                          description: Whether this machine pool is a control plane.
+                            Defaults to `false`.
+                          type: boolean
+                        controlPlaneAsWorker:
+                          description: Whether this machine pool is a control plane
+                            and a worker. Defaults to `false`.
+                          type: boolean
+                        count:
+                          description: Number of nodes in the machine pool.
+                          type: number
+                        instanceType:
+                          items:
+                            properties:
+                              cpu:
+                                type: number
+                              diskSizeGb:
+                                type: number
+                              memoryMb:
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          type: string
+                        node:
+                          items:
+                            properties:
+                              action:
+                                description: 'The action to perform on the node. Valid
+                                  values are: `cordon`, `uncordon`.'
+                                type: string
+                              nodeId:
+                                description: The node_id of the node, For example
+                                  `i-07f899a33dee624f7`
+                                type: string
+                            type: object
+                          type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
+                        placement:
+                          items:
+                            properties:
+                              cluster:
+                                type: string
+                              datastore:
+                                type: string
+                              network:
+                                type: string
+                              resourcePool:
+                                type: string
+                              staticIpPoolId:
+                                type: string
+                            type: object
+                          type: array
+                        taints:
+                          items:
+                            properties:
+                              effect:
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                type: string
+                              key:
+                                description: The key of the taint.
+                                type: string
+                              value:
+                                description: The value of the taint.
+                                type: string
+                            type: object
+                          type: array
+                        updateStrategy:
+                          description: Update strategy for the machine pool. Valid
+                            values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    type: string
+                  namespaces:
+                    description: The namespaces for the cluster.
+                    items:
+                      properties:
+                        imagesBlacklist:
+                          description: List of images to disallow for the namespace.
+                            For example, `['nginx:latest', 'redis:latest']`
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: Name of the namespace. This is the name of
+                            the Kubernetes namespace in the cluster.
+                          type: string
+                        resourceAllocation:
+                          additionalProperties:
+                            type: string
+                          description: 'Resource allocation for the namespace. This
+                            is a map containing the resource type and the resource
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  osPatchAfter:
+                    description: 'Date and time after which to patch cluster `RFC3339:
+                      2006-01-02T15:04:05Z07:00`'
+                    type: string
+                  osPatchOnBoot:
+                    description: Whether to apply OS patch on boot. Default is `false`.
+                    type: boolean
+                  osPatchSchedule:
+                    description: Cron schedule for OS patching. This must be in the
+                      form of `0 0 * * *`.
+                    type: string
+                  pauseAgentUpgrades:
+                    description: The pause agent upgrades setting allows to control
+                      the automatic upgrade of the Palette component and agent for
+                      an individual cluster. The default value is `unlock`, meaning
+                      upgrades occur automatically. Setting it to `lock` pauses automatic
+                      agent upgrades for the cluster.
+                    type: string
+                  reviewRepaveState:
+                    description: To authorize the cluster repave, set the value to
+                      `Approved` for approval and `""` to decline. Default value is
+                      `""`.
+                    type: string
+                  scanPolicy:
+                    description: The scan policy for the cluster.
+                    items:
+                      properties:
+                        configurationScanSchedule:
+                          description: The schedule for configuration scan.
+                          type: string
+                        conformanceScanSchedule:
+                          description: The schedule for conformance scan.
+                          type: string
+                        penetrationScanSchedule:
+                          description: The schedule for penetration scan.
+                          type: string
+                      type: object
+                    type: array
+                  skipCompletion:
+                    description: If `true`, the cluster will be created asynchronously.
+                      Default value is `false`.
+                    type: boolean
+                  tags:
+                    description: A list of tags to be applied to the cluster. Tags
+                      must be in the form of `key:value`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.cloudConfig is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudConfig)
+                || (has(self.initProvider) && has(self.initProvider.cloudConfig))'
+            - message: spec.forProvider.edgeHostUid is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.edgeHostUid)
+                || (has(self.initProvider) && has(self.initProvider.edgeHostUid))'
+            - message: spec.forProvider.machinePool is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.machinePool)
+                || (has(self.initProvider) && has(self.initProvider.machinePool))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+          status:
+            description: EdgeVsphereStatus defines the observed state of EdgeVsphere.
+            properties:
+              atProvider:
+                properties:
+                  adminKubeConfig:
+                    description: Admin Kube-config for the cluster. This can be used
+                      to connect to the cluster using `kubectl`, With admin privilege.
+                    type: string
+                  backupPolicy:
+                    description: The backup policy for the cluster. If not specified,
+                      no backups will be taken.
+                    items:
+                      properties:
+                        backupLocationId:
+                          description: The ID of the backup location to use for the
+                            backup.
+                          type: string
+                        clusterUids:
+                          description: The list of cluster UIDs to include in the
+                            backup. If `include_all_clusters` is set to `true`, then
+                            all clusters will be included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        expiryInHour:
+                          description: The number of hours after which the backup
+                            will be deleted. For example, if the expiry is set to
+                            24, the backup will be deleted after 24 hours.
+                          type: number
+                        includeAllClusters:
+                          description: Whether to include all clusters in the backup.
+                            If set to false, only the clusters specified in `cluster_uids`
+                            will be included.
+                          type: boolean
+                        includeClusterResources:
+                          description: 'Indicates whether to include cluster resources
+                            in the backup. If set to false, only the cluster configuration
+                            and disks will be backed up. (Note: Starting with Palette
+                            version 4.6, the include_cluster_resources attribute will
+                            be deprecated, and a new attribute, include_cluster_resources_mode,
+                            will be introduced.)'
+                          type: boolean
+                        includeClusterResourcesMode:
+                          description: Specifies whether to include the cluster resources
+                            in the backup. Supported values are `always`, `never`,
+                            and `auto`.
+                          type: string
+                        includeDisks:
+                          description: Whether to include the disks in the backup.
+                            If set to false, only the cluster configuration will be
+                            backed up.
+                          type: boolean
+                        namespaces:
+                          description: The list of Kubernetes namespaces to include
+                            in the backup. If not specified, all namespaces will be
+                            included.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        prefix:
+                          description: Prefix for the backup name. The backup name
+                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          type: string
+                        schedule:
+                          description: The schedule for the backup. The schedule is
+                            specified in cron format. For example, to run the backup
+                            every day at 1:00 AM, the schedule should be set to `0
+                            1 * * *`.
+                          type: string
+                      type: object
+                    type: array
+                  cloudConfig:
+                    items:
+                      properties:
+                        datacenter:
+                          type: string
+                        folder:
+                          type: string
+                        imageTemplateFolder:
+                          type: string
+                        networkSearchDomain:
+                          type: string
+                        networkType:
+                          type: string
+                        sshKey:
+                          description: Public SSH Key (Secure Shell) to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          type: string
+                        sshKeys:
+                          description: List of public SSH (Secure Shell) keys to establish,
+                            administer, and communicate with remote clusters, `ssh_key
+                            & ssh_keys` are mutually exclusive.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        staticIp:
+                          type: boolean
+                        vip:
+                          type: string
+                      type: object
+                    type: array
+                  cloudConfigId:
+                    description: ID of the cloud config used for the cluster. This
+                      cloud config must be of type `azure`.
+                    type: string
+                  clusterMetaAttribute:
+                    description: '`cluster_meta_attribute` can be used to set additional
+                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
+                      ''stage''}`'
+                    type: string
+                  clusterProfile:
+                    items:
+                      properties:
+                        id:
+                          description: The ID of the cluster profile.
+                          type: string
+                        pack:
+                          description: For packs of type `spectro`, `helm`, and `manifest`,
+                            at least one pack must be specified.
+                          items:
+                            properties:
+                              manifest:
+                                items:
+                                  properties:
+                                    content:
+                                      description: The content of the manifest. The
+                                        content is the YAML content of the manifest.
+                                      type: string
+                                    name:
+                                      description: The name of the manifest. The name
+                                        must be unique within the pack.
+                                      type: string
+                                    uid:
+                                      type: string
+                                  type: object
+                                type: array
+                              name:
+                                description: The name of the pack. The name must be
+                                  unique within the cluster profile.
+                                type: string
+                              registryUid:
+                                description: The registry UID of the pack. The registry
+                                  UID is the unique identifier of the registry. This
+                                  attribute is required if there is more than one
+                                  registry that contains a pack with the same name.
+                                  If `uid` is not provided, this field is required
+                                  along with `name` and `tag` to resolve the pack
+                                  UID internally.
+                                type: string
+                              tag:
+                                description: The tag of the pack. The tag is the version
+                                  of the pack. This attribute is required if the pack
+                                  type is `spectro` or `helm`. If `uid` is not provided,
+                                  this field is required along with `name` and `registry_uid`
+                                  to resolve the pack UID internally.
+                                type: string
+                              type:
+                                description: The type of the pack. Allowed values
+                                  are `spectro`, `manifest`, `helm`, or `oci`. The
+                                  default value is spectro. If using an OCI registry
+                                  for pack, set the type to `oci`.
+                                type: string
+                              uid:
+                                description: The unique identifier of the pack. The
+                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
+                                  data source. This value is required if the pack
+                                  type is `spectro` and for `helm` if the chart is
+                                  from a public helm registry. If not provided, all
+                                  of `name`, `tag`, and `registry_uid` must be specified
+                                  to resolve the pack UID internally.
+                                type: string
+                              values:
+                                description: The values of the pack. The values are
+                                  the configuration values of the pack. The values
+                                  are specified in YAML format.
+                                type: string
+                            type: object
+                          type: array
+                        variables:
+                          additionalProperties:
+                            type: string
+                          description: 'A map of cluster profile variables, specified
+                            as key-value pairs. For example: `priority = "5"`.'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  clusterRbacBinding:
+                    description: The RBAC binding for the cluster.
+                    items:
+                      properties:
+                        namespace:
+                          description: The Kubernetes namespace of the RBAC binding.
+                            Required if 'type' is set to 'RoleBinding'.
+                          type: string
+                        role:
+                          additionalProperties:
+                            type: string
+                          description: The role of the RBAC binding. Required if 'type'
+                            is set to 'RoleBinding'.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        subjects:
+                          items:
+                            properties:
+                              name:
+                                description: The name of the subject. Required if
+                                  'type' is set to 'User' or 'Group'.
+                                type: string
+                              namespace:
+                                description: The Kubernetes namespace of the subject.
+                                  Required if 'type' is set to 'ServiceAccount'.
+                                type: string
+                              type:
+                                description: 'The type of the subject. Can be one
+                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                type: string
+                            type: object
+                          type: array
+                        type:
+                          description: 'The type of the RBAC binding. Can be one of
+                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          type: string
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the Edge cluster. Allowed values are
+                      `project` or `tenant`. Default is `project`. If  the `project`
+                      context is specified, the project name will sourced from the
+                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster. Default value is
+                      empty string.
+                    type: string
+                  edgeHostUid:
+                    type: string
+                  forceDelete:
+                    description: If set to `true`, the cluster will be force deleted
+                      and user has to manually clean up the provisioned cloud resources.
+                    type: boolean
+                  forceDeleteDelay:
+                    description: Delay duration in minutes to before invoking cluster
+                      force delete. Default and minimum is 20.
+                    type: number
+                  hostConfig:
+                    description: The host configuration for the cluster.
+                    items:
+                      properties:
+                        externalTrafficPolicy:
+                          description: The external traffic policy for the cluster.
+                          type: string
+                        hostEndpointType:
+                          description: The type of endpoint for the cluster. Can be
+                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          type: string
+                        ingressHost:
+                          description: The host for the Ingress endpoint. Required
+                            if 'host_endpoint_type' is set to 'Ingress'.
+                          type: string
+                        loadBalancerSourceRanges:
+                          description: The source ranges for the load balancer. Required
+                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    type: string
+                  kubeconfig:
+                    description: Kubeconfig for the cluster. This can be used to connect
+                      to the cluster using `kubectl`.
+                    type: string
+                  locationConfig:
+                    items:
+                      properties:
+                        countryCode:
+                          description: The country code of the country the cluster
+                            is located in.
+                          type: string
+                        countryName:
+                          description: The name of the country.
+                          type: string
+                        latitude:
+                          description: The latitude coordinates value.
+                          type: number
+                        longitude:
+                          description: The longitude coordinates value.
+                          type: number
+                        regionCode:
+                          description: The region code of where the cluster is located
+                            in.
+                          type: string
+                        regionName:
+                          description: The name of the region.
+                          type: string
+                      type: object
+                    type: array
+                  machinePool:
+                    items:
+                      properties:
+                        additionalLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                          x-kubernetes-map-type: granular
+                        controlPlane:
+                          description: Whether this machine pool is a control plane.
+                            Defaults to `false`.
+                          type: boolean
+                        controlPlaneAsWorker:
+                          description: Whether this machine pool is a control plane
+                            and a worker. Defaults to `false`.
+                          type: boolean
+                        count:
+                          description: Number of nodes in the machine pool.
+                          type: number
+                        instanceType:
+                          items:
+                            properties:
+                              cpu:
+                                type: number
+                              diskSizeGb:
+                                type: number
+                              memoryMb:
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          type: string
+                        node:
+                          items:
+                            properties:
+                              action:
+                                description: 'The action to perform on the node. Valid
+                                  values are: `cordon`, `uncordon`.'
+                                type: string
+                              nodeId:
+                                description: The node_id of the node, For example
+                                  `i-07f899a33dee624f7`
+                                type: string
+                            type: object
+                          type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
+                        placement:
+                          items:
+                            properties:
+                              cluster:
+                                type: string
+                              datastore:
+                                type: string
+                              id:
+                                type: string
+                              network:
+                                type: string
+                              resourcePool:
+                                type: string
+                              staticIpPoolId:
+                                type: string
+                            type: object
+                          type: array
+                        taints:
+                          items:
+                            properties:
+                              effect:
+                                description: 'The effect of the taint. Allowed values
+                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                type: string
+                              key:
+                                description: The key of the taint.
+                                type: string
+                              value:
+                                description: The value of the taint.
+                                type: string
+                            type: object
+                          type: array
+                        updateStrategy:
+                          description: Update strategy for the machine pool. Valid
+                            values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    type: string
+                  namespaces:
+                    description: The namespaces for the cluster.
+                    items:
+                      properties:
+                        imagesBlacklist:
+                          description: List of images to disallow for the namespace.
+                            For example, `['nginx:latest', 'redis:latest']`
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: Name of the namespace. This is the name of
+                            the Kubernetes namespace in the cluster.
+                          type: string
+                        resourceAllocation:
+                          additionalProperties:
+                            type: string
+                          description: 'Resource allocation for the namespace. This
+                            is a map containing the resource type and the resource
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
+                  osPatchAfter:
+                    description: 'Date and time after which to patch cluster `RFC3339:
+                      2006-01-02T15:04:05Z07:00`'
+                    type: string
+                  osPatchOnBoot:
+                    description: Whether to apply OS patch on boot. Default is `false`.
+                    type: boolean
+                  osPatchSchedule:
+                    description: Cron schedule for OS patching. This must be in the
+                      form of `0 0 * * *`.
+                    type: string
+                  pauseAgentUpgrades:
+                    description: The pause agent upgrades setting allows to control
+                      the automatic upgrade of the Palette component and agent for
+                      an individual cluster. The default value is `unlock`, meaning
+                      upgrades occur automatically. Setting it to `lock` pauses automatic
+                      agent upgrades for the cluster.
+                    type: string
+                  reviewRepaveState:
+                    description: To authorize the cluster repave, set the value to
+                      `Approved` for approval and `""` to decline. Default value is
+                      `""`.
+                    type: string
+                  scanPolicy:
+                    description: The scan policy for the cluster.
+                    items:
+                      properties:
+                        configurationScanSchedule:
+                          description: The schedule for configuration scan.
+                          type: string
+                        conformanceScanSchedule:
+                          description: The schedule for conformance scan.
+                          type: string
+                        penetrationScanSchedule:
+                          description: The schedule for penetration scan.
+                          type: string
+                      type: object
+                    type: array
+                  skipCompletion:
+                    description: If `true`, the cluster will be created asynchronously.
+                      Default value is `false`.
+                    type: boolean
+                  tags:
+                    description: A list of tags to be applied to the cluster. Tags
+                      must be in the form of `key:value`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

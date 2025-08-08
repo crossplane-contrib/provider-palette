@@ -1,0 +1,42 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Aks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/aks
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    backupPolicy:
+    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: true
+      prefix: prod-backup
+      schedule: 0 0 * * SUN
+    cloudAccountId: ${data.spectrocloud_cloudaccount_azure.account.id}
+    cloudConfig:
+    - region: centralus
+      resourceGroup: dev
+      sshKey: ssh key value
+      subscriptionId: subscription-id
+    clusterProfile:
+    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    machinePool:
+    - count: 1
+      diskSizeGb: 60
+      instanceType: Standard_DS4
+      isSystemNodePool: true
+      name: worker-basic
+      storageAccountType: Standard_LRS
+    name: ${var.cluster_name}
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - dev
+    - department:devops
+    - owner:bob

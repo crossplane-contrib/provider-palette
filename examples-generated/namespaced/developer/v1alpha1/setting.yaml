@@ -1,0 +1,16 @@
+apiVersion: developer.palette.m.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: developer/v1alpha1/setting
+  labels:
+    testing.upbound.io/example-name: dev_setting
+  name: dev-setting
+  namespace: upbound-system
+spec:
+  forProvider:
+    cpu: 20
+    hideSystemClusterGroup: false
+    memory: 100
+    storage: 100
+    virtualClustersLimit: 10

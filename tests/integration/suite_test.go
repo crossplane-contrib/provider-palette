@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/gorilla/mux"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -23,8 +23,11 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-palette/apis"
-	"github.com/crossplane-contrib/provider-palette/apis/v1beta1"
+	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
+	"github.com/crossplane-contrib/provider-palette/apis/cluster/v1beta1"
+	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
+
+	// "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
 	"github.com/crossplane-contrib/provider-palette/cmd/provider/run"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 	"github.com/crossplane-contrib/provider-palette/tests/integration/routes"
@@ -85,7 +88,8 @@ var _ = BeforeSuite(func() {
 	Expect(err).ShouldNot(HaveOccurred())
 
 	scheme := scheme.Scheme
-	Expect(apis.AddToScheme(scheme)).To(Succeed())
+	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
+	Expect(namespacedapis.AddToScheme(scheme)).To(Succeed())
 
 	kclient, err = client.New(cfg, client.Options{Scheme: scheme})
 	Expect(err).ShouldNot(HaveOccurred())

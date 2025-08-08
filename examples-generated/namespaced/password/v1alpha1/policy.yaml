@@ -1,0 +1,18 @@
+apiVersion: password.palette.m.crossplane.io/v1alpha1
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: password/v1alpha1/policy
+  labels:
+    testing.upbound.io/example-name: policy_regex
+  name: policy-regex
+  namespace: upbound-system
+spec:
+  forProvider:
+    firstReminderDays: 5
+    minDigits: 1
+    minLowercaseLetters: 12
+    minPasswordLength: 12
+    minSpecialCharacters: 1
+    minUppercaseLetters: 1
+    passwordExpiryDays: 123

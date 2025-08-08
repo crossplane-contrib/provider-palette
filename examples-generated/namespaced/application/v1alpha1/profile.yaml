@@ -1,0 +1,32 @@
+apiVersion: application.palette.m.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: application/v1alpha1/profile
+  labels:
+    testing.upbound.io/example-name: profile
+  name: profile
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloud: all
+    context: tenant
+    description: basic cp
+    name: gcp-picard-2
+    pack:
+    - name: manifest-1
+      sourceAppTier: spectro-manifest-pack
+      tag: 1.0.0
+      type: manifest
+      values: |
+        manifests:
+          byo-manifest:
+            contents: |
+              apiVersion: v1
+              kind: Namespace
+              metadata:
+                labels:
+                  app: wordpress
+                  app3: wordpress3
+                name: wordpress
+    version: 1.0.0
