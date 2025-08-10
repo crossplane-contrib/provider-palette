@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "palette.crossplane.io"
+	Group   = "palette.m.crossplane.io"
 	Version = "v1beta1"
 )
 
