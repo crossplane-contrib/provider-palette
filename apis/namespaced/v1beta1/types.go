@@ -49,15 +49,6 @@ type ProviderConfig struct {
 }
 
 // +kubebuilder:object:root=true
-
-// ProviderConfigList contains a list of ProviderConfig.
-type ProviderConfigList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ProviderConfig `json:"items"`
-}
-
-// +kubebuilder:object:root=true
 // +kubebuilder:storageversion
 
 // A ClusterProviderConfig configures a Palette provider.
@@ -72,6 +63,15 @@ type ClusterProviderConfig struct {
 
 	Spec   ProviderConfigSpec   `json:"spec"`
 	Status ProviderConfigStatus `json:"status,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+
+// ProviderConfigList contains a list of ProviderConfig.
+type ProviderConfigList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []ProviderConfig `json:"items"`
 }
 
 // +kubebuilder:object:root=true
