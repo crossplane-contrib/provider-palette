@@ -136,20 +136,11 @@ spec:
                       GCP storage settings for configuring the backup storage location.
                     items:
                       properties:
-                        gcpjsonCredentialsSecretRef:
+                        gcpJsonCredentials:
                           description: |-
                             (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
                             The GCP credentials in JSON format. These credentials are required to authenticate and manage.
-                          properties:
-                            key:
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          type: object
+                          type: string
                         projectId:
                           description: |-
                             (String) The GCP project ID.
@@ -314,27 +305,16 @@ spec:
                       GCP storage settings for configuring the backup storage location.
                     items:
                       properties:
-                        gcpjsonCredentialsSecretRef:
+                        gcpJsonCredentials:
                           description: |-
                             (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
                             The GCP credentials in JSON format. These credentials are required to authenticate and manage.
-                          properties:
-                            key:
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          type: object
+                          type: string
                         projectId:
                           description: |-
                             (String) The GCP project ID.
                             The GCP project ID.
                           type: string
-                      required:
-                      - gcpjsonCredentialsSecretRef
                       type: object
                     type: array
                   isDefault:
@@ -533,6 +513,11 @@ spec:
                       GCP storage settings for configuring the backup storage location.
                     items:
                       properties:
+                        gcpJsonCredentials:
+                          description: |-
+                            (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+                            The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+                          type: string
                         projectId:
                           description: |-
                             (String) The GCP project ID.

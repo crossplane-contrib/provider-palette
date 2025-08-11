@@ -13,30 +13,52 @@ spec:
     firstName: tf
     lastName: test
     projectRole:
-    - projectId: ${data.spectrocloud_project.default.id}
-      roleIds: '${[for r in data.spectrocloud_role.app_roles : r.id]}'
-    - projectId: ${data.spectrocloud_project.ranjith.id}
-      roleIds: '${[for r in data.spectrocloud_role.app_roles : r.id]}'
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
     resourceRole:
-    - filterIds:
-      - ${data.spectrocloud_filter.filter.id}
-      projectIds:
-      - ${data.spectrocloud_project.default.id}
-      - ${data.spectrocloud_project.ranjith.id}
-      roleIds: '${[for r in data.spectrocloud_role.resource_roles : r.id]}'
-    - filterIds:
-      - ${data.spectrocloud_filter.filter.id}
-      projectIds:
-      - ${data.spectrocloud_project.ranjith.id}
-      roleIds: '${[for re in data.spectrocloud_role.resource_roles_editor : re.id]}'
-    teamIds:
-    - ${data.spectrocloud_team.team2.id}
-    tenantRole: '${[for t in data.spectrocloud_role.tenant_roles : t.id]}'
+    - filterIdsRefs:
+      - name: spectrocloud_filter
+      projectIdsRefs:
+      - name: spectrocloud_project
+      - name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    - filterIdsRefs:
+      - name: spectrocloud_filter
+      projectIdsRefs:
+      - name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    teamIdsRefs:
+    - name: spectrocloud_team
+    tenantRoleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_role
     workspaceRole:
-    - projectId: ${data.spectrocloud_project.default.id}
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
       workspace:
-      - id: ${data.spectrocloud_workspace.workspace.id}
-        roleIds: '${[for w in data.spectrocloud_role.workspace_roles : w.id]}'
-      - id: ${data.spectrocloud_workspace.workspace2.id}
-        roleIds:
-        - 66fbea622947f81fc26983e6
+      - idSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_workspace
+        roleIdsSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_role
+      - idSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_workspace
+        roleIdsRefs:
+        - name: example

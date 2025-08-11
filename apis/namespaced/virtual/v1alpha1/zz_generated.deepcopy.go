@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -127,6 +128,16 @@ func (in *BackupPolicyInitParameters) DeepCopyInto(out *BackupPolicyInitParamete
 		in, out := &in.BackupLocationID, &out.BackupLocationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
@@ -281,6 +292,16 @@ func (in *BackupPolicyParameters) DeepCopyInto(out *BackupPolicyParameters) {
 		in, out := &in.BackupLocationID, &out.BackupLocationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
@@ -867,6 +888,16 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterGroupUIDRef != nil {
+		in, out := &in.ClusterGroupUIDRef, &out.ClusterGroupUIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterGroupUIDSelector != nil {
+		in, out := &in.ClusterGroupUIDSelector, &out.ClusterGroupUIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterProfile != nil {
 		in, out := &in.ClusterProfile, &out.ClusterProfile
 		*out = make([]ClusterProfileInitParameters, len(*in))
@@ -1206,6 +1237,16 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterGroupUIDRef != nil {
+		in, out := &in.ClusterGroupUIDRef, &out.ClusterGroupUIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterGroupUIDSelector != nil {
+		in, out := &in.ClusterGroupUIDSelector, &out.ClusterGroupUIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterProfile != nil {
 		in, out := &in.ClusterProfile, &out.ClusterProfile
 		*out = make([]ClusterProfileParameters, len(*in))
@@ -1327,6 +1368,16 @@ func (in *ClusterProfileInitParameters) DeepCopyInto(out *ClusterProfileInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]PackInitParameters, len(*in))
@@ -1412,6 +1463,16 @@ func (in *ClusterProfileParameters) DeepCopyInto(out *ClusterProfileParameters) 
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack

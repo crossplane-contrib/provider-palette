@@ -18,7 +18,16 @@ type BackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -108,8 +117,17 @@ type BackupPolicyParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
-	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.

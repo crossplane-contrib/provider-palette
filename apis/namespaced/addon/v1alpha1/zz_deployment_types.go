@@ -17,7 +17,16 @@ import (
 type ClusterProfileInitParameters struct {
 
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []PackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -43,8 +52,17 @@ type ClusterProfileObservation struct {
 type ClusterProfileParameters struct {
 
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional

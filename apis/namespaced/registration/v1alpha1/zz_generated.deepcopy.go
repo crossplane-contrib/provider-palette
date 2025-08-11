@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -61,6 +62,16 @@ func (in *TokenInitParameters) DeepCopyInto(out *TokenInitParameters) {
 		in, out := &in.ProjectUID, &out.ProjectUID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectUIDRef != nil {
+		in, out := &in.ProjectUIDRef, &out.ProjectUIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectUIDSelector != nil {
+		in, out := &in.ProjectUIDSelector, &out.ProjectUIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
@@ -183,6 +194,16 @@ func (in *TokenParameters) DeepCopyInto(out *TokenParameters) {
 		in, out := &in.ProjectUID, &out.ProjectUID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectUIDRef != nil {
+		in, out := &in.ProjectUIDRef, &out.ProjectUIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectUIDSelector != nil {
+		in, out := &in.ProjectUIDSelector, &out.ProjectUIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status

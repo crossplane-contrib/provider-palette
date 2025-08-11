@@ -127,7 +127,7 @@ type GCPStorageConfigInitParameters struct {
 
 	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
-	GCPJSONCredentialsSecretRef v1.LocalSecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
 
 	// (String) The GCP project ID.
 	// The GCP project ID.
@@ -135,6 +135,10 @@ type GCPStorageConfigInitParameters struct {
 }
 
 type GCPStorageConfigObservation struct {
+
+	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
+	GCPJSONCredentials *string `json:"gcpJsonCredentials,omitempty" tf:"gcp_json_credentials,omitempty"`
 
 	// (String) The GCP project ID.
 	// The GCP project ID.
@@ -146,7 +150,7 @@ type GCPStorageConfigParameters struct {
 	// (String, Sensitive) The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// The GCP credentials in JSON format. These credentials are required to authenticate and manage.
 	// +kubebuilder:validation:Optional
-	GCPJSONCredentialsSecretRef v1.LocalSecretKeySelector `json:"gcpjsonCredentialsSecretRef" tf:"-"`
+	GCPJSONCredentials *string `json:"gcpJsonCredentials" tf:"gcp_json_credentials,omitempty"`
 
 	// (String) The GCP project ID.
 	// The GCP project ID.

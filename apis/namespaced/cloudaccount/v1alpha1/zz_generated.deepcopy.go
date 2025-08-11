@@ -837,7 +837,11 @@ func (in *GCPInitParameters) DeepCopyInto(out *GCPInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.GCPJSONCredentialsSecretRef.DeepCopyInto(&out.GCPJSONCredentialsSecretRef)
+	if in.GCPJSONCredentials != nil {
+		in, out := &in.GCPJSONCredentials, &out.GCPJSONCredentials
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -895,6 +899,11 @@ func (in *GCPObservation) DeepCopyInto(out *GCPObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GCPJSONCredentials != nil {
+		in, out := &in.GCPJSONCredentials, &out.GCPJSONCredentials
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -925,7 +934,11 @@ func (in *GCPParameters) DeepCopyInto(out *GCPParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.GCPJSONCredentialsSecretRef.DeepCopyInto(&out.GCPJSONCredentialsSecretRef)
+	if in.GCPJSONCredentials != nil {
+		in, out := &in.GCPJSONCredentials, &out.GCPJSONCredentials
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

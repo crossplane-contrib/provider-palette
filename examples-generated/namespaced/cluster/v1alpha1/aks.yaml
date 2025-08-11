@@ -10,20 +10,26 @@ metadata:
 spec:
   forProvider:
     backupPolicy:
-    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_backup_storage_location
       expiryInHour: 7200
       includeClusterResources: true
       includeDisks: true
       prefix: prod-backup
       schedule: 0 0 * * SUN
-    cloudAccountId: ${data.spectrocloud_cloudaccount_azure.account.id}
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_azure
     cloudConfig:
     - region: centralus
       resourceGroup: dev
       sshKey: ssh key value
       subscriptionId: subscription-id
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
     - count: 1
       diskSizeGb: 60

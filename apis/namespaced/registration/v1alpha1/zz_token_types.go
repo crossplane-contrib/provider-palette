@@ -30,7 +30,16 @@ type TokenInitParameters struct {
 
 	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/spectrocloud/v1alpha1.Project
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDRef *v1.NamespacedReference `json:"projectUidRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDSelector *v1.NamespacedSelector `json:"projectUidSelector,omitempty" tf:"-"`
 
 	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
@@ -85,8 +94,17 @@ type TokenParameters struct {
 
 	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
+
+	// Reference to a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDRef *v1.NamespacedReference `json:"projectUidRef,omitempty" tf:"-"`
+
+	// Selector for a Project in spectrocloud to populate projectUid.
+	// +kubebuilder:validation:Optional
+	ProjectUIDSelector *v1.NamespacedSelector `json:"projectUidSelector,omitempty" tf:"-"`
 
 	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.

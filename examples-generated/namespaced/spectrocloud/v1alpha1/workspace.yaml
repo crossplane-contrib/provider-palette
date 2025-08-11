@@ -10,7 +10,9 @@ metadata:
 spec:
   forProvider:
     backupPolicy:
-    - backupLocationId: ${data.spectrocloud_backup_storage_location.bsl.id}
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_backup_storage_location
       clusterUids:
       - ${data.spectrocloud_cluster.cluster1.id}
       expiryInHour: 7200

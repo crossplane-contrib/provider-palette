@@ -16,7 +16,9 @@ spec:
       - spectro2023
       vip: 100.0.0.1
     clusterProfile:
-    - id: ${data.spectrocloud_cluster_profile.profile.id}
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
     - controlPlane: true
       controlPlaneAsWorker: true

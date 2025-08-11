@@ -18,7 +18,16 @@ type MaasBackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -108,8 +117,17 @@ type MaasBackupPolicyParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
-	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -185,7 +203,16 @@ type MaasClusterProfileInitParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -352,8 +379,17 @@ type MaasClusterProfileParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -549,7 +585,16 @@ type MaasInitParameters struct {
 
 	// (String) ID of the Maas cloud account used for the cluster. This cloud account must be of type maas.
 	// ID of the Maas cloud account used for the cluster. This cloud account must be of type `maas`.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.Maas
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Maas in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.NamespacedReference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Maas in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.NamespacedSelector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	CloudConfig []MaasCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
@@ -1180,8 +1225,17 @@ type MaasParameters struct {
 
 	// (String) ID of the Maas cloud account used for the cluster. This cloud account must be of type maas.
 	// ID of the Maas cloud account used for the cluster. This cloud account must be of type `maas`.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.Maas
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a Maas in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.NamespacedReference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a Maas in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.NamespacedSelector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional

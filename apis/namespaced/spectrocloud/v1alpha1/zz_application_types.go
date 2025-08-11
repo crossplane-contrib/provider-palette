@@ -18,7 +18,16 @@ type ApplicationInitParameters struct {
 
 	// (String) The unique identifier (UID) of the application profile to use for this application.
 	// The unique identifier (UID) of the application profile to use for this application.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/application/v1alpha1.Profile
 	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
+
+	// Reference to a Profile in application to populate applicationProfileUid.
+	// +kubebuilder:validation:Optional
+	ApplicationProfileUIDRef *v1.NamespacedReference `json:"applicationProfileUidRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in application to populate applicationProfileUid.
+	// +kubebuilder:validation:Optional
+	ApplicationProfileUIDSelector *v1.NamespacedSelector `json:"applicationProfileUidSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
 	// The configuration block for specifying cluster and resource limits for the application.
@@ -61,8 +70,17 @@ type ApplicationParameters struct {
 
 	// (String) The unique identifier (UID) of the application profile to use for this application.
 	// The unique identifier (UID) of the application profile to use for this application.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/application/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
 	ApplicationProfileUID *string `json:"applicationProfileUid,omitempty" tf:"application_profile_uid,omitempty"`
+
+	// Reference to a Profile in application to populate applicationProfileUid.
+	// +kubebuilder:validation:Optional
+	ApplicationProfileUIDRef *v1.NamespacedReference `json:"applicationProfileUidRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in application to populate applicationProfileUid.
+	// +kubebuilder:validation:Optional
+	ApplicationProfileUIDSelector *v1.NamespacedSelector `json:"applicationProfileUidSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) The configuration block for specifying cluster and resource limits for the application. (see below for nested schema)
 	// The configuration block for specifying cluster and resource limits for the application.
@@ -89,7 +107,16 @@ type ConfigInitParameters struct {
 
 	// (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Group
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
+
+	// Reference to a Group in cluster to populate clusterGroupUid.
+	// +kubebuilder:validation:Optional
+	ClusterGroupUIDRef *v1.NamespacedReference `json:"clusterGroupUidRef,omitempty" tf:"-"`
+
+	// Selector for a Group in cluster to populate clusterGroupUid.
+	// +kubebuilder:validation:Optional
+	ClusterGroupUIDSelector *v1.NamespacedSelector `json:"clusterGroupUidSelector,omitempty" tf:"-"`
 
 	// (String) An optional name for the target cluster.
 	// An optional name for the target cluster.
@@ -97,7 +124,16 @@ type ConfigInitParameters struct {
 
 	// (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/virtual/v1alpha1.Cluster
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// Reference to a Cluster in virtual to populate clusterUid.
+	// +kubebuilder:validation:Optional
+	ClusterUIDRef *v1.NamespacedReference `json:"clusterUidRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in virtual to populate clusterUid.
+	// +kubebuilder:validation:Optional
+	ClusterUIDSelector *v1.NamespacedSelector `json:"clusterUidSelector,omitempty" tf:"-"`
 
 	// (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
 	// Optional resource limits for the application, including CPU, memory, and storage constraints.
@@ -136,8 +172,17 @@ type ConfigParameters struct {
 
 	// (String) The unique identifier (UID) of the cluster group. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the cluster group. Either `cluster_uid` or `cluster_group_uid` can be provided.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
+
+	// Reference to a Group in cluster to populate clusterGroupUid.
+	// +kubebuilder:validation:Optional
+	ClusterGroupUIDRef *v1.NamespacedReference `json:"clusterGroupUidRef,omitempty" tf:"-"`
+
+	// Selector for a Group in cluster to populate clusterGroupUid.
+	// +kubebuilder:validation:Optional
+	ClusterGroupUIDSelector *v1.NamespacedSelector `json:"clusterGroupUidSelector,omitempty" tf:"-"`
 
 	// (String) An optional name for the target cluster.
 	// An optional name for the target cluster.
@@ -146,8 +191,17 @@ type ConfigParameters struct {
 
 	// (String) The unique identifier (UID) of the target cluster. Either cluster_uid or cluster_group_uid can be provided.
 	// The unique identifier (UID) of the target cluster. Either `cluster_uid` or `cluster_group_uid` can be provided.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/virtual/v1alpha1.Cluster
 	// +kubebuilder:validation:Optional
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
+
+	// Reference to a Cluster in virtual to populate clusterUid.
+	// +kubebuilder:validation:Optional
+	ClusterUIDRef *v1.NamespacedReference `json:"clusterUidRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in virtual to populate clusterUid.
+	// +kubebuilder:validation:Optional
+	ClusterUIDSelector *v1.NamespacedSelector `json:"clusterUidSelector,omitempty" tf:"-"`
 
 	// (Block List) Optional resource limits for the application, including CPU, memory, and storage constraints. (see below for nested schema)
 	// Optional resource limits for the application, including CPU, memory, and storage constraints.
@@ -239,7 +293,6 @@ type ApplicationStatus struct {
 type Application struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.applicationProfileUid) || (has(self.initProvider) && has(self.initProvider.applicationProfileUid))",message="spec.forProvider.applicationProfileUid is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   ApplicationSpec   `json:"spec"`
 	Status ApplicationStatus `json:"status,omitempty"`
