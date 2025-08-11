@@ -1,7 +1,6 @@
 package run
 
 import (
-	"context"
 	"io"
 	"log"
 	"os"
@@ -29,8 +28,6 @@ import (
 	"github.com/crossplane-contrib/provider-palette/internal/features"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
-
-var cancel context.CancelFunc
 
 func Run() {
 	var (
@@ -121,8 +118,4 @@ func Run() {
 	kingpin.FatalIfError(clustercontroller.Setup(mgr, clusterOpts), "Cannot setup cluster-scoped Palette controllers")
 	kingpin.FatalIfError(namespacedcontroller.Setup(mgr, namespacedOpts), "Cannot setup namespaced Palette controllers")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
-}
-
-func Cancel() {
-	cancel()
 }

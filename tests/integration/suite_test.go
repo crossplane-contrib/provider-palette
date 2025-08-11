@@ -107,9 +107,6 @@ var _ = BeforeSuite(func() {
 })
 
 var _ = AfterSuite(func() {
-	By("tearing down the provider")
-	run.Cancel()
-
 	By("tearing down the mock server")
 	ts.Close()
 
