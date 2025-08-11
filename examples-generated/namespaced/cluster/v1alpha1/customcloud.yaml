@@ -1,0 +1,85 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: CustomCloud
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/customcloud
+  labels:
+    testing.upbound.io/example-name: cluster_nutanix
+  name: cluster-nutanix
+  namespace: upbound-system
+spec:
+  forProvider:
+    applySetting: DownloadAndInstall
+    backupPolicy:
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: false
+      prefix: prod-backup
+      schedule: 0 0 * * SUN
+    cloud: nutanix
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_custom
+    cloudConfig:
+    - values: ${templatefile("config_templates/cloud_config.yaml", local.cloud_config_override_variables)}
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
+    clusterRbacBinding:
+    - role:
+        kind: ClusterRole
+        name: testRole3
+      subjects:
+      - name: testRoleUser3
+        type: User
+      - name: testRoleGroup3
+        type: Group
+      - name: testrolesubject3
+        namespace: testrolenamespace
+        type: ServiceAccount
+      type: ClusterRoleBinding
+    context: tenant
+    description: The nutanix cluster with k8 infra profile test
+    forceDelete: true
+    machinePool:
+    - additional_labels:
+        owner: tf
+        purpose: testing
+        type: cp
+      controlPlane: true
+      controlPlaneAsWorker: true
+      nodePoolConfig: ${templatefile("config_templates/cp_pool_config.yaml", local.node_pool_config_variables)}
+    - additional_labels:
+        owner: tf
+        purpose: testing
+        type: worker
+      controlPlane: false
+      controlPlaneAsWorker: false
+      nodePoolConfig: ${templatefile("config_templates/worker_pool_config.yaml", local.node_pool_config_variables)}
+      taints:
+      - effect: NoSchedule
+        key: taintkey2
+        value: taintvalue2
+    name: ${local.cloud_config_override_variables.CLUSTER_NAME}
+    namespaces:
+    - name: test5ns
+      resourceAllocation:
+        cpu_cores: "2"
+        memory_MiB: "2048"
+    osPatchAfter: "2025-02-14T13:09:21+05:30"
+    osPatchOnBoot: true
+    osPatchSchedule: 0 0 * * SUN
+    pauseAgentUpgrades: lock
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    skipCompletion: true
+    tags:
+    - dev
+    - department:tf
+    - owner:admin

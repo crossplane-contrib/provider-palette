@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/crossplane/upjet/pkg/pipeline"
+	"github.com/crossplane/upjet/v2/pkg/pipeline"
 
 	"github.com/crossplane-contrib/provider-palette/config"
 )
@@ -23,5 +23,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("cannot calculate the absolute path with %s", rootDir))
 	}
-	pipeline.Run(config.GetProvider(), absRootDir)
+	pc := config.GetProvider()
+	pns := config.GetProviderNamespaced()
+	pipeline.Run(pc, pns, absRootDir)
 }

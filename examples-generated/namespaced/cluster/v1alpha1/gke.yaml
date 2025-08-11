@@ -1,0 +1,32 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Gke
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/gke
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloudAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_cloudaccount_gcp
+    cloudConfig:
+    - project: ${var.gcp_project}
+      region: ${var.gcp_region}
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
+    context: project
+    description: Gke Cluster
+    machinePool:
+    - count: 3
+      instanceType: n2-standard-4
+      name: worker-basic
+    name: ${var.cluster_name}
+    tags:
+    - dev
+    - department:pax
+    updateWorkerPoolInParallel: true

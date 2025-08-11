@@ -1,0 +1,21 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Openstack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/openstack
+  labels:
+    testing.upbound.io/example-name: account
+  name: account
+  namespace: upbound-system
+spec:
+  forProvider:
+    defaultDomain: ${var.domain}
+    defaultProject: ${var.project}
+    identityEndpoint: ${var.identity_endpoint}
+    name: openstack-dev
+    openstackPasswordSecretRef:
+      key: example-key
+      name: example-secret
+    openstackUsername: ${var.openstack_username}
+    parentRegion: ${var.region}
+    privateCloudGatewayId: ""

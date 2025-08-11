@@ -1,0 +1,15 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Macros
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/macros
+  labels:
+    testing.upbound.io/example-name: project_macro
+  name: project-macro
+  namespace: upbound-system
+spec:
+  forProvider:
+    context: project
+    macros:
+      project_macro_1: val1
+      project_macro_2: val2
