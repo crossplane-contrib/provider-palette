@@ -8,14 +8,6 @@ import (
 	"path/filepath"
 	"time"
 
-	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
-	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
-	"github.com/crossplane-contrib/provider-palette/config"
-	"github.com/crossplane-contrib/provider-palette/internal/clients"
-	clustercontroller "github.com/crossplane-contrib/provider-palette/internal/controller/cluster"
-	namespacedcontroller "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced"
-	"github.com/crossplane-contrib/provider-palette/internal/features"
-	"github.com/crossplane-contrib/provider-palette/internal/utils"
 	xpcontroller "github.com/crossplane/crossplane-runtime/v2/pkg/controller"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/logging"
@@ -27,13 +19,15 @@ import (
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
-)
 
-const (
-	tlsServerCertDir        = "/var/run/secrets/tls"
-	tlsServerCertDirEnvVar  = "TLS_SERVER_CERTS_DIR"
-	webhookTLSCertDirEnvVar = "WEBHOOK_TLS_CERT_DIR"
-	certsDirEnvVar          = "TLS_SERVER_CERTS_DIR"
+	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
+	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
+	"github.com/crossplane-contrib/provider-palette/config"
+	"github.com/crossplane-contrib/provider-palette/internal/clients"
+	clustercontroller "github.com/crossplane-contrib/provider-palette/internal/controller/cluster"
+	namespacedcontroller "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced"
+	"github.com/crossplane-contrib/provider-palette/internal/features"
+	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
 
 var cancel context.CancelFunc

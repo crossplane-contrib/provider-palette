@@ -24,10 +24,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
-	"github.com/crossplane-contrib/provider-palette/apis/cluster/v1beta1"
-	namespacedapis "github.com/crossplane-contrib/provider-palette/apis/namespaced"
-
-	// "github.com/crossplane-contrib/provider-palette/apis/v1beta1"
+	clusterv1beta1 "github.com/crossplane-contrib/provider-palette/apis/cluster/v1beta1"
 	"github.com/crossplane-contrib/provider-palette/cmd/provider/run"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 	"github.com/crossplane-contrib/provider-palette/tests/integration/routes"
@@ -89,7 +86,6 @@ var _ = BeforeSuite(func() {
 
 	scheme := scheme.Scheme
 	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
-	Expect(namespacedapis.AddToScheme(scheme)).To(Succeed())
 
 	kclient, err = client.New(cfg, client.Options{Scheme: scheme})
 	Expect(err).ShouldNot(HaveOccurred())
@@ -178,13 +174,13 @@ func initResources() {
 	}
 	Expect(kclient.Create(tc, s)).Should(Succeed())
 
-	pc := &v1beta1.ProviderConfig{
+	pc := &clusterv1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "provider-palette-config",
 			Namespace: "crossplane-system",
 		},
-		Spec: v1beta1.ProviderConfigSpec{
-			Credentials: v1beta1.ProviderCredentials{
+		Spec: clusterv1beta1.ProviderConfigSpec{
+			Credentials: clusterv1beta1.ProviderCredentials{
 				Source: xpv1.CredentialsSource("Secret"),
 				CommonCredentialSelectors: xpv1.CommonCredentialSelectors{
 					SecretRef: &xpv1.SecretKeySelector{

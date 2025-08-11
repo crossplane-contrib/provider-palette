@@ -8,7 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
-	// cloudaccountv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cloudaccount/v1alpha1"
+	cloudaccountv1alpha1 "github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 )
 
