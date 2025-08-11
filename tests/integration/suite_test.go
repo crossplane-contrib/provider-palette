@@ -121,16 +121,16 @@ var _ = AfterSuite(func() {
 
 	By("tearing down the test environment")
 	cancel()
-	
+
 	// Add timeout for cleanup to prevent hanging
 	cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cleanupCancel()
-	
+
 	done := make(chan error, 1)
 	go func() {
 		done <- te.Stop()
 	}()
-	
+
 	select {
 	case err := <-done:
 		Expect(err).ShouldNot(HaveOccurred(), "failed to tear down the test environment")
