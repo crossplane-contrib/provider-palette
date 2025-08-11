@@ -4,7 +4,7 @@
 PROJECT_NAME := provider-palette
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.3.3
+export TERRAFORM_VERSION := 1.5.7
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
 export TERRAFORM_PROVIDER_VERSION := 0.24.0
@@ -47,7 +47,7 @@ GO_SUBDIRS += cmd internal apis generate
 # ====================================================================================
 # Setup Kubernetes tools
 
-ENVTEST_VERSION = 1.29.3
+ENVTEST_VERSION = 1.33.0
 KIND_VERSION = v0.29.0
 UP_VERSION = v0.40.0-0.rc.3
 UP_CHANNEL = alpha

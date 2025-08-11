@@ -23,6 +23,11 @@ require (
 	sigs.k8s.io/controller-tools v0.18.0
 )
 
+replace (
+	k8s.io/apimachinery => k8s.io/apimachinery v0.33.0
+	k8s.io/client-go => k8s.io/client-go v0.33.0
+)
+
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/alecthomas/kingpin/v2 v2.4.0 // indirect
