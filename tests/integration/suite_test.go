@@ -61,6 +61,10 @@ func TestFunctionality(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
+	// Set Gomega timeouts
+	SetDefaultEventuallyTimeout(timeout)
+	SetDefaultEventuallyPollingInterval(interval)
+
 	tc = context.Background()
 	tc, cancel = context.WithCancel(tc)
 
@@ -72,17 +76,22 @@ var _ = BeforeSuite(func() {
 
 	// Start the test environment
 	te = &envtest.Environment{
-		CRDDirectoryPaths:     []string{filepath.Join("..", "..", "package", "crds")},
-		ErrorIfCRDPathMissing: true,
-	}
-	if kcfg := os.Getenv("KUBECONFIG"); kcfg != "" {
-		te.UseExistingCluster = utils.Ptr(true)
+		CRDDirectoryPaths:        []string{filepath.Join("..", "..", "package", "crds")},
+		ErrorIfCRDPathMissing:    true,
+		ControlPlaneStartTimeout: 60 * time.Second,
+		ControlPlaneStopTimeout:  60 * time.Second,
+		UseExistingCluster:       utils.Ptr(false), // Force new test cluster
 	}
 
 	logf.SetLogger(zap.New(zap.WriteTo(GinkgoWriter), zap.UseDevMode(true)))
 
+	logf.Log.Info("Starting test environment...")
 	cfg, err := te.Start()
+	if err != nil {
+		logf.Log.Error(err, "Failed to start test environment")
+	}
 	Expect(err).ShouldNot(HaveOccurred())
+	logf.Log.Info("Test environment started successfully")
 
 	scheme := scheme.Scheme
 	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
@@ -112,8 +121,22 @@ var _ = AfterSuite(func() {
 
 	By("tearing down the test environment")
 	cancel()
-	err := te.Stop()
-	Expect(err).ShouldNot(HaveOccurred(), "failed to tear down the test environment")
+	
+	// Add timeout for cleanup to prevent hanging
+	cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cleanupCancel()
+	
+	done := make(chan error, 1)
+	go func() {
+		done <- te.Stop()
+	}()
+	
+	select {
+	case err := <-done:
+		Expect(err).ShouldNot(HaveOccurred(), "failed to tear down the test environment")
+	case <-cleanupCtx.Done():
+		logf.Log.Info("Test environment cleanup timed out, continuing anyway")
+	}
 })
 
 // initProviderArgs initializes the arguments required to run provider-palette in test mode.
