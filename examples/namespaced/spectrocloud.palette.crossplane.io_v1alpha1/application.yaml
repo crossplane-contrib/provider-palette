@@ -1,0 +1,26 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  name: ran-cp-application
+  namespace: crossplane-system
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    name: ran-cp-application
+    applicationProfileUid: "<YOUR_APPLICATION_PROFILE_UID>"
+    config:
+      - clusterContext: "project"  # or "project"
+        clusterGroupUid: "<YOUR_CLUSTER_GROUP_UID>"  # or use clusterGroupUid instead
+        clusterName: "sandbox-scorpius"
+        limits:
+          - cpu: 3
+            memory: 4096  # in MB
+            storage: 20   # in GB
+    tags:
+      - "example"
+      - "crossplane"

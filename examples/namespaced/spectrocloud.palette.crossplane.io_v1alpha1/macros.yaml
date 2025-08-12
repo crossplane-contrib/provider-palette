@@ -1,0 +1,15 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Macros
+metadata:
+  name: project-macros
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    context: project
+    macros:
+      project_macro_1: val1-edited
+      project_macro_2: val2-edited
+      project_macro_3: val3-edited 

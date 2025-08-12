@@ -1,0 +1,23 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Appliance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/appliance
+    description: "Edge Native Appliance Configuration"
+  labels:
+    testing.upbound.io/example-name: appliance
+  name: appliance
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    tags:
+      name: "appliance_name"
+      environment: "test"
+    uid: "test-jun16"
+    wait: false
+    pairingKey: "your-pairing-key"
+    remoteShell: "disabled"
+    temporaryShellCredentials: "disabled"

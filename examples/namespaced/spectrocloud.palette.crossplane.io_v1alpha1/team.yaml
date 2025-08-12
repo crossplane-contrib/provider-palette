@@ -1,0 +1,21 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: aa-team-cp
+  name: aa-team-cp
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    name: aa-team-cp
+    projectRoleMapping:
+    - id: "<YOUR_PROJECT_ID>"
+      roles:
+      - "<YOUR_ROLE_ID>"
+    users:
+    - "<YOUR_USER_ID>"
