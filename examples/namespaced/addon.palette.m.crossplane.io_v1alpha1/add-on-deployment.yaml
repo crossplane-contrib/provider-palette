@@ -1,0 +1,20 @@
+apiVersion: addon.palette.m.crossplane.io/v1alpha1
+kind: Deployment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: addon/v1alpha1/deployment
+    description: "Addon Deployment for testing"
+  labels:
+    testing.upbound.io/example-name: addon-deployment
+  name: cp-addon-deployment
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    context: project
+    clusterUid: "<YOUR_CLUSTER_UID>"
+    applySetting: DownloadAndInstall
+    clusterProfile:
+      - id: "<YOUR_ADDON_PROFILE_ID>"
