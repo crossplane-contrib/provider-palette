@@ -1,0 +1,26 @@
+apiVersion: demo.spectrocloud.io/v1alpha1
+kind: XCustomer
+metadata:
+  name: piper-customer
+spec:
+  name: piper-customer
+  apiKey: "<PALETTE_API_KEY>"
+  clusterName: piper-cluster
+  clusterDescription: "piper-cluster"
+  clusterTags:
+    - "piper-cluster"
+  cloudAccountID: "65564f593a69afbef433eeda"
+  clusterProfileID: "689bdedb222fdb096aa6795d"
+  clusterConfig:
+    cloudConfig:
+      region: "us-west-2"
+      sshKey: "spectro2024"
+      endpointAccess: "public"
+      publicAccessCidrs: ["0.0.0.0/0"]
+    workerPoolsConfig:
+      - name: worker-pool-1
+        nodeCount: 2
+        instanceType: "t3.medium"
+        diskSize: 100
+        capacityType: "on-demand"
+
