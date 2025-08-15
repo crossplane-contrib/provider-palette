@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: palette-creds
+  namespace: spectrocloud-xp
+type: Opaque
+stringData:
+  credentials: |
+    {
+    "api_key": "<PALETTE_API_KEY>",
+    "project_name": "Default",
+    "host": "console.spectrocloud.com"
+    }

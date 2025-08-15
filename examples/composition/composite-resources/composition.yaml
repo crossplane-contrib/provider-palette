@@ -1,0 +1,168 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xcustomer-default
+spec:
+  compositeTypeRef:
+    apiVersion: demo.spectrocloud.io/v1alpha1
+    kind: XCustomer
+  mode: Pipeline
+  pipeline:
+
+    # Onboarding
+    # 1. Create a Namespace for the Customer
+    # 2. Create a Provider Secret 
+    #    a. API Key - ??? for now, make it an XRD input 
+    #    b. Project Name Customer Name
+    #    c. Host (console.spectrocloud.com)
+    # 2. Create a ProviderConfig for the Customer - TODO/optional? 
+    # 3. Create a Project for the Customer
+    - step: onboarding
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: CustomerNamespace
+            base:
+              apiVersion: v1
+              kind: Namespace
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+            readinessChecks:
+              - type: None # TODO FIX THIS
+
+          # TODO: Build a Namespace ProviderConfig by copying the secret from the cluster provider config
+          #  - name: CustomerProviderConfig
+          #   base:
+          #     apiVersion: palette.m.crossplane.io/v1beta1
+          #     kind: ProviderConfig
+          #     spec:
+          #       credentials:
+          #         source: Secret
+          #         secretRef:
+          #           name: palette-creds
+          #           namespace: spectrocloud-xp
+          #           key: credentials
+          #   patches:
+          #     - type: FromCompositeFieldPath
+          #       fromFieldPath: spec.name
+          #       toFieldPath: metadata.name
+          #     - type: FromCompositeFieldPath
+          #       fromFieldPath: spec.name
+          #       toFieldPath: metadata.namespace                
+          #   readinessChecks:
+          #     - type: None # TODO FIX THIS              
+
+          - name: CustomerProject
+            base:
+              apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+              kind: Project
+              spec:
+                providerConfigRef:
+                  kind: ClusterProviderConfig
+                  name: cluster-provider-palette
+                forProvider:
+                  name: project-testing
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              # - type: FromCompositeFieldPath
+              #   fromFieldPath: spec.name
+              #   toFieldPath: spec.providerConfigRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.description
+            readinessChecks:
+              - type: None # TODO FIX THIS              
+
+    # Cluster Provisioning
+    # 1. Using Tenant level Profiles. NOT REQUIRED - Clone the Profile from spectrocloud-xp Project into the Customer Project
+    # 2. Create an EKS Dynamic VPC cluster in the Customer Project
+    - step: ClusterProvisioning
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: ProvisionClusterEKS
+            base:
+              apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+              kind: Eks
+              spec:
+                providerConfigRef:
+                  kind: ClusterProviderConfig
+                  name: cluster-provider-palette
+            patches:
+            # metadata
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              # spec
+              # forProvider
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: spec.forProvider.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterDescription
+                toFieldPath: spec.forProvider.description
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterTags
+                toFieldPath: spec.forProvider.tags
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.cloudAccountID
+                toFieldPath: spec.forProvider.cloudAccountId
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterProfileID
+                toFieldPath: spec.forProvider.clusterProfile[0].id
+              # forProvider.cloudConfig
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.region
+                toFieldPath: spec.forProvider.cloudConfig[0].region
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.sshKey
+                toFieldPath: spec.forProvider.cloudConfig[0].sshKeyName
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.endpointAccess
+                toFieldPath: spec.forProvider.cloudConfig[0].endpointAccess
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.publicAccessCidrs
+                toFieldPath: spec.forProvider.cloudConfig[0].publicAccessCidrs
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.privateAccessCidrs
+                toFieldPath: spec.forProvider.cloudConfig[0].privateAccessCidrs
+              # forProvider.machinePool
+              # TODO: XP doesn't support foreaach or map.
+              # loop through workerPoolsConfig
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].name
+                toFieldPath: spec.forProvider.machinePool[0].name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].nodeCount
+                toFieldPath: spec.forProvider.machinePool[0].count
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].instanceType
+                toFieldPath: spec.forProvider.machinePool[0].instanceType
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].diskSize
+                toFieldPath: spec.forProvider.machinePool[0].diskSizeGb
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].capacityType
+                toFieldPath: spec.forProvider.machinePool[0].capacityType
+            readinessChecks:
+              - type: None # TODO FIX THIS
+

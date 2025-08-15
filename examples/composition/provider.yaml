@@ -1,0 +1,6 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-palette
+spec:
+  package: us-east1-docker.pkg.dev/spectro-images/dev/pavan/provider-palette-package:v0.25.0-rc1

@@ -1,0 +1,79 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xcustomers.demo.spectrocloud.io
+spec:
+  group: demo.spectrocloud.io
+  names:
+    kind: XCustomer
+    plural: xcustomers
+  scope: Cluster
+  defaultCompositionRef:
+    name: xcustomer-default
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                clusterName:
+                  type: string
+                clusterDescription:
+                  type: string
+                clusterTags:
+                  type: array
+                  items:
+                    type: string
+                cloudAccountID:
+                  type: string
+                clusterProfileID:
+                  type: string
+                clusterConfig:
+                  type: object
+                  properties:
+                    cloudConfig:
+                      type: object
+                      properties:
+                        region:
+                          type: string
+                        sshKey:
+                          type: string
+                        endpointAccess:
+                          type: string
+                        publicAccessCidrs:
+                          type: array
+                          items:
+                            type: string
+                        privateAccessCidrs:
+                          type: array
+                          items:
+                            type: string
+                    workerPoolsConfig:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          nodeCount:
+                            type: integer
+                          instanceType:
+                            type: string
+                          diskSize:
+                            type: integer
+                          capacityType:
+                            type: string
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
