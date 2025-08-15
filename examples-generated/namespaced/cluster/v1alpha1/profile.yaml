@@ -1,0 +1,42 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/profile
+  labels:
+    testing.upbound.io/example-name: aws-profile
+  name: aws-profile
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloud: aws
+    count: '${var.deploy-aws ? 1 : 0}'
+    description: A basic cluster profile for AWS
+    name: tf-aws-profile
+    pack:
+    - name: ${data.spectrocloud_pack.aws_ubuntu.name}
+      tag: ${data.spectrocloud_pack.aws_ubuntu.version}
+      uid: ${data.spectrocloud_pack.aws_ubuntu.id}
+      values: ${data.spectrocloud_pack.aws_ubuntu.values}
+    - name: ${data.spectrocloud_pack.aws_k8s.name}
+      tag: ${data.spectrocloud_pack.aws_k8s.version}
+      uid: ${data.spectrocloud_pack.aws_k8s.id}
+      values: ${data.spectrocloud_pack.aws_k8s.values}
+    - name: ${data.spectrocloud_pack.aws_cni.name}
+      tag: ${data.spectrocloud_pack.aws_cni.version}
+      uid: ${data.spectrocloud_pack.aws_cni.id}
+      values: ${data.spectrocloud_pack.aws_cni.values}
+    - name: ${data.spectrocloud_pack.aws_csi.name}
+      tag: ${data.spectrocloud_pack.aws_csi.version}
+      uid: ${data.spectrocloud_pack.aws_csi.id}
+      values: ${data.spectrocloud_pack.aws_csi.values}
+    - manifest:
+      - content: ${file("manifests/hello-universe.yaml")}
+        name: hello-universe
+      name: hello-universe
+      tag: 1.0.0
+      type: manifest
+      values: ""
+    tags: ${concat(var.tags, ["env:aws"])}
+    type: cluster
+    version: 1.0.0

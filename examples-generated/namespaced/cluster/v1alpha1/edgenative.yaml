@@ -1,0 +1,39 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: EdgeNative
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/edgenative
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloudConfig:
+    - overlayCidrRange: 100.0.0.12/12
+      sshKeys:
+      - spectro2022
+      - spectro2023
+      vip: 100.0.0.1
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
+    machinePool:
+    - controlPlane: true
+      controlPlaneAsWorker: true
+      edgeHost:
+      - hostUid: test-dec9
+        staticIp: 4.1.2.3
+      name: cp-pool
+    - edgeHost:
+      - dnsServers:
+        - tf.test.com
+        hostName: test-test
+        hostUid: test-dec9
+        nicName: auto160
+        staticIp: 1.2.3.4
+        subnetMask: 2.2.1.0
+      name: worker-pool
+    name: edge-native-example
+    skipCompletion: true

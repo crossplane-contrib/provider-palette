@@ -1,0 +1,15 @@
+apiVersion: privatecloudgateway.palette.m.crossplane.io/v1alpha1
+kind: DNSMap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: privatecloudgateway/v1alpha1/dnsmap
+  labels:
+    testing.upbound.io/example-name: dns_map_test
+  name: dns-map-test
+  namespace: upbound-system
+spec:
+  forProvider:
+    dataCenter: DataCenterTest
+    network: TEST-VM-NETWORK
+    privateCloudGatewayId: ${data.spectrocloud_private_cloud_gateway.gateway.id}
+    searchDomainName: test1.spectro.com

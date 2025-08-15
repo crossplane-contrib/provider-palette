@@ -1,0 +1,69 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Workspace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/workspace
+    description: "Production Workspace Configuration"
+  labels:
+    testing.upbound.io/example-name: workspace
+  name: workspace
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    name: workspace
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        clusterUids:
+          - "<YOUR_CLUSTER_ID>"
+        expiryInHour: 7200
+        includeAllClusters: true
+        includeClusterResources: true
+        includeDisks: false
+        prefix: "prod-backup"
+        schedule: "0 0 * * SUN"
+    clusterRbacBinding:
+      - role:
+          kind: "ClusterRole"
+          name: "testrole3"
+        subjects:
+          - name: "testRoleUser4"
+            type: "User"
+          - name: "testRoleGroup4"
+            type: "Group"
+          - name: "testrolesubject3"
+            namespace: "testrolenamespace"
+            type: "ServiceAccount"
+        type: "ClusterRoleBinding"
+      - namespace: "test5ns"
+        role:
+          kind: "Role"
+          name: "testrolefromns3"
+        subjects:
+          - name: "testUserRoleFromNS3"
+            type: "User"
+          - name: "testGroupFromNS3"
+            type: "Group"
+          - name: "testrolesubject3"
+            namespace: "testrolenamespace"
+            type: "ServiceAccount"
+        type: "RoleBinding"
+    clusters:
+      - uid: "<YOUR_CLUSTER_UID>"
+    namespaces:
+      - imagesBlacklist:
+          - "1"
+          - "2"
+          - "3"
+        name: "test5ns"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "2048"
+    workspaceQuota:
+      - cpu: 6
+        memory: 6144
+    tags:
+      - "production"
+      - "critical"

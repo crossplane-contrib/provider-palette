@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/gorilla/mux"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -23,8 +23,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-palette/apis"
-	"github.com/crossplane-contrib/provider-palette/apis/v1beta1"
+	clusterapis "github.com/crossplane-contrib/provider-palette/apis/cluster"
+	clusterv1beta1 "github.com/crossplane-contrib/provider-palette/apis/cluster/v1beta1"
 	"github.com/crossplane-contrib/provider-palette/cmd/provider/run"
 	"github.com/crossplane-contrib/provider-palette/internal/utils"
 	"github.com/crossplane-contrib/provider-palette/tests/integration/routes"
@@ -61,6 +61,10 @@ func TestFunctionality(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
+	// Set Gomega timeouts
+	SetDefaultEventuallyTimeout(timeout)
+	SetDefaultEventuallyPollingInterval(interval)
+
 	tc = context.Background()
 	tc, cancel = context.WithCancel(tc)
 
@@ -72,20 +76,25 @@ var _ = BeforeSuite(func() {
 
 	// Start the test environment
 	te = &envtest.Environment{
-		CRDDirectoryPaths:     []string{filepath.Join("..", "..", "package", "crds")},
-		ErrorIfCRDPathMissing: true,
-	}
-	if kcfg := os.Getenv("KUBECONFIG"); kcfg != "" {
-		te.UseExistingCluster = utils.Ptr(true)
+		CRDDirectoryPaths:        []string{filepath.Join("..", "..", "package", "crds")},
+		ErrorIfCRDPathMissing:    true,
+		ControlPlaneStartTimeout: 60 * time.Second,
+		ControlPlaneStopTimeout:  60 * time.Second,
+		UseExistingCluster:       utils.Ptr(false), // Force new test cluster
 	}
 
 	logf.SetLogger(zap.New(zap.WriteTo(GinkgoWriter), zap.UseDevMode(true)))
 
+	logf.Log.Info("Starting test environment...")
 	cfg, err := te.Start()
+	if err != nil {
+		logf.Log.Error(err, "Failed to start test environment")
+	}
 	Expect(err).ShouldNot(HaveOccurred())
+	logf.Log.Info("Test environment started successfully")
 
 	scheme := scheme.Scheme
-	Expect(apis.AddToScheme(scheme)).To(Succeed())
+	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
 
 	kclient, err = client.New(cfg, client.Options{Scheme: scheme})
 	Expect(err).ShouldNot(HaveOccurred())
@@ -107,16 +116,27 @@ var _ = BeforeSuite(func() {
 })
 
 var _ = AfterSuite(func() {
-	By("tearing down the provider")
-	run.Cancel()
-
 	By("tearing down the mock server")
 	ts.Close()
 
 	By("tearing down the test environment")
 	cancel()
-	err := te.Stop()
-	Expect(err).ShouldNot(HaveOccurred(), "failed to tear down the test environment")
+
+	// Add timeout for cleanup to prevent hanging
+	cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cleanupCancel()
+
+	done := make(chan error, 1)
+	go func() {
+		done <- te.Stop()
+	}()
+
+	select {
+	case err := <-done:
+		Expect(err).ShouldNot(HaveOccurred(), "failed to tear down the test environment")
+	case <-cleanupCtx.Done():
+		logf.Log.Info("Test environment cleanup timed out, continuing anyway")
+	}
 })
 
 // initProviderArgs initializes the arguments required to run provider-palette in test mode.
@@ -174,13 +194,13 @@ func initResources() {
 	}
 	Expect(kclient.Create(tc, s)).Should(Succeed())
 
-	pc := &v1beta1.ProviderConfig{
+	pc := &clusterv1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "provider-palette-config",
 			Namespace: "crossplane-system",
 		},
-		Spec: v1beta1.ProviderConfigSpec{
-			Credentials: v1beta1.ProviderCredentials{
+		Spec: clusterv1beta1.ProviderConfigSpec{
+			Credentials: clusterv1beta1.ProviderCredentials{
 				Source: xpv1.CredentialsSource("Secret"),
 				CommonCredentialSelectors: xpv1.CommonCredentialSelectors{
 					SecretRef: &xpv1.SecretKeySelector{

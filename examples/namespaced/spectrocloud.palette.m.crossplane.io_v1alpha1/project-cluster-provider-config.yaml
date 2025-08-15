@@ -1,0 +1,18 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/project
+  labels:
+    testing.upbound.io/example-name: project
+  name: project-testing-cluster-provider-config
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: cluster-provider-palette
+  forProvider:
+    name: project-testing-cluster-scoped
+    description: "crossplane testing project - updated"
+    tags:
+      - "TF:Ranjith"

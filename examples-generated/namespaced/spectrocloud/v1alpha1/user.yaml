@@ -1,0 +1,64 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: user-test
+  name: user-test
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: test-tf@spectrocloud.com
+    firstName: tf
+    lastName: test
+    projectRole:
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    resourceRole:
+    - filterIdsRefs:
+      - name: spectrocloud_filter
+      projectIdsRefs:
+      - name: spectrocloud_project
+      - name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    - filterIdsRefs:
+      - name: spectrocloud_filter
+      projectIdsRefs:
+      - name: spectrocloud_project
+      roleIdsSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_role
+    teamIdsRefs:
+    - name: spectrocloud_team
+    tenantRoleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: spectrocloud_role
+    workspaceRole:
+    - projectIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_project
+      workspace:
+      - idSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_workspace
+        roleIdsSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_role
+      - idSelector:
+          matchLabels:
+            testing.upbound.io/example-name: spectrocloud_workspace
+        roleIdsRefs:
+        - name: example

@@ -1,0 +1,26 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: alert_email
+  name: alert-http
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    alertAllUsers: true
+    component: ClusterHealth
+    isActive: true
+    project: Default
+    type: http
+    http:
+    - body: "{ \"text\": \"{{message}}\" }"
+      method: "POST"
+      url: "https://openhook.com/put/notify"
+      headers:
+        tag: "Health"
+        source: "spectrocloud"

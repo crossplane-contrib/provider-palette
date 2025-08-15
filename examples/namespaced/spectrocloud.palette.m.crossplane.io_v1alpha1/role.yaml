@@ -1,0 +1,31 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: resource-custom-role
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/role
+    description: "Custom role for Palette project"
+  labels:
+    testing.upbound.io/example-name: custom_role
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    name: resource-custom-role
+    permissions:
+      - cloudaccount.get
+      - cloudaccount.list
+      - cloudconfig.delete
+      - cloudconfig.get
+      - cloudconfig.list
+      - cloudconfig.update
+      - cluster.delete
+      - cluster.get
+      - cluster.list
+      - cluster.update
+      - clusterProfile.delete
+      - clusterProfile.get
+      - clusterProfile.update
+    type: "resource"

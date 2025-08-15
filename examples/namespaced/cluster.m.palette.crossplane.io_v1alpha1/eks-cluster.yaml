@@ -1,0 +1,61 @@
+# replace below yaml values
+# cloudAccountId: "65564f593a69afbef433eeda"
+# clusterProfile.id: "689bdfa2e6c0f67cef93d631 "
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Eks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/eks
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: eks-cluster-test
+  namespace: crossplane-system
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    name: eks-cluster-test
+    context: tenant
+    description: "EKS Cluster for testing"
+    cloudAccountId: "65564f593a69afbef433eeda"
+    cloudConfig:
+      - region: "us-west-2"
+        sshKeyName: "spectro2024"
+        vpcId: "vpc-07304611cb22387ba"
+        endpointAccess: "public"
+        publicAccessCidrs:
+          - "0.0.0.0/0"
+        privateAccessCidrs: []
+        azSubnets:
+          us-west-2a: "subnet-0ef11392d0020ec8b"
+          us-west-2b: "subnet-05a20b0b45ebe0221"
+    machinePool:
+      - name: "worker-pool-1"
+        count: 1
+        instanceType: "t3.medium"
+        diskSizeGb: 60
+        capacityType: "spot"
+        azSubnets:
+          us-west-2a: "subnet-0ef11392d0020ec8b"
+          us-west-2b: "subnet-05a20b0b45ebe0221"
+        additionalLabels:
+          worker: "true"
+        updateStrategy: "RollingUpdateScaleOut"
+      - name: "worker-pool-2"
+        count: 1
+        instanceType: "t3.xlarge"
+        diskSizeGb: 60
+        capacityType: "on-demand"
+        azSubnets:
+          us-west-2a: "subnet-0ef11392d0020ec8b"
+          us-west-2b: "subnet-05a20b0b45ebe0221"
+        additionalLabels:
+          worker: "true"
+        updateStrategy: "RollingUpdateScaleOut"
+    clusterProfile:
+      - id: "689bdfa2e6c0f67cef93d631"
+    osPatchOnBoot: false
+    tags:
+      - "cloud:eks"
+      - "owner:QA"
