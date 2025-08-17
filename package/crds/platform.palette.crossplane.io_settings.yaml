@@ -73,9 +73,9 @@ spec:
               forProvider:
                 properties:
                   automaticClusterRoleBinding:
-                    description: Enables automatic cluster role binding for clusters
-                      deployed under a tenant or project. Setting it to `false` disables
-                      automatic cluster role binding.
+                    description: |-
+                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
                     description: |-
@@ -150,9 +150,9 @@ spec:
                   autoscaler.
                 properties:
                   automaticClusterRoleBinding:
-                    description: Enables automatic cluster role binding for clusters
-                      deployed under a tenant or project. Setting it to `false` disables
-                      automatic cluster role binding.
+                    description: |-
+                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
                     description: |-
@@ -305,9 +305,9 @@ spec:
               atProvider:
                 properties:
                   automaticClusterRoleBinding:
-                    description: Enables automatic cluster role binding for clusters
-                      deployed under a tenant or project. Setting it to `false` disables
-                      automatic cluster role binding.
+                    description: |-
+                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
                     description: |-
