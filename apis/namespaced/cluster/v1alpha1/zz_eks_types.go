@@ -1180,42 +1180,29 @@ type EksMachinePoolTaintsParameters struct {
 
 type EksNamespacesInitParameters struct {
 
-	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
-	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
-	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
-
 	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type EksNamespacesObservation struct {
 
-	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
-	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
-	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
-
 	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type EksNamespacesParameters struct {
-
-	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
-	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
-	// +kubebuilder:validation:Optional
-	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
 	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
@@ -1223,7 +1210,7 @@ type EksNamespacesParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`

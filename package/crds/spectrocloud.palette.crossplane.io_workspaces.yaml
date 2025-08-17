@@ -280,6 +280,22 @@ spec:
                       The namespaces for the cluster.
                     items:
                       properties:
+                        clusterResourceAllocations:
+                          items:
+                            properties:
+                              resourceAllocation:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+                                  Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+                                type: object
+                                x-kubernetes-map-type: granular
+                              uid:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
                         imagesBlacklist:
                           description: |-
                             (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
@@ -297,7 +313,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
@@ -318,6 +334,10 @@ spec:
                           description: |-
                             (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
                             CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        gpu:
+                          description: GPU that the entire workspace is allowed to
+                            consume. The default value is 0, which imposes no limit.
                           type: number
                         memory:
                           description: |-
@@ -548,6 +568,22 @@ spec:
                       The namespaces for the cluster.
                     items:
                       properties:
+                        clusterResourceAllocations:
+                          items:
+                            properties:
+                              resourceAllocation:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+                                  Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+                                type: object
+                                x-kubernetes-map-type: granular
+                              uid:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
                         imagesBlacklist:
                           description: |-
                             (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
@@ -565,7 +601,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
@@ -586,6 +622,10 @@ spec:
                           description: |-
                             (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
                             CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        gpu:
+                          description: GPU that the entire workspace is allowed to
+                            consume. The default value is 0, which imposes no limit.
                           type: number
                         memory:
                           description: |-
@@ -810,6 +850,9 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        clusterName:
+                          description: (String)
+                          type: string
                         uid:
                           description: (String)
                           type: string
@@ -830,6 +873,22 @@ spec:
                       The namespaces for the cluster.
                     items:
                       properties:
+                        clusterResourceAllocations:
+                          items:
+                            properties:
+                              resourceAllocation:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
+                                  Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+                                type: object
+                                x-kubernetes-map-type: granular
+                              uid:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
                         imagesBlacklist:
                           description: |-
                             (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
@@ -847,7 +906,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
@@ -868,6 +927,10 @@ spec:
                           description: |-
                             (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
                             CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+                          type: number
+                        gpu:
+                          description: GPU that the entire workspace is allowed to
+                            consume. The default value is 0, which imposes no limit.
                           type: number
                         memory:
                           description: |-

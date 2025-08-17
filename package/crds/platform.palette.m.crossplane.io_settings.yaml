@@ -58,6 +58,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  automaticClusterRoleBinding:
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
+                    type: boolean
                   clusterAutoRemediation:
                     description: |-
                       provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
@@ -130,6 +135,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  automaticClusterRoleBinding:
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
+                    type: boolean
                   clusterAutoRemediation:
                     description: |-
                       provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
@@ -252,6 +262,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  automaticClusterRoleBinding:
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
+                    type: boolean
                   clusterAutoRemediation:
                     description: |-
                       provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
