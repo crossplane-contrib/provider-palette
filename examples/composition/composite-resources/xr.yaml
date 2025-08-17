@@ -5,6 +5,7 @@ metadata:
 spec:
   name: piper-customer
   apiKey: "<PALETTE_API_KEY>"
+  host: "console.spectrocloud.com"
   clusterName: piper-cluster
   clusterDescription: "piper-cluster"
   clusterTags:
@@ -23,4 +24,3 @@ spec:
         instanceType: "t3.medium"
         diskSize: 100
         capacityType: "on-demand"
-

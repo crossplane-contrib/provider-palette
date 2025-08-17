@@ -8,15 +8,14 @@ spec:
     kind: XCustomer
   mode: Pipeline
   pipeline:
+    # Onboarding
+    # EKS Cluster Creation
 
     # Onboarding
     # 1. Create a Namespace for the Customer
-    # 2. Create a Provider Secret 
-    #    a. API Key - ??? for now, make it an XRD input 
-    #    b. Project Name Customer Name
-    #    c. Host (console.spectrocloud.com)
-    # 2. Create a ProviderConfig for the Customer - TODO/optional? 
-    # 3. Create a Project for the Customer
+    # 2. Create a Project for the Customer
+    # 3. Create a Provider Secret for the customer
+    # 4. Create a namespaced ProviderConfig for the Customer
     - step: onboarding
       functionRef:
         name: crossplane-contrib-function-patch-and-transform
@@ -24,6 +23,7 @@ spec:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
         resources:
+          # 1. Create a Namespace for the Customer
           - name: CustomerNamespace
             base:
               apiVersion: v1
@@ -33,50 +33,28 @@ spec:
                 fromFieldPath: spec.name
                 toFieldPath: metadata.name
             readinessChecks:
-              - type: None # TODO FIX THIS
+              - type: MatchString
+                fieldPath: status.phase
+                matchString: Active
 
-          # TODO: Build a Namespace ProviderConfig by copying the secret from the cluster provider config
-          #  - name: CustomerProviderConfig
-          #   base:
-          #     apiVersion: palette.m.crossplane.io/v1beta1
-          #     kind: ProviderConfig
-          #     spec:
-          #       credentials:
-          #         source: Secret
-          #         secretRef:
-          #           name: palette-creds
-          #           namespace: spectrocloud-xp
-          #           key: credentials
-          #   patches:
-          #     - type: FromCompositeFieldPath
-          #       fromFieldPath: spec.name
-          #       toFieldPath: metadata.name
-          #     - type: FromCompositeFieldPath
-          #       fromFieldPath: spec.name
-          #       toFieldPath: metadata.namespace                
-          #   readinessChecks:
-          #     - type: None # TODO FIX THIS              
-
+          # 2. Create a Project for the Customer
+          # We need use a ProviderConfig/ProviderSecret-ProjectName(default/tenant/spectrocloud-xp)
+          # We cannot create a ProviderCOnfig with customer name because ProviderConfig needs ane existing project name to create a new Project.
+          # Project needs to be in spectrocloud-xp namespace
           - name: CustomerProject
             base:
               apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
               kind: Project
+              metadata:
+                namespace: spectrocloud-xp
               spec:
                 providerConfigRef:
-                  kind: ClusterProviderConfig
-                  name: cluster-provider-palette
-                forProvider:
-                  name: project-testing
+                  kind: ProviderConfig
+                  name: provider-palette
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.name
                 toFieldPath: metadata.name
-              - type: FromCompositeFieldPath
-                fromFieldPath: spec.name
-                toFieldPath: metadata.namespace
-              # - type: FromCompositeFieldPath
-              #   fromFieldPath: spec.name
-              #   toFieldPath: spec.providerConfigRef.name
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.name
                 toFieldPath: spec.forProvider.name
@@ -84,8 +62,76 @@ spec:
                 fromFieldPath: spec.name
                 toFieldPath: spec.forProvider.description
             readinessChecks:
-              - type: None # TODO FIX THIS              
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+              - type: NonEmpty
+                fieldPath: status.atProvider.id
 
+          # 2. Create a Provider Secret
+          #    a. API Key - ??? for now, make it an XRD input
+          #    b. Project Name Customer Name
+          #    c. Host - from XRD input
+          - name: CustomerProviderSecret
+            base:
+              apiVersion: v1
+              kind: Secret
+              type: Opaque
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: CombineFromComposite
+                combine:
+                  variables:
+                    - fromFieldPath: spec.apiKey
+                    - fromFieldPath: spec.name
+                    - fromFieldPath: spec.host
+                  strategy: string
+                  string:
+                    fmt: |
+                      {
+                        "api_key": "%s",
+                        "project_name": "%s",
+                        "host": "%s"
+                      }
+                toFieldPath: stringData.credentials
+            readinessChecks:
+              - type: NonEmpty
+                fieldPath: metadata.uid
+
+          # 3. Create a namespaced ProviderConfig for the Customer
+          - name: CustomerProviderConfig
+            base:
+              apiVersion: palette.m.crossplane.io/v1beta1
+              kind: ProviderConfig
+              spec:
+                credentials:
+                  source: Secret
+                  secretRef:
+                    key: credentials
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.credentials.secretRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.credentials.secretRef.namespace
+            readinessChecks:
+              - type: NonEmpty
+                fieldPath: metadata.uid
+
+    # EKS Cluster Creation
     # Cluster Provisioning
     # 1. Using Tenant level Profiles. NOT REQUIRED - Clone the Profile from spectrocloud-xp Project into the Customer Project
     # 2. Create an EKS Dynamic VPC cluster in the Customer Project
@@ -95,6 +141,8 @@ spec:
       input:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
+
+        # Create a Cluster in the Customer Project
         resources:
           - name: ProvisionClusterEKS
             base:
@@ -102,10 +150,10 @@ spec:
               kind: Eks
               spec:
                 providerConfigRef:
-                  kind: ClusterProviderConfig
+                  kind: ProviderConfig
                   name: cluster-provider-palette
             patches:
-            # metadata
+              # metadata
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.clusterName
                 toFieldPath: metadata.name
@@ -113,6 +161,10 @@ spec:
                 fromFieldPath: spec.name
                 toFieldPath: metadata.namespace
               # spec
+              # providerConfigRef
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.providerConfigRef.name
               # forProvider
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.clusterName
@@ -164,5 +216,10 @@ spec:
                 fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].capacityType
                 toFieldPath: spec.forProvider.machinePool[0].capacityType
             readinessChecks:
-              - type: None # TODO FIX THIS
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+              - type: NonEmpty
+                fieldPath: status.atProvider.id
 

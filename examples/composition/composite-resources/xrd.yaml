@@ -22,8 +22,14 @@ spec:
               type: object
               required:
                 - name
+                - host
+                - apiKey
               properties:
                 name:
+                  type: string
+                host:
+                  type: string
+                apiKey:
                   type: string
                 clusterName:
                   type: string

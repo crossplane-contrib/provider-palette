@@ -7,8 +7,7 @@ composition/
 ├── README.md                          # This documentation file
 ├── provider.yaml                      # Palette provider installation
 ├── spectrocloud-xp-ns.yaml           # Namespace for Crossplane resources
-├── cluster-provider-config.yaml      # Provider configuration for Palette API
-├── provider-config.yaml              # Alternative provider configuration (commented out)
+├── provider-config.yaml              # Provider configuration for Palette API
 ├── palette-creds.yaml                # Secret containing Palette API credentials
 └── composite-resources/
     ├── composition.yaml               # Main composition with pipeline steps
