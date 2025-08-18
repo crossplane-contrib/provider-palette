@@ -50,6 +50,10 @@ type LoginBannerParameters struct {
 
 type SettingInitParameters struct {
 
+	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
+
 	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
 	ClusterAutoRemediation *bool `json:"clusterAutoRemediation,omitempty" tf:"cluster_auto_remediation,omitempty"`
@@ -88,6 +92,10 @@ type SettingInitParameters struct {
 }
 
 type SettingObservation struct {
+
+	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
 
 	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
@@ -130,6 +138,11 @@ type SettingObservation struct {
 }
 
 type SettingParameters struct {
+
+	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
+	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+	// +kubebuilder:validation:Optional
+	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
 
 	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.

@@ -717,7 +717,11 @@ func (in *CustomParameters) DeepCopyInto(out *CustomParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.CredentialsSecretRef = in.CredentialsSecretRef
+	if in.CredentialsSecretRef != nil {
+		in, out := &in.CredentialsSecretRef, &out.CredentialsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

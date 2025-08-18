@@ -237,6 +237,41 @@ type ClusterRbacBindingParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type ClusterResourceAllocationsInitParameters struct {
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+	// +mapType=granular
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
+
+	// (String)
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type ClusterResourceAllocationsObservation struct {
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+	// +mapType=granular
+	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
+
+	// (String)
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type ClusterResourceAllocationsParameters struct {
+
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid" tf:"uid,omitempty"`
+}
+
 type ClustersInitParameters struct {
 
 	// (String)
@@ -244,6 +279,9 @@ type ClustersInitParameters struct {
 }
 
 type ClustersObservation struct {
+
+	// (String)
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
 	// (String)
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
@@ -258,6 +296,9 @@ type ClustersParameters struct {
 
 type NamespacesInitParameters struct {
 
+	// (Block List) (see below for nested schema)
+	ClusterResourceAllocations []ClusterResourceAllocationsInitParameters `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
+
 	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
@@ -266,14 +307,17 @@ type NamespacesInitParameters struct {
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type NamespacesObservation struct {
 
+	// (Block List) (see below for nested schema)
+	ClusterResourceAllocations []ClusterResourceAllocationsObservation `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
+
 	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
@@ -282,13 +326,17 @@ type NamespacesObservation struct {
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
 type NamespacesParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	ClusterResourceAllocations []ClusterResourceAllocationsParameters `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
 
 	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
@@ -300,8 +348,8 @@ type NamespacesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048'}
-	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048'}`
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
@@ -468,6 +516,10 @@ type WorkspaceQuotaInitParameters struct {
 	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Number) GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	Gpu *float64 `json:"gpu,omitempty" tf:"gpu,omitempty"`
+
 	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
@@ -478,6 +530,10 @@ type WorkspaceQuotaObservation struct {
 	// (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number) GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	Gpu *float64 `json:"gpu,omitempty" tf:"gpu,omitempty"`
 
 	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
@@ -490,6 +546,11 @@ type WorkspaceQuotaParameters struct {
 	// CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
+
+	// (Number) GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
+	// +kubebuilder:validation:Optional
+	Gpu *float64 `json:"gpu,omitempty" tf:"gpu,omitempty"`
 
 	// (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
 	// Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.

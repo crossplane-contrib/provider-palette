@@ -69,7 +69,7 @@ type CustomParameters struct {
 	// (Map of String, Sensitive) The credentials required for accessing the cloud.
 	// The credentials required for accessing the cloud.
 	// +kubebuilder:validation:Optional
-	CredentialsSecretRef v1.SecretReference `json:"credentialsSecretRef" tf:"-"`
+	CredentialsSecretRef *v1.SecretReference `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) The name of the cloud account.
 	// The name of the cloud account.
@@ -119,7 +119,6 @@ type Custom struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloud) || (has(self.initProvider) && has(self.initProvider.cloud))",message="spec.forProvider.cloud is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentialsSecretRef)",message="spec.forProvider.credentialsSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	Spec   CustomSpec   `json:"spec"`
