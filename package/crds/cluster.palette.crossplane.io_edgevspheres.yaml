@@ -597,12 +597,6 @@ spec:
                     description: The namespaces for the cluster.
                     items:
                       properties:
-                        imagesBlacklist:
-                          description: List of images to disallow for the namespace.
-                            For example, `['nginx:latest', 'redis:latest']`
-                          items:
-                            type: string
-                          type: array
                         name:
                           description: Name of the namespace. This is the name of
                             the Kubernetes namespace in the cluster.
@@ -612,7 +606,8 @@ spec:
                             type: string
                           description: 'Resource allocation for the namespace. This
                             is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
+                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
@@ -1205,12 +1200,6 @@ spec:
                     description: The namespaces for the cluster.
                     items:
                       properties:
-                        imagesBlacklist:
-                          description: List of images to disallow for the namespace.
-                            For example, `['nginx:latest', 'redis:latest']`
-                          items:
-                            type: string
-                          type: array
                         name:
                           description: Name of the namespace. This is the name of
                             the Kubernetes namespace in the cluster.
@@ -1220,7 +1209,8 @@ spec:
                             type: string
                           description: 'Resource allocation for the namespace. This
                             is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
+                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
@@ -1774,12 +1764,6 @@ spec:
                     description: The namespaces for the cluster.
                     items:
                       properties:
-                        imagesBlacklist:
-                          description: List of images to disallow for the namespace.
-                            For example, `['nginx:latest', 'redis:latest']`
-                          items:
-                            type: string
-                          type: array
                         name:
                           description: Name of the namespace. This is the name of
                             the Kubernetes namespace in the cluster.
@@ -1789,7 +1773,8 @@ spec:
                             type: string
                           description: 'Resource allocation for the namespace. This
                             is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048''}`'
+                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
+                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
                           type: object
                           x-kubernetes-map-type: granular
                       type: object

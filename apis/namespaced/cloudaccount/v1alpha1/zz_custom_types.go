@@ -24,7 +24,7 @@ type CustomInitParameters struct {
 	// The context of the custom cloud configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	Credentials map[string]*string `json:"credentialsSecretRef" tf:"-"`
+	Credentials map[string]*string `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) The name of the cloud account.
 	// The name of the cloud account.
@@ -72,7 +72,7 @@ type CustomParameters struct {
 	// (Map of String, Sensitive) The credentials required for accessing the cloud.
 	// The credentials required for accessing the cloud.
 	// +kubebuilder:validation:Optional
-	CredentialsSecretRef v1.LocalSecretReference `json:"credentialsSecretRef" tf:"-"`
+	CredentialsSecretRef *v1.LocalSecretReference `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) The name of the cloud account.
 	// The name of the cloud account.
@@ -122,7 +122,6 @@ type Custom struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloud) || (has(self.initProvider) && has(self.initProvider.cloud))",message="spec.forProvider.cloud is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentialsSecretRef)",message="spec.forProvider.credentialsSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	Spec   CustomSpec   `json:"spec"`

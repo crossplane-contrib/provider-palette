@@ -714,7 +714,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -749,7 +748,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resource_group: (String)
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -902,7 +901,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -937,7 +935,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -1062,7 +1060,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1099,7 +1096,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resource_group: (String) Azure resource group. This can be found in the Azure portal under Resource groups.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1277,7 +1274,6 @@ resources:
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1304,7 +1300,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
@@ -1417,7 +1413,6 @@ resources:
             host_name: (String) Edge host name
             host_uid: (String) Edge host id
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1451,7 +1446,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -1519,7 +1514,6 @@ resources:
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
             image_template_folder: (String)
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1555,7 +1549,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resource_pool: (String)
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1686,7 +1680,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1723,7 +1716,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             root_volume_iops: (Number) The number of input/output operations per second (IOPS) for the root volume.
@@ -1843,7 +1836,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -1877,7 +1869,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -1972,7 +1964,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -2004,7 +1995,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -2204,7 +2195,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -2241,7 +2231,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resource_pool: (String) The name of the resource pool in the Maas cloud.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -2372,7 +2362,6 @@ resources:
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -2406,7 +2395,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -2792,7 +2781,6 @@ resources:
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
             id: (String) The ID of this resource.
             image_template_folder: (String) The name of the image template folder in vSphere. This is the name of the folder as it appears in vSphere.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -2831,7 +2819,7 @@ resources:
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resource_pool: (String) The name of the resource pool to use for the machine pool. As it appears in the vSphere.
             review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -3112,6 +3100,7 @@ resources:
                   "session_timeout": 230
                 }
         argumentDocs:
+            automatic_cluster_role_binding: (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
             cluster_auto_remediation: (Boolean) Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
             context: (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
@@ -3750,7 +3739,6 @@ resources:
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
             host_cluster_uid: (String)
             id: (String) The ID of this resource.
-            images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -3780,7 +3768,7 @@ resources:
             region_code: (String)
             region_name: (String)
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             resources: (Block List) (see below for nested schema)
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
@@ -4143,12 +4131,15 @@ resources:
         argumentDocs:
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
+            cluster_name: (String)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_resource_allocations: (Block List) (see below for nested schema)
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             clusters: '(Block Set, Min: 1) (see below for nested schema)'
             cpu: (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             description: (String)
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+            gpu: (Number) GPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             id: (String) The ID of this resource.
             images_blacklist: (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
@@ -4160,7 +4151,7 @@ resources:
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             subjects: (Block List) (see below for nested schema)
