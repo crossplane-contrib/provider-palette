@@ -1,0 +1,54 @@
+# Prevents deletion of ProviderConfig before the deletion of the cluster
+apiVersion: protection.crossplane.io/v1beta1
+kind: Usage
+metadata:
+  name: cluster-used-by-providerconfig
+  namespace: piper-customer
+spec:
+  of:
+    apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+    kind: Eks
+    resourceRef:
+      name: piper-cluster
+  by:
+    apiVersion: palette.m.crossplane.io/v1beta1
+    kind: ProviderConfig
+    resourceRef:
+      name: piper-customer      
+---
+# Prevents deletion of Secret before the deletion of the ProviderConfig
+apiVersion: protection.crossplane.io/v1beta1
+kind: Usage
+metadata:
+  name: providerconfig-used-by-secret
+  namespace: piper-customer
+spec:
+  of:
+    apiVersion: palette.m.crossplane.io/v1beta1
+    kind: ProviderConfig
+    resourceRef:
+      name: piper-customer
+  by:
+    apiVersion: v1
+    kind: Secret
+    resourceRef:
+      name: piper-customer
+
+---
+# Prevents deletion of Namespace before the deletion of the Secret
+apiVersion: protection.crossplane.io/v1beta1
+kind: Usage
+metadata:
+  name: secret-used-by-namespace
+  namespace: piper-customer
+spec:
+  of:
+    apiVersion: v1
+    kind: Namespace
+    resourceRef:
+      name: piper-customer
+  by:
+    apiVersion: v1
+    kind: Secret
+    resourceRef:
+      name: piper-customer

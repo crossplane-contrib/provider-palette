@@ -12,8 +12,8 @@ spec:
     # EKS Cluster Creation
 
     # Onboarding
-    # 1. Create a Namespace for the Customer
-    # 2. Create a Project for the Customer
+    # 1. Create a Project for the Customer (in spectrocloud-xp namespace)
+    # 2. Create a Namespace for the Customer
     # 3. Create a Provider Secret for the customer
     # 4. Create a namespaced ProviderConfig for the Customer
     - step: onboarding
@@ -23,21 +23,8 @@ spec:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
         resources:
-          # 1. Create a Namespace for the Customer
-          - name: CustomerNamespace
-            base:
-              apiVersion: v1
-              kind: Namespace
-            patches:
-              - type: FromCompositeFieldPath
-                fromFieldPath: spec.name
-                toFieldPath: metadata.name
-            readinessChecks:
-              - type: MatchString
-                fieldPath: status.phase
-                matchString: Active
 
-          # 2. Create a Project for the Customer
+          # 1. Create a Project for the Customer
           # We need use a ProviderConfig/ProviderSecret-ProjectName(default/tenant/spectrocloud-xp)
           # We cannot create a ProviderCOnfig with customer name because ProviderConfig needs ane existing project name to create a new Project.
           # Project needs to be in spectrocloud-xp namespace
@@ -69,7 +56,21 @@ spec:
               - type: NonEmpty
                 fieldPath: status.atProvider.id
 
-          # 2. Create a Provider Secret
+          # 2. Create a Namespace for the Customer
+          - name: CustomerNamespace
+            base:
+              apiVersion: v1
+              kind: Namespace
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+            readinessChecks:
+              - type: MatchString
+                fieldPath: status.phase
+                matchString: Active
+
+          # 3. Create a Provider Secret
           #    a. API Key - ??? for now, make it an XRD input
           #    b. Project Name Customer Name
           #    c. Host - from XRD input
@@ -104,7 +105,7 @@ spec:
               - type: NonEmpty
                 fieldPath: metadata.uid
 
-          # 3. Create a namespaced ProviderConfig for the Customer
+          # 4. Create a namespaced ProviderConfig for the Customer
           - name: CustomerProviderConfig
             base:
               apiVersion: palette.m.crossplane.io/v1beta1
@@ -222,4 +223,3 @@ spec:
                   status: "True"
               - type: NonEmpty
                 fieldPath: status.atProvider.id
-

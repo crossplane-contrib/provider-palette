@@ -4,15 +4,69 @@
 
 ```
 composition/
-├── README.md                          # This documentation file
-├── provider.yaml                      # Palette provider installation
-├── spectrocloud-xp-ns.yaml           # Namespace for Crossplane resources
-├── provider-config.yaml              # Provider configuration for Palette API
-├── palette-creds.yaml                # Secret containing Palette API credentials
+├── README.md                        # This documentation file
+├── provider.yaml                    # Palette provider installation
+├── spectrocloud-xp-ns.yaml          # Namespace for Crossplane resources
+├── provider-config.yaml             # Provider configuration for Palette API
+├── palette-creds.yaml               # Secret containing Palette API credentials
 └── composite-resources/
     ├── composition.yaml               # Main composition with pipeline steps
     ├── function.yaml                  # Required Crossplane functions
     ├── rbac.yaml                      # RBAC permissions for namespace management
+    ├── usage.yaml                     # Resource protection and dependency management
     ├── xr.yaml                        # Example XCustomer resource
     └── xrd.yaml                       # Composite Resource Definition for XCustomer
 ```
+
+## Resource Creation Flow
+
+This composition creates resources in a specific dependency order to ensure proper setup and includes protection mechanisms to prevent premature deletion.
+
+### Dependency Graph
+
+#### Resource Creation Order
+```
+CustomerProject
+    ↓
+CustomerNamespace
+    ↓
+CustomerProviderSecret
+    ↓
+CustomerProviderConfig
+    ↓
+ProvisionClusterEKS
+```
+
+### Resource Creation Steps
+
+1. **CustomerProject** - Provisions a new project in Palette using the customer's specifications
+2. **CustomerNamespace** - Creates a dedicated namespace for the customer's resources
+3. **CustomerProviderSecret** - Generates API credentials specific to the customer's project
+4. **CustomerProviderConfig** - Configures the Palette provider with the customer-specific credentials
+5. **ProvisionClusterEKS** - Deploys an EKS cluster within the customer's project using the configured provider
+
+#### Resource Deletion Order (Protected by Usage Resources)
+```
+ProvisionClusterEKS
+    ↓ (Usage: cluster-used-by-providerconfig)
+CustomerProviderConfig
+    ↓ (Usage: providerconfig-used-by-secret)
+CustomerProviderSecret
+    ↓ (Usage: secret-used-by-namespace)
+CustomerNamespace
+    ↓ (ClusterUsage: namespace-used-by-project)
+CustomerProject
+```
+
+Each step depends on the successful completion of the previous step, ensuring resources are created in the correct order and with proper dependencies.
+
+### Usage Resource Protection Details
+
+The composition uses Crossplane's protection mechanisms to enforce the deletion order:
+
+- **`cluster-used-by-providerconfig`** - Prevents ProviderConfig deletion while EKS cluster exists
+- **`providerconfig-used-by-secret`** - Prevents Secret deletion while ProviderConfig exists  
+- **`secret-used-by-namespace`** - Prevents Namespace deletion while Secret exists
+- **`namespace-used-by-project`** - Prevents Project deletion while Namespace exists
+
+This ensures that when the composition is deleted, resources are removed in the reverse order of creation, preventing dependency conflicts and orphaned resources.
