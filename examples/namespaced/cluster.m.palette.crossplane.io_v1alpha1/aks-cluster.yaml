@@ -1,0 +1,47 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Aks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/aks
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: aks-xp-test
+  namespace: spectrocloud-xp
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  forProvider:
+    # backupPolicy:
+    # - backupLocationIdSelector:
+    #     matchLabels:
+    #       testing.upbound.io/example-name: spectrocloud_backup_storage_location
+    #   expiryInHour: 7200
+    #   includeClusterResources: true
+    #   includeDisks: true
+    #   prefix: prod-backup
+    #   schedule: 0 0 * * SUN
+    cloudAccountId: <cloudAccountId>
+    cloudConfig:
+    - region: eastus
+      resourceGroup: <resourceGroup>
+      sshKey: <sshKey>
+      subscriptionId: <subscriptionId>
+    clusterProfile:
+    - id: <clusterProfileId>
+    machinePool:
+    - count: 1
+      diskSizeGb: 60
+      instanceType: Standard_A4m_v2
+      isSystemNodePool: true
+      name: worker-basic
+      storageAccountType: StandardSSD_LRS
+    name: <clusterName>
+    # scanPolicy:
+    # - configurationScanSchedule: 0 0 * * SUN
+    #   conformanceScanSchedule: 0 0 1 * *
+    #   penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - dev
+    - department:devops
+    - owner:bob
