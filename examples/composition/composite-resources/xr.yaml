@@ -4,14 +4,18 @@ metadata:
   name: piper-customer
 spec:
   name: piper-customer
+  # palette details
   apiKey: "<PALETTE_API_KEY>"
   host: "console.spectrocloud.com"
+  # aws cloud account
+  awsAccessKey: "<AWS_ACCESS_KEY>"
+  awsSecretKey: "<AWS_SECRET_KEY>"
+  # cluster details
   clusterName: piper-cluster
   clusterDescription: "piper-cluster"
   clusterTags:
     - "piper-cluster"
-  cloudAccountID: "65564f593a69afbef433eeda"
-  clusterProfileID: "689bdedb222fdb096aa6795d"
+  clusterProfileID: "<CLUSTER_PROFILE_ID>"
   clusterConfig:
     cloudConfig:
       region: "us-west-2"

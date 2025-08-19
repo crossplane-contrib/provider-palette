@@ -31,6 +31,10 @@ spec:
                   type: string
                 apiKey:
                   type: string
+                awsAccessKey:
+                  type: string
+                awsSecretKey:
+                  type: string
                 clusterName:
                   type: string
                 clusterDescription:
@@ -39,8 +43,6 @@ spec:
                   type: array
                   items:
                     type: string
-                cloudAccountID:
-                  type: string
                 clusterProfileID:
                   type: string
                 clusterConfig:
