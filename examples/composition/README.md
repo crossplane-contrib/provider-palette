@@ -10,10 +10,9 @@ composition/
 ├── provider-config.yaml             # Provider configuration for Palette API
 ├── palette-creds.yaml               # Secret containing Palette API credentials
 └── composite-resources/
-    ├── composition.yaml               # Main composition with pipeline steps
+    ├── composition.yaml               # Main composition with pipeline steps and usage resources
     ├── function.yaml                  # Required Crossplane functions
     ├── rbac.yaml                      # RBAC permissions for namespace management
-    ├── usage.yaml                     # Resource protection and dependency management
     ├── xr.yaml                        # Example XCustomer resource
     └── xrd.yaml                       # Composite Resource Definition for XCustomer
 ```
@@ -48,13 +47,13 @@ ProvisionClusterEKS
 #### Resource Deletion Order (Protected by Usage Resources)
 ```
 ProvisionClusterEKS
-    ↓ (Usage: cluster-used-by-providerconfig)
+    ↓ (Usage: ClusterUsesProviderConfig)
 CustomerProviderConfig
-    ↓ (Usage: providerconfig-used-by-secret)
+    ↓ (Usage: ProviderConfigUsesSecret)
 CustomerProviderSecret
-    ↓ (Usage: secret-used-by-namespace)
+    ↓ (Usage: SecretUsesNamespace)
 CustomerNamespace
-    ↓ (ClusterUsage: namespace-used-by-project)
+    ↓ 
 CustomerProject
 ```
 
@@ -62,11 +61,10 @@ Each step depends on the successful completion of the previous step, ensuring re
 
 ### Usage Resource Protection Details
 
-The composition uses Crossplane's protection mechanisms to enforce the deletion order:
+The composition includes inline Usage resources within each pipeline step to enforce proper deletion order using Crossplane's protection mechanisms:
 
-- **`cluster-used-by-providerconfig`** - Prevents ProviderConfig deletion while EKS cluster exists
-- **`providerconfig-used-by-secret`** - Prevents Secret deletion while ProviderConfig exists  
-- **`secret-used-by-namespace`** - Prevents Namespace deletion while Secret exists
-- **`namespace-used-by-project`** - Prevents Project deletion while Namespace exists
+- **`ClusterUsesProviderConfig`** - Prevents ProviderConfig deletion while EKS cluster exists
+- **`ProviderConfigUsesSecret`** - Prevents Secret deletion while ProviderConfig exists  
+- **`SecretUsesNamespace`** - Prevents Namespace deletion while Secret exists
 
-This ensures that when the composition is deleted, resources are removed in the reverse order of creation, preventing dependency conflicts and orphaned resources.
+These Usage resources are defined inline within the composition pipeline steps, ensuring that when the composition is deleted, resources are removed in the reverse order of creation, preventing dependency conflicts and orphaned resources.

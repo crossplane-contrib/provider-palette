@@ -23,7 +23,6 @@ spec:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
         resources:
-
           # 1. Create a Project for the Customer
           # We need use a ProviderConfig/ProviderSecret-ProjectName(default/tenant/spectrocloud-xp)
           # We cannot create a ProviderCOnfig with customer name because ProviderConfig needs ane existing project name to create a new Project.
@@ -105,6 +104,36 @@ spec:
               - type: NonEmpty
                 fieldPath: metadata.uid
 
+          # SecretUsesNamespace
+          - name: SecretUsesNamespace
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: secret-uses-namespace
+              spec:
+                by:
+                  apiVersion: v1
+                  kind: Secret
+                of:
+                  apiVersion: v1
+                  kind: Namespace
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+
           # 4. Create a namespaced ProviderConfig for the Customer
           - name: CustomerProviderConfig
             base:
@@ -131,6 +160,36 @@ spec:
             readinessChecks:
               - type: NonEmpty
                 fieldPath: metadata.uid
+
+          # ProviderConfigUsesSecret
+          - name: ProviderConfigUsesSecret
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: providerconfig-uses-secret
+              spec:
+                by:
+                  apiVersion: palette.m.crossplane.io/v1beta1
+                  kind: ProviderConfig
+                of:
+                  apiVersion: v1
+                  kind: Secret
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
 
     # EKS Cluster Creation
     # Cluster Provisioning
@@ -223,3 +282,33 @@ spec:
                   status: "True"
               - type: NonEmpty
                 fieldPath: status.atProvider.id
+
+          # ClusterUsesProviderConfig
+          - name: ClusterUsesProviderConfig
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: cluster-uses-providerconfig
+              spec:
+                by:
+                  apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+                  kind: Eks
+                of:
+                  apiVersion: palette.m.crossplane.io/v1beta1
+                  kind: ProviderConfig
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
