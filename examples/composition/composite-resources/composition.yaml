@@ -211,7 +211,6 @@ spec:
               spec:
                 providerConfigRef:
                   kind: ProviderConfig
-                  name: cluster-provider-palette
             patches:
               # metadata
               - type: FromCompositeFieldPath
