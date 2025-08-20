@@ -1,0 +1,29 @@
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-xp-secret
+  namespace: spectrocloud-xp
+stringData:
+  aws-secret-key: <AWS_SECRET_KEY>
+
+---
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: aws-1
+  name: aws-xp-test
+  namespace: spectrocloud-xp
+spec:
+  providerConfigRef:
+    name: provider-palette
+    kind: ProviderConfig
+  forProvider:
+    awsAccessKey: <AWS_ACCESS_KEY>
+    awsSecretKeySecretRef:
+      key: aws-secret-key
+      name: aws-xp-secret
+    name: aws-xp-test

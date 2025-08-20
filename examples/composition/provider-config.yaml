@@ -1,0 +1,12 @@
+apiVersion: palette.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: provider-palette
+  namespace: spectrocloud-xp
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: palette-creds
+      namespace: spectrocloud-xp
+      key: credentials

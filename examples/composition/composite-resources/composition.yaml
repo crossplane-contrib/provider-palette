@@ -1,0 +1,429 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xcustomer-default
+spec:
+  compositeTypeRef:
+    apiVersion: demo.spectrocloud.io/v1alpha1
+    kind: XCustomer
+  mode: Pipeline
+  pipeline:
+    # Onboarding
+    # CloudAccount Provisioning
+    # EKS Cluster Creation
+
+    # Onboarding
+    # 1. Create a Project for the Customer (in spectrocloud-xp namespace)
+    # 2. Create a Namespace for the Customer
+    # 3. Create a Provider Secret for the customer
+    # 4. Create a namespaced ProviderConfig for the Customer
+    - step: onboarding
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          # 1. Create a Project for the Customer
+          # We need use a ProviderConfig/ProviderSecret-ProjectName(default/tenant/spectrocloud-xp)
+          # We cannot create a ProviderCOnfig with customer name because ProviderConfig needs ane existing project name to create a new Project.
+          # Project needs to be in spectrocloud-xp namespace
+          - name: CustomerProject
+            base:
+              apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+              kind: Project
+              metadata:
+                namespace: spectrocloud-xp
+              spec:
+                providerConfigRef:
+                  kind: ProviderConfig
+                  name: provider-palette
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.description
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+              - type: NonEmpty
+                fieldPath: status.atProvider.id
+
+          # 2. Create a Namespace for the Customer
+          - name: CustomerNamespace
+            base:
+              apiVersion: v1
+              kind: Namespace
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+            readinessChecks:
+              - type: MatchString
+                fieldPath: status.phase
+                matchString: Active
+
+          # 3. Create a Provider Secret
+          #    a. API Key - ??? for now, make it an XRD input
+          #    b. Project Name Customer Name
+          #    c. Host - from XRD input
+          - name: CustomerProviderSecret
+            base:
+              apiVersion: v1
+              kind: Secret
+              type: Opaque
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: CombineFromComposite
+                combine:
+                  variables:
+                    - fromFieldPath: spec.apiKey
+                    - fromFieldPath: spec.name
+                    - fromFieldPath: spec.host
+                  strategy: string
+                  string:
+                    fmt: |
+                      {
+                        "api_key": "%s",
+                        "project_name": "%s",
+                        "host": "%s"
+                      }
+                toFieldPath: stringData.credentials
+            readinessChecks:
+              - type: NonEmpty
+                fieldPath: metadata.uid
+
+          # SecretUsesNamespace
+          - name: SecretUsesNamespace
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: secret-uses-namespace
+              spec:
+                by:
+                  apiVersion: v1
+                  kind: Secret
+                of:
+                  apiVersion: v1
+                  kind: Namespace
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+
+          # 4. Create a namespaced ProviderConfig for the Customer
+          - name: CustomerProviderConfig
+            base:
+              apiVersion: palette.m.crossplane.io/v1beta1
+              kind: ProviderConfig
+              spec:
+                credentials:
+                  source: Secret
+                  secretRef:
+                    key: credentials
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.credentials.secretRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.credentials.secretRef.namespace
+            readinessChecks:
+              - type: NonEmpty
+                fieldPath: metadata.uid
+
+          # ProviderConfigUsesSecret
+          - name: ProviderConfigUsesSecret
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: providerconfig-uses-secret
+              spec:
+                by:
+                  apiVersion: palette.m.crossplane.io/v1beta1
+                  kind: ProviderConfig
+                of:
+                  apiVersion: v1
+                  kind: Secret
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+
+    - step: CloudAccountProvisioning
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+
+        # Create a Secret for the awsSecretKey
+        resources:
+          - name: AWSCloudAccountSecret
+            base:
+              apiVersion: v1
+              kind: Secret
+              type: Opaque
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-aws-secret"
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.awsSecretKey
+                toFieldPath: stringData.aws-secret-key
+            readinessChecks:
+              - type: NonEmpty
+                fieldPath: metadata.uid
+
+          # Create a CloudAccount
+          - name: CloudAccount
+            base:
+              apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+              kind: Aws
+              spec:
+                forProvider:
+                  awsSecretKeySecretRef:
+                    key: aws-secret-key
+                providerConfigRef:
+                  kind: ProviderConfig
+            patches:
+              # providerConfigRef
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.providerConfigRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.awsAccessKey
+                toFieldPath: spec.forProvider.awsAccessKey
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.awsSecretKeySecretRef.name
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-aws-secret"
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+              - type: NonEmpty
+                fieldPath: status.atProvider.id
+
+          # CloudAccountUsesAWSCloudAccountSecret
+          - name: CloudAccountUsesAWSCloudAccountSecret
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: cloudaccount-uses-awscloudaccountsecret
+              spec:
+                by:
+                  apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+                  kind: Aws
+                of:
+                  apiVersion: v1
+                  kind: Secret
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-aws-secret"
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+
+    # Cluster Provisioning
+    # 1. Using Tenant level Profiles. NOT REQUIRED - Clone the Profile from spectrocloud-xp Project into the Customer Project
+    # 2. Create an EKS Dynamic VPC cluster in the Customer Project
+    - step: ClusterProvisioning
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+
+        # Create a Cluster in the Customer Project
+        resources:
+          - name: ProvisionClusterEKS
+            base:
+              apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+              kind: Eks
+              spec:
+                providerConfigRef:
+                  kind: ProviderConfig
+            patches:
+              # metadata
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: metadata.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              # spec
+              # providerConfigRef
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.providerConfigRef.name
+              # forProvider
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: spec.forProvider.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterDescription
+                toFieldPath: spec.forProvider.description
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterTags
+                toFieldPath: spec.forProvider.tags
+              # forProvider.cloudAccountIdRef
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.cloudAccountIdRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.forProvider.cloudAccountIdRef.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterProfileID
+                toFieldPath: spec.forProvider.clusterProfile[0].id
+              # forProvider.cloudConfig
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.region
+                toFieldPath: spec.forProvider.cloudConfig[0].region
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.sshKey
+                toFieldPath: spec.forProvider.cloudConfig[0].sshKeyName
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.endpointAccess
+                toFieldPath: spec.forProvider.cloudConfig[0].endpointAccess
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.publicAccessCidrs
+                toFieldPath: spec.forProvider.cloudConfig[0].publicAccessCidrs
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.cloudConfig.privateAccessCidrs
+                toFieldPath: spec.forProvider.cloudConfig[0].privateAccessCidrs
+              # forProvider.machinePool
+              # TODO: XP doesn't support foreaach or map.
+              # loop through workerPoolsConfig
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].name
+                toFieldPath: spec.forProvider.machinePool[0].name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].nodeCount
+                toFieldPath: spec.forProvider.machinePool[0].count
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].instanceType
+                toFieldPath: spec.forProvider.machinePool[0].instanceType
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].diskSize
+                toFieldPath: spec.forProvider.machinePool[0].diskSizeGb
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterConfig.workerPoolsConfig[0].capacityType
+                toFieldPath: spec.forProvider.machinePool[0].capacityType
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"
+              - type: NonEmpty
+                fieldPath: status.atProvider.id
+
+          # ClusterUsesProviderConfig
+          - name: ClusterUsesProviderConfig
+            base:
+              apiVersion: protection.crossplane.io/v1beta1
+              kind: Usage
+              metadata:
+                name: cluster-uses-providerconfig
+              spec:
+                by:
+                  apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+                  kind: Eks
+                of:
+                  apiVersion: palette.m.crossplane.io/v1beta1
+                  kind: ProviderConfig
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.clusterName
+                toFieldPath: spec.by.resourceRef.name
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.name
+                toFieldPath: spec.of.resourceRef.name
+            readinessChecks:
+              - type: MatchCondition
+                matchCondition:
+                  type: Ready
+                  status: "True"

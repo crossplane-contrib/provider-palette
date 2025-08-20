@@ -1,0 +1,24 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Function
+metadata:
+  name: crossplane-contrib-function-patch-and-transform
+  # namespace: crossplane-system
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.2
+
+
+---
+
+apiVersion: pkg.crossplane.io/v1
+kind: Function
+metadata:
+  name: crossplane-contrib-function-auto-ready
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.2.1
+  # packagePullPolicy: IfNotPresent
+  # revisionActivationPolicy: Automatic
+  # revisionHistoryLimit: 1
+  # runtimeConfigRef:
+  #   apiVersion: pkg.crossplane.io/v1beta1
+  #   kind: DeploymentRuntimeConfig
+  #   name: default
