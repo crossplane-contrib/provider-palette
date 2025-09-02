@@ -4,10 +4,10 @@
 PROJECT_NAME := provider-palette
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.3.3
+export TERRAFORM_VERSION := 1.12.2
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.24.1
+export TERRAFORM_PROVIDER_VERSION := 0.24.3
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-spectrocloud
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-spectrocloud_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH := docs/resources
@@ -38,19 +38,19 @@ NPROCS ?= 1
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
 GO_REQUIRED_VERSION ?= 1.21
-GOLANGCILINT_VERSION ?= 1.64.6
+GOLANGCILINT_VERSION ?= 1.64.8
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
-GO_SUBDIRS += cmd internal apis
+GO_SUBDIRS += cmd internal apis generate
 -include build/makelib/golang.mk
 
 # ====================================================================================
 # Setup Kubernetes tools
 
-ENVTEST_VERSION = 1.29.3
-KIND_VERSION = v0.15.0
-UP_VERSION = v0.28.0
-UP_CHANNEL = stable
+ENVTEST_VERSION = 1.33.0
+KIND_VERSION = v0.29.0
+UP_VERSION = v0.40.0-0.rc.3
+UP_CHANNEL = alpha
 UPTEST_VERSION = v0.5.0
 -include build/makelib/k8s_tools.mk
 

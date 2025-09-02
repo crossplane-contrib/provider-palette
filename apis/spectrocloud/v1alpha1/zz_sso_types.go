@@ -24,12 +24,12 @@ type OidcInitParameters struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
 	// (String) Certificate authority (CA) certificate for the identity provider.
@@ -44,8 +44,8 @@ type OidcInitParameters struct {
 	// URL of the OIDC issuer.
 	IssuerURL *string `json:"issuerUrl,omitempty" tf:"issuer_url,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
 	// (Set of String) Scopes requested during OIDC authentication.
@@ -53,8 +53,8 @@ type OidcInitParameters struct {
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 
 	// (Block List, Max: 1) To allow Palette to query the OIDC userinfo endpoint using the provided Issuer URL. Palette will first attempt to retrieve role and group information from userInfo endpoint. If unavailable, Palette will fall back to using Required Claims as specified above. Use the following fields to specify what Required Claims Palette will include when querying the userinfo endpoint. (see below for nested schema)
@@ -77,12 +77,12 @@ type OidcObservation struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
 	// (String) Certificate authority (CA) certificate for the identity provider.
@@ -97,8 +97,8 @@ type OidcObservation struct {
 	// URL of the OIDC issuer.
 	IssuerURL *string `json:"issuerUrl,omitempty" tf:"issuer_url,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
 	// (String) URL used for logging out of the OIDC session.
@@ -110,8 +110,8 @@ type OidcObservation struct {
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 
 	// (Block List, Max: 1) To allow Palette to query the OIDC userinfo endpoint using the provided Issuer URL. Palette will first attempt to retrieve role and group information from userInfo endpoint. If unavailable, Palette will fall back to using Required Claims as specified above. Use the following fields to specify what Required Claims Palette will include when querying the userinfo endpoint. (see below for nested schema)
@@ -137,13 +137,13 @@ type OidcParameters struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	// +kubebuilder:validation:Optional
 	FirstName *string `json:"firstName" tf:"first_name,omitempty"`
 
@@ -162,8 +162,8 @@ type OidcParameters struct {
 	// +kubebuilder:validation:Optional
 	IssuerURL *string `json:"issuerUrl" tf:"issuer_url,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	// +kubebuilder:validation:Optional
 	LastName *string `json:"lastName" tf:"last_name,omitempty"`
 
@@ -173,8 +173,8 @@ type OidcParameters struct {
 	// +listType=set
 	Scopes []*string `json:"scopes" tf:"scopes,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	// +kubebuilder:validation:Optional
 	SpectroTeam *string `json:"spectroTeam" tf:"spectro_team,omitempty"`
 
@@ -191,7 +191,7 @@ type SAMLInitParameters struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
 	// User's email address retrieved from identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
@@ -199,7 +199,7 @@ type SAMLInitParameters struct {
 	// Boolean to enable SAML single logout feature.
 	EnableSingleLogout *bool `json:"enableSingleLogout,omitempty" tf:"enable_single_logout,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
 	// User's first name retrieved from identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
@@ -207,7 +207,7 @@ type SAMLInitParameters struct {
 	// Metadata XML of the SAML identity provider.
 	IdentityProviderMetadata *string `json:"identityProviderMetadata,omitempty" tf:"identity_provider_metadata,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
 	// User's last name retrieved from identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
@@ -219,7 +219,7 @@ type SAMLInitParameters struct {
 	// The identity provider service used for SAML authentication.
 	ServiceProvider *string `json:"serviceProvider,omitempty" tf:"service_provider,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	// The SpectroCloud team the user belongs to.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 }
@@ -235,7 +235,7 @@ type SAMLObservation struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
 	// User's email address retrieved from identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
@@ -247,7 +247,7 @@ type SAMLObservation struct {
 	// Entity ID used to identify the service provider.
 	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
 	// User's first name retrieved from identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
@@ -259,7 +259,7 @@ type SAMLObservation struct {
 	// SAML identity provider issuer URL.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
 	// User's last name retrieved from identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
@@ -283,7 +283,7 @@ type SAMLObservation struct {
 	// URL used for initiating SAML single logout.
 	SingleLogoutURL *string `json:"singleLogoutUrl,omitempty" tf:"single_logout_url,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	// The SpectroCloud team the user belongs to.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 }
@@ -296,7 +296,7 @@ type SAMLParameters struct {
 	// +listType=set
 	DefaultTeamIds []*string `json:"defaultTeamIds,omitempty" tf:"default_team_ids,omitempty"`
 
-	// (String) User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
 	// User's email address retrieved from identity provider.
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
@@ -306,7 +306,7 @@ type SAMLParameters struct {
 	// +kubebuilder:validation:Optional
 	EnableSingleLogout *bool `json:"enableSingleLogout,omitempty" tf:"enable_single_logout,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
 	// User's first name retrieved from identity provider.
 	// +kubebuilder:validation:Optional
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
@@ -316,7 +316,7 @@ type SAMLParameters struct {
 	// +kubebuilder:validation:Optional
 	IdentityProviderMetadata *string `json:"identityProviderMetadata" tf:"identity_provider_metadata,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
 	// User's last name retrieved from identity provider.
 	// +kubebuilder:validation:Optional
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
@@ -331,7 +331,7 @@ type SAMLParameters struct {
 	// +kubebuilder:validation:Optional
 	ServiceProvider *string `json:"serviceProvider" tf:"service_provider,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	// The SpectroCloud team the user belongs to.
 	// +kubebuilder:validation:Optional
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
@@ -419,61 +419,61 @@ type SsoParameters struct {
 
 type UserInfoEndpointInitParameters struct {
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 }
 
 type UserInfoEndpointObservation struct {
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	SpectroTeam *string `json:"spectroTeam,omitempty" tf:"spectro_team,omitempty"`
 }
 
 type UserInfoEndpointParameters struct {
 
-	// (String) User's email address retrieved from identity provider.
-	// User's email address retrieved from identity provider.
+	// (String) The name of the claim that returns the user's email address from the identity provider.
+	// The name of the claim that returns the user's email address from the identity provider.
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email" tf:"email,omitempty"`
 
-	// (String) User's first name retrieved from identity provider.
-	// User's first name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's first name from the identity provider.
+	// The name of the claim that returns the user's first name from the identity provider.
 	// +kubebuilder:validation:Optional
 	FirstName *string `json:"firstName" tf:"first_name,omitempty"`
 
-	// (String) User's last name retrieved from identity provider.
-	// User's last name retrieved from identity provider.
+	// (String) The name of the claim that returns the user's last name from the identity provider.
+	// The name of the claim that returns the user's last name from the identity provider.
 	// +kubebuilder:validation:Optional
 	LastName *string `json:"lastName" tf:"last_name,omitempty"`
 
-	// (String) The SpectroCloud team the user belongs to.
-	// The SpectroCloud team the user belongs to.
+	// (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+	// The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
 	// +kubebuilder:validation:Optional
 	SpectroTeam *string `json:"spectroTeam" tf:"spectro_team,omitempty"`
 }
