@@ -6,6 +6,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"sync"
 	"testing"
 	"time"
 
@@ -16,6 +17,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	kerrs "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes/scheme"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -36,11 +38,12 @@ const (
 )
 
 var (
-	kclient client.Client
-	cancel  context.CancelFunc
-	tc      context.Context
-	te      *envtest.Environment
-	ts      *httptest.Server
+	kclient         client.Client
+	cancel          context.CancelFunc
+	tc              context.Context
+	te              *envtest.Environment
+	ts              *httptest.Server
+	providerStarted sync.WaitGroup
 )
 
 func init() {
@@ -93,10 +96,12 @@ var _ = BeforeSuite(func() {
 	Expect(err).ShouldNot(HaveOccurred())
 	logf.Log.Info("Test environment started successfully")
 
-	scheme := scheme.Scheme
-	Expect(clusterapis.AddToScheme(scheme)).To(Succeed())
+	// Create a fresh scheme for the test client to avoid race conditions
+	testScheme := runtime.NewScheme()
+	Expect(scheme.AddToScheme(testScheme)).To(Succeed())
+	Expect(clusterapis.AddToScheme(testScheme)).To(Succeed())
 
-	kclient, err = client.New(cfg, client.Options{Scheme: scheme})
+	kclient, err = client.New(cfg, client.Options{Scheme: testScheme})
 	Expect(err).ShouldNot(HaveOccurred())
 
 	// Generate, save, and configure kubeconfig so in-cluster client lookups succeed
@@ -108,11 +113,17 @@ var _ = BeforeSuite(func() {
 
 	initResources()
 
+	// Wait for provider to start before proceeding with tests
+	providerStarted.Add(1)
 	go func() {
 		defer GinkgoRecover()
+		defer providerStarted.Done()
 		os.Args = initProviderArgs()
 		run.Run()
 	}()
+
+	// Give the provider a moment to initialize
+	time.Sleep(2 * time.Second)
 })
 
 var _ = AfterSuite(func() {
