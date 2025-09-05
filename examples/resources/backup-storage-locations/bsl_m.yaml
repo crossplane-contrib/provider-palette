@@ -1,0 +1,517 @@
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: aws-s3-backup-storage
+  namespace: default
+spec:
+  forProvider:
+    # Required: Name of the backup storage location
+    name: "aws-s3-backup-location"
+    
+    # Storage provider type
+    storageProvider: "aws"
+    
+    # Context for the backup storage location
+    context: "project"
+    
+    # S3 configuration
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        bucketName: "my-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    # Optional: Set as default backup location
+    isDefault: true
+  
+  # Provider configuration reference (namespaced requires kind)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  # Connection secret configuration (no namespace required for namespaced)
+  writeConnectionSecretToRef:
+    name: aws-s3-backup-secret
+
+---
+# Example with AWS S3 using STS credentials
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: aws-s3-sts-backup-storage
+  namespace: production
+spec:
+  forProvider:
+    name: "aws-s3-sts-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    # S3 configuration with STS credentials
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/backup-storage-role"
+        externalId: "unique-external-id"
+        bucketName: "cross-account-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: aws-s3-sts-backup-secret
+
+---
+# Example with Azure Blob Storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: azure-backup-storage
+  namespace: production
+spec:
+  forProvider:
+    name: "azure-backup-location"
+    storageProvider: "azure"
+    context: "project"
+    
+    # Azure storage configuration
+    azureStorageConfig:
+      - subscriptionId: "subscription-id-123"
+        resourceGroup: "backup-resource-group"
+        storageName: "backupstorageaccount"
+        containerName: "backup-container"
+        azureClientId: "client-id-456"
+        azureTenantId: "tenant-id-789"
+        azureClientSecretSecretRef:
+          name: "azure-client-secret"
+          key: "client-secret"
+        stockKeepingUnit: "Standard_LRS"
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: azure-backup-secret
+
+---
+# Example with GCP Cloud Storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: gcp-backup-storage
+  namespace: development
+spec:
+  forProvider:
+    name: "gcp-backup-location"
+    storageProvider: "gcp"
+    context: "project"
+    
+    # GCP storage configuration
+    gcpStorageConfig:
+      - projectId: "my-gcp-project"
+        gcpJsonCredentials: "{\"type\":\"service_account\",\"project_id\":\"my-gcp-project\"}"
+    
+    bucketName: "gcp-backup-bucket"
+    region: "us-central1"
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: gcp-backup-secret
+
+---
+# Example with MinIO S3-compatible storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: minio-backup-storage
+  namespace: testing
+spec:
+  forProvider:
+    name: "minio-backup-location"
+    storageProvider: "minio"
+    context: "project"
+    
+    # MinIO S3-compatible configuration
+    s3:
+      - credentialType: "secret"
+        accessKey: "minio-access-key"
+        secretKey: "minio-secret-key"
+        s3Url: "https://minio.example.com"
+        bucketName: "minio-backup-bucket"
+        s3ForcePathStyle: true
+    
+    # Optional CA certificate for SSL
+    caCert: "-----BEGIN CERTIFICATE-----\nMIIE...\n-----END CERTIFICATE-----"
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: minio-backup-secret
+
+---
+# Example with management policies
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: managed-backup-storage
+  namespace: production
+spec:
+  # Management policies for fine-grained control
+  managementPolicies:
+    - "Create"
+    - "Update"
+    - "Delete"
+  
+  forProvider:
+    name: "managed-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "managed-access-key"
+        secretKey: "managed-secret-key"
+        bucketName: "managed-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: managed-backup-secret
+
+---
+# Example with initProvider for creation-time only fields
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: init-provider-backup-storage
+  namespace: development
+spec:
+  # InitProvider for fields that should only be set during creation
+  initProvider:
+    name: "init-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "init-access-key"
+        secretKey: "init-secret-key"
+        bucketName: "init-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+  
+  forProvider:
+    # These fields will be merged from initProvider
+    # Additional runtime configuration can be added here
+    name: "init-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "init-access-key"
+        secretKey: "init-secret-key"
+        bucketName: "init-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: init-provider-backup-secret
+
+---
+# Example with restricted management policies
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: restricted-backup-storage
+  namespace: production
+spec:
+  # Restricted management policies - read-only
+  managementPolicies:
+    - "Observe"
+  
+  forProvider:
+    name: "restricted-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/restricted-backup-role"
+        bucketName: "restricted-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: restricted-backup-secret
+
+---
+# Example with custom provider config
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: custom-provider-backup-storage
+  namespace: testing
+spec:
+  forProvider:
+    name: "custom-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "custom-access-key"
+        secretKey: "custom-secret-key"
+        bucketName: "custom-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  # Custom provider configuration
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: custom-palette-provider
+  
+  writeConnectionSecretToRef:
+    name: custom-provider-backup-secret
+
+---
+# Example for development environment
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: dev-backup-storage
+  namespace: development
+spec:
+  forProvider:
+    name: "dev-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "dev-access-key"
+        secretKey: "dev-secret-key"
+        bucketName: "dev-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: dev-backup-secret
+
+---
+# Example with production backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: production-backup-storage
+  namespace: production
+spec:
+  forProvider:
+    name: "production-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/production-backup-role"
+        externalId: "prod-external-id"
+        bucketName: "production-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: true
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: production-backup-secret
+
+---
+# Example with multi-region backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: multi-region-backup-storage
+  namespace: production
+spec:
+  forProvider:
+    name: "multi-region-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/multi-region-backup-role"
+        bucketName: "multi-region-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: multi-region-backup-secret
+
+---
+# Example with compliance backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: compliance-backup-storage
+  namespace: security
+spec:
+  forProvider:
+    name: "compliance-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/compliance-backup-role"
+        bucketName: "compliance-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: compliance-backup-secret
+
+---
+# Example with staging environment backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: staging-backup-storage
+  namespace: staging
+spec:
+  forProvider:
+    name: "staging-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "staging-access-key"
+        secretKey: "staging-secret-key"
+        bucketName: "staging-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: staging-backup-secret
+
+---
+# Example with cross-namespace backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: cross-namespace-backup-storage
+  namespace: production
+spec:
+  forProvider:
+    name: "cross-namespace-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/cross-namespace-backup-role"
+        bucketName: "cross-namespace-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: cross-namespace-backup-secret
+
+---
+# Example with cost optimization backup storage
+apiVersion: backup.palette.m.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: cost-optimization-backup-storage
+  namespace: finance
+spec:
+  forProvider:
+    name: "cost-optimization-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/cost-optimization-backup-role"
+        bucketName: "cost-optimization-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: cost-optimization-backup-secret

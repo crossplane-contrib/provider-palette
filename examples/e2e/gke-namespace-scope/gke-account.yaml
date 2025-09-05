@@ -1,0 +1,36 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: GCP
+metadata:
+  name: gcp-cloud-account
+  annotations:
+    description: "GCP Cloud Account for GKE cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/gcp
+  labels:
+    testing.upbound.io/example-name: gke-cluster-scope
+    cp: example
+    scope: cluster
+    environment: example
+    cloud: gcp
+spec:
+  forProvider:
+    name: gcp-cloud-account
+    context: tenant  # Can be either 'project' or 'tenant'
+    gcpJsonCredentials: |
+      {
+        "type": "service_account",
+        "project_id": "<YOUR_GCP_PROJECT_ID>",
+        "private_key_id": "<YOUR_PRIVATE_KEY_ID>",
+        "private_key": "<YOUR_PRIVATE_KEY>",
+        "client_email": "<YOUR_CLIENT_EMAIL>",
+        "client_id": "<YOUR_CLIENT_ID>",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "<YOUR_CLIENT_CERT_URL>"
+      }
+  
+  # Provider Configuration
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider
+  

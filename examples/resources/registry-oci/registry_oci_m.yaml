@@ -1,0 +1,77 @@
+apiVersion: registry.palette.m.crossplane.io/v1alpha1
+kind: Oci
+metadata:
+  name: oci-registry-e2e
+  labels:
+    app: registry-oci
+    environment: e2e-testing
+    testing.upbound.io/example-name: oci-registry
+  annotations:
+    description: "OCI Registry for E2E testing"
+spec:
+  forProvider:
+    # Required: Registry name
+    name: oci-registry-e2e
+    
+    # Required: Registry type (basic, pack, or helm)
+    type: "basic"
+    
+    # Required: Provider type (helm, zarf, or pack)
+    providerType: "helm"
+    
+    # Required: Registry endpoint URL
+    endpoint: "https://registry.example.com"
+    
+    # Required: Whether the registry is private
+    isPrivate: true
+    
+    # Required: Authentication credentials
+    credentials:
+      - credentialType: "basic"
+        username: "<YOUR_USERNAME>"
+        passwordSecretRef:
+          name: oci-registry-secret
+          namespace: crossplane-system
+          key: password
+        # Alternative: Use secret-based authentication
+        # credentialType: "secret"
+        # accessKey: "<YOUR_ACCESS_KEY>"
+        # secretKeySecretRef:
+        #   name: oci-registry-secret
+        #   namespace: crossplane-system
+        #   key: secret-key
+        # Alternative: Use AWS STS authentication
+        # credentialType: "sts"
+        # arn: "<YOUR_AWS_ARN>"
+        # externalId: "<YOUR_EXTERNAL_ID>"
+        # Alternative: Use no authentication for public registries
+        # credentialType: "noAuth"
+        
+        # Optional: TLS configuration
+        tlsConfig:
+          - insecureSkipVerify: false
+            # certificate: "<YOUR_TLS_CERTIFICATE>"
+    
+    # Optional: Base content path
+    baseContentPath: "charts"
+    
+    # Optional: Endpoint suffix (for some registries like JFrog)
+    # endpointSuffix: "/artifactory"
+    
+    # Optional: Enable synchronization
+    isSynchronization: true
+    
+    # Optional: Registry metadata
+    # description: "OCI registry for storing and distributing container images and charts"
+    # tags:
+    #   - "oci"
+    #   - "container"
+    #   - "registry"
+  
+  # Crossplane configuration
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: namespace-provider-config
+  writeConnectionSecretToRef:
+    name: oci-registry-connection-secret
+    namespace: crossplane-system

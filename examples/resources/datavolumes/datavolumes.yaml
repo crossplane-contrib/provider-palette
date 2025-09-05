@@ -1,0 +1,63 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Datavolume
+metadata:
+  name: http-datavolume
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required fields
+    clusterContext: "project"
+    metadata:
+      - name: "http-datavolume"
+        namespace: "default"
+        labels:
+          app: "web-app"
+          environment: "production"
+          volume-type: "http-source"
+        annotations:
+          description: "Data volume created from HTTP source"
+          created-by: "crossplane"
+    
+    spec:
+      - contentType: "kubevirt"
+        pvc:
+          - accessModes:
+              - "ReadWriteOnce"
+            resources:
+              - requests:
+                  storage: "10Gi"
+                limits:
+                  storage: "20Gi"
+            storageClassName: "fast-ssd"
+            volumeMode: "Filesystem"
+        
+        source:
+          - http:
+              - url: "https://example.com/disk-image.qcow2"
+                secretRef: "http-auth-secret"
+                certConfigMap: "http-certs"
+    
+    # Add volume options for VM integration
+    addVolumeOptions:
+      - name: "http-volume"
+        disk:
+          - name: "disk0"
+            bus: "virtio"
+        volumeSource:
+          - dataVolume:
+              - name: "http-datavolume"
+                hotpluggable: false
+    
+    # Optional: VM association
+    vmName: "web-vm"
+    vmNamespace: "default"
+    clusterUid: "cluster-uid-12345"
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Connection secret configuration
+  writeConnectionSecretToRef:
+    name: http-datavolume-secret
+    namespace: crossplane-system

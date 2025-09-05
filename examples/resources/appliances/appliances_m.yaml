@@ -1,0 +1,257 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Appliance
+metadata:
+  name: edge-appliance-01
+  namespace: default
+spec:
+  forProvider:
+    # Required field
+    uid: "edge-basic-stack-lifecycle-q8l49"
+    
+    # Optional fields
+    # pairingKey: "pairing-key-12345"
+    remoteShell: "enabled"
+    temporaryShellCredentials: "enabled"
+    wait: false
+    
+    # Tags for organization
+    tags:
+      environment: "production"
+      location: "datacenter-1"
+      cluster: "edge-cluster-01"
+      team: "edge-ops"
+  
+  # Provider configuration reference (namespaced version)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Connection secret configuration (namespaced - no namespace field)
+  # writeConnectionSecretToRef:
+  #   name: edge-appliance-01-secret
+
+# ---
+# # Example with minimal configuration
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: minimal-appliance
+#   namespace: default
+# spec:
+#   forProvider:
+#     # Only required field
+#     uid: "minimal-appliance-uid"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: minimal-appliance-secret
+
+# ---
+# # Example with remote shell and temporary credentials disabled
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: secure-appliance
+#   namespace: production
+# spec:
+#   forProvider:
+#     uid: "secure-appliance-uid"
+#     pairingKey: "secure-pairing-key-67890"
+#     remoteShell: "disabled"
+#     temporaryShellCredentials: "disabled"
+#     wait: false
+    
+#     tags:
+#       security: "high"
+#       compliance: "sox"
+#       environment: "production"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: secure-appliance-secret
+
+# ---
+# # Example with management policies
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: managed-appliance
+#   namespace: staging
+# spec:
+#   # Management policies for fine-grained control
+#   managementPolicies:
+#     - "Create"
+#     - "Update"
+#     - "Delete"
+  
+#   forProvider:
+#     uid: "managed-appliance-uid"
+#     pairingKey: "managed-pairing-key-11111"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       management: "automated"
+#       environment: "staging"
+#       cluster: "edge-cluster-02"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: managed-appliance-secret
+
+# ---
+# # Example with initProvider for creation-time only fields
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: init-provider-appliance
+#   namespace: development
+# spec:
+#   # InitProvider for fields that should only be set during creation
+#   initProvider:
+#     uid: "init-appliance-uid"
+#     pairingKey: "init-pairing-key-22222"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       lifecycle: "initial"
+#       environment: "development"
+  
+#   forProvider:
+#     # These fields will be merged from initProvider
+#     # Additional runtime configuration can be added here
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: init-appliance-secret
+
+# ---
+# # Example with custom provider config
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: custom-provider-appliance
+#   namespace: testing
+# spec:
+#   forProvider:
+#     uid: "custom-appliance-uid"
+#     pairingKey: "custom-pairing-key-44444"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       provider: "custom"
+#       environment: "testing"
+#       cluster: "custom-edge-cluster"
+  
+#   # Custom provider configuration
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: custom-palette-provider
+  
+#   writeConnectionSecretToRef:
+#     name: custom-provider-appliance-secret
+
+# ---
+# # Example for development/testing environment
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: dev-appliance
+#   namespace: development
+# spec:
+#   forProvider:
+#     uid: "dev-appliance-uid"
+#     pairingKey: "dev-pairing-key-55555"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: false  # Don't wait for provisioning in dev
+    
+#     tags:
+#       environment: "development"
+#       purpose: "testing"
+#       team: "dev-team"
+#       cluster: "dev-edge-cluster"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: dev-appliance-secret
+
+# ---
+# # Example for edge cluster in production namespace
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: production-edge-appliance
+#   namespace: production
+# spec:
+#   forProvider:
+#     uid: "prod-edge-appliance-uid"
+#     pairingKey: "prod-pairing-key-99999"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       environment: "production"
+#       location: "edge-location-01"
+#       cluster: "prod-edge-cluster"
+#       team: "production-ops"
+#       sla: "99.9"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: production-provider
+  
+#   writeConnectionSecretToRef:
+#     name: production-edge-appliance-secret
+
+# ---
+# # Example with restricted management policies
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: restricted-appliance
+#   namespace: restricted
+# spec:
+#   # Restricted management policies - read-only
+#   managementPolicies:
+#     - "Observe"
+  
+#   forProvider:
+#     uid: "restricted-appliance-uid"
+#     pairingKey: "restricted-pairing-key-77777"
+#     remoteShell: "disabled"
+#     temporaryShellCredentials: "disabled"
+#     wait: false
+    
+#     tags:
+#       access: "readonly"
+#       environment: "restricted"
+#       compliance: "pci"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: restricted-appliance-secret

@@ -1,0 +1,37 @@
+apiVersion: platform.palette.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  name: platform-settings
+  annotations:
+    crossplane.io/external-name: "platform-settings"
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Context: defines the scope (project or tenant)
+    context: "project"
+    
+    # Cluster management settings
+    # automaticClusterRoleBinding: true
+    clusterAutoRemediation: false
+    enableAutoRemediation: true  # Only for project context
+    
+    # Agent upgrade control
+    pauseAgentUpgrades: "unlock"  # "lock" to disable, "unlock" to enable
+    
+    # Session management
+    # sessionTimeout: 240  # minutes (default)
+    
+    # FIPS compliance settings (tenant context only)
+    # nonFipsAddonPack: false
+    # nonFipsClusterImport: false
+    # nonFipsFeatures: false
+    
+    # Login banner configuration (tenant context only)
+    # loginBanner:
+    #   - title: "Welcome to Palette Platform"
+    #     message: "This platform is for authorized users only. Unauthorized access is prohibited."
+  providerConfigRef:
+    name: default
+  # writeConnectionSecretToRef:
+  #   name: platform-settings-secret
+  #   namespace: default

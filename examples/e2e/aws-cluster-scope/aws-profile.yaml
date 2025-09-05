@@ -1,0 +1,55 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: aws-cluster-profile
+  annotations:
+    description: "AWS Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: aws-cluster-profile
+    cloud: aws
+    context: project
+    type: cluster
+    description: "A comprehensive cluster profile for AWS deployment"
+    version: "1.0.0"
+    pack:
+      - name: "ubuntu-aws"
+        type: oci
+        tag: "22.04"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # Spectro Golden images includes most of the hardening as per CIS Ubuntu Linux 22.04 LTS Server L1 v1.0.0 standards
+
+          
+
+      - name: "kubernetes"
+        tag: "1.31.10"
+        type: oci
+        uid: "6891e5dd17d834478df2f8ab"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+            #oidc-extra-scope: profile,email
+
+      - name: "cni-calico"
+        type: oci
+        tag: "3.30.2"
+        uid: "689ef8b6c31402f5084dfe47"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+          
+    
+      - name: "csi-aws-ebs"
+        type: oci
+        tag: "1.46.0"
+        uid: "6891e5dd17d83447c70ec97e"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+          
+          
+    tags:
+      - "CP:Example"
+      - "cloud:aws"
+      - "type:eks"
+      - "version:v1.0.0"
+      - "scope:cluster"

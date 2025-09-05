@@ -1,0 +1,174 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  name: aws-cluster
+  annotations:
+    description: "AWS EKS Cluster for production deployment"
+    meta.upbound.io/example-id: cluster/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: aws-cluster-scope
+    CP: Example
+    scope: cluster
+spec:
+  forProvider:
+    name: cp-aws-cluster
+    context: project
+    description: "Testing CP v2 AWS cluster creation with cluster scope"
+    
+    # Cloud account reference
+    cloudAccountIdRef:
+      name: aws-cloud-account
+    
+    # Cloud configuration
+    cloudConfig:
+      - region: ap-south-1
+        sshKeyName: "spectro2023"
+        # Optional: VPC ID for static provisioning
+        # vpcId: "vpc-12345678"
+        # Optional: Control plane load balancer type
+        # controlPlaneLb: "Internet-facing"
+    
+    # Cluster profile reference
+    clusterProfile:
+      - idRef:
+          name: aws-cluster-profile
+    
+    # Machine pools configuration
+    machinePool:
+      - name: control-plane
+        controlPlane: true
+        controlPlaneAsWorker: false
+        count: 1
+        instanceType: t3.xlarge
+        diskSizeGb: 60
+        azs:
+          - "ap-south-1a"
+          - "ap-south-1b"
+          - "ap-south-1c"
+        additionalLabels:
+          node-role: control-plane
+          CP: Example
+        
+      # - name: worker-nodes
+      #   controlPlane: false
+      #   controlPlaneAsWorker: false
+      #   count: 2
+      #   min: 1
+      #   max: 3
+      #   instanceType: t3.xlarge
+      #   diskSizeGb: 100
+      #   azs:
+      #     - "ap-south-1a"
+      #     - "ap-south-1b"
+      #     - "ap-south-1c"
+      #   additionalLabels:
+      #     node-role: worker
+      #     CP: Example
+
+      - name: worker-node-2
+        controlPlane: false
+        controlPlaneAsWorker: false
+        count: 1
+        instanceType: t3.xlarge
+        diskSizeGb: 60
+        azs:
+          - "ap-south-1a"
+          - "ap-south-1b"
+          - "ap-south-1c"
+        additionalLabels:
+          node-role: worker
+          CP: Example
+        # taints:
+        #   - key: "spot"
+        #     value: "true"
+        #     effect: "PreferNoSchedule"
+    
+    # Backup policy
+    # backupPolicy:
+    #   - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+    #     expiryInHour: 7200
+    #     includeClusterResources: true
+    #     includeDisks: true
+    #     includeClusterResourcesMode: "always"
+    #     prefix: "prod-backup"
+    #     schedule: "0 2 * * *"  # Daily at 2 AM
+    #     namespaces:
+    #       - "kube-system"
+    #       - "default"
+    
+    # Scan policy
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * *"  # Daily at 3 AM
+        conformanceScanSchedule: "0 4 * * 0"    # Weekly on Sunday at 4 AM
+        penetrationScanSchedule: "0 5 * * 0"    # Weekly on Sunday at 5 AM
+    
+    # Host configuration
+    # hostConfig:
+    #   - hostEndpointType: "LoadBalancer"
+    #     loadBalancerSourceRanges: "0.0.0.0/0"
+    #     externalTrafficPolicy: "Local"
+    
+    # Namespaces with resource allocation
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+        imagesBlacklist:
+          - "nginx:latest"
+      - name: "logging"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+    
+    # OS patching configuration
+    osPatchOnBoot: false
+    osPatchSchedule: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+    
+    # Agent upgrade control
+    pauseAgentUpgrades: "lock"
+    
+    # Cluster repave authorization
+    reviewRepaveState: ""
+    
+    # Force delete settings
+    forceDelete: false
+    forceDeleteDelay: 20
+    
+    # Skip completion for async creation
+    skipCompletion: false
+    
+    # Apply setting for cluster profile
+    applySetting: "DownloadAndInstall"
+    
+    # Cluster metadata attributes
+    clusterMetaAttribute: '{"CP": "Example", "scope": "cluster"}'
+    
+    # RBAC bindings
+    # clusterRbacBinding:
+    #   - type: "ClusterRoleBinding"
+    #     role:
+    #       apiGroup: "rbac.authorization.k8s.io"
+    #       kind: "ClusterRole"
+    #       name: "cluster-admin"
+    #     subjects:
+    #       - type: "ServiceAccount"
+    #         name: "cluster-admin"
+    #         namespace: "kube-system"
+    
+    # Tags (using tagsMap instead of deprecated tags)
+    tagsMap:
+      CP: Example
+      scope: cluster
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Deletion policy
+  deletionPolicy: Delete
+  
+  # Write connection details to a secret
+  # writeConnectionSecretToRef:
+  #   name: aws-cluster-connection
+  #   namespace: crossplane-system

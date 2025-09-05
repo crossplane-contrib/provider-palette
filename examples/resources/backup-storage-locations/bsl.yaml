@@ -1,0 +1,431 @@
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: aws-s3-backup-storage
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required: Name of the backup storage location
+    name: "aws-s3-backup-location"
+    
+    # Storage provider type
+    storageProvider: "aws"
+    
+    # Context for the backup storage location
+    context: "project"
+    
+    # S3 configuration
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        bucketName: "my-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    # Optional: Set as default backup location
+    isDefault: true
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: aws-s3-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with AWS S3 using STS credentials
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: aws-s3-sts-backup-storage
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    name: "aws-s3-sts-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    # S3 configuration with STS credentials
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/backup-storage-role"
+        externalId: "unique-external-id"
+        bucketName: "cross-account-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: aws-s3-sts-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with Azure Blob Storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: azure-backup-storage
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    name: "azure-backup-location"
+    storageProvider: "azure"
+    context: "project"
+    
+    # Azure storage configuration
+    azureStorageConfig:
+      - subscriptionId: "subscription-id-123"
+        resourceGroup: "backup-resource-group"
+        storageName: "backupstorageaccount"
+        containerName: "backup-container"
+        azureClientId: "client-id-456"
+        azureTenantId: "tenant-id-789"
+        azureClientSecretSecretRef:
+          name: "azure-client-secret"
+          namespace: "crossplane-system"
+          key: "client-secret"
+        stockKeepingUnit: "Standard_LRS"
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: azure-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with GCP Cloud Storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: gcp-backup-storage
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    name: "gcp-backup-location"
+    storageProvider: "gcp"
+    context: "project"
+    
+    # GCP storage configuration
+    gcpStorageConfig:
+      - projectId: "my-gcp-project"
+        gcpJsonCredentials: "{\"type\":\"service_account\",\"project_id\":\"my-gcp-project\"}"
+    
+    bucketName: "gcp-backup-bucket"
+    region: "us-central1"
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: gcp-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with MinIO S3-compatible storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: minio-backup-storage
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    name: "minio-backup-location"
+    storageProvider: "minio"
+    context: "project"
+    bucketName: "shruthi-palette-qa"
+    region: "ap-south-1"
+    
+    # MinIO S3-compatible configuration
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        s3Url: "http://10.90.78.23"
+        
+        s3ForcePathStyle: true
+    
+    # # Optional CA certificate for SSL
+    # caCert: "-----BEGIN CERTIFICATE-----\nMIIE...\n-----END CERTIFICATE-----"
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  # writeConnectionSecretToRef:
+  #   name: minio-backup-secret
+  #   namespace: crossplane-system
+
+---
+# Example with management policies
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: managed-backup-storage
+spec:
+  # Management policies for fine-grained control
+  managementPolicies:
+    - "Create"
+    - "Update"
+    - "Delete"
+  
+  forProvider:
+    name: "managed-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        bucketName: "managed-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: managed-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with initProvider for creation-time only fields
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: init-provider-backup-storage
+spec:
+  # InitProvider for fields that should only be set during creation
+  initProvider:
+    name: "init-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        bucketName: "init-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+  
+  forProvider:
+    # These fields will be merged from initProvider
+    # Additional runtime configuration can be added here
+    name: "init-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "<YOUR_AWS_ACCESS_KEY>"
+        secretKey: "<YOUR_AWS_SECRET_KEY>"
+        bucketName: "init-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: init-provider-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with orphan deletion policy
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: orphan-backup-storage
+spec:
+  # Orphan deletion policy - external resource won't be deleted
+  deletionPolicy: Orphan
+  
+  forProvider:
+    name: "orphan-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/orphan-backup-role"
+        bucketName: "orphan-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: orphan-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with custom provider config
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: custom-provider-backup-storage
+spec:
+  deletionPolicy: Delete
+  
+  forProvider:
+    name: "custom-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "custom-access-key"
+        secretKey: "custom-secret-key"
+        bucketName: "custom-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  # Custom provider configuration
+  providerConfigRef:
+    name: custom-palette-provider
+  
+  writeConnectionSecretToRef:
+    name: custom-provider-backup-secret
+    namespace: crossplane-system
+
+---
+# Example for development environment
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: dev-backup-storage
+spec:
+  deletionPolicy: Delete
+  
+  forProvider:
+    name: "dev-backup-location"
+    storageProvider: "aws"
+    context: "project"
+    
+    s3:
+      - credentialType: "secret"
+        accessKey: "dev-access-key"
+        secretKey: "dev-secret-key"
+        bucketName: "dev-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: dev-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with production backup storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: production-backup-storage
+spec:
+  deletionPolicy: Delete
+  
+  forProvider:
+    name: "production-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/production-backup-role"
+        externalId: "prod-external-id"
+        bucketName: "production-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: true
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: production-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with multi-region backup storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: multi-region-backup-storage
+spec:
+  deletionPolicy: Delete
+  
+  forProvider:
+    name: "multi-region-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/multi-region-backup-role"
+        bucketName: "multi-region-backup-bucket"
+        region: "us-west-2"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: multi-region-backup-secret
+    namespace: crossplane-system
+
+---
+# Example with compliance backup storage
+apiVersion: backup.palette.crossplane.io/v1alpha1
+kind: StorageLocation
+metadata:
+  name: compliance-backup-storage
+spec:
+  deletionPolicy: Delete
+  
+  forProvider:
+    name: "compliance-backup-location"
+    storageProvider: "aws"
+    context: "tenant"
+    
+    s3:
+      - credentialType: "sts"
+        arn: "arn:aws:iam::123456789012:role/compliance-backup-role"
+        bucketName: "compliance-backup-bucket"
+        region: "us-east-1"
+        s3ForcePathStyle: false
+    
+    isDefault: false
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: compliance-backup-secret
+    namespace: crossplane-system

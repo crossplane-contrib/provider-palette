@@ -1,0 +1,223 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Appliance
+metadata:
+  name: edge-appliance-01
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required field
+    uid: "edge-basic-stack-lifecycle-q8l49"
+    
+    # Optional fields
+    # pairingKey: "pairing-key-12345"
+    remoteShell: "disabled"
+    temporaryShellCredentials: "disabled"
+    wait: false
+    
+    # Tags for organization
+    tags:
+      environment: "production"
+      location: "datacenter-1"
+      cluster: "edge-cluster-01"
+      team: "edge-ops"
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Connection secret configuration
+  # writeConnectionSecretToRef:
+  #   name: edge-appliance-01-secret
+  #   namespace: crossplane-system
+
+# ---
+# # Example with minimal configuration
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: minimal-appliance
+# spec:
+#   forProvider:
+#     # Only required field
+#     uid: "minimal-appliance-uid"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: minimal-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with remote shell and temporary credentials disabled
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: secure-appliance
+# spec:
+#   deletionPolicy: Delete
+#   forProvider:
+#     uid: "secure-appliance-uid"
+#     pairingKey: "secure-pairing-key-67890"
+#     remoteShell: "disabled"
+#     temporaryShellCredentials: "disabled"
+#     wait: false
+    
+#     tags:
+#       security: "high"
+#       compliance: "sox"
+#       environment: "production"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: secure-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with management policies
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: managed-appliance
+# spec:
+#   # Management policies for fine-grained control
+#   managementPolicies:
+#     - "Create"
+#     - "Update"
+#     - "Delete"
+  
+#   forProvider:
+#     uid: "managed-appliance-uid"
+#     pairingKey: "managed-pairing-key-11111"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       management: "automated"
+#       environment: "staging"
+#       cluster: "edge-cluster-02"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: managed-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with initProvider for creation-time only fields
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: init-provider-appliance
+# spec:
+#   # InitProvider for fields that should only be set during creation
+#   initProvider:
+#     uid: "init-appliance-uid"
+#     pairingKey: "init-pairing-key-22222"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       lifecycle: "initial"
+#       environment: "development"
+  
+#   forProvider:
+#     # These fields will be merged from initProvider
+#     # Additional runtime configuration can be added here
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: init-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with orphan deletion policy
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: orphan-appliance
+# spec:
+#   # Orphan deletion policy - external resource won't be deleted
+#   deletionPolicy: Orphan
+  
+#   forProvider:
+#     uid: "orphan-appliance-uid"
+#     pairingKey: "orphan-pairing-key-33333"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "disabled"
+#     wait: false
+    
+#     tags:
+#       lifecycle: "critical"
+#       environment: "production"
+#       backup: "required"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: orphan-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with custom provider config
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: custom-provider-appliance
+# spec:
+#   deletionPolicy: Delete
+  
+#   forProvider:
+#     uid: "custom-appliance-uid"
+#     pairingKey: "custom-pairing-key-44444"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: true
+    
+#     tags:
+#       provider: "custom"
+#       environment: "testing"
+#       cluster: "custom-edge-cluster"
+  
+#   # Custom provider configuration
+#   providerConfigRef:
+#     name: custom-palette-provider
+  
+#   writeConnectionSecretToRef:
+#     name: custom-provider-appliance-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example for development/testing environment
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Appliance
+# metadata:
+#   name: dev-appliance
+# spec:
+#   forProvider:
+#     uid: "dev-appliance-uid"
+#     pairingKey: "dev-pairing-key-55555"
+#     remoteShell: "enabled"
+#     temporaryShellCredentials: "enabled"
+#     wait: false  # Don't wait for provisioning in dev
+    
+#     tags:
+#       environment: "development"
+#       purpose: "testing"
+#       team: "dev-team"
+#       cluster: "dev-edge-cluster"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: dev-appliance-secret
+#     namespace: crossplane-system

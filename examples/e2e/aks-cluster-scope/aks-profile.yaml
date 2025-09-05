@@ -1,0 +1,47 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: example-example-ran-aks-cluster-profile-v2
+  annotations:
+    description: "AKS Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: example-example-ran-aks-cluster-profile
+    cloud: aks
+    context: project
+    type: cluster
+    description: "A comprehensive cluster profile for AKS deployment"
+    version: "1.0.0"
+    pack:
+      - name: "ubuntu-aks"
+        type: oci
+        tag: "22.04"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # No customizations allowed for this OS type
+
+      - name: "kubernetes-aks"
+        tag: "1.32"
+        type: oci
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # AKS Kubernetes pack values
+          
+    
+      - name: "csi-azure"
+        type: oci
+        tag: "1.33.2"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+
+
+          
+    tags:
+      - "cp:Example"
+      - "cloud:aks"
+      - "type:aks"
+      - "version:v2.0.0"
+      - "scope:cluster"

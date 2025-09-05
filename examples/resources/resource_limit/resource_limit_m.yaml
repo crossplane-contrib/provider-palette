@@ -1,0 +1,54 @@
+# Namespaced Resource Limits Configuration Examples
+# This file contains various examples of namespaced resource limits for Palette Crossplane Provider
+# Note: These are namespaced resources (scope: Namespaced) and use ClusterProviderConfig
+
+---
+# Example 1: Basic Namespaced Resource Limits for Small Environment
+apiVersion: resource.palette.m.crossplane.io/v1alpha1
+kind: Limit
+metadata:
+  name: small-namespace-limits
+  namespace: default
+spec:
+  forProvider:
+    # Core infrastructure limits
+    cluster: 5
+    clusterProfile: 10
+    clusterGroup: 3
+    project: 8
+    workspace: 5
+    
+    # Cloud and storage limits
+    cloudAccount: 4
+    location: 3
+    registry: 5
+    
+    # Application and deployment limits
+    applicationProfile: 15
+    applicationDeployment: 25
+    addon: 20
+    
+    # User and access management limits
+    user: 15
+    team: 5
+    role: 12
+    apiKeys: 8
+    sshKey: 12
+    
+    # Monitoring and management limits
+    alert: 50
+    filter: 10
+    macro: 8
+    certificate: 15
+    
+    # Advanced features limits
+    privateGateway: 3
+    appliance: 5
+    applianceToken: 10
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: small-namespace-limits-secret

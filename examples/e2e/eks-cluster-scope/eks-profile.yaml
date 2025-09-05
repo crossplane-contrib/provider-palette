@@ -1,0 +1,51 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: eks-cluster-profile-v2
+  annotations:
+    description: "EKS Cluster Profile v2.0 for Kubernetes deployment"
+spec:
+  forProvider:
+    name: eks-cluster-profile
+    cloud: eks
+    context: project
+    type: cluster
+    description: "A comprehensive cluster profile for EKS deployment - Version 2.0"
+    version: "1.0.0"
+    pack:
+      - name: "amazon-linux-eks"
+        type: oci
+        tag: "1.0.0"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # AMI will be selected automatically based on the kubernetes version, region chosen
+
+      - name: "kubernetes-eks"
+        tag: "1.32"
+        type: oci
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          
+      - name: "cni-aws-vpc-eks"
+        type: oci
+        tag: "1.0"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # AWS VPC CNI will be auto-installed
+    
+      - name: "csi-aws-ebs"
+        type: oci
+        tag: "1.46.0"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          
+    tags:
+      - "CP:Example"
+      - "cloud:eks"
+      - "type:eks"
+      - "version:v2.0.0"
+      - "scope:cluster"
