@@ -126,13 +126,13 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
-                            User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
+                            The name of the claim that returns the user's email address from the identity provider.
                           type: string
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
-                            User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
+                            The name of the claim that returns the user's first name from the identity provider.
                           type: string
                         identityProviderCaCertificate:
                           description: |-
@@ -151,8 +151,8 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
-                            User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
+                            The name of the claim that returns the user's last name from the identity provider.
                           type: string
                         scopes:
                           description: |-
@@ -164,8 +164,8 @@ spec:
                           x-kubernetes-list-type: set
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
-                            The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                            The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                           type: string
                         userInfoEndpoint:
                           description: |-
@@ -175,23 +175,23 @@ spec:
                             properties:
                               email:
                                 description: |-
-                                  (String) User's email address retrieved from identity provider.
-                                  User's email address retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's email address from the identity provider.
+                                  The name of the claim that returns the user's email address from the identity provider.
                                 type: string
                               firstName:
                                 description: |-
-                                  (String) User's first name retrieved from identity provider.
-                                  User's first name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's first name from the identity provider.
+                                  The name of the claim that returns the user's first name from the identity provider.
                                 type: string
                               lastName:
                                 description: |-
-                                  (String) User's last name retrieved from identity provider.
-                                  User's last name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's last name from the identity provider.
+                                  The name of the claim that returns the user's last name from the identity provider.
                                 type: string
                               spectroTeam:
                                 description: |-
-                                  (String) The SpectroCloud team the user belongs to.
-                                  The SpectroCloud team the user belongs to.
+                                  (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                                  The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                                 type: string
                             type: object
                           type: array
@@ -213,7 +213,7 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
                             User's email address retrieved from identity provider.
                           type: string
                         enableSingleLogout:
@@ -223,7 +223,7 @@ spec:
                           type: boolean
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
                             User's first name retrieved from identity provider.
                           type: string
                         identityProviderMetadata:
@@ -233,7 +233,7 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
                             User's last name retrieved from identity provider.
                           type: string
                         nameIdFormat:
@@ -248,7 +248,7 @@ spec:
                           type: string
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                             The SpectroCloud team the user belongs to.
                           type: string
                       type: object
@@ -326,13 +326,13 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
-                            User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
+                            The name of the claim that returns the user's email address from the identity provider.
                           type: string
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
-                            User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
+                            The name of the claim that returns the user's first name from the identity provider.
                           type: string
                         identityProviderCaCertificate:
                           description: |-
@@ -351,8 +351,8 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
-                            User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
+                            The name of the claim that returns the user's last name from the identity provider.
                           type: string
                         scopes:
                           description: |-
@@ -364,8 +364,8 @@ spec:
                           x-kubernetes-list-type: set
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
-                            The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                            The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                           type: string
                         userInfoEndpoint:
                           description: |-
@@ -375,23 +375,23 @@ spec:
                             properties:
                               email:
                                 description: |-
-                                  (String) User's email address retrieved from identity provider.
-                                  User's email address retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's email address from the identity provider.
+                                  The name of the claim that returns the user's email address from the identity provider.
                                 type: string
                               firstName:
                                 description: |-
-                                  (String) User's first name retrieved from identity provider.
-                                  User's first name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's first name from the identity provider.
+                                  The name of the claim that returns the user's first name from the identity provider.
                                 type: string
                               lastName:
                                 description: |-
-                                  (String) User's last name retrieved from identity provider.
-                                  User's last name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's last name from the identity provider.
+                                  The name of the claim that returns the user's last name from the identity provider.
                                 type: string
                               spectroTeam:
                                 description: |-
-                                  (String) The SpectroCloud team the user belongs to.
-                                  The SpectroCloud team the user belongs to.
+                                  (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                                  The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                                 type: string
                             type: object
                           type: array
@@ -415,7 +415,7 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
                             User's email address retrieved from identity provider.
                           type: string
                         enableSingleLogout:
@@ -425,7 +425,7 @@ spec:
                           type: boolean
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
                             User's first name retrieved from identity provider.
                           type: string
                         identityProviderMetadata:
@@ -435,7 +435,7 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
                             User's last name retrieved from identity provider.
                           type: string
                         nameIdFormat:
@@ -450,7 +450,7 @@ spec:
                           type: string
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                             The SpectroCloud team the user belongs to.
                           type: string
                       type: object
@@ -595,13 +595,13 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
-                            User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
+                            The name of the claim that returns the user's email address from the identity provider.
                           type: string
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
-                            User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
+                            The name of the claim that returns the user's first name from the identity provider.
                           type: string
                         identityProviderCaCertificate:
                           description: |-
@@ -620,8 +620,8 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
-                            User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
+                            The name of the claim that returns the user's last name from the identity provider.
                           type: string
                         logoutUrl:
                           description: |-
@@ -638,8 +638,8 @@ spec:
                           x-kubernetes-list-type: set
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
-                            The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                            The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                           type: string
                         userInfoEndpoint:
                           description: |-
@@ -649,23 +649,23 @@ spec:
                             properties:
                               email:
                                 description: |-
-                                  (String) User's email address retrieved from identity provider.
-                                  User's email address retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's email address from the identity provider.
+                                  The name of the claim that returns the user's email address from the identity provider.
                                 type: string
                               firstName:
                                 description: |-
-                                  (String) User's first name retrieved from identity provider.
-                                  User's first name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's first name from the identity provider.
+                                  The name of the claim that returns the user's first name from the identity provider.
                                 type: string
                               lastName:
                                 description: |-
-                                  (String) User's last name retrieved from identity provider.
-                                  User's last name retrieved from identity provider.
+                                  (String) The name of the claim that returns the user's last name from the identity provider.
+                                  The name of the claim that returns the user's last name from the identity provider.
                                 type: string
                               spectroTeam:
                                 description: |-
-                                  (String) The SpectroCloud team the user belongs to.
-                                  The SpectroCloud team the user belongs to.
+                                  (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
+                                  The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                                 type: string
                             type: object
                           type: array
@@ -692,7 +692,7 @@ spec:
                           x-kubernetes-list-type: set
                         email:
                           description: |-
-                            (String) User's email address retrieved from identity provider.
+                            (String) The name of the claim that returns the user's email address from the identity provider.
                             User's email address retrieved from identity provider.
                           type: string
                         enableSingleLogout:
@@ -707,7 +707,7 @@ spec:
                           type: string
                         firstName:
                           description: |-
-                            (String) User's first name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's first name from the identity provider.
                             User's first name retrieved from identity provider.
                           type: string
                         identityProviderMetadata:
@@ -722,7 +722,7 @@ spec:
                           type: string
                         lastName:
                           description: |-
-                            (String) User's last name retrieved from identity provider.
+                            (String) The name of the claim that returns the user's last name from the identity provider.
                             User's last name retrieved from identity provider.
                           type: string
                         loginUrl:
@@ -752,7 +752,7 @@ spec:
                           type: string
                         spectroTeam:
                           description: |-
-                            (String) The SpectroCloud team the user belongs to.
+                            (String) The name of the claim that returns the user's group memberships from the Identity Provider. The values of this claim will map to SpectroCloud teams.
                             The SpectroCloud team the user belongs to.
                           type: string
                       type: object
