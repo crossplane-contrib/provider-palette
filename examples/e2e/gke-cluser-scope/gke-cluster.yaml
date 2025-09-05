@@ -1,0 +1,162 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Gke
+metadata:
+  name: example-example-ran-gke-cluster-scope
+  annotations:
+    description: "GKE Cluster example for cluster-scope deployment"
+    meta.upbound.io/example-id: cluster/v1alpha1/gke-cluster-scope
+  labels:
+    testing.upbound.io/example-name: example-example-ran-gke-cluster-scope
+    cp: example
+    scope: cluster
+    environment: example
+spec:
+  forProvider:
+    name: example-example-ran-gke-cluster-scope
+    description: "Production GKE cluster for application workloads"
+    
+    # Cloud Account ID (required)
+    cloudAccountIdRef:
+      name: example-example-ran-gcp-account
+    
+    # Cloud Configuration (required - min: 1, max: 1)
+    cloudConfig:
+      - project: "<YOUR_PROJECT_ID>"
+        region: "us-east1"
+    
+    # Machine Pool Configuration (required - min: 1)
+    machinePool:
+      - name: "control-pool"
+        count: 3
+        instanceType: "n2-standard-4"
+        diskSizeGb: 60
+        additionalLabels:
+          node-role: control-plane
+          environment: example
+        # taints:
+        #   - key: "node-role"
+        #     value: "control-plane"
+        #     effect: "NoSchedule"
+        updateStrategy: "RollingUpdateScaleOut"
+      
+      # - name: "worker-pool"
+      #   count: 5
+      #   instanceType: "n2-standard-4"
+      #   diskSizeGb: 200
+      #   additionalLabels:
+      #     node-role: worker
+      #     environment: production
+      #   taints: []
+      #   updateStrategy: "RollingUpdateScaleOut"
+      
+      # - name: "spot-pool"
+      #   count: 2
+      #   min: 1
+      #   max: 5
+      #   instanceType: "e2-standard-4"
+      #   diskSizeGb: 100
+      #   additionalLabels:
+      #     node-role: spot-worker
+      #     environment: production
+      #   taints:
+      #     - key: "spot"
+      #       value: "true"
+      #       effect: "PreferNoSchedule"
+    
+    # Cluster Profile (optional but recommended)
+    clusterProfile:
+      - id: "68a4d4ffc1e118e02f02b0bd"
+    
+    # Backup Policy (optional)
+      # backupPolicy:
+      #   - backupLocationId: "backup-location-123"
+      #     schedule: "0 2 * * *"  # Daily at 2 AM
+      #     expiryInHour: 168  # 7 days
+      #     includeClusterResources: true
+      #     includeDisks: true
+      #     includeClusterResourcesMode: "always"
+      #     prefix: "gke-backup"
+      #     includeAllClusters: false
+      #     clusterUids: ["gke-cluster-example"]
+      #     namespaces: ["default", "kube-system", "monitoring"]
+    
+    # RBAC Binding (optional)
+    clusterRbacBinding:
+      - type: "ClusterRoleBinding"
+        role:
+          apiGroup: "rbac.authorization.k8s.io"
+          kind: "ClusterRole"
+          name: "cluster-admin"
+        subjects:
+          - type: "User"
+            name: "admin@example.com"
+            namespace: ""
+          - type: "ServiceAccount"
+            name: "palette-operator"
+            namespace: "palette-system"
+    
+    # Namespaces (optional)
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+        imagesBlacklist: ["nginx:latest"]
+      
+      - name: "logging"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+      
+      - name: "ingress-nginx"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+    
+    # Host Configuration (optional)
+    # hostConfig:
+    #   - hostEndpointType: "LoadBalancer"
+    #     loadBalancerSourceRanges: "0.0.0.0/0"
+    #     externalTrafficPolicy: "Local"
+    
+    # Scan Policy (optional)
+    # scanPolicy:
+    #   - configurationScanSchedule: "0 3 * * *"  # Daily at 3 AM
+    #     conformanceScanSchedule: "0 4 * * 0"    # Weekly on Sunday at 4 AM
+    #     penetrationScanSchedule: "0 5 * * 0"    # Weekly on Sunday at 5 AM
+    
+    # OS Patching (optional)
+    osPatchOnBoot: true
+    osPatchSchedule: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+    # osPatchAfter: "2024-12-31T23:59:59Z"
+    
+    # Additional Settings
+    applySetting: "DownloadAndInstall"
+    pauseAgentUpgrades: "unlock"
+    skipCompletion: false
+    forceDelete: false
+    forceDeleteDelay: 20
+    updateWorkerPoolInParallel: true
+    
+    # Tags
+    tags:
+      - "cloud:gke"
+      - "environment:example"
+      - "owner:example"
+      - "project:gke-cluster"
+      - "cost-center:cc-001"
+      - "backup:enabled"
+    
+    # Cluster Metadata
+    clusterMetaAttribute: '{"nic_name": "gke-prod", "env": "production", "tier": "critical"}'
+  
+  # Provider Configuration
+  providerConfigRef:
+    name: default
+  
+  # Deletion Policy
+  deletionPolicy: Delete
+  
+  # Management Policies
+  managementPolicies:
+    - "*"

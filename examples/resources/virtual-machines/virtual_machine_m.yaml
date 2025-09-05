@@ -1,0 +1,211 @@
+apiVersion: virtual.palette.m.crossplane.io/v1alpha1
+kind: Machine
+metadata:
+  name: example-namespaced-virtual-machine
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced Virtual Machine for development and testing"
+    meta.upbound.io/example-id: virtual/v1alpha1/machine
+  labels:
+    environment: development
+    type: virtual-machine
+    testing.upbound.io/example-name: machine
+spec:
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  
+  forProvider:
+    # Required: Machine name
+    name: "example-namespaced-virtual-machine"
+    
+    # Required: Cluster UID to which the VM belongs
+    clusterUid: "<YOUR_CLUSTER_UID>"
+    
+    # Optional: Cluster context - can be 'project' or 'tenant', defaults to 'project'
+    clusterContext: "project"
+    
+    # Optional: Namespace for the VM
+    namespace: "default"
+    
+    # VM lifecycle management
+    runStrategy: "Manual"  # Options: Always, Manual, RerunOnFailure, Halted
+    runOnLaunch: true      # Whether to start the VM when the cluster starts
+    
+    # CPU configuration
+    cpu:
+      - cores: 2
+        sockets: 1
+        threads: 2
+    
+    # Memory configuration
+    memory:
+      - guest: "4Gi"
+        hugepages: "2Mi"  # Optional: for x86_64, valid values are 1Gi and 2Mi
+    
+    # Resource limits and requests (required)
+    resources:
+      - limits:
+          cpu: "2"
+          memory: "4Gi"
+        requests:
+          cpu: "1"
+          memory: "2Gi"
+        overCommitGuestOverhead: false
+    
+    # Data volume templates for persistent storage
+    dataVolumeTemplates:
+      - metadata:
+          - name: "vm-boot-volume"
+            namespace: "default"
+            labels:
+              type: "boot"
+              vm: "example-namespaced-virtual-machine"
+        spec:
+          - source:
+              - pvc:
+                  - name: "ubuntu-22-04-template"
+                    namespace: "vm-templates"
+            pvc:
+              - accessModes: ["ReadWriteOnce"]
+                resources:
+                  - requests:
+                      storage: "50Gi"
+                storageClassName: "fast-ssd"
+                volumeMode: "Filesystem"
+    
+    # Volumes configuration
+    volume:
+      - name: "boot-volume"
+        volumeSource:
+          - dataVolume:
+              - name: "vm-boot-volume"
+      - name: "data-volume"
+        volumeSource:
+          - persistentVolumeClaim:
+              - claimName: "vm-data-pvc"
+                readOnly: false
+      - name: "cloud-init"
+        volumeSource:
+          - cloudInitConfigDrive:
+              - userData: |
+                  #cloud-config
+                  ssh_pwauth: true
+                  chpasswd:
+                    expire: false
+                    list:
+                      - ubuntu:spectro123
+                  users:
+                    - name: ubuntu
+                      sudo: ALL=(ALL) NOPASSWD:ALL
+                      shell: /bin/bash
+                  packages:
+                    - qemu-guest-agent
+                    - openssh-server
+                  runcmd:
+                    - systemctl enable qemu-guest-agent
+                    - systemctl start qemu-guest-agent
+                    - systemctl enable ssh
+                    - systemctl start ssh
+    
+    # Disk devices configuration
+    disk:
+      - name: "boot-volume"
+        diskDevice:
+          - disk:
+              - bus: "virtio"
+                readOnly: false
+        serial: "BOOT-001"
+      - name: "data-volume"
+        diskDevice:
+          - disk:
+              - bus: "virtio"
+                readOnly: false
+        serial: "DATA-001"
+      - name: "cloud-init"
+        diskDevice:
+          - disk:
+              - bus: "virtio"
+                readOnly: true
+    
+    # Network interfaces
+    interface:
+      - name: "default"
+        interfaceBindingMethod: "InterfaceBridge"
+        # Alternative: InterfaceMasquerade for NAT
+        # interfaceBindingMethod: "InterfaceMasquerade"
+    
+    # Network configuration
+    network:
+      - name: "default"
+        networkSource:
+          - multus:
+              - networkName: "default/vlan-101"
+                default: true
+          # Alternative: Pod network
+          # - pod:
+          #     - vmNetworkCidr: "10.0.0.0/24"
+    
+    # Node selector for VM placement
+    nodeSelector:
+      node-type: "compute"
+      zone: "us-west-1a"
+      vm-enabled: "true"
+    
+    # Affinity rules for scheduling
+    affinity:
+      - nodeAffinity:
+          - preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                preference:
+                  - matchExpressions:
+                      - key: "node-type"
+                        operator: "In"
+                        values: ["compute", "high-memory"]
+          - requiredDuringSchedulingIgnoredDuringExecution:
+              - nodeSelectorTerm:
+                  - matchExpressions:
+                      - key: "vm-enabled"
+                        operator: "In"
+                        values: ["true"]
+        podAffinity:
+          - preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  - labelSelector:
+                      - matchExpressions:
+                          - key: "app"
+                            operator: "In"
+                            values: ["web-server"]
+                    topologyKey: "kubernetes.io/hostname"
+    
+    # DNS configuration
+    dnsPolicy: "ClusterFirst"
+    
+    # Eviction strategy
+    evictionStrategy: "LiveMigrate"  # Options: LiveMigrate, Shutdown
+    
+    # Liveness probe
+    livenessProbe:
+      - tcpSocket:
+          - port: 22  # SSH port
+        initialDelaySeconds: 30
+        periodSeconds: 10
+    
+    # Labels for the VM
+    labels:
+      app: "web-server"
+      version: "1.0.0"
+      environment: "development"
+      team: "platform"
+      cost-center: "engineering"
+      scope: "namespaced"
+    
+    # Annotations
+    annotations:
+      vm.spectrocloud.io/description: "Development web server VM"
+      vm.spectrocloud.io/owner: "platform-team"
+    
+    # Optional: Base VM for cloning
+    # baseVmName: "template-ubuntu-22-04"

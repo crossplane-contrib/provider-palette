@@ -1,0 +1,26 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  name: azure-cloud-account
+  labels:
+    app: azure-cluster-scope
+    environment: e2e-testing
+spec:
+  forProvider:
+    name: azure-cloud-account
+    context: project
+    cloud: AzurePublicCloud
+    azureClientId: "<YOUR_AZURE_CLIENT_ID>"
+    azureClientSecretSecretRef:
+      key: azure-client-secret
+      name: azure-credentials
+      namespace: crossplane-system
+    azureTenantId: "<YOUR_AZURE_TENANT_ID>"
+    tenantName: "<YOUR_AZURE_TENANT_NAME>"
+    disablePropertiesRequest: false
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: namespace-provider-config
+  writeConnectionSecretToRef:
+    name: azure-connection-secret
+    namespace: crossplane-system

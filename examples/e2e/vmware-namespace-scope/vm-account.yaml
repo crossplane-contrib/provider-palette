@@ -1,0 +1,27 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Vsphere
+metadata:
+  name: example-example-ran-vsphere-cloud-account
+  annotations:
+    description: "VMware vSphere Cloud Account for vSphere cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/vsphere
+  labels:
+    testing.upbound.io/example-name: vmware-namespace-scope
+    CP: Example
+    scope: namespace
+spec:
+  forProvider:
+    name: example-example-ran-vsphere-cloud-account
+    context: tenant
+    vsphereVcenter: "YOUR_VSPHERE_VCENTER"
+    vsphereUsername: "YOUR_USERNAME"
+    vspherePasswordSecretRef:
+      key: password
+      name: vsphere-credentials
+      namespace: crossplane-system
+    privateCloudGatewayId: "YOUR_PRIVATE_CLOUD_GATEWAY_ID"
+    vsphereIgnoreInsecureError: false
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider
+  deletionPolicy: Delete

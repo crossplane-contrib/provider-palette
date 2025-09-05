@@ -1,0 +1,36 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Filter
+metadata:
+  name: environment-filter
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required fields
+    metadata:
+      - name: "cp-resource-filter"
+    
+    spec:
+      - filterGroup:
+          - conjunction: "and"
+            filters:
+              - key: "environment"
+                operator: "eq"
+                negation: false
+                values:
+                  - "production"
+                  - "staging"
+              - key: "region"
+                operator: "eq"
+                negation: false
+                values:
+                  - "us-west-2"
+                  - "us-east-1"
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Connection secret configuration
+  # writeConnectionSecretToRef:
+  #   name: environment-filter-secret
+  #   namespace: crossplane-system

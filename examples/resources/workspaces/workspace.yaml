@@ -1,0 +1,138 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Workspace
+metadata:
+  name: example-workspace
+  annotations:
+    description: "Example Workspace for development and testing"
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/workspace
+  labels:
+    environment: development
+    type: workspace
+    testing.upbound.io/example-name: workspace
+spec:
+  # Deletion policy - can be "Delete" or "Orphan"
+  deletionPolicy: Delete
+  
+  forProvider:
+    # Required: Workspace name
+    name: "example-workspace"
+    
+    # Optional: Description of the workspace
+    description: "A development workspace for testing and development purposes"
+    
+    # Clusters associated with this workspace (required - minimum 1)
+    clusters:
+      - uid: "<YOUR_CLUSTER_UID_1>"
+      - uid: "<YOUR_CLUSTER_UID_2>"
+    
+    # Namespaces configuration
+    namespaces:
+      - name: "development"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+          gpu_limit: "1"
+          gpu_provider: "nvidia"
+        imagesBlacklist:
+          - "nginx:latest"
+          - "redis:latest"
+          - "postgres:13"
+      - name: "testing"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+        imagesBlacklist:
+          - "mysql:8.0"
+      - name: "staging"
+        resourceAllocation:
+          cpu_cores: "8"
+          memory_MiB: "16384"
+          gpu_limit: "2"
+          gpu_provider: "nvidia"
+        clusterResourceAllocations:
+          - uid: "<YOUR_CLUSTER_UID_1>"
+            resourceAllocation:
+              cpu_cores: "4"
+              memory_MiB: "8192"
+              gpu_limit: "1"
+          - uid: "<YOUR_CLUSTER_UID_2>"
+            resourceAllocation:
+              cpu_cores: "4"
+              memory_MiB: "8192"
+              gpu_limit: "1"
+    
+    # Workspace quota limits
+    workspaceQuota:
+      - cpu: 16
+        memory: 32768  # 32GB in MiB
+        gpu: 4
+    
+    # RBAC configuration for the workspace
+    clusterRbacBinding:
+      # Cluster-wide role binding
+      - type: "ClusterRoleBinding"
+        role:
+          kind: "ClusterRole"
+          name: "workspace-admin"
+        subjects:
+          - name: "workspace-admin-user"
+            type: "User"
+          - name: "platform-team"
+            type: "Group"
+      
+      # Namespace-specific role binding
+      - type: "RoleBinding"
+        namespace: "development"
+        role:
+          kind: "Role"
+          name: "developer-role"
+        subjects:
+          - name: "developer-user"
+            type: "User"
+          - name: "developer-group"
+            type: "Group"
+          - name: "developer-sa"
+            namespace: "development"
+            type: "ServiceAccount"
+      
+      # Another namespace-specific role binding
+      - type: "RoleBinding"
+        namespace: "testing"
+        role:
+          kind: "Role"
+          name: "tester-role"
+        subjects:
+          - name: "tester-user"
+            type: "User"
+          - name: "qa-team"
+            type: "Group"
+    
+    # Backup policy configuration
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        # Alternative: Use reference to backup location
+        # backupLocationIdRef:
+        #   name: "backup-location"
+        schedule: "0 2 * * *"  # Daily at 2 AM
+        expiryInHour: 168  # 7 days
+        includeAllClusters: false
+        clusterUids:
+          - "<YOUR_CLUSTER_UID_1>"
+          - "<YOUR_CLUSTER_UID_2>"
+        includeClusterResources: true
+        includeClusterResourcesMode: "auto"  # always, never, or auto
+        includeDisks: true
+        prefix: "workspace-backup"
+        namespaces:
+          - "development"
+          - "testing"
+          - "staging"
+    
+    # Tags for the workspace
+    tags:
+      - "env:development"
+      - "type:workspace"
+      - "team:platform"
+      - "cost-center:engineering"
+      - "backup:enabled"
+      - "gpu:enabled"

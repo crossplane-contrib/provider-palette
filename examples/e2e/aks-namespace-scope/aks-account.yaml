@@ -1,0 +1,71 @@
+
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  name: example-example-ran-azure-account
+  annotations:
+    description: "Azure cloud account for example environment"
+  labels:
+    environment: example
+    team: platform
+    purpose: aks-cluster
+spec:
+  # Deletion policy - controls what happens when this resource is deleted
+  deletionPolicy: Delete
+  
+  # Provider configuration reference
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider
+  
+  # Write connection secret configuration
+  writeConnectionSecretToRef:
+    name: example-example-ran-azure-account-secret
+    namespace: crossplane-system
+  
+  # Management policies - controls what actions Crossplane can take
+  managementPolicies:
+    - "*"  # Allow all management actions
+  
+  # Main configuration for the Azure cloud account
+  forProvider:
+    # Required: Name of the Azure cloud account
+    name: "example-example-ran-azure-account"
+    
+    # Required: Azure client ID from Azure console
+    azureClientId: "YOUR_AZURE_CLIENT_ID"
+    
+    # Required: Azure tenant ID from Azure console
+    azureTenantId: "YOUR_AZURE_TENANT_ID"
+    
+    # Required: Reference to the Azure client secret stored in a Kubernetes secret
+    azureClientSecretSecretRef:
+      name: "example-example-ran-azure-credentials"
+      namespace: "crossplane-system"
+      key: "azure-client-secret"
+    
+    # Azure cloud environment - defaults to AzurePublicCloud
+    cloud: "AzurePublicCloud"
+    
+    # Context for the Azure configuration - defaults to project
+    context: "project"
+    
+    # Optional: Disable properties request (defaults to false)
+    disablePropertiesRequest: false
+    
+    # Optional: Tenant name for the Azure cloud
+    tenantName: "example-tenant"
+    
+    # Optional: ID of private cloud gateway if using private endpoints
+    # privateCloudGatewayId: ""
+  
+  # # Init provider configuration (beta field)
+  # initProvider:
+  #   # These fields are used during creation and then ignored for updates
+  #   name: "example-example-ran-azure-account"
+  #   azureClientId: "e0921158-cac5-4295-82cc-1701d20b29e8"
+  #   azureTenantId: "7fc4bd49-b7eb-410f-8ad4-11ab94561548"
+  #   cloud: "AzurePublicCloud"
+  #   context: "project"
+  #   disablePropertiesRequest: false
+  #   tenantName: "example-tenant"

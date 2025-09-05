@@ -1,0 +1,73 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: example-user-m
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced User with comprehensive role assignments"
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: user_namespaced_example
+spec:
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  forProvider:
+    # Required fields
+    email: "test@spec.com"
+    firstName: "Example"
+    lastName: "Roy"
+    
+    # Optional: Team assignments
+    teamIds:
+      - "68716b0c8a2bdb225ee91546"
+    
+    # Optional: Tenant-level roles
+    tenantRole:
+      - "tenant-admin-role-id"
+      - "tenant-user-role-id"
+    
+    # Optional: Project-specific roles
+    projectRole:
+      - projectId: "project-id-1"
+        roleIds:
+          - "project-admin-role-id"
+          - "project-developer-role-id"
+      - projectId: "project-id-2"
+        roleIds:
+          - "project-viewer-role-id"
+    
+    # Optional: Resource-level roles with filters
+    resourceRole:
+      - projectIds:
+          - "project-id-1"
+          - "project-id-2"
+        roleIds:
+          - "resource-admin-role-id"
+          - "resource-viewer-role-id"
+        filterIds:
+          - "filter-id-1"
+          - "filter-id-2"
+    
+    # Optional: Workspace-specific roles
+    workspaceRole:
+      - projectId: "project-id-1"
+        workspace:
+          - id: "workspace-id-1"
+            roleIds:
+              - "workspace-admin-role-id"
+              - "workspace-developer-role-id"
+          - id: "workspace-id-2"
+            roleIds:
+              - "workspace-viewer-role-id"
+      - projectId: "project-id-2"
+        workspace:
+          - id: "workspace-id-3"
+            roleIds:
+              - "workspace-admin-role-id"
+  
+  # Optional: Write connection details to a secret (only name required for namespaced)
+  writeConnectionSecretToRef:
+    name: user-connection-secret-m

@@ -1,0 +1,53 @@
+apiVersion: registration.palette.m.crossplane.io/v1alpha1
+kind: Token
+metadata:
+  name: namespaced-registration-token
+  namespace: default
+  annotations:
+    crossplane.io/external-name: "namespaced-registration-token"
+spec:
+  # Management policies for the resource
+  managementPolicies:
+    - "*"
+  
+  # Provider configuration reference (namespaced provider)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Configuration for the registration token
+  forProvider:
+    # Required: The name of the registration token
+    name: "cp-token"
+    
+    # Required: The expiration date of the registration token in YYYY-MM-DD format
+    expiryDate: "2025-12-31"
+    
+    # Required: The unique identifier of the project associated with the registration token
+    # You can either specify the project UID directly or use a reference
+    projectUid: "YOUR_PROJECT_UID"
+    
+    # Alternative: Reference to a Project resource instead of hardcoding projectUid
+    # projectUidRef:
+    #   name: "your-project-name"
+    #   policy:
+    #     resolution: Required
+    #     resolve: IfNotPresent
+    
+    # Alternative: Selector for a Project resource using labels
+    # projectUidSelector:
+    #   matchLabels:
+    #     project: "production"
+    #   policy:
+    #     resolution: Required
+    #     resolve: IfNotPresent
+    
+    # Optional: A brief description of the registration token
+    description: "Registration token for cluster onboarding"
+    
+    # Optional: The status of the registration token (active or inactive, default is active)
+    status: "active"
+  
+  # Optional: Write connection details to a secret (namespace is inherited from the resource)
+  # writeConnectionSecretToRef:
+  #   name: registration-token-secret

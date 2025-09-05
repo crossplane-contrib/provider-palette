@@ -1,0 +1,145 @@
+apiVersion: virtual.palette.m.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  name: example-namespaced-virtual-cluster
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced Virtual Cluster for development and testing"
+    meta.upbound.io/example-id: virtual/v1alpha1/cluster
+  labels:
+    environment: development
+    type: virtual
+    testing.upbound.io/example-name: cluster
+spec:
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  
+  forProvider:
+    # Required: Cluster name
+    name: "example-namespaced-virtual-cluster"
+    
+    # Optional: Description of the cluster
+    description: "A namespaced virtual cluster for development and testing purposes"
+    
+    # Optional: Context - can be 'project' or 'tenant', defaults to 'project'
+    context: "project"
+    
+    # Optional: Reference to a cluster group
+    clusterGroupUid: "<YOUR_CLUSTER_GROUP_UID>"
+    
+    # Optional: Reference to a host cluster (if this is a nested virtual cluster)
+    hostClusterUid: "<YOUR_HOST_CLUSTER_UID>"
+    
+    # Resource allocation for the virtual cluster
+    resources:
+      - minCpu: 1
+        maxCpu: 4
+        minMemInMb: 1024
+        maxMemInMb: 8192
+        minStorageInGb: 10
+        maxStorageInGb: 100
+    
+    # Namespaces configuration
+    namespaces:
+      - name: "default"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+      - name: "development"
+        resourceAllocation:
+          cpu_cores: "1"
+          memory_MiB: "2048"
+      - name: "testing"
+        resourceAllocation:
+          cpu_cores: "1"
+          memory_MiB: "2048"
+    
+    # Cluster profile configuration
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+        # Alternative: Use pack references instead of profile ID
+        # pack:
+        #   - name: "kubernetes"
+        #     type: "oci"
+        #     tag: "1.31.7"
+        #     registryUid: "<YOUR_REGISTRY_UID>"
+        #     values: |
+        #       pack:
+        #         content:
+        #           podCIDR: "192.168.0.0/16"
+        #           serviceClusterIpRange: "10.96.0.0/12"
+        variables:
+          environment: "development"
+          priority: "5"
+    
+    # RBAC configuration
+    clusterRbacBinding:
+      - type: "ClusterRoleBinding"
+        role:
+          apiGroups: ["rbac.authorization.k8s.io"]
+          resources: ["clusterroles"]
+          verbs: ["get", "list", "watch"]
+        subjects:
+          - type: "User"
+            name: "developer@example.com"
+          - type: "Group"
+            name: "developers"
+    
+    # Backup policy configuration
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        # Alternative: Use reference to backup location
+        # backupLocationIdRef:
+        #   name: "backup-location"
+        #   namespace: "backup-system"
+        schedule: "0 2 * * *"  # Daily at 2 AM
+        expiryInHour: 168  # 7 days
+        includeAllClusters: false
+        includeClusterResources: true
+        includeDisks: true
+        prefix: "vc-backup"
+        namespaces:
+          - "default"
+          - "development"
+    
+    # Scan policy configuration
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * *"  # Daily at 3 AM
+        conformanceScanSchedule: "0 4 * * 0"    # Weekly on Sunday at 4 AM
+        penetrationScanSchedule: "0 5 * * 0"     # Weekly on Sunday at 5 AM
+    
+    # OS patching configuration
+    osPatchOnBoot: false
+    osPatchSchedule: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+    osPatchAfter: "RFC3339: 2024-12-31T23:59:59Z"
+    
+    # Cluster management options
+    pauseCluster: false
+    skipCompletion: false
+    forceDelete: false
+    forceDeleteDelay: 20
+    
+    # Apply setting for cluster profile
+    applySetting: "DownloadAndInstall"  # or "DownloadAndInstallLater"
+    
+    # Tags for the cluster
+    tags:
+      - "env:development"
+      - "type:virtual"
+      - "team:platform"
+      - "cost-center:engineering"
+      - "scope:namespaced"
+    
+    # Cloud configuration (if using cloud-specific setup)
+    # cloudConfig:
+    #   - chartName: "virtual-cluster"
+    #     chartRepo: "https://charts.example.com"
+    #     chartVersion: "1.0.0"
+    #     k8sVersion: "1.31.7"
+    #     chartValues: |
+    #       replicaCount: 1
+    #       image:
+    #         repository: nginx
+    #         tag: "1.21"

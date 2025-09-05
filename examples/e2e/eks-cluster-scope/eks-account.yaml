@@ -1,0 +1,25 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  name: eks-cloud-account
+  annotations:
+    description: "EKS Cloud Account for EKS cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: eks-cluster-scope
+    CP: Example
+    scope: cluster
+spec:
+  forProvider:
+    name: eks-cloud-account
+    context: project
+    type: secret
+    partition: aws
+    awsAccessKey: "<YOUR_AWS_ACCESS_KEY>"
+    awsSecretKeySecretRef:
+      key: eks-secret-key
+      name: eks-credentials
+      namespace: crossplane-system
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

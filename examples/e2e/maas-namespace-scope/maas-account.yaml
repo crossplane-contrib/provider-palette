@@ -1,0 +1,25 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Maas
+metadata:
+  name: maas-cloud-account
+  annotations:
+    description: "MaaS Cloud Account for MaaS cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/maas
+  labels:
+    testing.upbound.io/example-name: maas-namespace-scope
+    CP: Example
+    scope: namespace
+spec:
+  forProvider:
+    name: maas-cloud-account
+    context: tenant
+    maasApiEndpoint: "YOUR_MAAS_API_ENDPOINT"
+    maasApiKeySecretRef:
+      key: apiKey
+      name: maas-credentials
+      namespace: crossplane-system
+    privateCloudGatewayId: "YOUR_PRIVATE_CLOUD_GATEWAY_ID"
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider
+  deletionPolicy: Delete

@@ -1,0 +1,172 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Aks
+metadata:
+  name: example-example-ran-aks-cluster
+  annotations:
+    description: "AKS Cluster for example environment"
+  labels:
+    environment: example
+    team: platform
+spec:
+  forProvider:
+    name: example-example-ran-aks-cluster
+    description: "example AKS cluster managed by Palette"
+    context: project
+    
+    # Cloud account reference - must reference an existing Azure cloud account
+    cloudAccountIdRef:
+      name: example-example-ran-azure-account
+    
+    # Cloud configuration - required for AKS clusters
+    cloudConfig:
+      - region: "eastus"
+        resourceGroup: "automationRG-v2"
+        subscriptionId: "YOUR_AZURE_SUBSCRIPTION_ID"
+        # vnetName: "example-example-ran-dev-vnet"
+        # vnetResourceGroup: "example-example-ran-dev-rg"
+        # vnetCidrBlock: "10.0.0.0/16"
+        # controlPlaneSubnetName: "control-plane-subnet"
+        # controlPlaneCidr: "10.0.1.0/24"
+        # workerSubnetName: "worker-subnet"
+        # workerCidr: "10.0.2.0/24"
+        # controlPlaneSubnetSecurityGroupName: "control-plane-nsg"
+        # workerSubnetSecurityGroupName: "worker-nsg"
+        # privateCluster: false
+        sshKey: "YOUR_SSH_KEY"
+    
+    # Machine pool configuration - required for AKS clusters
+    machinePool:
+      - name: "system-pool"
+        count: 1
+        instanceType: "Standard_D2s_v3"
+        diskSizeGb: 128
+        storageAccountType: "Premium_LRS"
+        isSystemNodePool: true
+        updateStrategy: "RollingUpdateScaleOut"
+        additionalLabels:
+          node-role.kubernetes.io/system: "true"
+        # taints:
+        #   - key: "CriticalAddonsOnly"
+        #     value: "true"
+        #     effect: "NoSchedule"
+      
+      # - name: "user-pool"
+      #   count: 2
+      #   min: 2
+      #   max: 5
+      #   instanceType: "Standard_DS3_v2"
+      #   diskSizeGb: 128
+      #   storageAccountType: "Premium_LRS"
+      #   isSystemNodePool: false
+      #   updateStrategy: "RollingUpdateScaleOut"
+      #   additionalLabels:
+      #     node-role.kubernetes.io/user: "true"
+    
+    # Cluster profile reference - must reference an existing cluster profile
+    clusterProfile:
+      - idRef:
+          name: example-example-ran-aks-cluster-profile-v2
+
+    
+    # Backup policy configuration
+    # backupPolicy:
+    #   - backupLocationIdSelector:
+    #       matchLabels:
+    #         testing.upbound.io/example-name: spectrocloud_backup_storage_location
+    #     schedule: "0 2 * * *"  # Daily at 2 AM
+    #     expiryInHour: 168  # 7 days
+    #     includeClusterResources: true
+    #     includeDisks: true
+    #     prefix: "example-example-ran-aks-backup"
+    #     includeAllClusters: false
+    #     clusterUids: []  # Will be populated with this cluster's UID
+    
+    # Scan policy configuration
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * *"  # Daily at 3 AM
+        conformanceScanSchedule: "0 4 * * 0"   # Weekly on Sunday at 4 AM
+        penetrationScanSchedule: "0 5 * * 0"    # Weekly on Sunday at 5 AM
+    
+    # Host configuration
+    # hostConfig:
+    #   - hostEndpointType: "Ingress"
+    #     ingressHost: "example-example-ran-aks-cluster.example.com"
+    #     externalTrafficPolicy: "Local"
+    
+    # Namespace configuration
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+        imagesBlacklist:
+          - "nginx:latest"
+          - "redis:latest"
+      
+      - name: "logging"
+        resourceAllocation:
+          cpu_cores: "1"
+          memory_MiB: "2048"
+    
+    # RBAC binding configuration
+    # clusterRbacBinding:
+    #   - type: "ClusterRoleBinding"
+    #     role:
+    #       apiGroups: ["rbac.authorization.k8s.io"]
+    #       resources: ["clusterroles"]
+    #       verbs: ["get", "list", "watch"]
+    #     subjects:
+    #       - type: "User"
+    #         name: "ran@example.com"
+    #         namespace: ""
+      
+    #   - type: "RoleBinding"
+    #     namespace: "monitoring"
+    #     role:
+    #       apiGroups: ["rbac.authorization.k8s.io"]
+    #       resources: ["pods", "services"]
+    #       verbs: ["get", "list", "watch"]
+    #     subjects:
+    #       - type: "ServiceAccount"
+    #         name: "monitoring-sa"
+    #         namespace: "monitoring"
+    
+    # OS patching configuration
+    # osPatchOnBoot: false
+    # osPatchSchedule: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+    # osPatchAfter: "RFC3339: 2024-12-31T23:59:59Z"
+    
+    # Agent upgrade control
+    pauseAgentUpgrades: "unlock"
+    
+    # Cluster repave authorization
+    # reviewRepaveState: ""
+    
+    # Force delete configuration
+    forceDelete: false
+    forceDeleteDelay: 20
+    
+    # Completion control
+    skipCompletion: false
+    
+    # Apply setting for cluster profile
+    applySetting: "DownloadAndInstall"
+    
+    # Tags for the cluster
+    tags:
+      - "environment:example"
+      - "team:platform"
+      - "project:example-example-ran-aks"
+      - "managed-by:palette"
+    
+    # Cluster metadata attributes
+    clusterMetaAttribute: '{"env": "example", "tier": "standard", "owner": "platform-team"}'
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Write connection secret configuration
+  # writeConnectionSecretToRef:
+  #   name: example-example-ran-aks-cluster-secret
+  #   namespace: crossplane-system

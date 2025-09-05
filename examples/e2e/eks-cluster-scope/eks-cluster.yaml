@@ -1,0 +1,192 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Eks
+metadata:
+  name: example-example-ran-eks-cp-cluster
+  annotations:
+    description: "EKS Cluster example for cluster-scope deployment"
+    meta.upbound.io/example-id: cluster/v1alpha1/eks
+  labels:
+    testing.upbound.io/example-name: eks-cluster-scope
+    CP: Example
+    scope: cluster
+    environment: production
+spec:
+  forProvider:
+    name: example-example-ran-eks-cp-cluster
+    context: project
+    description: "Testing CP v2 EKS cluster with cluster scope"
+    
+    # Cloud Account ID (required)
+    cloudAccountIdRef:
+      name: eks-cloud-account
+    
+    # Cloud Configuration (required - min: 1, max: 1)
+    cloudConfig:
+      - region: "ap-south-1"
+        # vpcId: "vpc-12345678"
+        sshKeyName: "spectro2023"
+        endpointAccess: "public"
+        azs: ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+        # publicAccessCidrs: ["0.0.0.0/0"]
+        # privateAccessCidrs: ["10.0.0.0/8", "172.16.0.0/12"]
+        # encryptionConfigArn: "arn:aws:kms:us-west-2:123456789012:key/abcd1234-ef56-7890-abcd-ef1234567890"
+    
+    # Machine Pool Configuration (required - min: 1)
+    machinePool:
+      - name: "worker-nodes"
+        count: 3
+        instanceType: "t3.xlarge"
+        diskSizeGb: 100
+        capacityType: "on-demand"
+        azs: ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+        additionalLabels:
+          node-role: worker
+          environment: production
+        # taints: []
+        # updateStrategy: "RollingUpdateScaleOut"
+        eksLaunchTemplate:
+          - rootVolumeType: "gp3"
+            rootVolumeIops: 3000
+            rootVolumeThroughput: 125
+
+      - name: "worker-node-2"
+        count: 1
+        instanceType: "t3.xlarge"
+        diskSizeGb: 60
+        capacityType: "on-demand"
+        azs: ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+        additionalLabels:
+          node-role: worker
+          environment: production
+        # taints: []
+        # updateStrategy: "RollingUpdateScaleOut"
+        eksLaunchTemplate:
+          - rootVolumeType: "gp3"
+            rootVolumeIops: 3000
+            rootVolumeThroughput: 125
+      
+      # - name: "spot-nodes"
+      #   count: 2
+      #   min: 1
+      #   max: 3
+      #   instanceType: "t3.large"
+      #   diskSizeGb: 80
+      #   capacityType: "spot"
+      #   maxPrice: "0.10"
+      #   azs: ["us-west-2a", "us-west-2b"]
+      #   additionalLabels:
+      #     node-role: spot-worker
+      #     environment: production
+      #   taints:
+      #     - key: "spot"
+      #       value: "true"
+      #       effect: "PreferNoSchedule"
+    
+    # Cluster Profile (optional but recommended)
+    clusterProfile:
+      - idRef:
+          name: eks-cluster-profile
+    
+    # Backup Policy (optional)
+      # backupPolicy:
+      #   - backupLocationId: "backup-location-123"
+      #     schedule: "0 2 * * *"  # Daily at 2 AM
+      #     expiryInHour: 168  # 7 days
+      #     includeClusterResources: true
+      #     includeDisks: true
+      #     includeClusterResourcesMode: "always"
+      #     prefix: "eks-backup"
+      #     includeAllClusters: false
+      #     clusterUids: ["eks-cluster-example"]
+      #     namespaces: ["default", "kube-system", "monitoring"]
+    
+    # RBAC Binding (optional)
+    clusterRbacBinding:
+      - type: "ClusterRoleBinding"
+        role:
+          apiGroup: "rbac.authorization.k8s.io"
+          kind: "ClusterRole"
+          name: "cluster-admin"
+        subjects:
+          - type: "User"
+            name: "admin@example.com"
+            namespace: ""
+          - type: "ServiceAccount"
+            name: "palette-operator"
+            namespace: "palette-system"
+    
+    # Namespaces (optional)
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+        imagesBlacklist: ["nginx:latest"]
+      
+      - name: "logging"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+    
+    # Fargate Profile (optional)
+    # fargateProfile:
+    #   - name: "fargate-profile"
+    #     subnets: ["subnet-12345678", "subnet-87654321"]
+    #     selector:
+    #       - namespace: "fargate-apps"
+    #         labels:
+    #           fargate: "true"
+    #     additionalTags:
+    #       Environment: "production"
+    #       Purpose: "serverless"
+    
+    # Host Configuration (optional)
+    # hostConfig:
+    #   - hostEndpointType: "LoadBalancer"
+    #     loadBalancerSourceRanges: "0.0.0.0/0"
+    #     externalTrafficPolicy: "Local"
+    
+    # Scan Policy (optional)
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * *"  # Daily at 3 AM
+        conformanceScanSchedule: "0 4 * * 0"    # Weekly on Sunday at 4 AM
+        penetrationScanSchedule: "0 5 * * 0"    # Weekly on Sunday at 5 AM
+    
+    # OS Patching (optional)
+    # osPatchOnBoot: true
+    # osPatchSchedule: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+    # osPatchAfter: "2024-12-31T23:59:59Z"
+    
+    # Additional Settings
+    applySetting: "DownloadAndInstall"
+    pauseAgentUpgrades: "unlock"
+    skipCompletion: false
+    # forceDelete: false
+    # forceDeleteDelay: 20
+    
+    # Tags
+    tagsMap:
+      Environment: "Testing"
+      Owner: "QA"
+      Project: "EKS-Cluster"
+      CostCenter: "CC-002"
+      Backup: "enabled"
+    
+    # Cluster Metadata
+    # clusterMetaAttribute: '{"nic_name": "eks-prod", "env": "testing", "tier": "critical"}'
+  
+  # Provider Configuration
+  providerConfigRef:
+    name: default
+  
+  # Deletion Policy
+  deletionPolicy: Delete
+  
+  # Management Policies
+  managementPolicies:
+    - "*"
+  
+  # Write Connection Secret
+  # writeConnectionSecretToRef:
+  #   name: eks-cluster-connection
+  #   namespace: crossplane-system

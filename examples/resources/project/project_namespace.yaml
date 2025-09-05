@@ -1,0 +1,30 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/project
+    crossplane.io/external-name: "my-namespaced-project-external"
+  labels:
+    testing.upbound.io/example-name: project
+    environment: development
+    team: backend
+  name: my-namespaced-project
+  namespace: crossplane-system
+spec:
+  # Provider configuration reference
+  providerConfigRef:
+    kind: ProviderConfig
+    name: default
+  
+  
+  # Provider-specific configuration
+  forProvider:
+    name: "example-namespaced-cp"
+    description: "A namespaced project created via Crossplane for team isolation (Edited)"
+    tags:
+      - "CP:Example"
+      - "scope:namespaced"
+      - "managed-by:crossplane"
+      - "created:2025"
+  
+

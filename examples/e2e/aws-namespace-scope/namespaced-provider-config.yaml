@@ -1,0 +1,14 @@
+apiVersion: palette.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: namespaced-palette-provider
+  namespace: default
+  annotations:
+    description: "Namespaced ProviderConfig for Palette managed resources in default namespace"
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: palette-creds
+      namespace: default
+      key: credentials
