@@ -1,0 +1,29 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: aws-namespace-addon-profile
+  annotations:
+    description: "AWS Namespace Addon Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: aws-namespace-addon-profile
+    context: tenant
+    type: add-on
+    description: "A basic addon profile for AWS"
+    version: "1.0.0"
+    pack:
+      - name: "k8s-dashboard"
+        type: oci
+        tag: "2.7.0"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          
+
+    tags:
+      - "user:qa"
+      - "type:addon"
+
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider

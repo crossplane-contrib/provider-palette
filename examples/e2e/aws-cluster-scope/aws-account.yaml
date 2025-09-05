@@ -1,0 +1,25 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  name: aws-cloud-account
+  annotations:
+    description: "AWS Cloud Account for AWS cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: aws-cluster-scope
+    CP: Example
+    scope: cluster
+spec:
+  forProvider:
+    name: aws-cloud-account
+    context: project
+    type: secret
+    partition: aws
+    awsAccessKey: "<YOUR_AWS_ACCESS_KEY>"
+    awsSecretKeySecretRef:
+      key: aws-secret-key
+      name: aws-credentials
+      namespace: crossplane-system
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

@@ -1,0 +1,97 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Azure
+metadata:
+  name: azure-cluster-e2e
+  labels:
+    app: azure-cluster-scope
+    environment: e2e-testing
+    testing.upbound.io/example-name: cluster
+spec:
+  forProvider:
+    name: azure-cluster-e2e
+    context: project
+    description: "Azure Cluster for E2E testing"
+    
+    # Required: Cloud account reference
+    cloudAccountId: "<YOUR_AZURE_CLOUD_ACCOUNT_ID>"
+    
+    # Required: Cloud configuration
+    cloudConfig:
+      - subscriptionId: "<YOUR_AZURE_SUBSCRIPTION_ID>"
+        resourceGroup: "<YOUR_RESOURCE_GROUP>"
+        region: "eastus"
+        sshKey: "<YOUR_SSH_PUBLIC_KEY>"
+        containerName: "<YOUR_STORAGE_CONTAINER_NAME>"
+        networkResourceGroup: "<YOUR_NETWORK_RESOURCE_GROUP>"
+        controlPlaneSubnet:
+          - name: "control-plane-subnet"
+            cidrBlock: "10.0.1.0/24"
+            securityGroupName: "<YOUR_NSG_NAME>"
+    
+    # Required: Machine pool configuration
+    machinePool:
+      - name: "control-plane-pool"
+        count: 3
+        instanceType: "Standard_D4_v2"
+        controlPlane: true
+        controlPlaneAsWorker: true
+        azs: []
+        disk:
+          - sizeGb: 65
+            type: "Standard_LRS"
+        additionalLabels:
+          role: control-plane
+          environment: e2e
+    
+      - name: "worker-pool"
+        count: 2
+        instanceType: "Standard_D4_v2"
+        controlPlane: false
+        controlPlaneAsWorker: false
+        azs: []
+        disk:
+          - sizeGb: 65
+            type: "Standard_LRS"
+        additionalLabels:
+          role: worker
+          environment: e2e
+    
+    # Cluster profile reference
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    
+    # Optional: Backup policy
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 720
+        includeClusterResources: true
+        includeDisks: true
+        prefix: "e2e-backup"
+        schedule: "0 2 * * SUN"
+    
+    # Optional: Scan policy
+    scanPolicy: []
+    
+    # Optional: OS patch schedule
+    osPatchAfter: "2025-12-31T23:59:59Z"
+    
+    # Optional: Tags
+    tags:
+      - "environment:e2e"
+      - "purpose:testing"
+      - "team:qa"
+      - "project:azure-cluster-scope"
+    
+    # Optional: Apply setting
+    applySetting: "DownloadAndInstall"
+    
+    # Optional: Skip completion for async creation
+    skipCompletion: false
+  
+  # Crossplane configuration
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: azure-cluster-connection-secret
+    namespace: crossplane-system

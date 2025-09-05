@@ -1,0 +1,46 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: example-example-ran-azure-cluster-profile
+  annotations:
+    description: "Azure Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: example-example-ran-azure-cluster-profile
+    cloud: Azure
+    context: project
+    type: cluster
+    description: "A comprehensive cluster profile for Azure deployment"
+    version: "1.0.0"
+    pack:
+      
+
+      - name: "kubernetes"
+        tag: "1.31.7"
+        type: oci
+        uid: "682680c64cce70dec8d91e6f"
+        registryUid: "67a7a833606eceee1781fdf8"
+        values: |
+          
+
+      - name: "cni-calico-azure"
+        type: oci
+        tag: "3.29.3"
+        uid: "682bc6993aed6baeef231006"
+        registryUid: "67a7a833606eceee1781fdf8"
+        values: |
+          
+      - name: "csi-azure"
+        type: oci
+        tag: "1.32.0"
+        uid: "67ffe5817e405b6dfc58edff"
+        registryUid: "67a7a833606eceee1781fdf8"
+        values: |
+          
+          
+    tags:
+      - "CP:Example"
+      - "cloud:azure"
+      - "type:azure"
+      - "version:v1.0.0"
+      - "scope:namespace"

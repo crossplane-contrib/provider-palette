@@ -1,0 +1,24 @@
+apiVersion: developer.palette.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  name: developer-settings
+  annotations:
+    crossplane.io/external-name: "developer-settings"
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # CPU cores allocated to the cluster
+    cpu: 5
+    # Memory allocated to the cluster (in GiB)
+    memory: 8
+    # Storage capacity allocated to the cluster (in GiB)
+    storage: 100
+    # Number of virtual clusters that can be created
+    virtualClustersLimit: 5
+    # Hide system cluster group if set to true
+    hideSystemClusterGroup: false
+  providerConfigRef:
+    name: default
+  # writeConnectionSecretToRef:
+  #   name: developer-settings-secret
+  #   namespace: default

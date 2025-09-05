@@ -1,0 +1,122 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  name: example-namespaced-platform-team
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced Platform Team for development and operations"
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/team
+  labels:
+    environment: development
+    type: team
+    testing.upbound.io/example-name: team
+spec:
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ProviderConfig
+    name: provider-palette
+  
+  forProvider:
+    # Required: Team name
+    name: "example-namespaced-platform-team"
+    
+    # Project role mappings - team's roles in different projects
+    projectRoleMapping:
+      # Development project roles
+      - id: "<YOUR_DEVELOPMENT_PROJECT_ID>"
+        # Alternative: Use reference to project
+        # idRef:
+        #   name: "development-project"
+        #   namespace: "project-system"
+        roles:
+          - "<YOUR_DEVELOPER_ROLE_ID>"
+          - "<YOUR_VIEWER_ROLE_ID>"
+        # Alternative: Use reference to roles
+        # rolesRefs:
+        #   - name: "developer-role"
+        #   - name: "viewer-role"
+      
+      # Production project roles
+      - id: "<YOUR_PRODUCTION_PROJECT_ID>"
+        # Alternative: Use reference to project
+        # idRef:
+        #   name: "production-project"
+        #   namespace: "project-system"
+        roles:
+          - "<YOUR_OPERATOR_ROLE_ID>"
+          - "<YOUR_VIEWER_ROLE_ID>"
+        # Alternative: Use reference to roles
+        # rolesRefs:
+        #   - name: "operator-role"
+        #   - name: "viewer-role"
+      
+      # Testing project roles
+      - id: "<YOUR_TESTING_PROJECT_ID>"
+        # Alternative: Use reference to project
+        # idRef:
+        #   name: "testing-project"
+        #   namespace: "project-system"
+        roles:
+          - "<YOUR_TESTER_ROLE_ID>"
+          - "<YOUR_VIEWER_ROLE_ID>"
+        # Alternative: Use reference to roles
+        # rolesRefs:
+        #   - name: "tester-role"
+        #   - name: "viewer-role"
+    
+    # Workspace role mappings - team's roles in different workspaces
+    workspaceRoleMapping:
+      # Development workspace roles
+      - id: "<YOUR_DEVELOPMENT_WORKSPACE_ID>"
+        # Alternative: Use reference to workspace
+        # idRef:
+        #   name: "development-workspace"
+        #   namespace: "workspace-system"
+        roles:
+          - "<YOUR_WORKSPACE_ADMIN_ROLE_ID>"
+          - "<YOUR_WORKSPACE_DEVELOPER_ROLE_ID>"
+        # Alternative: Use reference to roles
+        # rolesRefs:
+        #   - name: "workspace-admin-role"
+        #   - name: "workspace-developer-role"
+      
+      # Testing workspace roles
+      - id: "<YOUR_TESTING_WORKSPACE_ID>"
+        # Alternative: Use reference to workspace
+        # idRef:
+        #   name: "testing-workspace"
+        #   namespace: "workspace-system"
+        roles:
+          - "<YOUR_WORKSPACE_TESTER_ROLE_ID>"
+          - "<YOUR_WORKSPACE_VIEWER_ROLE_ID>"
+        # Alternative: Use reference to roles
+        # rolesRefs:
+        #   - name: "workspace-tester-role"
+        #   - name: "workspace-viewer-role"
+    
+    # Tenant role mappings - team's roles at tenant level
+    tenantRoleMapping:
+      - "<YOUR_TENANT_VIEWER_ROLE_ID>"
+      - "<YOUR_TENANT_DEVELOPER_ROLE_ID>"
+    # Alternative: Use reference to tenant roles
+    # tenantRoleMappingRefs:
+    #   - name: "tenant-viewer-role"
+    #   - name: "tenant-developer-role"
+    
+    # Users associated with this team
+    users:
+      - "<YOUR_USER_ID_1>"
+      - "<YOUR_USER_ID_2>"
+      - "<YOUR_USER_ID_3>"
+    # Alternative: Use reference to users
+    # usersRefs:
+    #   - name: "john-doe"
+    #   - name: "jane-smith"
+    #   - name: "bob-wilson"
+    
+    # Alternative: Use selector for users
+    # usersSelector:
+    #   matchLabels:
+    #     team: "platform"
+    #     environment: "development"
+    #   namespace: "user-system"

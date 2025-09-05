@@ -1,0 +1,76 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Sso
+metadata:
+  name: cp-sso-config
+  annotations:
+    description: "Example SSO configuration for Palette tenant"
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/sso
+  labels:
+    testing.upbound.io/example-name: sso_example
+spec:
+  forProvider:
+    # External authentication providers (optional)
+    authProviders:
+      - "github"
+      - "google"
+    
+    # Domains associated with SSO configuration (optional)
+    domains:
+      - "example.com"
+      - "login.example.com"
+    
+    # OIDC configuration (optional - choose one: OIDC, SAML, or none)
+    oidc:
+      - clientId: "c2c3718a-1ca1-4b0c-8cda-1c87f90447ea"
+        clientSecretSecretRef:
+          key: "clientSecret"
+          name: "oidc-client-secret"
+          namespace: "crossplane-system"
+        issuerUrl: "https://login.microsoftonline.com/7fc4bd49-b7eb-410f-8ad4-11ab94561548/v2.0"
+        defaultTeamIds:
+          - "68716b0c8a2bdb225ee91546"
+        # Optional OIDC fields
+        email: "user@example.com"
+        firstName: "Example"
+        lastName: "Roy"
+        identityProviderCaCertificate: "test certificate content"
+        insecureSkipTlsVerify: false
+        scopes:
+          - "email"
+          - "profile"
+          - "openid"
+        spectroTeam: "groups"
+        # userInfoEndpoint configuration (optional)
+        userInfoEndpoint:
+          - email: "example@example.com"
+            firstName: "Example"
+            lastName: "Roy"
+            spectroTeam: "groups"
+    
+    # SAML configuration (optional - choose one: OIDC, SAML, or none)
+    # Uncomment and configure SAML if you want to use SAML instead of OIDC
+    # saml:
+    #   - defaultTeamIds:
+    #       - "68716b0c8a2bdb225ee91546"
+    #     email: "example@example.com"
+    #     enableSingleLogout: true
+    #     firstName: "Example"
+    #     lastName: "Roy"
+    #     nameIdFormat: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    #     serviceProvider: "Microsoft ADFS"
+    #     spectroTeam: "SpectroTeam"
+    
+    # SSO authentication type (required)
+    ssoAuthType: "oidc"  # Supported values: none, saml, oidc
+  
+  # Optional: Specify deletion policy
+  deletionPolicy: Delete  # Options: Delete, Orphan
+  
+  # Optional: Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Optional: Write connection details to a secret
+  # writeConnectionSecretToRef:
+  #   name: sso-connection-secret
+  #   namespace: crossplane-system

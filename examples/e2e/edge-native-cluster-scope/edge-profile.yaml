@@ -1,0 +1,29 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: example-example-ran-edge-native-cluster-profile
+  annotations:
+    description: "Edge Native Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: example-example-ran-edge-native-cluster-profile
+    cloud: edge-native
+    context: project
+    type: cluster
+    description: "A comprehensive cluster profile for Edge Native deployment"
+    version: "1.0.0"
+    pack:
+      - name: "ubuntu-edge-native"
+        type: oci
+        tag: "22.04"
+        uid: "122324234"
+        registryUid: "23323422242424224"
+        values: |
+          # No customizations allowed for this OS type  
+          
+    tags:
+      - "CP:Example"
+      - "cloud:edge-native"
+      - "type:edge-native"
+      - "version:v1.0.0"
+      - "scope:cluster"

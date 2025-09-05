@@ -1,0 +1,37 @@
+apiVersion: platform.palette.m.crossplane.io/v1alpha1
+kind: Setting
+metadata:
+  name: platform-settings-namespaced
+  namespace: default
+  annotations:
+    crossplane.io/external-name: "platform-settings-namespaced"
+spec:
+  forProvider:
+    # Context: defines the scope (project or tenant)
+    context: "tenant"
+    
+    # Cluster management settings
+    automaticClusterRoleBinding: true
+    clusterAutoRemediation: false
+    enableAutoRemediation: true  # Enabled for project context
+    
+    # Agent upgrade control
+    pauseAgentUpgrades: "unlock"  # "lock" to disable, "unlock" to enable
+    
+    # Session management
+    sessionTimeout: 250  # minutes (shorter than tenant default)
+    
+    # FIPS compliance settings (tenant context only - set to false for project context)
+    # nonFipsAddonPack: false
+    # nonFipsClusterImport: false
+    # nonFipsFeatures: false
+    
+    # Login banner configuration (tenant context only - commented out for project context)
+    loginBanner:
+      - title: "Tenant Access Notice"
+        message: "You are accessing a project-scoped environment."
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  writeConnectionSecretToRef:
+    name: platform-settings-namespaced-secret

@@ -1,0 +1,24 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/project
+    crossplane.io/external-name: "my-project-external"
+  labels:
+    testing.upbound.io/example-name: project
+  name: aws-cluster-cp
+spec:
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Provider-specific configuration
+  forProvider:
+    name: "aws-cluster-cp"
+    description: "A sample project created via Crossplane for demonstration purposes (Edited)"
+    tags:
+      - "CP:Example"
+      - "team:platform"
+      - "managed-by:crossplane"
+      - "created:2025"
+

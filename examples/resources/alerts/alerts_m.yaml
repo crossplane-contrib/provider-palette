@@ -1,0 +1,182 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  name: cluster-health-alert
+  namespace: default
+  annotations:
+    crossplane.io/external-name: cluster-health-alert-123
+spec:
+  forProvider:
+    # Required fields
+    component: "ClusterHealth"
+    isActive: true
+    project: "Default"
+    type: "email"
+    
+    # Optional fields
+    alertAllUsers: false
+    # createdBy: "admin@example.com"
+    identifiers:
+      # - "abc@spectrocloud.com"
+      - "roy@spectrocloud.com"
+    
+    # Status block (optional, for internal use)
+    # status:
+    #   - isSucceeded: true
+    #     message: "Alert configured successfully"
+    #     time: "2024-01-15T10:30:00Z"
+  
+  # Provider configuration reference (namespaced version)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Connection secret configuration (namespaced - no namespace field)
+  # writeConnectionSecretToRef:
+  #   name: alert-connection-secret
+
+---
+# Example of an HTTP-based alert
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  name: http-webhook-alert
+  namespace: default
+  annotations:
+    crossplane.io/external-name: http-webhook-alert-456
+spec:
+  forProvider:
+    # Required fields
+    component: "ClusterHealth"
+    isActive: false
+    project: "Default"
+    type: "http"
+    
+    # HTTP configuration for webhook alerts
+    http:
+      - url: "https://openhook.com/put/notify"
+        method: "POST"
+        body: '{"text": "{{message}}"}'
+        headers:
+          tag: "Health"
+          source: "spectrocloud"
+    
+    # Optional fields
+    # alertAllUsers: true
+    # createdBy: "system@example.com"
+    
+    # Status block
+    # status:
+    #   - isSucceeded: true
+    #     message: "HTTP webhook alert configured"
+    #     time: "2024-01-15T10:30:00Z"
+  
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # writeConnectionSecretToRef:
+  #   name: webhook-alert-secret
+
+# ---
+# # Example of a simple email alert for all users
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: simple-email-alert
+#   namespace: default
+#   annotations:
+#     crossplane.io/external-name: simple-email-alert-789
+# spec:
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "my-project"
+#     type: "email"
+    
+#     # Simple configuration - alert all users
+#     alertAllUsers: true
+#     createdBy: "admin@example.com"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: namespaced-palette-provider
+  
+#   # writeConnectionSecretToRef:
+#   #   name: simple-alert-secret
+
+# ---
+# # Example with management policies
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: managed-alert
+#   namespace: monitoring
+#   annotations:
+#     crossplane.io/external-name: managed-alert-999
+# spec:
+#   # Management policies for fine-grained control
+#   managementPolicies:
+#     - "Create"
+#     - "Update"
+#     - "Delete"
+  
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "monitoring-project"
+#     type: "http"
+    
+#     # HTTP configuration
+#     http:
+#       - url: "https://slack.com/api/chat.postMessage"
+#         method: "POST"
+#         body: '{"channel": "#alerts", "text": "Cluster health alert triggered"}'
+#         headers:
+#           Content-Type: "application/json"
+#           Authorization: "Bearer xoxb-your-slack-token"
+    
+#     alertAllUsers: false
+#     createdBy: "monitoring-system@example.com"
+#     identifiers:
+#       - "oncall-team"
+#       - "devops-team"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: namespaced-palette-provider
+  
+#   # writeConnectionSecretToRef:
+#   #   name: managed-alert-secret
+
+# ---
+# # Example with initProvider for creation-time only fields
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: init-provider-alert
+#   namespace: default
+#   annotations:
+#     crossplane.io/external-name: init-provider-alert-777
+# spec:
+#   # InitProvider for fields that should only be set during creation
+#   initProvider:
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "init-project"
+#     type: "email"
+#     createdBy: "system@example.com"
+#     alertAllUsers: true
+  
+#   forProvider:
+#     # These fields will be merged from initProvider
+#     # Additional runtime configuration can be added here
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: namespaced-palette-provider
+  
+#   # writeConnectionSecretToRef:
+#   #   name: init-alert-secret

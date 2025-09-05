@@ -1,0 +1,41 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Macros
+metadata:
+  name: environment-macros
+  namespace: default
+spec:
+  forProvider:
+    # Context for the cluster profile (project or tenant)
+    context: "project"
+    
+    # Key-value mapping of macros and service variable outputs
+    macros:
+      # Environment-specific variables
+      ENVIRONMENT: "production"
+      REGION: "us-west-2"
+      CLUSTER_TYPE: "production-cluster"
+      
+      # Application configuration
+      APP_VERSION: "v1.2.3"
+      DEPLOYMENT_STRATEGY: "rolling"
+      SCALE_MIN: "3"
+      SCALE_MAX: "10"
+      
+      # Infrastructure settings
+      STORAGE_CLASS: "fast-ssd"
+      NETWORK_POLICY: "strict"
+      MONITORING_ENABLED: "true"
+      
+      # Team and ownership
+      TEAM: "platform"
+      OWNER: "devops-team"
+      COST_CENTER: "platform-001"
+  
+  # Provider configuration reference (namespaced requires kind)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Connection secret configuration (no namespace required for namespaced)
+  # writeConnectionSecretToRef:
+  #   name: environment-macros-secret

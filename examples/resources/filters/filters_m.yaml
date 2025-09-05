@@ -1,0 +1,36 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Filter
+metadata:
+  name: environment-filter
+  namespace: default
+spec:
+  forProvider:
+    # Required fields
+    metadata:
+      - name: "cp-resource-filter"
+    
+    spec:
+      - filterGroup:
+          - conjunction: "and"
+            filters:
+              - key: "environment"
+                operator: "eq"
+                negation: false
+                values:
+                  - "production"
+                  - "staging"
+              - key: "region"
+                operator: "eq"
+                negation: false
+                values:
+                  - "us-west-2"
+                  - "us-east-1"
+  
+  # Provider configuration reference (namespaced requires kind)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Connection secret configuration (no namespace required for namespaced)
+  # writeConnectionSecretToRef:
+  #   name: environment-filter-secret

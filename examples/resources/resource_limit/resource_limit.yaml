@@ -1,0 +1,52 @@
+# Resource Limits Configuration Examples
+# This file contains various examples of resource limits for Palette Crossplane Provider
+
+---
+# Example 1: Basic Resource Limits for Small Environment
+apiVersion: resource.palette.crossplane.io/v1alpha1
+kind: Limit
+metadata:
+  name: small-environment-limits
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Core infrastructure limits
+    cluster: 10
+    clusterProfile: 20
+    clusterGroup: 5
+    project: 15
+    workspace: 10
+    
+    # Cloud and storage limits
+    cloudAccount: 8
+    location: 5
+    registry: 10
+    
+    # Application and deployment limits
+    applicationProfile: 25
+    applicationDeployment: 50
+    
+    # User and access management limits
+    user: 25
+    team: 10
+    role: 20
+    apiKeys: 15
+    sshKey: 20
+    
+    # Monitoring and management limits
+    alert: 200
+    filter: 20
+    macro: 15
+    certificate: 25
+    
+    # Advanced features limits
+    privateGateway: 5
+    appliance: 10
+    applianceToken: 20
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: small-environment-limits-secret
+    namespace: crossplane-system
