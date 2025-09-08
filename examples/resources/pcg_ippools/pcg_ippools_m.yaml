@@ -1,0 +1,51 @@
+apiVersion: privatecloudgateway.palette.m.crossplane.io/v1alpha1
+kind: Ippool
+metadata:
+  name: pcg-ip-pool-namespaced
+  namespace: default
+  annotations:
+    crossplane.io/external-name: "pcg-ip-pool-namespaced"
+spec:
+  forProvider:
+    # Required: The name of the IP pool
+    name: "cp-ip-pool"
+    
+    # Required: The type of network for the IP pool (range or subnet)
+    networkType: "range"
+    
+    # Required: The prefix of the IP pool (e.g., 24 for /24 subnet)
+    prefix: 18
+    
+    # Required: The network gateway IP address for the IP pool
+    gateway: "10.10.128.1"
+    
+    # Required: The ID of the Private Cloud Gateway
+    privateCloudGatewayId: "YOUR_PRIVATE_CLOUD_GATEWAY_ID"
+    
+    # Required for range type: The start IP address of the IP pool
+    ipStartRange: "YOUR_IP_START_RANGE"
+    
+    # Required for range type: The end IP address of the IP pool
+    ipEndRange: "YOUR_IP_END_RANGE"
+    
+    # Required for subnet type: The subnet CIDR of the IP pool
+    # subnetCidr: "192.168.1.0/24"
+    
+    # Optional: Restrict the IP pool to a single cluster (recommended for production)
+    restrictToSingleCluster: false
+    
+    # Optional: List of nameserver IP addresses for the IP pool
+    nameserverAddresses:
+      - "YOUR_NAMESERVER_ADDRESS_1"
+      - "YOUR_NAMESERVER_ADDRESS_2"
+    
+    # Optional: List of nameserver search suffixes
+    nameserverSearchSuffix:
+      - "internal.company.com"
+      - "company.com"
+
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  writeConnectionSecretToRef:
+    name: pcg-ip-pool-namespaced-secret

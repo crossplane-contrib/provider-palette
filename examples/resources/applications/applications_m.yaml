@@ -1,0 +1,398 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  name: web-application
+  namespace: default
+spec:
+  forProvider:
+    # Required field
+    name: "app-beru-whitesun-lars"
+    
+    # Application profile reference
+    applicationProfileUid: "YOUR_APPLICATION_PROFILE_UID"
+    
+    # Configuration for cluster deployment
+    config:
+      - clusterName: "sandbox-scorpius"
+        clusterGroupUid: "YOUR_CLUSTER_GROUP_UID"
+        clusterContext: "project"
+        
+        # Resource limits
+        limits:
+          - cpu: 3
+            memory: 4096
+            storage: 3
+          # - cpu: 1
+          #   memory: 2048
+          #   storage: 10
+    
+    # Tags for organization
+    tags:
+      - "web-application"
+      - "production"
+      - "frontend"
+      - "team-web"
+  
+  # Provider configuration reference (namespaced version)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  
+  # Connection secret configuration (namespaced - no namespace field)
+  # writeConnectionSecretToRef:
+  #   name: web-application-secret
+
+# ---
+# # Example with cluster group targeting
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: database-application
+#   namespace: production
+# spec:
+#   forProvider:
+#     name: "database-app-staging"
+#     applicationProfileUid: "database-profile-67890"
+    
+#     # Target cluster group instead of specific cluster
+#     config:
+#       - clusterGroupUid: "staging-cluster-group-12345"
+#         clusterContext: "tenant"
+        
+#         # Resource limits for database
+#         limits:
+#           - cpu: 4
+#             memory: 8192
+#             storage: 100
+#           - cpu: 2
+#             memory: 4096
+#             storage: 50
+    
+#     tags:
+#       - "database"
+#       - "staging"
+#       - "backend"
+#       - "team-data"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: database-application-secret
+
+# ---
+# # Example with minimal configuration
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: minimal-application
+#   namespace: default
+# spec:
+#   forProvider:
+#     # Only required field
+#     name: "minimal-app"
+#     applicationProfileUid: "minimal-profile-11111"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: minimal-application-secret
+
+# ---
+# # Example with application profile selector
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: selector-application
+#   namespace: development
+# spec:
+#   forProvider:
+#     name: "selector-app"
+    
+#     # Use selector instead of direct UID
+#     applicationProfileUidSelector:
+#       matchLabels:
+#         app-type: "microservice"
+#         environment: "production"
+#       namespace: "application-profiles"
+    
+#     config:
+#       - clusterName: "prod-cluster"
+#         clusterUid: "prod-cluster-uid-99999"
+#         clusterContext: "project"
+        
+#         limits:
+#           - cpu: 1
+#             memory: 2048
+#             storage: 10
+    
+#     tags:
+#       - "microservice"
+#       - "production"
+#       - "selector-demo"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: selector-application-secret
+
+# ---
+# # Example with management policies
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: managed-application
+#   namespace: staging
+# spec:
+#   # Management policies for fine-grained control
+#   managementPolicies:
+#     - "Create"
+#     - "Update"
+#     - "Delete"
+  
+#   forProvider:
+#     name: "managed-app"
+#     applicationProfileUid: "managed-profile-22222"
+    
+#     config:
+#       - clusterName: "managed-cluster"
+#         clusterUid: "managed-cluster-uid-33333"
+#         clusterContext: "project"
+        
+#         limits:
+#           - cpu: 2
+#             memory: 4096
+#             storage: 25
+    
+#     tags:
+#       - "managed"
+#       - "automated"
+#       - "team-devops"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: managed-application-secret
+
+# ---
+# # Example with initProvider for creation-time only fields
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: init-provider-application
+#   namespace: development
+# spec:
+#   # InitProvider for fields that should only be set during creation
+#   initProvider:
+#     name: "init-app"
+#     applicationProfileUid: "init-profile-44444"
+    
+#     config:
+#       - clusterName: "init-cluster"
+#         clusterUid: "init-cluster-uid-55555"
+#         clusterContext: "project"
+    
+#     tags:
+#       - "init-provider"
+#       - "immutable"
+  
+#   forProvider:
+#     # These fields will be merged from initProvider
+#     # Additional runtime configuration can be added here
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: init-application-secret
+
+# ---
+# # Example with cluster reference
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: cluster-reference-application
+#   namespace: production
+# spec:
+#   forProvider:
+#     name: "cluster-ref-app"
+#     applicationProfileUid: "cluster-ref-profile-77777"
+    
+#     # Use cluster reference instead of direct UID
+#     config:
+#       - clusterUidRef:
+#           name: "production-cluster"
+#           namespace: "clusters"
+#         clusterContext: "project"
+        
+#         limits:
+#           - cpu: 3
+#             memory: 6144
+#             storage: 50
+    
+#     tags:
+#       - "cluster-reference"
+#       - "production"
+#       - "team-infra"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: cluster-reference-application-secret
+
+# ---
+# # Example with custom provider config
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: custom-provider-application
+#   namespace: testing
+# spec:
+#   forProvider:
+#     name: "custom-app"
+#     applicationProfileUid: "custom-profile-88888"
+    
+#     config:
+#       - clusterName: "custom-cluster"
+#         clusterUid: "custom-cluster-uid-99999"
+#         clusterContext: "tenant"
+        
+#         limits:
+#           - cpu: 3
+#             memory: 6144
+#             storage: 50
+    
+#     tags:
+#       - "custom-provider"
+#       - "testing"
+#       - "team-custom"
+  
+#   # Custom provider configuration
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: custom-palette-provider
+  
+#   writeConnectionSecretToRef:
+#     name: custom-provider-application-secret
+
+# ---
+# # Example for development environment
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: dev-application
+#   namespace: development
+# spec:
+#   forProvider:
+#     name: "dev-app"
+#     applicationProfileUid: "dev-profile-10101"
+    
+#     config:
+#       - clusterName: "dev-cluster"
+#         clusterUid: "dev-cluster-uid-20202"
+#         clusterContext: "project"
+        
+#         # Minimal resources for development
+#         limits:
+#           - cpu: 1
+#             memory: 1024
+#             storage: 5
+    
+#     tags:
+#       - "development"
+#       - "testing"
+#       - "team-dev"
+#       - "low-resources"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: dev-application-secret
+
+# ---
+# # Example with cluster group selector
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: cluster-group-selector-application
+#   namespace: production
+# spec:
+#   forProvider:
+#     name: "cluster-group-selector-app"
+#     applicationProfileUid: "cluster-group-selector-profile-30303"
+    
+#     # Use cluster group selector
+#     config:
+#       - clusterGroupUidSelector:
+#           matchLabels:
+#             environment: "production"
+#             region: "us-west-2"
+#           namespace: "cluster-groups"
+#         clusterContext: "tenant"
+        
+#         limits:
+#           - cpu: 2
+#             memory: 4096
+#             storage: 30
+    
+#     tags:
+#       - "cluster-group-selector"
+#       - "production"
+#       - "multi-cluster"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: cluster-group-selector-application-secret
+
+# ---
+# # Example with restricted management policies
+# apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: restricted-application
+#   namespace: restricted
+# spec:
+#   # Restricted management policies - read-only
+#   managementPolicies:
+#     - "Observe"
+  
+#   forProvider:
+#     name: "restricted-app"
+#     applicationProfileUid: "restricted-profile-40404"
+    
+#     config:
+#       - clusterName: "restricted-cluster"
+#         clusterUid: "restricted-cluster-uid-50505"
+#         clusterContext: "project"
+        
+#         limits:
+#           - cpu: 1
+#             memory: 2048
+#             storage: 10
+    
+#     tags:
+#       - "restricted"
+#       - "readonly"
+#       - "compliance"
+  
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: restricted-application-secret

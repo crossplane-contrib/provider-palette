@@ -1,0 +1,141 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Vsphere
+metadata:
+  name: example-example-ran-vsphere-cluster
+  annotations:
+    description: "VMware vSphere Cluster for production deployment"
+    meta.upbound.io/example-id: cluster/v1alpha1/vsphere
+  labels:
+    testing.upbound.io/example-name: vmware-cluster-scope
+    CP: Example
+    scope: cluster
+spec:
+  forProvider:
+    name: example-example-ran-vsphere-cluster
+    context: project
+    description: "Testing CP v2 vSphere cluster creation with cluster scope"
+    
+    # Cloud account reference
+    cloudAccountIdRef:
+      name: example-example-ran-vsphere-cloud-account
+    
+    # Cloud configuration - Required for vSphere
+    cloudConfig:
+      - datacenter: "YOUR_DATACENTER"
+        folder: "YOUR_FOLDER"
+        hostEndpoint: "YOUR_VSPHERE_VCENTER"
+        imageTemplateFolder: "YOUR_IMAGE_TEMPLATE_FOLDER"
+        networkType: "DDNS"
+        networkSearchDomain: "YOUR_NETWORK_SEARCH_DOMAIN"
+        # staticIp: false
+        # ntpServers:
+        #   - "pool.ntp.org"
+        #   - "time.google.com"
+        sshKeys:
+          - "YOUR_SSH_KEY"
+    
+    # Cluster profile reference
+    clusterProfile:
+      - idRef:
+          name: example-example-ran-vsphere-cluster-profile
+    
+    # Machine pools configuration - At least one is required
+    machinePool:
+      - name: control-plane
+        controlPlane: true
+        controlPlaneAsWorker: false
+        count: 1
+        instanceType:
+          - cpu: 4
+            memoryMb: 8192
+            diskSizeGb: 100
+        placement:
+          - cluster: "YOUR_CLUSTER"
+            datastore: "YOUR_DATASTORE"
+            network: "YOUR_NETWORK"
+            resourcePool: "YOUR_RESOURCE_POOL"
+        additionalLabels:
+          node-role: control-plane
+          CP: Example
+        
+      # - name: worker-nodes
+      #   controlPlane: false
+      #   controlPlaneAsWorker: false
+      #   count: 2
+      #   min: 1
+      #   max: 3
+      #   instanceType:
+      #     - cpu: 4
+      #       memoryMb: 8192
+      #       diskSizeGb: 100
+      #   placement:
+      #     - cluster: "Cluster"
+      #       datastore: "Datastore"
+      #       network: "VM Network"
+      #       resourcePool: "Kubernetes"
+      #   additionalLabels:
+      #     node-role: worker
+      #     CP: Example
+      #   taints:
+      #     - key: "dedicated"
+      #       value: "worker"
+      #       effect: "NoSchedule"
+    
+    # Backup policy (optional)
+    # backupPolicy:
+    #   - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+    #     expiryInHour: 7200
+    #     includeClusterResources: true
+    #     includeDisks: true
+    #     includeClusterResourcesMode: "always"
+    #     prefix: "prod-backup"
+    #     schedule: "0 2 * * *"  # Daily at 2 AM
+    #     namespaces:
+    #       - "kube-system"
+    #       - "default"
+    
+    # Scan policy (optional)
+    scanPolicy:
+      - configurationScanSchedule: "0 1 * * *"  # Daily at 1 AM
+        conformanceScanSchedule: "0 3 * * *"    # Daily at 3 AM
+        penetrationScanSchedule: "0 4 * * *"    # Daily at 4 AM
+    
+    # Host configuration (optional)
+    # hostConfig:
+    #   - hostEndpointType: "Ingress"
+    #     ingressHost: "vsphere-cluster.spectrocloud.dev"
+    #     externalTrafficPolicy: "Local"
+    
+    # OS patching configuration (optional)
+    # osPatchOnBoot: false
+    # osPatchSchedule: "0 5 * * 0"  # Weekly on Sunday at 5 AM
+    
+    # Tags
+    tags:
+      - "cp:Example"
+      - "cloud:vsphere"
+      - "type:cluster"
+      - "env:production"
+    
+    # Force delete settings (optional)
+    # forceDelete: false
+    # forceDeleteDelay: 20
+    
+    # Skip completion (optional)
+    skipCompletion: false
+    
+    # Pause agent upgrades (optional)
+    pauseAgentUpgrades: "unlock"
+    
+    # Review repave state (optional)
+    # reviewRepaveState: ""
+    
+    # Apply setting (optional)
+    applySetting: "DownloadAndInstall"
+    
+    # Cluster meta attributes (optional)
+    clusterMetaAttribute: '{"nic_name": "vmxnet3", "env": "production"}'
+    
+  providerConfigRef:
+    name: default
+  # deletionPolicy: Delete

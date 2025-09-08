@@ -1,0 +1,52 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: aws-namespace-profile
+  annotations:
+    description: "AWS Cluster Profile for Kubernetes deployment"
+spec:
+  forProvider:
+    name: aws-namespace-profile
+    cloud: aws
+    context: tenant
+    type: cluster
+    description: "A comprehensive cluster profile for AWS deployment"
+    version: "1.0.0"
+    pack:
+      
+
+      - name: "kubernetes"
+        tag: "1.31.10"
+        type: oci
+        uid: "6891e5dd17d834478df2f8ab"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+         
+
+      - name: "cni-calico"
+        type: oci
+        tag: "3.30.2"
+        uid: "689ef8b6c31402f5084dfe47"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+          
+    
+      - name: "csi-aws-ebs"
+        type: oci
+        tag: "1.46.0"
+        uid: "6891e5dd17d83447c70ec97e"
+        registryUid: "686bcb37ca5d80a1d2b19f6d"
+        values: |
+          
+          
+    tags:
+      - "CP:Example"
+      - "cloud:aws"
+      - "type:eks"
+      - "version:v1.0.0"
+      - "scope:cluster"
+  
+  # Provider configuration reference
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider

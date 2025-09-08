@@ -1,0 +1,24 @@
+apiVersion: cloudaccount.palette.m.crossplane.io/v1alpha1
+kind: Aws
+metadata:
+  name: aws-namespace-account
+  annotations:
+    description: "AWS Cloud Account for AWS cluster deployment"
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: aws-namespace-scope
+    CP: Example
+    scope: namespace
+spec:
+  forProvider:
+    name: aws-namespace-account
+    context: tenant
+    type: secret
+    partition: aws
+    awsAccessKey: "<YOUR_AWS_ACCESS_KEY>"
+    awsSecretKeySecretRef:
+      key: aws-secret-key
+      name: aws-credentials
+  providerConfigRef:
+    kind: ProviderConfig
+    name: namespaced-palette-provider

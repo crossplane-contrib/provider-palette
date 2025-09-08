@@ -1,0 +1,112 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: EdgeNative
+metadata:
+  name: edge-native-cluster-e2e
+  labels:
+    app: edge-native-cluster-scope
+    environment: e2e-testing
+    testing.upbound.io/example-name: cluster
+spec:
+  forProvider:
+    name: edge-native-cluster-e2e
+    description: "Edge Native Cluster for E2E testing"
+    
+    # Required: Cloud configuration
+    cloudConfig:
+      - vip: "10.10.232.51"
+        sshKeys:
+          - "edge-ssh-key"
+        # Optional: Overlay CIDR range for pod networking
+        # overlayCidrRange: "100.12.22.11/12"
+    
+    # Required: Machine pool configuration
+    machinePool:
+      - name: "control-plane"
+        controlPlane: true
+        controlPlaneAsWorker: false
+        edgeHost:
+          - hostUid: "<YOUR_EDGE_HOST_UID>"
+            staticIp: "10.10.145.103"
+            nicName: "eth0"
+        additionalLabels:
+          role: control-plane
+          environment: e2e
+        updateStrategy: "RollingUpdateScaleOut"
+      
+      - name: "worker-pool"
+        controlPlane: false
+        controlPlaneAsWorker: false
+        edgeHost:
+          - hostUid: "<YOUR_WORKER_HOST_UID>"
+            staticIp: "10.10.145.104"
+            nicName: "eth0"
+        additionalLabels:
+          role: worker
+          environment: e2e
+        updateStrategy: "RollingUpdateScaleOut"
+    
+    # Cluster profile reference
+    clusterProfile:
+      - id: "<YOUR_CLUSTER_PROFILE_ID>"
+    
+    # Optional: Backup policy
+    backupPolicy:
+      - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+        expiryInHour: 720
+        includeClusterResources: true
+        includeDisks: true
+        prefix: "e2e-edge-backup"
+        schedule: "0 2 * * SUN"
+    
+    # Optional: Scan policy
+    scanPolicy:
+      - configurationScanSchedule: "0 3 * * 0"
+        conformanceScanSchedule: "0 4 * * 0"
+        penetrationScanSchedule: "0 5 * * 0"
+    
+    # Optional: Namespace configuration
+    namespaces:
+      - name: "monitoring"
+        resourceAllocation:
+          cpu_cores: "2"
+          memory_MiB: "4096"
+        imagesBlacklist:
+          - "nginx:latest"
+          - "redis:latest"
+      - name: "applications"
+        resourceAllocation:
+          cpu_cores: "4"
+          memory_MiB: "8192"
+    
+    # Optional: OS patch configuration
+    osPatchOnBoot: false
+    osPatchSchedule: "0 1 * * 0"
+    osPatchAfter: "2025-12-31T23:59:59Z"
+    
+    # Optional: Apply setting
+    applySetting: "DownloadAndInstall"
+    
+    # Optional: Force delete
+    forceDelete: false
+    
+    # Optional: Cluster metadata attributes
+    clusterMetaAttribute: '{"nic_name": "eth0", "env": "e2e", "cluster_type": "edge-native"}'
+    
+    # Optional: Tags
+    tags:
+      - "environment:e2e"
+      - "purpose:testing"
+      - "team:qa"
+      - "project:edge-native-cluster-scope"
+      - "managed-by:crossplane"
+    
+    # Optional: Skip completion for async creation
+    skipCompletion: false
+  
+  # Crossplane configuration
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: edge-native-cluster-connection-secret
+    namespace: crossplane-system

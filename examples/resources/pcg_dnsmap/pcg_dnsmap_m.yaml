@@ -1,0 +1,25 @@
+apiVersion: privatecloudgateway.palette.m.crossplane.io/v1alpha1
+kind: DNSMap
+metadata:
+  name: pcg-dns-map-namespaced
+  namespace: default
+  annotations:
+    crossplane.io/external-name: "pcg-dns-map-namespaced"
+spec:
+  forProvider:
+    # Required: The data center in which the private cloud resides
+    dataCenter: "YOUR_DATACENTER"
+    
+    # Required: The network to which the private cloud gateway is mapped
+    network: "YOUR_NETWORK"
+    
+    # Required: The ID of the Private Cloud Gateway
+    privateCloudGatewayId: "YOUR_PRIVATE_CLOUD_GATEWAY_ID"
+    
+    # Required: The domain name used for DNS search queries within the private cloud
+    searchDomainName: "YOUR_SEARCH_DOMAIN_NAME"
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  writeConnectionSecretToRef:
+    name: pcg-dns-map-namespaced-secret

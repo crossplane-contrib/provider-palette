@@ -1,0 +1,24 @@
+apiVersion: ssh.palette.m.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  name: example-ssh-key-m
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced SSH Key for Cluster Access"
+    meta.upbound.io/example-id: ssh/v1alpha1/key
+  labels:
+    testing.upbound.io/example-name: ssh_example_m
+spec:
+  forProvider:
+    context: tenant  # Allowed values: project or tenant
+    name: example-ssh-key-m
+    sshKeySecretRef:
+      key: "ssh-public-key"
+      name: example-ssh-key-secret-m
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
+  # Optional: Write connection details to a secret (only name required for namespaced)
+  # writeConnectionSecretToRef:
+  #   name: ssh-key-connection-secret-m

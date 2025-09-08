@@ -1,0 +1,26 @@
+apiVersion: ssh.palette.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  name: example-ssh-key
+  annotations:
+    description: "Example SSH Key for Cluster Access"
+    meta.upbound.io/example-id: ssh/v1alpha1/key
+  labels:
+    testing.upbound.io/example-name: ssh_example
+spec:
+  forProvider:
+    context: project  # Allowed values: project or tenant
+    name: example-ssh-key
+    sshKeySecretRef:
+      key: ssh-public-key
+      name: example-ssh-key-secret
+      namespace: crossplane-system
+  # Optional: Specify deletion policy
+  deletionPolicy: Delete  # Options: Delete, Orphan
+  # Optional: Provider configuration reference
+  providerConfigRef:
+    name: default
+  # Optional: Write connection details to a secret
+  # writeConnectionSecretToRef:
+  #   name: ssh-key-connection-secret
+  #   namespace: crossplane-system

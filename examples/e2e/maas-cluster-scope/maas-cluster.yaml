@@ -1,0 +1,128 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Maas
+metadata:
+  name: example-example-ran-maas-cluster
+  annotations:
+    description: "MaaS Cluster for production deployment"
+    meta.upbound.io/example-id: cluster/v1alpha1/maas
+  labels:
+    testing.upbound.io/example-name: maas-cluster-scope
+    CP: Example
+    scope: cluster
+spec:
+  forProvider:
+    name: example-example-ran-maas-cluster
+    context: project
+    description: "Testing CP v2 MaaS cluster creation with cluster scope"
+    
+    # Cloud account reference
+    cloudAccountIdRef:
+      name: maas-cloud-account
+    
+    # Cloud configuration - Domain is required
+    cloudConfig:
+      - domain: "maas-qa.sc"
+    
+    # Cluster profile reference
+    clusterProfile:
+      - idRef:
+          name: example-example-ran-maas-cluster-profile
+    
+    # Machine pools configuration - At least one is required
+    machinePool:
+      - name: control-plane
+        controlPlane: true
+        controlPlaneAsWorker: false
+        count: 1
+        instanceType:
+          - minCpu: 4
+            minMemoryMb: 8192
+        placement:
+          - resourcePool: "default"
+        azs:
+          - "az3"
+        additionalLabels:
+          node-role: control-plane
+          CP: Example
+        nodeTags:
+          - "k8s-control-plane"
+        
+      - name: worker-nodes
+        controlPlane: false
+        controlPlaneAsWorker: false
+        count: 1
+        instanceType:
+          - minCpu: 4
+            minMemoryMb: 8192
+        placement:
+          - resourcePool: "default"
+        azs:
+          - "az3"
+        additionalLabels:
+          node-role: worker
+          CP: Example
+        nodeTags:
+          - "k8s-worker"
+        taints:
+          - key: "dedicated"
+            value: "worker"
+            effect: "NoSchedule"
+    
+    # Backup policy (optional)
+    # backupPolicy:
+    #   - backupLocationId: "<YOUR_BACKUP_LOCATION_ID>"
+    #     expiryInHour: 7200
+    #     includeClusterResources: true
+    #     includeDisks: true
+    #     includeClusterResourcesMode: "always"
+    #     prefix: "prod-backup"
+    #     schedule: "0 2 * * *"  # Daily at 2 AM
+    #     namespaces:
+    #       - "kube-system"
+    #       - "default"
+    
+    # Scan policy (optional)
+    scanPolicy:
+      - configurationScanSchedule: "0 1 * * *"  # Daily at 1 AM
+        conformanceScanSchedule: "0 3 * * *"    # Daily at 3 AM
+        penetrationScanSchedule: "0 4 * * *"    # Daily at 4 AM
+    
+    # Host configuration (optional)
+    # hostConfig:
+    #   - hostEndpointType: "Ingress"
+    #     ingressHost: "maas-cluster.maas.local"
+    #     externalTrafficPolicy: "Local"
+    
+    # OS patching configuration (optional)
+    # osPatchOnBoot: false
+    # osPatchSchedule: "0 5 * * 0"  # Weekly on Sunday at 5 AM
+    
+    # Tags
+    tags:
+      - "cp:Example"
+      - "cloud:maas"
+      - "type:cluster"
+      - "env:production"
+    
+    # Force delete settings (optional)
+    # forceDelete: false
+    # forceDeleteDelay: 20
+    
+    # Skip completion (optional)
+    skipCompletion: false
+    
+    # Pause agent upgrades (optional)
+    pauseAgentUpgrades: "unlock"
+    
+    # Review repave state (optional)
+    # reviewRepaveState: ""
+    
+    # Apply setting (optional)
+    applySetting: "DownloadAndInstall"
+    
+    # Cluster meta attributes (optional)
+    clusterMetaAttribute: '{"nic_name": "eth0", "env": "production"}'
+    
+  providerConfigRef:
+    name: default
+  # deletionPolicy: Delete

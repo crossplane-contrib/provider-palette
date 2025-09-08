@@ -1,0 +1,14 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: CustomCloud
+metadata:
+  name: example-example-ran-nutanix-2
+  annotations:
+    # External name should just be the resource ID
+    crossplane.io/external-name: "<YOUR_RESOURCE_ID>:context:nutanix"
+spec:
+  managementPolicies: ["Observe"]
+  forProvider:
+    applySetting: DownloadAndInstall
+    cloud: nutanix
+    context: tenant
+       

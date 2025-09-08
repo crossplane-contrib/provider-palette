@@ -1,0 +1,75 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Sso
+metadata:
+  name: example-sso-config-m
+  namespace: crossplane-system
+  annotations:
+    description: "Example Namespaced SSO configuration for Palette tenant"
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/sso
+  labels:
+    testing.upbound.io/example-name: sso_namespaced_example
+spec:
+  # Provider configuration reference (required for namespaced resources)
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
+  
+  forProvider:
+    # External authentication providers (optional)
+    authProviders:
+      - "github"
+      - "google"
+    
+    # Domains associated with SSO configuration (optional)
+    domains:
+      - "example.com"
+      - "login.example.com"
+    
+    # OIDC configuration (optional - choose one: OIDC, SAML, or none)
+    oidc:
+      - clientId: "your-oidc-client-id"
+        clientSecretSecretRef:
+          key: "clientSecret"
+          name: "oidc-client-secret-m"
+        issuerUrl: "https://your-oidc-provider.com"
+        defaultTeamIds:
+          - "team-id-1"
+          - "team-id-2"
+        # Optional OIDC fields
+        email: "user@example.com"
+        firstName: "John"
+        lastName: "Doe"
+        # identityProviderCaCertificate: "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+        insecureSkipTlsVerify: false
+        scopes:
+          - "email"
+          - "profile"
+          - "openid"
+        spectroTeam: "groups"
+        # userInfoEndpoint configuration (optional)
+        # userInfoEndpoint:
+        #   - email: "user@example.com"
+        #     firstName: "John"
+        #     lastName: "Doe"
+        #     spectroTeam: "groups"
+    
+    # SAML configuration (optional - choose one: OIDC, SAML, or none)
+    # saml:
+    #   - defaultTeamIds:
+    #       - "team-id-1"
+    #       - "team-id-2"
+    #     email: "user@example.com"
+    #     enableSingleLogout: true
+    #     firstName: "John"
+    #     identityProviderMetadata: "<EntityDescriptor xmlns=\"urn:oasis:names:tc:SAML:2.0:metadata\">...</EntityDescriptor>"
+    #     lastName: "Doe"
+    #     nameIdFormat: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    #     serviceProvider: "Microsoft ADFS"
+    #     spectroTeam: "SpectroTeam"
+    
+    # SSO authentication type (required)
+    ssoAuthType: "oidc"  # Supported values: none, saml, oidc
+  
+  # Optional: Write connection details to a secret (only name required for namespaced)
+  writeConnectionSecretToRef:
+    name: sso-connection-secret-m

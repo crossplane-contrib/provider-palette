@@ -1,0 +1,248 @@
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  name: cluster-health-alert
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required fields
+    component: "ClusterHealth"
+    isActive: true
+    project: "Default"
+    type: "email"
+    
+    # Optional fields
+    alertAllUsers: false
+    # createdBy: "admin@example.com"
+    identifiers:
+      # - "abc@spectrocloud.com"
+      - "roy@spectrocloud.com"
+    
+    # Status block (optional, for internal use)
+    # status:
+    #   - isSucceeded: true
+    #     message: "Alert configured successfully"
+    #     time: "2024-01-15T10:30:00Z"
+  
+  # Provider configuration reference
+  providerConfigRef:
+    name: default
+  
+  # Connection secret configuration
+  # writeConnectionSecretToRef:
+  #   name: alert-connection-secret
+  #   namespace: crossplane-system
+
+---
+# Example of an HTTP-based alert
+apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  name: http-webhook-alert
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Required fields
+    component: "ClusterHealth"
+    isActive: true
+    project: "Default"
+    type: "http"
+    
+    # HTTP configuration for webhook alerts
+    http:
+      - url: "https://openhook.com/put/notify"
+        method: "POST"
+        body: '{"text": "{{message}}"}'
+        headers:
+          tag: "Health"
+          source: "spectrocloud"
+    
+    # Optional fields
+    # alertAllUsers: true
+    # createdBy: "system@example.com"
+    
+    # # Status block
+    # status:
+    #   - isSucceeded: true
+    #     message: "HTTP webhook alert configured"
+    #     time: "2024-01-15T10:30:00Z"
+  
+  providerConfigRef:
+    name: default
+  
+  writeConnectionSecretToRef:
+    name: webhook-alert-secret
+    namespace: crossplane-system
+
+# ---
+# # Example of a simple email alert for all users
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: simple-email-alert
+#   annotations:
+#     crossplane.io/external-name: simple-email-alert-789
+# spec:
+#   deletionPolicy: Delete
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "my-project"
+#     type: "email"
+    
+#     # Simple configuration - alert all users
+#     alertAllUsers: true
+#     createdBy: "admin@example.com"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: simple-alert-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with management policies
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: managed-alert
+#   annotations:
+#     crossplane.io/external-name: managed-alert-999
+# spec:
+#   # Management policies for fine-grained control
+#   managementPolicies:
+#     - "Create"
+#     - "Update"
+#     - "Delete"
+  
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "monitoring-project"
+#     type: "http"
+    
+#     # HTTP configuration
+#     http:
+#       - url: "https://slack.com/api/chat.postMessage"
+#         method: "POST"
+#         body: '{"channel": "#alerts", "text": "Cluster health alert triggered"}'
+#         headers:
+#           Content-Type: "application/json"
+#           Authorization: "Bearer xoxb-your-slack-token"
+    
+#     alertAllUsers: false
+#     createdBy: "monitoring-system@example.com"
+#     identifiers:
+#       - "oncall-team"
+#       - "devops-team"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: managed-alert-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with initProvider for creation-time only fields
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: init-provider-alert
+#   annotations:
+#     crossplane.io/external-name: init-provider-alert-777
+# spec:
+#   # InitProvider for fields that should only be set during creation
+#   initProvider:
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "init-project"
+#     type: "email"
+#     createdBy: "system@example.com"
+#     alertAllUsers: true
+  
+#   forProvider:
+#     # These fields will be merged from initProvider
+#     # Additional runtime configuration can be added here
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: init-alert-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with orphan deletion policy
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: orphan-alert
+#   annotations:
+#     crossplane.io/external-name: orphan-alert-555
+# spec:
+#   # Orphan deletion policy - external resource won't be deleted
+#   deletionPolicy: Orphan
+  
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "production-project"
+#     type: "email"
+    
+#     # Configuration
+#     alertAllUsers: false
+#     createdBy: "prod-admin@example.com"
+#     identifiers:
+#       - "prod-team@example.com"
+#       - "emergency-contacts"
+  
+#   providerConfigRef:
+#     name: default
+  
+#   writeConnectionSecretToRef:
+#     name: orphan-alert-secret
+#     namespace: crossplane-system
+
+# ---
+# # Example with custom provider config
+# apiVersion: spectrocloud.palette.crossplane.io/v1alpha1
+# kind: Alert
+# metadata:
+#   name: custom-provider-alert
+#   annotations:
+#     crossplane.io/external-name: custom-provider-alert-888
+# spec:
+#   deletionPolicy: Delete
+  
+#   forProvider:
+#     # Required fields
+#     component: "ClusterHealth"
+#     isActive: true
+#     project: "custom-project"
+#     type: "http"
+    
+#     # HTTP configuration for PagerDuty
+#     http:
+#       - url: "https://events.pagerduty.com/v2/enqueue"
+#         method: "POST"
+#         body: '{"routing_key": "your-pagerduty-key", "event_action": "trigger", "payload": {"summary": "Cluster health alert", "severity": "critical"}}'
+#         headers:
+#           Content-Type: "application/json"
+    
+#     alertAllUsers: false
+#     createdBy: "pagerduty-integration@example.com"
+#     identifiers:
+#       - "pagerduty-service"
+  
+#   # Custom provider configuration
+#   providerConfigRef:
+#     name: custom-palette-provider
+  
+#   writeConnectionSecretToRef:
+#     name: custom-provider-alert-secret
+#     namespace: crossplane-system

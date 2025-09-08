@@ -1,0 +1,56 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Helm
+metadata:
+  name: helm-registry-e2e
+  labels:
+    app: registry-helm
+    environment: e2e-testing
+    testing.upbound.io/example-name: helm-registry
+  annotations:
+    description: "Helm Registry for E2E testing"
+spec:
+  forProvider:
+    # Required: Registry name
+    name: helm-registry-e2e
+    
+    # Required: Registry endpoint URL
+    endpoint: "https://helm.example.com"
+    
+    # Required: Whether the registry is private
+    isPrivate: true
+    
+    # Required: Authentication credentials
+    credentials:
+      - credentialType: "basic"
+        username: "<YOUR_USERNAME>"
+        password: "<YOUR_PASSWORD>"
+        # Alternative: Use token-based authentication
+        # credentialType: "token"
+        # token: "<YOUR_AUTH_TOKEN>"
+        # Alternative: Use no authentication for public registries
+        # credentialType: "noAuth"
+    
+    # Optional: Base content path for charts
+    baseContentPath: "charts"
+    
+    # Optional: Enable synchronization
+    isSynchronization: true
+    
+    # Optional: Additional registry configuration
+    # registryType: "helm"
+    # version: "v3"
+    
+    # Optional: Registry metadata
+    # description: "Helm registry for storing and distributing charts"
+    # tags:
+    #   - "helm"
+    #   - "charts"
+    #   - "registry"
+  
+  # Crossplane configuration
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: helm-registry-connection-secret
+    namespace: crossplane-system
