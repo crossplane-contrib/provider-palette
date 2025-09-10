@@ -393,6 +393,8 @@ func configureClusterResources(p *config.Provider) {
 		r.References["backup_policy.backup_location_id"] = config.Reference{
 			TerraformName: "spectrocloud_backup_storage_location",
 		}
+
+		r.TerraformResource.Schema["cloud_config"].Elem.(*schema.Resource).Schema["vpc_id"].Sensitive = true
 	})
 }
 
