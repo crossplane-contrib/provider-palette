@@ -48,9 +48,9 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKey != nil {
-		in, out := &in.AwsAccessKey, &out.AwsAccessKey
-		*out = new(string)
+	if in.AwsAccessKeySecretRef != nil {
+		in, out := &in.AwsAccessKeySecretRef, &out.AwsAccessKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsSecretKeySecretRef != nil {
@@ -151,11 +151,6 @@ func (in *AwsObservation) DeepCopyInto(out *AwsObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKey != nil {
-		in, out := &in.AwsAccessKey, &out.AwsAccessKey
-		*out = new(string)
-		**out = **in
-	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -217,9 +212,9 @@ func (in *AwsParameters) DeepCopyInto(out *AwsParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKey != nil {
-		in, out := &in.AwsAccessKey, &out.AwsAccessKey
-		*out = new(string)
+	if in.AwsAccessKeySecretRef != nil {
+		in, out := &in.AwsAccessKeySecretRef, &out.AwsAccessKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsSecretKeySecretRef != nil {
