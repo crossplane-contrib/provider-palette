@@ -154,7 +154,7 @@ spec:
                                 type: string
                               insecureSkipVerify:
                                 description: |-
-                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                   Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                             type: object
@@ -297,7 +297,7 @@ spec:
                                 type: string
                               insecureSkipVerify:
                                 description: |-
-                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                   Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                             type: object
@@ -501,7 +501,7 @@ spec:
                                 type: string
                               insecureSkipVerify:
                                 description: |-
-                                  (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                   Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                             type: object

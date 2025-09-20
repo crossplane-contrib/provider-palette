@@ -40,7 +40,7 @@ type OidcInitParameters struct {
 	// Certificate authority (CA) certificate for the identity provider.
 	IdentityProviderCACertificate *string `json:"identityProviderCaCertificate,omitempty" tf:"identity_provider_ca_certificate,omitempty"`
 
-	// (Boolean) Boolean to skip TLS verification for identity provider communication.
+	// in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	// Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	InsecureSkipTLSVerify *bool `json:"insecureSkipTlsVerify,omitempty" tf:"insecure_skip_tls_verify,omitempty"`
 
@@ -93,7 +93,7 @@ type OidcObservation struct {
 	// Certificate authority (CA) certificate for the identity provider.
 	IdentityProviderCACertificate *string `json:"identityProviderCaCertificate,omitempty" tf:"identity_provider_ca_certificate,omitempty"`
 
-	// (Boolean) Boolean to skip TLS verification for identity provider communication.
+	// in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	// Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	InsecureSkipTLSVerify *bool `json:"insecureSkipTlsVerify,omitempty" tf:"insecure_skip_tls_verify,omitempty"`
 
@@ -156,7 +156,7 @@ type OidcParameters struct {
 	// +kubebuilder:validation:Optional
 	IdentityProviderCACertificate *string `json:"identityProviderCaCertificate,omitempty" tf:"identity_provider_ca_certificate,omitempty"`
 
-	// (Boolean) Boolean to skip TLS verification for identity provider communication.
+	// in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	// Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
 	// +kubebuilder:validation:Optional
 	InsecureSkipTLSVerify *bool `json:"insecureSkipTlsVerify,omitempty" tf:"insecure_skip_tls_verify,omitempty"`

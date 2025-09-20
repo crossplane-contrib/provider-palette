@@ -378,6 +378,7 @@ resources:
                 s3.credential_type: var.credential_type
                 s3.external_id: var.external_id
         argumentDocs:
+            <bsl_id>: is the Backup Storage Location ID
             access_key: (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
             arn: (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
             azure_client_id: (String) Unique client Id from Azure console.
@@ -397,6 +398,7 @@ resources:
             id: (String) The ID of this resource.
             is_default: (Boolean) Specifies if this backup storage location should be used as the default location for storing backups.
             name: (String) The name of the backup storage location. This is a unique identifier for the backup location.
+            project: or tenant specifies the context where the backup storage location exists
             project_id: (String) The GCP project ID.
             region: (String) The region where the backup storage is located, typically corresponding to the region of the cloud provider. This is relevant for S3 or S3-compatible(minio) storage services.
             resource_group: (String) The resource group name.
@@ -465,7 +467,7 @@ resources:
             azure_tenant_id: (String) Unique tenant Id from Azure console.
             cloud: |-
                 (String) The Azure partition in which the cloud account is located.
-                Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                 Default is 'AzurePublicCloud'.
             context: (String) The context of the Azure configuration. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             disable_properties_request: (Boolean) Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is false.
@@ -473,6 +475,7 @@ resources:
             name: (String) The name of the Azure cloud account.
             private_cloud_gateway_id: (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
             tenant_name: (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
+            tls_cert: (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
         importStatements: []
     spectrocloud_cloudaccount_custom:
         subCategory: ""
@@ -1642,8 +1645,8 @@ resources:
             additional_security_groups: (Set of String) Additional security groups to attach to the instance.
             additional_tags: (Map of String)
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-            ami_id: (String) The ID of the custom Amazon Machine Image (AMI).
-            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+            ami_id: (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
+            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             az_subnets: (Map of String) Mutually exclusive with azs. Use for Static provisioning.
             azs: (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
@@ -2188,6 +2191,7 @@ resources:
             description: (String) The description of the cluster. Default value is empty string.
             domain: (String) Domain name in which the cluster to be provisioned.
             effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
+            enable_lxd_vm: (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             external_traffic_policy: (String) The external traffic policy for the cluster.
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
@@ -2216,6 +2220,8 @@ resources:
             name: (String) The name of the cluster.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
+            network: '(Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)'
+            network_name: (String) The name of the network in which VMs are created/located.
             node: (Block List) (see below for nested schema)
             node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
             node_repave_interval: (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
@@ -2224,6 +2230,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+            parent_pool_uid: (String) The UID of the parent pool which allocates IPs for this IPPool.
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
             placement: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -2238,6 +2245,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            static_ip: (Boolean) Whether to use static IP. Default is false.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -2247,6 +2255,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            use_lxd_vm: (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2884,7 +2893,6 @@ resources:
             resources: '(Block List, Min: 1, Max: 1) A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources (see below for nested schema)'
             secret_ref: (String) Secret_ref provides the secret reference needed to access the HTTP source.
             selector: '(Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)'
-            self_link: (String) A URL representing this DataVolume.
             source: '(Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)'
             spec: '(Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)'
             status: '(Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)'
@@ -2983,35 +2991,6 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
             values: (List of String) Values of the filter.
-        importStatements: []
-    spectrocloud_macro:
-        subCategory: ""
-        description: A resource for creating and managing service output variables and macro. (Deprecated)
-        name: spectrocloud_macro
-        title: spectrocloud_macro Resource - terraform-provider-spectrocloud
-        examples:
-            - name: project_macro
-              manifest: |-
-                {
-                  "name": "project1",
-                  "project": "Default",
-                  "value": "project_val2"
-                }
-            - name: tenant_macro
-              manifest: |-
-                {
-                  "name": "tenant1",
-                  "value": "tenant_val1"
-                }
-        argumentDocs:
-            create: (String)
-            delete: (String)
-            id: (String) The ID of this resource.
-            name: (String) The name of the macro or service variable output.
-            project: (String) The Spectro Cloud project name.
-            timeouts: (Block, Optional) (see below for nested schema)
-            update: (String)
-            value: (String) The value that the macro or service output variable will contain.
         importStatements: []
     spectrocloud_macros:
         subCategory: ""
@@ -3135,6 +3114,8 @@ resources:
               references:
                 private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.gateway.id
         argumentDocs:
+            <dns_map_id>: is the DNS map ID
+            <pcg_id>: is the Private Cloud Gateway ID
             create: (String)
             data_center: (String) The data center in which the private cloud resides.
             delete: (String)
@@ -3184,6 +3165,8 @@ resources:
               references:
                 private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.pcg.id
         argumentDocs:
+            <ippool_id>: is the IP Pool ID
+            <pcg_id>: is the Private Cloud Gateway ID
             create: (String)
             delete: (String)
             gateway: (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
@@ -3326,7 +3309,7 @@ resources:
             endpoint_suffix: (String) Specifies a suffix to append to the endpoint. This field is optional, but some registries (e.g., JFrog) may require it. The final registry URL is constructed by appending this suffix to the endpoint.
             external_id: (String) The external ID used for AWS STS (Security Token Service) authentication. Required if 'credential_type' is 'sts'.
             id: (String) The ID of this resource.
-            insecure_skip_verify: (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+            insecure_skip_verify: '(Boolean) Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.'
             is_private: (Boolean) Specifies whether the registry is private or public. Private registries require authentication to access.
             is_synchronization: (Boolean) Specifies whether the registry is synchronized.
             name: (String) The name of the OCI registry.
@@ -3458,11 +3441,13 @@ resources:
                       "rsa_bits": "4096"
                     }
         argumentDocs:
+            <ssh_key_id>: is the SSH key ID
             context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
             name: (String) The name of the SSH key resource.
+            project: or tenant specifies the context where the SSH key exists
             ssh_key: (String, Sensitive) The SSH key value. This is the public key that will be used to access the cluster. Must be in the Authorized Keys format, such as ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ...
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
@@ -3519,7 +3504,7 @@ resources:
             id: (String) The ID of this resource.
             identity_provider_ca_certificate: (String) Certificate authority (CA) certificate for the identity provider.
             identity_provider_metadata: (String) Metadata XML of the SAML identity provider.
-            insecure_skip_tls_verify: (Boolean) Boolean to skip TLS verification for identity provider communication.
+            insecure_skip_tls_verify: '(Boolean) Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.'
             issuer: (String) SAML identity provider issuer URL.
             issuer_url: (String) URL of the OIDC issuer.
             last_name: (String) The name of the claim that returns the user's last name from the identity provider.

@@ -793,7 +793,7 @@ type EksInitParameters struct {
 
 type EksLaunchTemplateInitParameters struct {
 
-	// (String) The ID of the custom Amazon Machine Image (AMI).
+	// (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
 	// The ID of the custom Amazon Machine Image (AMI). If you do not set an `ami_id`, Palette will repave the cluster when it automatically updates the EKS AMI.
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
 
@@ -817,7 +817,7 @@ type EksLaunchTemplateInitParameters struct {
 
 type EksLaunchTemplateObservation struct {
 
-	// (String) The ID of the custom Amazon Machine Image (AMI).
+	// (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
 	// The ID of the custom Amazon Machine Image (AMI). If you do not set an `ami_id`, Palette will repave the cluster when it automatically updates the EKS AMI.
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
 
@@ -841,7 +841,7 @@ type EksLaunchTemplateObservation struct {
 
 type EksLaunchTemplateParameters struct {
 
-	// (String) The ID of the custom Amazon Machine Image (AMI).
+	// (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
 	// The ID of the custom Amazon Machine Image (AMI). If you do not set an `ami_id`, Palette will repave the cluster when it automatically updates the EKS AMI.
 	// +kubebuilder:validation:Optional
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
@@ -897,7 +897,7 @@ type EksLocationConfigParameters struct {
 
 type EksMachinePoolInitParameters struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
 	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
@@ -993,7 +993,7 @@ type EksMachinePoolNodeParameters struct {
 
 type EksMachinePoolObservation struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
 	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
@@ -1054,7 +1054,7 @@ type EksMachinePoolObservation struct {
 
 type EksMachinePoolParameters struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Available from Palette v4.7.0. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
 	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
 	// +kubebuilder:validation:Optional
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`

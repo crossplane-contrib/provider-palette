@@ -28,7 +28,7 @@ type AzureInitParameters struct {
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
@@ -51,6 +51,7 @@ type AzureInitParameters struct {
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
 
@@ -70,7 +71,7 @@ type AzureObservation struct {
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
@@ -96,6 +97,7 @@ type AzureObservation struct {
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
 
@@ -122,7 +124,7 @@ type AzureParameters struct {
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
@@ -150,6 +152,7 @@ type AzureParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
 	// +kubebuilder:validation:Optional
 	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
