@@ -3250,11 +3250,6 @@ spec:
                                   (String) An opaque value that represents the internal version of this VM that can be used by clients to determine when VM has changed.
                                   An opaque value that represents the internal version of this DataVolume that can be used by clients to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                                 type: string
-                              selfLink:
-                                description: |-
-                                  (String) A URL representing this VM.
-                                  A URL representing this DataVolume.
-                                type: string
                               uid:
                                 description: |-
                                   (String) The unique in time and space value for this VM.

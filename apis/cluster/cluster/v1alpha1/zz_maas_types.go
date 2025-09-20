@@ -181,6 +181,9 @@ type MaasCloudConfigInitParameters struct {
 	// (String) Domain name in which the cluster to be provisioned.
 	// Domain name in which the cluster to be provisioned.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 }
 
 type MaasCloudConfigObservation struct {
@@ -188,6 +191,9 @@ type MaasCloudConfigObservation struct {
 	// (String) Domain name in which the cluster to be provisioned.
 	// Domain name in which the cluster to be provisioned.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 }
 
 type MaasCloudConfigParameters struct {
@@ -196,6 +202,10 @@ type MaasCloudConfigParameters struct {
 	// Domain name in which the cluster to be provisioned.
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain" tf:"domain,omitempty"`
+
+	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	// +kubebuilder:validation:Optional
+	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 }
 
 type MaasClusterProfileInitParameters struct {
@@ -803,6 +813,9 @@ type MaasMachinePoolInitParameters struct {
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+	Network []NetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Node []MaasMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
@@ -824,6 +837,9 @@ type MaasMachinePoolInitParameters struct {
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	UseLxdVM *bool `json:"useLxdVm,omitempty" tf:"use_lxd_vm,omitempty"`
 }
 
 type MaasMachinePoolNodeInitParameters struct {
@@ -900,6 +916,9 @@ type MaasMachinePoolObservation struct {
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+	Network []NetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Node []MaasMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
@@ -921,6 +940,9 @@ type MaasMachinePoolObservation struct {
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	UseLxdVM *bool `json:"useLxdVm,omitempty" tf:"use_lxd_vm,omitempty"`
 }
 
 type MaasMachinePoolParameters struct {
@@ -971,6 +993,10 @@ type MaasMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+	// +kubebuilder:validation:Optional
+	Network []NetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []MaasMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
@@ -998,6 +1024,10 @@ type MaasMachinePoolParameters struct {
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	// +kubebuilder:validation:Optional
+	UseLxdVM *bool `json:"useLxdVm,omitempty" tf:"use_lxd_vm,omitempty"`
 }
 
 type MaasMachinePoolTaintsInitParameters struct {
@@ -1433,6 +1463,51 @@ type MachinePoolPlacementParameters struct {
 	// The name of the resource pool in the Maas cloud.
 	// +kubebuilder:validation:Optional
 	ResourcePool *string `json:"resourcePool" tf:"resource_pool,omitempty"`
+}
+
+type NetworkInitParameters struct {
+
+	// (String) The name of the cluster.
+	// The name of the network in which VMs are created/located.
+	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// Whether to use static IP. Default is `false`.
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type NetworkObservation struct {
+
+	// (String) The name of the cluster.
+	// The name of the network in which VMs are created/located.
+	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// Whether to use static IP. Default is `false`.
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type NetworkParameters struct {
+
+	// (String) The name of the cluster.
+	// The name of the network in which VMs are created/located.
+	// +kubebuilder:validation:Optional
+	NetworkName *string `json:"networkName" tf:"network_name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	// +kubebuilder:validation:Optional
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// Whether to use static IP. Default is `false`.
+	// +kubebuilder:validation:Optional
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 }
 
 // MaasSpec defines the desired state of Maas

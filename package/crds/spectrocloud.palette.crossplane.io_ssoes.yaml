@@ -142,7 +142,7 @@ spec:
                         insecureSkipTlsVerify:
                           description: |-
                             (Boolean) Boolean to skip TLS verification for identity provider communication.
-                            Boolean to skip TLS verification for identity provider communication.
+                            Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
                           type: boolean
                         issuerUrl:
                           description: |-
@@ -342,7 +342,7 @@ spec:
                         insecureSkipTlsVerify:
                           description: |-
                             (Boolean) Boolean to skip TLS verification for identity provider communication.
-                            Boolean to skip TLS verification for identity provider communication.
+                            Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
                           type: boolean
                         issuerUrl:
                           description: |-
@@ -611,7 +611,7 @@ spec:
                         insecureSkipTlsVerify:
                           description: |-
                             (Boolean) Boolean to skip TLS verification for identity provider communication.
-                            Boolean to skip TLS verification for identity provider communication.
+                            Boolean to skip TLS verification for identity provider communication. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to identity providers with self-signed certificates in trusted networks.
                           type: boolean
                         issuerUrl:
                           description: |-

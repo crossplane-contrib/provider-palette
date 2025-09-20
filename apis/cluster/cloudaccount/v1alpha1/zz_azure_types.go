@@ -31,7 +31,7 @@ type AzureInitParameters struct {
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
@@ -50,6 +50,9 @@ type AzureInitParameters struct {
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
+
+	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
 
 	// (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
 	// The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
@@ -70,7 +73,7 @@ type AzureObservation struct {
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
@@ -92,6 +95,9 @@ type AzureObservation struct {
 	// (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
+
+	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
 
 	// (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
 	// The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
@@ -119,7 +125,7 @@ type AzureParameters struct {
 	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
 	// Default is 'AzurePublicCloud'.
 	// The Azure partition in which the cloud account is located.
-	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+	// Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
 	// Default is 'AzurePublicCloud'.
 	// +kubebuilder:validation:Optional
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
@@ -143,6 +149,10 @@ type AzureParameters struct {
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
+
+	// TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+	// +kubebuilder:validation:Optional
+	TLSCert *string `json:"tlsCert,omitempty" tf:"tls_cert,omitempty"`
 
 	// (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
 	// The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.

@@ -745,9 +745,6 @@ spec:
                             version of this DataVolume that can be used by clients
                             to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
                           type: string
-                        selfLink:
-                          description: A URL representing this DataVolume.
-                          type: string
                         uid:
                           description: 'The unique in time and space value for this
                             DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids'
