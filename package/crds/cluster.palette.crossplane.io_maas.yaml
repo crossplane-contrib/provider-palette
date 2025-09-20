@@ -307,6 +307,11 @@ spec:
                             (String) Domain name in which the cluster to be provisioned.
                             Domain name in which the cluster to be provisioned.
                           type: string
+                        enableLxdVm:
+                          description: |-
+                            (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -661,6 +666,29 @@ spec:
                             (String) The name of the cluster.
                             Name of the machine pool.
                           type: string
+                        network:
+                          description: |-
+                            (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
+                            Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+                          items:
+                            properties:
+                              networkName:
+                                description: |-
+                                  (String) The name of the network in which VMs are created/located.
+                                  The name of the network in which VMs are created/located.
+                                type: string
+                              parentPoolUid:
+                                description: |-
+                                  (String) The UID of the parent pool which allocates IPs for this IPPool.
+                                  The UID of the parent pool which allocates IPs for this IPPool.
+                                type: string
+                              staticIp:
+                                description: |-
+                                  (Boolean) Whether to use static IP. Default is false.
+                                  Whether to use static IP. Default is `false`.
+                                type: boolean
+                            type: object
+                          type: array
                         node:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -728,6 +756,11 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
                           type: string
+                        useLxdVm:
+                          description: |-
+                            (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   name:
@@ -1065,6 +1098,11 @@ spec:
                             (String) Domain name in which the cluster to be provisioned.
                             Domain name in which the cluster to be provisioned.
                           type: string
+                        enableLxdVm:
+                          description: |-
+                            (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -1419,6 +1457,29 @@ spec:
                             (String) The name of the cluster.
                             Name of the machine pool.
                           type: string
+                        network:
+                          description: |-
+                            (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
+                            Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+                          items:
+                            properties:
+                              networkName:
+                                description: |-
+                                  (String) The name of the network in which VMs are created/located.
+                                  The name of the network in which VMs are created/located.
+                                type: string
+                              parentPoolUid:
+                                description: |-
+                                  (String) The UID of the parent pool which allocates IPs for this IPPool.
+                                  The UID of the parent pool which allocates IPs for this IPPool.
+                                type: string
+                              staticIp:
+                                description: |-
+                                  (Boolean) Whether to use static IP. Default is false.
+                                  Whether to use static IP. Default is `false`.
+                                type: boolean
+                            type: object
+                          type: array
                         node:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -1486,6 +1547,11 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
                           type: string
+                        useLxdVm:
+                          description: |-
+                            (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   name:
@@ -1769,6 +1835,11 @@ spec:
                             (String) Domain name in which the cluster to be provisioned.
                             Domain name in which the cluster to be provisioned.
                           type: string
+                        enableLxdVm:
+                          description: |-
+                            (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   cloudConfigId:
@@ -2070,6 +2141,29 @@ spec:
                             (String) The name of the cluster.
                             Name of the machine pool.
                           type: string
+                        network:
+                          description: |-
+                            (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
+                            Network configuration for the machine pool. Available once **Palette with LXD support** is released.
+                          items:
+                            properties:
+                              networkName:
+                                description: |-
+                                  (String) The name of the network in which VMs are created/located.
+                                  The name of the network in which VMs are created/located.
+                                type: string
+                              parentPoolUid:
+                                description: |-
+                                  (String) The UID of the parent pool which allocates IPs for this IPPool.
+                                  The UID of the parent pool which allocates IPs for this IPPool.
+                                type: string
+                              staticIp:
+                                description: |-
+                                  (Boolean) Whether to use static IP. Default is false.
+                                  Whether to use static IP. Default is `false`.
+                                type: boolean
+                            type: object
+                          type: array
                         node:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2142,6 +2236,11 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
                           type: string
+                        useLxdVm:
+                          description: |-
+                            (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
+                            Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+                          type: boolean
                       type: object
                     type: array
                   name:

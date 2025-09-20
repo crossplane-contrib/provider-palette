@@ -4477,11 +4477,6 @@ func (in *MetadataObservation) DeepCopyInto(out *MetadataObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SelfLink != nil {
-		in, out := &in.SelfLink, &out.SelfLink
-		*out = new(string)
-		**out = **in
-	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)

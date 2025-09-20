@@ -253,8 +253,8 @@ type TLSConfigInitParameters struct {
 	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
-	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
-	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
@@ -264,8 +264,8 @@ type TLSConfigObservation struct {
 	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
-	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
-	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
@@ -276,8 +276,8 @@ type TLSConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
-	// (Boolean) Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
-	// Disables TLS certificate verification when set to true. Use with caution as it may expose connections to security risks.
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
 	// +kubebuilder:validation:Optional
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }

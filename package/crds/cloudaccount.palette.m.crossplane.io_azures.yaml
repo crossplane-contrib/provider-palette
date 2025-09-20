@@ -85,10 +85,10 @@ spec:
                   cloud:
                     description: |-
                       (String) The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                       The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                     type: string
                   context:
@@ -115,6 +115,11 @@ spec:
                     description: |-
                       (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
                       The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
+                    type: string
+                  tlsCert:
+                    description: |-
+                      (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+                      TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
                     type: string
                 type: object
               initProvider:
@@ -157,10 +162,10 @@ spec:
                   cloud:
                     description: |-
                       (String) The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                       The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                     type: string
                   context:
@@ -187,6 +192,11 @@ spec:
                     description: |-
                       (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
                       The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
+                    type: string
+                  tlsCert:
+                    description: |-
+                      (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+                      TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
                     type: string
                 required:
                 - azureClientSecretSecretRef
@@ -283,10 +293,10 @@ spec:
                   cloud:
                     description: |-
                       (String) The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                       The Azure partition in which the cloud account is located.
-                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions.
+                      Can be 'AzurePublicCloud' for standard Azure regions or 'AzureUSGovernmentCloud' for Azure GovCloud (US) regions or 'AzureUSSecretCloud' for Azure Secret Cloud regions.
                       Default is 'AzurePublicCloud'.
                     type: string
                   context:
@@ -316,6 +326,11 @@ spec:
                     description: |-
                       (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
                       The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
+                    type: string
+                  tlsCert:
+                    description: |-
+                      (String) TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
+                      TLS certificate for authentication. This field is only allowed when cloud is set to 'AzureUSSecretCloud'.
                     type: string
                 type: object
               conditions:

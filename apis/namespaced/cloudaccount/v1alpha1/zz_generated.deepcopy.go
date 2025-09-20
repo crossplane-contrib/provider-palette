@@ -381,6 +381,11 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TLSCert != nil {
+		in, out := &in.TLSCert, &out.TLSCert
+		*out = new(string)
+		**out = **in
+	}
 	if in.TenantName != nil {
 		in, out := &in.TenantName, &out.TenantName
 		*out = new(string)
@@ -473,6 +478,11 @@ func (in *AzureObservation) DeepCopyInto(out *AzureObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TLSCert != nil {
+		in, out := &in.TLSCert, &out.TLSCert
+		*out = new(string)
+		**out = **in
+	}
 	if in.TenantName != nil {
 		in, out := &in.TenantName, &out.TenantName
 		*out = new(string)
@@ -526,6 +536,11 @@ func (in *AzureParameters) DeepCopyInto(out *AzureParameters) {
 	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
+		*out = new(string)
+		**out = **in
+	}
+	if in.TLSCert != nil {
+		in, out := &in.TLSCert, &out.TLSCert
 		*out = new(string)
 		**out = **in
 	}

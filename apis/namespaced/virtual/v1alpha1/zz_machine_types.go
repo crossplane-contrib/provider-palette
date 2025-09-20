@@ -1468,10 +1468,6 @@ type MetadataObservation struct {
 	// An opaque value that represents the internal version of this DataVolume that can be used by clients to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 	ResourceVersion *string `json:"resourceVersion,omitempty" tf:"resource_version,omitempty"`
 
-	// (String) A URL representing this VM.
-	// A URL representing this DataVolume.
-	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
-
 	// (String) The unique in time and space value for this VM.
 	// The unique in time and space value for this DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`

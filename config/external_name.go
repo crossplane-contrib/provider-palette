@@ -65,6 +65,55 @@ func FormattedIdentifierFromProvider() config.ExternalName {
 	return e
 }
 
+func FormattedIdentifierPCG() config.ExternalName {
+	e := config.IdentifierFromProvider // Use IdentifierFromProvider to keep name field in spec
+
+	// CREATE/IMPORT: use appropriate identifier + context → composite ID for Terraform
+	e.GetIDFn = func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
+		var identifier string
+
+		// During CREATE: externalName is empty, use name from parameters
+		// During IMPORT: externalName is set from annotation, use it
+		if externalName != "" {
+			identifier = externalName
+		} else {
+			// Fallback to name parameter for CREATE operations
+			name, ok := parameters["name"].(string)
+			if !ok || name == "" {
+				return "", errors.New("name parameter is required when external name is not provided")
+			}
+			identifier = name
+		}
+
+		return identifier, nil
+	}
+
+	// IMPORT: terraform state ID → external name
+	// The terraform provider stores composite ID in format "id:context"
+	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
+		id, ok := tfstate["id"]
+		if !ok {
+			return "", errors.New("id attribute missing from terraform state")
+		}
+
+		idStr, ok := id.(string)
+		if !ok {
+			return "", errors.New("id must be a string")
+		}
+
+		// Split composite ID and return only the ID part
+		// Example: "687f86db08e0e7ea51677fa3:d34236db08e0e7ea5167233sw" → "d34236db08e0e7ea5167233sw"
+		parts := strings.Split(idStr, ":")
+		if len(parts) >= 2 {
+			return parts[1], nil // Return the ID part
+		}
+		// Fallback for simple ID format (if any)
+		return idStr, nil
+	}
+
+	return e
+}
+
 // platformSetting returns external name configuration for spectrocloud_platform_setting
 // Handles the special "platformsetting-" prefix pattern: "platformsetting-{external_name}:{context}"
 func platformSetting() config.ExternalName {
@@ -230,12 +279,12 @@ func clusterCustomCloud() config.ExternalName {
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Spectro Cloud resources - most use provider-generated IDs
-	"spectrocloud_addon_deployment":        config.IdentifierFromProvider,
+	"spectrocloud_addon_deployment":        config.IdentifierFromProvider, // Observe is not support operational resource
 	"spectrocloud_alert":                   config.IdentifierFromProvider,
 	"spectrocloud_appliance":               config.IdentifierFromProvider,
 	"spectrocloud_application":             config.IdentifierFromProvider,
 	"spectrocloud_application_profile":     config.IdentifierFromProvider,
-	"spectrocloud_backup_storage_location": config.IdentifierFromProvider,
+	"spectrocloud_backup_storage_location": FormattedIdentifierFromProvider(),
 	"spectrocloud_cloudaccount_aws":        FormattedIdentifierFromProvider(),
 	"spectrocloud_cloudaccount_azure":      FormattedIdentifierFromProvider(),
 	"spectrocloud_cloudaccount_custom":     cloudAccountCustom(),
@@ -252,33 +301,32 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_cluster_eks":             FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_gcp":             FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_gke":             FormattedIdentifierFromProvider(),
-	"spectrocloud_cluster_group":           config.IdentifierFromProvider,
+	"spectrocloud_cluster_group":           FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_maas":            FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_openstack":       FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_profile":         FormattedIdentifierFromProvider(),
 	// "spectrocloud_cluster_profile_import" - skipped via SkipList
-	"spectrocloud_cluster_vsphere":   FormattedIdentifierFromProvider(),
-	"spectrocloud_datavolume":        config.IdentifierFromProvider,
-	"spectrocloud_developer_setting": config.IdentifierFromProvider,
-	"spectrocloud_filter":            config.IdentifierFromProvider,
-	// "spectrocloud_macro" - skipped via SkipList (singular only)
-	"spectrocloud_macros":                      config.IdentifierFromProvider,
+	"spectrocloud_cluster_vsphere":             FormattedIdentifierFromProvider(),
+	"spectrocloud_datavolume":                  config.IdentifierFromProvider, // Observe is not support
+	"spectrocloud_developer_setting":           config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
+	"spectrocloud_filter":                      config.IdentifierFromProvider,
+	"spectrocloud_macros":                      FormattedIdentifierFromProvider(),
 	"spectrocloud_password_policy":             config.IdentifierFromProvider,
 	"spectrocloud_platform_setting":            platformSetting(),
-	"spectrocloud_privatecloudgateway_dns_map": config.IdentifierFromProvider,
-	"spectrocloud_privatecloudgateway_ippool":  config.IdentifierFromProvider,
+	"spectrocloud_privatecloudgateway_dns_map": FormattedIdentifierPCG(),
+	"spectrocloud_privatecloudgateway_ippool":  FormattedIdentifierPCG(),
 	"spectrocloud_project":                     config.IdentifierFromProvider,
 	"spectrocloud_registration_token":          config.IdentifierFromProvider,
 	"spectrocloud_registry_helm":               config.IdentifierFromProvider,
 	"spectrocloud_registry_oci":                config.IdentifierFromProvider,
-	"spectrocloud_resource_limit":              config.IdentifierFromProvider,
+	"spectrocloud_resource_limit":              config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
 	"spectrocloud_role":                        config.IdentifierFromProvider,
-	"spectrocloud_ssh_key":                     config.IdentifierFromProvider,
-	"spectrocloud_sso":                         config.IdentifierFromProvider,
+	"spectrocloud_ssh_key":                     FormattedIdentifierFromProvider(),
+	"spectrocloud_sso":                         config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
 	"spectrocloud_team":                        config.IdentifierFromProvider,
 	"spectrocloud_user":                        config.IdentifierFromProvider,
 	"spectrocloud_virtual_cluster":             config.IdentifierFromProvider,
-	"spectrocloud_virtual_machine":             config.IdentifierFromProvider,
+	"spectrocloud_virtual_machine":             config.IdentifierFromProvider, // Not added support in provider
 	"spectrocloud_workspace":                   config.IdentifierFromProvider,
 }
 
