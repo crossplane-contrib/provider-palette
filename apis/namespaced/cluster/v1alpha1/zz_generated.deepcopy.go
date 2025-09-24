@@ -14366,9 +14366,9 @@ func (in *EksCloudConfigInitParameters) DeepCopyInto(out *EksCloudConfigInitPara
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCID != nil {
-		in, out := &in.VPCID, &out.VPCID
-		*out = new(string)
+	if in.VPCIDSecretRef != nil {
+		in, out := &in.VPCIDSecretRef, &out.VPCIDSecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 }
@@ -14452,11 +14452,6 @@ func (in *EksCloudConfigObservation) DeepCopyInto(out *EksCloudConfigObservation
 	}
 	if in.SSHKeyName != nil {
 		in, out := &in.SSHKeyName, &out.SSHKeyName
-		*out = new(string)
-		**out = **in
-	}
-	if in.VPCID != nil {
-		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
 	}
@@ -14544,9 +14539,9 @@ func (in *EksCloudConfigParameters) DeepCopyInto(out *EksCloudConfigParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCID != nil {
-		in, out := &in.VPCID, &out.VPCID
-		*out = new(string)
+	if in.VPCIDSecretRef != nil {
+		in, out := &in.VPCIDSecretRef, &out.VPCIDSecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 }
