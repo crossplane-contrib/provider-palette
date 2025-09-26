@@ -1286,7 +1286,7 @@ resources:
             latitude: (Number) The latitude coordinates value.
             location_config: (Block List) (see below for nested schema)
             longitude: (Number) The longitude coordinates value.
-            machine_pool: '(Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
+            machine_pool: '(Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             name: (String) The name of the cluster.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1696,7 +1696,7 @@ resources:
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
-            machine_pool: '(Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
+            machine_pool: '(Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             max_price: (String)

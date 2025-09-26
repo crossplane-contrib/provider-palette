@@ -645,7 +645,7 @@ spec:
                     type: array
                   machinePool:
                     description: |-
-                      (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
                       The machine pool configuration for the cluster.
                     items:
                       properties:
@@ -1467,7 +1467,7 @@ spec:
                     type: array
                   machinePool:
                     description: |-
-                      (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
                       The machine pool configuration for the cluster.
                     items:
                       properties:
@@ -2208,7 +2208,7 @@ spec:
                     type: array
                   machinePool:
                     description: |-
-                      (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
                       The machine pool configuration for the cluster.
                     items:
                       properties:
