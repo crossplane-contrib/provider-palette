@@ -741,7 +741,7 @@ type EksInitParameters struct {
 	// The host configuration for the cluster.
 	HostConfig []EksHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	MachinePool []EksMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
@@ -1287,7 +1287,7 @@ type EksObservation struct {
 	// The location of the cluster.
 	LocationConfig []EksLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	MachinePool []EksMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
@@ -1412,7 +1412,7 @@ type EksParameters struct {
 	// +kubebuilder:validation:Optional
 	HostConfig []EksHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	MachinePool []EksMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`

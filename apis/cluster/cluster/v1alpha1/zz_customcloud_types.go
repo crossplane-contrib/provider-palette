@@ -608,7 +608,7 @@ type CustomCloudInitParameters struct {
 	// (Block List) (see below for nested schema)
 	LocationConfig []CustomCloudLocationConfigInitParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	MachinePool []CustomCloudMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
@@ -991,7 +991,7 @@ type CustomCloudObservation struct {
 	// (Block List) (see below for nested schema)
 	LocationConfig []CustomCloudLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	MachinePool []CustomCloudMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
@@ -1102,7 +1102,7 @@ type CustomCloudParameters struct {
 	// +kubebuilder:validation:Optional
 	LocationConfig []CustomCloudLocationConfigParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
 	// The machine pool configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	MachinePool []CustomCloudMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
