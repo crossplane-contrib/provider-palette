@@ -218,11 +218,25 @@ spec:
                             (String) The S3 URL endpoint.
                             The S3 URL endpoint.
                           type: string
-                        secretKey:
+                        secretKeySecretRef:
                           description: |-
-                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            (String, Sensitive) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                             The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   storageProvider:
@@ -392,11 +406,25 @@ spec:
                             (String) The S3 URL endpoint.
                             The S3 URL endpoint.
                           type: string
-                        secretKey:
+                        secretKeySecretRef:
                           description: |-
-                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+                            (String, Sensitive) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                             The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   storageProvider:
@@ -630,11 +658,6 @@ spec:
                           description: |-
                             (String) The S3 URL endpoint.
                             The S3 URL endpoint.
-                          type: string
-                        secretKey:
-                          description: |-
-                            (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                            The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
                           type: string
                       type: object
                     type: array

@@ -451,6 +451,48 @@ type SelectorInitParameters struct {
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
+type SelectorMatchExpressionsInitParameters struct {
+
+	// The label key that the selector applies to.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
+	// +listType=set
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type SelectorMatchExpressionsObservation struct {
+
+	// The label key that the selector applies to.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
+	// +listType=set
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type SelectorMatchExpressionsParameters struct {
+
+	// The label key that the selector applies to.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
 type SelectorObservation struct {
 
 	// A list of label selector requirements. The requirements are ANDed.
@@ -600,6 +642,9 @@ type SpecInitParameters struct {
 
 	// Source is the src of the data for the requested DataVolume.
 	Source []SourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
+
+	// Storage is the requested storage specification for the DataVolume.
+	Storage []StorageInitParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type SpecObservation struct {
@@ -612,6 +657,9 @@ type SpecObservation struct {
 
 	// Source is the src of the data for the requested DataVolume.
 	Source []SourceObservation `json:"source,omitempty" tf:"source,omitempty"`
+
+	// Storage is the requested storage specification for the DataVolume.
+	Storage []StorageObservation `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type SpecParameters struct {
@@ -622,11 +670,154 @@ type SpecParameters struct {
 
 	// PVC is a pointer to the PVC Spec we want to use.
 	// +kubebuilder:validation:Optional
-	Pvc []PvcParameters `json:"pvc" tf:"pvc,omitempty"`
+	Pvc []PvcParameters `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
 	// Source is the src of the data for the requested DataVolume.
 	// +kubebuilder:validation:Optional
 	Source []SourceParameters `json:"source,omitempty" tf:"source,omitempty"`
+
+	// Storage is the requested storage specification for the DataVolume.
+	// +kubebuilder:validation:Optional
+	Storage []StorageParameters `json:"storage,omitempty" tf:"storage,omitempty"`
+}
+
+type StorageInitParameters struct {
+
+	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// +listType=set
+	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
+
+	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	Resources []StorageResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// A label query over volumes to consider for binding.
+	Selector []StorageSelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
+
+	// Name of the storage class requested by the claim
+	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
+
+	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
+
+	// The binding reference to the PersistentVolume backing this claim.
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
+}
+
+type StorageObservation struct {
+
+	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// +listType=set
+	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
+
+	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	Resources []StorageResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// A label query over volumes to consider for binding.
+	Selector []StorageSelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
+
+	// Name of the storage class requested by the claim
+	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
+
+	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
+
+	// The binding reference to the PersistentVolume backing this claim.
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
+}
+
+type StorageParameters struct {
+
+	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
+
+	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	// +kubebuilder:validation:Optional
+	Resources []StorageResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// A label query over volumes to consider for binding.
+	// +kubebuilder:validation:Optional
+	Selector []StorageSelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
+
+	// Name of the storage class requested by the claim
+	// +kubebuilder:validation:Optional
+	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
+
+	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+	// +kubebuilder:validation:Optional
+	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
+
+	// The binding reference to the PersistentVolume backing this claim.
+	// +kubebuilder:validation:Optional
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
+}
+
+type StorageResourcesInitParameters struct {
+
+	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
+	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
+
+	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
+	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
+}
+
+type StorageResourcesObservation struct {
+
+	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
+	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
+
+	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +mapType=granular
+	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
+}
+
+type StorageResourcesParameters struct {
+
+	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
+
+	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
+}
+
+type StorageSelectorInitParameters struct {
+
+	// A list of label selector requirements. The requirements are ANDed.
+	MatchExpressions []SelectorMatchExpressionsInitParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
+
+	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
+	// +mapType=granular
+	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+}
+
+type StorageSelectorObservation struct {
+
+	// A list of label selector requirements. The requirements are ANDed.
+	MatchExpressions []SelectorMatchExpressionsObservation `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
+
+	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
+	// +mapType=granular
+	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+}
+
+type StorageSelectorParameters struct {
+
+	// A list of label selector requirements. The requirements are ANDed.
+	// +kubebuilder:validation:Optional
+	MatchExpressions []SelectorMatchExpressionsParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
+
+	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 }
 
 type VolumeSourceInitParameters struct {

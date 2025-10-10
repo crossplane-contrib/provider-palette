@@ -17,4 +17,7 @@ spec:
     - accessKey: ${var.aws_access_key}
       credentialType: ${var.credential_type}
       s3ForcePathStyle: false
-      secretKey: ${var.aws_secret_key}
+      secretKeySecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system

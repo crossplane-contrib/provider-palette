@@ -21,7 +21,7 @@ func (mg *StorageLocation) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this StorageLocation
 func (tr *StorageLocation) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"azure_storage_config[*].azure_client_secret": "azureStorageConfig[*].azureClientSecretSecretRef"}
+	return map[string]string{"azure_storage_config[*].azure_client_secret": "azureStorageConfig[*].azureClientSecretSecretRef", "s3[*].secret_key": "s3[*].secretKeySecretRef"}
 }
 
 // GetObservation of this StorageLocation
