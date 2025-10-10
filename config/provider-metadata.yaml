@@ -405,7 +405,7 @@ resources:
             s3: '(Block List, Max: 1) S3-specific settings for configuring the backup storage location. (see below for nested schema)'
             s3_force_path_style: (Boolean) A boolean flag indicating whether to enforce the path-style URL for accessing S3.
             s3_url: (String) The S3 URL endpoint.
-            secret_key: (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+            secret_key: (String, Sensitive) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
             stock_keeping_unit: '(String) The stop-keeping unit. eg: Standard_LRS'
             storage_name: (String) The storage name.
             storage_provider: (String) The storage location provider for backup storage. Allowed values are aws or minio or gcp or azure. Default value is aws.
@@ -2063,7 +2063,7 @@ resources:
             host_dns: (String) The host DNS wildcard for the cluster. i.e. *.dev or *test.com
             host_endpoint_type: (String) The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
             id: (String) The ID of this resource.
-            k8s_distribution: (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
+            k8s_distribution: (String) The Kubernetes distribution, allowed values are vcluster-generic,k3s and cncf_k8s.
             manifest: (Block List) (see below for nested schema)
             memory_in_mb: (Number) The memory limit in megabytes (MB).
             name: (String) Name of the cluster group
@@ -2886,7 +2886,7 @@ resources:
             operator: (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
             phase: (String) DataVolumePhase is the current phase of the DataVolume.
             progress: (String) DataVolumePhase is the current phase of the DataVolume.
-            pvc: '(Block List, Min: 1, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)'
+            pvc: '(Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)'
             registry: '(Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)'
             requests: '(Map of String) Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to limits if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
             resource_version: '(String) An opaque value that represents the internal version of this DataVolume that can be used by clients to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
@@ -2896,6 +2896,7 @@ resources:
             source: '(Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)'
             spec: '(Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)'
             status: '(Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)'
+            storage: '(Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)'
             storage_class_name: (String) Name of the storage class requested by the claim
             timeouts: (Block, Optional) (see below for nested schema)
             uid: '(String) The unique in time and space value for this DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids'
@@ -3890,6 +3891,7 @@ resources:
             annotations: (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
             base_vm_name: (String) The name of the source virtual machine that a clone will be created of.
             blank: '(Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)'
+            boot_order: (Number) BootOrder is an integer value > 0, used to determine ordering of boot devices. Lower values take precedence.
             bus: (String) Bus indicates the type of disk device to emulate.
             capacity: (String) Capacity of the sparse disk.
             cert_config_map: (String) Cert_config_map provides a reference to the Registry certs.
@@ -3970,7 +3972,7 @@ resources:
             preference: '(Block List, Min: 1, Max: 1) A node selector term, associated with the corresponding weight. (see below for nested schema)'
             preferred_during_scheduling_ignored_during_execution: (Block List) The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. (see below for nested schema)
             priority_class_name: (String) If specified, indicates the pod's priority. If not specified, the pod priority will be default or zero if there is no default.
-            pvc: '(Block List, Min: 1, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)'
+            pvc: '(Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)'
             read_only: (Boolean) ReadOnly. Defaults to false.
             readiness_probe: '(Block List, Max: 1) Specification of the desired behavior of the VirtualMachineInstance on the host. (see below for nested schema)'
             ready: (Boolean) Ready indicates if the virtual machine is running and ready.
@@ -3995,6 +3997,7 @@ resources:
             spec: '(Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)'
             state_change_requests: '(Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)'
             status: '(Block List, Max: 1) VirtualMachineStatus represents the status returned by the controller to describe how the VirtualMachine is doing. (see below for nested schema)'
+            storage: '(Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)'
             storage_class_name: (String) Name of the storage class requested by the claim
             subdomain: (String) If specified, the fully qualified vmi hostname will be "...svc.".
             termination_grace_period_seconds: (Number) Grace period observed after signalling a VirtualMachineInstance to stop after which the VirtualMachineInstance is force terminated.

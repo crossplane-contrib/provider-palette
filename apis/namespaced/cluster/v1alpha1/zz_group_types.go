@@ -59,8 +59,8 @@ type ConfigInitParameters struct {
 	// The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 
 	// (Number) The memory limit in megabytes (MB).
@@ -89,8 +89,8 @@ type ConfigObservation struct {
 	// The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 
 	// (Number) The memory limit in megabytes (MB).
@@ -121,8 +121,8 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
 	// +kubebuilder:validation:Optional
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 

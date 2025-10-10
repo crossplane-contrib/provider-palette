@@ -248,8 +248,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-
@@ -498,8 +498,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-
@@ -735,8 +735,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            (String) The Kubernetes distribution, allowed values are k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-

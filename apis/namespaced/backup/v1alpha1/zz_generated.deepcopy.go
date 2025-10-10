@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -272,9 +273,9 @@ func (in *S3InitParameters) DeepCopyInto(out *S3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecretKey != nil {
-		in, out := &in.SecretKey, &out.SecretKey
-		*out = new(string)
+	if in.SecretKeySecretRef != nil {
+		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 }
@@ -319,11 +320,6 @@ func (in *S3Observation) DeepCopyInto(out *S3Observation) {
 	}
 	if in.S3URL != nil {
 		in, out := &in.S3URL, &out.S3URL
-		*out = new(string)
-		**out = **in
-	}
-	if in.SecretKey != nil {
-		in, out := &in.SecretKey, &out.SecretKey
 		*out = new(string)
 		**out = **in
 	}
@@ -372,9 +368,9 @@ func (in *S3Parameters) DeepCopyInto(out *S3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecretKey != nil {
-		in, out := &in.SecretKey, &out.SecretKey
-		*out = new(string)
+	if in.SecretKeySecretRef != nil {
+		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 }

@@ -184,9 +184,9 @@ type S3InitParameters struct {
 	// The S3 URL endpoint.
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
-	// (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+	// (String, Sensitive) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
+	SecretKeySecretRef *v1.LocalSecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 }
 
 type S3Observation struct {
@@ -214,10 +214,6 @@ type S3Observation struct {
 	// (String) The S3 URL endpoint.
 	// The S3 URL endpoint.
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
-
-	// (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
 }
 
 type S3Parameters struct {
@@ -252,10 +248,10 @@ type S3Parameters struct {
 	// +kubebuilder:validation:Optional
 	S3URL *string `json:"s3Url,omitempty" tf:"s3_url,omitempty"`
 
-	// (String) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
+	// (String, Sensitive) The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	// The secret key for S3 authentication, required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
-	SecretKey *string `json:"secretKey,omitempty" tf:"secret_key,omitempty"`
+	SecretKeySecretRef *v1.LocalSecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 }
 
 type StorageLocationInitParameters struct {
