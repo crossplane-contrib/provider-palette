@@ -4,7 +4,10 @@
 PROJECT_NAME := provider-palette
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.12.2
+# Do not allow a version of terraform greater than 1.5.x, due to versions 1.6+ being
+# licensed under BSL, which is not permitted.
+export TERRAFORM_VERSION ?= 1.5.7
+
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
 export TERRAFORM_PROVIDER_VERSION := 0.25.2
