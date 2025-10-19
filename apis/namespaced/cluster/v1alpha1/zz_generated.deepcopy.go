@@ -3343,6 +3343,11 @@ func (in *AzureClusterProfilePackInitParameters) DeepCopyInto(out *AzureClusterP
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -3395,6 +3400,11 @@ func (in *AzureClusterProfilePackObservation) DeepCopyInto(out *AzureClusterProf
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -3444,6 +3454,11 @@ func (in *AzureClusterProfilePackParameters) DeepCopyInto(out *AzureClusterProfi
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -5825,6 +5840,11 @@ func (in *ClusterProfilePackInitParameters) DeepCopyInto(out *ClusterProfilePack
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -5957,6 +5977,11 @@ func (in *ClusterProfilePackObservation) DeepCopyInto(out *ClusterProfilePackObs
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -6006,6 +6031,11 @@ func (in *ClusterProfilePackParameters) DeepCopyInto(out *ClusterProfilePackPara
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -7145,6 +7175,11 @@ func (in *CustomCloudClusterProfilePackInitParameters) DeepCopyInto(out *CustomC
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -7277,6 +7312,11 @@ func (in *CustomCloudClusterProfilePackObservation) DeepCopyInto(out *CustomClou
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -7326,6 +7366,11 @@ func (in *CustomCloudClusterProfilePackParameters) DeepCopyInto(out *CustomCloud
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -9596,6 +9641,11 @@ func (in *EdgeNativeClusterProfilePackInitParameters) DeepCopyInto(out *EdgeNati
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -9728,6 +9778,11 @@ func (in *EdgeNativeClusterProfilePackObservation) DeepCopyInto(out *EdgeNativeC
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -9777,6 +9832,11 @@ func (in *EdgeNativeClusterProfilePackParameters) DeepCopyInto(out *EdgeNativeCl
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -12089,6 +12149,11 @@ func (in *EdgeVsphereClusterProfilePackInitParameters) DeepCopyInto(out *EdgeVsp
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -12221,6 +12286,11 @@ func (in *EdgeVsphereClusterProfilePackObservation) DeepCopyInto(out *EdgeVspher
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -12270,6 +12340,11 @@ func (in *EdgeVsphereClusterProfilePackParameters) DeepCopyInto(out *EdgeVsphere
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -14672,6 +14747,11 @@ func (in *EksClusterProfilePackInitParameters) DeepCopyInto(out *EksClusterProfi
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -14804,6 +14884,11 @@ func (in *EksClusterProfilePackObservation) DeepCopyInto(out *EksClusterProfileP
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -14853,6 +14938,11 @@ func (in *EksClusterProfilePackParameters) DeepCopyInto(out *EksClusterProfilePa
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -17528,6 +17618,11 @@ func (in *GCPClusterProfilePackInitParameters) DeepCopyInto(out *GCPClusterProfi
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -17660,6 +17755,11 @@ func (in *GCPClusterProfilePackObservation) DeepCopyInto(out *GCPClusterProfileP
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -17709,6 +17809,11 @@ func (in *GCPClusterProfilePackParameters) DeepCopyInto(out *GCPClusterProfilePa
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -19901,6 +20006,11 @@ func (in *GkeClusterProfilePackInitParameters) DeepCopyInto(out *GkeClusterProfi
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -20033,6 +20143,11 @@ func (in *GkeClusterProfilePackObservation) DeepCopyInto(out *GkeClusterProfileP
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -20082,6 +20197,11 @@ func (in *GkeClusterProfilePackParameters) DeepCopyInto(out *GkeClusterProfilePa
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -21885,6 +22005,11 @@ func (in *GroupClusterProfilePackInitParameters) DeepCopyInto(out *GroupClusterP
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -22017,6 +22142,11 @@ func (in *GroupClusterProfilePackObservation) DeepCopyInto(out *GroupClusterProf
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -22066,6 +22196,11 @@ func (in *GroupClusterProfilePackParameters) DeepCopyInto(out *GroupClusterProfi
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -23151,6 +23286,11 @@ func (in *MaasClusterProfilePackInitParameters) DeepCopyInto(out *MaasClusterPro
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -23283,6 +23423,11 @@ func (in *MaasClusterProfilePackObservation) DeepCopyInto(out *MaasClusterProfil
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -23332,6 +23477,11 @@ func (in *MaasClusterProfilePackParameters) DeepCopyInto(out *MaasClusterProfile
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -26745,6 +26895,11 @@ func (in *OpenstackClusterProfilePackInitParameters) DeepCopyInto(out *Openstack
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -26877,6 +27032,11 @@ func (in *OpenstackClusterProfilePackObservation) DeepCopyInto(out *OpenstackClu
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -26926,6 +27086,11 @@ func (in *OpenstackClusterProfilePackParameters) DeepCopyInto(out *OpenstackClus
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -28743,6 +28908,11 @@ func (in *PackInitParameters) DeepCopyInto(out *PackInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -28875,6 +29045,11 @@ func (in *PackObservation) DeepCopyInto(out *PackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -28924,6 +29099,11 @@ func (in *PackParameters) DeepCopyInto(out *PackParameters) {
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -29398,6 +29578,11 @@ func (in *ProfilePackInitParameters) DeepCopyInto(out *ProfilePackInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -29530,6 +29715,11 @@ func (in *ProfilePackObservation) DeepCopyInto(out *ProfilePackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -29579,6 +29769,11 @@ func (in *ProfilePackParameters) DeepCopyInto(out *ProfilePackParameters) {
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
@@ -30983,6 +31178,11 @@ func (in *VsphereClusterProfilePackInitParameters) DeepCopyInto(out *VsphereClus
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -31115,6 +31315,11 @@ func (in *VsphereClusterProfilePackObservation) DeepCopyInto(out *VsphereCluster
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -31164,6 +31369,11 @@ func (in *VsphereClusterProfilePackParameters) DeepCopyInto(out *VsphereClusterP
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}

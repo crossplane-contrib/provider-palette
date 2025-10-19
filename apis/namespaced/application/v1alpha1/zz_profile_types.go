@@ -71,8 +71,12 @@ type PackInitParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack.
-	// The unique id of the registry to be used for the pack.
+	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
+	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
+	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
 	// (String) The unique id of the pack to be used as the source for the pack.
@@ -115,8 +119,12 @@ type PackObservation struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack.
-	// The unique id of the registry to be used for the pack.
+	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
+	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
+	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
 	// (String) The unique id of the pack to be used as the source for the pack.
@@ -163,8 +171,13 @@ type PackParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack.
-	// The unique id of the registry to be used for the pack.
+	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
+	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+	// +kubebuilder:validation:Optional
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
+	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 

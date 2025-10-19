@@ -535,15 +535,20 @@ spec:
                                   (String) Name of the cluster. This name will be used to create the cluster in Azure.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
+                              registryName:
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+                                type: string
                               registryUid:
                                 description: |-
-                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
                                 description: |-
-                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
-                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: |-
@@ -1350,15 +1355,20 @@ spec:
                                   (String) Name of the cluster. This name will be used to create the cluster in Azure.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
+                              registryName:
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+                                type: string
                               registryUid:
                                 description: |-
-                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
                                 description: |-
-                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
-                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: |-
@@ -2048,15 +2058,20 @@ spec:
                                   (String) Name of the cluster. This name will be used to create the cluster in Azure.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
+                              registryName:
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+                                type: string
                               registryUid:
                                 description: |-
-                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally.
-                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally.
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
                                 description: |-
-                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid to resolve the pack UID internally.
-                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` to resolve the pack UID internally.
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
                                 description: |-

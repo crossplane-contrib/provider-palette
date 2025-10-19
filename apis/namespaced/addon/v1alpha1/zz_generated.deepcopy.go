@@ -467,6 +467,11 @@ func (in *PackInitParameters) DeepCopyInto(out *PackInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -519,6 +524,11 @@ func (in *PackObservation) DeepCopyInto(out *PackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
+		*out = new(string)
+		**out = **in
+	}
 	if in.RegistryUID != nil {
 		in, out := &in.RegistryUID, &out.RegistryUID
 		*out = new(string)
@@ -568,6 +578,11 @@ func (in *PackParameters) DeepCopyInto(out *PackParameters) {
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.RegistryName != nil {
+		in, out := &in.RegistryName, &out.RegistryName
 		*out = new(string)
 		**out = **in
 	}
