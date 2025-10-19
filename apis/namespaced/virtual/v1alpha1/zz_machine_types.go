@@ -14,6 +14,28 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type AcpiInitParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type AcpiObservation struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type AcpiParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
 type AffinityInitParameters struct {
 
 	// (Block List, Max: 1) Node affinity scheduling rules for the pod. (see below for nested schema)
@@ -62,6 +84,50 @@ type AffinityParameters struct {
 	PodAntiAffinity []PodAntiAffinityParameters `json:"podAntiAffinity,omitempty" tf:"pod_anti_affinity,omitempty"`
 }
 
+type ApicInitParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type ApicObservation struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type ApicParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type BiosInitParameters struct {
+
+	// (Boolean) If set, the BIOS output will be transmitted over serial.
+	// If set, the BIOS output will be transmitted over serial.
+	UseSerial *bool `json:"useSerial,omitempty" tf:"use_serial,omitempty"`
+}
+
+type BiosObservation struct {
+
+	// (Boolean) If set, the BIOS output will be transmitted over serial.
+	// If set, the BIOS output will be transmitted over serial.
+	UseSerial *bool `json:"useSerial,omitempty" tf:"use_serial,omitempty"`
+}
+
+type BiosParameters struct {
+
+	// (Boolean) If set, the BIOS output will be transmitted over serial.
+	// If set, the BIOS output will be transmitted over serial.
+	// +kubebuilder:validation:Optional
+	UseSerial *bool `json:"useSerial,omitempty" tf:"use_serial,omitempty"`
+}
+
 type BlankInitParameters struct {
 }
 
@@ -69,6 +135,41 @@ type BlankObservation struct {
 }
 
 type BlankParameters struct {
+}
+
+type BootloaderInitParameters struct {
+
+	// (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+	// If set (default), BIOS will be used.
+	Bios []BiosInitParameters `json:"bios,omitempty" tf:"bios,omitempty"`
+
+	// (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+	// If set, EFI will be used instead of BIOS.
+	Efi []EfiInitParameters `json:"efi,omitempty" tf:"efi,omitempty"`
+}
+
+type BootloaderObservation struct {
+
+	// (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+	// If set (default), BIOS will be used.
+	Bios []BiosObservation `json:"bios,omitempty" tf:"bios,omitempty"`
+
+	// (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+	// If set, EFI will be used instead of BIOS.
+	Efi []EfiObservation `json:"efi,omitempty" tf:"efi,omitempty"`
+}
+
+type BootloaderParameters struct {
+
+	// (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+	// If set (default), BIOS will be used.
+	// +kubebuilder:validation:Optional
+	Bios []BiosParameters `json:"bios,omitempty" tf:"bios,omitempty"`
+
+	// (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+	// If set, EFI will be used instead of BIOS.
+	// +kubebuilder:validation:Optional
+	Efi []EfiParameters `json:"efi,omitempty" tf:"efi,omitempty"`
 }
 
 type CPUInitParameters struct {
@@ -643,6 +744,41 @@ type DiskParameters struct {
 	Serial *string `json:"serial,omitempty" tf:"serial,omitempty"`
 }
 
+type EfiInitParameters struct {
+
+	// (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	// If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	Persistent *bool `json:"persistent,omitempty" tf:"persistent,omitempty"`
+
+	// enabled ones. Requires SMM to be enabled. Defaults to true.
+	// If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+	SecureBoot *bool `json:"secureBoot,omitempty" tf:"secure_boot,omitempty"`
+}
+
+type EfiObservation struct {
+
+	// (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	// If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	Persistent *bool `json:"persistent,omitempty" tf:"persistent,omitempty"`
+
+	// enabled ones. Requires SMM to be enabled. Defaults to true.
+	// If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+	SecureBoot *bool `json:"secureBoot,omitempty" tf:"secure_boot,omitempty"`
+}
+
+type EfiParameters struct {
+
+	// (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	// If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+	// +kubebuilder:validation:Optional
+	Persistent *bool `json:"persistent,omitempty" tf:"persistent,omitempty"`
+
+	// enabled ones. Requires SMM to be enabled. Defaults to true.
+	// If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+	// +kubebuilder:validation:Optional
+	SecureBoot *bool `json:"secureBoot,omitempty" tf:"secure_boot,omitempty"`
+}
+
 type EmptyDiskInitParameters struct {
 
 	// (String) Capacity of the sparse disk.
@@ -685,6 +821,102 @@ type EphemeralParameters struct {
 	// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace.
 	// +kubebuilder:validation:Optional
 	PersistentVolumeClaim []PersistentVolumeClaimParameters `json:"persistentVolumeClaim,omitempty" tf:"persistent_volume_claim,omitempty"`
+}
+
+type FeaturesInitParameters struct {
+
+	// (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+	// ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+	Acpi []AcpiInitParameters `json:"acpi,omitempty" tf:"acpi,omitempty"`
+
+	// (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+	// APIC enables/disables APIC inside the guest. Defaults to enabled.
+	Apic []ApicInitParameters `json:"apic,omitempty" tf:"apic,omitempty"`
+
+	// (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+	// SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+	Smm []SmmInitParameters `json:"smm,omitempty" tf:"smm,omitempty"`
+}
+
+type FeaturesObservation struct {
+
+	// (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+	// ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+	Acpi []AcpiObservation `json:"acpi,omitempty" tf:"acpi,omitempty"`
+
+	// (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+	// APIC enables/disables APIC inside the guest. Defaults to enabled.
+	Apic []ApicObservation `json:"apic,omitempty" tf:"apic,omitempty"`
+
+	// (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+	// SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+	Smm []SmmObservation `json:"smm,omitempty" tf:"smm,omitempty"`
+}
+
+type FeaturesParameters struct {
+
+	// (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+	// ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+	// +kubebuilder:validation:Optional
+	Acpi []AcpiParameters `json:"acpi,omitempty" tf:"acpi,omitempty"`
+
+	// (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+	// APIC enables/disables APIC inside the guest. Defaults to enabled.
+	// +kubebuilder:validation:Optional
+	Apic []ApicParameters `json:"apic,omitempty" tf:"apic,omitempty"`
+
+	// (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+	// SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+	// +kubebuilder:validation:Optional
+	Smm []SmmParameters `json:"smm,omitempty" tf:"smm,omitempty"`
+}
+
+type FirmwareInitParameters struct {
+
+	// (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+	// Settings to control the bootloader that is used.
+	Bootloader []BootloaderInitParameters `json:"bootloader,omitempty" tf:"bootloader,omitempty"`
+
+	// (String) Serial provides the ability to specify a serial number for the disk device.
+	// The system-serial-number in SMBIOS.
+	Serial *string `json:"serial,omitempty" tf:"serial,omitempty"`
+
+	// (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+	// UUID reported by the vmi bios. Defaults to a random generated uid.
+	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+}
+
+type FirmwareObservation struct {
+
+	// (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+	// Settings to control the bootloader that is used.
+	Bootloader []BootloaderObservation `json:"bootloader,omitempty" tf:"bootloader,omitempty"`
+
+	// (String) Serial provides the ability to specify a serial number for the disk device.
+	// The system-serial-number in SMBIOS.
+	Serial *string `json:"serial,omitempty" tf:"serial,omitempty"`
+
+	// (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+	// UUID reported by the vmi bios. Defaults to a random generated uid.
+	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+}
+
+type FirmwareParameters struct {
+
+	// (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+	// Settings to control the bootloader that is used.
+	// +kubebuilder:validation:Optional
+	Bootloader []BootloaderParameters `json:"bootloader,omitempty" tf:"bootloader,omitempty"`
+
+	// (String) Serial provides the ability to specify a serial number for the disk device.
+	// The system-serial-number in SMBIOS.
+	// +kubebuilder:validation:Optional
+	Serial *string `json:"serial,omitempty" tf:"serial,omitempty"`
+
+	// (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+	// UUID reported by the vmi bios. Defaults to a random generated uid.
+	// +kubebuilder:validation:Optional
+	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 }
 
 type HTTPInitParameters struct {
@@ -978,6 +1210,14 @@ type MachineInitParameters struct {
 	// EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
 	EvictionStrategy *string `json:"evictionStrategy,omitempty" tf:"eviction_strategy,omitempty"`
 
+	// (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+	// Features allows to configure various virtualization features.
+	Features []FeaturesInitParameters `json:"features,omitempty" tf:"features,omitempty"`
+
+	// (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+	// Firmware configuration for the virtual machine.
+	Firmware []FirmwareInitParameters `json:"firmware,omitempty" tf:"firmware,omitempty"`
+
 	// architecture/api-conventions.md#idempotency
 	// Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
 	GenerateName *string `json:"generateName,omitempty" tf:"generate_name,omitempty"`
@@ -1115,6 +1355,14 @@ type MachineObservation struct {
 	// off in case of a node drain.
 	// EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
 	EvictionStrategy *string `json:"evictionStrategy,omitempty" tf:"eviction_strategy,omitempty"`
+
+	// (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+	// Features allows to configure various virtualization features.
+	Features []FeaturesObservation `json:"features,omitempty" tf:"features,omitempty"`
+
+	// (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+	// Firmware configuration for the virtual machine.
+	Firmware []FirmwareObservation `json:"firmware,omitempty" tf:"firmware,omitempty"`
 
 	// architecture/api-conventions.md#idempotency
 	// Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
@@ -1282,6 +1530,16 @@ type MachineParameters struct {
 	// EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
 	// +kubebuilder:validation:Optional
 	EvictionStrategy *string `json:"evictionStrategy,omitempty" tf:"eviction_strategy,omitempty"`
+
+	// (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+	// Features allows to configure various virtualization features.
+	// +kubebuilder:validation:Optional
+	Features []FeaturesParameters `json:"features,omitempty" tf:"features,omitempty"`
+
+	// (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+	// Firmware configuration for the virtual machine.
+	// +kubebuilder:validation:Optional
+	Firmware []FirmwareParameters `json:"firmware,omitempty" tf:"firmware,omitempty"`
 
 	// architecture/api-conventions.md#idempotency
 	// Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
@@ -2956,6 +3214,28 @@ type ServiceAccountParameters struct {
 	// Name of the service account in the pod's namespace to use.
 	// +kubebuilder:validation:Optional
 	ServiceAccountName *string `json:"serviceAccountName" tf:"service_account_name,omitempty"`
+}
+
+type SmmInitParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type SmmObservation struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type SmmParameters struct {
+
+	// (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+	// Enabled determines if the feature should be enabled or disabled on the guest.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type SourceInitParameters struct {

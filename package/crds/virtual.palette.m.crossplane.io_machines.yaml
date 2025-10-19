@@ -885,6 +885,110 @@ spec:
                       off in case of a node drain.
                       EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
                     type: string
+                  features:
+                    description: |-
+                      (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+                      Features allows to configure various virtualization features.
+                    items:
+                      properties:
+                        acpi:
+                          description: |-
+                            (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+                            ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        apic:
+                          description: |-
+                            (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+                            APIC enables/disables APIC inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        smm:
+                          description: |-
+                            (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+                            SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest.
+                                type: boolean
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  firmware:
+                    description: |-
+                      (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+                      Firmware configuration for the virtual machine.
+                    items:
+                      properties:
+                        bootloader:
+                          description: |-
+                            (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+                            Settings to control the bootloader that is used.
+                          items:
+                            properties:
+                              bios:
+                                description: |-
+                                  (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+                                  If set (default), BIOS will be used.
+                                items:
+                                  properties:
+                                    useSerial:
+                                      description: |-
+                                        (Boolean) If set, the BIOS output will be transmitted over serial.
+                                        If set, the BIOS output will be transmitted over serial.
+                                      type: boolean
+                                  type: object
+                                type: array
+                              efi:
+                                description: |-
+                                  (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+                                  If set, EFI will be used instead of BIOS.
+                                items:
+                                  properties:
+                                    persistent:
+                                      description: |-
+                                        (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                        If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                      type: boolean
+                                    secureBoot:
+                                      description: |-
+                                        enabled ones. Requires SMM to be enabled. Defaults to true.
+                                        If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        serial:
+                          description: |-
+                            (String) Serial provides the ability to specify a serial number for the disk device.
+                            The system-serial-number in SMBIOS.
+                          type: string
+                        uuid:
+                          description: |-
+                            (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+                            UUID reported by the vmi bios. Defaults to a random generated uid.
+                          type: string
+                      type: object
+                    type: array
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
@@ -2346,6 +2450,110 @@ spec:
                       off in case of a node drain.
                       EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
                     type: string
+                  features:
+                    description: |-
+                      (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+                      Features allows to configure various virtualization features.
+                    items:
+                      properties:
+                        acpi:
+                          description: |-
+                            (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+                            ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        apic:
+                          description: |-
+                            (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+                            APIC enables/disables APIC inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        smm:
+                          description: |-
+                            (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+                            SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest.
+                                type: boolean
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  firmware:
+                    description: |-
+                      (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+                      Firmware configuration for the virtual machine.
+                    items:
+                      properties:
+                        bootloader:
+                          description: |-
+                            (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+                            Settings to control the bootloader that is used.
+                          items:
+                            properties:
+                              bios:
+                                description: |-
+                                  (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+                                  If set (default), BIOS will be used.
+                                items:
+                                  properties:
+                                    useSerial:
+                                      description: |-
+                                        (Boolean) If set, the BIOS output will be transmitted over serial.
+                                        If set, the BIOS output will be transmitted over serial.
+                                      type: boolean
+                                  type: object
+                                type: array
+                              efi:
+                                description: |-
+                                  (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+                                  If set, EFI will be used instead of BIOS.
+                                items:
+                                  properties:
+                                    persistent:
+                                      description: |-
+                                        (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                        If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                      type: boolean
+                                    secureBoot:
+                                      description: |-
+                                        enabled ones. Requires SMM to be enabled. Defaults to true.
+                                        If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        serial:
+                          description: |-
+                            (String) Serial provides the ability to specify a serial number for the disk device.
+                            The system-serial-number in SMBIOS.
+                          type: string
+                        uuid:
+                          description: |-
+                            (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+                            UUID reported by the vmi bios. Defaults to a random generated uid.
+                          type: string
+                      type: object
+                    type: array
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
@@ -3885,6 +4093,110 @@ spec:
                       off in case of a node drain.
                       EvictionStrategy can be set to "LiveMigrate" if the VirtualMachineInstance should be migrated instead of shut-off in case of a node drain.
                     type: string
+                  features:
+                    description: |-
+                      (Block List, Max: 1) Features allows to configure various virtualization features. (see below for nested schema)
+                      Features allows to configure various virtualization features.
+                    items:
+                      properties:
+                        acpi:
+                          description: |-
+                            (Block List, Max: 1) ACPI enables/disables ACPI inside the guest. Defaults to enabled. (see below for nested schema)
+                            ACPI enables/disables ACPI inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        apic:
+                          description: |-
+                            (Block List, Max: 1) APIC enables/disables APIC inside the guest. Defaults to enabled. (see below for nested schema)
+                            APIC enables/disables APIC inside the guest. Defaults to enabled.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                type: boolean
+                            type: object
+                          type: array
+                        smm:
+                          description: |-
+                            (Block List, Max: 1) SMM enables/disables System Management Mode. Required for Secure Boot with EFI. (see below for nested schema)
+                            SMM enables/disables System Management Mode. Required for Secure Boot with EFI.
+                          items:
+                            properties:
+                              enabled:
+                                description: |-
+                                  (Boolean) Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
+                                  Enabled determines if the feature should be enabled or disabled on the guest.
+                                type: boolean
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  firmware:
+                    description: |-
+                      (Block List, Max: 1) Firmware configuration for the virtual machine. (see below for nested schema)
+                      Firmware configuration for the virtual machine.
+                    items:
+                      properties:
+                        bootloader:
+                          description: |-
+                            (Block List, Max: 1) Settings to control the bootloader that is used. (see below for nested schema)
+                            Settings to control the bootloader that is used.
+                          items:
+                            properties:
+                              bios:
+                                description: |-
+                                  (Block List, Max: 1) If set (default), BIOS will be used. (see below for nested schema)
+                                  If set (default), BIOS will be used.
+                                items:
+                                  properties:
+                                    useSerial:
+                                      description: |-
+                                        (Boolean) If set, the BIOS output will be transmitted over serial.
+                                        If set, the BIOS output will be transmitted over serial.
+                                      type: boolean
+                                  type: object
+                                type: array
+                              efi:
+                                description: |-
+                                  (Block List, Max: 1) If set, EFI will be used instead of BIOS. (see below for nested schema)
+                                  If set, EFI will be used instead of BIOS.
+                                items:
+                                  properties:
+                                    persistent:
+                                      description: |-
+                                        (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                        If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
+                                      type: boolean
+                                    secureBoot:
+                                      description: |-
+                                        enabled ones. Requires SMM to be enabled. Defaults to true.
+                                        If set, SecureBoot will be enabled and the OVMF roms will be swapped for SecureBoot-enabled ones. Requires SMM to be enabled. Defaults to true.
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        serial:
+                          description: |-
+                            (String) Serial provides the ability to specify a serial number for the disk device.
+                            The system-serial-number in SMBIOS.
+                          type: string
+                        uuid:
+                          description: |-
+                            (String) UUID reported by the vmi bios. Defaults to a random generated uid.
+                            UUID reported by the vmi bios. Defaults to a random generated uid.
+                          type: string
+                      type: object
+                    type: array
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
