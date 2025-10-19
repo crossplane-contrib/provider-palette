@@ -1,6 +1,8 @@
 package integration
 
 import (
+	"time"
+
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -13,10 +15,11 @@ import (
 )
 
 var _ = Describe("Cloud Account Tests", Ordered, func() {
+	var awsCloudAccount *cloudaccountv1alpha1.Aws
 
 	Describe("Creating an AWS cloud account", func() {
 		It("should succeed", func() {
-			awsCloudAccount := &cloudaccountv1alpha1.Aws{
+			awsCloudAccount = &cloudaccountv1alpha1.Aws{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "aws-cloud-account",
 					Namespace: "default",
@@ -55,6 +58,18 @@ var _ = Describe("Cloud Account Tests", Ordered, func() {
 				logf.Log.Info("AWSCloudAccount created successfully")
 				return true
 			}, timeout, interval).Should(BeTrue(), "failed to create AWS cloud account")
+		})
+
+		AfterAll(func() {
+			if awsCloudAccount != nil {
+				logf.Log.Info("Cleaning up AWS cloud account")
+				_ = kclient.Delete(tc, awsCloudAccount)
+				// Wait for resource to be deleted
+				Eventually(func() bool {
+					err := kclient.Get(tc, keyFromObj(awsCloudAccount), awsCloudAccount)
+					return err != nil
+				}, 30*time.Second, interval).Should(BeTrue(), "failed to delete AWS cloud account")
+			}
 		})
 	})
 })

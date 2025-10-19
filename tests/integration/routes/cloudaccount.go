@@ -20,7 +20,7 @@ func RegisterCloudAccount(router *mux.Router) {
 		}
 	}))
 
-	// get
+	// get and delete
 	router.Handle("/v1/cloudaccounts/aws/{uid}", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		switch r.Method {
@@ -46,6 +46,8 @@ func RegisterCloudAccount(router *mux.Router) {
 					"state": "active"
 				}
 			}`))
+		case http.MethodDelete:
+			w.WriteHeader(http.StatusNoContent)
 		default:
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
