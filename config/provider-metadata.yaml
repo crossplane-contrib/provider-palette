@@ -423,17 +423,18 @@ resources:
             - name: aws-1
               manifest: |-
                 {
-                  "aws_access_key": "${var.aws_access_key}",
                   "aws_secret_key": "${var.aws_secret_key}",
+                  "aws_secured_access_key": "${var.aws_access_key}",
                   "name": "aws-1"
                 }
               references:
-                aws_access_key: var.aws_access_key
                 aws_secret_key: var.aws_secret_key
+                aws_secured_access_key: var.aws_access_key
         argumentDocs:
             arn: (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-            aws_access_key: (String) The AWS access key used to authenticate.
+            aws_access_key: '(String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.'
             aws_secret_key: (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
+            aws_secured_access_key: '(String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.'
             context: (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             external_id: (String, Sensitive) An optional external ID that can be used for cross-account access in AWS.
             id: (String) The ID of this resource.
@@ -2114,7 +2115,13 @@ resources:
                   "cloud_account_id": "${data.spectrocloud_cloudaccount_maas.account.id}",
                   "cloud_config": [
                     {
-                      "domain": "maas.mycompany.com"
+                      "domain": "maas.mycompany.com",
+                      "enable_lxd_vm": false,
+                      "ntp_servers": [
+                        "0.pool.ntp.org",
+                        "1.pool.ntp.org",
+                        "time.google.com"
+                      ]
                     }
                   ],
                   "cluster_profile": [
@@ -2238,6 +2245,7 @@ resources:
             node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
             node_repave_interval: (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
             node_tags: (Set of String) Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.
+            ntp_servers: (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
@@ -3292,6 +3300,7 @@ resources:
             token: (String) The authentication token. Required if 'credential_type' is set to 'token'.
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
+            wait_for_sync: (Boolean) If true, Terraform will wait for the Helm registry to complete its initial synchronization before marking the resource as created or updated. Default value is false.
         importStatements: []
     spectrocloud_registry_oci:
         subCategory: ""

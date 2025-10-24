@@ -58,6 +58,11 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
+	if in.AwsSecuredAccessKeySecretRef != nil {
+		in, out := &in.AwsSecuredAccessKeySecretRef, &out.AwsSecuredAccessKeySecretRef
+		*out = new(v1.LocalSecretKeySelector)
+		**out = **in
+	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -224,6 +229,11 @@ func (in *AwsParameters) DeepCopyInto(out *AwsParameters) {
 	}
 	if in.AwsSecretKeySecretRef != nil {
 		in, out := &in.AwsSecretKeySecretRef, &out.AwsSecretKeySecretRef
+		*out = new(v1.LocalSecretKeySelector)
+		**out = **in
+	}
+	if in.AwsSecuredAccessKeySecretRef != nil {
+		in, out := &in.AwsSecuredAccessKeySecretRef, &out.AwsSecuredAccessKeySecretRef
 		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
