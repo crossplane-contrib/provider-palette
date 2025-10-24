@@ -23,6 +23,11 @@ spec:
         testing.upbound.io/example-name: spectrocloud_cloudaccount_maas
     cloudConfig:
     - domain: maas.mycompany.com
+      enableLxdVm: false
+      ntpServers:
+      - 0.pool.ntp.org
+      - 1.pool.ntp.org
+      - time.google.com
     clusterProfile:
     - idSelector:
         matchLabels:

@@ -19,13 +19,17 @@ type AwsInitParameters struct {
 	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The AWS access key used to authenticate.
-	// The AWS access key used to authenticate.
+	// (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+	// The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
 	// (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
 	// The AWS secret key used in conjunction with the access key for authentication.
 	AwsSecretKeySecretRef *v1.SecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.
+	// The AWS access key used to authenticate. This is a secure alternative to `aws_access_key` with sensitive attribute enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
+	AwsSecuredAccessKeySecretRef *v1.SecretKeySelector `json:"awsSecuredAccessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -65,8 +69,8 @@ type AwsObservation struct {
 	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The AWS access key used to authenticate.
-	// The AWS access key used to authenticate.
+	// (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+	// The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -107,8 +111,8 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The AWS access key used to authenticate.
-	// The AWS access key used to authenticate.
+	// (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+	// The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
 	// +kubebuilder:validation:Optional
 	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
 
@@ -116,6 +120,11 @@ type AwsParameters struct {
 	// The AWS secret key used in conjunction with the access key for authentication.
 	// +kubebuilder:validation:Optional
 	AwsSecretKeySecretRef *v1.SecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.
+	// The AWS access key used to authenticate. This is a secure alternative to `aws_access_key` with sensitive attribute enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
+	// +kubebuilder:validation:Optional
+	AwsSecuredAccessKeySecretRef *v1.SecretKeySelector `json:"awsSecuredAccessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

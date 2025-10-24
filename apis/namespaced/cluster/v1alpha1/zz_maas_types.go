@@ -186,6 +186,11 @@ type MaasCloudConfigInitParameters struct {
 	// (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
 	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
+
+	// (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
+	// A list of NTP servers to use instead of the machine image's default NTP server list.
+	// +listType=set
+	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 }
 
 type MaasCloudConfigObservation struct {
@@ -197,6 +202,11 @@ type MaasCloudConfigObservation struct {
 	// (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
 	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
+
+	// (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
+	// A list of NTP servers to use instead of the machine image's default NTP server list.
+	// +listType=set
+	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 }
 
 type MaasCloudConfigParameters struct {
@@ -210,6 +220,12 @@ type MaasCloudConfigParameters struct {
 	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
 	// +kubebuilder:validation:Optional
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
+
+	// (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
+	// A list of NTP servers to use instead of the machine image's default NTP server list.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 }
 
 type MaasClusterProfileInitParameters struct {

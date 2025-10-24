@@ -65,13 +65,27 @@ spec:
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   awsSecretKeySecretRef:
                     description: |-
                       (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
                       The AWS secret key used in conjunction with the access key for authentication.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  awsSecuredAccessKeySecretRef:
+                    description: |-
+                      (String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.
+                      The AWS access key used to authenticate. This is a secure alternative to `aws_access_key` with sensitive attribute enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
                     properties:
                       key:
                         type: string
@@ -151,13 +165,27 @@ spec:
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   awsSecretKeySecretRef:
                     description: |-
                       (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
                       The AWS secret key used in conjunction with the access key for authentication.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  awsSecuredAccessKeySecretRef:
+                    description: |-
+                      (String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.
+                      The AWS access key used to authenticate. This is a secure alternative to `aws_access_key` with sensitive attribute enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
                     properties:
                       key:
                         type: string
@@ -292,8 +320,8 @@ spec:
                     type: string
                   awsAccessKey:
                     description: |-
-                      (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   context:
                     description: |-

@@ -8,8 +8,11 @@ metadata:
   name: aws-1
 spec:
   forProvider:
-    awsAccessKey: ${var.aws_access_key}
     awsSecretKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    awsSecuredAccessKeySecretRef:
       key: example-key
       name: example-secret
       namespace: upbound-system
