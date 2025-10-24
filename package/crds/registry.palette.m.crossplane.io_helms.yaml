@@ -101,6 +101,9 @@ spec:
                       (String) The name of the Helm registry. This must be unique
                       The name of the Helm registry. This must be unique
                     type: string
+                  waitForSync:
+                    description: Default value is `false`.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -158,6 +161,9 @@ spec:
                       (String) The name of the Helm registry. This must be unique
                       The name of the Helm registry. This must be unique
                     type: string
+                  waitForSync:
+                    description: Default value is `false`.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -285,6 +291,9 @@ spec:
                       (String) The name of the Helm registry. This must be unique
                       The name of the Helm registry. This must be unique
                     type: string
+                  waitForSync:
+                    description: Default value is `false`.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

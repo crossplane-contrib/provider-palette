@@ -80,12 +80,31 @@ spec:
                   awsAccessKey:
                     description: |-
                       (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   awsSecretKeySecretRef:
                     description: |-
                       (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
                       The AWS secret key used in conjunction with the access key for authentication.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  awsSecuredAccessKeySecretRef:
+                    description: The AWS access key used to authenticate. This is
+                      a secure alternative to `aws_access_key` with sensitive attribute
+                      enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
                     properties:
                       key:
                         description: The key to select.
@@ -176,12 +195,31 @@ spec:
                   awsAccessKey:
                     description: |-
                       (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   awsSecretKeySecretRef:
                     description: |-
                       (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
                       The AWS secret key used in conjunction with the access key for authentication.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  awsSecuredAccessKeySecretRef:
+                    description: The AWS access key used to authenticate. This is
+                      a secure alternative to `aws_access_key` with sensitive attribute
+                      enabled. **Note:** This field is mutually exclusive with `aws_access_key`.
                     properties:
                       key:
                         description: The key to select.
@@ -355,7 +393,7 @@ spec:
                   awsAccessKey:
                     description: |-
                       (String) The AWS access key used to authenticate.
-                      The AWS access key used to authenticate.
+                      The AWS access key used to authenticate. **Deprecated:** Use `aws_secured_access_key` instead for enhanced security. **Note:** This field is mutually exclusive with `aws_secured_access_key`.
                     type: string
                   context:
                     description: |-

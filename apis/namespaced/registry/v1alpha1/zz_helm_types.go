@@ -92,6 +92,9 @@ type HelmInitParameters struct {
 	// (String) The name of the Helm registry. This must be unique
 	// The name of the Helm registry. This must be unique
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Default value is `false`.
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type HelmObservation struct {
@@ -114,6 +117,9 @@ type HelmObservation struct {
 	// (String) The name of the Helm registry. This must be unique
 	// The name of the Helm registry. This must be unique
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Default value is `false`.
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type HelmParameters struct {
@@ -137,6 +143,10 @@ type HelmParameters struct {
 	// The name of the Helm registry. This must be unique
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Default value is `false`.
+	// +kubebuilder:validation:Optional
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 // HelmSpec defines the desired state of Helm

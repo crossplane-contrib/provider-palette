@@ -310,6 +310,13 @@ spec:
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
                             Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
+                        ntpServers:
+                          description: A list of NTP servers to use instead of the
+                            machine image's default NTP server list.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -1124,6 +1131,13 @@ spec:
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
                             Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
+                        ntpServers:
+                          description: A list of NTP servers to use instead of the
+                            machine image's default NTP server list.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -1844,6 +1858,13 @@ spec:
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
                             Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
+                        ntpServers:
+                          description: A list of NTP servers to use instead of the
+                            machine image's default NTP server list.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   cloudConfigId:
