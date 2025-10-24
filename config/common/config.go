@@ -365,7 +365,9 @@ func configureClusterResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_custom", func(r *config.Resource) {})
 
 	// AWS resources
-	p.AddResourceConfigurator("spectrocloud_cloudaccount_aws", func(r *config.Resource) {})
+	p.AddResourceConfigurator("spectrocloud_cloudaccount_aws", func(r *config.Resource) {
+		r.TerraformResource.Schema["aws_access_key"].Sensitive = true
+	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_aws", func(r *config.Resource) {
 		r.UseAsync = true
@@ -391,6 +393,8 @@ func configureClusterResources(p *config.Provider) {
 		r.References["backup_policy.backup_location_id"] = config.Reference{
 			TerraformName: "spectrocloud_backup_storage_location",
 		}
+
+		r.TerraformResource.Schema["cloud_config"].Elem.(*schema.Resource).Schema["vpc_id"].Sensitive = true
 	})
 }
 

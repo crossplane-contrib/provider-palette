@@ -214,7 +214,7 @@ type EksCloudConfigInitParameters struct {
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
 	// (String)
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+	VPCIDSecretRef *v1.LocalSecretKeySelector `json:"vpcidSecretRef,omitempty" tf:"-"`
 }
 
 type EksCloudConfigObservation struct {
@@ -252,9 +252,6 @@ type EksCloudConfigObservation struct {
 	// (String) Public SSH key to be used for the cluster nodes.
 	// Public SSH key to be used for the cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
-
-	// (String)
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type EksCloudConfigParameters struct {
@@ -303,7 +300,7 @@ type EksCloudConfigParameters struct {
 
 	// (String)
 	// +kubebuilder:validation:Optional
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+	VPCIDSecretRef *v1.LocalSecretKeySelector `json:"vpcidSecretRef,omitempty" tf:"-"`
 }
 
 type EksClusterProfileInitParameters struct {

@@ -21,7 +21,7 @@ func (mg *Eks) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Eks
 func (tr *Eks) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"cloud_config[*].vpc_id": "cloudConfig[*].vpcIdSecretRef"}
 }
 
 // GetObservation of this Eks

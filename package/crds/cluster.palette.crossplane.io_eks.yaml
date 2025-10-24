@@ -352,9 +352,23 @@ spec:
                             (String) Public SSH key to be used for the cluster nodes.
                             Public SSH key to be used for the cluster nodes.
                           type: string
-                        vpcId:
+                        vpcidSecretRef:
                           description: (String)
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -1179,9 +1193,23 @@ spec:
                             (String) Public SSH key to be used for the cluster nodes.
                             Public SSH key to be used for the cluster nodes.
                           type: string
-                        vpcId:
+                        vpcidSecretRef:
                           description: (String)
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   clusterMetaAttribute:
@@ -1951,9 +1979,6 @@ spec:
                           description: |-
                             (String) Public SSH key to be used for the cluster nodes.
                             Public SSH key to be used for the cluster nodes.
-                          type: string
-                        vpcId:
-                          description: (String)
                           type: string
                       type: object
                     type: array

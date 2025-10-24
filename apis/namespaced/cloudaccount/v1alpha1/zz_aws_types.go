@@ -22,7 +22,7 @@ type AwsInitParameters struct {
 
 	// (String) The AWS access key used to authenticate.
 	// The AWS access key used to authenticate.
-	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
+	AwsAccessKeySecretRef *v1.LocalSecretKeySelector `json:"awsAccessKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
 	// The AWS secret key used in conjunction with the access key for authentication.
@@ -66,10 +66,6 @@ type AwsObservation struct {
 	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The AWS access key used to authenticate.
-	// The AWS access key used to authenticate.
-	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
-
 	// (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -111,7 +107,7 @@ type AwsParameters struct {
 	// (String) The AWS access key used to authenticate.
 	// The AWS access key used to authenticate.
 	// +kubebuilder:validation:Optional
-	AwsAccessKey *string `json:"awsAccessKey,omitempty" tf:"aws_access_key,omitempty"`
+	AwsAccessKeySecretRef *v1.LocalSecretKeySelector `json:"awsAccessKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
 	// The AWS secret key used in conjunction with the access key for authentication.
