@@ -310,7 +310,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_datavolume":                  config.IdentifierFromProvider, // Observe is not support
 	"spectrocloud_developer_setting":           config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
 	"spectrocloud_filter":                      config.IdentifierFromProvider,
-	"spectrocloud_macros":                      FormattedIdentifierFromProvider(),
+	"spectrocloud_macros":                      config.IdentifierFromProvider,
 	"spectrocloud_password_policy":             config.IdentifierFromProvider,
 	"spectrocloud_platform_setting":            platformSetting(),
 	"spectrocloud_privatecloudgateway_dns_map": FormattedIdentifierPCG(),
