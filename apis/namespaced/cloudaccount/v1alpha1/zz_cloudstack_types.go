@@ -22,13 +22,10 @@ type CloudstackInitParameters struct {
 	// The API URL of the CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// The CA certificate for SSL verification (optional).
-	CACertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
-
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// Skip SSL certificate verification. Default is `false`.
+	// Skip SSL certificate verification. Default is `false`. Note: CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
 	// ID of the private cloud gateway that is used to connect to the CloudStack cloud.
@@ -43,15 +40,12 @@ type CloudstackObservation struct {
 	// The API URL of the CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// The CA certificate for SSL verification (optional).
-	CACertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
-
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Skip SSL certificate verification. Default is `false`.
+	// Skip SSL certificate verification. Default is `false`. Note: CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
 	// ID of the private cloud gateway that is used to connect to the CloudStack cloud.
@@ -68,15 +62,11 @@ type CloudstackParameters struct {
 	// +kubebuilder:validation:Optional
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// The CA certificate for SSL verification (optional).
-	// +kubebuilder:validation:Optional
-	CACertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
-
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// Skip SSL certificate verification. Default is `false`.
+	// Skip SSL certificate verification. Default is `false`. Note: CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// +kubebuilder:validation:Optional
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 

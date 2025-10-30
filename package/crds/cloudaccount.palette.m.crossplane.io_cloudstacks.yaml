@@ -74,9 +74,6 @@ spec:
                     description: 'The API URL of the CloudStack management server.
                       For example: https://cloudstack.example.com:8080/client/api'
                     type: string
-                  caCertificate:
-                    description: The CA certificate for SSL verification (optional).
-                    type: string
                   context:
                     description: The context of the CloudStack configuration. Allowed
                       values are `project` or `tenant`. Default value is `project`.
@@ -84,7 +81,9 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   insecure:
-                    description: Skip SSL certificate verification. Default is `false`.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: CloudStack must have valid SSL certificates from a trusted
+                      CA if this is false.'
                     type: boolean
                   privateCloudGatewayId:
                     description: ID of the private cloud gateway that is used to connect
@@ -132,9 +131,6 @@ spec:
                     description: 'The API URL of the CloudStack management server.
                       For example: https://cloudstack.example.com:8080/client/api'
                     type: string
-                  caCertificate:
-                    description: The CA certificate for SSL verification (optional).
-                    type: string
                   context:
                     description: The context of the CloudStack configuration. Allowed
                       values are `project` or `tenant`. Default value is `project`.
@@ -142,7 +138,9 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   insecure:
-                    description: Skip SSL certificate verification. Default is `false`.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: CloudStack must have valid SSL certificates from a trusted
+                      CA if this is false.'
                     type: boolean
                   privateCloudGatewayId:
                     description: ID of the private cloud gateway that is used to connect
@@ -246,9 +244,6 @@ spec:
                     description: 'The API URL of the CloudStack management server.
                       For example: https://cloudstack.example.com:8080/client/api'
                     type: string
-                  caCertificate:
-                    description: The CA certificate for SSL verification (optional).
-                    type: string
                   context:
                     description: The context of the CloudStack configuration. Allowed
                       values are `project` or `tenant`. Default value is `project`.
@@ -258,7 +253,9 @@ spec:
                   id:
                     type: string
                   insecure:
-                    description: Skip SSL certificate verification. Default is `false`.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: CloudStack must have valid SSL certificates from a trusted
+                      CA if this is false.'
                     type: boolean
                   privateCloudGatewayId:
                     description: ID of the private cloud gateway that is used to connect

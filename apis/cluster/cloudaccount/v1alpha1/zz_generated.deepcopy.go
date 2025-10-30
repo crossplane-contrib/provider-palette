@@ -642,11 +642,6 @@ func (in *CloudstackInitParameters) DeepCopyInto(out *CloudstackInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.CACertificate != nil {
-		in, out := &in.CACertificate, &out.CACertificate
-		*out = new(string)
-		**out = **in
-	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -715,11 +710,6 @@ func (in *CloudstackObservation) DeepCopyInto(out *CloudstackObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.CACertificate != nil {
-		in, out := &in.CACertificate, &out.CACertificate
-		*out = new(string)
-		**out = **in
-	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -758,11 +748,6 @@ func (in *CloudstackParameters) DeepCopyInto(out *CloudstackParameters) {
 	in.APIKeySecretRef.DeepCopyInto(&out.APIKeySecretRef)
 	if in.APIURL != nil {
 		in, out := &in.APIURL, &out.APIURL
-		*out = new(string)
-		**out = **in
-	}
-	if in.CACertificate != nil {
-		in, out := &in.CACertificate, &out.CACertificate
 		*out = new(string)
 		**out = **in
 	}
