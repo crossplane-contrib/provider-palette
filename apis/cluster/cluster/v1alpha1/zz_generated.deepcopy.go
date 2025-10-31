@@ -6010,6 +6010,11 @@ func (in *CloudstackCloudConfigInitParameters) DeepCopyInto(out *CloudstackCloud
 		*out = new(string)
 		**out = **in
 	}
+	if in.SyncWithCks != nil {
+		in, out := &in.SyncWithCks, &out.SyncWithCks
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Zone != nil {
 		in, out := &in.Zone, &out.Zone
 		*out = make([]ZoneInitParameters, len(*in))
@@ -6052,6 +6057,11 @@ func (in *CloudstackCloudConfigObservation) DeepCopyInto(out *CloudstackCloudCon
 		*out = new(string)
 		**out = **in
 	}
+	if in.SyncWithCks != nil {
+		in, out := &in.SyncWithCks, &out.SyncWithCks
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Zone != nil {
 		in, out := &in.Zone, &out.Zone
 		*out = make([]ZoneObservation, len(*in))
@@ -6092,6 +6102,11 @@ func (in *CloudstackCloudConfigParameters) DeepCopyInto(out *CloudstackCloudConf
 	if in.SSHKeyName != nil {
 		in, out := &in.SSHKeyName, &out.SSHKeyName
 		*out = new(string)
+		**out = **in
+	}
+	if in.SyncWithCks != nil {
+		in, out := &in.SyncWithCks, &out.SyncWithCks
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Zone != nil {
@@ -7183,11 +7198,6 @@ func (in *CloudstackMachinePoolInitParameters) DeepCopyInto(out *CloudstackMachi
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Template != nil {
-		in, out := &in.Template, &out.Template
-		*out = new(string)
-		**out = **in
-	}
 	if in.UpdateStrategy != nil {
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy
 		*out = new(string)
@@ -7392,11 +7402,6 @@ func (in *CloudstackMachinePoolObservation) DeepCopyInto(out *CloudstackMachineP
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Template != nil {
-		in, out := &in.Template, &out.Template
-		*out = new(string)
-		**out = **in
-	}
 	if in.UpdateStrategy != nil {
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy
 		*out = new(string)
@@ -7525,11 +7530,6 @@ func (in *CloudstackMachinePoolParameters) DeepCopyInto(out *CloudstackMachinePo
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
-	}
-	if in.Template != nil {
-		in, out := &in.Template, &out.Template
-		*out = new(string)
-		**out = **in
 	}
 	if in.UpdateStrategy != nil {
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy

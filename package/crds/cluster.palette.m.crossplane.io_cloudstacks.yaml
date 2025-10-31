@@ -153,6 +153,11 @@ spec:
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
+                        syncWithCks:
+                          description: Determines if an external managed CKS (CloudStack
+                            Kubernetes Service) cluster should be created. Default
+                            is `false`.
+                          type: boolean
                         zone:
                           description: List of CloudStack zones for multi-AZ deployments.
                             If only one zone is specified, it will be treated as single-zone
@@ -430,8 +435,9 @@ spec:
                           items:
                             properties:
                               ipAddress:
-                                description: Static IP address to assign (optional,
-                                  for static IP configuration).
+                                description: 'Static IP address to assign. **DEPRECATED**:
+                                  This field is no longer supported by CloudStack
+                                  and will be ignored.'
                                 type: string
                               networkName:
                                 description: Network name to attach to the machine
@@ -474,10 +480,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                        template:
-                          description: CloudStack VM template (image) name to use
-                            for the instances.
-                          type: string
                         updateStrategy:
                           description: Update strategy for the machine pool. Valid
                             values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
@@ -658,6 +660,11 @@ spec:
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
+                        syncWithCks:
+                          description: Determines if an external managed CKS (CloudStack
+                            Kubernetes Service) cluster should be created. Default
+                            is `false`.
+                          type: boolean
                         zone:
                           description: List of CloudStack zones for multi-AZ deployments.
                             If only one zone is specified, it will be treated as single-zone
@@ -935,8 +942,9 @@ spec:
                           items:
                             properties:
                               ipAddress:
-                                description: Static IP address to assign (optional,
-                                  for static IP configuration).
+                                description: 'Static IP address to assign. **DEPRECATED**:
+                                  This field is no longer supported by CloudStack
+                                  and will be ignored.'
                                 type: string
                               networkName:
                                 description: Network name to attach to the machine
@@ -979,10 +987,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                        template:
-                          description: CloudStack VM template (image) name to use
-                            for the instances.
-                          type: string
                         updateStrategy:
                           description: Update strategy for the machine pool. Valid
                             values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
@@ -1230,6 +1234,11 @@ spec:
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
+                        syncWithCks:
+                          description: Determines if an external managed CKS (CloudStack
+                            Kubernetes Service) cluster should be created. Default
+                            is `false`.
+                          type: boolean
                         zone:
                           description: List of CloudStack zones for multi-AZ deployments.
                             If only one zone is specified, it will be treated as single-zone
@@ -1537,8 +1546,9 @@ spec:
                           items:
                             properties:
                               ipAddress:
-                                description: Static IP address to assign (optional,
-                                  for static IP configuration).
+                                description: 'Static IP address to assign. **DEPRECATED**:
+                                  This field is no longer supported by CloudStack
+                                  and will be ignored.'
                                 type: string
                               networkName:
                                 description: Network name to attach to the machine
@@ -1581,10 +1591,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                        template:
-                          description: CloudStack VM template (image) name to use
-                            for the instances.
-                          type: string
                         updateStrategy:
                           description: Update strategy for the machine pool. Valid
                             values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.

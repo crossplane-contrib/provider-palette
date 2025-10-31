@@ -142,6 +142,9 @@ type CloudstackCloudConfigInitParameters struct {
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
+	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
+	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
+
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	Zone []ZoneInitParameters `json:"zone,omitempty" tf:"zone,omitempty"`
 }
@@ -159,6 +162,9 @@ type CloudstackCloudConfigObservation struct {
 
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
+
+	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
+	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
 
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	Zone []ZoneObservation `json:"zone,omitempty" tf:"zone,omitempty"`
@@ -181,6 +187,10 @@ type CloudstackCloudConfigParameters struct {
 	// SSH key name for accessing cluster nodes.
 	// +kubebuilder:validation:Optional
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
+
+	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
+	// +kubebuilder:validation:Optional
+	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
 
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	// +kubebuilder:validation:Optional
@@ -609,9 +619,6 @@ type CloudstackMachinePoolInitParameters struct {
 
 	Taints []CloudstackMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// CloudStack VM template (image) name to use for the instances.
-	Template *string `json:"template,omitempty" tf:"template,omitempty"`
-
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
@@ -693,9 +700,6 @@ type CloudstackMachinePoolObservation struct {
 
 	Taints []CloudstackMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// CloudStack VM template (image) name to use for the instances.
-	Template *string `json:"template,omitempty" tf:"template,omitempty"`
-
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
@@ -762,10 +766,6 @@ type CloudstackMachinePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Taints []CloudstackMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
-
-	// CloudStack VM template (image) name to use for the instances.
-	// +kubebuilder:validation:Optional
-	Template *string `json:"template" tf:"template,omitempty"`
 
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
@@ -1037,7 +1037,7 @@ type CloudstackScanPolicyParameters struct {
 
 type MachinePoolNetworkInitParameters struct {
 
-	// Static IP address to assign (optional, for static IP configuration).
+	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
 	// Network name to attach to the machine pool.
@@ -1046,7 +1046,7 @@ type MachinePoolNetworkInitParameters struct {
 
 type MachinePoolNetworkObservation struct {
 
-	// Static IP address to assign (optional, for static IP configuration).
+	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
 	// Network name to attach to the machine pool.
@@ -1055,7 +1055,7 @@ type MachinePoolNetworkObservation struct {
 
 type MachinePoolNetworkParameters struct {
 
-	// Static IP address to assign (optional, for static IP configuration).
+	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
