@@ -14,6 +14,7 @@ import (
 	storagelocation "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/backup/storagelocation"
 	aws "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/aws"
 	azure "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/azure"
+	cloudstack "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/cloudstack"
 	custom "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/custom"
 	gcp "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/gcp"
 	maas "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/maas"
@@ -22,6 +23,7 @@ import (
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/aks"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/azure"
+	cloudstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/cloudstack"
 	customcloud "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/customcloud"
 	edgenative "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/edgenative"
 	edgevsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/edgevsphere"
@@ -69,6 +71,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		storagelocation.Setup,
 		aws.Setup,
 		azure.Setup,
+		cloudstack.Setup,
 		custom.Setup,
 		gcp.Setup,
 		maas.Setup,
@@ -77,6 +80,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		aks.Setup,
 		awscluster.Setup,
 		azurecluster.Setup,
+		cloudstackcluster.Setup,
 		customcloud.Setup,
 		edgenative.Setup,
 		edgevsphere.Setup,
@@ -130,6 +134,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		storagelocation.SetupGated,
 		aws.SetupGated,
 		azure.SetupGated,
+		cloudstack.SetupGated,
 		custom.SetupGated,
 		gcp.SetupGated,
 		maas.SetupGated,
@@ -138,6 +143,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		aks.SetupGated,
 		awscluster.SetupGated,
 		azurecluster.SetupGated,
+		cloudstackcluster.SetupGated,
 		customcloud.SetupGated,
 		edgenative.SetupGated,
 		edgevsphere.SetupGated,
