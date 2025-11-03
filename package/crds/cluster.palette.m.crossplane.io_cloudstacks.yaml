@@ -175,6 +175,12 @@ spec:
                                     gateway:
                                       description: Gateway IP address for the network.
                                       type: string
+                                    id:
+                                      description: Network ID in CloudStack. Either
+                                        `id` or `name` can be used to identify the
+                                        network. If both are specified, `id` takes
+                                        precedence.
+                                      type: string
                                     name:
                                       description: Network name in this zone.
                                       type: string
@@ -681,6 +687,12 @@ spec:
                                   properties:
                                     gateway:
                                       description: Gateway IP address for the network.
+                                      type: string
+                                    id:
+                                      description: Network ID in CloudStack. Either
+                                        `id` or `name` can be used to identify the
+                                        network. If both are specified, `id` takes
+                                        precedence.
                                       type: string
                                     name:
                                       description: Network name in this zone.
@@ -1255,6 +1267,12 @@ spec:
                                   properties:
                                     gateway:
                                       description: Gateway IP address for the network.
+                                      type: string
+                                    id:
+                                      description: Network ID in CloudStack. Either
+                                        `id` or `name` can be used to identify the
+                                        network. If both are specified, `id` takes
+                                        precedence.
                                       type: string
                                     name:
                                       description: Network name in this zone.

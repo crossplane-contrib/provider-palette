@@ -1069,6 +1069,9 @@ type NetworkInitParameters struct {
 	// Gateway IP address for the network.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// Network name in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1092,6 +1095,9 @@ type NetworkObservation struct {
 
 	// Gateway IP address for the network.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
+
+	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Network name in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -1117,6 +1123,10 @@ type NetworkParameters struct {
 	// Gateway IP address for the network.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
+
+	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Network name in this zone.
 	// +kubebuilder:validation:Optional
