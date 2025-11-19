@@ -3877,35 +3877,13 @@
               }
             },
             "block_types": {
-              "policies": {
-                "nesting_mode": "list",
-                "block": {
-                  "attributes": {
-                    "kind": {
-                      "type": "string",
-                      "description": "Kind of the policy.",
-                      "description_kind": "plain",
-                      "optional": true
-                    },
-                    "uid": {
-                      "type": "string",
-                      "description": "UID of the policy.",
-                      "description_kind": "plain",
-                      "required": true
-                    }
-                  },
-                  "description": "List of policy references.",
-                  "description_kind": "plain"
-                },
-                "max_items": 1
-              },
-              "profiles": {
+              "cluster_profile": {
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
-                    "uid": {
+                    "id": {
                       "type": "string",
-                      "description": "UID of the cluster profile.",
+                      "description": "ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -3942,6 +3920,28 @@
                   "description": "Set of cluster profile references.",
                   "description_kind": "plain"
                 }
+              },
+              "policy": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "ID of the policy.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "kind": {
+                      "type": "string",
+                      "description": "Kind of the policy.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description": "List of policy references.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "timeouts": {
                 "nesting_mode": "single",
@@ -17026,6 +17026,31 @@
                 "description_kind": "plain",
                 "computed": true
               },
+              "cluster_profile": {
+                "type": [
+                  "set",
+                  [
+                    "object",
+                    {
+                      "id": "string",
+                      "variables": [
+                        "set",
+                        [
+                          "object",
+                          {
+                            "assign_strategy": "string",
+                            "name": "string",
+                            "value": "string"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Set of cluster profile references.",
+                "description_kind": "plain",
+                "computed": true
+              },
               "context": {
                 "type": "string",
                 "description": "The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
@@ -17056,43 +17081,18 @@
                 "description_kind": "plain",
                 "required": true
               },
-              "policies": {
+              "policy": {
                 "type": [
                   "list",
                   [
                     "object",
                     {
-                      "kind": "string",
-                      "uid": "string"
+                      "id": "string",
+                      "kind": "string"
                     }
                   ]
                 ],
                 "description": "List of policy references.",
-                "description_kind": "plain",
-                "computed": true
-              },
-              "profiles": {
-                "type": [
-                  "set",
-                  [
-                    "object",
-                    {
-                      "uid": "string",
-                      "variables": [
-                        "set",
-                        [
-                          "object",
-                          {
-                            "assign_strategy": "string",
-                            "name": "string",
-                            "value": "string"
-                          }
-                        ]
-                      ]
-                    }
-                  ]
-                ],
-                "description": "Set of cluster profile references.",
                 "description_kind": "plain",
                 "computed": true
               },

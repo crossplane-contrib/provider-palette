@@ -1370,6 +1370,16 @@ func (in *AwsClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *AwsC
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -1442,6 +1452,16 @@ func (in *AwsClusterTemplateClusterProfileParameters) DeepCopyInto(out *AwsClust
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -1484,6 +1504,16 @@ func (in *AwsClusterTemplateInitParameters) DeepCopyInto(out *AwsClusterTemplate
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1543,6 +1573,16 @@ func (in *AwsClusterTemplateParameters) DeepCopyInto(out *AwsClusterTemplatePara
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4085,6 +4125,16 @@ func (in *AzureClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *Az
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -4157,6 +4207,16 @@ func (in *AzureClusterTemplateClusterProfileParameters) DeepCopyInto(out *AzureC
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -4199,6 +4259,16 @@ func (in *AzureClusterTemplateInitParameters) DeepCopyInto(out *AzureClusterTemp
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4258,6 +4328,16 @@ func (in *AzureClusterTemplateParameters) DeepCopyInto(out *AzureClusterTemplate
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6877,6 +6957,16 @@ func (in *ClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *Cluster
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -6949,6 +7039,16 @@ func (in *ClusterTemplateClusterProfileParameters) DeepCopyInto(out *ClusterTemp
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -6991,6 +7091,16 @@ func (in *ClusterTemplateInitParameters) DeepCopyInto(out *ClusterTemplateInitPa
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7050,6 +7160,16 @@ func (in *ClusterTemplateParameters) DeepCopyInto(out *ClusterTemplateParameters
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7544,12 +7664,120 @@ func (in *ConfigTemplate) DeepCopyObject() runtime.Object {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ConfigTemplateClusterProfileInitParameters) DeepCopyInto(out *ConfigTemplateClusterProfileInitParameters) {
+	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.Variables != nil {
+		in, out := &in.Variables, &out.Variables
+		*out = make([]VariablesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ConfigTemplateClusterProfileInitParameters.
+func (in *ConfigTemplateClusterProfileInitParameters) DeepCopy() *ConfigTemplateClusterProfileInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ConfigTemplateClusterProfileInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ConfigTemplateClusterProfileObservation) DeepCopyInto(out *ConfigTemplateClusterProfileObservation) {
+	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Variables != nil {
+		in, out := &in.Variables, &out.Variables
+		*out = make([]VariablesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ConfigTemplateClusterProfileObservation.
+func (in *ConfigTemplateClusterProfileObservation) DeepCopy() *ConfigTemplateClusterProfileObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(ConfigTemplateClusterProfileObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ConfigTemplateClusterProfileParameters) DeepCopyInto(out *ConfigTemplateClusterProfileParameters) {
+	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.Variables != nil {
+		in, out := &in.Variables, &out.Variables
+		*out = make([]VariablesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ConfigTemplateClusterProfileParameters.
+func (in *ConfigTemplateClusterProfileParameters) DeepCopy() *ConfigTemplateClusterProfileParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ConfigTemplateClusterProfileParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *ConfigTemplateInitParameters) DeepCopyInto(out *ConfigTemplateInitParameters) {
 	*out = *in
 	if in.CloudType != nil {
 		in, out := &in.CloudType, &out.CloudType
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterProfile != nil {
+		in, out := &in.ClusterProfile, &out.ClusterProfile
+		*out = make([]ConfigTemplateClusterProfileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
@@ -7561,16 +7789,9 @@ func (in *ConfigTemplateInitParameters) DeepCopyInto(out *ConfigTemplateInitPara
 		*out = new(string)
 		**out = **in
 	}
-	if in.Policies != nil {
-		in, out := &in.Policies, &out.Policies
-		*out = make([]PoliciesInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.Profiles != nil {
-		in, out := &in.Profiles, &out.Profiles
-		*out = make([]ProfilesInitParameters, len(*in))
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = make([]PolicyInitParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
@@ -7650,6 +7871,13 @@ func (in *ConfigTemplateObservation) DeepCopyInto(out *ConfigTemplateObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterProfile != nil {
+		in, out := &in.ClusterProfile, &out.ClusterProfile
+		*out = make([]ConfigTemplateClusterProfileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -7670,16 +7898,9 @@ func (in *ConfigTemplateObservation) DeepCopyInto(out *ConfigTemplateObservation
 		*out = new(string)
 		**out = **in
 	}
-	if in.Policies != nil {
-		in, out := &in.Policies, &out.Policies
-		*out = make([]PoliciesObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.Profiles != nil {
-		in, out := &in.Profiles, &out.Profiles
-		*out = make([]ProfilesObservation, len(*in))
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = make([]PolicyObservation, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
@@ -7720,6 +7941,13 @@ func (in *ConfigTemplateParameters) DeepCopyInto(out *ConfigTemplateParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterProfile != nil {
+		in, out := &in.ClusterProfile, &out.ClusterProfile
+		*out = make([]ConfigTemplateClusterProfileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
 		*out = new(string)
@@ -7730,16 +7958,9 @@ func (in *ConfigTemplateParameters) DeepCopyInto(out *ConfigTemplateParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.Policies != nil {
-		in, out := &in.Policies, &out.Policies
-		*out = make([]PoliciesParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.Profiles != nil {
-		in, out := &in.Profiles, &out.Profiles
-		*out = make([]ProfilesParameters, len(*in))
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = make([]PolicyParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
@@ -8925,6 +9146,16 @@ func (in *CustomCloudClusterTemplateClusterProfileInitParameters) DeepCopyInto(o
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -8997,6 +9228,16 @@ func (in *CustomCloudClusterTemplateClusterProfileParameters) DeepCopyInto(out *
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -9039,6 +9280,16 @@ func (in *CustomCloudClusterTemplateInitParameters) DeepCopyInto(out *CustomClou
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -9098,6 +9349,16 @@ func (in *CustomCloudClusterTemplateParameters) DeepCopyInto(out *CustomCloudClu
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11606,6 +11867,16 @@ func (in *EdgeNativeClusterTemplateClusterProfileInitParameters) DeepCopyInto(ou
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -11678,6 +11949,16 @@ func (in *EdgeNativeClusterTemplateClusterProfileParameters) DeepCopyInto(out *E
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -11720,6 +12001,16 @@ func (in *EdgeNativeClusterTemplateInitParameters) DeepCopyInto(out *EdgeNativeC
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11779,6 +12070,16 @@ func (in *EdgeNativeClusterTemplateParameters) DeepCopyInto(out *EdgeNativeClust
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -14329,6 +14630,16 @@ func (in *EdgeVsphereClusterTemplateClusterProfileInitParameters) DeepCopyInto(o
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -14401,6 +14712,16 @@ func (in *EdgeVsphereClusterTemplateClusterProfileParameters) DeepCopyInto(out *
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -14443,6 +14764,16 @@ func (in *EdgeVsphereClusterTemplateInitParameters) DeepCopyInto(out *EdgeVspher
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -14502,6 +14833,16 @@ func (in *EdgeVsphereClusterTemplateParameters) DeepCopyInto(out *EdgeVsphereClu
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -17142,6 +17483,16 @@ func (in *EksClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *EksC
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -17214,6 +17565,16 @@ func (in *EksClusterTemplateClusterProfileParameters) DeepCopyInto(out *EksClust
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -17256,6 +17617,16 @@ func (in *EksClusterTemplateInitParameters) DeepCopyInto(out *EksClusterTemplate
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -17315,6 +17686,16 @@ func (in *EksClusterTemplateParameters) DeepCopyInto(out *EksClusterTemplatePara
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -20228,6 +20609,16 @@ func (in *GCPClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *GCPC
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -20300,6 +20691,16 @@ func (in *GCPClusterTemplateClusterProfileParameters) DeepCopyInto(out *GCPClust
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -20342,6 +20743,16 @@ func (in *GCPClusterTemplateInitParameters) DeepCopyInto(out *GCPClusterTemplate
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -20401,6 +20812,16 @@ func (in *GCPClusterTemplateParameters) DeepCopyInto(out *GCPClusterTemplatePara
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -22831,6 +23252,16 @@ func (in *GkeClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *GkeC
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -22903,6 +23334,16 @@ func (in *GkeClusterTemplateClusterProfileParameters) DeepCopyInto(out *GkeClust
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -22945,6 +23386,16 @@ func (in *GkeClusterTemplateInitParameters) DeepCopyInto(out *GkeClusterTemplate
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -23004,6 +23455,16 @@ func (in *GkeClusterTemplateParameters) DeepCopyInto(out *GkeClusterTemplatePara
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -26359,6 +26820,16 @@ func (in *MaasClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *Maa
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -26431,6 +26902,16 @@ func (in *MaasClusterTemplateClusterProfileParameters) DeepCopyInto(out *MaasClu
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -26473,6 +26954,16 @@ func (in *MaasClusterTemplateInitParameters) DeepCopyInto(out *MaasClusterTempla
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -26532,6 +27023,16 @@ func (in *MaasClusterTemplateParameters) DeepCopyInto(out *MaasClusterTemplatePa
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -30183,6 +30684,16 @@ func (in *OpenstackClusterTemplateClusterProfileInitParameters) DeepCopyInto(out
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -30255,6 +30766,16 @@ func (in *OpenstackClusterTemplateClusterProfileParameters) DeepCopyInto(out *Op
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -30297,6 +30818,16 @@ func (in *OpenstackClusterTemplateInitParameters) DeepCopyInto(out *OpenstackClu
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -30356,6 +30887,16 @@ func (in *OpenstackClusterTemplateParameters) DeepCopyInto(out *OpenstackCluster
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -32242,76 +32783,96 @@ func (in *PlacementParameters) DeepCopy() *PlacementParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *PoliciesInitParameters) DeepCopyInto(out *PoliciesInitParameters) {
+func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Kind != nil {
 		in, out := &in.Kind, &out.Kind
 		*out = new(string)
 		**out = **in
 	}
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
 }
 
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PoliciesInitParameters.
-func (in *PoliciesInitParameters) DeepCopy() *PoliciesInitParameters {
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PolicyInitParameters.
+func (in *PolicyInitParameters) DeepCopy() *PolicyInitParameters {
 	if in == nil {
 		return nil
 	}
-	out := new(PoliciesInitParameters)
+	out := new(PolicyInitParameters)
 	in.DeepCopyInto(out)
 	return out
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *PoliciesObservation) DeepCopyInto(out *PoliciesObservation) {
+func (in *PolicyObservation) DeepCopyInto(out *PolicyObservation) {
 	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Kind != nil {
 		in, out := &in.Kind, &out.Kind
 		*out = new(string)
 		**out = **in
 	}
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
 }
 
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PoliciesObservation.
-func (in *PoliciesObservation) DeepCopy() *PoliciesObservation {
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PolicyObservation.
+func (in *PolicyObservation) DeepCopy() *PolicyObservation {
 	if in == nil {
 		return nil
 	}
-	out := new(PoliciesObservation)
+	out := new(PolicyObservation)
 	in.DeepCopyInto(out)
 	return out
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *PoliciesParameters) DeepCopyInto(out *PoliciesParameters) {
+func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 	*out = *in
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Kind != nil {
 		in, out := &in.Kind, &out.Kind
 		*out = new(string)
 		**out = **in
 	}
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
 }
 
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PoliciesParameters.
-func (in *PoliciesParameters) DeepCopy() *PoliciesParameters {
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PolicyParameters.
+func (in *PolicyParameters) DeepCopy() *PolicyParameters {
 	if in == nil {
 		return nil
 	}
-	out := new(PoliciesParameters)
+	out := new(PolicyParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -33028,87 +33589,6 @@ func (in *ProfileVariablesParameters) DeepCopy() *ProfileVariablesParameters {
 		return nil
 	}
 	out := new(ProfileVariablesParameters)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *ProfilesInitParameters) DeepCopyInto(out *ProfilesInitParameters) {
-	*out = *in
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
-	if in.Variables != nil {
-		in, out := &in.Variables, &out.Variables
-		*out = make([]VariablesInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProfilesInitParameters.
-func (in *ProfilesInitParameters) DeepCopy() *ProfilesInitParameters {
-	if in == nil {
-		return nil
-	}
-	out := new(ProfilesInitParameters)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *ProfilesObservation) DeepCopyInto(out *ProfilesObservation) {
-	*out = *in
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
-	if in.Variables != nil {
-		in, out := &in.Variables, &out.Variables
-		*out = make([]VariablesObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProfilesObservation.
-func (in *ProfilesObservation) DeepCopy() *ProfilesObservation {
-	if in == nil {
-		return nil
-	}
-	out := new(ProfilesObservation)
-	in.DeepCopyInto(out)
-	return out
-}
-
-// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
-func (in *ProfilesParameters) DeepCopyInto(out *ProfilesParameters) {
-	*out = *in
-	if in.UID != nil {
-		in, out := &in.UID, &out.UID
-		*out = new(string)
-		**out = **in
-	}
-	if in.Variables != nil {
-		in, out := &in.Variables, &out.Variables
-		*out = make([]VariablesParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-}
-
-// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProfilesParameters.
-func (in *ProfilesParameters) DeepCopy() *ProfilesParameters {
-	if in == nil {
-		return nil
-	}
-	out := new(ProfilesParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -35017,6 +35497,16 @@ func (in *VsphereClusterTemplateClusterProfileInitParameters) DeepCopyInto(out *
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -35089,6 +35579,16 @@ func (in *VsphereClusterTemplateClusterProfileParameters) DeepCopyInto(out *Vsph
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -35131,6 +35631,16 @@ func (in *VsphereClusterTemplateInitParameters) DeepCopyInto(out *VsphereCluster
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -35190,6 +35700,16 @@ func (in *VsphereClusterTemplateParameters) DeepCopyInto(out *VsphereClusterTemp
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

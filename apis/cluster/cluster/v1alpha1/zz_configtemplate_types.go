@@ -25,10 +25,60 @@ type AttachedClusterObservation struct {
 type AttachedClusterParameters struct {
 }
 
+type ConfigTemplateClusterProfileInitParameters struct {
+
+	// ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// Set of profile variable values and assignment strategies.
+	Variables []VariablesInitParameters `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type ConfigTemplateClusterProfileObservation struct {
+
+	// ID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Set of profile variable values and assignment strategies.
+	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type ConfigTemplateClusterProfileParameters struct {
+
+	// ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// Set of profile variable values and assignment strategies.
+	// +kubebuilder:validation:Optional
+	Variables []VariablesParameters `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
 type ConfigTemplateInitParameters struct {
 
 	// The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
+
+	// Set of cluster profile references.
+	ClusterProfile []ConfigTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -37,10 +87,7 @@ type ConfigTemplateInitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// List of policy references.
-	Policies []PoliciesInitParameters `json:"policies,omitempty" tf:"policies,omitempty"`
-
-	// Set of cluster profile references.
-	Profiles []ProfilesInitParameters `json:"profiles,omitempty" tf:"profiles,omitempty"`
+	Policy []PolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
@@ -58,6 +105,9 @@ type ConfigTemplateObservation struct {
 	// The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// Set of cluster profile references.
+	ClusterProfile []ConfigTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
@@ -70,10 +120,7 @@ type ConfigTemplateObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// List of policy references.
-	Policies []PoliciesObservation `json:"policies,omitempty" tf:"policies,omitempty"`
-
-	// Set of cluster profile references.
-	Profiles []ProfilesObservation `json:"profiles,omitempty" tf:"profiles,omitempty"`
+	Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
@@ -89,6 +136,10 @@ type ConfigTemplateParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// Set of cluster profile references.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []ConfigTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -99,11 +150,7 @@ type ConfigTemplateParameters struct {
 
 	// List of policy references.
 	// +kubebuilder:validation:Optional
-	Policies []PoliciesParameters `json:"policies,omitempty" tf:"policies,omitempty"`
-
-	// Set of cluster profile references.
-	// +kubebuilder:validation:Optional
-	Profiles []ProfilesParameters `json:"profiles,omitempty" tf:"profiles,omitempty"`
+	Policy []PolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +kubebuilder:validation:Optional
@@ -115,62 +162,51 @@ type ConfigTemplateParameters struct {
 	UpgradeNow *string `json:"upgradeNow,omitempty" tf:"upgrade_now,omitempty"`
 }
 
-type PoliciesInitParameters struct {
+type PolicyInitParameters struct {
+
+	// ID of the policy.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigPolicy
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigPolicy in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigPolicy in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// Kind of the policy.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
-
-	// UID of the policy.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
-type PoliciesObservation struct {
+type PolicyObservation struct {
+
+	// ID of the policy.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Kind of the policy.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
-
-	// UID of the policy.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
-type PoliciesParameters struct {
+type PolicyParameters struct {
+
+	// ID of the policy.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigPolicy
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigPolicy in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigPolicy in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// Kind of the policy.
 	// +kubebuilder:validation:Optional
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
-
-	// UID of the policy.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
-}
-
-type ProfilesInitParameters struct {
-
-	// UID of the cluster profile.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// Set of profile variable values and assignment strategies.
-	Variables []VariablesInitParameters `json:"variables,omitempty" tf:"variables,omitempty"`
-}
-
-type ProfilesObservation struct {
-
-	// UID of the cluster profile.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// Set of profile variable values and assignment strategies.
-	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
-}
-
-type ProfilesParameters struct {
-
-	// UID of the cluster profile.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
-
-	// Set of profile variable values and assignment strategies.
-	// +kubebuilder:validation:Optional
-	Variables []VariablesParameters `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type VariablesInitParameters struct {

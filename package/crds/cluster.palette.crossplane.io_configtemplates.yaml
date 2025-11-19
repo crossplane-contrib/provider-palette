@@ -77,34 +77,89 @@ spec:
                     description: 'The cloud type for the cluster template. Examples:
                       ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
                     type: string
-                  context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-                    type: string
-                  description:
-                    description: The description of the cluster config template.
-                    type: string
-                  policies:
-                    description: List of policy references.
-                    items:
-                      properties:
-                        kind:
-                          description: Kind of the policy.
-                          type: string
-                        uid:
-                          description: UID of the policy.
-                          type: string
-                      type: object
-                    type: array
-                  profiles:
+                  clusterProfile:
                     description: Set of cluster profile references.
                     items:
                       properties:
-                        uid:
-                          description: UID of the cluster profile.
+                        id:
+                          description: ID of the cluster profile.
                           type: string
+                        idRef:
+                          description: Reference to a Profile in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a Profile in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
                         variables:
                           description: Set of profile variable values and assignment
                             strategies.
@@ -125,6 +180,103 @@ spec:
                                 type: string
                             type: object
                           type: array
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the cluster config template. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster config template.
+                    type: string
+                  policy:
+                    description: List of policy references.
+                    items:
+                      properties:
+                        id:
+                          description: ID of the policy.
+                          type: string
+                        idRef:
+                          description: Reference to a ConfigPolicy in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a ConfigPolicy in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        kind:
+                          description: Kind of the policy.
+                          type: string
                       type: object
                     type: array
                   tags:
@@ -162,34 +314,89 @@ spec:
                     description: 'The cloud type for the cluster template. Examples:
                       ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
                     type: string
-                  context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-                    type: string
-                  description:
-                    description: The description of the cluster config template.
-                    type: string
-                  policies:
-                    description: List of policy references.
-                    items:
-                      properties:
-                        kind:
-                          description: Kind of the policy.
-                          type: string
-                        uid:
-                          description: UID of the policy.
-                          type: string
-                      type: object
-                    type: array
-                  profiles:
+                  clusterProfile:
                     description: Set of cluster profile references.
                     items:
                       properties:
-                        uid:
-                          description: UID of the cluster profile.
+                        id:
+                          description: ID of the cluster profile.
                           type: string
+                        idRef:
+                          description: Reference to a Profile in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a Profile in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
                         variables:
                           description: Set of profile variable values and assignment
                             strategies.
@@ -210,6 +417,103 @@ spec:
                                 type: string
                             type: object
                           type: array
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the cluster config template. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster config template.
+                    type: string
+                  policy:
+                    description: List of policy references.
+                    items:
+                      properties:
+                        id:
+                          description: ID of the policy.
+                          type: string
+                        idRef:
+                          description: Reference to a ConfigPolicy in cluster to populate
+                            id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a ConfigPolicy in cluster to populate
+                            id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        kind:
+                          description: Kind of the policy.
+                          type: string
                       type: object
                     type: array
                   tags:
@@ -340,39 +644,12 @@ spec:
                     description: 'The cloud type for the cluster template. Examples:
                       ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
                     type: string
-                  context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
-                    type: string
-                  description:
-                    description: The description of the cluster config template.
-                    type: string
-                  executionState:
-                    description: 'Current execution state of the cluster template.
-                      Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.'
-                    type: string
-                  id:
-                    type: string
-                  policies:
-                    description: List of policy references.
-                    items:
-                      properties:
-                        kind:
-                          description: Kind of the policy.
-                          type: string
-                        uid:
-                          description: UID of the policy.
-                          type: string
-                      type: object
-                    type: array
-                  profiles:
+                  clusterProfile:
                     description: Set of cluster profile references.
                     items:
                       properties:
-                        uid:
-                          description: UID of the cluster profile.
+                        id:
+                          description: ID of the cluster profile.
                           type: string
                         variables:
                           description: Set of profile variable values and assignment
@@ -394,6 +671,33 @@ spec:
                                 type: string
                             type: object
                           type: array
+                      type: object
+                    type: array
+                  context:
+                    description: The context of the cluster config template. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  description:
+                    description: The description of the cluster config template.
+                    type: string
+                  executionState:
+                    description: 'Current execution state of the cluster template.
+                      Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.'
+                    type: string
+                  id:
+                    type: string
+                  policy:
+                    description: List of policy references.
+                    items:
+                      properties:
+                        id:
+                          description: ID of the policy.
+                          type: string
+                        kind:
+                          description: Kind of the policy.
+                          type: string
                       type: object
                     type: array
                   tags:
