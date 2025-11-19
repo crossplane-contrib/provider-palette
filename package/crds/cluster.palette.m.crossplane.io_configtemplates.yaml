@@ -183,6 +183,9 @@ spec:
                   description:
                     description: The description of the cluster config template.
                     type: string
+                  name:
+                    description: The name of the cluster config template.
+                    type: string
                   policy:
                     description: List of policy references.
                     items:
@@ -432,6 +435,9 @@ spec:
                   description:
                     description: The description of the cluster config template.
                     type: string
+                  name:
+                    description: The name of the cluster config template.
+                    type: string
                   policy:
                     description: List of policy references.
                     items:
@@ -607,6 +613,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudType)
                 || (has(self.initProvider) && has(self.initProvider.cloudType))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: ConfigTemplateStatus defines the observed state of ConfigTemplate.
             properties:
@@ -669,6 +679,9 @@ spec:
                       Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.'
                     type: string
                   id:
+                    type: string
+                  name:
+                    description: The name of the cluster config template.
                     type: string
                   policy:
                     description: List of policy references.

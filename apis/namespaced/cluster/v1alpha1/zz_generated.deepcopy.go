@@ -7443,6 +7443,11 @@ func (in *ConfigPolicyInitParameters) DeepCopyInto(out *ConfigPolicyInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyType != nil {
 		in, out := &in.PolicyType, &out.PolicyType
 		*out = new(string)
@@ -7523,6 +7528,11 @@ func (in *ConfigPolicyObservation) DeepCopyInto(out *ConfigPolicyObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyType != nil {
 		in, out := &in.PolicyType, &out.PolicyType
 		*out = new(string)
@@ -7563,6 +7573,11 @@ func (in *ConfigPolicyParameters) DeepCopyInto(out *ConfigPolicyParameters) {
 	*out = *in
 	if in.Context != nil {
 		in, out := &in.Context, &out.Context
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -7789,6 +7804,11 @@ func (in *ConfigTemplateInitParameters) DeepCopyInto(out *ConfigTemplateInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Policy != nil {
 		in, out := &in.Policy, &out.Policy
 		*out = make([]PolicyInitParameters, len(*in))
@@ -7898,6 +7918,11 @@ func (in *ConfigTemplateObservation) DeepCopyInto(out *ConfigTemplateObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Policy != nil {
 		in, out := &in.Policy, &out.Policy
 		*out = make([]PolicyObservation, len(*in))
@@ -7955,6 +7980,11 @@ func (in *ConfigTemplateParameters) DeepCopyInto(out *ConfigTemplateParameters) 
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

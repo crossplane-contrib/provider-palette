@@ -19,6 +19,9 @@ type ConfigPolicyInitParameters struct {
 	// The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// The name of the cluster config policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
@@ -37,6 +40,9 @@ type ConfigPolicyObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The name of the cluster config policy.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
@@ -53,6 +59,10 @@ type ConfigPolicyParameters struct {
 	// The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// The name of the cluster config policy.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	// +kubebuilder:validation:Optional
@@ -143,8 +153,9 @@ type ConfigPolicyStatus struct {
 type ConfigPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ConfigPolicySpec   `json:"spec"`
-	Status            ConfigPolicyStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   ConfigPolicySpec   `json:"spec"`
+	Status ConfigPolicyStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

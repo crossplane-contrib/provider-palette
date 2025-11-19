@@ -78,6 +78,9 @@ spec:
                       If  the `project` context is specified, the project name will
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
+                  name:
+                    description: The name of the cluster config policy.
+                    type: string
                   policyType:
                     description: Type of the policy. Allowed values are `maintenance`
                       or `upgrade`(not supported yet). Default value is `maintenance`.
@@ -125,6 +128,9 @@ spec:
                       values are `project` or `tenant`. Default value is `project`.
                       If  the `project` context is specified, the project name will
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    type: string
+                  name:
+                    description: The name of the cluster config policy.
                     type: string
                   policyType:
                     description: Type of the policy. Allowed values are `maintenance`
@@ -241,6 +247,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: ConfigPolicyStatus defines the observed state of ConfigPolicy.
             properties:
@@ -253,6 +264,9 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   id:
+                    type: string
+                  name:
+                    description: The name of the cluster config policy.
                     type: string
                   policyType:
                     description: Type of the policy. Allowed values are `maintenance`

@@ -86,6 +86,9 @@ type ConfigTemplateInitParameters struct {
 	// The description of the cluster config template.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The name of the cluster config template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// List of policy references.
 	Policy []PolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
 
@@ -119,6 +122,9 @@ type ConfigTemplateObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The name of the cluster config template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// List of policy references.
 	Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
 
@@ -147,6 +153,10 @@ type ConfigTemplateParameters struct {
 	// The description of the cluster config template.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The name of the cluster config template.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// List of policy references.
 	// +kubebuilder:validation:Optional
@@ -285,6 +295,7 @@ type ConfigTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudType) || (has(self.initProvider) && has(self.initProvider.cloudType))",message="spec.forProvider.cloudType is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   ConfigTemplateSpec   `json:"spec"`
 	Status ConfigTemplateStatus `json:"status,omitempty"`
 }
