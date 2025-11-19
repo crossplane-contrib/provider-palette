@@ -564,6 +564,83 @@ type CustomCloudClusterRbacBindingSubjectsParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type CustomCloudClusterTemplateClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type CustomCloudClusterTemplateClusterProfileObservation struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type CustomCloudClusterTemplateClusterProfileParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type CustomCloudClusterTemplateInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []CustomCloudClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type CustomCloudClusterTemplateObservation struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []CustomCloudClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the cluster.
+	// The name of the cluster template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type CustomCloudClusterTemplateParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []CustomCloudClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
 type CustomCloudInitParameters struct {
 
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -601,6 +678,9 @@ type CustomCloudInitParameters struct {
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []CustomCloudClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	ClusterTemplate []CustomCloudClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -978,6 +1058,9 @@ type CustomCloudObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []CustomCloudClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// The cluster template of the cluster.
+	ClusterTemplate []CustomCloudClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -1090,6 +1173,10 @@ type CustomCloudParameters struct {
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []CustomCloudClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	// +kubebuilder:validation:Optional
+	ClusterTemplate []CustomCloudClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

@@ -48,7 +48,7 @@ type ProfileInitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) Version of the cluster profile. Defaults to '1.0.0'.
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -89,7 +89,7 @@ type ProfileObservation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) Version of the cluster profile. Defaults to '1.0.0'.
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -283,7 +283,7 @@ type ProfileParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) Version of the cluster profile. Defaults to '1.0.0'.
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }

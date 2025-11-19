@@ -16,7 +16,7 @@ import (
 type AwsInitParameters struct {
 
 	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
@@ -36,7 +36,7 @@ type AwsInitParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// account access in AWS.
-	// An optional external ID that can be used for cross-account access in AWS.
+	// An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
 	// (String)
@@ -49,6 +49,10 @@ type AwsInitParameters struct {
 	// Default is 'aws'.
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+	PermissionBoundaryArn *string `json:"permissionBoundaryArn,omitempty" tf:"permission_boundary_arn,omitempty"`
+
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// +listType=set
@@ -58,15 +62,19 @@ type AwsInitParameters struct {
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
+
 	// (String) The type of AWS credentials to use. Can be secret or sts.
-	// The type of AWS credentials to use. Can be `secret` or `sts`.
+	// The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AwsObservation struct {
 
 	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// (String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.
@@ -90,6 +98,10 @@ type AwsObservation struct {
 	// Default is 'aws'.
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+	PermissionBoundaryArn *string `json:"permissionBoundaryArn,omitempty" tf:"permission_boundary_arn,omitempty"`
+
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// +listType=set
@@ -99,15 +111,19 @@ type AwsObservation struct {
 	// ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
+
 	// (String) The type of AWS credentials to use. Can be secret or sts.
-	// The type of AWS credentials to use. Can be `secret` or `sts`.
+	// The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AwsParameters struct {
 
 	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
@@ -132,7 +148,7 @@ type AwsParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// account access in AWS.
-	// An optional external ID that can be used for cross-account access in AWS.
+	// An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
 	// +kubebuilder:validation:Optional
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
@@ -148,6 +164,11 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+	// +kubebuilder:validation:Optional
+	PermissionBoundaryArn *string `json:"permissionBoundaryArn,omitempty" tf:"permission_boundary_arn,omitempty"`
+
 	// (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// A set of ARNs for the IAM policies that should be associated with the cloud account.
 	// +kubebuilder:validation:Optional
@@ -159,8 +180,13 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
+	// (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+	// The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+	// +kubebuilder:validation:Optional
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
+
 	// (String) The type of AWS credentials to use. Can be secret or sts.
-	// The type of AWS credentials to use. Can be `secret` or `sts`.
+	// The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

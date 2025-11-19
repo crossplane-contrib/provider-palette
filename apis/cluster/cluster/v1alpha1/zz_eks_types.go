@@ -631,6 +631,83 @@ type EksClusterRbacBindingSubjectsParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type EksClusterTemplateClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EksClusterTemplateClusterProfileObservation struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EksClusterTemplateClusterProfileParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EksClusterTemplateInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []EksClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type EksClusterTemplateObservation struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []EksClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the cluster.
+	// The name of the cluster template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EksClusterTemplateParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []EksClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
 type EksHostConfigInitParameters struct {
 
 	// (String) The external traffic policy for the cluster.
@@ -729,6 +806,9 @@ type EksInitParameters struct {
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EksClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	ClusterTemplate []EksClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -911,7 +991,7 @@ type EksLocationConfigParameters struct {
 type EksMachinePoolInitParameters struct {
 
 	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
 	// (Map of String)
@@ -1007,7 +1087,7 @@ type EksMachinePoolNodeParameters struct {
 type EksMachinePoolObservation struct {
 
 	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
 	// (Map of String)
@@ -1068,7 +1148,7 @@ type EksMachinePoolObservation struct {
 type EksMachinePoolParameters struct {
 
 	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
 	// +kubebuilder:validation:Optional
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
@@ -1265,6 +1345,9 @@ type EksObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EksClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// The cluster template of the cluster.
+	ClusterTemplate []EksClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -1394,6 +1477,10 @@ type EksParameters struct {
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []EksClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	// +kubebuilder:validation:Optional
+	ClusterTemplate []EksClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

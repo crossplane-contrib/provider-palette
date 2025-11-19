@@ -563,6 +563,38 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTemplate:
+                    description: The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                      type: object
+                    type: array
                   context:
                     description: |-
                       (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -663,7 +695,7 @@ spec:
                         amiType:
                           description: |-
                             (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:
                           additionalProperties:
@@ -1390,6 +1422,38 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTemplate:
+                    description: The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                      type: object
+                    type: array
                   context:
                     description: |-
                       (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1490,7 +1554,7 @@ spec:
                         amiType:
                           description: |-
                             (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:
                           additionalProperties:
@@ -2102,6 +2166,43 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTemplate:
+                    description: The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                        name:
+                          description: |-
+                            (String) The name of the cluster.
+                            The name of the cluster template.
+                          type: string
+                      type: object
+                    type: array
                   context:
                     description: |-
                       (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2236,7 +2337,7 @@ spec:
                         amiType:
                           description: |-
                             (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
-                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.
+                            Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:
                           additionalProperties:

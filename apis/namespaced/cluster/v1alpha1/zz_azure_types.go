@@ -624,6 +624,83 @@ type AzureClusterRbacBindingSubjectsParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type AzureClusterTemplateClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AzureClusterTemplateClusterProfileObservation struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AzureClusterTemplateClusterProfileParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AzureClusterTemplateInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []AzureClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type AzureClusterTemplateObservation struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []AzureClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the cluster template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AzureClusterTemplateParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []AzureClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
 type AzureHostConfigInitParameters struct {
 
 	// (String) The external traffic policy for the cluster.
@@ -721,6 +798,9 @@ type AzureInitParameters struct {
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AzureClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	ClusterTemplate []AzureClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -1159,6 +1239,9 @@ type AzureObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AzureClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// The cluster template of the cluster.
+	ClusterTemplate []AzureClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
 	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -1278,6 +1361,10 @@ type AzureParameters struct {
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []AzureClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	// +kubebuilder:validation:Optional
+	ClusterTemplate []AzureClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Azure cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

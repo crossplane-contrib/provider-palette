@@ -367,6 +367,83 @@ type AwsClusterRbacBindingParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type AwsClusterTemplateClusterProfileInitParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AwsClusterTemplateClusterProfileObservation struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AwsClusterTemplateClusterProfileParameters struct {
+
+	// (String) The ID of this resource.
+	// The UID of the cluster profile.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// value pairs. For example: priority = "5".
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AwsClusterTemplateInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []AwsClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type AwsClusterTemplateObservation struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	ClusterProfile []AwsClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// The name of the cluster template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AwsClusterTemplateParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// The cluster profile of the cluster template.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []AwsClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// (String) The ID of this resource.
+	// The ID of the cluster template.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
 type AwsHostConfigInitParameters struct {
 
 	// (String) The external traffic policy for the cluster.
@@ -463,6 +540,9 @@ type AwsInitParameters struct {
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AwsClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	ClusterTemplate []AwsClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -879,6 +959,9 @@ type AwsObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AwsClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// The cluster template of the cluster.
+	ClusterTemplate []AwsClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
 	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -1001,6 +1084,10 @@ type AwsParameters struct {
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []AwsClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	// +kubebuilder:validation:Optional
+	ClusterTemplate []AwsClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

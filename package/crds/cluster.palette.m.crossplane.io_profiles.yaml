@@ -215,7 +215,7 @@ spec:
                   version:
                     description: |-
                       (String) Version of the cluster profile. Defaults to '1.0.0'.
-                      Version of the cluster profile. Defaults to '1.0.0'.
+                      Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
                     type: string
                 type: object
               initProvider:
@@ -387,7 +387,7 @@ spec:
                   version:
                     description: |-
                       (String) Version of the cluster profile. Defaults to '1.0.0'.
-                      Version of the cluster profile. Defaults to '1.0.0'.
+                      Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
                     type: string
                 type: object
               managementPolicies:
@@ -626,7 +626,7 @@ spec:
                   version:
                     description: |-
                       (String) Version of the cluster profile. Defaults to '1.0.0'.
-                      Version of the cluster profile. Defaults to '1.0.0'.
+                      Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
                     type: string
                 type: object
               conditions:

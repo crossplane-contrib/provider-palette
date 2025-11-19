@@ -75,7 +75,7 @@ spec:
                   arn:
                     description: |-
                       (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
                     type: string
                   awsAccessKey:
                     description: |-
@@ -128,7 +128,7 @@ spec:
                   externalIdSecretRef:
                     description: |-
                       account access in AWS.
-                      An optional external ID that can be used for cross-account access in AWS.
+                      An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
                     properties:
                       key:
                         description: The key to select.
@@ -155,6 +155,11 @@ spec:
                       Can be 'aws' for standard AWS regions or 'aws-us-gov' for AWS GovCloud (US) regions.
                       Default is 'aws'.
                     type: string
+                  permissionBoundaryArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+                    type: string
                   policyArns:
                     description: |-
                       (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
@@ -168,10 +173,15 @@ spec:
                       (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                       ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                     type: string
+                  roleArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+                    type: string
                   type:
                     description: |-
                       (String) The type of AWS credentials to use. Can be secret or sts.
-                      The type of AWS credentials to use. Can be `secret` or `sts`.
+                      The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
                     type: string
                 type: object
               initProvider:
@@ -190,7 +200,7 @@ spec:
                   arn:
                     description: |-
                       (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
                     type: string
                   awsAccessKey:
                     description: |-
@@ -243,7 +253,7 @@ spec:
                   externalIdSecretRef:
                     description: |-
                       account access in AWS.
-                      An optional external ID that can be used for cross-account access in AWS.
+                      An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
                     properties:
                       key:
                         description: The key to select.
@@ -270,6 +280,11 @@ spec:
                       Can be 'aws' for standard AWS regions or 'aws-us-gov' for AWS GovCloud (US) regions.
                       Default is 'aws'.
                     type: string
+                  permissionBoundaryArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+                    type: string
                   policyArns:
                     description: |-
                       (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
@@ -283,10 +298,15 @@ spec:
                       (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                       ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                     type: string
+                  roleArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+                    type: string
                   type:
                     description: |-
                       (String) The type of AWS credentials to use. Can be secret or sts.
-                      The type of AWS credentials to use. Can be `secret` or `sts`.
+                      The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
                     type: string
                 type: object
               managementPolicies:
@@ -388,7 +408,7 @@ spec:
                   arn:
                     description: |-
                       (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
-                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
                     type: string
                   awsAccessKey:
                     description: |-
@@ -414,6 +434,11 @@ spec:
                       Can be 'aws' for standard AWS regions or 'aws-us-gov' for AWS GovCloud (US) regions.
                       Default is 'aws'.
                     type: string
+                  permissionBoundaryArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.
+                    type: string
                   policyArns:
                     description: |-
                       (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
@@ -427,10 +452,15 @@ spec:
                       (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                       ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
                     type: string
+                  roleArn:
+                    description: |-
+                      (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+                      The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.
+                    type: string
                   type:
                     description: |-
                       (String) The type of AWS credentials to use. Can be secret or sts.
-                      The type of AWS credentials to use. Can be `secret` or `sts`.
+                      The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`.
                     type: string
                 type: object
               conditions:
