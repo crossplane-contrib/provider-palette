@@ -957,7 +957,7 @@
             "attributes": {
               "arn": {
                 "type": "string",
-                "description": "The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.",
+                "description": "The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -989,7 +989,7 @@
               },
               "external_id": {
                 "type": "string",
-                "description": "An optional external ID that can be used for cross-account access in AWS.",
+                "description": "An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.",
                 "description_kind": "plain",
                 "optional": true,
                 "sensitive": true
@@ -1011,6 +1011,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "permission_boundary_arn": {
+                "type": "string",
+                "description": "Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with `pod-identity` credential type.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "policy_arns": {
                 "type": [
                   "set",
@@ -1026,9 +1032,15 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "role_arn": {
+                "type": "string",
+                "description": "The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is `pod-identity`.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "type": {
                 "type": "string",
-                "description": "The type of AWS credentials to use. Can be `secret` or `sts`. ",
+                "description": "The type of AWS credentials to use. Can be `secret`, `sts`, or `pod-identity`. ",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -1837,6 +1849,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "host_config": {
                 "nesting_mode": "list",
                 "block": {
@@ -2485,6 +2545,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "host_config": {
                 "nesting_mode": "list",
@@ -3292,6 +3400,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "host_config": {
                 "nesting_mode": "list",
                 "block": {
@@ -3552,6 +3708,266 @@
               }
             },
             "description": "Resource for managing Azure clusters in Spectro Cloud through Palette.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cluster_config_policy": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "context": {
+                "type": "string",
+                "description": "The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the cluster config policy.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "policy_type": {
+                "type": "string",
+                "description": "Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "tags": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.",
+                "description_kind": "plain",
+                "optional": true
+              }
+            },
+            "block_types": {
+              "schedules": {
+                "nesting_mode": "set",
+                "block": {
+                  "attributes": {
+                    "duration_hrs": {
+                      "type": "number",
+                      "description": "Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the upgrade schedule.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "start_cron": {
+                      "type": "string",
+                      "description": "Cron expression for the start time of the schedule.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "description": "Set of maintenance schedules for the policy.",
+                  "description_kind": "plain"
+                }
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "A resource for creating and managing cluster config policies (maintenance policies). **Tech Preview**: This resource is in tech preview and may undergo changes.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cluster_config_template": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "attached_cluster": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cluster_uid": "string",
+                      "name": "string"
+                    }
+                  ]
+                ],
+                "description": "List of clusters attached to this template.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "cloud_type": {
+                "type": "string",
+                "description": "The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "context": {
+                "type": "string",
+                "description": "The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the cluster config template.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "execution_state": {
+                "type": "string",
+                "description": "Current execution state of the cluster template. Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the cluster config template.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "tags": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "upgrade_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.",
+                "description_kind": "plain",
+                "optional": true
+              }
+            },
+            "block_types": {
+              "cluster_profile": {
+                "nesting_mode": "set",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "ID of the cluster profile.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "block_types": {
+                    "variables": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "assign_strategy": {
+                            "type": "string",
+                            "description": "Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the variable.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Set of profile variable values and assignment strategies.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "Set of cluster profile references.",
+                  "description_kind": "plain"
+                }
+              },
+              "policy": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "ID of the policy.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "kind": {
+                      "type": "string",
+                      "description": "Kind of the policy.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description": "List of policy references.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "A resource for creating and managing cluster config templates. **Tech Preview**: This resource is in tech preview and may undergo changes.",
             "description_kind": "plain"
           }
         },
@@ -3935,6 +4351,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "location_config": {
                 "nesting_mode": "list",
@@ -4542,6 +5006,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "host_config": {
                 "nesting_mode": "list",
@@ -5267,6 +5779,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "host_config": {
                 "nesting_mode": "list",
@@ -6053,6 +6613,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "fargate_profile": {
                 "nesting_mode": "list",
                 "block": {
@@ -6153,7 +6761,7 @@
                     },
                     "ami_type": {
                       "type": "string",
-                      "description": "Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2_x86_64`.",
+                      "description": "Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6805,6 +7413,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "host_config": {
                 "nesting_mode": "list",
                 "block": {
@@ -7442,6 +8098,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "host_config": {
                 "nesting_mode": "list",
@@ -8284,6 +8988,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "host_config": {
                 "nesting_mode": "list",
                 "block": {
@@ -9065,6 +9817,54 @@
                   "description_kind": "plain"
                 }
               },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
               "host_config": {
                 "nesting_mode": "list",
                 "block": {
@@ -9389,7 +10189,7 @@
               },
               "version": {
                 "type": "string",
-                "description": "Version of the cluster profile. Defaults to '1.0.0'.",
+                "description": "Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -10044,6 +10844,54 @@
                   "description": "The RBAC binding for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "host_config": {
                 "nesting_mode": "list",
@@ -16098,6 +16946,167 @@
                 "optional": true
               }
             },
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cluster_config_policy": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "context": {
+                "type": "string",
+                "description": "The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the cluster config policy.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "schedules": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "duration_hrs": "number",
+                      "name": "string",
+                      "start_cron": "string"
+                    }
+                  ]
+                ],
+                "description": "List of maintenance schedules for the policy.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "tags": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Tags assigned to the cluster config policy.",
+                "description_kind": "plain",
+                "computed": true
+              }
+            },
+            "description": "Data source for retrieving information about a cluster config policy (maintenance policy).",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cluster_config_template": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "attached_cluster": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cluster_uid": "string",
+                      "name": "string"
+                    }
+                  ]
+                ],
+                "description": "List of clusters attached to this template.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "cloud_type": {
+                "type": "string",
+                "description": "The cloud type for the cluster template.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "cluster_profile": {
+                "type": [
+                  "set",
+                  [
+                    "object",
+                    {
+                      "id": "string",
+                      "variables": [
+                        "set",
+                        [
+                          "object",
+                          {
+                            "assign_strategy": "string",
+                            "name": "string",
+                            "value": "string"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Set of cluster profile references.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "context": {
+                "type": "string",
+                "description": "The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the cluster config template.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "execution_state": {
+                "type": "string",
+                "description": "Current execution state of the cluster template. Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the cluster config template.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "policy": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "id": "string",
+                      "kind": "string"
+                    }
+                  ]
+                ],
+                "description": "List of policy references.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "tags": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Tags assigned to the cluster config template.",
+                "description_kind": "plain",
+                "computed": true
+              }
+            },
+            "description": "Data source for retrieving information about a cluster config template. **Tech Preview**: This data source is in tech preview and may undergo changes.",
             "description_kind": "plain"
           }
         },

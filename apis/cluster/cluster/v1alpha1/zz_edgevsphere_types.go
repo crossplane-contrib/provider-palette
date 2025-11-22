@@ -488,6 +488,106 @@ type EdgeVsphereClusterRbacBindingSubjectsParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type EdgeVsphereClusterTemplateClusterProfileInitParameters struct {
+
+	// The UID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EdgeVsphereClusterTemplateClusterProfileObservation struct {
+
+	// The UID of the cluster profile.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EdgeVsphereClusterTemplateClusterProfileParameters struct {
+
+	// The UID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EdgeVsphereClusterTemplateInitParameters struct {
+
+	// The cluster profile of the cluster template.
+	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// The ID of the cluster template.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+}
+
+type EdgeVsphereClusterTemplateObservation struct {
+
+	// The cluster profile of the cluster template.
+	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// The ID of the cluster template.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The name of the cluster template.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EdgeVsphereClusterTemplateParameters struct {
+
+	// The cluster profile of the cluster template.
+	// +kubebuilder:validation:Optional
+	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+
+	// The ID of the cluster template.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+}
+
 type EdgeVsphereHostConfigInitParameters struct {
 
 	// The external traffic policy for the cluster.
@@ -551,6 +651,9 @@ type EdgeVsphereInitParameters struct {
 
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	ClusterTemplate []EdgeVsphereClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -898,6 +1001,9 @@ type EdgeVsphereObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// The cluster template of the cluster.
+	ClusterTemplate []EdgeVsphereClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
@@ -974,6 +1080,10 @@ type EdgeVsphereParameters struct {
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
+
+	// The cluster template of the cluster.
+	// +kubebuilder:validation:Optional
+	ClusterTemplate []EdgeVsphereClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional

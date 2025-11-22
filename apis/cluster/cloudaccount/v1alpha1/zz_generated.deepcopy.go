@@ -83,6 +83,11 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PermissionBoundaryArn != nil {
+		in, out := &in.PermissionBoundaryArn, &out.PermissionBoundaryArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyArns != nil {
 		in, out := &in.PolicyArns, &out.PolicyArns
 		*out = make([]*string, len(*in))
@@ -96,6 +101,11 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
+		*out = new(string)
+		**out = **in
+	}
+	if in.RoleArn != nil {
+		in, out := &in.RoleArn, &out.RoleArn
 		*out = new(string)
 		**out = **in
 	}
@@ -181,6 +191,11 @@ func (in *AwsObservation) DeepCopyInto(out *AwsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PermissionBoundaryArn != nil {
+		in, out := &in.PermissionBoundaryArn, &out.PermissionBoundaryArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyArns != nil {
 		in, out := &in.PolicyArns, &out.PolicyArns
 		*out = make([]*string, len(*in))
@@ -194,6 +209,11 @@ func (in *AwsObservation) DeepCopyInto(out *AwsObservation) {
 	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
+		*out = new(string)
+		**out = **in
+	}
+	if in.RoleArn != nil {
+		in, out := &in.RoleArn, &out.RoleArn
 		*out = new(string)
 		**out = **in
 	}
@@ -257,6 +277,11 @@ func (in *AwsParameters) DeepCopyInto(out *AwsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PermissionBoundaryArn != nil {
+		in, out := &in.PermissionBoundaryArn, &out.PermissionBoundaryArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyArns != nil {
 		in, out := &in.PolicyArns, &out.PolicyArns
 		*out = make([]*string, len(*in))
@@ -270,6 +295,11 @@ func (in *AwsParameters) DeepCopyInto(out *AwsParameters) {
 	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
+		*out = new(string)
+		**out = **in
+	}
+	if in.RoleArn != nil {
+		in, out := &in.RoleArn, &out.RoleArn
 		*out = new(string)
 		**out = **in
 	}

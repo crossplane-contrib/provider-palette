@@ -528,6 +528,192 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTemplate:
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              idRef:
+                                description: Reference to a Profile in cluster to
+                                  populate id.
+                                properties:
+                                  name:
+                                    description: Name of the referenced object.
+                                    type: string
+                                  policy:
+                                    description: Policies for referencing.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                required:
+                                - name
+                                type: object
+                              idSelector:
+                                description: Selector for a Profile in cluster to
+                                  populate id.
+                                properties:
+                                  matchControllerRef:
+                                    description: |-
+                                      MatchControllerRef ensures an object with the same controller reference
+                                      as the selecting object is selected.
+                                    type: boolean
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    description: MatchLabels ensures an object with
+                                      matching labels is selected.
+                                    type: object
+                                  policy:
+                                    description: Policies for selection.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                type: object
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                        idRef:
+                          description: Reference to a ConfigTemplate in cluster to
+                            populate id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a ConfigTemplate in cluster to
+                            populate id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                   context:
                     description: |-
                       (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1271,6 +1457,192 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTemplate:
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              idRef:
+                                description: Reference to a Profile in cluster to
+                                  populate id.
+                                properties:
+                                  name:
+                                    description: Name of the referenced object.
+                                    type: string
+                                  policy:
+                                    description: Policies for referencing.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                required:
+                                - name
+                                type: object
+                              idSelector:
+                                description: Selector for a Profile in cluster to
+                                  populate id.
+                                properties:
+                                  matchControllerRef:
+                                    description: |-
+                                      MatchControllerRef ensures an object with the same controller reference
+                                      as the selecting object is selected.
+                                    type: boolean
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    description: MatchLabels ensures an object with
+                                      matching labels is selected.
+                                    type: object
+                                  policy:
+                                    description: Policies for selection.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                type: object
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                        idRef:
+                          description: Reference to a ConfigTemplate in cluster to
+                            populate id.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        idSelector:
+                          description: Selector for a ConfigTemplate in cluster to
+                            populate id.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                   context:
                     description: |-
                       (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1896,6 +2268,45 @@ spec:
                           description: |-
                             (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
                             The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+                          type: string
+                      type: object
+                    type: array
+                  clusterTemplate:
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
+                    items:
+                      properties:
+                        clusterProfile:
+                          description: |-
+                            (Block List) (see below for nested schema)
+                            The cluster profile of the cluster template.
+                          items:
+                            properties:
+                              id:
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
+                                type: string
+                              variables:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
+                                type: object
+                                x-kubernetes-map-type: granular
+                            type: object
+                          type: array
+                        id:
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
+                          type: string
+                        name:
+                          description: |-
+                            (String)
+                            The name of the cluster template.
                           type: string
                       type: object
                     type: array

@@ -305,6 +305,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_cluster_maas":            FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_openstack":       FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_profile":         FormattedIdentifierFromProvider(),
+	"spectrocloud_cluster_config_template": FormattedIdentifierFromProvider(),
+	"spectrocloud_cluster_config_policy":   FormattedIdentifierFromProvider(),
 	// "spectrocloud_cluster_profile_import" - skipped via SkipList
 	"spectrocloud_cluster_vsphere":             FormattedIdentifierFromProvider(),
 	"spectrocloud_datavolume":                  config.IdentifierFromProvider, // Observe is not support

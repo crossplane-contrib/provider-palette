@@ -22,6 +22,8 @@ import (
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/aks"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/azure"
+	configpolicy "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/configpolicy"
+	configtemplate "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/configtemplate"
 	customcloud "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/customcloud"
 	edgenative "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/edgenative"
 	edgevsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/edgevsphere"
@@ -77,6 +79,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		aks.Setup,
 		awscluster.Setup,
 		azurecluster.Setup,
+		configpolicy.Setup,
+		configtemplate.Setup,
 		customcloud.Setup,
 		edgenative.Setup,
 		edgevsphere.Setup,
@@ -138,6 +142,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		aks.SetupGated,
 		awscluster.SetupGated,
 		azurecluster.SetupGated,
+		configpolicy.SetupGated,
+		configtemplate.SetupGated,
 		customcloud.SetupGated,
 		edgenative.SetupGated,
 		edgevsphere.SetupGated,
