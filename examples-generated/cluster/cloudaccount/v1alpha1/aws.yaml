@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cloudaccount/v1alpha1/aws
   labels:
-    testing.upbound.io/example-name: aws-1
-  name: aws-1
+    testing.upbound.io/example-name: aws_secret
+  name: aws-secret
 spec:
   forProvider:
     awsSecretKeySecretRef:
@@ -16,4 +16,8 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    name: aws-1
+    name: aws-account-secret
+    partition: aws
+    policyArns:
+    - arn:aws:iam::123456789012:policy/CustomPolicy
+    type: secret

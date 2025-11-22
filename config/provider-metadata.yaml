@@ -420,32 +420,57 @@ resources:
         name: spectrocloud_cloudaccount_aws
         title: spectrocloud_cloudaccount_aws Resource - terraform-provider-spectrocloud
         examples:
-            - name: aws-1
+            - name: aws_secret
               manifest: |-
                 {
                   "aws_secret_key": "${var.aws_secret_key}",
                   "aws_secured_access_key": "${var.aws_access_key}",
-                  "name": "aws-1"
+                  "name": "aws-account-secret",
+                  "partition": "aws",
+                  "policy_arns": [
+                    "arn:aws:iam::123456789012:policy/CustomPolicy"
+                  ],
+                  "type": "secret"
                 }
               references:
                 aws_secret_key: var.aws_secret_key
                 aws_secured_access_key: var.aws_access_key
+            - name: aws_sts
+              manifest: |-
+                {
+                  "arn": "arn:aws:iam::123456789012:role/SpectroCloudRole",
+                  "external_id": "externalId123",
+                  "name": "aws-account-sts",
+                  "partition": "aws",
+                  "type": "sts"
+                }
+            - name: aws_pod_identity
+              manifest: |-
+                {
+                  "name": "aws-account-pod-identity",
+                  "partition": "aws",
+                  "permission_boundary_arn": "arn:aws:iam::123456789012:policy/PermissionBoundary",
+                  "role_arn": "arn:aws:iam::123456789012:role/EKSPodIdentityRole",
+                  "type": "pod-identity"
+                }
         argumentDocs:
-            arn: (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS.
+            arn: (String) The Amazon Resource Name (ARN) associated with the AWS resource. This is used for identifying resources in AWS. Used for STS credential type.
             aws_access_key: '(String) The AWS access key used to authenticate. Deprecated: Use aws_secured_access_key instead for enhanced security. Note: This field is mutually exclusive with aws_secured_access_key.'
             aws_secret_key: (String, Sensitive) The AWS secret key used in conjunction with the access key for authentication.
             aws_secured_access_key: '(String, Sensitive) The AWS access key used to authenticate. This is a secure alternative to aws_access_key with sensitive attribute enabled. Note: This field is mutually exclusive with aws_access_key.'
             context: (String) The context of the AWS configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            external_id: (String, Sensitive) An optional external ID that can be used for cross-account access in AWS.
+            external_id: (String, Sensitive) An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
             id: (String) The ID of this resource.
             name: (String)
             partition: |-
                 (String) The AWS partition in which the cloud account is located.
                 Can be 'aws' for standard AWS regions or 'aws-us-gov' for AWS GovCloud (US) regions.
                 Default is 'aws'.
+            permission_boundary_arn: (String) Optional Permission Boundary ARN to limit the maximum permissions for roles created by Hubble. Used with pod-identity credential type.
             policy_arns: (Set of String) A set of ARNs for the IAM policies that should be associated with the cloud account.
             private_cloud_gateway_id: (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
-            type: (String) The type of AWS credentials to use. Can be secret or sts.
+            role_arn: (String) The IAM Role ARN for AWS EKS Pod Identity authentication. Required when type is pod-identity.
+            type: (String) The type of AWS credentials to use. Can be secret, sts, or pod-identity.
         importStatements: []
     spectrocloud_cloudaccount_azure:
         subCategory: ""
@@ -697,6 +722,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -885,6 +911,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1044,6 +1071,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1134,6 +1162,172 @@ resources:
             virtual_network_name: (String) Azure virtual network in which the cluster is to be provisioned.
             worker_node_subnet: '(Block List, Max: 1) (see below for nested schema)'
         importStatements: []
+    spectrocloud_cluster_config_policy:
+        subCategory: ""
+        description: 'A resource for creating and managing cluster config policies (maintenance policies). Tech Preview: This resource is in tech preview and may undergo changes.'
+        name: spectrocloud_cluster_config_policy
+        title: spectrocloud_cluster_config_policy Resource - terraform-provider-spectrocloud
+        examples:
+            - name: weekly_maintenance
+              manifest: |-
+                {
+                  "context": "project",
+                  "name": "weekly-maintenance-policy",
+                  "schedules": [
+                    {
+                      "duration_hrs": 4,
+                      "name": "sunday-maintenance",
+                      "start_cron": "0 2 * * SUN"
+                    }
+                  ]
+                }
+            - name: multi_schedule
+              manifest: |-
+                {
+                  "context": "project",
+                  "name": "multi-schedule-policy",
+                  "schedules": [
+                    {
+                      "duration_hrs": 2,
+                      "name": "weekday-maintenance",
+                      "start_cron": "0 1 * * 1-5"
+                    },
+                    {
+                      "duration_hrs": 6,
+                      "name": "weekend-maintenance",
+                      "start_cron": "0 3 * * 0,6"
+                    }
+                  ],
+                  "tags": [
+                    "env:production",
+                    "team:devops",
+                    "critical"
+                  ]
+                }
+            - name: tenant_policy
+              manifest: |-
+                {
+                  "context": "tenant",
+                  "name": "tenant-wide-maintenance",
+                  "schedules": [
+                    {
+                      "duration_hrs": 8,
+                      "name": "monthly-maintenance",
+                      "start_cron": "0 3 1 * *"
+                    }
+                  ]
+                }
+        argumentDocs:
+            context: (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+            create: (String)
+            delete: (String)
+            duration_hrs: '(Number) Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.'
+            id: (String) The ID of this resource.
+            name: (String) The name of the cluster config policy.
+            policy_type: (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
+            schedules: (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
+            start_cron: (String) Cron expression for the start time of the schedule.
+            tags: (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+        importStatements: []
+    spectrocloud_cluster_config_template:
+        subCategory: ""
+        description: 'A resource for creating and managing cluster config templates. Tech Preview: This resource is in tech preview and may undergo changes.'
+        name: spectrocloud_cluster_config_template
+        title: spectrocloud_cluster_config_template Resource - terraform-provider-spectrocloud
+        examples:
+            - name: basic_template
+              manifest: |-
+                {
+                  "cloud_type": "aws",
+                  "cluster_profile": [
+                    {
+                      "id": "${spectrocloud_cluster_profile.infra_profile.id}"
+                    },
+                    {
+                      "id": "${spectrocloud_cluster_profile.addon_profile.id}"
+                    }
+                  ],
+                  "context": "project",
+                  "description": "Basic AWS cluster configuration template",
+                  "name": "basic-aws-template",
+                  "tags": [
+                    "env:production",
+                    "team:platform"
+                  ]
+                }
+              references:
+                cluster_profile.id: spectrocloud_cluster_profile.addon_profile.id
+            - name: template_with_policy
+              manifest: |-
+                {
+                  "cloud_type": "aws",
+                  "cluster_profile": [
+                    {
+                      "id": "${spectrocloud_cluster_profile.infra_profile.id}"
+                    }
+                  ],
+                  "context": "project",
+                  "description": "AWS cluster template with maintenance policy",
+                  "name": "aws-template-with-maintenance",
+                  "policy": [
+                    {
+                      "id": "${spectrocloud_cluster_config_policy.weekly_maintenance.id}",
+                      "kind": "maintenance"
+                    }
+                  ],
+                  "tags": [
+                    "env:staging",
+                    "critical",
+                    "automated"
+                  ]
+                }
+              references:
+                cluster_profile.id: spectrocloud_cluster_profile.infra_profile.id
+                policy.id: spectrocloud_cluster_config_policy.weekly_maintenance.id
+            - name: tenant_template
+              manifest: |-
+                {
+                  "cloud_type": "azure",
+                  "cluster_profile": [
+                    {
+                      "id": "${spectrocloud_cluster_profile.base_profile.id}"
+                    }
+                  ],
+                  "context": "tenant",
+                  "description": "Organization-wide Azure cluster template",
+                  "name": "organization-wide-template",
+                  "tags": [
+                    "tenant:wide",
+                    "compliance:required"
+                  ]
+                }
+              references:
+                cluster_profile.id: spectrocloud_cluster_profile.base_profile.id
+        argumentDocs:
+            assign_strategy: (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
+            attached_cluster: (List of Object) List of clusters attached to this template. (see below for nested schema)
+            cloud_type: '(String) The cloud type for the cluster template. Examples: ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
+            cluster_profile: (Block Set) Set of cluster profile references. (see below for nested schema)
+            cluster_uid: (String)
+            context: (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+            create: (String)
+            delete: (String)
+            description: (String) The description of the cluster config template.
+            execution_state: '(String) Current execution state of the cluster template. Possible values: Pending, Applied, Failed, PartiallyApplied.'
+            id: (String) The ID of this resource.
+            kind: (String) Kind of the policy.
+            name: (String) The name of the cluster config template.
+            policy: '(Block List, Max: 1) List of policy references. (see below for nested schema)'
+            tags: (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            upgrade_now: '(String) Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
+            value: (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+            variables: (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+        importStatements:
+            - terraform import spectrocloud_cluster_config_template.example <template-id>
     spectrocloud_cluster_custom_cloud:
         subCategory: ""
         description: Resource for managing custom cloud clusters in Spectro Cloud through Palette.
@@ -1265,6 +1459,7 @@ resources:
             cloud_config_id: (String, Deprecated)
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1398,6 +1593,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1497,6 +1693,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1655,7 +1852,7 @@ resources:
             additional_tags: (Map of String)
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             ami_id: (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
-            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
+            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             az_subnets: (Map of String) Mutually exclusive with azs. Use for Static provisioning.
             azs: (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
@@ -1668,6 +1865,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1827,6 +2025,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1958,6 +2157,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2195,6 +2395,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2369,6 +2570,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2674,7 +2876,7 @@ resources:
             update: (String)
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variable: '(Block List, Min: 1) (see below for nested schema)'
-            version: (String) Version of the cluster profile. Defaults to '1.0.0'.
+            version: '(String) Version of the cluster profile. Defaults to ''1.0.0''. Important: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles'
         importStatements: []
     spectrocloud_cluster_profile_import:
         subCategory: ""
@@ -2785,6 +2987,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.

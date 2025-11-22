@@ -539,7 +539,9 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
@@ -1426,7 +1428,9 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
@@ -2152,7 +2156,9 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:

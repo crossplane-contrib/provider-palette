@@ -18,8 +18,11 @@ type AttachedClusterInitParameters struct {
 }
 
 type AttachedClusterObservation struct {
+
+	// (String)
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
+	// (String) The name of the cluster config template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -28,6 +31,7 @@ type AttachedClusterParameters struct {
 
 type ConfigTemplateClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -40,21 +44,25 @@ type ConfigTemplateClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
 	// Set of profile variable values and assignment strategies.
 	Variables []VariablesInitParameters `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type ConfigTemplateClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
 	// Set of profile variable values and assignment strategies.
 	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type ConfigTemplateClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -68,6 +76,7 @@ type ConfigTemplateClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
 	// Set of profile variable values and assignment strategies.
 	// +kubebuilder:validation:Optional
 	Variables []VariablesParameters `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -75,99 +84,126 @@ type ConfigTemplateClusterProfileParameters struct {
 
 type ConfigTemplateInitParameters struct {
 
+	// (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	// The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block Set) Set of cluster profile references. (see below for nested schema)
 	// Set of cluster profile references.
 	ClusterProfile []ConfigTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster config template.
 	// The description of the cluster config template.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// The name of the cluster config template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) List of policy references. (see below for nested schema)
 	// List of policy references.
 	Policy []PolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
 
+	// (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	// Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	UpgradeNow *string `json:"upgradeNow,omitempty" tf:"upgrade_now,omitempty"`
 }
 
 type ConfigTemplateObservation struct {
 
+	// (List of Object) List of clusters attached to this template. (see below for nested schema)
 	// List of clusters attached to this template.
 	AttachedCluster []AttachedClusterObservation `json:"attachedCluster,omitempty" tf:"attached_cluster,omitempty"`
 
+	// (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	// The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block Set) Set of cluster profile references. (see below for nested schema)
 	// Set of cluster profile references.
 	ClusterProfile []ConfigTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster config template.
 	// The description of the cluster config template.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Current execution state of the cluster template. Possible values: Pending, Applied, Failed, PartiallyApplied.
 	// Current execution state of the cluster template. Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.
 	ExecutionState *string `json:"executionState,omitempty" tf:"execution_state,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// The name of the cluster config template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) List of policy references. (see below for nested schema)
 	// List of policy references.
 	Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
 
+	// (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	// Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	UpgradeNow *string `json:"upgradeNow,omitempty" tf:"upgrade_now,omitempty"`
 }
 
 type ConfigTemplateParameters struct {
 
+	// (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	// The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block Set) Set of cluster profile references. (see below for nested schema)
 	// Set of cluster profile references.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ConfigTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster config template.
 	// The description of the cluster config template.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// The name of the cluster config template.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) List of policy references. (see below for nested schema)
 	// List of policy references.
 	// +kubebuilder:validation:Optional
 	Policy []PolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
 
+	// (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	// Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
 	// +kubebuilder:validation:Optional
 	UpgradeNow *string `json:"upgradeNow,omitempty" tf:"upgrade_now,omitempty"`
@@ -175,6 +211,7 @@ type ConfigTemplateParameters struct {
 
 type PolicyInitParameters struct {
 
+	// (String) The ID of this resource.
 	// ID of the policy.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.ConfigPolicy
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -187,21 +224,25 @@ type PolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (String) Kind of the policy.
 	// Kind of the policy.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 }
 
 type PolicyObservation struct {
 
+	// (String) The ID of this resource.
 	// ID of the policy.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Kind of the policy.
 	// Kind of the policy.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 }
 
 type PolicyParameters struct {
 
+	// (String) The ID of this resource.
 	// ID of the policy.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.ConfigPolicy
 	// +kubebuilder:validation:Optional
@@ -215,6 +256,7 @@ type PolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (String) Kind of the policy.
 	// Kind of the policy.
 	// +kubebuilder:validation:Optional
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
@@ -222,38 +264,47 @@ type PolicyParameters struct {
 
 type VariablesInitParameters struct {
 
+	// (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	// Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type VariablesObservation struct {
 
+	// (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	// Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type VariablesParameters struct {
 
+	// (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	// +kubebuilder:validation:Optional
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
+	// (String) The name of the cluster config template.
 	// Name of the variable.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	// Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -286,7 +337,7 @@ type ConfigTemplateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ConfigTemplate is the Schema for the ConfigTemplates API. <no value>
+// ConfigTemplate is the Schema for the ConfigTemplates API. A resource for creating and managing cluster config templates. Tech Preview: This resource is in tech preview and may undergo changes.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

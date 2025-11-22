@@ -34,8 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ConfigTemplate is the Schema for the ConfigTemplates API. <no
-          value>
+        description: 'ConfigTemplate is the Schema for the ConfigTemplates API. A
+          resource for creating and managing cluster config templates. Tech Preview:
+          This resource is in tech preview and may undergo changes.'
         properties:
           apiVersion:
             description: |-
@@ -74,15 +75,20 @@ spec:
               forProvider:
                 properties:
                   cloudType:
-                    description: 'The cloud type for the cluster template. Examples:
-                      ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
+                    description: |-
+                      (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
+                      The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
                     type: string
                   clusterProfile:
-                    description: Set of cluster profile references.
+                    description: |-
+                      (Block Set) Set of cluster profile references. (see below for nested schema)
+                      Set of cluster profile references.
                     items:
                       properties:
                         id:
-                          description: ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the cluster profile.
                           type: string
                         idRef:
                           description: Reference to a Profile in cluster to populate
@@ -161,45 +167,55 @@ spec:
                               type: object
                           type: object
                         variables:
-                          description: Set of profile variable values and assignment
-                            strategies.
+                          description: |-
+                            (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+                            Set of profile variable values and assignment strategies.
                           items:
                             properties:
                               assignStrategy:
-                                description: Assignment strategy for the variable.
-                                  Allowed values are `all` or `cluster`. Default is
-                                  `all`.
+                                description: |-
+                                  (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
+                                  Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               name:
-                                description: Name of the variable.
+                                description: |-
+                                  (String) The name of the cluster config template.
+                                  Name of the variable.
                                 type: string
                               value:
-                                description: Value of the variable to be applied to
-                                  all clusters launched from this template. This value
-                                  is used when assign_strategy is set to 'all'.
+                                description: |-
+                                  (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+                                  Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster config template.
+                    description: |-
+                      (String) The description of the cluster config template.
+                      The description of the cluster config template.
                     type: string
                   name:
-                    description: The name of the cluster config template.
+                    description: |-
+                      (String) The name of the cluster config template.
+                      The name of the cluster config template.
                     type: string
                   policy:
-                    description: List of policy references.
+                    description: |-
+                      (Block List, Max: 1) List of policy references. (see below for nested schema)
+                      List of policy references.
                     items:
                       properties:
                         id:
-                          description: ID of the policy.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the policy.
                           type: string
                         idRef:
                           description: Reference to a ConfigPolicy in cluster to populate
@@ -278,26 +294,24 @@ spec:
                               type: object
                           type: object
                         kind:
-                          description: Kind of the policy.
+                          description: |-
+                            (String) Kind of the policy.
+                            Kind of the policy.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: Assign tags to the cluster config template. Tags
-                      can be in the format `key:value` or just `key`.
+                    description: |-
+                      (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
+                      Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   upgradeNow:
-                    description: 'Timestamp to trigger an immediate upgrade for all
-                      clusters launched from this template. NOTE: The upgrade executes
-                      immediately when this value changes - the timestamp does NOT
-                      schedule a future upgrade. Set this to the current timestamp
-                      each time you want to trigger an upgrade. This field can also
-                      be used for tracking when upgrades were triggered by the user.
-                      Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To
-                      trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
+                    description: |-
+                      the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
+                      Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
                     type: string
                 type: object
               initProvider:
@@ -314,15 +328,20 @@ spec:
                   autoscaler.
                 properties:
                   cloudType:
-                    description: 'The cloud type for the cluster template. Examples:
-                      ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
+                    description: |-
+                      (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
+                      The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
                     type: string
                   clusterProfile:
-                    description: Set of cluster profile references.
+                    description: |-
+                      (Block Set) Set of cluster profile references. (see below for nested schema)
+                      Set of cluster profile references.
                     items:
                       properties:
                         id:
-                          description: ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the cluster profile.
                           type: string
                         idRef:
                           description: Reference to a Profile in cluster to populate
@@ -401,45 +420,55 @@ spec:
                               type: object
                           type: object
                         variables:
-                          description: Set of profile variable values and assignment
-                            strategies.
+                          description: |-
+                            (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+                            Set of profile variable values and assignment strategies.
                           items:
                             properties:
                               assignStrategy:
-                                description: Assignment strategy for the variable.
-                                  Allowed values are `all` or `cluster`. Default is
-                                  `all`.
+                                description: |-
+                                  (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
+                                  Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               name:
-                                description: Name of the variable.
+                                description: |-
+                                  (String) The name of the cluster config template.
+                                  Name of the variable.
                                 type: string
                               value:
-                                description: Value of the variable to be applied to
-                                  all clusters launched from this template. This value
-                                  is used when assign_strategy is set to 'all'.
+                                description: |-
+                                  (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+                                  Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster config template.
+                    description: |-
+                      (String) The description of the cluster config template.
+                      The description of the cluster config template.
                     type: string
                   name:
-                    description: The name of the cluster config template.
+                    description: |-
+                      (String) The name of the cluster config template.
+                      The name of the cluster config template.
                     type: string
                   policy:
-                    description: List of policy references.
+                    description: |-
+                      (Block List, Max: 1) List of policy references. (see below for nested schema)
+                      List of policy references.
                     items:
                       properties:
                         id:
-                          description: ID of the policy.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the policy.
                           type: string
                         idRef:
                           description: Reference to a ConfigPolicy in cluster to populate
@@ -518,26 +547,24 @@ spec:
                               type: object
                           type: object
                         kind:
-                          description: Kind of the policy.
+                          description: |-
+                            (String) Kind of the policy.
+                            Kind of the policy.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: Assign tags to the cluster config template. Tags
-                      can be in the format `key:value` or just `key`.
+                    description: |-
+                      (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
+                      Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   upgradeNow:
-                    description: 'Timestamp to trigger an immediate upgrade for all
-                      clusters launched from this template. NOTE: The upgrade executes
-                      immediately when this value changes - the timestamp does NOT
-                      schedule a future upgrade. Set this to the current timestamp
-                      each time you want to trigger an upgrade. This field can also
-                      be used for tracking when upgrades were triggered by the user.
-                      Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To
-                      trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
+                    description: |-
+                      the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
+                      Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
                     type: string
                 type: object
               managementPolicies:
@@ -641,94 +668,113 @@ spec:
               atProvider:
                 properties:
                   attachedCluster:
-                    description: List of clusters attached to this template.
+                    description: |-
+                      (List of Object) List of clusters attached to this template. (see below for nested schema)
+                      List of clusters attached to this template.
                     items:
                       properties:
                         clusterUid:
+                          description: (String)
                           type: string
                         name:
+                          description: (String) The name of the cluster config template.
                           type: string
                       type: object
                     type: array
                   cloudType:
-                    description: 'The cloud type for the cluster template. Examples:
-                      ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
+                    description: |-
+                      (String) The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
+                      The cloud type for the cluster template. Examples: 'aws', 'azure', 'gcp', 'vsphere', etc.
                     type: string
                   clusterProfile:
-                    description: Set of cluster profile references.
+                    description: |-
+                      (Block Set) Set of cluster profile references. (see below for nested schema)
+                      Set of cluster profile references.
                     items:
                       properties:
                         id:
-                          description: ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the cluster profile.
                           type: string
                         variables:
-                          description: Set of profile variable values and assignment
-                            strategies.
+                          description: |-
+                            (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+                            Set of profile variable values and assignment strategies.
                           items:
                             properties:
                               assignStrategy:
-                                description: Assignment strategy for the variable.
-                                  Allowed values are `all` or `cluster`. Default is
-                                  `all`.
+                                description: |-
+                                  (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
+                                  Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               name:
-                                description: Name of the variable.
+                                description: |-
+                                  (String) The name of the cluster config template.
+                                  Name of the variable.
                                 type: string
                               value:
-                                description: Value of the variable to be applied to
-                                  all clusters launched from this template. This value
-                                  is used when assign_strategy is set to 'all'.
+                                description: |-
+                                  (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+                                  Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   context:
-                    description: The context of the cluster config template. Allowed
-                      values are `project` or `tenant`. Default value is `project`.
-                      If  the `project` context is specified, the project name will
-                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the cluster config template. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster config template.
+                    description: |-
+                      (String) The description of the cluster config template.
+                      The description of the cluster config template.
                     type: string
                   executionState:
-                    description: 'Current execution state of the cluster template.
-                      Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.'
+                    description: |-
+                      (String) Current execution state of the cluster template. Possible values: Pending, Applied, Failed, PartiallyApplied.
+                      Current execution state of the cluster template. Possible values: `Pending`, `Applied`, `Failed`, `PartiallyApplied`.
                     type: string
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: The name of the cluster config template.
+                    description: |-
+                      (String) The name of the cluster config template.
+                      The name of the cluster config template.
                     type: string
                   policy:
-                    description: List of policy references.
+                    description: |-
+                      (Block List, Max: 1) List of policy references. (see below for nested schema)
+                      List of policy references.
                     items:
                       properties:
                         id:
-                          description: ID of the policy.
+                          description: |-
+                            (String) The ID of this resource.
+                            ID of the policy.
                           type: string
                         kind:
-                          description: Kind of the policy.
+                          description: |-
+                            (String) Kind of the policy.
+                            Kind of the policy.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: Assign tags to the cluster config template. Tags
-                      can be in the format `key:value` or just `key`.
+                    description: |-
+                      (Set of String) Assign tags to the cluster config template. Tags can be in the format key:value or just key.
+                      Assign tags to the cluster config template. Tags can be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   upgradeNow:
-                    description: 'Timestamp to trigger an immediate upgrade for all
-                      clusters launched from this template. NOTE: The upgrade executes
-                      immediately when this value changes - the timestamp does NOT
-                      schedule a future upgrade. Set this to the current timestamp
-                      each time you want to trigger an upgrade. This field can also
-                      be used for tracking when upgrades were triggered by the user.
-                      Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To
-                      trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
+                    description: |-
+                      the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
+                      Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z'). Example: To trigger an upgrade now, set to current time like '2024-11-12T15:30:00Z'.
                     type: string
                 type: object
               conditions:

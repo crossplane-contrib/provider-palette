@@ -807,6 +807,7 @@ type OpenstackInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []OpenstackClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []OpenstackClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1270,6 +1271,7 @@ type OpenstackObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []OpenstackClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []OpenstackClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1390,6 +1392,7 @@ type OpenstackParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []OpenstackClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []OpenstackClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
