@@ -34,6 +34,24 @@ func (l *AzureList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this ConfigPolicyList.
+func (l *ConfigPolicyList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ConfigTemplateList.
+func (l *ConfigTemplateList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this CustomCloudList.
 func (l *CustomCloudList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

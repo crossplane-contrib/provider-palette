@@ -16,6 +16,12 @@ func (tr *Aws) Hub() {}
 func (tr *Azure) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ConfigPolicy) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ConfigTemplate) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *CustomCloud) Hub() {}
 
 // Hub marks this type as a conversion hub.

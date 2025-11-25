@@ -1,0 +1,16 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: ConfigPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/configpolicy
+  labels:
+    testing.upbound.io/example-name: weekly_maintenance
+  name: weekly-maintenance
+spec:
+  forProvider:
+    context: project
+    name: weekly-maintenance-policy
+    schedules:
+    - durationHrs: 4
+      name: sunday-maintenance
+      startCron: 0 2 * * SUN
