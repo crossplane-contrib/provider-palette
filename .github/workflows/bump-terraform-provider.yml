@@ -29,9 +29,15 @@ jobs:
             echo "Error: Version must be in format vX.Y.Z (e.g., v0.24.5)"
             exit 1
           fi
-          echo "VERSION=${{ github.event.inputs.terraform_version }}" >> $GITHUB_ENV
-          # Remove 'v' prefix for version comparison
-          echo "VERSION_NUMBER=${VERSION#v}" >> $GITHUB_ENV
+          
+          # Set VERSION with 'v' prefix
+          VERSION="${{ github.event.inputs.terraform_version }}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          
+          # Remove 'v' prefix for version number
+          VERSION_NUMBER="${VERSION#v}"
+          echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
+          echo "Version number (without v): $VERSION_NUMBER"
           
           # Set branch name based on input
           if [[ -n "${{ github.event.inputs.branch }}" ]]; then
