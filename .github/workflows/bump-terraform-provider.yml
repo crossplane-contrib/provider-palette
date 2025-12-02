@@ -7,6 +7,10 @@ on:
         description: 'Terraform Provider Version (e.g., v0.24.5)'
         required: true
         type: string
+      branch:
+        description: 'Branch name (optional, if not provided will create release-cp-vX.Y.Z)'
+        required: false
+        type: string
 
 env:
   BRANCH_PREFIX: "release-cp-"
@@ -19,7 +23,7 @@ jobs:
       pull-requests: write
     
     steps:
-      - name: Validate input version format
+      - name: Validate input version format and set branch
         run: |
           if [[ ! "${{ github.event.inputs.terraform_version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Error: Version must be in format vX.Y.Z (e.g., v0.24.5)"
@@ -28,7 +32,17 @@ jobs:
           echo "VERSION=${{ github.event.inputs.terraform_version }}" >> $GITHUB_ENV
           # Remove 'v' prefix for version comparison
           echo "VERSION_NUMBER=${VERSION#v}" >> $GITHUB_ENV
-          echo "BRANCH_NAME=${BRANCH_PREFIX}${{ github.event.inputs.terraform_version }}" >> $GITHUB_ENV
+          
+          # Set branch name based on input
+          if [[ -n "${{ github.event.inputs.branch }}" ]]; then
+            echo "BRANCH_NAME=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
+            echo "USE_EXISTING_BRANCH=true" >> $GITHUB_ENV
+            echo "Using provided branch: ${{ github.event.inputs.branch }}"
+          else
+            echo "BRANCH_NAME=${BRANCH_PREFIX}${{ github.event.inputs.terraform_version }}" >> $GITHUB_ENV
+            echo "USE_EXISTING_BRANCH=false" >> $GITHUB_ENV
+            echo "Will create new branch: ${BRANCH_PREFIX}${{ github.event.inputs.terraform_version }}"
+          fi
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,9 +56,17 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create and checkout new branch
+        if: env.USE_EXISTING_BRANCH == 'false'
         run: |
           git checkout -b "${{ env.BRANCH_NAME }}"
           echo "Created and switched to branch: ${{ env.BRANCH_NAME }}"
+      
+      - name: Checkout existing branch
+        if: env.USE_EXISTING_BRANCH == 'true'
+        run: |
+          git fetch origin "${{ env.BRANCH_NAME }}"
+          git checkout "${{ env.BRANCH_NAME }}"
+          echo "Checked out existing branch: ${{ env.BRANCH_NAME }}"
 
       - name: Update Terraform Provider Version in Makefile
         run: |
@@ -123,11 +145,16 @@ jobs:
       - name: Push branch
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          git push origin "${{ env.BRANCH_NAME }}"
-          echo "Pushed branch: ${{ env.BRANCH_NAME }}"
+          if [[ "${{ env.USE_EXISTING_BRANCH }}" == "true" ]]; then
+            git push origin "${{ env.BRANCH_NAME }}"
+            echo "Pushed updates to existing branch: ${{ env.BRANCH_NAME }}"
+          else
+            git push origin "${{ env.BRANCH_NAME }}"
+            echo "Pushed new branch: ${{ env.BRANCH_NAME }}"
+          fi
 
       - name: Create Pull Request
-        if: steps.changes.outputs.has_changes == 'true'
+        if: steps.changes.outputs.has_changes == 'true' && env.USE_EXISTING_BRANCH == 'false'
         uses: actions/github-script@v7
         with:
           script: |
@@ -174,8 +201,13 @@ jobs:
       - name: Summary
         run: |
           if [[ "${{ steps.changes.outputs.has_changes }}" == "true" ]]; then
-            echo "✅ Successfully created branch '${{ env.BRANCH_NAME }}' and PR for Terraform Provider ${{ env.VERSION }}"
-            echo "🔗 Check the Pull Requests tab to review and merge the changes"
+            if [[ "${{ env.USE_EXISTING_BRANCH }}" == "true" ]]; then
+              echo "✅ Successfully updated existing branch '${{ env.BRANCH_NAME }}' with Terraform Provider ${{ env.VERSION }}"
+              echo "🔗 Changes pushed to existing branch - check the existing PR if applicable"
+            else
+              echo "✅ Successfully created branch '${{ env.BRANCH_NAME }}' and PR for Terraform Provider ${{ env.VERSION }}"
+              echo "🔗 Check the Pull Requests tab to review and merge the changes"
+            fi
           else
             echo "ℹ️  No changes were needed - the version might already be up to date"
           fi
