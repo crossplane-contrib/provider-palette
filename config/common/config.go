@@ -461,6 +461,25 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
+	p.AddResourceConfigurator("spectrocloud_cluster_apachecloudstack", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["cloud_account_id"] = config.Reference{
+			TerraformName: "spectrocloud_cloudaccount_apachecloudstack",
+		}
+		r.References["cluster_profile.id"] = config.Reference{
+			TerraformName: "spectrocloud_cluster_profile",
+		}
+		r.References["backup_policy.backup_location_id"] = config.Reference{
+			TerraformName: "spectrocloud_backup_storage_location",
+		}
+		r.References["cluster_template.id"] = config.Reference{
+			TerraformName: "spectrocloud_cluster_config_template",
+		}
+		r.References["cluster_template.cluster_profile.id"] = config.Reference{
+			TerraformName: "spectrocloud_cluster_profile",
+		}
+	})
+
 	p.AddResourceConfigurator("spectrocloud_cluster_eks", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
