@@ -49,7 +49,7 @@ jobs:
             echo "USE_EXISTING_BRANCH=false" >> $GITHUB_ENV
             echo "Will create new branch: ${BRANCH_PREFIX}${{ github.event.inputs.terraform_version }}"
           fi
-
+          
       - name: Checkout repository
         uses: actions/checkout@v4
         with:

@@ -564,9 +564,7 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                    description: The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
@@ -848,7 +846,7 @@ spec:
                           x-kubernetes-map-type: granular
                         amiType:
                           description: |-
-                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
+                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
                             Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:
@@ -1577,9 +1575,7 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                    description: The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
@@ -1861,7 +1857,7 @@ spec:
                           x-kubernetes-map-type: granular
                         amiType:
                           description: |-
-                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
+                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
                             Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:
@@ -2475,9 +2471,7 @@ spec:
                       type: object
                     type: array
                   clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                    description: The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
@@ -2646,7 +2640,7 @@ spec:
                           x-kubernetes-map-type: granular
                         amiType:
                           description: |-
-                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
+                            (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2_x86_64.
                             Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
                           type: string
                         azSubnets:

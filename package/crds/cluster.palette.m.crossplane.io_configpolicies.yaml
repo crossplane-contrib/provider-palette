@@ -34,9 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'ConfigPolicy is the Schema for the ConfigPolicys API. A resource
-          for creating and managing cluster config policies (maintenance policies).
-          Tech Preview: This resource is in tech preview and may undergo changes.'
+        description: ConfigPolicy is the Schema for the ConfigPolicys API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -61,47 +59,38 @@ spec:
               forProvider:
                 properties:
                   context:
-                    description: |-
-                      (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the cluster config policy. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the cluster config policy.
-                      The name of the cluster config policy.
+                    description: The name of the cluster config policy.
                     type: string
                   policyType:
-                    description: |-
-                      (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
-                      Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
+                    description: Type of the policy. Allowed values are `maintenance`
+                      or `upgrade`(not supported yet). Default value is `maintenance`.
                     type: string
                   schedules:
-                    description: |-
-                      (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
-                      Set of maintenance schedules for the policy.
+                    description: Set of maintenance schedules for the policy.
                     items:
                       properties:
                         durationHrs:
-                          description: |-
-                            24.
-                            Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
+                          description: 'Specifies the time window in hours during
+                            which the system is allowed to start upgrades on eligible
+                            clusters. Valid range: 1-24.'
                           type: number
                         name:
-                          description: |-
-                            (String) The name of the cluster config policy.
-                            Name of the upgrade schedule.
+                          description: Name of the upgrade schedule.
                           type: string
                         startCron:
-                          description: |-
-                            (String) Cron expression for the start time of the schedule.
-                            Cron expression for the start time of the schedule.
+                          description: Cron expression for the start time of the schedule.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
-                      Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
+                    description: Assign tags to the cluster config policy. Tags can
+                      be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array
@@ -121,47 +110,38 @@ spec:
                   autoscaler.
                 properties:
                   context:
-                    description: |-
-                      (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the cluster config policy. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the cluster config policy.
-                      The name of the cluster config policy.
+                    description: The name of the cluster config policy.
                     type: string
                   policyType:
-                    description: |-
-                      (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
-                      Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
+                    description: Type of the policy. Allowed values are `maintenance`
+                      or `upgrade`(not supported yet). Default value is `maintenance`.
                     type: string
                   schedules:
-                    description: |-
-                      (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
-                      Set of maintenance schedules for the policy.
+                    description: Set of maintenance schedules for the policy.
                     items:
                       properties:
                         durationHrs:
-                          description: |-
-                            24.
-                            Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
+                          description: 'Specifies the time window in hours during
+                            which the system is allowed to start upgrades on eligible
+                            clusters. Valid range: 1-24.'
                           type: number
                         name:
-                          description: |-
-                            (String) The name of the cluster config policy.
-                            Name of the upgrade schedule.
+                          description: Name of the upgrade schedule.
                           type: string
                         startCron:
-                          description: |-
-                            (String) Cron expression for the start time of the schedule.
-                            Cron expression for the start time of the schedule.
+                          description: Cron expression for the start time of the schedule.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
-                      Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
+                    description: Assign tags to the cluster config policy. Tags can
+                      be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array
@@ -236,50 +216,40 @@ spec:
               atProvider:
                 properties:
                   context:
-                    description: |-
-                      (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the cluster config policy. Allowed
+                      values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the cluster config policy.
-                      The name of the cluster config policy.
+                    description: The name of the cluster config policy.
                     type: string
                   policyType:
-                    description: |-
-                      (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
-                      Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
+                    description: Type of the policy. Allowed values are `maintenance`
+                      or `upgrade`(not supported yet). Default value is `maintenance`.
                     type: string
                   schedules:
-                    description: |-
-                      (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
-                      Set of maintenance schedules for the policy.
+                    description: Set of maintenance schedules for the policy.
                     items:
                       properties:
                         durationHrs:
-                          description: |-
-                            24.
-                            Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
+                          description: 'Specifies the time window in hours during
+                            which the system is allowed to start upgrades on eligible
+                            clusters. Valid range: 1-24.'
                           type: number
                         name:
-                          description: |-
-                            (String) The name of the cluster config policy.
-                            Name of the upgrade schedule.
+                          description: Name of the upgrade schedule.
                           type: string
                         startCron:
-                          description: |-
-                            (String) Cron expression for the start time of the schedule.
-                            Cron expression for the start time of the schedule.
+                          description: Cron expression for the start time of the schedule.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
-                      Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
+                    description: Assign tags to the cluster config policy. Tags can
+                      be in the format `key:value` or just `key`.
                     items:
                       type: string
                     type: array

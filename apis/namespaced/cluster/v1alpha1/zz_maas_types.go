@@ -765,7 +765,6 @@ type MaasInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []MaasClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []MaasClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -965,7 +964,7 @@ type MaasMachinePoolInitParameters struct {
 
 	// (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
 	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
-	Network []NetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
+	Network []MaasMachinePoolNetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Node []MaasMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
@@ -992,6 +991,54 @@ type MaasMachinePoolInitParameters struct {
 	// (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
 	// Whether to use LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
 	UseLxdVM *bool `json:"useLxdVm,omitempty" tf:"use_lxd_vm,omitempty"`
+}
+
+type MaasMachinePoolNetworkInitParameters struct {
+
+	// (String) The name of the network in which VMs are created/located.
+	// The name of the network in which VMs are created/located.
+	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
+
+	// (String) The UID of the parent pool which allocates IPs for this IPPool.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// (Boolean) Whether to use static IP. Default is false.
+	// Whether to use static IP. Default is `false`.
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type MaasMachinePoolNetworkObservation struct {
+
+	// (String) The name of the network in which VMs are created/located.
+	// The name of the network in which VMs are created/located.
+	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
+
+	// (String) The UID of the parent pool which allocates IPs for this IPPool.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// (Boolean) Whether to use static IP. Default is false.
+	// Whether to use static IP. Default is `false`.
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
+}
+
+type MaasMachinePoolNetworkParameters struct {
+
+	// (String) The name of the network in which VMs are created/located.
+	// The name of the network in which VMs are created/located.
+	// +kubebuilder:validation:Optional
+	NetworkName *string `json:"networkName" tf:"network_name,omitempty"`
+
+	// (String) The UID of the parent pool which allocates IPs for this IPPool.
+	// The UID of the parent pool which allocates IPs for this IPPool.
+	// +kubebuilder:validation:Optional
+	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
+
+	// (Boolean) Whether to use static IP. Default is false.
+	// Whether to use static IP. Default is `false`.
+	// +kubebuilder:validation:Optional
+	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 }
 
 type MaasMachinePoolNodeInitParameters struct {
@@ -1070,7 +1117,7 @@ type MaasMachinePoolObservation struct {
 
 	// (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
 	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
-	Network []NetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
+	Network []MaasMachinePoolNetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Node []MaasMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
@@ -1150,7 +1197,7 @@ type MaasMachinePoolParameters struct {
 	// (Block List, Max: 1) Network configuration for the machine pool. Available once Palette with LXD support is released. (see below for nested schema)
 	// Network configuration for the machine pool. Available once **Palette with LXD support** is released.
 	// +kubebuilder:validation:Optional
-	Network []NetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
+	Network []MaasMachinePoolNetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -1308,7 +1355,6 @@ type MaasObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []MaasClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []MaasClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1431,7 +1477,6 @@ type MaasParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []MaasClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []MaasClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
@@ -1628,54 +1673,6 @@ type MachinePoolPlacementParameters struct {
 	// The name of the resource pool in the Maas cloud.
 	// +kubebuilder:validation:Optional
 	ResourcePool *string `json:"resourcePool" tf:"resource_pool,omitempty"`
-}
-
-type NetworkInitParameters struct {
-
-	// (String) The name of the network in which VMs are created/located.
-	// The name of the network in which VMs are created/located.
-	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
-
-	// (String) The UID of the parent pool which allocates IPs for this IPPool.
-	// The UID of the parent pool which allocates IPs for this IPPool.
-	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
-
-	// (Boolean) Whether to use static IP. Default is false.
-	// Whether to use static IP. Default is `false`.
-	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
-}
-
-type NetworkObservation struct {
-
-	// (String) The name of the network in which VMs are created/located.
-	// The name of the network in which VMs are created/located.
-	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
-
-	// (String) The UID of the parent pool which allocates IPs for this IPPool.
-	// The UID of the parent pool which allocates IPs for this IPPool.
-	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
-
-	// (Boolean) Whether to use static IP. Default is false.
-	// Whether to use static IP. Default is `false`.
-	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
-}
-
-type NetworkParameters struct {
-
-	// (String) The name of the network in which VMs are created/located.
-	// The name of the network in which VMs are created/located.
-	// +kubebuilder:validation:Optional
-	NetworkName *string `json:"networkName" tf:"network_name,omitempty"`
-
-	// (String) The UID of the parent pool which allocates IPs for this IPPool.
-	// The UID of the parent pool which allocates IPs for this IPPool.
-	// +kubebuilder:validation:Optional
-	ParentPoolUID *string `json:"parentPoolUid,omitempty" tf:"parent_pool_uid,omitempty"`
-
-	// (Boolean) Whether to use static IP. Default is false.
-	// Whether to use static IP. Default is `false`.
-	// +kubebuilder:validation:Optional
-	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 }
 
 // MaasSpec defines the desired state of Maas

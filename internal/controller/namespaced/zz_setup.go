@@ -12,6 +12,7 @@ import (
 	deployment "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/addon/deployment"
 	profile "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/application/profile"
 	storagelocation "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/backup/storagelocation"
+	apachecloudstack "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/apachecloudstack"
 	aws "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/aws"
 	azure "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/azure"
 	custom "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/custom"
@@ -20,6 +21,7 @@ import (
 	openstack "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/openstack"
 	vsphere "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cloudaccount/vsphere"
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/aks"
+	apachecloudstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/apachecloudstack"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/azure"
 	configpolicy "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/configpolicy"
@@ -69,6 +71,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		deployment.Setup,
 		profile.Setup,
 		storagelocation.Setup,
+		apachecloudstack.Setup,
 		aws.Setup,
 		azure.Setup,
 		custom.Setup,
@@ -77,6 +80,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		openstack.Setup,
 		vsphere.Setup,
 		aks.Setup,
+		apachecloudstackcluster.Setup,
 		awscluster.Setup,
 		azurecluster.Setup,
 		configpolicy.Setup,
@@ -132,6 +136,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		deployment.SetupGated,
 		profile.SetupGated,
 		storagelocation.SetupGated,
+		apachecloudstack.SetupGated,
 		aws.SetupGated,
 		azure.SetupGated,
 		custom.SetupGated,
@@ -140,6 +145,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		openstack.SetupGated,
 		vsphere.SetupGated,
 		aks.SetupGated,
+		apachecloudstackcluster.SetupGated,
 		awscluster.SetupGated,
 		azurecluster.SetupGated,
 		configpolicy.SetupGated,

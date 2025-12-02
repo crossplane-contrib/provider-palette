@@ -951,6 +951,70 @@
             "description_kind": "plain"
           }
         },
+        "spectrocloud_cloudaccount_apache_cloudstack": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "api_key": {
+                "type": "string",
+                "description": "The API key for Apache CloudStack authentication.",
+                "description_kind": "plain",
+                "required": true,
+                "sensitive": true
+              },
+              "api_url": {
+                "type": "string",
+                "description": "The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api",
+                "description_kind": "plain",
+                "required": true
+              },
+              "context": {
+                "type": "string",
+                "description": "The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "domain": {
+                "type": "string",
+                "description": "The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "insecure": {
+                "type": "bool",
+                "description": "Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Apache CloudStack cloud account.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "private_cloud_gateway_id": {
+                "type": "string",
+                "description": "ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "secret_key": {
+                "type": "string",
+                "description": "The secret key for Apache CloudStack authentication.",
+                "description_kind": "plain",
+                "required": true,
+                "sensitive": true
+              }
+            },
+            "description_kind": "plain"
+          }
+        },
         "spectrocloud_cloudaccount_aws": {
           "version": 0,
           "block": {
@@ -2121,6 +2185,908 @@
               }
             },
             "description": "Resource for managing AKS clusters in Spectro Cloud through Palette.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cluster_apache_cloudstack": {
+          "version": 2,
+          "block": {
+            "attributes": {
+              "admin_kube_config": {
+                "type": "string",
+                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "apply_setting": {
+                "type": "string",
+                "description": "The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cloud_account_id": {
+                "type": "string",
+                "description": "ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "cloud_config_id": {
+                "type": "string",
+                "description": "ID of the cloud config used for the cluster. This cloud config must be of type `cloudstack`.",
+                "description_kind": "plain",
+                "deprecated": true,
+                "computed": true
+              },
+              "cluster_meta_attribute": {
+                "type": "string",
+                "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "context": {
+                "type": "string",
+                "description": "The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs#schema).",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the cluster. Default value is empty string.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "force_delete": {
+                "type": "bool",
+                "description": "If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "force_delete_delay": {
+                "type": "number",
+                "description": "Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "kubeconfig": {
+                "type": "string",
+                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "location_config": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "country_code": "string",
+                      "country_name": "string",
+                      "latitude": "number",
+                      "longitude": "number",
+                      "region_code": "string",
+                      "region_name": "string"
+                    }
+                  ]
+                ],
+                "description": "The location of the cluster.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the cluster.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "os_patch_after": {
+                "type": "string",
+                "description": "The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: `RFC3339: 2006-01-02T15:04:05Z07:00`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "os_patch_on_boot": {
+                "type": "bool",
+                "description": "Whether to apply OS patch on boot. Default is `false`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "os_patch_schedule": {
+                "type": "string",
+                "description": "Cron schedule for OS patching. This must be in the form of `0 0 * * *`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "pause_agent_upgrades": {
+                "type": "string",
+                "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "review_repave_state": {
+                "type": "string",
+                "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "skip_completion": {
+                "type": "bool",
+                "description": "If `true`, the cluster will be created asynchronously. Default value is `false`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "tags": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
+              }
+            },
+            "block_types": {
+              "backup_policy": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "backup_location_id": {
+                      "type": "string",
+                      "description": "The ID of the backup location to use for the backup.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "cluster_uids": {
+                      "type": [
+                        "set",
+                        "string"
+                      ],
+                      "description": "The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "expiry_in_hour": {
+                      "type": "number",
+                      "description": "The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "include_all_clusters": {
+                      "type": "bool",
+                      "description": "Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "include_cluster_resources": {
+                      "type": "bool",
+                      "description": "Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "include_cluster_resources_mode": {
+                      "type": "string",
+                      "description": "Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "include_disks": {
+                      "type": "bool",
+                      "description": "Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "namespaces": {
+                      "type": [
+                        "set",
+                        "string"
+                      ],
+                      "description": "The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "prefix": {
+                      "type": "string",
+                      "description": "Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "schedule": {
+                      "type": "string",
+                      "description": "The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "description": "The backup policy for the cluster. If not specified, no backups will be taken.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "cloud_config": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "control_plane_endpoint": {
+                      "type": "string",
+                      "description": "Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "project": {
+                      "type": "string",
+                      "description": "CloudStack project name (optional). If not specified, the cluster will be created in the domain's default project.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "ssh_key_name": {
+                      "type": "string",
+                      "description": "SSH key name for accessing cluster nodes.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "sync_with_cks": {
+                      "type": "bool",
+                      "description": "Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "block_types": {
+                    "zone": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "CloudStack zone name where the cluster will be deployed.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "block_types": {
+                          "network": {
+                            "nesting_mode": "list",
+                            "block": {
+                              "attributes": {
+                                "gateway": {
+                                  "type": "string",
+                                  "description": "Gateway IP address for the network.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "description": "Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "Network name in this zone.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "netmask": {
+                                  "type": "string",
+                                  "description": "Network mask for the network.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "offering": {
+                                  "type": "string",
+                                  "description": "Network offering name to use when creating the network. Optional for advanced network configurations.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "routing_mode": {
+                                  "type": "string",
+                                  "description": "Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "description": "Network type: Isolated, Shared, etc.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                }
+                              },
+                              "block_types": {
+                                "vpc": {
+                                  "nesting_mode": "list",
+                                  "block": {
+                                    "attributes": {
+                                      "cidr": {
+                                        "type": "string",
+                                        "description": "CIDR block for the VPC (e.g., 10.0.0.0/16).",
+                                        "description_kind": "plain",
+                                        "optional": true
+                                      },
+                                      "id": {
+                                        "type": "string",
+                                        "description": "VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.",
+                                        "description_kind": "plain",
+                                        "optional": true
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "VPC name.",
+                                        "description_kind": "plain",
+                                        "required": true
+                                      },
+                                      "offering": {
+                                        "type": "string",
+                                        "description": "VPC offering name.",
+                                        "description_kind": "plain",
+                                        "optional": true
+                                      }
+                                    },
+                                    "description": "VPC configuration for VPC-based network deployments. Optional, only needed when deploying in a VPC.",
+                                    "description_kind": "plain"
+                                  },
+                                  "max_items": 1
+                                }
+                              },
+                              "description": "Network configuration for this zone.",
+                              "description_kind": "plain"
+                            },
+                            "max_items": 1
+                          }
+                        },
+                        "description": "List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1
+                    }
+                  },
+                  "description": "CloudStack cluster configuration.",
+                  "description_kind": "plain"
+                },
+                "min_items": 1,
+                "max_items": 1
+              },
+              "cluster_profile": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster profile.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "variables": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "block_types": {
+                    "pack": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the pack. The name must be unique within the cluster profile. ",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "registry_name": {
+                            "type": "string",
+                            "description": "The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "registry_uid": {
+                            "type": "string",
+                            "description": "The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "tag": {
+                            "type": "string",
+                            "description": "The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "uid": {
+                            "type": "string",
+                            "description": "The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "values": {
+                            "type": "string",
+                            "description": "The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format. ",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "block_types": {
+                          "manifest": {
+                            "nesting_mode": "list",
+                            "block": {
+                              "attributes": {
+                                "content": {
+                                  "type": "string",
+                                  "description": "The content of the manifest. The content is the YAML content of the manifest. ",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "The name of the manifest. The name must be unique within the pack. ",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "uid": {
+                                  "type": "string",
+                                  "description_kind": "plain",
+                                  "computed": true
+                                }
+                              },
+                              "description_kind": "plain"
+                            }
+                          }
+                        },
+                        "description": "For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              },
+              "cluster_rbac_binding": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "namespace": {
+                      "type": "string",
+                      "description": "The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "role": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "block_types": {
+                    "subjects": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the subject. Required if 'type' is set to 'User' or 'Group'.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "namespace": {
+                            "type": "string",
+                            "description": "The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The RBAC binding for the cluster.",
+                  "description_kind": "plain"
+                }
+              },
+              "cluster_template": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "id": {
+                      "type": "string",
+                      "description": "The ID of the cluster template.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster template.",
+                      "description_kind": "plain",
+                      "computed": true
+                    }
+                  },
+                  "block_types": {
+                    "cluster_profile": {
+                      "nesting_mode": "set",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "The UID of the cluster profile.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "variables": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "A map of cluster profile variables, specified as key-value pairs. For example: `priority = \"5\"`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "The cluster profile of the cluster template.",
+                        "description_kind": "plain"
+                      }
+                    }
+                  },
+                  "description": "The cluster template of the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "host_config": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "external_traffic_policy": {
+                      "type": "string",
+                      "description": "The external traffic policy for the cluster.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "host_endpoint_type": {
+                      "type": "string",
+                      "description": "The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "ingress_host": {
+                      "type": "string",
+                      "description": "The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "load_balancer_source_ranges": {
+                      "type": "string",
+                      "description": "The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description": "The host configuration for the cluster.",
+                  "description_kind": "plain"
+                }
+              },
+              "machine_pool": {
+                "nesting_mode": "set",
+                "block": {
+                  "attributes": {
+                    "additional_labels": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "control_plane": {
+                      "type": "bool",
+                      "description": "Whether this machine pool is a control plane. Defaults to `false`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "control_plane_as_worker": {
+                      "type": "bool",
+                      "description": "Whether this machine pool is a control plane and a worker. Defaults to `false`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "count": {
+                      "type": "number",
+                      "description": "Number of nodes in the machine pool.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "Maximum number of nodes in the machine pool. This is used for autoscaling.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "Minimum number of nodes in the machine pool. This is used for autoscaling.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the machine pool.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "offering": {
+                      "type": "string",
+                      "description": "Apache CloudStack compute offering (instance type/size) name.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "update_strategy": {
+                      "type": "string",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "block_types": {
+                    "instance_config": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "category": {
+                            "type": "string",
+                            "description": "Category for the instance configuration. Optional.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "cpu_set": {
+                            "type": "number",
+                            "description": "CPU set for the instance. Optional, defaults to 0.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "disk_gib": {
+                            "type": "number",
+                            "description": "Root disk size in GiB. Required if instance_config is specified.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_mib": {
+                            "type": "number",
+                            "description": "Memory size in MiB. Required if instance_config is specified.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name for the instance configuration. Optional.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "num_cpus": {
+                            "type": "number",
+                            "description": "Number of CPUs for the instance. Required if instance_config is specified.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Advanced instance configuration for custom CPU, memory, and disk settings. Optional, used for customized instance specifications beyond standard offerings.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    },
+                    "network": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "ip_address": {
+                            "type": "string",
+                            "description": "Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.",
+                            "description_kind": "plain",
+                            "deprecated": true,
+                            "optional": true
+                          },
+                          "network_name": {
+                            "type": "string",
+                            "description": "Network name to attach to the machine pool.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Network configuration for the machine pool instances.",
+                        "description_kind": "plain"
+                      }
+                    },
+                    "node": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "action": {
+                            "type": "string",
+                            "description": "The action to perform on the node. Valid values are: `cordon`, `uncordon`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "node_id": {
+                            "type": "string",
+                            "description": "The node_id of the node, For example `i-07f899a33dee624f7`",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description_kind": "plain"
+                      }
+                    },
+                    "taints": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "effect": {
+                            "type": "string",
+                            "description": "The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "key": {
+                            "type": "string",
+                            "description": "The key of the taint.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The value of the taint.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description_kind": "plain"
+                      }
+                    },
+                    "template": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "Template ID. Either ID or name must be provided.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Template name. Either ID or name must be provided.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Machine pool configuration for the cluster.",
+                  "description_kind": "plain"
+                },
+                "min_items": 1
+              },
+              "namespaces": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the namespace. This is the name of the Kubernetes namespace in the cluster.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "resource_allocation": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "description": "The namespaces for the cluster.",
+                  "description_kind": "plain"
+                }
+              },
+              "scan_policy": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "configuration_scan_schedule": {
+                      "type": "string",
+                      "description": "The schedule for configuration scan.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "conformance_scan_schedule": {
+                      "type": "string",
+                      "description": "The schedule for conformance scan.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "penetration_scan_schedule": {
+                      "type": "string",
+                      "description": "The schedule for penetration scan.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "description": "The scan policy for the cluster.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "Resource for managing Apache CloudStack clusters in Spectro Cloud through Palette.",
             "description_kind": "plain"
           }
         },
@@ -16491,7 +17457,7 @@
       },
       "data_source_schemas": {
         "spectrocloud_appliance": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "architecture": {
@@ -16625,7 +17591,7 @@
           }
         },
         "spectrocloud_backup_storage_location": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -16638,6 +17604,34 @@
               "name": {
                 "type": "string",
                 "description": "The name of the backup storage location. This is an optional field, but if provided, it will be used to retrieve the specific backup storage location.",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              }
+            },
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_cloudaccount_apache_cloudstack": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "context": {
+                "type": "string",
+                "description": "The context of the account. Allowed values are `project` or `tenant` or ``. ",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description": "The unique ID of the Apache CloudStack cloud account. Either `id` or `name` must be provided, but not both.",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the Apache CloudStack cloud account. Either `id` or `name` must be provided, but not both.",
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
@@ -16950,7 +17944,7 @@
           }
         },
         "spectrocloud_cluster_config_policy": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "context": {
@@ -17002,7 +17996,7 @@
           }
         },
         "spectrocloud_cluster_config_template": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "attached_cluster": {
@@ -17111,7 +18105,7 @@
           }
         },
         "spectrocloud_cluster_group": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "context": {
@@ -17201,7 +18195,7 @@
           }
         },
         "spectrocloud_filter": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17304,7 +18298,7 @@
           }
         },
         "spectrocloud_macros": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "context": {
@@ -17583,7 +18577,7 @@
           }
         },
         "spectrocloud_privatecloudgateway_dns_map": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "data_center": {
@@ -17622,7 +18616,7 @@
           }
         },
         "spectrocloud_project": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17642,7 +18636,7 @@
           }
         },
         "spectrocloud_registration_token": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "expiry_date": {
@@ -17718,7 +18712,7 @@
           }
         },
         "spectrocloud_registry_helm": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17737,7 +18731,7 @@
           }
         },
         "spectrocloud_registry_oci": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17777,7 +18771,7 @@
           }
         },
         "spectrocloud_role": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17806,7 +18800,7 @@
           }
         },
         "spectrocloud_ssh_key": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "context": {
@@ -17842,7 +18836,7 @@
           }
         },
         "spectrocloud_team": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
@@ -17872,7 +18866,7 @@
           }
         },
         "spectrocloud_user": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "email": {
@@ -17893,7 +18887,7 @@
           }
         },
         "spectrocloud_workspace": {
-          "version": 0,
+          "version": 2,
           "block": {
             "attributes": {
               "id": {
