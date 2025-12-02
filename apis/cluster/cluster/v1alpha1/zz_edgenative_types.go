@@ -899,7 +899,6 @@ type EdgeNativeInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []EdgeNativeClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1327,7 +1326,6 @@ type EdgeNativeObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []EdgeNativeClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1439,7 +1437,6 @@ type EdgeNativeParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []EdgeNativeClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

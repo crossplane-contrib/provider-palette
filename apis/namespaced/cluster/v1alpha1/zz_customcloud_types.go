@@ -716,7 +716,6 @@ type CustomCloudInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []CustomCloudClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []CustomCloudClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1096,7 +1095,6 @@ type CustomCloudObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []CustomCloudClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []CustomCloudClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1213,7 +1211,6 @@ type CustomCloudParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []CustomCloudClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []CustomCloudClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

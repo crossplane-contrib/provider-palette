@@ -379,7 +379,7 @@ type AzureClusterProfileObservation struct {
 type AzureClusterProfilePackInitParameters struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -410,10 +410,48 @@ type AzureClusterProfilePackInitParameters struct {
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
+type AzureClusterProfilePackManifestInitParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AzureClusterProfilePackManifestObservation struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type AzureClusterProfilePackManifestParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	// +kubebuilder:validation:Optional
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type AzureClusterProfilePackObservation struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -448,7 +486,7 @@ type AzureClusterProfilePackParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -834,7 +872,6 @@ type AzureInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AzureClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []AzureClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1275,7 +1312,6 @@ type AzureObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []AzureClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []AzureClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1399,7 +1435,6 @@ type AzureParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []AzureClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []AzureClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
@@ -1531,44 +1566,6 @@ type AzureScanPolicyParameters struct {
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
-}
-
-type ClusterProfilePackManifestInitParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type ClusterProfilePackManifestObservation struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-}
-
-type ClusterProfilePackManifestParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Optional
-	Content *string `json:"content" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type ControlPlaneSubnetInitParameters struct {

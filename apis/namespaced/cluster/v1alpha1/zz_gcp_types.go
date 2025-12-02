@@ -752,7 +752,6 @@ type GCPInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []GCPClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []GCPClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1153,7 +1152,6 @@ type GCPObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []GCPClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []GCPClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1275,7 +1273,6 @@ type GCPParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []GCPClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []GCPClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

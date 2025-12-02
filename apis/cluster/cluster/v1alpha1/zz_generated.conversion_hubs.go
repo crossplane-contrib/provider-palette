@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *Aks) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ApacheCloudstack) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Aws) Hub() {}
 
 // Hub marks this type as a conversion hub.

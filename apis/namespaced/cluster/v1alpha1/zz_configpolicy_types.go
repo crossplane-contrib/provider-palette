@@ -16,23 +16,18 @@ import (
 
 type ConfigPolicyInitParameters struct {
 
-	// (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// The name of the cluster config policy.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
-	// (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
 	// Set of maintenance schedules for the policy.
 	Schedules []SchedulesInitParameters `json:"schedules,omitempty" tf:"schedules,omitempty"`
 
-	// (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -40,26 +35,20 @@ type ConfigPolicyInitParameters struct {
 
 type ConfigPolicyObservation struct {
 
-	// (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// The name of the cluster config policy.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
-	// (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
 	// Set of maintenance schedules for the policy.
 	Schedules []SchedulesObservation `json:"schedules,omitempty" tf:"schedules,omitempty"`
 
-	// (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -67,27 +56,22 @@ type ConfigPolicyObservation struct {
 
 type ConfigPolicyParameters struct {
 
-	// (String) The context of the cluster config policy. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the cluster config policy. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// The name of the cluster config policy.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Type of the policy. Allowed values are maintenance or upgrade(not supported yet). Default value is maintenance.
 	// Type of the policy. Allowed values are `maintenance` or `upgrade`(not supported yet). Default value is `maintenance`.
 	// +kubebuilder:validation:Optional
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
-	// (Block Set) Set of maintenance schedules for the policy. (see below for nested schema)
 	// Set of maintenance schedules for the policy.
 	// +kubebuilder:validation:Optional
 	Schedules []SchedulesParameters `json:"schedules,omitempty" tf:"schedules,omitempty"`
 
-	// (Set of String) Assign tags to the cluster config policy. Tags can be in the format key:value or just key.
 	// Assign tags to the cluster config policy. Tags can be in the format `key:value` or just `key`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -96,47 +80,38 @@ type ConfigPolicyParameters struct {
 
 type SchedulesInitParameters struct {
 
-	// 24.
 	// Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
 	DurationHrs *float64 `json:"durationHrs,omitempty" tf:"duration_hrs,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// Name of the upgrade schedule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Cron expression for the start time of the schedule.
 	// Cron expression for the start time of the schedule.
 	StartCron *string `json:"startCron,omitempty" tf:"start_cron,omitempty"`
 }
 
 type SchedulesObservation struct {
 
-	// 24.
 	// Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
 	DurationHrs *float64 `json:"durationHrs,omitempty" tf:"duration_hrs,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// Name of the upgrade schedule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Cron expression for the start time of the schedule.
 	// Cron expression for the start time of the schedule.
 	StartCron *string `json:"startCron,omitempty" tf:"start_cron,omitempty"`
 }
 
 type SchedulesParameters struct {
 
-	// 24.
 	// Specifies the time window in hours during which the system is allowed to start upgrades on eligible clusters. Valid range: 1-24.
 	// +kubebuilder:validation:Optional
 	DurationHrs *float64 `json:"durationHrs" tf:"duration_hrs,omitempty"`
 
-	// (String) The name of the cluster config policy.
 	// Name of the upgrade schedule.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) Cron expression for the start time of the schedule.
 	// Cron expression for the start time of the schedule.
 	// +kubebuilder:validation:Optional
 	StartCron *string `json:"startCron" tf:"start_cron,omitempty"`
@@ -169,7 +144,7 @@ type ConfigPolicyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ConfigPolicy is the Schema for the ConfigPolicys API. A resource for creating and managing cluster config policies (maintenance policies). Tech Preview: This resource is in tech preview and may undergo changes.
+// ConfigPolicy is the Schema for the ConfigPolicys API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
