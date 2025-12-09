@@ -859,6 +859,7 @@ type VsphereInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []VsphereClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []VsphereClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1465,6 +1466,7 @@ type VsphereObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []VsphereClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []VsphereClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1587,6 +1589,7 @@ type VsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []VsphereClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []VsphereClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

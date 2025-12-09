@@ -666,6 +666,16 @@ func (in *ApacheCloudstackBackupPolicyInitParameters) DeepCopyInto(out *ApacheCl
 		*out = new(string)
 		**out = **in
 	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
 		*out = make([]*string, len(*in))
@@ -819,6 +829,16 @@ func (in *ApacheCloudstackBackupPolicyParameters) DeepCopyInto(out *ApacheClouds
 		in, out := &in.BackupLocationID, &out.BackupLocationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackupLocationIDRef != nil {
+		in, out := &in.BackupLocationIDRef, &out.BackupLocationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackupLocationIDSelector != nil {
+		in, out := &in.BackupLocationIDSelector, &out.BackupLocationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterUids != nil {
 		in, out := &in.ClusterUids, &out.ClusterUids
@@ -1023,6 +1043,16 @@ func (in *ApacheCloudstackClusterProfileInitParameters) DeepCopyInto(out *Apache
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]ClusterProfilePackInitParameters, len(*in))
@@ -1108,6 +1138,16 @@ func (in *ApacheCloudstackClusterProfileParameters) DeepCopyInto(out *ApacheClou
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
@@ -1296,6 +1336,16 @@ func (in *ApacheCloudstackClusterTemplateClusterProfileInitParameters) DeepCopyI
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -1368,6 +1418,16 @@ func (in *ApacheCloudstackClusterTemplateClusterProfileParameters) DeepCopyInto(
 		*out = new(string)
 		**out = **in
 	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Variables != nil {
 		in, out := &in.Variables, &out.Variables
 		*out = make(map[string]*string, len(*in))
@@ -1410,6 +1470,16 @@ func (in *ApacheCloudstackClusterTemplateInitParameters) DeepCopyInto(out *Apach
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1469,6 +1539,16 @@ func (in *ApacheCloudstackClusterTemplateParameters) DeepCopyInto(out *ApacheClo
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IDRef != nil {
+		in, out := &in.IDRef, &out.IDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IDSelector != nil {
+		in, out := &in.IDSelector, &out.IDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1607,6 +1687,16 @@ func (in *ApacheCloudstackInitParameters) DeepCopyInto(out *ApacheCloudstackInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.CloudAccountIDRef != nil {
+		in, out := &in.CloudAccountIDRef, &out.CloudAccountIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudAccountIDSelector != nil {
+		in, out := &in.CloudAccountIDSelector, &out.CloudAccountIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CloudConfig != nil {
 		in, out := &in.CloudConfig, &out.CloudConfig
 		*out = make([]ApacheCloudstackCloudConfigInitParameters, len(*in))
@@ -1673,6 +1763,11 @@ func (in *ApacheCloudstackInitParameters) DeepCopyInto(out *ApacheCloudstackInit
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.Namespaces != nil {
 		in, out := &in.Namespaces, &out.Namespaces
@@ -1887,13 +1982,6 @@ func (in *ApacheCloudstackMachinePoolInitParameters) DeepCopyInto(out *ApacheClo
 		*out = new(float64)
 		**out = **in
 	}
-	if in.InstanceConfig != nil {
-		in, out := &in.InstanceConfig, &out.InstanceConfig
-		*out = make([]InstanceConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
 	if in.Max != nil {
 		in, out := &in.Max, &out.Max
 		*out = new(float64)
@@ -2098,13 +2186,6 @@ func (in *ApacheCloudstackMachinePoolParameters) DeepCopyInto(out *ApacheCloudst
 		in, out := &in.Count, &out.Count
 		*out = new(float64)
 		**out = **in
-	}
-	if in.InstanceConfig != nil {
-		in, out := &in.InstanceConfig, &out.InstanceConfig
-		*out = make([]InstanceConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
 	}
 	if in.Max != nil {
 		in, out := &in.Max, &out.Max
@@ -2393,6 +2474,11 @@ func (in *ApacheCloudstackObservation) DeepCopyInto(out *ApacheCloudstackObserva
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Namespaces != nil {
 		in, out := &in.Namespaces, &out.Namespaces
 		*out = make([]ApacheCloudstackNamespacesObservation, len(*in))
@@ -2485,6 +2571,16 @@ func (in *ApacheCloudstackParameters) DeepCopyInto(out *ApacheCloudstackParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.CloudAccountIDRef != nil {
+		in, out := &in.CloudAccountIDRef, &out.CloudAccountIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudAccountIDSelector != nil {
+		in, out := &in.CloudAccountIDSelector, &out.CloudAccountIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CloudConfig != nil {
 		in, out := &in.CloudConfig, &out.CloudConfig
 		*out = make([]ApacheCloudstackCloudConfigParameters, len(*in))
@@ -2551,6 +2647,11 @@ func (in *ApacheCloudstackParameters) DeepCopyInto(out *ApacheCloudstackParamete
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.Namespaces != nil {
 		in, out := &in.Namespaces, &out.Namespaces
@@ -28284,36 +28385,6 @@ func (in *HostConfigParameters) DeepCopy() *HostConfigParameters {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *InstanceConfigInitParameters) DeepCopyInto(out *InstanceConfigInitParameters) {
 	*out = *in
-	if in.CPUSet != nil {
-		in, out := &in.CPUSet, &out.CPUSet
-		*out = new(float64)
-		**out = **in
-	}
-	if in.Category != nil {
-		in, out := &in.Category, &out.Category
-		*out = new(string)
-		**out = **in
-	}
-	if in.DiskGib != nil {
-		in, out := &in.DiskGib, &out.DiskGib
-		*out = new(float64)
-		**out = **in
-	}
-	if in.MemoryMib != nil {
-		in, out := &in.MemoryMib, &out.MemoryMib
-		*out = new(float64)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
-	if in.NumCpus != nil {
-		in, out := &in.NumCpus, &out.NumCpus
-		*out = new(float64)
-		**out = **in
-	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new InstanceConfigInitParameters.
@@ -28374,36 +28445,6 @@ func (in *InstanceConfigObservation) DeepCopy() *InstanceConfigObservation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *InstanceConfigParameters) DeepCopyInto(out *InstanceConfigParameters) {
 	*out = *in
-	if in.CPUSet != nil {
-		in, out := &in.CPUSet, &out.CPUSet
-		*out = new(float64)
-		**out = **in
-	}
-	if in.Category != nil {
-		in, out := &in.Category, &out.Category
-		*out = new(string)
-		**out = **in
-	}
-	if in.DiskGib != nil {
-		in, out := &in.DiskGib, &out.DiskGib
-		*out = new(float64)
-		**out = **in
-	}
-	if in.MemoryMib != nil {
-		in, out := &in.MemoryMib, &out.MemoryMib
-		*out = new(float64)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
-	if in.NumCpus != nil {
-		in, out := &in.NumCpus, &out.NumCpus
-		*out = new(float64)
-		**out = **in
-	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new InstanceConfigParameters.

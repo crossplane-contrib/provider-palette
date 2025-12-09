@@ -31,6 +31,9 @@ type ApacheCloudstackInitParameters struct {
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
+	// Name of the Apache CloudStack cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
@@ -53,6 +56,9 @@ type ApacheCloudstackObservation struct {
 
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
+
+	// Name of the Apache CloudStack cloud account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
@@ -79,6 +85,10 @@ type ApacheCloudstackParameters struct {
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// +kubebuilder:validation:Optional
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
+
+	// Name of the Apache CloudStack cloud account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	// +kubebuilder:validation:Optional
@@ -127,6 +137,7 @@ type ApacheCloudstack struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.apiKeySecretRef)",message="spec.forProvider.apiKeySecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.apiUrl) || (has(self.initProvider) && has(self.initProvider.apiUrl))",message="spec.forProvider.apiUrl is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privateCloudGatewayId) || (has(self.initProvider) && has(self.initProvider.privateCloudGatewayId))",message="spec.forProvider.privateCloudGatewayId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secretKeySecretRef)",message="spec.forProvider.secretKeySecretRef is a required parameter"
 	Spec   ApacheCloudstackSpec   `json:"spec"`

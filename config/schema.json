@@ -2836,6 +2836,25 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "instance_config": {
+                      "type": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "category": "string",
+                            "cpu_set": "number",
+                            "disk_gib": "number",
+                            "memory_mib": "number",
+                            "name": "string",
+                            "num_cpus": "number"
+                          }
+                        ]
+                      ],
+                      "description": "Instance configuration details returned by the CloudStack API. This is a computed field based on the selected offering.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "max": {
                       "type": "number",
                       "description": "Maximum number of nodes in the machine pool. This is used for autoscaling.",
@@ -2868,52 +2887,6 @@
                     }
                   },
                   "block_types": {
-                    "instance_config": {
-                      "nesting_mode": "list",
-                      "block": {
-                        "attributes": {
-                          "category": {
-                            "type": "string",
-                            "description": "Category for the instance configuration. Optional.",
-                            "description_kind": "plain",
-                            "optional": true
-                          },
-                          "cpu_set": {
-                            "type": "number",
-                            "description": "CPU set for the instance. Optional, defaults to 0.",
-                            "description_kind": "plain",
-                            "optional": true
-                          },
-                          "disk_gib": {
-                            "type": "number",
-                            "description": "Root disk size in GiB. Required if instance_config is specified.",
-                            "description_kind": "plain",
-                            "required": true
-                          },
-                          "memory_mib": {
-                            "type": "number",
-                            "description": "Memory size in MiB. Required if instance_config is specified.",
-                            "description_kind": "plain",
-                            "required": true
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "Name for the instance configuration. Optional.",
-                            "description_kind": "plain",
-                            "optional": true
-                          },
-                          "num_cpus": {
-                            "type": "number",
-                            "description": "Number of CPUs for the instance. Required if instance_config is specified.",
-                            "description_kind": "plain",
-                            "required": true
-                          }
-                        },
-                        "description": "Advanced instance configuration for custom CPU, memory, and disk settings. Optional, used for customized instance specifications beyond standard offerings.",
-                        "description_kind": "plain"
-                      },
-                      "max_items": 1
-                    },
                     "network": {
                       "nesting_mode": "list",
                       "block": {

@@ -49,6 +49,7 @@ type AksInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []ClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []ClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -151,6 +152,7 @@ type AksObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []ClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []ClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -272,6 +274,7 @@ type AksParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []ClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []ClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

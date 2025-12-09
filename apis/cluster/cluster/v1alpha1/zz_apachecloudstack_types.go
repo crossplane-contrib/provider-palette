@@ -16,7 +16,16 @@ import (
 type ApacheCloudstackBackupPolicyInitParameters struct {
 
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
@@ -86,8 +95,17 @@ type ApacheCloudstackBackupPolicyObservation struct {
 type ApacheCloudstackBackupPolicyParameters struct {
 
 	// The ID of the backup location to use for the backup.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
-	BackupLocationID *string `json:"backupLocationId" tf:"backup_location_id,omitempty"`
+	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
+
+	// Reference to a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+
+	// Selector for a StorageLocation in backup to populate backupLocationId.
+	// +kubebuilder:validation:Optional
+	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
@@ -190,7 +208,16 @@ type ApacheCloudstackCloudConfigParameters struct {
 type ApacheCloudstackClusterProfileInitParameters struct {
 
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
@@ -216,8 +243,17 @@ type ApacheCloudstackClusterProfileObservation struct {
 type ApacheCloudstackClusterProfileParameters struct {
 
 	// The ID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
@@ -281,7 +317,16 @@ type ApacheCloudstackClusterRbacBindingParameters struct {
 type ApacheCloudstackClusterTemplateClusterProfileInitParameters struct {
 
 	// The UID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
@@ -301,8 +346,17 @@ type ApacheCloudstackClusterTemplateClusterProfileObservation struct {
 type ApacheCloudstackClusterTemplateClusterProfileParameters struct {
 
 	// The UID of the cluster profile.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a Profile in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
@@ -316,7 +370,16 @@ type ApacheCloudstackClusterTemplateInitParameters struct {
 	ClusterProfile []ApacheCloudstackClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// The ID of the cluster template.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
 type ApacheCloudstackClusterTemplateObservation struct {
@@ -338,8 +401,17 @@ type ApacheCloudstackClusterTemplateParameters struct {
 	ClusterProfile []ApacheCloudstackClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// The ID of the cluster template.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
 	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a ConfigTemplate in cluster to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 }
 
 type ApacheCloudstackHostConfigInitParameters struct {
@@ -400,7 +472,16 @@ type ApacheCloudstackInitParameters struct {
 	BackupPolicy []ApacheCloudstackBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.ApacheCloudstack
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a ApacheCloudstack in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a ApacheCloudstack in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// CloudStack cluster configuration.
 	CloudConfig []ApacheCloudstackCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
@@ -433,6 +514,9 @@ type ApacheCloudstackInitParameters struct {
 
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// The name of the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The namespaces for the cluster.
 	Namespaces []ApacheCloudstackNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -501,9 +585,6 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// Advanced instance configuration for custom CPU, memory, and disk settings. Optional, used for customized instance specifications beyond standard offerings.
-	InstanceConfig []InstanceConfigInitParameters `json:"instanceConfig,omitempty" tf:"instance_config,omitempty"`
-
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
@@ -545,7 +626,7 @@ type ApacheCloudstackMachinePoolObservation struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// Advanced instance configuration for custom CPU, memory, and disk settings. Optional, used for customized instance specifications beyond standard offerings.
+	// Instance configuration details returned by the CloudStack API. This is a computed field based on the selected offering.
 	InstanceConfig []InstanceConfigObservation `json:"instanceConfig,omitempty" tf:"instance_config,omitempty"`
 
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
@@ -592,10 +673,6 @@ type ApacheCloudstackMachinePoolParameters struct {
 	// Number of nodes in the machine pool.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
-
-	// Advanced instance configuration for custom CPU, memory, and disk settings. Optional, used for customized instance specifications beyond standard offerings.
-	// +kubebuilder:validation:Optional
-	InstanceConfig []InstanceConfigParameters `json:"instanceConfig,omitempty" tf:"instance_config,omitempty"`
 
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
 	// +kubebuilder:validation:Optional
@@ -721,6 +798,9 @@ type ApacheCloudstackObservation struct {
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// The name of the cluster.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The namespaces for the cluster.
 	Namespaces []ApacheCloudstackNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
@@ -764,8 +844,17 @@ type ApacheCloudstackParameters struct {
 	BackupPolicy []ApacheCloudstackBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.ApacheCloudstack
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
+
+	// Reference to a ApacheCloudstack in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
+
+	// Selector for a ApacheCloudstack in cloudaccount to populate cloudAccountId.
+	// +kubebuilder:validation:Optional
+	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
 	// CloudStack cluster configuration.
 	// +kubebuilder:validation:Optional
@@ -809,6 +898,10 @@ type ApacheCloudstackParameters struct {
 	// Machine pool configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	MachinePool []ApacheCloudstackMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// The name of the cluster.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
@@ -1015,72 +1108,23 @@ type ClusterRbacBindingSubjectsParameters struct {
 }
 
 type InstanceConfigInitParameters struct {
-
-	// CPU set for the instance. Optional, defaults to 0.
-	CPUSet *float64 `json:"cpuSet,omitempty" tf:"cpu_set,omitempty"`
-
-	// Category for the instance configuration. Optional.
-	Category *string `json:"category,omitempty" tf:"category,omitempty"`
-
-	// Root disk size in GiB. Required if instance_config is specified.
-	DiskGib *float64 `json:"diskGib,omitempty" tf:"disk_gib,omitempty"`
-
-	// Memory size in MiB. Required if instance_config is specified.
-	MemoryMib *float64 `json:"memoryMib,omitempty" tf:"memory_mib,omitempty"`
-
-	// Name for the instance configuration. Optional.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Number of CPUs for the instance. Required if instance_config is specified.
-	NumCpus *float64 `json:"numCpus,omitempty" tf:"num_cpus,omitempty"`
 }
 
 type InstanceConfigObservation struct {
-
-	// CPU set for the instance. Optional, defaults to 0.
 	CPUSet *float64 `json:"cpuSet,omitempty" tf:"cpu_set,omitempty"`
 
-	// Category for the instance configuration. Optional.
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
 
-	// Root disk size in GiB. Required if instance_config is specified.
 	DiskGib *float64 `json:"diskGib,omitempty" tf:"disk_gib,omitempty"`
 
-	// Memory size in MiB. Required if instance_config is specified.
 	MemoryMib *float64 `json:"memoryMib,omitempty" tf:"memory_mib,omitempty"`
 
-	// Name for the instance configuration. Optional.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Number of CPUs for the instance. Required if instance_config is specified.
 	NumCpus *float64 `json:"numCpus,omitempty" tf:"num_cpus,omitempty"`
 }
 
 type InstanceConfigParameters struct {
-
-	// CPU set for the instance. Optional, defaults to 0.
-	// +kubebuilder:validation:Optional
-	CPUSet *float64 `json:"cpuSet,omitempty" tf:"cpu_set,omitempty"`
-
-	// Category for the instance configuration. Optional.
-	// +kubebuilder:validation:Optional
-	Category *string `json:"category,omitempty" tf:"category,omitempty"`
-
-	// Root disk size in GiB. Required if instance_config is specified.
-	// +kubebuilder:validation:Optional
-	DiskGib *float64 `json:"diskGib" tf:"disk_gib,omitempty"`
-
-	// Memory size in MiB. Required if instance_config is specified.
-	// +kubebuilder:validation:Optional
-	MemoryMib *float64 `json:"memoryMib" tf:"memory_mib,omitempty"`
-
-	// Name for the instance configuration. Optional.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Number of CPUs for the instance. Required if instance_config is specified.
-	// +kubebuilder:validation:Optional
-	NumCpus *float64 `json:"numCpus" tf:"num_cpus,omitempty"`
 }
 
 type MachinePoolNetworkInitParameters struct {
@@ -1453,9 +1497,9 @@ type ApacheCloudstackStatus struct {
 type ApacheCloudstack struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccountId) || (has(self.initProvider) && has(self.initProvider.cloudAccountId))",message="spec.forProvider.cloudAccountId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   ApacheCloudstackSpec   `json:"spec"`
 	Status ApacheCloudstackStatus `json:"status,omitempty"`
 }

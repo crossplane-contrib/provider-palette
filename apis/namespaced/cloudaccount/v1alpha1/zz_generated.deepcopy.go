@@ -64,6 +64,11 @@ func (in *ApacheCloudstackInitParameters) DeepCopyInto(out *ApacheCloudstackInit
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
 		*out = new(string)
@@ -142,6 +147,11 @@ func (in *ApacheCloudstackObservation) DeepCopyInto(out *ApacheCloudstackObserva
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateCloudGatewayID != nil {
 		in, out := &in.PrivateCloudGatewayID, &out.PrivateCloudGatewayID
 		*out = new(string)
@@ -181,6 +191,11 @@ func (in *ApacheCloudstackParameters) DeepCopyInto(out *ApacheCloudstackParamete
 	if in.Insecure != nil {
 		in, out := &in.Insecure, &out.Insecure
 		*out = new(bool)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
 		**out = **in
 	}
 	if in.PrivateCloudGatewayID != nil {

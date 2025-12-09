@@ -461,10 +461,10 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("spectrocloud_cluster_apachecloudstack", func(r *config.Resource) {
+	p.AddResourceConfigurator("spectrocloud_cluster_apache_cloudstack", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
-			TerraformName: "spectrocloud_cloudaccount_apachecloudstack",
+			TerraformName: "spectrocloud_cloudaccount_apache_cloudstack",
 		}
 		r.References["cluster_profile.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_profile",
