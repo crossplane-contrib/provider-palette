@@ -2423,12 +2423,6 @@
                       "description_kind": "plain",
                       "optional": true
                     },
-                    "project": {
-                      "type": "string",
-                      "description": "CloudStack project name (optional). If not specified, the cluster will be created in the domain's default project.",
-                      "description_kind": "plain",
-                      "optional": true
-                    },
                     "ssh_key_name": {
                       "type": "string",
                       "description": "SSH key name for accessing cluster nodes.",
@@ -2443,6 +2437,28 @@
                     }
                   },
                   "block_types": {
+                    "project": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "id": {
+                            "type": "string",
+                            "description": "CloudStack project ID.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "CloudStack project name.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    },
                     "zone": {
                       "nesting_mode": "list",
                       "block": {

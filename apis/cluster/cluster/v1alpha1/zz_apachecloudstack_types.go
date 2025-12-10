@@ -151,8 +151,8 @@ type ApacheCloudstackCloudConfigInitParameters struct {
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
-	// CloudStack project name (optional). If not specified, the cluster will be created in the domain's default project.
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
+	Project []ProjectInitParameters `json:"project,omitempty" tf:"project,omitempty"`
 
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
@@ -169,8 +169,8 @@ type ApacheCloudstackCloudConfigObservation struct {
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
-	// CloudStack project name (optional). If not specified, the cluster will be created in the domain's default project.
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
+	Project []ProjectObservation `json:"project,omitempty" tf:"project,omitempty"`
 
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
@@ -188,9 +188,9 @@ type ApacheCloudstackCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
-	// CloudStack project name (optional). If not specified, the cluster will be created in the domain's default project.
+	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
 	// +kubebuilder:validation:Optional
-	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+	Project []ProjectParameters `json:"project,omitempty" tf:"project,omitempty"`
 
 	// SSH key name for accessing cluster nodes.
 	// +kubebuilder:validation:Optional
@@ -1342,6 +1342,35 @@ type PackManifestParameters struct {
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type ProjectInitParameters struct {
+
+	// CloudStack project ID.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// CloudStack project name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ProjectObservation struct {
+
+	// CloudStack project ID.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// CloudStack project name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ProjectParameters struct {
+
+	// CloudStack project ID.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// CloudStack project name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type TemplateInitParameters struct {

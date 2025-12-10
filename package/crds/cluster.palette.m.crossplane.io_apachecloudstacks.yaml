@@ -307,10 +307,19 @@ spec:
                             Should only be set for static CloudStack networks.
                           type: string
                         project:
-                          description: CloudStack project name (optional). If not
-                            specified, the cluster will be created in the domain's
+                          description: CloudStack project configuration (optional).
+                            If not specified, the cluster will be created in the domain's
                             default project.
-                          type: string
+                          items:
+                            properties:
+                              id:
+                                description: CloudStack project ID.
+                                type: string
+                              name:
+                                description: CloudStack project name.
+                                type: string
+                            type: object
+                          type: array
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
@@ -1279,10 +1288,19 @@ spec:
                             Should only be set for static CloudStack networks.
                           type: string
                         project:
-                          description: CloudStack project name (optional). If not
-                            specified, the cluster will be created in the domain's
+                          description: CloudStack project configuration (optional).
+                            If not specified, the cluster will be created in the domain's
                             default project.
-                          type: string
+                          items:
+                            properties:
+                              id:
+                                description: CloudStack project ID.
+                                type: string
+                              name:
+                                description: CloudStack project name.
+                                type: string
+                            type: object
+                          type: array
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
@@ -2154,10 +2172,19 @@ spec:
                             Should only be set for static CloudStack networks.
                           type: string
                         project:
-                          description: CloudStack project name (optional). If not
-                            specified, the cluster will be created in the domain's
+                          description: CloudStack project configuration (optional).
+                            If not specified, the cluster will be created in the domain's
                             default project.
-                          type: string
+                          items:
+                            properties:
+                              id:
+                                description: CloudStack project ID.
+                                type: string
+                              name:
+                                description: CloudStack project name.
+                                type: string
+                            type: object
+                          type: array
                         sshKeyName:
                           description: SSH key name for accessing cluster nodes.
                           type: string
