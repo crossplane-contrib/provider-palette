@@ -421,7 +421,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
@@ -1236,7 +1237,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
@@ -1964,7 +1966,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:

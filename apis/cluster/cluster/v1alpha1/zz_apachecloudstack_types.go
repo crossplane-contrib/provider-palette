@@ -270,7 +270,7 @@ type ApacheCloudstackClusterRbacBindingInitParameters struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -285,7 +285,7 @@ type ApacheCloudstackClusterRbacBindingObservation struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -301,7 +301,7 @@ type ApacheCloudstackClusterRbacBindingParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
@@ -599,6 +599,9 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 
 	Node []MachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
@@ -642,6 +645,9 @@ type ApacheCloudstackMachinePoolObservation struct {
 	Network []MachinePoolNetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 
 	Node []MachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
@@ -692,6 +698,10 @@ type ApacheCloudstackMachinePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Node []MachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
 	// Apache CloudStack compute offering (instance type/size) name.
 	// +kubebuilder:validation:Optional

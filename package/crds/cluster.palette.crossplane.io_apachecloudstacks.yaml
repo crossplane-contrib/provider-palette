@@ -585,7 +585,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
@@ -890,6 +891,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
                         offering:
                           description: Apache CloudStack compute offering (instance
                             type/size) name.
@@ -1536,7 +1542,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
@@ -1841,6 +1848,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
                         offering:
                           description: Apache CloudStack compute offering (instance
                             type/size) name.
@@ -2360,7 +2372,8 @@ spec:
                           additionalProperties:
                             type: string
                           description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'.
+                            is set to 'RoleBinding'. Must include 'name' and 'kind'
+                            fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
@@ -2560,6 +2573,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        nodeRepaveInterval:
+                          description: Minimum number of seconds node should be Ready,
+                            before the next node is selected for repave. Default value
+                            is `0`, Applicable only for worker pools.
+                          type: number
                         offering:
                           description: Apache CloudStack compute offering (instance
                             type/size) name.

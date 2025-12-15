@@ -463,7 +463,7 @@ type CustomCloudClusterRbacBindingInitParameters struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -482,7 +482,7 @@ type CustomCloudClusterRbacBindingObservation struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -502,7 +502,7 @@ type CustomCloudClusterRbacBindingParameters struct {
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`

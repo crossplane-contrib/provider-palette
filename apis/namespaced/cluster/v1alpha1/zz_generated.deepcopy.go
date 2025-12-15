@@ -2017,6 +2017,11 @@ func (in *ApacheCloudstackMachinePoolInitParameters) DeepCopyInto(out *ApacheClo
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.NodeRepaveInterval != nil {
+		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Offering != nil {
 		in, out := &in.Offering, &out.Offering
 		*out = new(string)
@@ -2123,6 +2128,11 @@ func (in *ApacheCloudstackMachinePoolObservation) DeepCopyInto(out *ApacheClouds
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.NodeRepaveInterval != nil {
+		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Offering != nil {
 		in, out := &in.Offering, &out.Offering
 		*out = new(string)
@@ -2221,6 +2231,11 @@ func (in *ApacheCloudstackMachinePoolParameters) DeepCopyInto(out *ApacheCloudst
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.NodeRepaveInterval != nil {
+		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
+		*out = new(float64)
+		**out = **in
 	}
 	if in.Offering != nil {
 		in, out := &in.Offering, &out.Offering

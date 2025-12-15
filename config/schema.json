@@ -1870,7 +1870,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -2697,7 +2697,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -2888,6 +2888,12 @@
                       "description": "Name of the machine pool.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "node_repave_interval": {
+                      "type": "number",
+                      "description": "Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "offering": {
                       "type": "string",
@@ -3458,7 +3464,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -4312,7 +4318,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -5264,7 +5270,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -5919,7 +5925,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6692,7 +6698,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -7525,7 +7531,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8325,7 +8331,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -9011,7 +9017,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -9900,7 +9906,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -10729,7 +10735,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -11757,7 +11763,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -15023,7 +15029,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -17292,7 +17298,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.",
+                      "description": "The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.",
                       "description_kind": "plain",
                       "optional": true
                     },
