@@ -16,107 +16,84 @@ import (
 
 type ApacheCloudstackInitParameters struct {
 
-	// (String, Sensitive) The API key for Apache CloudStack authentication.
 	// The API key for Apache CloudStack authentication.
 	APIKeySecretRef v1.LocalSecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// domain CloudStack environments. Default is empty (ROOT domain).
 	// The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
-	// (String) Name of the Apache CloudStack cloud account.
 	// Name of the Apache CloudStack cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
-	// (String, Sensitive) The secret key for Apache CloudStack authentication.
 	// The secret key for Apache CloudStack authentication.
 	SecretKeySecretRef v1.LocalSecretKeySelector `json:"secretKeySecretRef" tf:"-"`
 }
 
 type ApacheCloudstackObservation struct {
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// domain CloudStack environments. Default is empty (ROOT domain).
 	// The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
-	// (String) Name of the Apache CloudStack cloud account.
 	// Name of the Apache CloudStack cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 }
 
 type ApacheCloudstackParameters struct {
 
-	// (String, Sensitive) The API key for Apache CloudStack authentication.
 	// The API key for Apache CloudStack authentication.
 	// +kubebuilder:validation:Optional
 	APIKeySecretRef v1.LocalSecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
 	// +kubebuilder:validation:Optional
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
-	// (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// domain CloudStack environments. Default is empty (ROOT domain).
 	// The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
 	// +kubebuilder:validation:Optional
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
-	// (String) Name of the Apache CloudStack cloud account.
 	// Name of the Apache CloudStack cloud account.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	// ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
 	// +kubebuilder:validation:Optional
 	PrivateCloudGatewayID *string `json:"privateCloudGatewayId,omitempty" tf:"private_cloud_gateway_id,omitempty"`
 
-	// (String, Sensitive) The secret key for Apache CloudStack authentication.
 	// The secret key for Apache CloudStack authentication.
 	// +kubebuilder:validation:Optional
 	SecretKeySecretRef v1.LocalSecretKeySelector `json:"secretKeySecretRef" tf:"-"`
@@ -149,7 +126,7 @@ type ApacheCloudstackStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ApacheCloudstack is the Schema for the ApacheCloudstacks API.
+// ApacheCloudstack is the Schema for the ApacheCloudstacks API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

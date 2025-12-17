@@ -35,6 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: ApacheCloudstack is the Schema for the ApacheCloudstacks API.
+          <no value>
         properties:
           apiVersion:
             description: |-
@@ -73,9 +74,7 @@ spec:
               forProvider:
                 properties:
                   apiKeySecretRef:
-                    description: |-
-                      (String, Sensitive) The API key for Apache CloudStack authentication.
-                      The API key for Apache CloudStack authentication.
+                    description: The API key for Apache CloudStack authentication.
                     properties:
                       key:
                         description: The key to select.
@@ -92,39 +91,34 @@ spec:
                     - namespace
                     type: object
                   apiUrl:
-                    description: |-
-                      (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                    description: 'The API URL of the Apache CloudStack management
+                      server. For example: https://cloudstack.example.com:8080/client/api'
                     type: string
                   context:
-                    description: |-
-                      (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the Apache CloudStack configuration.
+                      Allowed values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   domain:
-                    description: |-
-                      domain CloudStack environments. Default is empty (ROOT domain).
-                      The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
+                    description: The domain for the Apache CloudStack account. Optional,
+                      for multi-domain CloudStack environments. Default is empty (ROOT
+                      domain).
                     type: string
                   insecure:
-                    description: |-
-                      (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
-                      Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: Apache CloudStack must have valid SSL certificates from
+                      a trusted CA if this is false.'
                     type: boolean
                   name:
-                    description: |-
-                      (String) Name of the Apache CloudStack cloud account.
-                      Name of the Apache CloudStack cloud account.
+                    description: Name of the Apache CloudStack cloud account.
                     type: string
                   privateCloudGatewayId:
-                    description: |-
-                      (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
-                      ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
+                    description: ID of the private cloud gateway that is used to connect
+                      to the Apache CloudStack cloud.
                     type: string
                   secretKeySecretRef:
-                    description: |-
-                      (String, Sensitive) The secret key for Apache CloudStack authentication.
-                      The secret key for Apache CloudStack authentication.
+                    description: The secret key for Apache CloudStack authentication.
                     properties:
                       key:
                         description: The key to select.
@@ -155,9 +149,7 @@ spec:
                   autoscaler.
                 properties:
                   apiKeySecretRef:
-                    description: |-
-                      (String, Sensitive) The API key for Apache CloudStack authentication.
-                      The API key for Apache CloudStack authentication.
+                    description: The API key for Apache CloudStack authentication.
                     properties:
                       key:
                         description: The key to select.
@@ -174,39 +166,34 @@ spec:
                     - namespace
                     type: object
                   apiUrl:
-                    description: |-
-                      (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                    description: 'The API URL of the Apache CloudStack management
+                      server. For example: https://cloudstack.example.com:8080/client/api'
                     type: string
                   context:
-                    description: |-
-                      (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the Apache CloudStack configuration.
+                      Allowed values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   domain:
-                    description: |-
-                      domain CloudStack environments. Default is empty (ROOT domain).
-                      The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
+                    description: The domain for the Apache CloudStack account. Optional,
+                      for multi-domain CloudStack environments. Default is empty (ROOT
+                      domain).
                     type: string
                   insecure:
-                    description: |-
-                      (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
-                      Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: Apache CloudStack must have valid SSL certificates from
+                      a trusted CA if this is false.'
                     type: boolean
                   name:
-                    description: |-
-                      (String) Name of the Apache CloudStack cloud account.
-                      Name of the Apache CloudStack cloud account.
+                    description: Name of the Apache CloudStack cloud account.
                     type: string
                   privateCloudGatewayId:
-                    description: |-
-                      (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
-                      ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
+                    description: ID of the private cloud gateway that is used to connect
+                      to the Apache CloudStack cloud.
                     type: string
                   secretKeySecretRef:
-                    description: |-
-                      (String, Sensitive) The secret key for Apache CloudStack authentication.
-                      The secret key for Apache CloudStack authentication.
+                    description: The secret key for Apache CloudStack authentication.
                     properties:
                       key:
                         description: The key to select.
@@ -337,37 +324,33 @@ spec:
               atProvider:
                 properties:
                   apiUrl:
-                    description: |-
-                      (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                    description: 'The API URL of the Apache CloudStack management
+                      server. For example: https://cloudstack.example.com:8080/client/api'
                     type: string
                   context:
-                    description: |-
-                      (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the Apache CloudStack configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: The context of the Apache CloudStack configuration.
+                      Allowed values are `project` or `tenant`. Default value is `project`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   domain:
-                    description: |-
-                      domain CloudStack environments. Default is empty (ROOT domain).
-                      The domain for the Apache CloudStack account. Optional, for multi-domain CloudStack environments. Default is empty (ROOT domain).
+                    description: The domain for the Apache CloudStack account. Optional,
+                      for multi-domain CloudStack environments. Default is empty (ROOT
+                      domain).
                     type: string
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   insecure:
-                    description: |-
-                      (Boolean) Skip SSL certificate verification. Default is false. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
-                      Skip SSL certificate verification. Default is `false`. Note: Apache CloudStack must have valid SSL certificates from a trusted CA if this is false.
+                    description: 'Skip SSL certificate verification. Default is `false`.
+                      Note: Apache CloudStack must have valid SSL certificates from
+                      a trusted CA if this is false.'
                     type: boolean
                   name:
-                    description: |-
-                      (String) Name of the Apache CloudStack cloud account.
-                      Name of the Apache CloudStack cloud account.
+                    description: Name of the Apache CloudStack cloud account.
                     type: string
                   privateCloudGatewayId:
-                    description: |-
-                      (String) ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
-                      ID of the private cloud gateway that is used to connect to the Apache CloudStack cloud.
+                    description: ID of the private cloud gateway that is used to connect
+                      to the Apache CloudStack cloud.
                     type: string
                 type: object
               conditions:

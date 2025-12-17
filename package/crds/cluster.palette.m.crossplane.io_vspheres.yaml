@@ -540,7 +540,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
@@ -1579,7 +1579,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
@@ -2455,7 +2455,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                             The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
