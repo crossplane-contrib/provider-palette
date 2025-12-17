@@ -1,0 +1,24 @@
+apiVersion: cloudaccount.palette.crossplane.io/v1alpha1
+kind: ApacheCloudstack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudaccount/v1alpha1/apachecloudstack
+  labels:
+    testing.upbound.io/example-name: cloudstack_account
+  name: cloudstack-account
+spec:
+  forProvider:
+    apiKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    apiUrl: ${var.cloudstack_api_url}
+    context: project
+    domain: ${var.cloudstack_domain}
+    insecure: false
+    name: apache-cloudstack-account-1
+    privateCloudGatewayId: ${data.spectrocloud_private_cloud_gateway.pcg.id}
+    secretKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
