@@ -255,7 +255,7 @@ type AwsClusterProfileInitParameters struct {
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
-	Pack []ClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []AwsClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
@@ -271,12 +271,122 @@ type AwsClusterProfileObservation struct {
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
-	Pack []ClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []AwsClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type AwsClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	Manifest []ClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String)
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type AwsClusterProfilePackObservation struct {
+
+	// (Block List) (see below for nested schema)
+	Manifest []ClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String)
+	// The name of the pack. The name must be unique within the cluster profile.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type AwsClusterProfilePackParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+
+	// (String)
+	// The name of the pack. The name must be unique within the cluster profile.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	// +kubebuilder:validation:Optional
+	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
+
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
+	// +kubebuilder:validation:Optional
+	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
+
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+	// +kubebuilder:validation:Optional
+	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type AwsClusterProfileParameters struct {
@@ -298,7 +408,7 @@ type AwsClusterProfileParameters struct {
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
-	Pack []ClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []AwsClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
@@ -313,13 +423,13 @@ type AwsClusterRbacBindingInitParameters struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Subjects []ClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []AwsClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
@@ -332,13 +442,13 @@ type AwsClusterRbacBindingObservation struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Subjects []ClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []AwsClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
@@ -352,18 +462,66 @@ type AwsClusterRbacBindingParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Subjects []ClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []AwsClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type AwsClusterRbacBindingSubjectsInitParameters struct {
+
+	// (String)
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type AwsClusterRbacBindingSubjectsObservation struct {
+
+	// (String)
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type AwsClusterRbacBindingSubjectsParameters struct {
+
+	// (String)
+	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
@@ -740,18 +898,53 @@ type AwsMachinePoolInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Node []MachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
+	Node []AwsMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
 	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Taints []MachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []AwsMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type AwsMachinePoolNodeInitParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type AwsMachinePoolNodeObservation struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+}
+
+type AwsMachinePoolNodeParameters struct {
+
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
+	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action" tf:"action,omitempty"`
+
+	// 07f899a33dee624f7
+	// The node_id of the node, For example `i-07f899a33dee624f7`
+	// +kubebuilder:validation:Optional
+	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
 }
 
 type AwsMachinePoolObservation struct {
@@ -816,14 +1009,14 @@ type AwsMachinePoolObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Node []MachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+	Node []AwsMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
 	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Taints []MachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []AwsMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
@@ -907,7 +1100,7 @@ type AwsMachinePoolParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Node []MachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+	Node []AwsMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
 	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
@@ -916,12 +1109,60 @@ type AwsMachinePoolParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Taints []MachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []AwsMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type AwsMachinePoolTaintsInitParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type AwsMachinePoolTaintsObservation struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type AwsMachinePoolTaintsParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	// +kubebuilder:validation:Optional
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 type AwsNamespacesInitParameters struct {
@@ -1263,248 +1504,7 @@ type AwsScanPolicyParameters struct {
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
-type ClusterProfilePackInitParameters struct {
-
-	// (Block List) (see below for nested schema)
-	Manifest []PackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
-
-	// (String)
-	// The name of the pack. The name must be unique within the cluster profile.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
-
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
-
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
-	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	Values *string `json:"values,omitempty" tf:"values,omitempty"`
-}
-
-type ClusterProfilePackObservation struct {
-
-	// (Block List) (see below for nested schema)
-	Manifest []PackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
-
-	// (String)
-	// The name of the pack. The name must be unique within the cluster profile.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
-
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
-
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
-	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	Values *string `json:"values,omitempty" tf:"values,omitempty"`
-}
-
-type ClusterProfilePackParameters struct {
-
-	// (Block List) (see below for nested schema)
-	// +kubebuilder:validation:Optional
-	Manifest []PackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
-
-	// (String)
-	// The name of the pack. The name must be unique within the cluster profile.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
-
-	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	// +kubebuilder:validation:Optional
-	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
-
-	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
-	// +kubebuilder:validation:Optional
-	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
-
-	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
-	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
-	// +kubebuilder:validation:Optional
-	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-	// +kubebuilder:validation:Optional
-	Values *string `json:"values,omitempty" tf:"values,omitempty"`
-}
-
-type ClusterRbacBindingSubjectsInitParameters struct {
-
-	// (String)
-	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
-	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type ClusterRbacBindingSubjectsObservation struct {
-
-	// (String)
-	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
-	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type ClusterRbacBindingSubjectsParameters struct {
-
-	// (String)
-	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
-
-	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
-	// +kubebuilder:validation:Optional
-	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type" tf:"type,omitempty"`
-}
-
-type MachinePoolNodeInitParameters struct {
-
-	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
-	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
-	Action *string `json:"action,omitempty" tf:"action,omitempty"`
-
-	// 07f899a33dee624f7
-	// The node_id of the node, For example `i-07f899a33dee624f7`
-	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
-}
-
-type MachinePoolNodeObservation struct {
-
-	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
-	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
-	Action *string `json:"action,omitempty" tf:"action,omitempty"`
-
-	// 07f899a33dee624f7
-	// The node_id of the node, For example `i-07f899a33dee624f7`
-	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
-}
-
-type MachinePoolNodeParameters struct {
-
-	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
-	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
-	// +kubebuilder:validation:Optional
-	Action *string `json:"action" tf:"action,omitempty"`
-
-	// 07f899a33dee624f7
-	// The node_id of the node, For example `i-07f899a33dee624f7`
-	// +kubebuilder:validation:Optional
-	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
-}
-
-type MachinePoolTaintsInitParameters struct {
-
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type MachinePoolTaintsObservation struct {
-
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type MachinePoolTaintsParameters struct {
-
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	// +kubebuilder:validation:Optional
-	Effect *string `json:"effect" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	// +kubebuilder:validation:Optional
-	Key *string `json:"key" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
-}
-
-type PackManifestInitParameters struct {
+type ClusterProfilePackManifestInitParameters struct {
 
 	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
@@ -1515,7 +1515,7 @@ type PackManifestInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
-type PackManifestObservation struct {
+type ClusterProfilePackManifestObservation struct {
 
 	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
@@ -1529,7 +1529,7 @@ type PackManifestObservation struct {
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
-type PackManifestParameters struct {
+type ClusterProfilePackManifestParameters struct {
 
 	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.

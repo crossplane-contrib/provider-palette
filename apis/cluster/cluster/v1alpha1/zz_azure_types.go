@@ -379,7 +379,7 @@ type AzureClusterProfileObservation struct {
 type AzureClusterProfilePackInitParameters struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -410,10 +410,48 @@ type AzureClusterProfilePackInitParameters struct {
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
+type AzureClusterProfilePackManifestInitParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AzureClusterProfilePackManifestObservation struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type AzureClusterProfilePackManifestParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	// +kubebuilder:validation:Optional
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the manifest. The name must be unique within the pack.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type AzureClusterProfilePackObservation struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -448,7 +486,7 @@ type AzureClusterProfilePackParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []AzureClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
 	// The name of the pack. The name must be unique within the cluster profile.
@@ -520,8 +558,8 @@ type AzureClusterRbacBindingInitParameters struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -539,8 +577,8 @@ type AzureClusterRbacBindingObservation struct {
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -559,8 +597,8 @@ type AzureClusterRbacBindingParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
-	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
@@ -1531,44 +1569,6 @@ type AzureScanPolicyParameters struct {
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
-}
-
-type ClusterProfilePackManifestInitParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type ClusterProfilePackManifestObservation struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-}
-
-type ClusterProfilePackManifestParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Optional
-	Content *string `json:"content" tf:"content,omitempty"`
-
-	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
-	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type ControlPlaneSubnetInitParameters struct {

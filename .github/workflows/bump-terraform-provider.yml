@@ -49,7 +49,7 @@ jobs:
             echo "USE_EXISTING_BRANCH=false" >> $GITHUB_ENV
             echo "Will create new branch: ${BRANCH_PREFIX}${{ github.event.inputs.terraform_version }}"
           fi
-
+          
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -76,12 +76,12 @@ jobs:
 
       - name: Update Terraform Provider Version in Makefile
         run: |
-          # Update line 10 with the new version (remove 'v' prefix)
-          sed -i "10s/export TERRAFORM_PROVIDER_VERSION := .*/export TERRAFORM_PROVIDER_VERSION := ${{ env.VERSION_NUMBER }}/" Makefile
+          # Find and update the TERRAFORM_PROVIDER_VERSION line (remove 'v' prefix)
+          sed -i "s/^export TERRAFORM_PROVIDER_VERSION := .*/export TERRAFORM_PROVIDER_VERSION := ${{ env.VERSION_NUMBER }}/" Makefile
           
           # Verify the change
-          echo "Updated Makefile line 10:"
-          sed -n '10p' Makefile
+          echo "Updated TERRAFORM_PROVIDER_VERSION line:"
+          grep "export TERRAFORM_PROVIDER_VERSION" Makefile
           
           # Check if the change was applied
           if grep -q "export TERRAFORM_PROVIDER_VERSION := ${{ env.VERSION_NUMBER }}" Makefile; then
@@ -212,7 +212,7 @@ jobs:
               This PR automatically updates the Terraform Provider version to **${{ env.VERSION }}**.
               
               ### Changes Made:
-              - ✅ Updated \`TERRAFORM_PROVIDER_VERSION\` to \`${{ env.VERSION_NUMBER }}\` in Makefile (line 10)
+              - ✅ Updated \`TERRAFORM_PROVIDER_VERSION\` to \`${{ env.VERSION_NUMBER }}\` in Makefile
               - ✅ Ran \`go install golang.org/x/tools/cmd/goimports@latest\`
               - ✅ Executed \`make submodules vendor vendor.check\`
               - ✅ Regenerated provider with \`make generate\`

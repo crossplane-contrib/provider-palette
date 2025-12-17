@@ -215,6 +215,207 @@ func (mg *Aks) ResolveReferences(ctx context.Context, c client.Reader) error {
 	return nil
 }
 
+// ResolveReferences of this ApacheCloudstack.
+func (mg *ApacheCloudstack) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.BackupPolicy); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDRef,
+			Selector:     mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.StorageLocationList{},
+				Managed: &v1alpha1.StorageLocation{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID")
+		}
+		mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.CloudAccountID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.CloudAccountIDRef,
+		Selector:     mg.Spec.ForProvider.CloudAccountIDSelector,
+		To: reference.To{
+			List:    &v1alpha11.ApacheCloudstackList{},
+			Managed: &v1alpha11.ApacheCloudstack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.CloudAccountID")
+	}
+	mg.Spec.ForProvider.CloudAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.CloudAccountIDRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.ClusterProfile); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterProfile[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ClusterProfile[i3].IDRef,
+			Selector:     mg.Spec.ForProvider.ClusterProfile[i3].IDSelector,
+			To: reference.To{
+				List:    &ProfileList{},
+				Managed: &Profile{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.ClusterProfile[i3].ID")
+		}
+		mg.Spec.ForProvider.ClusterProfile[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.ClusterProfile[i3].IDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.ClusterTemplate); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile); i4++ {
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].ID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].IDRef,
+				Selector:     mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].IDSelector,
+				To: reference.To{
+					List:    &ProfileList{},
+					Managed: &Profile{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].ID")
+			}
+			mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].ID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.ClusterTemplate[i3].ClusterProfile[i4].IDRef = rsp.ResolvedReference
+
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.ClusterTemplate); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterTemplate[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ClusterTemplate[i3].IDRef,
+			Selector:     mg.Spec.ForProvider.ClusterTemplate[i3].IDSelector,
+			To: reference.To{
+				List:    &ConfigTemplateList{},
+				Managed: &ConfigTemplate{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.ClusterTemplate[i3].ID")
+		}
+		mg.Spec.ForProvider.ClusterTemplate[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.ClusterTemplate[i3].IDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.BackupPolicy); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDRef,
+			Selector:     mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.StorageLocationList{},
+				Managed: &v1alpha1.StorageLocation{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID")
+		}
+		mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.CloudAccountID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.CloudAccountIDRef,
+		Selector:     mg.Spec.InitProvider.CloudAccountIDSelector,
+		To: reference.To{
+			List:    &v1alpha11.ApacheCloudstackList{},
+			Managed: &v1alpha11.ApacheCloudstack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.CloudAccountID")
+	}
+	mg.Spec.InitProvider.CloudAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CloudAccountIDRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.ClusterProfile); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterProfile[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ClusterProfile[i3].IDRef,
+			Selector:     mg.Spec.InitProvider.ClusterProfile[i3].IDSelector,
+			To: reference.To{
+				List:    &ProfileList{},
+				Managed: &Profile{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.ClusterProfile[i3].ID")
+		}
+		mg.Spec.InitProvider.ClusterProfile[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.ClusterProfile[i3].IDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.ClusterTemplate); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile); i4++ {
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].ID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].IDRef,
+				Selector:     mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].IDSelector,
+				To: reference.To{
+					List:    &ProfileList{},
+					Managed: &Profile{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].ID")
+			}
+			mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].ID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.ClusterTemplate[i3].ClusterProfile[i4].IDRef = rsp.ResolvedReference
+
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.ClusterTemplate); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterTemplate[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ClusterTemplate[i3].IDRef,
+			Selector:     mg.Spec.InitProvider.ClusterTemplate[i3].IDSelector,
+			To: reference.To{
+				List:    &ConfigTemplateList{},
+				Managed: &ConfigTemplate{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.ClusterTemplate[i3].ID")
+		}
+		mg.Spec.InitProvider.ClusterTemplate[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.ClusterTemplate[i3].IDRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this Aws.
 func (mg *Aws) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
