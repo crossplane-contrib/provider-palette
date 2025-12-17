@@ -16,6 +16,7 @@ import (
 
 type ApacheCloudstackBackupPolicyInitParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
@@ -28,73 +29,93 @@ type ApacheCloudstackBackupPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type ApacheCloudstackBackupPolicyObservation struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type ApacheCloudstackBackupPolicyParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
@@ -108,40 +129,49 @@ type ApacheCloudstackBackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// +kubebuilder:validation:Optional
 	ExpiryInHour *float64 `json:"expiryInHour" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	// +kubebuilder:validation:Optional
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
@@ -149,58 +179,73 @@ type ApacheCloudstackBackupPolicyParameters struct {
 
 type ApacheCloudstackCloudConfigInitParameters struct {
 
+	// (String) Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
+	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
 	Project []ProjectInitParameters `json:"project,omitempty" tf:"project,omitempty"`
 
+	// (String) SSH key name for accessing cluster nodes.
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
+	// (Boolean) Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is false.
 	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
 	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
 
+	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	Zone []ZoneInitParameters `json:"zone,omitempty" tf:"zone,omitempty"`
 }
 
 type ApacheCloudstackCloudConfigObservation struct {
 
+	// (String) Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
+	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
 	Project []ProjectObservation `json:"project,omitempty" tf:"project,omitempty"`
 
+	// (String) SSH key name for accessing cluster nodes.
 	// SSH key name for accessing cluster nodes.
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
+	// (Boolean) Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is false.
 	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
 	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
 
+	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	Zone []ZoneObservation `json:"zone,omitempty" tf:"zone,omitempty"`
 }
 
 type ApacheCloudstackCloudConfigParameters struct {
 
+	// (String) Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// +kubebuilder:validation:Optional
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
+	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
 	// +kubebuilder:validation:Optional
 	Project []ProjectParameters `json:"project,omitempty" tf:"project,omitempty"`
 
+	// (String) SSH key name for accessing cluster nodes.
 	// SSH key name for accessing cluster nodes.
 	// +kubebuilder:validation:Optional
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
+	// (Boolean) Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is false.
 	// Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is `false`.
 	// +kubebuilder:validation:Optional
 	SyncWithCks *bool `json:"syncWithCks,omitempty" tf:"sync_with_cks,omitempty"`
 
+	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
 	// List of CloudStack zones for multi-AZ deployments. If only one zone is specified, it will be treated as single-zone deployment.
 	// +kubebuilder:validation:Optional
 	Zone []ZoneParameters `json:"zone" tf:"zone,omitempty"`
@@ -208,6 +253,7 @@ type ApacheCloudstackCloudConfigParameters struct {
 
 type ApacheCloudstackClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -220,9 +266,11 @@ type ApacheCloudstackClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -230,12 +278,15 @@ type ApacheCloudstackClusterProfileInitParameters struct {
 
 type ApacheCloudstackClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -243,6 +294,7 @@ type ApacheCloudstackClusterProfileObservation struct {
 
 type ApacheCloudstackClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -256,10 +308,12 @@ type ApacheCloudstackClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []ClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -268,48 +322,60 @@ type ApacheCloudstackClusterProfileParameters struct {
 
 type ApacheCloudstackClusterRbacBindingInitParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []ClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ApacheCloudstackClusterRbacBindingObservation struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []ClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ApacheCloudstackClusterRbacBindingParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Subjects []ClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -317,6 +383,7 @@ type ApacheCloudstackClusterRbacBindingParameters struct {
 
 type ApacheCloudstackClusterTemplateClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -329,6 +396,7 @@ type ApacheCloudstackClusterTemplateClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -336,9 +404,11 @@ type ApacheCloudstackClusterTemplateClusterProfileInitParameters struct {
 
 type ApacheCloudstackClusterTemplateClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -346,6 +416,7 @@ type ApacheCloudstackClusterTemplateClusterProfileObservation struct {
 
 type ApacheCloudstackClusterTemplateClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -359,6 +430,7 @@ type ApacheCloudstackClusterTemplateClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -367,9 +439,11 @@ type ApacheCloudstackClusterTemplateClusterProfileParameters struct {
 
 type ApacheCloudstackClusterTemplateInitParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []ApacheCloudstackClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.ConfigTemplate
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -385,22 +459,27 @@ type ApacheCloudstackClusterTemplateInitParameters struct {
 
 type ApacheCloudstackClusterTemplateObservation struct {
 
+	// (Block List) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []ApacheCloudstackClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the cluster template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ApacheCloudstackClusterTemplateParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ApacheCloudstackClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.ConfigTemplate
 	// +kubebuilder:validation:Optional
@@ -417,48 +496,60 @@ type ApacheCloudstackClusterTemplateParameters struct {
 
 type ApacheCloudstackHostConfigInitParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type ApacheCloudstackHostConfigObservation struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type ApacheCloudstackHostConfigParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// +kubebuilder:validation:Optional
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// +kubebuilder:validation:Optional
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
@@ -466,12 +557,15 @@ type ApacheCloudstackHostConfigParameters struct {
 
 type ApacheCloudstackInitParameters struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []ApacheCloudstackBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String) ID of the CloudStack cloud account used for the cluster. This cloud account must be of type cloudstack.
 	// ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.ApacheCloudstack
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -484,69 +578,91 @@ type ApacheCloudstackInitParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudAccountIDSelector *v1.NamespacedSelector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
+	// (Block List, Min: 1, Max: 1) CloudStack cluster configuration. (see below for nested schema)
 	// CloudStack cluster configuration.
 	CloudConfig []ApacheCloudstackCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	ClusterProfile []ApacheCloudstackClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []ApacheCloudstackClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []ApacheCloudstackClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []ApacheCloudstackHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (Block Set, Min: 1) Machine pool configuration for the cluster. (see below for nested schema)
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []ApacheCloudstackNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: `RFC3339: 2006-01-02T15:04:05Z07:00`
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []ApacheCloudstackScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
@@ -555,16 +671,23 @@ type ApacheCloudstackLocationConfigInitParameters struct {
 }
 
 type ApacheCloudstackLocationConfigObservation struct {
+
+	// (String)
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String)
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number)
 	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number)
 	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String)
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String)
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
@@ -573,148 +696,191 @@ type ApacheCloudstackLocationConfigParameters struct {
 
 type ApacheCloudstackMachinePoolInitParameters struct {
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
+	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling.
 	// Minimum number of nodes in the machine pool. This is used for autoscaling.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
+	// (String) The name of the cluster.
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for the machine pool instances.
 	Network []MachinePoolNetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []MachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Taints []MachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
 	Template []TemplateInitParameters `json:"template,omitempty" tf:"template,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type ApacheCloudstackMachinePoolObservation struct {
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (List of Object) Instance configuration details returned by the CloudStack API. This is a computed field based on the selected offering. (see below for nested schema)
 	// Instance configuration details returned by the CloudStack API. This is a computed field based on the selected offering.
 	InstanceConfig []InstanceConfigObservation `json:"instanceConfig,omitempty" tf:"instance_config,omitempty"`
 
+	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
+	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling.
 	// Minimum number of nodes in the machine pool. This is used for autoscaling.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
+	// (String) The name of the cluster.
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for the machine pool instances.
 	Network []MachinePoolNetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []MachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Taints []MachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
 	Template []TemplateObservation `json:"template,omitempty" tf:"template,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type ApacheCloudstackMachinePoolParameters struct {
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
+	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling.
 	// +kubebuilder:validation:Optional
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
+	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling.
 	// Minimum number of nodes in the machine pool. This is used for autoscaling.
 	// +kubebuilder:validation:Optional
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
+	// (String) The name of the cluster.
 	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for the machine pool instances.
 	// +kubebuilder:validation:Optional
 	Network []MachinePoolNetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []MachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Apache CloudStack compute offering (instance type/size) name.
 	// +kubebuilder:validation:Optional
 	Offering *string `json:"offering" tf:"offering,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []MachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
 	// +kubebuilder:validation:Optional
 	Template []TemplateParameters `json:"template,omitempty" tf:"template,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
@@ -722,9 +888,11 @@ type ApacheCloudstackMachinePoolParameters struct {
 
 type ApacheCloudstackNamespacesInitParameters struct {
 
+	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -732,9 +900,11 @@ type ApacheCloudstackNamespacesInitParameters struct {
 
 type ApacheCloudstackNamespacesObservation struct {
 
+	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -742,10 +912,12 @@ type ApacheCloudstackNamespacesObservation struct {
 
 type ApacheCloudstackNamespacesParameters struct {
 
+	// (String) The name of the cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -754,106 +926,139 @@ type ApacheCloudstackNamespacesParameters struct {
 
 type ApacheCloudstackObservation struct {
 
+	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
 	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
 	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []ApacheCloudstackBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String) ID of the CloudStack cloud account used for the cluster. This cloud account must be of type cloudstack.
 	// ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) CloudStack cluster configuration. (see below for nested schema)
 	// CloudStack cluster configuration.
 	CloudConfig []ApacheCloudstackCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type cloudstack.
 	// ID of the cloud config used for the cluster. This cloud config must be of type `cloudstack`.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	ClusterProfile []ApacheCloudstackClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []ApacheCloudstackClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []ApacheCloudstackClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []ApacheCloudstackHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
 	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
 	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
 
+	// (List of Object) The location of the cluster. (see below for nested schema)
 	// The location of the cluster.
 	LocationConfig []ApacheCloudstackLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
+	// (Block Set, Min: 1) Machine pool configuration for the cluster. (see below for nested schema)
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []ApacheCloudstackNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: `RFC3339: 2006-01-02T15:04:05Z07:00`
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []ApacheCloudstackScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type ApacheCloudstackParameters struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	// +kubebuilder:validation:Optional
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
 	BackupPolicy []ApacheCloudstackBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String) ID of the CloudStack cloud account used for the cluster. This cloud account must be of type cloudstack.
 	// ID of the CloudStack cloud account used for the cluster. This cloud account must be of type `cloudstack`.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.ApacheCloudstack
 	// +kubebuilder:validation:Optional
@@ -867,90 +1072,112 @@ type ApacheCloudstackParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudAccountIDSelector *v1.NamespacedSelector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
 
+	// (Block List, Min: 1, Max: 1) CloudStack cluster configuration. (see below for nested schema)
 	// CloudStack cluster configuration.
 	// +kubebuilder:validation:Optional
 	CloudConfig []ApacheCloudstackCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	// +kubebuilder:validation:Optional
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ApacheCloudstackClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []ApacheCloudstackClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []ApacheCloudstackClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the CloudStack configuration. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// +kubebuilder:validation:Optional
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// +kubebuilder:validation:Optional
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []ApacheCloudstackHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (Block Set, Min: 1) Machine pool configuration for the cluster. (see below for nested schema)
 	// Machine pool configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	MachinePool []ApacheCloudstackMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []ApacheCloudstackNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: `RFC3339: 2006-01-02T15:04:05Z07:00`
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	// +kubebuilder:validation:Optional
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	// +kubebuilder:validation:Optional
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	// +kubebuilder:validation:Optional
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ScanPolicy []ApacheCloudstackScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// +kubebuilder:validation:Optional
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
@@ -958,122 +1185,157 @@ type ApacheCloudstackParameters struct {
 
 type ApacheCloudstackScanPolicyInitParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type ApacheCloudstackScanPolicyObservation struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type ApacheCloudstackScanPolicyParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	// +kubebuilder:validation:Optional
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	// +kubebuilder:validation:Optional
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type ClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []PackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type ClusterProfilePackObservation struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []PackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type ClusterProfilePackParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Manifest []PackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -1081,38 +1343,47 @@ type ClusterProfilePackParameters struct {
 
 type ClusterRbacBindingSubjectsInitParameters struct {
 
+	// (String) The name of the cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ClusterRbacBindingSubjectsObservation struct {
 
+	// (String) The name of the cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ClusterRbacBindingSubjectsParameters struct {
 
+	// (String) The name of the cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -1122,16 +1393,23 @@ type InstanceConfigInitParameters struct {
 }
 
 type InstanceConfigObservation struct {
+
+	// (Number)
 	CPUSet *float64 `json:"cpuSet,omitempty" tf:"cpu_set,omitempty"`
 
+	// (String)
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
 
+	// (Number)
 	DiskGib *float64 `json:"diskGib,omitempty" tf:"disk_gib,omitempty"`
 
+	// (Number)
 	MemoryMib *float64 `json:"memoryMib,omitempty" tf:"memory_mib,omitempty"`
 
+	// (String) The name of the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Number)
 	NumCpus *float64 `json:"numCpus,omitempty" tf:"num_cpus,omitempty"`
 }
 
@@ -1140,28 +1418,34 @@ type InstanceConfigParameters struct {
 
 type MachinePoolNetworkInitParameters struct {
 
+	// (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
 	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// (String) Network name to attach to the machine pool.
 	// Network name to attach to the machine pool.
 	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
 }
 
 type MachinePoolNetworkObservation struct {
 
+	// (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
 	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// (String) Network name to attach to the machine pool.
 	// Network name to attach to the machine pool.
 	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
 }
 
 type MachinePoolNetworkParameters struct {
 
+	// (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
 	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// (String) Network name to attach to the machine pool.
 	// Network name to attach to the machine pool.
 	// +kubebuilder:validation:Optional
 	NetworkName *string `json:"networkName" tf:"network_name,omitempty"`
@@ -1169,28 +1453,34 @@ type MachinePoolNetworkParameters struct {
 
 type MachinePoolNodeInitParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 }
 
 type MachinePoolNodeObservation struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 }
 
 type MachinePoolNodeParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	// +kubebuilder:validation:Optional
 	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
@@ -1198,38 +1488,47 @@ type MachinePoolNodeParameters struct {
 
 type MachinePoolTaintsInitParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type MachinePoolTaintsObservation struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type MachinePoolTaintsParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	// +kubebuilder:validation:Optional
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
@@ -1237,88 +1536,112 @@ type MachinePoolTaintsParameters struct {
 
 type NetworkInitParameters struct {
 
+	// (String) Gateway IP address for the network.
 	// Gateway IP address for the network.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The ID of this resource.
 	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Network name in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Network mask for the network.
 	// Network mask for the network.
 	Netmask *string `json:"netmask,omitempty" tf:"netmask,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Network offering name to use when creating the network. Optional for advanced network configurations.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// (String) Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	// Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	RoutingMode *string `json:"routingMode,omitempty" tf:"routing_mode,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// Network type: Isolated, Shared, etc.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// based network deployments. Optional, only needed when deploying in a VPC. (see below for nested schema)
 	// VPC configuration for VPC-based network deployments. Optional, only needed when deploying in a VPC.
 	VPC []VPCInitParameters `json:"vpc,omitempty" tf:"vpc,omitempty"`
 }
 
 type NetworkObservation struct {
 
+	// (String) Gateway IP address for the network.
 	// Gateway IP address for the network.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The ID of this resource.
 	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Network name in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Network mask for the network.
 	// Network mask for the network.
 	Netmask *string `json:"netmask,omitempty" tf:"netmask,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Network offering name to use when creating the network. Optional for advanced network configurations.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// (String) Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	// Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	RoutingMode *string `json:"routingMode,omitempty" tf:"routing_mode,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// Network type: Isolated, Shared, etc.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// based network deployments. Optional, only needed when deploying in a VPC. (see below for nested schema)
 	// VPC configuration for VPC-based network deployments. Optional, only needed when deploying in a VPC.
 	VPC []VPCObservation `json:"vpc,omitempty" tf:"vpc,omitempty"`
 }
 
 type NetworkParameters struct {
 
+	// (String) Gateway IP address for the network.
 	// Gateway IP address for the network.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) The ID of this resource.
 	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Network name in this zone.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) Network mask for the network.
 	// Network mask for the network.
 	// +kubebuilder:validation:Optional
 	Netmask *string `json:"netmask,omitempty" tf:"netmask,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Network offering name to use when creating the network. Optional for advanced network configurations.
 	// +kubebuilder:validation:Optional
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// (String) Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	// Routing mode for the network (e.g., Static, Dynamic). Optional, defaults to CloudStack's default routing mode.
 	// +kubebuilder:validation:Optional
 	RoutingMode *string `json:"routingMode,omitempty" tf:"routing_mode,omitempty"`
 
+	// (String) Network type: Isolated, Shared, etc.
 	// Network type: Isolated, Shared, etc.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// based network deployments. Optional, only needed when deploying in a VPC. (see below for nested schema)
 	// VPC configuration for VPC-based network deployments. Optional, only needed when deploying in a VPC.
 	// +kubebuilder:validation:Optional
 	VPC []VPCParameters `json:"vpc,omitempty" tf:"vpc,omitempty"`
@@ -1326,30 +1649,37 @@ type NetworkParameters struct {
 
 type PackManifestInitParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type PackManifestObservation struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type PackManifestParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// (String) The name of the cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1357,28 +1687,34 @@ type PackManifestParameters struct {
 
 type ProjectInitParameters struct {
 
+	// (String) The ID of this resource.
 	// CloudStack project ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack project name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ProjectObservation struct {
 
+	// (String) The ID of this resource.
 	// CloudStack project ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack project name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ProjectParameters struct {
 
+	// (String) The ID of this resource.
 	// CloudStack project ID.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack project name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -1386,28 +1722,34 @@ type ProjectParameters struct {
 
 type TemplateInitParameters struct {
 
+	// (String) The ID of this resource.
 	// Template ID. Either ID or name must be provided.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Template name. Either ID or name must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type TemplateObservation struct {
 
+	// (String) The ID of this resource.
 	// Template ID. Either ID or name must be provided.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Template name. Either ID or name must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type TemplateParameters struct {
 
+	// (String) The ID of this resource.
 	// Template ID. Either ID or name must be provided.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// Template name. Either ID or name must be provided.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -1415,48 +1757,60 @@ type TemplateParameters struct {
 
 type VPCInitParameters struct {
 
+	// (String) CIDR block for the VPC (e.g., 10.0.0.0/16).
 	// CIDR block for the VPC (e.g., 10.0.0.0/16).
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// (String) The ID of this resource.
 	// VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// VPC name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// VPC offering name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 }
 
 type VPCObservation struct {
 
+	// (String) CIDR block for the VPC (e.g., 10.0.0.0/16).
 	// CIDR block for the VPC (e.g., 10.0.0.0/16).
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// (String) The ID of this resource.
 	// VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// VPC name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// VPC offering name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 }
 
 type VPCParameters struct {
 
+	// (String) CIDR block for the VPC (e.g., 10.0.0.0/16).
 	// CIDR block for the VPC (e.g., 10.0.0.0/16).
 	// +kubebuilder:validation:Optional
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// (String) The ID of this resource.
 	// VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// VPC name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// VPC offering name.
 	// +kubebuilder:validation:Optional
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
@@ -1464,38 +1818,47 @@ type VPCParameters struct {
 
 type ZoneInitParameters struct {
 
+	// (String) The ID of this resource.
 	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for this zone.
 	Network []NetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
 }
 
 type ZoneObservation struct {
 
+	// (String) The ID of this resource.
 	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for this zone.
 	Network []NetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 }
 
 type ZoneParameters struct {
 
+	// (String) The ID of this resource.
 	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
 	// Network configuration for this zone.
 	// +kubebuilder:validation:Optional
 	Network []NetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
@@ -1528,7 +1891,7 @@ type ApacheCloudstackStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ApacheCloudstack is the Schema for the ApacheCloudstacks API. <no value>
+// ApacheCloudstack is the Schema for the ApacheCloudstacks API. Resource for managing Apache CloudStack clusters in Spectro Cloud through Palette.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
