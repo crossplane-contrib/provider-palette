@@ -49,7 +49,7 @@ type AlertInitParameters struct {
 	Status []StatusInitParameters `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -92,7 +92,7 @@ type AlertObservation struct {
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -140,7 +140,7 @@ type AlertParameters struct {
 	Status []StatusParameters `json:"status,omitempty" tf:"status,omitempty"`
 
 	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-	// The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -287,7 +287,6 @@ type Alert struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.component) || (has(self.initProvider) && has(self.initProvider.component))",message="spec.forProvider.component is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isActive) || (has(self.initProvider) && has(self.initProvider.isActive))",message="spec.forProvider.isActive is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.project) || (has(self.initProvider) && has(self.initProvider.project))",message="spec.forProvider.project is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   AlertSpec   `json:"spec"`
 	Status AlertStatus `json:"status,omitempty"`
 }
