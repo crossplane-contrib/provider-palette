@@ -49,7 +49,7 @@ type AlertInitParameters struct {
 	// A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
 	Status []StatusInitParameters `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+	// detect based on provided configuration.
 	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -92,7 +92,7 @@ type AlertObservation struct {
 	// A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly.
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+	// detect based on provided configuration.
 	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -140,7 +140,7 @@ type AlertParameters struct {
 	// +kubebuilder:validation:Optional
 	Status []StatusParameters `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+	// detect based on provided configuration.
 	// The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`

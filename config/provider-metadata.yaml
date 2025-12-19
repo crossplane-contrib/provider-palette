@@ -7,7 +7,7 @@ resources:
         argumentDocs:
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             cluster_profile: (Block List) (see below for nested schema)
-            cluster_uid: (String)
+            cluster_uid: (String) The UID of the cluster to attach the addon profile(s) to.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) Specifies cluster context where addon profile is attached. Allowed values are project or tenant. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
@@ -83,7 +83,7 @@ resources:
             status: (Block List) A status block representing the internal status of the alert. This is primarily for internal use and not utilized directly. (see below for nested schema)
             time: (String)
             timeouts: (Block, Optional) (see below for nested schema)
-            type: (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
+            type: (String) The type of alert mechanism to use. Can be email for email alerts, http for HTTP webhooks, or empty string to auto-detect based on provided configuration.
             update: (String)
             url: (String) The target URL to send the HTTP request to when the alert is triggered.
         importStatements: []
