@@ -60,6 +60,7 @@
               },
               "cluster_uid": {
                 "type": "string",
+                "description": "The UID of the cluster to attach the addon profile(s) to.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -259,9 +260,9 @@
               },
               "type": {
                 "type": "string",
-                "description": "The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.",
+                "description": "The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.",
                 "description_kind": "plain",
-                "required": true
+                "optional": true
               }
             },
             "block_types": {

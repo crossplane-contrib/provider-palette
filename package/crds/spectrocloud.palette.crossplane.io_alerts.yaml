@@ -155,8 +155,8 @@ spec:
                     type: array
                   type:
                     description: |-
-                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+                      detect based on provided configuration.
+                      The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
                     type: string
                 type: object
               initProvider:
@@ -255,8 +255,8 @@ spec:
                     type: array
                   type:
                     description: |-
-                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+                      detect based on provided configuration.
+                      The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
                     type: string
                 type: object
               managementPolicies:
@@ -358,10 +358,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.project)
                 || (has(self.initProvider) && has(self.initProvider.project))'
-            - message: spec.forProvider.type is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
-                || (has(self.initProvider) && has(self.initProvider.type))'
           status:
             description: AlertStatus defines the observed state of Alert.
             properties:
@@ -453,8 +449,8 @@ spec:
                     type: array
                   type:
                     description: |-
-                      (String) The type of alert mechanism to use. Can be either email for email alerts or http for sending HTTP requests.
-                      The type of alert mechanism to use. Can be either `email` for email alerts or `http` for sending HTTP requests.
+                      detect based on provided configuration.
+                      The type of alert mechanism to use. Can be `email` for email alerts, `http` for HTTP webhooks, or empty string to auto-detect based on provided configuration.
                     type: string
                 type: object
               conditions:

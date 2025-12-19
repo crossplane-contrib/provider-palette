@@ -81,6 +81,7 @@ type DeploymentInitParameters struct {
 
 	ClusterProfile []ClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// The UID of the cluster to attach the addon profile(s) to.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
 	// Specifies cluster context where addon profile is attached. Allowed values are `project` or `tenant`. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -94,6 +95,7 @@ type DeploymentObservation struct {
 
 	ClusterProfile []ClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// The UID of the cluster to attach the addon profile(s) to.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
 	// Specifies cluster context where addon profile is attached. Allowed values are `project` or `tenant`. Defaults to `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
@@ -111,6 +113,7 @@ type DeploymentParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// The UID of the cluster to attach the addon profile(s) to.
 	// +kubebuilder:validation:Optional
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 

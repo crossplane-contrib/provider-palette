@@ -240,6 +240,8 @@ spec:
                       type: object
                     type: array
                   clusterUid:
+                    description: The UID of the cluster to attach the addon profile(s)
+                      to.
                     type: string
                   context:
                     description: Specifies cluster context where addon profile is
@@ -430,6 +432,8 @@ spec:
                       type: object
                     type: array
                   clusterUid:
+                    description: The UID of the cluster to attach the addon profile(s)
+                      to.
                     type: string
                   context:
                     description: Specifies cluster context where addon profile is
@@ -629,6 +633,8 @@ spec:
                       type: object
                     type: array
                   clusterUid:
+                    description: The UID of the cluster to attach the addon profile(s)
+                      to.
                     type: string
                   context:
                     description: Specifies cluster context where addon profile is
