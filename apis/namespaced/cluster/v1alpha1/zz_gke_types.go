@@ -750,6 +750,9 @@ type GkeInitParameters struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []GkeClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
+
 	// (String) The context of the GKE cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the GKE cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -848,7 +851,12 @@ type GkeLocationConfigParameters struct {
 
 type GkeMachinePoolInitParameters struct {
 
+	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+	// +mapType=granular
+	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
+
 	// (Map of String)
+	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
@@ -868,11 +876,17 @@ type GkeMachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []GkeMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
+
+	// Rolling update strategy for the machine pool.
+	OverrideScaling []GkeMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []GkeMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
@@ -913,7 +927,12 @@ type GkeMachinePoolNodeParameters struct {
 
 type GkeMachinePoolObservation struct {
 
+	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+	// +mapType=granular
+	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
+
 	// (Map of String)
+	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
@@ -933,17 +952,58 @@ type GkeMachinePoolObservation struct {
 	// (Block List) (see below for nested schema)
 	Node []GkeMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
+
+	// Rolling update strategy for the machine pool.
+	OverrideScaling []GkeMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []GkeMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type GkeMachinePoolOverrideScalingInitParameters struct {
+
+	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
+
+	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
+}
+
+type GkeMachinePoolOverrideScalingObservation struct {
+
+	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
+
+	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
+}
+
+type GkeMachinePoolOverrideScalingParameters struct {
+
+	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	// +kubebuilder:validation:Optional
+	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
+
+	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+	// +kubebuilder:validation:Optional
+	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type GkeMachinePoolParameters struct {
 
+	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
+
 	// (Map of String)
+	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
@@ -969,12 +1029,20 @@ type GkeMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Node []GkeMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	// +kubebuilder:validation:Optional
+	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
+
+	// Rolling update strategy for the machine pool.
+	// +kubebuilder:validation:Optional
+	OverrideScaling []GkeMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []GkeMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
@@ -1105,6 +1173,9 @@ type GkeObservation struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []GkeClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
+
 	// (String) The context of the GKE cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the GKE cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
@@ -1233,6 +1304,10 @@ type GkeParameters struct {
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []GkeClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+
+	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+	// +kubebuilder:validation:Optional
+	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
 	// (String) The context of the GKE cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the GKE cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).

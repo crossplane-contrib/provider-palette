@@ -620,7 +620,7 @@ type DiskDeviceDiskInitParameters struct {
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
 	// (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
-	// If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+	// If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
 
 	// (Boolean) ReadOnly. Defaults to false.
@@ -635,7 +635,7 @@ type DiskDeviceDiskObservation struct {
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
 	// (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
-	// If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+	// If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
 
 	// (Boolean) ReadOnly. Defaults to false.
@@ -651,7 +651,7 @@ type DiskDeviceDiskParameters struct {
 	Bus *string `json:"bus" tf:"bus,omitempty"`
 
 	// (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
-	// If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+	// If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
 	// +kubebuilder:validation:Optional
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
 
