@@ -822,6 +822,11 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -876,6 +881,13 @@ spec:
                       Machine pool configuration for the cluster.
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotation to be applied to the
+                            machine pool. annotation must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
@@ -958,6 +970,29 @@ spec:
                             (String) Network offering name to use when creating the network. Optional for advanced network configurations.
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -982,7 +1017,7 @@ spec:
                         template:
                           description: |-
                             (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
-                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
+                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
                           items:
                             properties:
                               id:
@@ -1000,7 +1035,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -1858,6 +1893,11 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1912,6 +1952,13 @@ spec:
                       Machine pool configuration for the cluster.
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotation to be applied to the
+                            machine pool. annotation must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
@@ -1994,6 +2041,29 @@ spec:
                             (String) Network offering name to use when creating the network. Optional for advanced network configurations.
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2018,7 +2088,7 @@ spec:
                         template:
                           description: |-
                             (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
-                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
+                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
                           items:
                             properties:
                               id:
@@ -2036,7 +2106,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -2630,6 +2700,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the CloudStack configuration. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2718,6 +2793,13 @@ spec:
                       Machine pool configuration for the cluster.
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotation to be applied to the
+                            machine pool. annotation must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
@@ -2826,6 +2908,29 @@ spec:
                             (String) Network offering name to use when creating the network. Optional for advanced network configurations.
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2850,7 +2955,7 @@ spec:
                         template:
                           description: |-
                             (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
-                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.
+                            Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
                           items:
                             properties:
                               id:
@@ -2868,7 +2973,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array

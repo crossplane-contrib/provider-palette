@@ -810,6 +810,13 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: Defines the time zone used by this cluster to interpret
+                      scheduled operations. Maintenance tasks like upgrades will follow
+                      this time zone to ensure they run at the appropriate local time
+                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
+                      'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -862,10 +869,19 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotations to be applied to the
+                            machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String)
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
@@ -950,6 +966,29 @@ spec:
                             (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -974,7 +1013,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -1816,6 +1855,13 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: Defines the time zone used by this cluster to interpret
+                      scheduled operations. Maintenance tasks like upgrades will follow
+                      this time zone to ensure they run at the appropriate local time
+                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
+                      'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1868,10 +1914,19 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotations to be applied to the
+                            machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String)
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
@@ -1956,6 +2011,29 @@ spec:
                             (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -1980,7 +2058,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -2558,6 +2636,13 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: Defines the time zone used by this cluster to interpret
+                      scheduled operations. Maintenance tasks like upgrades will follow
+                      this time zone to ensure they run at the appropriate local time
+                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
+                      'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the Azure cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2644,10 +2729,19 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: Additional annotations to be applied to the
+                            machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String)
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
@@ -2732,6 +2826,29 @@ spec:
                             (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
+                        overrideKubeadmConfiguration:
+                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
+                            postKubeadmCommands. Overrides pack-level settings. Worker
+                            pools only.
+                          type: string
+                        overrideScaling:
+                          description: Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: Max extra nodes during rolling update.
+                                  Integer or percentage (e.g., '1' or '20%'). Only
+                                  valid when type=OverrideScaling. Both maxSurge and
+                                  maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: Max unavailable nodes during rolling
+                                  update. Integer or percentage (e.g., '0' or '10%').
+                                  Only valid when type=OverrideScaling. Both maxSurge
+                                  and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2756,7 +2873,7 @@ spec:
                         updateStrategy:
                           description: |-
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array

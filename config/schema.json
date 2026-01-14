@@ -1454,7 +1454,7 @@
           }
         },
         "spectrocloud_cluster_aks": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -1484,6 +1484,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -1996,14 +2002,24 @@
                 }
               },
               "machine_pool": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -2045,6 +2061,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "storage_account_type": {
                       "type": "string",
                       "description_kind": "plain",
@@ -2052,7 +2074,7 @@
                     },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -2077,6 +2099,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -2221,6 +2265,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -2826,6 +2876,15 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotation to be applied to the machine pool. annotation must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
@@ -2902,9 +2961,15 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -2952,6 +3017,28 @@
                         "description_kind": "plain"
                       }
                     },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    },
                     "taints": {
                       "nesting_mode": "list",
                       "block": {
@@ -2995,7 +3082,7 @@
                             "optional": true
                           }
                         },
-                        "description": "Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile.",
+                        "description": "Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.",
                         "description_kind": "plain"
                       },
                       "max_items": 1
@@ -3117,6 +3204,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -3593,11 +3686,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3694,9 +3797,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -3721,6 +3830,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -3865,6 +3996,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -4447,11 +4584,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -4512,9 +4659,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -4561,6 +4714,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -4966,6 +5141,12 @@
                 "description_kind": "plain",
                 "deprecated": true,
                 "computed": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
+                "description_kind": "plain",
+                "optional": true
               },
               "context": {
                 "type": "string",
@@ -5564,7 +5745,7 @@
           }
         },
         "spectrocloud_cluster_edge_native": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -5594,6 +5775,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -6098,11 +6285,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6129,16 +6326,22 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
                   },
                   "block_types": {
                     "edge_host": {
-                      "nesting_mode": "list",
+                      "nesting_mode": "set",
                       "block": {
                         "attributes": {
                           "default_gateway": {
@@ -6216,6 +6419,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -6348,6 +6573,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -6871,11 +7102,21 @@
                 "nesting_mode": "list",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6908,9 +7149,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -6960,6 +7207,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "placement": {
                       "nesting_mode": "list",
@@ -7142,6 +7411,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -7713,11 +7988,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -7789,9 +8074,15 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -7858,6 +8149,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -8002,6 +8315,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -8460,11 +8779,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8515,9 +8844,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -8542,6 +8877,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -8655,7 +9012,7 @@
           }
         },
         "spectrocloud_cluster_gke": {
-          "version": 1,
+          "version": 2,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -8685,6 +9042,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -9143,14 +9506,24 @@
                 }
               },
               "machine_pool": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -9175,9 +9548,15 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -9202,6 +9581,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -9589,6 +9990,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -10079,6 +10486,15 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
@@ -10148,9 +10564,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -10231,6 +10653,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "placement": {
                       "nesting_mode": "list",
@@ -10366,7 +10810,7 @@
           }
         },
         "spectrocloud_cluster_openstack": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -10396,6 +10840,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -10905,14 +11355,24 @@
                 }
               },
               "machine_pool": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -10958,6 +11418,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "subnet_id": {
                       "type": "string",
                       "description_kind": "plain",
@@ -10965,7 +11431,7 @@
                     },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -10990,6 +11456,28 @@
                         },
                         "description_kind": "plain"
                       }
+                    },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -11400,6 +11888,12 @@
               "cluster_meta_attribute": {
                 "type": "string",
                 "description": "`cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -11936,11 +12430,21 @@
                 "nesting_mode": "set",
                 "block": {
                   "attributes": {
+                    "additional_annotations": {
+                      "type": [
+                        "map",
+                        "string"
+                      ],
+                      "description": "Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "additional_labels": {
                       "type": [
                         "map",
                         "string"
                       ],
+                      "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -11986,9 +12490,15 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_kubeadm_configuration": {
+                      "type": "string",
+                      "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
-                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.",
+                      "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -12042,6 +12552,28 @@
                         "description_kind": "plain"
                       }
                     },
+                    "override_scaling": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "max_surge": {
+                            "type": "string",
+                            "description": "Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "max_unavailable": {
+                            "type": "string",
+                            "description": "Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "Rolling update strategy for the machine pool.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    },
                     "placement": {
                       "nesting_mode": "list",
                       "block": {
@@ -12084,7 +12616,8 @@
                         },
                         "description_kind": "plain"
                       },
-                      "min_items": 1
+                      "min_items": 1,
+                      "max_items": 1
                     },
                     "taints": {
                       "nesting_mode": "list",
@@ -13666,6 +14199,19 @@
                 "description": "The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).",
                 "description_kind": "plain",
                 "required": true
+              },
+              "wait_for_status_message": {
+                "type": "string",
+                "description": "The status message from the last sync operation. This is a computed field that is populated after sync completes.",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "wait_for_sync": {
+                "type": "bool",
+                "description": "If `true`, Terraform will wait for the OCI registry to complete its initial synchronization before marking the resource as created or updated. This option is applicable when `provider_type` is set to `zarf` or `helm`. Default value is `false`.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -15133,7 +15679,8 @@
                     }
                   },
                   "description_kind": "plain"
-                }
+                },
+                "max_items": 1
               },
               "scan_policy": {
                 "nesting_mode": "list",
@@ -16321,7 +16868,7 @@
                                 },
                                 "pci_address": {
                                   "type": "string",
-                                  "description": "If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10",
+                                  "description": "If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
@@ -17890,6 +18437,12 @@
               "admin_kube_config": {
                 "type": "string",
                 "description": "The admin kubeconfig file for accessing the cluster. This is computed automatically.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "cluster_timezone": {
+                "type": "string",
+                "description": "The time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades follow this time zone to ensure they run at the appropriate local time for the cluster. Value is in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata').",
                 "description_kind": "plain",
                 "computed": true
               },
