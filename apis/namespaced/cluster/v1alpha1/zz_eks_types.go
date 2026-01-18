@@ -848,6 +848,7 @@ type EksInitParameters struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []EksClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
@@ -1035,11 +1036,12 @@ type EksMachinePoolInitParameters struct {
 	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
-	// (Map of String)
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
@@ -1087,16 +1089,18 @@ type EksMachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EksMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []EksMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
@@ -1142,11 +1146,12 @@ type EksMachinePoolObservation struct {
 	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
-	// (Map of String)
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
@@ -1194,44 +1199,52 @@ type EksMachinePoolObservation struct {
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EksMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []EksMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type EksMachinePoolOverrideScalingInitParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type EksMachinePoolOverrideScalingObservation struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type EksMachinePoolOverrideScalingParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
@@ -1244,12 +1257,13 @@ type EksMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
-	// (Map of String)
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -1310,10 +1324,12 @@ type EksMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Node []EksMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	// +kubebuilder:validation:Optional
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []EksMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
@@ -1322,7 +1338,7 @@ type EksMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Taints []EksMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
@@ -1455,6 +1471,7 @@ type EksObservation struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []EksClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
@@ -1593,6 +1610,7 @@ type EksParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []EksClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`

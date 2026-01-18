@@ -597,7 +597,7 @@ type ApacheCloudstackInitParameters struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []ApacheCloudstackClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
-	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
@@ -700,6 +700,7 @@ type ApacheCloudstackLocationConfigParameters struct {
 
 type ApacheCloudstackMachinePoolInitParameters struct {
 
+	// (Map of String) Additional annotation to be applied to the machine pool. annotation must be in the form of key:value.
 	// Additional annotation to be applied to the machine pool. annotation must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
@@ -748,26 +749,29 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []MachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []MachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
 	Template []TemplateInitParameters `json:"template,omitempty" tf:"template,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type ApacheCloudstackMachinePoolObservation struct {
 
+	// (Map of String) Additional annotation to be applied to the machine pool. annotation must be in the form of key:value.
 	// Additional annotation to be applied to the machine pool. annotation must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
@@ -820,26 +824,29 @@ type ApacheCloudstackMachinePoolObservation struct {
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []MachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []MachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
 	Template []TemplateObservation `json:"template,omitempty" tf:"template,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type ApacheCloudstackMachinePoolParameters struct {
 
+	// (Map of String) Additional annotation to be applied to the machine pool. annotation must be in the form of key:value.
 	// Additional annotation to be applied to the machine pool. annotation must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -900,10 +907,12 @@ type ApacheCloudstackMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Offering *string `json:"offering" tf:"offering,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	// +kubebuilder:validation:Optional
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []MachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
@@ -912,12 +921,12 @@ type ApacheCloudstackMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Taints []MachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)
+	// (Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default. (see below for nested schema)
 	// Apache CloudStack template override for this machine pool. If not specified, inherits cluster default.
 	// +kubebuilder:validation:Optional
 	Template []TemplateParameters `json:"template,omitempty" tf:"template,omitempty"`
 
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
@@ -1002,7 +1011,7 @@ type ApacheCloudstackObservation struct {
 	// The cluster template of the cluster.
 	ClusterTemplate []ApacheCloudstackClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
-	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
@@ -1137,7 +1146,7 @@ type ApacheCloudstackParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []ApacheCloudstackClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
-	// AZ deployments. If only one zone is specified, it will be treated as single-zone deployment. (see below for nested schema)
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
@@ -1534,28 +1543,34 @@ type MachinePoolNodeParameters struct {
 
 type MachinePoolOverrideScalingInitParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type MachinePoolOverrideScalingObservation struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type MachinePoolOverrideScalingParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`

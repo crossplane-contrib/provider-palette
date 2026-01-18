@@ -310,7 +310,7 @@ type ClusterInitParameters struct {
 	// To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	Resources []ResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
 	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
@@ -411,7 +411,7 @@ type ClusterObservation struct {
 	// To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	Resources []ResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
 
 	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
@@ -519,7 +519,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 

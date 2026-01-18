@@ -178,12 +178,15 @@ spec:
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                   waitForStatusMessage:
-                    description: The status message from the last sync operation.
-                      This is a computed field that is populated after sync completes.
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
                     type: string
                   waitForSync:
-                    description: This option is applicable when `provider_type` is
-                      set to `zarf` or `helm`. Default value is `false`.
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
                     type: boolean
                 type: object
               initProvider:
@@ -319,12 +322,15 @@ spec:
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                   waitForStatusMessage:
-                    description: The status message from the last sync operation.
-                      This is a computed field that is populated after sync completes.
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
                     type: string
                   waitForSync:
-                    description: This option is applicable when `provider_type` is
-                      set to `zarf` or `helm`. Default value is `false`.
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
                     type: boolean
                 type: object
               managementPolicies:
@@ -506,12 +512,15 @@ spec:
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
                   waitForStatusMessage:
-                    description: The status message from the last sync operation.
-                      This is a computed field that is populated after sync completes.
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
                     type: string
                   waitForSync:
-                    description: This option is applicable when `provider_type` is
-                      set to `zarf` or `helm`. Default value is `false`.
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
                     type: boolean
                 type: object
               conditions:

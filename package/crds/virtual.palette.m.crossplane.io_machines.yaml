@@ -851,7 +851,7 @@ spec:
                                       type: string
                                     pciAddress:
                                       description: |-
-                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                         If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                       type: string
                                     readOnly:
@@ -2416,7 +2416,7 @@ spec:
                                       type: string
                                     pciAddress:
                                       description: |-
-                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                         If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                       type: string
                                     readOnly:
@@ -4059,7 +4059,7 @@ spec:
                                       type: string
                                     pciAddress:
                                       description: |-
-                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10
+                                        (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                         If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
                                       type: string
                                     readOnly:
