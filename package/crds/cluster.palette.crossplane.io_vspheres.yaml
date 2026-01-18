@@ -754,6 +754,11 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the VMware cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -842,10 +847,20 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
@@ -921,9 +936,32 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideKubeadmConfiguration:
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                          type: string
+                        overrideScaling:
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         placement:
-                          description: '(Block List, Min: 1) (see below for nested
-                            schema)'
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cluster:
@@ -976,8 +1014,8 @@ spec:
                           type: array
                         updateStrategy:
                           description: |-
-                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -1763,6 +1801,11 @@ spec:
                           type: object
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the VMware cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1851,10 +1894,20 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
@@ -1930,9 +1983,32 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideKubeadmConfiguration:
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                          type: string
+                        overrideScaling:
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         placement:
-                          description: '(Block List, Min: 1) (see below for nested
-                            schema)'
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cluster:
@@ -1985,8 +2061,8 @@ spec:
                           type: array
                         updateStrategy:
                           description: |-
-                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
@@ -2508,6 +2584,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the VMware cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2604,10 +2685,20 @@ spec:
                     description: '(Block Set, Min: 1) (see below for nested schema)'
                     items:
                       properties:
+                        additionalAnnotations:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
+                          type: object
+                          x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: (Map of String)
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
@@ -2683,9 +2774,32 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideKubeadmConfiguration:
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                          type: string
+                        overrideScaling:
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
+                          items:
+                            properties:
+                              maxSurge:
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                              maxUnavailable:
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                type: string
+                            type: object
+                          type: array
                         placement:
-                          description: '(Block List, Min: 1) (see below for nested
-                            schema)'
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cluster:
@@ -2741,8 +2855,8 @@ spec:
                           type: array
                         updateStrategy:
                           description: |-
-                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
-                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut` and `RollingUpdateScaleIn`.
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array

@@ -201,6 +201,17 @@ spec:
                       (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
+                  waitForStatusMessage:
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                    type: string
+                  waitForSync:
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -344,6 +355,17 @@ spec:
                       (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
+                  waitForStatusMessage:
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                    type: string
+                  waitForSync:
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -551,6 +573,17 @@ spec:
                       (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                       The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
                     type: string
+                  waitForStatusMessage:
+                    description: |-
+                      (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                      The status message from the last sync operation. This is a computed field that is populated after sync completes.
+                    type: string
+                  waitForSync:
+                    description: This option is applicable when provider_type is set
+                      to zarf or helm. Default value is false. This option is applicable
+                      when `provider_type` is set to `zarf` or `helm`. Default value
+                      is `false`.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

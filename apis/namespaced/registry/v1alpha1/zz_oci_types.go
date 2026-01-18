@@ -156,6 +156,13 @@ type OciInitParameters struct {
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	// The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	WaitForStatusMessage *string `json:"waitForStatusMessage,omitempty" tf:"wait_for_status_message,omitempty"`
+
+	// This option is applicable when provider_type is set to zarf or helm. Default value is false. This option is applicable when `provider_type` is set to `zarf` or `helm`. Default value is `false`.
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type OciObservation struct {
@@ -198,6 +205,13 @@ type OciObservation struct {
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	// The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	WaitForStatusMessage *string `json:"waitForStatusMessage,omitempty" tf:"wait_for_status_message,omitempty"`
+
+	// This option is applicable when provider_type is set to zarf or helm. Default value is false. This option is applicable when `provider_type` is set to `zarf` or `helm`. Default value is `false`.
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type OciParameters struct {
@@ -246,6 +260,15 @@ type OciParameters struct {
 	// The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	// The status message from the last sync operation. This is a computed field that is populated after sync completes.
+	// +kubebuilder:validation:Optional
+	WaitForStatusMessage *string `json:"waitForStatusMessage,omitempty" tf:"wait_for_status_message,omitempty"`
+
+	// This option is applicable when provider_type is set to zarf or helm. Default value is false. This option is applicable when `provider_type` is set to `zarf` or `helm`. Default value is `false`.
+	// +kubebuilder:validation:Optional
+	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type TLSConfigInitParameters struct {

@@ -589,7 +589,7 @@ spec:
                       To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
                     type: boolean
                   resources:
-                    description: (Block List) (see below for nested schema)
+                    description: '(Block List, Max: 1) (see below for nested schema)'
                     items:
                       properties:
                         maxCpu:
@@ -1192,7 +1192,7 @@ spec:
                       To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
                     type: boolean
                   resources:
-                    description: (Block List) (see below for nested schema)
+                    description: '(Block List, Max: 1) (see below for nested schema)'
                     items:
                       properties:
                         maxCpu:
@@ -1660,7 +1660,7 @@ spec:
                       To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
                     type: boolean
                   resources:
-                    description: (Block List) (see below for nested schema)
+                    description: '(Block List, Max: 1) (see below for nested schema)'
                     items:
                       properties:
                         maxCpu:

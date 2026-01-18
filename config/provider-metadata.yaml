@@ -781,7 +781,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -793,6 +794,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -829,9 +831,11 @@ resources:
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
-            machine_pool: '(Block List, Min: 1) (see below for nested schema)'
+            machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -841,6 +845,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -869,7 +875,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1029,6 +1035,10 @@ resources:
                       ]
                     },
                     {
+                      "additional_annotations": {
+                        "cluster-autoscaler.kubernetes.io/enabled": "true",
+                        "custom.io/annotation": "production-workload"
+                      },
                       "additional_labels": {
                         "environment": "production",
                         "role": "worker",
@@ -1045,13 +1055,16 @@ resources:
                       "max": 10,
                       "min": 2,
                       "name": "worker-pool-autoscale",
+                      "node_repave_interval": 90,
+                      "override_kubeadm_configuration": "kubeletExtraArgs:\n  node-labels: \"env=production,tier=backend\"\n  max-pods: \"110\"\npreKubeadmCommands:\n  - echo 'Starting node customization'\n  - sysctl -w net.ipv4.ip_forward=1\npostKubeadmCommands:\n  - echo 'Node customization complete'\n  - systemctl restart kubelet\n",
                       "placement": [
                         {
                           "compute": "Large Instance",
                           "network_name": "ProductionNetwork",
                           "zone": "Zone1"
                         }
-                      ]
+                      ],
+                      "update_strategy": "RollingUpdateScaleOut"
                     }
                   ],
                   "name": "apache-cloudstack-production",
@@ -1273,6 +1286,9 @@ resources:
                       "offering": "Large Instance"
                     },
                     {
+                      "additional_annotations": {
+                        "team.company.io/owner": "platform-engineering"
+                      },
                       "additional_labels": {
                         "tier": "backend",
                         "workload": "production"
@@ -1286,7 +1302,8 @@ resources:
                           "network_name": "ProductionNetwork"
                         }
                       ],
-                      "offering": "XLarge Instance"
+                      "offering": "XLarge Instance",
+                      "update_strategy": "RollingUpdateScaleOut"
                     }
                   ],
                   "name": "apache-cloudstack-template-cluster",
@@ -1298,8 +1315,120 @@ resources:
               references:
                 cloud_account_id: data.spectrocloud_cloudaccount_apache_cloudstack.account.id
                 cluster_template.id: data.spectrocloud_cluster_config_template.template.id
+            - name: cluster_custom_kubeadm
+              manifest: |-
+                {
+                  "cloud_account_id": "${data.spectrocloud_cloudaccount_apache_cloudstack.account.id}",
+                  "cloud_config": [
+                    {
+                      "ssh_key_name": "prod-ssh-key",
+                      "zone": [
+                        {
+                          "name": "Zone1",
+                          "network": [
+                            {
+                              "id": "network-id",
+                              "name": "ProductionNetwork"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "cluster_profile": [
+                    {
+                      "id": "${data.spectrocloud_cluster_profile.profile.id}"
+                    }
+                  ],
+                  "machine_pool": [
+                    {
+                      "additional_labels": {
+                        "role": "control-plane"
+                      },
+                      "control_plane": true,
+                      "control_plane_as_worker": false,
+                      "count": 3,
+                      "name": "cp-pool",
+                      "placement": [
+                        {
+                          "compute": "Large Instance",
+                          "network_name": "ProductionNetwork",
+                          "zone": "Zone1"
+                        }
+                      ]
+                    },
+                    {
+                      "additional_annotations": {
+                        "custom.io/workload-type": "web-facing"
+                      },
+                      "additional_labels": {
+                        "role": "worker",
+                        "tier": "frontend"
+                      },
+                      "count": 3,
+                      "name": "worker-pool-frontend",
+                      "node_repave_interval": 60,
+                      "override_kubeadm_configuration": "kubeletExtraArgs:\n  node-labels: \"tier=frontend,zone=dmz\"\n  max-pods: \"110\"\n  eviction-hard: \"memory.available\u003c500Mi,nodefs.available\u003c10%\"\n  feature-gates: \"RotateKubeletServerCertificate=true\"\npreKubeadmCommands:\n  - echo 'Configuring frontend worker node'\n  - sysctl -w net.core.somaxconn=32768\n  - sysctl -w net.ipv4.ip_local_port_range=\"1024 65535\"\n  - sysctl -w net.ipv4.tcp_tw_reuse=1\npostKubeadmCommands:\n  - echo 'Frontend worker node setup complete'\n  - systemctl restart kubelet\n",
+                      "placement": [
+                        {
+                          "compute": "XLarge Instance",
+                          "network_name": "ProductionNetwork",
+                          "zone": "Zone1"
+                        }
+                      ],
+                      "update_strategy": "RollingUpdateScaleOut"
+                    },
+                    {
+                      "additional_annotations": {
+                        "cluster-autoscaler.kubernetes.io/enabled": "true",
+                        "custom.io/workload-type": "backend-services"
+                      },
+                      "additional_labels": {
+                        "role": "worker",
+                        "tier": "backend"
+                      },
+                      "count": 5,
+                      "instance_config": [
+                        {
+                          "disk_gib": 500,
+                          "memory_mib": 65536,
+                          "num_cpus": 16
+                        }
+                      ],
+                      "max": 10,
+                      "min": 3,
+                      "name": "worker-pool-backend",
+                      "node_repave_interval": 90,
+                      "override_kubeadm_configuration": "kubeletExtraArgs:\n  node-labels: \"tier=backend,compute=high\"\n  max-pods: \"200\"\n  kube-reserved: \"cpu=1,memory=2Gi,ephemeral-storage=1Gi\"\n  system-reserved: \"cpu=500m,memory=1Gi,ephemeral-storage=1Gi\"\npreKubeadmCommands:\n  - echo 'Configuring backend worker node'\n  - sysctl -w vm.max_map_count=262144\n  - sysctl -w fs.file-max=2097152\npostKubeadmCommands:\n  - echo 'Backend worker node setup complete'\n",
+                      "placement": [
+                        {
+                          "compute": "XXLarge Instance",
+                          "network_name": "ProductionNetwork",
+                          "zone": "Zone1"
+                        }
+                      ],
+                      "update_strategy": "RollingUpdateScaleIn"
+                    }
+                  ],
+                  "name": "apache-cloudstack-custom-kubeadm",
+                  "tags": [
+                    "prod",
+                    "customized"
+                  ],
+                  "timeouts": [
+                    {
+                      "create": "60m",
+                      "delete": "30m",
+                      "update": "60m"
+                    }
+                  ]
+                }
+              references:
+                cloud_account_id: data.spectrocloud_cloudaccount_apache_cloudstack.account.id
+                cluster_profile.id: data.spectrocloud_cluster_profile.profile.id
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
+            additional_annotations: (Map of String) Additional annotation to be applied to the machine pool. annotation must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -1314,6 +1443,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1355,6 +1485,8 @@ resources:
             machine_pool: '(Block Set, Min: 1) Machine pool configuration for the cluster. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling.
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             memory_mib: (Number)
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling.
             name: (String) The name of the cluster.
@@ -1371,6 +1503,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -1393,12 +1527,12 @@ resources:
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             taints: (Block List) (see below for nested schema)
-            template: '(Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default from profile. (see below for nested schema)'
+            template: '(Block List, Max: 1) Apache CloudStack template override for this machine pool. If not specified, inherits cluster default. (see below for nested schema)'
             timeouts: (Block, Optional) (see below for nested schema)
             type: '(String) Network type: Isolated, Shared, etc.'
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -1492,7 +1626,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             additional_security_groups: (Set of String) Additional security groups to attach to the instance.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -1508,6 +1643,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1547,6 +1683,8 @@ resources:
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             max_price: (String) Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -1557,6 +1695,8 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -1582,7 +1722,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1654,7 +1794,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String) Availability zones for the machine pool. Check if your region provides availability zones on the Azure documentation. Default value is [""].
@@ -1668,6 +1809,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1707,6 +1849,8 @@ resources:
             longitude: (Number)
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             name: (String) Name of the cluster. This name will be used to create the cluster in Azure.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1718,6 +1862,8 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             os_type: (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -1750,7 +1896,7 @@ resources:
             type: (String) Type of the disk. Valid values are Standard_LRS, StandardSSD_LRS, Premium_LRS.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2056,6 +2202,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2178,7 +2325,8 @@ resources:
                 machine_pool.edge_host.host_uid: spectrocloud_appliance.appliance1.uid
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -2190,6 +2338,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2204,7 +2353,7 @@ resources:
             delete: (String)
             description: (String) The description of the cluster. Default value is empty string.
             dns_servers: (Set of String) Edge host DNS servers
-            edge_host: '(Block List, Min: 1) (see below for nested schema)'
+            edge_host: '(Block Set, Min: 1) (see below for nested schema)'
             effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             external_traffic_policy: (String) The external traffic policy for the cluster.
@@ -2229,6 +2378,8 @@ resources:
             longitude: (Number) The longitude coordinates value.
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -2241,6 +2392,8 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
             overlay_cidr_range: (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -2267,7 +2420,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2279,7 +2432,8 @@ resources:
         title: spectrocloud_cluster_edge_vsphere Resource - terraform-provider-spectrocloud
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -2290,6 +2444,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2332,6 +2487,8 @@ resources:
             longitude: (Number) The longitude coordinates value.
             machine_pool: '(Block List, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             memory_mb: (Number)
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -2345,6 +2502,8 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -2373,7 +2532,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2443,7 +2602,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             additional_security_groups: (Set of String) Additional security groups to attach to the instance.
             additional_tags: (Map of String)
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
@@ -2462,6 +2622,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2503,6 +2664,8 @@ resources:
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             max_price: (String)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             name: (String) The name of the cluster.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -2512,6 +2675,8 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -2544,7 +2709,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2609,7 +2774,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String)
@@ -2622,6 +2788,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2658,6 +2825,8 @@ resources:
             longitude: (Number)
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -2668,6 +2837,8 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -2692,7 +2863,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2742,7 +2913,8 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -2754,6 +2926,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -2786,8 +2959,10 @@ resources:
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
-            machine_pool: '(Block List, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
+            machine_pool: '(Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             name: (String) The name of the cluster.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -2796,6 +2971,8 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -2820,7 +2997,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             update_worker_pool_in_parallel: (Boolean)
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -2979,6 +3156,7 @@ resources:
                 name: var.cluster_name
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -2992,6 +3170,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -3030,6 +3209,8 @@ resources:
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             min_cpu: (Number) Minimum number of CPU required for the machine pool node.
             min_memory_mb: (Number) Minimum memory in MB required for the machine pool node.
@@ -3046,6 +3227,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             parent_pool_uid: (String) The UID of the parent pool which allocates IPs for this IPPool.
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
@@ -3072,7 +3255,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             use_lxd_vm: (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -3154,7 +3337,8 @@ resources:
                 cluster_profile.id: data.spectrocloud_cluster_profile.profile.id
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String)
@@ -3167,6 +3351,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -3202,8 +3387,10 @@ resources:
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (Block List) (see below for nested schema)
             longitude: (Number) The longitude coordinates value.
-            machine_pool: '(Block List, Min: 1) (see below for nested schema)'
+            machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -3214,6 +3401,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
@@ -3241,7 +3430,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -3571,7 +3760,8 @@ resources:
                 machine_pool.placement.resource_pool: var.vsphere_resource_pool
         argumentDocs:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_labels: (Map of String)
+            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -3584,6 +3774,7 @@ resources:
             cluster_profile: (Block List) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -3627,6 +3818,8 @@ resources:
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             memory_mb: (Number) The amount of memory in MB.
             min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             name: (String) The name of the cluster.
@@ -3642,10 +3835,12 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
-            placement: '(Block List, Min: 1) (see below for nested schema)'
+            placement: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             region_code: (String) The region code of where the cluster is located in.
             region_name: (String) The name of the region.
@@ -3670,7 +3865,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut and RollingUpdateScaleIn.
+            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -4146,6 +4341,8 @@ resources:
             type: (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
+            wait_for_status_message: (String) The status message from the last sync operation. This is a computed field that is populated after sync completes.
+            wait_for_sync: (Boolean) If true, Terraform will wait for the OCI registry to complete its initial synchronization before marking the resource as created or updated. This option is applicable when provider_type is set to zarf or helm. Default value is false.
         importStatements: []
     spectrocloud_resource_limit:
         subCategory: ""
@@ -4580,7 +4777,7 @@ resources:
             registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
-            resources: (Block List) (see below for nested schema)
+            resources: '(Block List, Max: 1) (see below for nested schema)'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
@@ -4795,7 +4992,7 @@ resources:
             option: (Block List) A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy. (see below for nested schema)
             over_commit_guest_overhead: (Boolean) Don't ask the scheduler to take the guest-management overhead into account. Instead put the overhead only into the container's memory limit. This can lead to crashes if all memory is in use on a node. Defaults to false.
             path: (String) Path of the disk.
-            pci_address: '(String) If specified, the virtual disk will be placed on the guests pci address with the specifed PCI address. For example: 0000:81:01.10'
+            pci_address: '(String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10'
             persistent: (Boolean) If set to true, Persistent will persist the EFI NVRAM across reboots. Defaults to false.
             persistent_volume_claim: '(Block List, Max: 1) PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. (see below for nested schema)'
             pod: '(Block List, Max: 1) Pod network. (see below for nested schema)'
