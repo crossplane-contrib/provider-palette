@@ -24,6 +24,7 @@ import (
 	apachecloudstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/apachecloudstack"
 	awscluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/aws"
 	azurecluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/azure"
+	brownfield "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/brownfield"
 	configpolicy "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/configpolicy"
 	configtemplate "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/configtemplate"
 	customcloud "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/customcloud"
@@ -83,6 +84,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		apachecloudstackcluster.Setup,
 		awscluster.Setup,
 		azurecluster.Setup,
+		brownfield.Setup,
 		configpolicy.Setup,
 		configtemplate.Setup,
 		customcloud.Setup,
@@ -148,6 +150,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		apachecloudstackcluster.SetupGated,
 		awscluster.SetupGated,
 		azurecluster.SetupGated,
+		brownfield.SetupGated,
 		configpolicy.SetupGated,
 		configtemplate.SetupGated,
 		customcloud.SetupGated,

@@ -269,6 +269,17 @@ func configureClusterResources(p *config.Provider) {
 		}
 	})
 
+	p.AddResourceConfigurator("spectrocloud_cluster_brownfield", func(r *config.Resource) {
+		r.UseAsync = true
+
+		r.References["cluster_profile.id"] = config.Reference{
+			TerraformName: "spectrocloud_cluster_profile",
+		}
+		r.References["backup_policy.backup_location_id"] = config.Reference{
+			TerraformName: "spectrocloud_backup_storage_location",
+		}
+	})
+
 	p.AddResourceConfigurator("spectrocloud_cluster_edge_vsphere", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{

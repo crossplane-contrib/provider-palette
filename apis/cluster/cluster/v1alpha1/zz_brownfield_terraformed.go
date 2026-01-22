@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Filter
-func (mg *Filter) GetTerraformResourceType() string {
-	return "spectrocloud_filter"
+// GetTerraformResourceType returns Terraform resource type for this Brownfield
+func (mg *Brownfield) GetTerraformResourceType() string {
+	return "spectrocloud_cluster_brownfield"
 }
 
-// GetConnectionDetailsMapping for this Filter
-func (tr *Filter) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this Brownfield
+func (tr *Brownfield) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Filter
-func (tr *Filter) GetObservation() (map[string]any, error) {
+// GetObservation of this Brownfield
+func (tr *Brownfield) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Filter) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Filter
-func (tr *Filter) SetObservation(obs map[string]any) error {
+// SetObservation for this Brownfield
+func (tr *Brownfield) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Filter) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Filter
-func (tr *Filter) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Brownfield
+func (tr *Brownfield) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Filter
-func (tr *Filter) GetParameters() (map[string]any, error) {
+// GetParameters of this Brownfield
+func (tr *Brownfield) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Filter) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Filter
-func (tr *Filter) SetParameters(params map[string]any) error {
+// SetParameters for this Brownfield
+func (tr *Brownfield) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Filter) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Filter
-func (tr *Filter) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this Brownfield
+func (tr *Brownfield) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Filter) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Filter
-func (tr *Filter) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this Brownfield
+func (tr *Brownfield) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
@@ -110,10 +110,10 @@ func (tr *Filter) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 	return params, nil
 }
 
-// LateInitialize this Filter using its observed tfState.
+// LateInitialize this Brownfield using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Filter) LateInitialize(attrs []byte) (bool, error) {
-	params := &FilterParameters{}
+func (tr *Brownfield) LateInitialize(attrs []byte) (bool, error) {
+	params := &BrownfieldParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *Filter) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Filter) GetTerraformSchemaVersion() int {
-	return 3
+func (tr *Brownfield) GetTerraformSchemaVersion() int {
+	return 1
 }
