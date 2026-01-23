@@ -11,22 +11,23 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
-type AwsBackupPolicyInitParameters struct {
+type BrownfieldBackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// Reference to a StorageLocation in backup to populate backupLocationId.
 	// +kubebuilder:validation:Optional
-	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
 
 	// Selector for a StorageLocation in backup to populate backupLocationId.
 	// +kubebuilder:validation:Optional
-	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -67,7 +68,7 @@ type AwsBackupPolicyInitParameters struct {
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
-type AwsBackupPolicyObservation struct {
+type BrownfieldBackupPolicyObservation struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
@@ -112,21 +113,21 @@ type AwsBackupPolicyObservation struct {
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
-type AwsBackupPolicyParameters struct {
+type BrownfieldBackupPolicyParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
 	// Reference to a StorageLocation in backup to populate backupLocationId.
 	// +kubebuilder:validation:Optional
-	BackupLocationIDRef *v1.Reference `json:"backupLocationIdRef,omitempty" tf:"-"`
+	BackupLocationIDRef *v1.NamespacedReference `json:"backupLocationIdRef,omitempty" tf:"-"`
 
 	// Selector for a StorageLocation in backup to populate backupLocationId.
 	// +kubebuilder:validation:Optional
-	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
+	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
@@ -176,85 +177,24 @@ type AwsBackupPolicyParameters struct {
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
 }
 
-type AwsCloudConfigInitParameters struct {
-
-	// facing and internal. Defaults to “ (empty string).
-	// Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
-	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
-
-	// (String) The AWS region to deploy the cluster in.
-	// The AWS region to deploy the cluster in.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
-
-	// (String) Public SSH key to be used for the cluster nodes.
-	// Public SSH key to be used for the cluster nodes.
-	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
-
-	// (String) The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	// The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
-}
-
-type AwsCloudConfigObservation struct {
-
-	// facing and internal. Defaults to “ (empty string).
-	// Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
-	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
-
-	// (String) The AWS region to deploy the cluster in.
-	// The AWS region to deploy the cluster in.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
-
-	// (String) Public SSH key to be used for the cluster nodes.
-	// Public SSH key to be used for the cluster nodes.
-	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
-
-	// (String) The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	// The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
-}
-
-type AwsCloudConfigParameters struct {
-
-	// facing and internal. Defaults to “ (empty string).
-	// Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
-	// +kubebuilder:validation:Optional
-	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
-
-	// (String) The AWS region to deploy the cluster in.
-	// The AWS region to deploy the cluster in.
-	// +kubebuilder:validation:Optional
-	Region *string `json:"region" tf:"region,omitempty"`
-
-	// (String) Public SSH key to be used for the cluster nodes.
-	// Public SSH key to be used for the cluster nodes.
-	// +kubebuilder:validation:Optional
-	SSHKeyName *string `json:"sshKeyName" tf:"ssh_key_name,omitempty"`
-
-	// (String) The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	// The VPC ID to deploy the cluster in. If not provided, VPC will be provisioned dynamically.
-	// +kubebuilder:validation:Optional
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
-}
-
-type AwsClusterProfileInitParameters struct {
+type BrownfieldClusterProfileInitParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Reference to a Profile in cluster to populate id.
 	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
 
 	// Selector for a Profile in cluster to populate id.
 	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
-	Pack []AwsClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []BrownfieldClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
@@ -262,7 +202,7 @@ type AwsClusterProfileInitParameters struct {
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
-type AwsClusterProfileObservation struct {
+type BrownfieldClusterProfileObservation struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
@@ -270,7 +210,7 @@ type AwsClusterProfileObservation struct {
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
-	Pack []AwsClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []BrownfieldClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
@@ -278,12 +218,12 @@ type AwsClusterProfileObservation struct {
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
-type AwsClusterProfilePackInitParameters struct {
+type BrownfieldClusterProfilePackInitParameters struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []BrownfieldClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -312,12 +252,50 @@ type AwsClusterProfilePackInitParameters struct {
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
-type AwsClusterProfilePackObservation struct {
+type BrownfieldClusterProfilePackManifestInitParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type BrownfieldClusterProfilePackManifestObservation struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the manifest. The name must be unique within the pack.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type BrownfieldClusterProfilePackManifestParameters struct {
+
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
+	// The content of the manifest. The content is the YAML content of the manifest.
+	// +kubebuilder:validation:Optional
+	Content *string `json:"content" tf:"content,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the manifest. The name must be unique within the pack.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type BrownfieldClusterProfilePackObservation struct {
 
 	// (Block List) (see below for nested schema)
-	Manifest []ClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []BrownfieldClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -346,13 +324,13 @@ type AwsClusterProfilePackObservation struct {
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
-type AwsClusterProfilePackParameters struct {
+type BrownfieldClusterProfilePackParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Manifest []ClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
+	Manifest []BrownfieldClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -388,26 +366,26 @@ type AwsClusterProfilePackParameters struct {
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
-type AwsClusterProfileParameters struct {
+type BrownfieldClusterProfileParameters struct {
 
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Reference to a Profile in cluster to populate id.
 	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+	IDRef *v1.NamespacedReference `json:"idRef,omitempty" tf:"-"`
 
 	// Selector for a Profile in cluster to populate id.
 	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
-	Pack []AwsClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
+	Pack []BrownfieldClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
@@ -416,7 +394,7 @@ type AwsClusterProfileParameters struct {
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
-type AwsClusterRbacBindingInitParameters struct {
+type BrownfieldClusterRbacBindingInitParameters struct {
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -428,14 +406,14 @@ type AwsClusterRbacBindingInitParameters struct {
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Subjects []AwsClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []BrownfieldClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AwsClusterRbacBindingObservation struct {
+type BrownfieldClusterRbacBindingObservation struct {
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -447,14 +425,14 @@ type AwsClusterRbacBindingObservation struct {
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Subjects []AwsClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []BrownfieldClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AwsClusterRbacBindingParameters struct {
+type BrownfieldClusterRbacBindingParameters struct {
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
@@ -469,7 +447,7 @@ type AwsClusterRbacBindingParameters struct {
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Subjects []AwsClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
+	Subjects []BrownfieldClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
 	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
@@ -477,9 +455,9 @@ type AwsClusterRbacBindingParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
-type AwsClusterRbacBindingSubjectsInitParameters struct {
+type BrownfieldClusterRbacBindingSubjectsInitParameters struct {
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -492,9 +470,9 @@ type AwsClusterRbacBindingSubjectsInitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AwsClusterRbacBindingSubjectsObservation struct {
+type BrownfieldClusterRbacBindingSubjectsObservation struct {
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -507,9 +485,9 @@ type AwsClusterRbacBindingSubjectsObservation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AwsClusterRbacBindingSubjectsParameters struct {
+type BrownfieldClusterRbacBindingSubjectsParameters struct {
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -525,120 +503,7 @@ type AwsClusterRbacBindingSubjectsParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
-type AwsClusterTemplateClusterProfileInitParameters struct {
-
-	// (String) The ID of this resource.
-	// The UID of the cluster profile.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Reference to a Profile in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
-
-	// Selector for a Profile in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
-
-	// value pairs. For example: priority = "5".
-	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-	// +mapType=granular
-	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
-}
-
-type AwsClusterTemplateClusterProfileObservation struct {
-
-	// (String) The ID of this resource.
-	// The UID of the cluster profile.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// value pairs. For example: priority = "5".
-	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-	// +mapType=granular
-	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
-}
-
-type AwsClusterTemplateClusterProfileParameters struct {
-
-	// (String) The ID of this resource.
-	// The UID of the cluster profile.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
-	// +kubebuilder:validation:Optional
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Reference to a Profile in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
-
-	// Selector for a Profile in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
-
-	// value pairs. For example: priority = "5".
-	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
-}
-
-type AwsClusterTemplateInitParameters struct {
-
-	// (Block List) (see below for nested schema)
-	// The cluster profile of the cluster template.
-	ClusterProfile []AwsClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
-
-	// (String) The ID of this resource.
-	// The ID of the cluster template.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Reference to a ConfigTemplate in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
-
-	// Selector for a ConfigTemplate in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
-}
-
-type AwsClusterTemplateObservation struct {
-
-	// (Block List) (see below for nested schema)
-	// The cluster profile of the cluster template.
-	ClusterProfile []AwsClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
-
-	// (String) The ID of this resource.
-	// The ID of the cluster template.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (String)
-	// The name of the cluster template.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type AwsClusterTemplateParameters struct {
-
-	// (Block List) (see below for nested schema)
-	// The cluster profile of the cluster template.
-	// +kubebuilder:validation:Optional
-	ClusterProfile []AwsClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
-
-	// (String) The ID of this resource.
-	// The ID of the cluster template.
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
-	// +kubebuilder:validation:Optional
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Reference to a ConfigTemplate in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
-
-	// Selector for a ConfigTemplate in cluster to populate id.
-	// +kubebuilder:validation:Optional
-	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
-}
-
-type AwsHostConfigInitParameters struct {
+type BrownfieldHostConfigInitParameters struct {
 
 	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
@@ -657,7 +522,7 @@ type AwsHostConfigInitParameters struct {
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
-type AwsHostConfigObservation struct {
+type BrownfieldHostConfigObservation struct {
 
 	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
@@ -676,7 +541,7 @@ type AwsHostConfigObservation struct {
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
-type AwsHostConfigParameters struct {
+type BrownfieldHostConfigParameters struct {
 
 	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
@@ -699,7 +564,7 @@ type AwsHostConfigParameters struct {
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
-type AwsInitParameters struct {
+type BrownfieldInitParameters struct {
 
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
@@ -707,48 +572,29 @@ type AwsInitParameters struct {
 
 	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
-	BackupPolicy []AwsBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BrownfieldBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.Aws
-	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
-
-	// Reference to a Aws in cloudaccount to populate cloudAccountId.
-	// +kubebuilder:validation:Optional
-	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
-
-	// Selector for a Aws in cloudaccount to populate cloudAccountId.
-	// +kubebuilder:validation:Optional
-	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
-
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
-	CloudConfig []AwsCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
-
-	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
-	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
-	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
+	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	ClusterProfile []AwsClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+	ClusterProfile []BrownfieldClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
-	ClusterRbacBinding []AwsClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
-
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
-	ClusterTemplate []AwsClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+	ClusterRbacBinding []BrownfieldClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
-	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) The description of the cluster. Default value is empty string.
@@ -765,33 +611,39 @@ type AwsInitParameters struct {
 
 	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
-	HostConfig []AwsHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+	HostConfig []BrownfieldHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
-	MachinePool []AwsMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
-	// (String)
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
+
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
+	MachinePool []BrownfieldMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the cluster to be registered. This field cannot be updated after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
-	Namespaces []AwsNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+	Namespaces []BrownfieldNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// 01-02T15:04:05Z07:00
-	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
-	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
-
-	// (Boolean) Whether to apply OS patch on boot. Default is false.
-	// Whether to apply OS patch on boot. Default is `false`.
-	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
-
-	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
-	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -799,7 +651,7 @@ type AwsInitParameters struct {
 
 	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
-	ScanPolicy []AwsScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+	ScanPolicy []BrownfieldScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
 	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
@@ -809,17 +661,12 @@ type AwsInitParameters struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
-
-	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// +mapType=granular
-	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
-type AwsLocationConfigInitParameters struct {
+type BrownfieldLocationConfigInitParameters struct {
 }
 
-type AwsLocationConfigObservation struct {
+type BrownfieldLocationConfigObservation struct {
 
 	// (String)
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
@@ -840,100 +687,20 @@ type AwsLocationConfigObservation struct {
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
-type AwsLocationConfigParameters struct {
+type BrownfieldLocationConfigParameters struct {
 }
 
-type AwsMachinePoolInitParameters struct {
+type BrownfieldMachinePoolInitParameters struct {
 
-	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
-	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
-	// +mapType=granular
-	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
-
-	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
-	// +mapType=granular
-	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
-
-	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
-	// +listType=set
-	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
-
-	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
-	// +mapType=granular
-	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
-
-	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
-	// +listType=set
-	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
-
-	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
-	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
-	// Whether this machine pool is a control plane. Defaults to `false`.
-	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
-	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
-
-	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
-	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
-
-	// (Number) The disk size in GB for the machine pool nodes.
-	// The disk size in GB for the machine pool nodes.
-	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
-
-	// (String) The instance type to use for the machine pool nodes.
-	// The instance type to use for the machine pool nodes.
-	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
-
-	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
-
-	// (String) Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	// Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
-
-	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
-
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Node []AwsMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
-
-	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
-	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
-	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
-
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
-	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
-
-	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
-	// Rolling update strategy for the machine pool.
-	OverrideScaling []AwsMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
-
-	// (Block List) (see below for nested schema)
-	Taints []AwsMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
-
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
-	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+	Node []BrownfieldMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 }
 
-type AwsMachinePoolNodeInitParameters struct {
+type BrownfieldMachinePoolNodeInitParameters struct {
 
 	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
@@ -942,9 +709,13 @@ type AwsMachinePoolNodeInitParameters struct {
 	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// (String) The name of the machine pool.
+	// The name of the machine pool.
+	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
-type AwsMachinePoolNodeObservation struct {
+type BrownfieldMachinePoolNodeObservation struct {
 
 	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
@@ -953,9 +724,13 @@ type AwsMachinePoolNodeObservation struct {
 	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// (String) The name of the machine pool.
+	// The name of the machine pool.
+	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
-type AwsMachinePoolNodeParameters struct {
+type BrownfieldMachinePoolNodeParameters struct {
 
 	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
@@ -965,296 +740,39 @@ type AwsMachinePoolNodeParameters struct {
 	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	// +kubebuilder:validation:Optional
-	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// (String) The name of the machine pool.
+	// The name of the machine pool.
+	// +kubebuilder:validation:Optional
+	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
-type AwsMachinePoolObservation struct {
+type BrownfieldMachinePoolObservation struct {
 
-	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
-	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
-	// +mapType=granular
-	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
-
-	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
-	// +mapType=granular
-	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
-
-	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
-	// +listType=set
-	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
-
-	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
-	// +mapType=granular
-	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
-
-	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
-	// +listType=set
-	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
-
-	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
-	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
-	// Whether this machine pool is a control plane. Defaults to `false`.
-	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
-	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
-
-	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
-	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
-
-	// (Number) The disk size in GB for the machine pool nodes.
-	// The disk size in GB for the machine pool nodes.
-	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
-
-	// (String) The instance type to use for the machine pool nodes.
-	// The instance type to use for the machine pool nodes.
-	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
-
-	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
-
-	// (String) Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	// Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
-
-	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
-
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	Node []AwsMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
-
-	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
-	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
-	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
-
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
-	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
-
-	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
-	// Rolling update strategy for the machine pool.
-	OverrideScaling []AwsMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
-
-	// (Block List) (see below for nested schema)
-	Taints []AwsMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
-
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
-	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+	Node []BrownfieldMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 }
 
-type AwsMachinePoolOverrideScalingInitParameters struct {
+type BrownfieldMachinePoolParameters struct {
 
-	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
-
-	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
-}
-
-type AwsMachinePoolOverrideScalingObservation struct {
-
-	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
-
-	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
-}
-
-type AwsMachinePoolOverrideScalingParameters struct {
-
-	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// +kubebuilder:validation:Optional
-	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
-
-	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-	// +kubebuilder:validation:Optional
-	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
-}
-
-type AwsMachinePoolParameters struct {
-
-	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
-	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
-
-	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
-
-	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
-	// +kubebuilder:validation:Optional
-	// +listType=set
-	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
-
-	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
-
-	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
-	// +kubebuilder:validation:Optional
-	// +listType=set
-	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
-
-	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
-	// +kubebuilder:validation:Optional
-	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
-	// Whether this machine pool is a control plane. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
-
-	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
-
-	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
-	// +kubebuilder:validation:Optional
-	Count *float64 `json:"count" tf:"count,omitempty"`
-
-	// (Number) The disk size in GB for the machine pool nodes.
-	// The disk size in GB for the machine pool nodes.
-	// +kubebuilder:validation:Optional
-	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
-
-	// (String) The instance type to use for the machine pool nodes.
-	// The instance type to use for the machine pool nodes.
-	// +kubebuilder:validation:Optional
-	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
-
-	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// +kubebuilder:validation:Optional
-	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
-
-	// (String) Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	// Maximum price to bid for spot instances. Only applied when instance type is 'spot'.
-	// +kubebuilder:validation:Optional
-	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
-
-	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// +kubebuilder:validation:Optional
-	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
-
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Node []AwsMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
-
-	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
-	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
-	// +kubebuilder:validation:Optional
-	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
-
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
-	// +kubebuilder:validation:Optional
-	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
-
-	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
-	// Rolling update strategy for the machine pool.
-	// +kubebuilder:validation:Optional
-	OverrideScaling []AwsMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
-
-	// (Block List) (see below for nested schema)
-	// +kubebuilder:validation:Optional
-	Taints []AwsMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
-
-	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
-	// +kubebuilder:validation:Optional
-	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+	Node []BrownfieldMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 }
 
-type AwsMachinePoolTaintsInitParameters struct {
+type BrownfieldNamespacesInitParameters struct {
 
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type AwsMachinePoolTaintsObservation struct {
-
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type AwsMachinePoolTaintsParameters struct {
-
-	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
-	// +kubebuilder:validation:Optional
-	Effect *string `json:"effect" tf:"effect,omitempty"`
-
-	// (String) The key of the taint.
-	// The key of the taint.
-	// +kubebuilder:validation:Optional
-	Key *string `json:"key" tf:"key,omitempty"`
-
-	// (String) The value of the taint.
-	// The value of the taint.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
-}
-
-type AwsNamespacesInitParameters struct {
-
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1264,9 +782,9 @@ type AwsNamespacesInitParameters struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
-type AwsNamespacesObservation struct {
+type BrownfieldNamespacesObservation struct {
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1276,9 +794,9 @@ type AwsNamespacesObservation struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 }
 
-type AwsNamespacesParameters struct {
+type BrownfieldNamespacesParameters struct {
 
-	// (String)
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1290,11 +808,7 @@ type AwsNamespacesParameters struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 }
 
-type AwsObservation struct {
-
-	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
+type BrownfieldObservation struct {
 
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
@@ -1302,43 +816,33 @@ type AwsObservation struct {
 
 	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
-	BackupPolicy []AwsBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BrownfieldBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
-	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
-
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
-	CloudConfig []AwsCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
-
-	// (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
-	// ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
+	// (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
+	// ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
-	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
-	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
+	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block List) (see below for nested schema)
-	ClusterProfile []AwsClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+	ClusterProfile []BrownfieldClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
-	ClusterRbacBinding []AwsClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
-
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
-	ClusterTemplate []AwsClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+	ClusterRbacBinding []BrownfieldClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
-	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) The description of the cluster. Default value is empty string.
@@ -1353,46 +857,60 @@ type AwsObservation struct {
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (String) The current health status of the cluster. Possible values include: Healthy, UnHealthy, Unknown.
+	// The current health status of the cluster. Possible values include: `Healthy`, `UnHealthy`, `Unknown`.
+	HealthStatus *string `json:"healthStatus,omitempty" tf:"health_status,omitempty"`
+
 	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
-	HostConfig []AwsHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+	HostConfig []BrownfieldHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
-	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
+
+	// (String) The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
+	// The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
+	KubectlCommand *string `json:"kubectlCommand,omitempty" tf:"kubectl_command,omitempty"`
 
 	// (List of Object) The location of the cluster. (see below for nested schema)
 	// The location of the cluster.
-	LocationConfig []AwsLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
+	LocationConfig []BrownfieldLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
-	MachinePool []AwsMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
+	MachinePool []BrownfieldMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
+	// The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
+	ManifestURL *string `json:"manifestUrl,omitempty" tf:"manifest_url,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the cluster to be registered. This field cannot be updated after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
-	Namespaces []AwsNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+	Namespaces []BrownfieldNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// 01-02T15:04:05Z07:00
-	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
-	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
-
-	// (Boolean) Whether to apply OS patch on boot. Default is false.
-	// Whether to apply OS patch on boot. Default is `false`.
-	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
-
-	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
-	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -1400,24 +918,23 @@ type AwsObservation struct {
 
 	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
-	ScanPolicy []AwsScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+	ScanPolicy []BrownfieldScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
 	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (String) The current operational state of the cluster. Possible values include: Pending, Provisioning, Running, Deleting, Deleted, Error, Importing.
+	// The current operational state of the cluster. Possible values include: `Pending`, `Provisioning`, `Running`, `Deleting`, `Deleted`, `Error`, `Importing`.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
-
-	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// +mapType=granular
-	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
-type AwsParameters struct {
+type BrownfieldParameters struct {
 
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
@@ -1427,56 +944,34 @@ type AwsParameters struct {
 	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
-	BackupPolicy []AwsBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BrownfieldBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
-	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.Aws
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
-	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
-
-	// Reference to a Aws in cloudaccount to populate cloudAccountId.
-	// +kubebuilder:validation:Optional
-	CloudAccountIDRef *v1.Reference `json:"cloudAccountIdRef,omitempty" tf:"-"`
-
-	// Selector for a Aws in cloudaccount to populate cloudAccountId.
-	// +kubebuilder:validation:Optional
-	CloudAccountIDSelector *v1.Selector `json:"cloudAccountIdSelector,omitempty" tf:"-"`
-
-	// (Block List, Min: 1, Max: 1) (see below for nested schema)
-	// +kubebuilder:validation:Optional
-	CloudConfig []AwsCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
-
-	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
-	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
-	// +kubebuilder:validation:Optional
-	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
+	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	ClusterProfile []AwsClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
+	ClusterProfile []BrownfieldClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
-	ClusterRbacBinding []AwsClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
-
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
-	// +kubebuilder:validation:Optional
-	ClusterTemplate []AwsClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
+	ClusterRbacBinding []BrownfieldClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
-	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
+	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
-	// (String) The context of the AWS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-	// The context of the AWS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
@@ -1498,40 +993,47 @@ type AwsParameters struct {
 	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
-	HostConfig []AwsHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+	HostConfig []BrownfieldHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
-	MachinePool []AwsMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
-	// (String)
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+	// +kubebuilder:validation:Optional
+	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
+
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
+	// +kubebuilder:validation:Optional
+	MachinePool []BrownfieldMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
+
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
+	// The name of the cluster to be registered. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
-	Namespaces []AwsNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
+	Namespaces []BrownfieldNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// 01-02T15:04:05Z07:00
-	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
-	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
-
-	// (Boolean) Whether to apply OS patch on boot. Default is false.
-	// Whether to apply OS patch on boot. Default is `false`.
-	// +kubebuilder:validation:Optional
-	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
-
-	// (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-	// The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
-	// +kubebuilder:validation:Optional
-	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// +kubebuilder:validation:Optional
+	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -1541,7 +1043,7 @@ type AwsParameters struct {
 	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
-	ScanPolicy []AwsScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
+	ScanPolicy []BrownfieldScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
 	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
@@ -1553,15 +1055,9 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
-
-	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 }
 
-type AwsScanPolicyInitParameters struct {
+type BrownfieldScanPolicyInitParameters struct {
 
 	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
@@ -1576,7 +1072,7 @@ type AwsScanPolicyInitParameters struct {
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
-type AwsScanPolicyObservation struct {
+type BrownfieldScanPolicyObservation struct {
 
 	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
@@ -1591,7 +1087,7 @@ type AwsScanPolicyObservation struct {
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
-type AwsScanPolicyParameters struct {
+type BrownfieldScanPolicyParameters struct {
 
 	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
@@ -1609,48 +1105,10 @@ type AwsScanPolicyParameters struct {
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
-type ClusterProfilePackManifestInitParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String)
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type ClusterProfilePackManifestObservation struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	Content *string `json:"content,omitempty" tf:"content,omitempty"`
-
-	// (String)
-	// The name of the manifest. The name must be unique within the pack.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-}
-
-type ClusterProfilePackManifestParameters struct {
-
-	// (String) The content of the manifest. The content is the YAML content of the manifest.
-	// The content of the manifest. The content is the YAML content of the manifest.
-	// +kubebuilder:validation:Optional
-	Content *string `json:"content" tf:"content,omitempty"`
-
-	// (String)
-	// The name of the manifest. The name must be unique within the pack.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
-}
-
-// AwsSpec defines the desired state of Aws
-type AwsSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AwsParameters `json:"forProvider"`
+// BrownfieldSpec defines the desired state of Brownfield
+type BrownfieldSpec struct {
+	v2.ManagedResourceSpec `json:",inline"`
+	ForProvider            BrownfieldParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1661,52 +1119,51 @@ type AwsSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider AwsInitParameters `json:"initProvider,omitempty"`
+	InitProvider BrownfieldInitParameters `json:"initProvider,omitempty"`
 }
 
-// AwsStatus defines the observed state of Aws.
-type AwsStatus struct {
+// BrownfieldStatus defines the observed state of Brownfield.
+type BrownfieldStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        AwsObservation `json:"atProvider,omitempty"`
+	AtProvider        BrownfieldObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Aws is the Schema for the Awss API. Resource for managing AWS clusters in Spectro Cloud through Palette.
+// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native, MAAS, and OpenStack). This feature is currently in preview.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,palette}
-type Aws struct {
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,managed,palette}
+type Brownfield struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudConfig) || (has(self.initProvider) && has(self.initProvider.cloudConfig))",message="spec.forProvider.cloudConfig is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.machinePool) || (has(self.initProvider) && has(self.initProvider.machinePool))",message="spec.forProvider.machinePool is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudType) || (has(self.initProvider) && has(self.initProvider.cloudType))",message="spec.forProvider.cloudType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   AwsSpec   `json:"spec"`
-	Status AwsStatus `json:"status,omitempty"`
+	Spec   BrownfieldSpec   `json:"spec"`
+	Status BrownfieldStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AwsList contains a list of Awss
-type AwsList struct {
+// BrownfieldList contains a list of Brownfields
+type BrownfieldList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Aws `json:"items"`
+	Items           []Brownfield `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Aws_Kind             = "Aws"
-	Aws_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Aws_Kind}.String()
-	Aws_KindAPIVersion   = Aws_Kind + "." + CRDGroupVersion.String()
-	Aws_GroupVersionKind = CRDGroupVersion.WithKind(Aws_Kind)
+	Brownfield_Kind             = "Brownfield"
+	Brownfield_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Brownfield_Kind}.String()
+	Brownfield_KindAPIVersion   = Brownfield_Kind + "." + CRDGroupVersion.String()
+	Brownfield_GroupVersionKind = CRDGroupVersion.WithKind(Brownfield_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Aws{}, &AwsList{})
+	SchemeBuilder.Register(&Brownfield{}, &BrownfieldList{})
 }

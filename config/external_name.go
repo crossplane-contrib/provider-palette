@@ -297,6 +297,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_cluster_apache_cloudstack":      FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_aws":                    FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_azure":                  FormattedIdentifierFromProvider(),
+	"spectrocloud_cluster_brownfield":             clusterCustomCloud(),
 	"spectrocloud_cluster_custom_cloud":           clusterCustomCloud(),
 	"spectrocloud_cluster_edge_native":            FormattedIdentifierFromProvider(),
 	"spectrocloud_cluster_edge_vsphere":           FormattedIdentifierFromProvider(),

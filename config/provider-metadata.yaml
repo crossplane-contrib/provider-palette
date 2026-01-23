@@ -1644,6 +1644,7 @@ resources:
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+            cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -1903,6 +1904,175 @@ resources:
             virtual_network_cidr_block: (String) Azure virtual network cidr block in which the cluster is to be provisioned.
             virtual_network_name: (String) Azure virtual network in which the cluster is to be provisioned.
             worker_node_subnet: '(Block List, Max: 1) (see below for nested schema)'
+        importStatements: []
+    spectrocloud_cluster_brownfield:
+        subCategory: ""
+        description: 'Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native, MAAS, and OpenStack). This feature is currently in preview.'
+        name: spectrocloud_cluster_brownfield
+        title: spectrocloud_cluster_brownfield Resource - terraform-provider-spectrocloud
+        examples:
+            - name: cluster
+              manifest: |-
+                {
+                  "backup_policy": [
+                    {
+                      "backup_location_id": "${data.spectrocloud_backup_storage_location.bsl.id}",
+                      "expiry_in_hour": 7200,
+                      "include_cluster_resources": true,
+                      "include_disks": true,
+                      "prefix": "cluster-backup",
+                      "schedule": "0 0 * * SUN"
+                    }
+                  ],
+                  "cloud_type": "generic",
+                  "cluster_profile": [
+                    {
+                      "id": "${data.spectrocloud_cluster_profile.profile.id}"
+                    }
+                  ],
+                  "cluster_rbac_binding": [
+                    {
+                      "role": {
+                        "kind": "ClusterRole",
+                        "name": "cluster-admin"
+                      },
+                      "subjects": [
+                        {
+                          "name": "admin-user@example.com",
+                          "type": "User"
+                        },
+                        {
+                          "name": "platform-admins",
+                          "type": "Group"
+                        },
+                        {
+                          "name": "cluster-admin-sa",
+                          "namespace": "kube-system",
+                          "type": "ServiceAccount"
+                        }
+                      ],
+                      "type": "ClusterRoleBinding"
+                    }
+                  ],
+                  "cluster_timezone": "America/New_York",
+                  "context": "project",
+                  "description": "My existing Kubernetes cluster",
+                  "import_mode": "full",
+                  "machine_pool": [
+                    {
+                      "name": "worker-pool",
+                      "node": [
+                        {
+                          "action": "uncordon",
+                          "node_name": "worker-node-1"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "${var.cluster_name}",
+                  "namespaces": [
+                    {
+                      "name": "production",
+                      "resource_allocation": {
+                        "cpu_cores": "4",
+                        "memory_MiB": "8192"
+                      }
+                    }
+                  ],
+                  "scan_policy": [
+                    {
+                      "configuration_scan_schedule": "0 0 * * SUN",
+                      "conformance_scan_schedule": "0 0 1 * *",
+                      "penetration_scan_schedule": "0 0 * * SUN"
+                    }
+                  ],
+                  "tags": [
+                    "environment:production",
+                    "team:platform",
+                    "managed-by:terraform"
+                  ]
+                }
+              references:
+                backup_policy.backup_location_id: data.spectrocloud_backup_storage_location.bsl.id
+                cluster_profile.id: data.spectrocloud_cluster_profile.profile.id
+                name: var.cluster_name
+        argumentDocs:
+            action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
+            apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+            backup_location_id: (String) The ID of the backup location to use for the backup.
+            backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
+            cloud_config_id: (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
+            cloud_type: '(String) The cloud type of the cluster. Supported values: aws, eks-anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.'
+            cluster_profile: (Block List) (see below for nested schema)
+            cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+            cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+            configuration_scan_schedule: (String) The schedule for configuration scan.
+            conformance_scan_schedule: (String) The schedule for conformance scan.
+            container_mount_path: (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+            content: (String) The content of the manifest. The content is the YAML content of the manifest.
+            context: (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+            country_code: (String)
+            country_name: (String)
+            create: (String)
+            delete: (String)
+            description: (String) The description of the cluster. Default value is empty string.
+            expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+            external_traffic_policy: (String) The external traffic policy for the cluster.
+            force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+            force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+            health_status: '(String) The current health status of the cluster. Possible values include: Healthy, UnHealthy, Unknown.'
+            host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
+            host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+            host_path: (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+            id: (String) The ID of this resource.
+            import_mode: (String) The import mode for the cluster. Allowed values are read_only (imports cluster with read-only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+            include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+            include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
+            include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+            include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+            ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+            kubectl_command: (String) The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
+            latitude: (Number)
+            load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+            location_config: (List of Object) The location of the cluster. (see below for nested schema)
+            longitude: (Number)
+            machine_pool: (Block Set) Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+            manifest: (Block List) (see below for nested schema)
+            manifest_url: (String) The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
+            name: (String) The name of the cluster to be registered. This field cannot be updated after creation.
+            namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+            namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
+            no_proxy: (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+            node: (Block List) (see below for nested schema)
+            node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
+            node_name: (String) The name of the machine pool.
+            pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+            pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+            penetration_scan_schedule: (String) The schedule for penetration scan.
+            prefix: (String) Prefix for the backup name. The backup name will be of the format --.
+            proxy: (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+            read: (String)
+            region_code: (String)
+            region_name: (String)
+            registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
+            review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+            role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+            scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
+            schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+            skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            status: '(String) The current operational state of the cluster. Possible values include: Pending, Provisioning, Running, Deleting, Deleted, Error, Importing.'
+            subjects: (Block List) (see below for nested schema)
+            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+            update: (String)
+            values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+            variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
         importStatements: []
     spectrocloud_cluster_config_policy:
         subCategory: ""
@@ -2203,6 +2373,7 @@ resources:
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+            cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -3171,6 +3342,7 @@ resources:
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+            cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -3999,7 +4171,7 @@ resources:
             create: (String)
             delete: (String)
             filter_group: '(Block List, Min: 1, Max: 1) Filter group of the filter. (see below for nested schema)'
-            filters: '(Block List, Min: 1) List of filters in the filter group. (see below for nested schema)'
+            filters: '(Block Set, Min: 1) List of filters in the filter group. (see below for nested schema)'
             id: (String) The ID of this resource.
             key: (String) Key of the filter.
             metadata: '(Block List, Min: 1, Max: 1) Metadata of the filter. (see below for nested schema)'
@@ -5156,7 +5328,7 @@ resources:
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cluster_name: (String)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_resource_allocations: (Block List) (see below for nested schema)
+            cluster_resource_allocations: '(Block List, Max: 1) (see below for nested schema)'
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             clusters: '(Block Set, Min: 1) (see below for nested schema)'
             cpu: (Number) CPU that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
@@ -5172,9 +5344,9 @@ resources:
             memory: (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             name: (String)
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-            namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
+            namespaces: (Block Set) The namespaces for the cluster. (see below for nested schema)
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
+            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu: ''1'', gpu_provider: ''nvidia''}'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             subjects: (Block List) (see below for nested schema)

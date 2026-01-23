@@ -818,6 +818,93 @@ func (mg *Azure) ResolveReferences(ctx context.Context, c client.Reader) error {
 	return nil
 }
 
+// ResolveReferences of this Brownfield.
+func (mg *Brownfield) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.BackupPolicy); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDRef,
+			Selector:     mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.StorageLocationList{},
+				Managed: &v1alpha1.StorageLocation{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID")
+		}
+		mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.BackupPolicy[i3].BackupLocationIDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.ClusterProfile); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterProfile[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ClusterProfile[i3].IDRef,
+			Selector:     mg.Spec.ForProvider.ClusterProfile[i3].IDSelector,
+			To: reference.To{
+				List:    &ProfileList{},
+				Managed: &Profile{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.ClusterProfile[i3].ID")
+		}
+		mg.Spec.ForProvider.ClusterProfile[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.ClusterProfile[i3].IDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.BackupPolicy); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDRef,
+			Selector:     mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.StorageLocationList{},
+				Managed: &v1alpha1.StorageLocation{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID")
+		}
+		mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.BackupPolicy[i3].BackupLocationIDRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.ClusterProfile); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterProfile[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ClusterProfile[i3].IDRef,
+			Selector:     mg.Spec.InitProvider.ClusterProfile[i3].IDSelector,
+			To: reference.To{
+				List:    &ProfileList{},
+				Managed: &Profile{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.ClusterProfile[i3].ID")
+		}
+		mg.Spec.InitProvider.ClusterProfile[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.ClusterProfile[i3].IDRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this ConfigTemplate.
 func (mg *ConfigTemplate) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)

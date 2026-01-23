@@ -4,19 +4,19 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: customclouds.cluster.palette.crossplane.io
+  name: brownfields.cluster.palette.m.crossplane.io
 spec:
-  group: cluster.palette.crossplane.io
+  group: cluster.palette.m.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - palette
-    kind: CustomCloud
-    listKind: CustomCloudList
-    plural: customclouds
-    singular: customcloud
-  scope: Cluster
+    kind: Brownfield
+    listKind: BrownfieldList
+    plural: brownfields
+    singular: brownfield
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
@@ -34,8 +34,11 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CustomCloud is the Schema for the CustomClouds API. Resource
-          for managing custom cloud clusters in Spectro Cloud through Palette.
+        description: 'Brownfield is the Schema for the Brownfields API. Register an
+          existing Kubernetes cluster (brownfield) with Palette. This resource allows
+          you to import and manage existing Kubernetes clusters. Supported cloud platforms:
+          (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native,
+          MAAS, and OpenStack). This feature is currently in preview.'
         properties:
           apiVersion:
             description: |-
@@ -55,22 +58,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: CustomCloudSpec defines the desired state of CustomCloud
+            description: BrownfieldSpec defines the desired state of Brownfield
             properties:
-              deletionPolicy:
-                default: Delete
-                description: |-
-                  DeletionPolicy specifies what will happen to the underlying external
-                  when this managed resource is deleted - either "Delete" or "Orphan" the
-                  external resource.
-                  This field is planned to be deprecated in favor of the ManagementPolicies
-                  field in a future release. Currently, both could be set independently and
-                  non-default values would be honored if the feature flag is enabled.
-                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
-                enum:
-                - Orphan
-                - Delete
-                type: string
               forProvider:
                 properties:
                   applySetting:
@@ -95,6 +84,9 @@ spec:
                           properties:
                             name:
                               description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
                             policy:
                               description: Policies for referencing.
@@ -139,6 +131,9 @@ spec:
                               description: MatchLabels ensures an object with matching
                                 labels is selected.
                               type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
                             policy:
                               description: Policies for selection.
                               properties:
@@ -218,121 +213,11 @@ spec:
                           type: string
                       type: object
                     type: array
-                  cloud:
+                  cloudType:
                     description: |-
-                      (String) The cloud provider name.
-                      The cloud provider name.
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
-                  cloudAccountId:
-                    description: |-
-                      (String) The cloud account id to use for this cluster.
-                      The cloud account id to use for this cluster.
-                    type: string
-                  cloudAccountIdRef:
-                    description: Reference to a Custom in cloudaccount to populate
-                      cloudAccountId.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  cloudAccountIdSelector:
-                    description: Selector for a Custom in cloudaccount to populate
-                      cloudAccountId.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  cloudConfig:
-                    description: |-
-                      (Block List, Min: 1, Max: 1) The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)
-                      The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
-                    items:
-                      properties:
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        values:
-                          description: |-
-                            (String) The values of the cloud config. The values are specified in YAML format.
-                            The values of the cloud config. The values are specified in YAML format.
-                          type: string
-                      type: object
-                    type: array
                   clusterProfile:
                     description: (Block List) (see below for nested schema)
                     items:
@@ -348,6 +233,9 @@ spec:
                           properties:
                             name:
                               description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
                             policy:
                               description: Policies for referencing.
@@ -392,6 +280,9 @@ spec:
                               description: MatchLabels ensures an object with matching
                                 labels is selected.
                               type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
                             policy:
                               description: Policies for selection.
                               properties:
@@ -435,14 +326,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the cluster.
+                                        (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -472,7 +363,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String) The values of the cloud config. The values are specified in YAML format.
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -512,7 +403,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -534,206 +425,20 @@ spec:
                           type: string
                       type: object
                     type: array
-                  clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
-                    items:
-                      properties:
-                        clusterProfile:
-                          description: |-
-                            (Block List) (see below for nested schema)
-                            The cluster profile of the cluster template.
-                          items:
-                            properties:
-                              id:
-                                description: |-
-                                  (String) The ID of this resource.
-                                  The UID of the cluster profile.
-                                type: string
-                              idRef:
-                                description: Reference to a Profile in cluster to
-                                  populate id.
-                                properties:
-                                  name:
-                                    description: Name of the referenced object.
-                                    type: string
-                                  policy:
-                                    description: Policies for referencing.
-                                    properties:
-                                      resolution:
-                                        default: Required
-                                        description: |-
-                                          Resolution specifies whether resolution of this reference is required.
-                                          The default is 'Required', which means the reconcile will fail if the
-                                          reference cannot be resolved. 'Optional' means this reference will be
-                                          a no-op if it cannot be resolved.
-                                        enum:
-                                        - Required
-                                        - Optional
-                                        type: string
-                                      resolve:
-                                        description: |-
-                                          Resolve specifies when this reference should be resolved. The default
-                                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                                          the corresponding field is not present. Use 'Always' to resolve the
-                                          reference on every reconcile.
-                                        enum:
-                                        - Always
-                                        - IfNotPresent
-                                        type: string
-                                    type: object
-                                required:
-                                - name
-                                type: object
-                              idSelector:
-                                description: Selector for a Profile in cluster to
-                                  populate id.
-                                properties:
-                                  matchControllerRef:
-                                    description: |-
-                                      MatchControllerRef ensures an object with the same controller reference
-                                      as the selecting object is selected.
-                                    type: boolean
-                                  matchLabels:
-                                    additionalProperties:
-                                      type: string
-                                    description: MatchLabels ensures an object with
-                                      matching labels is selected.
-                                    type: object
-                                  policy:
-                                    description: Policies for selection.
-                                    properties:
-                                      resolution:
-                                        default: Required
-                                        description: |-
-                                          Resolution specifies whether resolution of this reference is required.
-                                          The default is 'Required', which means the reconcile will fail if the
-                                          reference cannot be resolved. 'Optional' means this reference will be
-                                          a no-op if it cannot be resolved.
-                                        enum:
-                                        - Required
-                                        - Optional
-                                        type: string
-                                      resolve:
-                                        description: |-
-                                          Resolve specifies when this reference should be resolved. The default
-                                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                                          the corresponding field is not present. Use 'Always' to resolve the
-                                          reference on every reconcile.
-                                        enum:
-                                        - Always
-                                        - IfNotPresent
-                                        type: string
-                                    type: object
-                                type: object
-                              variables:
-                                additionalProperties:
-                                  type: string
-                                description: |-
-                                  value pairs. For example: priority = "5".
-                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-                                type: object
-                                x-kubernetes-map-type: granular
-                            type: object
-                          type: array
-                        id:
-                          description: |-
-                            (String) The ID of this resource.
-                            The ID of the cluster template.
-                          type: string
-                        idRef:
-                          description: Reference to a ConfigTemplate in cluster to
-                            populate id.
-                          properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
-                            policy:
-                              description: Policies for referencing.
-                              properties:
-                                resolution:
-                                  default: Required
-                                  description: |-
-                                    Resolution specifies whether resolution of this reference is required.
-                                    The default is 'Required', which means the reconcile will fail if the
-                                    reference cannot be resolved. 'Optional' means this reference will be
-                                    a no-op if it cannot be resolved.
-                                  enum:
-                                  - Required
-                                  - Optional
-                                  type: string
-                                resolve:
-                                  description: |-
-                                    Resolve specifies when this reference should be resolved. The default
-                                    is 'IfNotPresent', which will attempt to resolve the reference only when
-                                    the corresponding field is not present. Use 'Always' to resolve the
-                                    reference on every reconcile.
-                                  enum:
-                                  - Always
-                                  - IfNotPresent
-                                  type: string
-                              type: object
-                          required:
-                          - name
-                          type: object
-                        idSelector:
-                          description: Selector for a ConfigTemplate in cluster to
-                            populate id.
-                          properties:
-                            matchControllerRef:
-                              description: |-
-                                MatchControllerRef ensures an object with the same controller reference
-                                as the selecting object is selected.
-                              type: boolean
-                            matchLabels:
-                              additionalProperties:
-                                type: string
-                              description: MatchLabels ensures an object with matching
-                                labels is selected.
-                              type: object
-                            policy:
-                              description: Policies for selection.
-                              properties:
-                                resolution:
-                                  default: Required
-                                  description: |-
-                                    Resolution specifies whether resolution of this reference is required.
-                                    The default is 'Required', which means the reconcile will fail if the
-                                    reference cannot be resolved. 'Optional' means this reference will be
-                                    a no-op if it cannot be resolved.
-                                  enum:
-                                  - Required
-                                  - Optional
-                                  type: string
-                                resolve:
-                                  description: |-
-                                    Resolve specifies when this reference should be resolved. The default
-                                    is 'IfNotPresent', which will attempt to resolve the reference only when
-                                    the corresponding field is not present. Use 'Always' to resolve the
-                                    reference on every reconcile.
-                                  enum:
-                                  - Always
-                                  - IfNotPresent
-                                  type: string
-                              type: object
-                          type: object
-                      type: object
-                    type: array
                   clusterTimezone:
                     description: |-
                       (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                       Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
-                  clusterType:
+                  containerMountPath:
                     description: |-
-                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-                      The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
+                      (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
                     type: string
                   context:
                     description: |-
-                      (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                      (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
                     description: |-
@@ -750,97 +455,73 @@ spec:
                       (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
-                  locationConfig:
-                    description: (Block List) (see below for nested schema)
+                  hostConfig:
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
                     items:
                       properties:
-                        countryCode:
+                        externalTrafficPolicy:
                           description: |-
-                            (String) The country code of the country the cluster is located in.
-                            The country code of the country the cluster is located in.
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
                           type: string
-                        countryName:
+                        hostEndpointType:
                           description: |-
-                            (String) The name of the country.
-                            The name of the country.
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
                           type: string
-                        latitude:
+                        ingressHost:
                           description: |-
-                            (Number) The latitude coordinates value.
-                            The latitude coordinates value.
-                          type: number
-                        longitude:
-                          description: |-
-                            (Number) The longitude coordinates value.
-                            The longitude coordinates value.
-                          type: number
-                        regionCode:
-                          description: |-
-                            (String) The region code of where the cluster is located in.
-                            The region code of where the cluster is located in.
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
                           type: string
-                        regionName:
+                        loadBalancerSourceRanges:
                           description: |-
-                            (String) The name of the region.
-                            The name of the region.
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                           type: string
                       type: object
                     type: array
+                  hostPath:
+                    description: |-
+                      (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                      Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                    type: string
+                  importMode:
+                    description: |-
+                      only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+                      The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+                    type: string
                   machinePool:
                     description: |-
-                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
-                      The machine pool configuration for the cluster.
+                      2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+                      Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
                     items:
                       properties:
-                        controlPlane:
+                        name:
                           description: |-
-                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
-                            Whether this machine pool is a control plane. Defaults to `false`.
-                          type: boolean
-                        controlPlaneAsWorker:
-                          description: |-
-                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
-                          type: boolean
-                        nodePoolConfig:
-                          description: |-
-                            (String) The values of the node pool config. The values are specified in YAML format.
-                            The values of the node pool config. The values are specified in YAML format.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                            The name of the machine pool.
                           type: string
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        taints:
+                        node:
                           description: (Block List) (see below for nested schema)
                           items:
                             properties:
-                              effect:
+                              action:
                                 description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
-                              key:
+                              nodeId:
                                 description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
-                              value:
+                              nodeName:
                                 description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                  (String) The name of the machine pool.
+                                  The name of the machine pool.
                                 type: string
                             type: object
                           type: array
@@ -848,8 +529,8 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String) The name of the cluster.
-                      The name of the cluster.
+                      (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                      The name of the cluster to be registered. This field cannot be updated after creation.
                     type: string
                   namespaces:
                     description: |-
@@ -859,7 +540,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String) The name of the cluster.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -872,25 +553,25 @@ spec:
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
-                  osPatchAfter:
+                  noProxy:
                     description: |-
-                      01-02T15:04:05Z07:00
-                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
-                    type: string
-                  osPatchOnBoot:
-                    description: |-
-                      (Boolean) Whether to apply OS patch on boot. Default is false.
-                      Whether to apply OS patch on boot. Default is `false`.
-                    type: boolean
-                  osPatchSchedule:
-                    description: |-
-                      (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-                      The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  proxy:
+                    description: |-
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                    type: string
+                  reviewRepaveState:
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
                     description: |-
@@ -922,8 +603,8 @@ spec:
                     type: boolean
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
@@ -965,6 +646,9 @@ spec:
                             name:
                               description: Name of the referenced object.
                               type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
                             policy:
                               description: Policies for referencing.
                               properties:
@@ -1008,6 +692,9 @@ spec:
                               description: MatchLabels ensures an object with matching
                                 labels is selected.
                               type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
                             policy:
                               description: Policies for selection.
                               properties:
@@ -1087,121 +774,11 @@ spec:
                           type: string
                       type: object
                     type: array
-                  cloud:
+                  cloudType:
                     description: |-
-                      (String) The cloud provider name.
-                      The cloud provider name.
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
-                  cloudAccountId:
-                    description: |-
-                      (String) The cloud account id to use for this cluster.
-                      The cloud account id to use for this cluster.
-                    type: string
-                  cloudAccountIdRef:
-                    description: Reference to a Custom in cloudaccount to populate
-                      cloudAccountId.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  cloudAccountIdSelector:
-                    description: Selector for a Custom in cloudaccount to populate
-                      cloudAccountId.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  cloudConfig:
-                    description: |-
-                      (Block List, Min: 1, Max: 1) The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)
-                      The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
-                    items:
-                      properties:
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        values:
-                          description: |-
-                            (String) The values of the cloud config. The values are specified in YAML format.
-                            The values of the cloud config. The values are specified in YAML format.
-                          type: string
-                      type: object
-                    type: array
                   clusterProfile:
                     description: (Block List) (see below for nested schema)
                     items:
@@ -1217,6 +794,9 @@ spec:
                           properties:
                             name:
                               description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
                             policy:
                               description: Policies for referencing.
@@ -1261,6 +841,9 @@ spec:
                               description: MatchLabels ensures an object with matching
                                 labels is selected.
                               type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
                             policy:
                               description: Policies for selection.
                               properties:
@@ -1304,14 +887,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the cluster.
+                                        (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1341,7 +924,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String) The values of the cloud config. The values are specified in YAML format.
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -1381,7 +964,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1403,206 +986,20 @@ spec:
                           type: string
                       type: object
                     type: array
-                  clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
-                    items:
-                      properties:
-                        clusterProfile:
-                          description: |-
-                            (Block List) (see below for nested schema)
-                            The cluster profile of the cluster template.
-                          items:
-                            properties:
-                              id:
-                                description: |-
-                                  (String) The ID of this resource.
-                                  The UID of the cluster profile.
-                                type: string
-                              idRef:
-                                description: Reference to a Profile in cluster to
-                                  populate id.
-                                properties:
-                                  name:
-                                    description: Name of the referenced object.
-                                    type: string
-                                  policy:
-                                    description: Policies for referencing.
-                                    properties:
-                                      resolution:
-                                        default: Required
-                                        description: |-
-                                          Resolution specifies whether resolution of this reference is required.
-                                          The default is 'Required', which means the reconcile will fail if the
-                                          reference cannot be resolved. 'Optional' means this reference will be
-                                          a no-op if it cannot be resolved.
-                                        enum:
-                                        - Required
-                                        - Optional
-                                        type: string
-                                      resolve:
-                                        description: |-
-                                          Resolve specifies when this reference should be resolved. The default
-                                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                                          the corresponding field is not present. Use 'Always' to resolve the
-                                          reference on every reconcile.
-                                        enum:
-                                        - Always
-                                        - IfNotPresent
-                                        type: string
-                                    type: object
-                                required:
-                                - name
-                                type: object
-                              idSelector:
-                                description: Selector for a Profile in cluster to
-                                  populate id.
-                                properties:
-                                  matchControllerRef:
-                                    description: |-
-                                      MatchControllerRef ensures an object with the same controller reference
-                                      as the selecting object is selected.
-                                    type: boolean
-                                  matchLabels:
-                                    additionalProperties:
-                                      type: string
-                                    description: MatchLabels ensures an object with
-                                      matching labels is selected.
-                                    type: object
-                                  policy:
-                                    description: Policies for selection.
-                                    properties:
-                                      resolution:
-                                        default: Required
-                                        description: |-
-                                          Resolution specifies whether resolution of this reference is required.
-                                          The default is 'Required', which means the reconcile will fail if the
-                                          reference cannot be resolved. 'Optional' means this reference will be
-                                          a no-op if it cannot be resolved.
-                                        enum:
-                                        - Required
-                                        - Optional
-                                        type: string
-                                      resolve:
-                                        description: |-
-                                          Resolve specifies when this reference should be resolved. The default
-                                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                                          the corresponding field is not present. Use 'Always' to resolve the
-                                          reference on every reconcile.
-                                        enum:
-                                        - Always
-                                        - IfNotPresent
-                                        type: string
-                                    type: object
-                                type: object
-                              variables:
-                                additionalProperties:
-                                  type: string
-                                description: |-
-                                  value pairs. For example: priority = "5".
-                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-                                type: object
-                                x-kubernetes-map-type: granular
-                            type: object
-                          type: array
-                        id:
-                          description: |-
-                            (String) The ID of this resource.
-                            The ID of the cluster template.
-                          type: string
-                        idRef:
-                          description: Reference to a ConfigTemplate in cluster to
-                            populate id.
-                          properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
-                            policy:
-                              description: Policies for referencing.
-                              properties:
-                                resolution:
-                                  default: Required
-                                  description: |-
-                                    Resolution specifies whether resolution of this reference is required.
-                                    The default is 'Required', which means the reconcile will fail if the
-                                    reference cannot be resolved. 'Optional' means this reference will be
-                                    a no-op if it cannot be resolved.
-                                  enum:
-                                  - Required
-                                  - Optional
-                                  type: string
-                                resolve:
-                                  description: |-
-                                    Resolve specifies when this reference should be resolved. The default
-                                    is 'IfNotPresent', which will attempt to resolve the reference only when
-                                    the corresponding field is not present. Use 'Always' to resolve the
-                                    reference on every reconcile.
-                                  enum:
-                                  - Always
-                                  - IfNotPresent
-                                  type: string
-                              type: object
-                          required:
-                          - name
-                          type: object
-                        idSelector:
-                          description: Selector for a ConfigTemplate in cluster to
-                            populate id.
-                          properties:
-                            matchControllerRef:
-                              description: |-
-                                MatchControllerRef ensures an object with the same controller reference
-                                as the selecting object is selected.
-                              type: boolean
-                            matchLabels:
-                              additionalProperties:
-                                type: string
-                              description: MatchLabels ensures an object with matching
-                                labels is selected.
-                              type: object
-                            policy:
-                              description: Policies for selection.
-                              properties:
-                                resolution:
-                                  default: Required
-                                  description: |-
-                                    Resolution specifies whether resolution of this reference is required.
-                                    The default is 'Required', which means the reconcile will fail if the
-                                    reference cannot be resolved. 'Optional' means this reference will be
-                                    a no-op if it cannot be resolved.
-                                  enum:
-                                  - Required
-                                  - Optional
-                                  type: string
-                                resolve:
-                                  description: |-
-                                    Resolve specifies when this reference should be resolved. The default
-                                    is 'IfNotPresent', which will attempt to resolve the reference only when
-                                    the corresponding field is not present. Use 'Always' to resolve the
-                                    reference on every reconcile.
-                                  enum:
-                                  - Always
-                                  - IfNotPresent
-                                  type: string
-                              type: object
-                          type: object
-                      type: object
-                    type: array
                   clusterTimezone:
                     description: |-
                       (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                       Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
-                  clusterType:
+                  containerMountPath:
                     description: |-
-                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-                      The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
+                      (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
                     type: string
                   context:
                     description: |-
-                      (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                      (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
                     description: |-
@@ -1619,97 +1016,73 @@ spec:
                       (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
-                  locationConfig:
-                    description: (Block List) (see below for nested schema)
+                  hostConfig:
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
                     items:
                       properties:
-                        countryCode:
+                        externalTrafficPolicy:
                           description: |-
-                            (String) The country code of the country the cluster is located in.
-                            The country code of the country the cluster is located in.
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
                           type: string
-                        countryName:
+                        hostEndpointType:
                           description: |-
-                            (String) The name of the country.
-                            The name of the country.
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
                           type: string
-                        latitude:
+                        ingressHost:
                           description: |-
-                            (Number) The latitude coordinates value.
-                            The latitude coordinates value.
-                          type: number
-                        longitude:
-                          description: |-
-                            (Number) The longitude coordinates value.
-                            The longitude coordinates value.
-                          type: number
-                        regionCode:
-                          description: |-
-                            (String) The region code of where the cluster is located in.
-                            The region code of where the cluster is located in.
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
                           type: string
-                        regionName:
+                        loadBalancerSourceRanges:
                           description: |-
-                            (String) The name of the region.
-                            The name of the region.
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                           type: string
                       type: object
                     type: array
+                  hostPath:
+                    description: |-
+                      (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                      Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                    type: string
+                  importMode:
+                    description: |-
+                      only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+                      The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+                    type: string
                   machinePool:
                     description: |-
-                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
-                      The machine pool configuration for the cluster.
+                      2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+                      Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
                     items:
                       properties:
-                        controlPlane:
+                        name:
                           description: |-
-                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
-                            Whether this machine pool is a control plane. Defaults to `false`.
-                          type: boolean
-                        controlPlaneAsWorker:
-                          description: |-
-                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
-                          type: boolean
-                        nodePoolConfig:
-                          description: |-
-                            (String) The values of the node pool config. The values are specified in YAML format.
-                            The values of the node pool config. The values are specified in YAML format.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                            The name of the machine pool.
                           type: string
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        taints:
+                        node:
                           description: (Block List) (see below for nested schema)
                           items:
                             properties:
-                              effect:
+                              action:
                                 description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
-                              key:
+                              nodeId:
                                 description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
-                              value:
+                              nodeName:
                                 description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                  (String) The name of the machine pool.
+                                  The name of the machine pool.
                                 type: string
                             type: object
                           type: array
@@ -1717,8 +1090,8 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String) The name of the cluster.
-                      The name of the cluster.
+                      (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                      The name of the cluster to be registered. This field cannot be updated after creation.
                     type: string
                   namespaces:
                     description: |-
@@ -1728,7 +1101,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String) The name of the cluster.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1741,25 +1114,25 @@ spec:
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
-                  osPatchAfter:
+                  noProxy:
                     description: |-
-                      01-02T15:04:05Z07:00
-                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
-                    type: string
-                  osPatchOnBoot:
-                    description: |-
-                      (Boolean) Whether to apply OS patch on boot. Default is false.
-                      Whether to apply OS patch on boot. Default is `false`.
-                    type: boolean
-                  osPatchSchedule:
-                    description: |-
-                      (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-                      The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  proxy:
+                    description: |-
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                    type: string
+                  reviewRepaveState:
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
                     description: |-
@@ -1791,8 +1164,8 @@ spec:
                     type: boolean
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
@@ -1806,10 +1179,6 @@ spec:
                   through a Crossplane feature flag.
                   ManagementPolicies specify the array of actions Crossplane is allowed to
                   take on the managed and external resources.
-                  This field is planned to replace the DeletionPolicy field in a future
-                  release. Currently, both could be set independently and non-default
-                  values would be honored if the feature flag is enabled. If both are
-                  custom, the DeletionPolicy field will be ignored.
                   See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
                   and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
                 items:
@@ -1827,41 +1196,21 @@ spec:
                 type: array
               providerConfigRef:
                 default:
+                  kind: ClusterProviderConfig
                   name: default
                 description: |-
                   ProviderConfigReference specifies how the provider that will be used to
                   create, observe, update, and delete this managed resource should be
                   configured.
                 properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
                   name:
                     description: Name of the referenced object.
                     type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: |-
-                          Resolution specifies whether resolution of this reference is required.
-                          The default is 'Required', which means the reconcile will fail if the
-                          reference cannot be resolved. 'Optional' means this reference will be
-                          a no-op if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: |-
-                          Resolve specifies when this reference should be resolved. The default
-                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                          the corresponding field is not present. Use 'Always' to resolve the
-                          reference on every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
                 required:
+                - kind
                 - name
                 type: object
               writeConnectionSecretToRef:
@@ -1874,43 +1223,26 @@ spec:
                   name:
                     description: Name of the secret.
                     type: string
-                  namespace:
-                    description: Namespace of the secret.
-                    type: string
                 required:
                 - name
-                - namespace
                 type: object
             required:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.cloud is a required parameter
+            - message: spec.forProvider.cloudType is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloud)
-                || (has(self.initProvider) && has(self.initProvider.cloud))'
-            - message: spec.forProvider.cloudConfig is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudConfig)
-                || (has(self.initProvider) && has(self.initProvider.cloudConfig))'
-            - message: spec.forProvider.machinePool is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.machinePool)
-                || (has(self.initProvider) && has(self.initProvider.machinePool))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudType)
+                || (has(self.initProvider) && has(self.initProvider.cloudType))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
           status:
-            description: CustomCloudStatus defines the observed state of CustomCloud.
+            description: BrownfieldStatus defines the observed state of Brownfield.
             properties:
               atProvider:
                 properties:
-                  adminKubeConfig:
-                    description: |-
-                      config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-                      Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-                    type: string
                   applySetting:
                     description: |-
                       (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -1980,47 +1312,15 @@ spec:
                           type: string
                       type: object
                     type: array
-                  cloud:
-                    description: |-
-                      (String) The cloud provider name.
-                      The cloud provider name.
-                    type: string
-                  cloudAccountId:
-                    description: |-
-                      (String) The cloud account id to use for this cluster.
-                      The cloud account id to use for this cluster.
-                    type: string
-                  cloudConfig:
-                    description: |-
-                      (Block List, Min: 1, Max: 1) The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)
-                      The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
-                    items:
-                      properties:
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'cluster_name' replaces ${cluster_name})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'Cluster.metadata.labels', 'AWSCluster.spec.region')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.region')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        values:
-                          description: |-
-                            (String) The values of the cloud config. The values are specified in YAML format.
-                            The values of the cloud config. The values are specified in YAML format.
-                          type: string
-                      type: object
-                    type: array
                   cloudConfigId:
-                    description: (String, Deprecated)
+                    description: |-
+                      (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
+                      ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
+                    type: string
+                  cloudType:
+                    description: |-
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
                     description: (Block List) (see below for nested schema)
@@ -2048,7 +1348,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the cluster.
+                                        (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -2065,7 +1365,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -2095,7 +1395,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String) The values of the cloud config. The values are specified in YAML format.
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -2135,7 +1435,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String) The name of the cluster.
+                                  (String) The name of the cluster to be registered. This field cannot be updated after creation.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -2157,59 +1457,20 @@ spec:
                           type: string
                       type: object
                     type: array
-                  clusterTemplate:
-                    description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
-                    items:
-                      properties:
-                        clusterProfile:
-                          description: |-
-                            (Block List) (see below for nested schema)
-                            The cluster profile of the cluster template.
-                          items:
-                            properties:
-                              id:
-                                description: |-
-                                  (String) The ID of this resource.
-                                  The UID of the cluster profile.
-                                type: string
-                              variables:
-                                additionalProperties:
-                                  type: string
-                                description: |-
-                                  value pairs. For example: priority = "5".
-                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
-                                type: object
-                                x-kubernetes-map-type: granular
-                            type: object
-                          type: array
-                        id:
-                          description: |-
-                            (String) The ID of this resource.
-                            The ID of the cluster template.
-                          type: string
-                        name:
-                          description: |-
-                            (String) The name of the cluster.
-                            The name of the cluster template.
-                          type: string
-                      type: object
-                    type: array
                   clusterTimezone:
                     description: |-
                       (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                       Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
-                  clusterType:
+                  containerMountPath:
                     description: |-
-                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
-                      The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
+                      (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
                     type: string
                   context:
                     description: |-
-                      (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      The context of the EKS cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                      (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
                     description: |-
@@ -2226,124 +1487,126 @@ spec:
                       (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
+                  healthStatus:
+                    description: |-
+                      (String) The current health status of the cluster. Possible values include: Healthy, UnHealthy, Unknown.
+                      The current health status of the cluster. Possible values include: `Healthy`, `UnHealthy`, `Unknown`.
+                    type: string
+                  hostConfig:
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
+                    items:
+                      properties:
+                        externalTrafficPolicy:
+                          description: |-
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
+                          type: string
+                        hostEndpointType:
+                          description: |-
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          type: string
+                        ingressHost:
+                          description: |-
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                          type: string
+                        loadBalancerSourceRanges:
+                          description: |-
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          type: string
+                      type: object
+                    type: array
+                  hostPath:
+                    description: |-
+                      (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                      Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
-                  kubeconfig:
+                  importMode:
                     description: |-
-                      (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-                      Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
+                      only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
+                      The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
+                    type: string
+                  kubectlCommand:
+                    description: |-
+                      (String) The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
+                      The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
                     type: string
                   locationConfig:
-                    description: (Block List) (see below for nested schema)
+                    description: |-
+                      (List of Object) The location of the cluster. (see below for nested schema)
+                      The location of the cluster.
                     items:
                       properties:
                         countryCode:
-                          description: |-
-                            (String) The country code of the country the cluster is located in.
-                            The country code of the country the cluster is located in.
+                          description: (String)
                           type: string
                         countryName:
-                          description: |-
-                            (String) The name of the country.
-                            The name of the country.
+                          description: (String)
                           type: string
                         latitude:
-                          description: |-
-                            (Number) The latitude coordinates value.
-                            The latitude coordinates value.
+                          description: (Number)
                           type: number
                         longitude:
-                          description: |-
-                            (Number) The longitude coordinates value.
-                            The longitude coordinates value.
+                          description: (Number)
                           type: number
                         regionCode:
-                          description: |-
-                            (String) The region code of where the cluster is located in.
-                            The region code of where the cluster is located in.
+                          description: (String)
                           type: string
                         regionName:
-                          description: |-
-                            (String) The name of the region.
-                            The name of the region.
+                          description: (String)
                           type: string
                       type: object
                     type: array
                   machinePool:
                     description: |-
-                      (Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)
-                      The machine pool configuration for the cluster.
+                      2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
+                      Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
                     items:
                       properties:
-                        controlPlane:
-                          description: |-
-                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
-                            Whether this machine pool is a control plane. Defaults to `false`.
-                          type: boolean
-                        controlPlaneAsWorker:
-                          description: |-
-                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
-                          type: boolean
-                        count:
-                          description: |-
-                            (Number) Number of nodes in the machine pool. This will be derived from the replica value in the 'node_pool_config'.
-                            Number of nodes in the machine pool. This will be derived from the replica value in the 'node_pool_config'.
-                          type: number
                         name:
                           description: |-
-                            (String) The name of the cluster.
-                            The name of the machine pool. This will be derived from the name value in the `node_pool_config`.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                            The name of the machine pool.
                           type: string
-                        nodePoolConfig:
-                          description: |-
-                            (String) The values of the node pool config. The values are specified in YAML format.
-                            The values of the node pool config. The values are specified in YAML format.
-                          type: string
-                        overrides:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to override specific values in the YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-                            Key-value pairs to override specific values in the node pool config YAML. Supports template variables, wildcard patterns, field pattern search, document-specific and global overrides.
-
-                            Template variables: Simple identifiers that replace ${var}, {{var}}, or $var patterns in YAML (e.g., 'node_count' replaces ${node_count})
-                            Wildcard patterns: Patterns starting with '*' that match field names containing the specified substring (e.g., '*cluster-api-autoscaler-node-group-max-size' matches any field containing 'cluster-api-autoscaler-node-group-max-size')
-                            Field pattern search: Patterns that find and update ALL matching nested fields anywhere in YAML (e.g., 'replicas' updates any 'replicas' field, 'rootVolume.size' updates any 'rootVolume.size' pattern)
-                            Document-specific syntax: 'Kind.path' (e.g., 'AWSMachineTemplate.spec.template.spec.instanceType')
-                            Global path syntax: 'path' (e.g., 'metadata.name', 'spec.instanceType')
-
-                            Processing order: 1) Template substitution, 2) Wildcard patterns, 3) Field pattern search, 4) Path-based overrides. Supports dot notation for nested paths and array indexing with [index]. Values are strings but support JSON syntax for arrays/objects.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        taints:
+                        node:
                           description: (Block List) (see below for nested schema)
                           items:
                             properties:
-                              effect:
+                              action:
                                 description: |-
-                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
-                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
-                              key:
+                              nodeId:
                                 description: |-
-                                  (String) The key of the taint.
-                                  The key of the taint.
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
-                              value:
+                              nodeName:
                                 description: |-
-                                  (String) The value of the taint.
-                                  The value of the taint.
+                                  (String) The name of the machine pool.
+                                  The name of the machine pool.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
+                  manifestUrl:
+                    description: |-
+                      (String) The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
+                      The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
+                    type: string
                   name:
                     description: |-
-                      (String) The name of the cluster.
-                      The name of the cluster.
+                      (String) The name of the cluster to be registered. This field cannot be updated after creation.
+                      The name of the cluster to be registered. This field cannot be updated after creation.
                     type: string
                   namespaces:
                     description: |-
@@ -2353,7 +1616,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String) The name of the cluster.
+                            (String) The name of the cluster to be registered. This field cannot be updated after creation.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2366,25 +1629,25 @@ spec:
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
-                  osPatchAfter:
+                  noProxy:
                     description: |-
-                      01-02T15:04:05Z07:00
-                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
-                    type: string
-                  osPatchOnBoot:
-                    description: |-
-                      (Boolean) Whether to apply OS patch on boot. Default is false.
-                      Whether to apply OS patch on boot. Default is `false`.
-                    type: boolean
-                  osPatchSchedule:
-                    description: |-
-                      (String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.
-                      The cron schedule for OS patching. This must be in the form of cron syntax. Ex: `0 0 * * *`.
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  proxy:
+                    description: |-
+                      (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                    type: string
+                  reviewRepaveState:
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
                     description: |-
@@ -2414,10 +1677,15 @@ spec:
                       (Boolean) If true, the cluster will be created asynchronously. Default value is false.
                       If `true`, the cluster will be created asynchronously. Default value is `false`.
                     type: boolean
+                  status:
+                    description: |-
+                      (String) The current operational state of the cluster. Possible values include: Pending, Provisioning, Running, Deleting, Deleted, Error, Importing.
+                      The current operational state of the cluster. Possible values include: `Pending`, `Provisioning`, `Running`, `Deleting`, `Deleted`, `Error`, `Importing`.
+                    type: string
                   tags:
                     description: |-
-                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
                     items:
                       type: string
                     type: array
