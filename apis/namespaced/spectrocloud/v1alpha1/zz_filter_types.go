@@ -20,7 +20,7 @@ type FilterGroupInitParameters struct {
 	// Conjunction operation of the filter group. Valid values are 'and' and 'or'.
 	Conjunction *string `json:"conjunction,omitempty" tf:"conjunction,omitempty"`
 
-	// (Block List, Min: 1) List of filters in the filter group. (see below for nested schema)
+	// (Block Set, Min: 1) List of filters in the filter group. (see below for nested schema)
 	// List of filters in the filter group.
 	Filters []FiltersInitParameters `json:"filters,omitempty" tf:"filters,omitempty"`
 }
@@ -31,7 +31,7 @@ type FilterGroupObservation struct {
 	// Conjunction operation of the filter group. Valid values are 'and' and 'or'.
 	Conjunction *string `json:"conjunction,omitempty" tf:"conjunction,omitempty"`
 
-	// (Block List, Min: 1) List of filters in the filter group. (see below for nested schema)
+	// (Block Set, Min: 1) List of filters in the filter group. (see below for nested schema)
 	// List of filters in the filter group.
 	Filters []FiltersObservation `json:"filters,omitempty" tf:"filters,omitempty"`
 }
@@ -43,7 +43,7 @@ type FilterGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Conjunction *string `json:"conjunction" tf:"conjunction,omitempty"`
 
-	// (Block List, Min: 1) List of filters in the filter group. (see below for nested schema)
+	// (Block Set, Min: 1) List of filters in the filter group. (see below for nested schema)
 	// List of filters in the filter group.
 	// +kubebuilder:validation:Optional
 	Filters []FiltersParameters `json:"filters" tf:"filters,omitempty"`

@@ -53,7 +53,7 @@ type BackupPolicyInitParameters struct {
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -98,7 +98,7 @@ type BackupPolicyObservation struct {
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -159,7 +159,7 @@ type BackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -239,7 +239,7 @@ type ClusterRbacBindingParameters struct {
 
 type ClusterResourceAllocationsInitParameters struct {
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -250,7 +250,7 @@ type ClusterResourceAllocationsInitParameters struct {
 
 type ClusterResourceAllocationsObservation struct {
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -261,7 +261,7 @@ type ClusterResourceAllocationsObservation struct {
 
 type ClusterResourceAllocationsParameters struct {
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the cluster. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1'}`. Note: gpu_provider is not supported here; use the default resource_allocation for GPU provider configuration.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -296,7 +296,7 @@ type ClustersParameters struct {
 
 type NamespacesInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	ClusterResourceAllocations []ClusterResourceAllocationsInitParameters `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
 
 	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
@@ -307,7 +307,7 @@ type NamespacesInitParameters struct {
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`, and `gpu_provider`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -315,7 +315,7 @@ type NamespacesInitParameters struct {
 
 type NamespacesObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	ClusterResourceAllocations []ClusterResourceAllocationsObservation `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
 
 	// (List of String) List of images to disallow for the namespace. For example, ['nginx:latest', 'redis:latest']
@@ -326,7 +326,7 @@ type NamespacesObservation struct {
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`, and `gpu_provider`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -334,7 +334,7 @@ type NamespacesObservation struct {
 
 type NamespacesParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterResourceAllocations []ClusterResourceAllocationsParameters `json:"clusterResourceAllocations,omitempty" tf:"cluster_resource_allocations,omitempty"`
 
@@ -348,7 +348,7 @@ type NamespacesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: `cpu_cores`, `memory_MiB`, `gpu`, and `gpu_provider`. Any other field names will not be honored by the system. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -422,7 +422,7 @@ type WorkspaceInitParameters_2 struct {
 	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []NamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
@@ -457,7 +457,7 @@ type WorkspaceObservation_2 struct {
 	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []NamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
@@ -494,7 +494,7 @@ type WorkspaceParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`

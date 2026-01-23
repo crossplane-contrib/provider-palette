@@ -772,7 +772,7 @@ type MaasInitParameters struct {
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
 
@@ -1448,7 +1448,7 @@ type MaasObservation struct {
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
 
@@ -1581,7 +1581,7 @@ type MaasParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	// The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
 	// +kubebuilder:validation:Optional
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`

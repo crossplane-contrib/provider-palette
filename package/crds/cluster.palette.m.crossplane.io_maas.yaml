@@ -737,7 +737,7 @@ spec:
                     type: string
                   clusterType:
                     description: |-
-                      (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                       The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                     type: string
                   context:
@@ -1798,7 +1798,7 @@ spec:
                     type: string
                   clusterType:
                     description: |-
-                      (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                       The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                     type: string
                   context:
@@ -2539,7 +2539,7 @@ spec:
                     type: string
                   clusterType:
                     description: |-
-                      (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                      (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                       The cluster type. Valid values are `PureManage` and `PureAttach`. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
                     type: string
                   context:

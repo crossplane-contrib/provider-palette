@@ -16,6 +16,7 @@ import (
 
 type BrownfieldBackupPolicyInitParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
@@ -28,73 +29,93 @@ type BrownfieldBackupPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type BrownfieldBackupPolicyObservation struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type BrownfieldBackupPolicyParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
@@ -108,40 +129,49 @@ type BrownfieldBackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.NamespacedSelector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// +kubebuilder:validation:Optional
 	ExpiryInHour *float64 `json:"expiryInHour" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	// +kubebuilder:validation:Optional
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
@@ -149,6 +179,7 @@ type BrownfieldBackupPolicyParameters struct {
 
 type BrownfieldClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -161,9 +192,11 @@ type BrownfieldClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []BrownfieldClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -171,127 +204,163 @@ type BrownfieldClusterProfileInitParameters struct {
 
 type BrownfieldClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []BrownfieldClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type BrownfieldClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []BrownfieldClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type BrownfieldClusterProfilePackManifestInitParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type BrownfieldClusterProfilePackManifestObservation struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type BrownfieldClusterProfilePackManifestParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type BrownfieldClusterProfilePackObservation struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []BrownfieldClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type BrownfieldClusterProfilePackParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Manifest []BrownfieldClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -299,6 +368,7 @@ type BrownfieldClusterProfilePackParameters struct {
 
 type BrownfieldClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -312,10 +382,12 @@ type BrownfieldClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []BrownfieldClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -324,48 +396,60 @@ type BrownfieldClusterProfileParameters struct {
 
 type BrownfieldClusterRbacBindingInitParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []BrownfieldClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type BrownfieldClusterRbacBindingObservation struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []BrownfieldClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type BrownfieldClusterRbacBindingParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Subjects []BrownfieldClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -373,38 +457,47 @@ type BrownfieldClusterRbacBindingParameters struct {
 
 type BrownfieldClusterRbacBindingSubjectsInitParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type BrownfieldClusterRbacBindingSubjectsObservation struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type BrownfieldClusterRbacBindingSubjectsParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -412,48 +505,60 @@ type BrownfieldClusterRbacBindingSubjectsParameters struct {
 
 type BrownfieldHostConfigInitParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type BrownfieldHostConfigObservation struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type BrownfieldHostConfigParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// +kubebuilder:validation:Optional
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// +kubebuilder:validation:Optional
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
@@ -461,74 +566,98 @@ type BrownfieldHostConfigParameters struct {
 
 type BrownfieldInitParameters struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BrownfieldBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	ClusterProfile []BrownfieldClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []BrownfieldClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []BrownfieldHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
 	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
 	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
 
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
 	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
 	MachinePool []BrownfieldMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the cluster to be registered. This field cannot be updated after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []BrownfieldNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []BrownfieldScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -538,16 +667,23 @@ type BrownfieldLocationConfigInitParameters struct {
 }
 
 type BrownfieldLocationConfigObservation struct {
+
+	// (String)
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String)
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number)
 	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number)
 	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String)
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String)
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
@@ -556,46 +692,57 @@ type BrownfieldLocationConfigParameters struct {
 
 type BrownfieldMachinePoolInitParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []BrownfieldMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 }
 
 type BrownfieldMachinePoolNodeInitParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 
+	// (String) The name of the machine pool.
 	// The name of the machine pool.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
 type BrownfieldMachinePoolNodeObservation struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 
+	// (String) The name of the machine pool.
 	// The name of the machine pool.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
 type BrownfieldMachinePoolNodeParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	// +kubebuilder:validation:Optional
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 
+	// (String) The name of the machine pool.
 	// The name of the machine pool.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
@@ -603,27 +750,33 @@ type BrownfieldMachinePoolNodeParameters struct {
 
 type BrownfieldMachinePoolObservation struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []BrownfieldMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 }
 
 type BrownfieldMachinePoolParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []BrownfieldMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 }
 
 type BrownfieldNamespacesInitParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -631,9 +784,11 @@ type BrownfieldNamespacesInitParameters struct {
 
 type BrownfieldNamespacesObservation struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -641,10 +796,12 @@ type BrownfieldNamespacesObservation struct {
 
 type BrownfieldNamespacesParameters struct {
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -653,94 +810,125 @@ type BrownfieldNamespacesParameters struct {
 
 type BrownfieldObservation struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BrownfieldBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
 	// ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	ClusterProfile []BrownfieldClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []BrownfieldClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (String) The current health status of the cluster. Possible values include: Healthy, UnHealthy, Unknown.
 	// The current health status of the cluster. Possible values include: `Healthy`, `UnHealthy`, `Unknown`.
 	HealthStatus *string `json:"healthStatus,omitempty" tf:"health_status,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []BrownfieldHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
 	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
 	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
 
+	// (String) The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
 	// The kubectl command that must be executed on your Kubernetes cluster to complete the import process into Palette.
 	KubectlCommand *string `json:"kubectlCommand,omitempty" tf:"kubectl_command,omitempty"`
 
+	// (List of Object) The location of the cluster. (see below for nested schema)
 	// The location of the cluster.
 	LocationConfig []BrownfieldLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
 	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
 	MachinePool []BrownfieldMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
 	// The URL of the import manifest that must be applied to your Kubernetes cluster to complete the import into Palette.
 	ManifestURL *string `json:"manifestUrl,omitempty" tf:"manifest_url,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the cluster to be registered. This field cannot be updated after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []BrownfieldNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []BrownfieldScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (String) The current operational state of the cluster. Possible values include: Pending, Provisioning, Running, Deleting, Deleted, Error, Importing.
 	// The current operational state of the cluster. Possible values include: `Pending`, `Provisioning`, `Running`, `Deleting`, `Deleted`, `Error`, `Importing`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -748,97 +936,121 @@ type BrownfieldObservation struct {
 
 type BrownfieldParameters struct {
 
+	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	// +kubebuilder:validation:Optional
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
 	BackupPolicy []BrownfieldBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []BrownfieldClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []BrownfieldClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This is the file path inside the container where the Proxy CA certificate will be mounted. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	ContainerMountPath *string `json:"containerMountPath,omitempty" tf:"container_mount_path,omitempty"`
 
+	// (String) The context for the cluster registration. Allowed values are project or tenant. Defaults to project. This field cannot be updated after creation.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context for the cluster registration. Allowed values are `project` or `tenant`. Defaults to `project`. This field cannot be updated after creation.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// +kubebuilder:validation:Optional
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// +kubebuilder:validation:Optional
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []BrownfieldHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (String) Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	// Location for Proxy CA cert on host nodes. This is the file path on the host where the Proxy CA certificate is stored. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	HostPath *string `json:"hostPath,omitempty" tf:"host_path,omitempty"`
 
+	// only permissions) or full (imports cluster with full permissions). Defaults to full. This field cannot be updated after creation.
 	// The import mode for the cluster. Allowed values are `read_only` (imports cluster with read-only permissions) or `full` (imports cluster with full permissions). Defaults to `full`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	ImportMode *string `json:"importMode,omitempty" tf:"import_mode,omitempty"`
 
+	// 2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes. (see below for nested schema)
 	// Machine pool configuration for Day-2 node maintenance operations. Used to perform node actions like cordon/uncordon on specific nodes.
 	// +kubebuilder:validation:Optional
 	MachinePool []BrownfieldMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) The name of the cluster to be registered. This field cannot be updated after creation.
 	// The name of the cluster to be registered. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []BrownfieldNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	// +kubebuilder:validation:Optional
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ScanPolicy []BrownfieldScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value. The tags attribute will soon be deprecated. It is recommended to use tags_map instead.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`. The `tags` attribute will soon be deprecated. It is recommended to use `tags_map` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -847,38 +1059,47 @@ type BrownfieldParameters struct {
 
 type BrownfieldScanPolicyInitParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type BrownfieldScanPolicyObservation struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type BrownfieldScanPolicyParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	// +kubebuilder:validation:Optional
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	// +kubebuilder:validation:Optional
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
@@ -911,7 +1132,7 @@ type BrownfieldStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Brownfield is the Schema for the Brownfields API. <no value>
+// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native, MAAS, and OpenStack). This feature is currently in preview.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

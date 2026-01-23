@@ -1,0 +1,60 @@
+apiVersion: cluster.palette.crossplane.io/v1alpha1
+kind: Brownfield
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/brownfield
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    backupPolicy:
+    - backupLocationIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_backup_storage_location
+      expiryInHour: 7200
+      includeClusterResources: true
+      includeDisks: true
+      prefix: cluster-backup
+      schedule: 0 0 * * SUN
+    cloudType: generic
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: spectrocloud_cluster_profile
+    clusterRbacBinding:
+    - role:
+        kind: ClusterRole
+        name: cluster-admin
+      subjects:
+      - name: admin-user@example.com
+        type: User
+      - name: platform-admins
+        type: Group
+      - name: cluster-admin-sa
+        namespace: kube-system
+        type: ServiceAccount
+      type: ClusterRoleBinding
+    clusterTimezone: America/New_York
+    context: project
+    description: My existing Kubernetes cluster
+    importMode: full
+    machinePool:
+    - name: worker-pool
+      node:
+      - action: uncordon
+        nodeName: worker-node-1
+    name: ${var.cluster_name}
+    namespaces:
+    - name: production
+      resourceAllocation:
+        cpu_cores: "4"
+        memory_MiB: "8192"
+    scanPolicy:
+    - configurationScanSchedule: 0 0 * * SUN
+      conformanceScanSchedule: 0 0 1 * *
+      penetrationScanSchedule: 0 0 * * SUN
+    tags:
+    - environment:production
+    - team:platform
+    - managed-by:terraform
