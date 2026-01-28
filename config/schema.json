@@ -60,7 +60,7 @@
               },
               "cluster_uid": {
                 "type": "string",
-                "description": "The UID of the cluster to attach the addon profile(s) to.",
+                "description": "The UID of the cluster to attach the addon profile to.",
                 "description_kind": "plain",
                 "required": true
               },
