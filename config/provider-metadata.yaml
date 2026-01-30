@@ -7,7 +7,7 @@ resources:
         argumentDocs:
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             cluster_profile: (Block List) (see below for nested schema)
-            cluster_uid: (String) The UID of the cluster to attach the addon profile(s) to.
+            cluster_uid: (String) The UID of the cluster to attach the addon profile to.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) Specifies cluster context where addon profile is attached. Allowed values are project or tenant. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
@@ -3358,7 +3358,7 @@ resources:
             description: (String) The description of the cluster. Default value is empty string.
             domain: (String) Domain name in which the cluster to be provisioned.
             effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
-            enable_lxd_vm: (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
+            enable_lxd_vm: (Boolean) Whether to enable LXD VM. Default is false.
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             external_traffic_policy: (String) The external traffic policy for the cluster.
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
@@ -4941,6 +4941,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+            pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             pause_cluster: (Boolean) To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
             penetration_scan_schedule: (String) The schedule for penetration scan.
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.

@@ -60,7 +60,7 @@
               },
               "cluster_uid": {
                 "type": "string",
-                "description": "The UID of the cluster to attach the addon profile(s) to.",
+                "description": "The UID of the cluster to attach the addon profile to.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -10762,7 +10762,7 @@
                     },
                     "enable_lxd_vm": {
                       "type": "bool",
-                      "description": "Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.",
+                      "description": "Whether to enable LXD VM. Default is `false`.",
                       "description_kind": "plain",
                       "optional": true
                     },
