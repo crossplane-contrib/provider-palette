@@ -60,7 +60,7 @@
               },
               "cluster_uid": {
                 "type": "string",
-                "description": "The UID of the cluster to attach the addon profile(s) to.",
+                "description": "The UID of the cluster to attach the addon profile to.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -10762,7 +10762,7 @@
                     },
                     "enable_lxd_vm": {
                       "type": "bool",
-                      "description": "Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.",
+                      "description": "Whether to enable LXD VM. Default is `false`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -15907,6 +15907,12 @@
               "os_patch_schedule": {
                 "type": "string",
                 "description": "Cron schedule for OS patching. This must be in the form of `0 0 * * *`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "pause_agent_upgrades": {
+                "type": "string",
+                "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
                 "description_kind": "plain",
                 "optional": true
               },

@@ -182,8 +182,8 @@ type MaasCloudConfigInitParameters struct {
 	// Domain name in which the cluster to be provisioned.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	// (Boolean) Whether to enable LXD VM. Default is false.
+	// Whether to enable LXD VM. Default is `false`.
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 
 	// (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
@@ -198,8 +198,8 @@ type MaasCloudConfigObservation struct {
 	// Domain name in which the cluster to be provisioned.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	// (Boolean) Whether to enable LXD VM. Default is false.
+	// Whether to enable LXD VM. Default is `false`.
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 
 	// (Set of String) A list of NTP servers to use instead of the machine image's default NTP server list.
@@ -215,8 +215,8 @@ type MaasCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain" tf:"domain,omitempty"`
 
-	// (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-	// Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
+	// (Boolean) Whether to enable LXD VM. Default is false.
+	// Whether to enable LXD VM. Default is `false`.
 	// +kubebuilder:validation:Optional
 	EnableLxdVM *bool `json:"enableLxdVm,omitempty" tf:"enable_lxd_vm,omitempty"`
 
