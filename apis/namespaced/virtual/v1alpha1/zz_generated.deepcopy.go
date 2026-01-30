@@ -1438,6 +1438,11 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PauseAgentUpgrades != nil {
+		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
 	if in.PauseCluster != nil {
 		in, out := &in.PauseCluster, &out.PauseCluster
 		*out = new(bool)
@@ -1637,6 +1642,11 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PauseAgentUpgrades != nil {
+		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
 	if in.PauseCluster != nil {
 		in, out := &in.PauseCluster, &out.PauseCluster
 		*out = new(bool)
@@ -1784,6 +1794,11 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.OsPatchSchedule != nil {
 		in, out := &in.OsPatchSchedule, &out.OsPatchSchedule
+		*out = new(string)
+		**out = **in
+	}
+	if in.PauseAgentUpgrades != nil {
+		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
 		*out = new(string)
 		**out = **in
 	}

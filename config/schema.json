@@ -15910,6 +15910,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "pause_agent_upgrades": {
+                "type": "string",
+                "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "pause_cluster": {
                 "type": "bool",
                 "description": "To pause and resume cluster state. Set to true to pause running cluster & false to resume it.",
