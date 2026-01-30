@@ -310,7 +310,7 @@ spec:
                         enableLxdVm:
                           description: |-
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-                            Whether to enable LXD VM. Default is `false`.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
                         ntpServers:
                           description: |-
@@ -1341,7 +1341,7 @@ spec:
                         enableLxdVm:
                           description: |-
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-                            Whether to enable LXD VM. Default is `false`.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
                         ntpServers:
                           description: |-
@@ -2318,7 +2318,7 @@ spec:
                         enableLxdVm:
                           description: |-
                             (Boolean) Whether to enable LXD VM. Default is false. Available once Palette with LXD support is released.
-                            Whether to enable LXD VM. Default is `false`.
+                            Whether to enable LXD VM. Default is `false`. Available once **Palette with LXD support** is released.
                           type: boolean
                         ntpServers:
                           description: |-
