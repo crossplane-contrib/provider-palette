@@ -1833,10 +1833,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  adminKubeConfig:
-                    description: Admin Kube-config for the cluster. This can be used
-                      to connect to the cluster using `kubectl`, With admin privilege.
-                    type: string
                   backupPolicy:
                     description: The backup policy for the cluster. If not specified,
                       no backups will be taken.
@@ -2147,10 +2143,6 @@ spec:
                       type: object
                     type: array
                   id:
-                    type: string
-                  kubeconfig:
-                    description: Kubeconfig for the cluster. This can be used to connect
-                      to the cluster using `kubectl`.
                     type: string
                   locationConfig:
                     items:
