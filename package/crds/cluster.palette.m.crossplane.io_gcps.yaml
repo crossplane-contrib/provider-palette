@@ -1990,11 +1990,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  adminKubeConfig:
-                    description: |-
-                      config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-                      Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-                    type: string
                   applySetting:
                     description: |-
                       (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -2322,11 +2317,6 @@ spec:
                     type: array
                   id:
                     description: (String) The ID of this resource.
-                    type: string
-                  kubeconfig:
-                    description: |-
-                      (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-                      Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
                     type: string
                   locationConfig:
                     description: |-

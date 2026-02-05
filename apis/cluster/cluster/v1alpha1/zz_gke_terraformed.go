@@ -21,7 +21,7 @@ func (mg *Gke) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Gke
 func (tr *Gke) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this Gke
