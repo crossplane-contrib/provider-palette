@@ -1051,9 +1051,6 @@ type EdgeVsphereNamespacesParameters struct {
 
 type EdgeVsphereObservation struct {
 
-	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
-
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []EdgeVsphereBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
@@ -1094,9 +1091,6 @@ type EdgeVsphereObservation struct {
 	HostConfig []EdgeVsphereHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
-	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
 
 	LocationConfig []EdgeVsphereLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 

@@ -21,7 +21,7 @@ func (mg *Maas) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Maas
 func (tr *Maas) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this Maas

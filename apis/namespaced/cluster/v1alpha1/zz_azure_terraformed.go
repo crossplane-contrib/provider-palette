@@ -21,7 +21,7 @@ func (mg *Azure) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Azure
 func (tr *Azure) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this Azure

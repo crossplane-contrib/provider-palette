@@ -5,6 +5,28 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+func spectroClustersCommonConfigFields(r *config.Resource) {
+	r.UseAsync = true
+	r.References["cluster_profile.id"] = config.Reference{
+		TerraformName: "spectrocloud_cluster_profile",
+	}
+	r.References["backup_policy.backup_location_id"] = config.Reference{
+		TerraformName: "spectrocloud_backup_storage_location",
+	}
+	r.References["cluster_template.id"] = config.Reference{
+		TerraformName: "spectrocloud_cluster_config_template",
+	}
+	r.References["cluster_template.cluster_profile.id"] = config.Reference{
+		TerraformName: "spectrocloud_cluster_profile",
+	}
+	if s, ok := r.TerraformResource.Schema["kubeconfig"]; ok {
+		s.Sensitive = true
+	}
+	if s, ok := r.TerraformResource.Schema["admin_kube_config"]; ok {
+		s.Sensitive = true
+	}
+}
+
 // Configure configures individual resources by adding custom ResourceConfigurators.
 // This function is used by both providers and should only contain configurations
 // that are safe for all resources regardless of scope.
@@ -231,41 +253,16 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_edge_native", func(r *config.Resource) {
-
-		r.UseAsync = true
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	// VSphere resources
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_vsphere", func(r *config.Resource) {})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_vsphere", func(r *config.Resource) {
-		r.UseAsync = true
+		spectroClustersCommonConfigFields(r)
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_vsphere",
-		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
 		}
 	})
 
@@ -281,61 +278,25 @@ func configureClusterResources(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_edge_vsphere", func(r *config.Resource) {
-		r.UseAsync = true
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	// OpenStack resources
 	p.AddResourceConfigurator("spectrocloud_cluster_openstack", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_openstack",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_openstack", func(r *config.Resource) {})
 
 	// MAAS resources
 	p.AddResourceConfigurator("spectrocloud_cluster_maas", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_maas",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_maas", func(r *config.Resource) {})
@@ -344,80 +305,32 @@ func configureClusterResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_azure", func(r *config.Resource) {})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_azure", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_azure",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_aks", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_azure",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	// GCP resources
 	p.AddResourceConfigurator("spectrocloud_cluster_gcp", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_gcp",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_gke", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_gcp",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_gcp", func(r *config.Resource) {
@@ -430,22 +343,10 @@ func configureClusterResources(p *config.Provider) {
 
 	// Custom cloud resources
 	p.AddResourceConfigurator("spectrocloud_cluster_custom_cloud", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_custom",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_custom", func(r *config.Resource) {})
@@ -454,60 +355,24 @@ func configureClusterResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cloudaccount_aws", func(r *config.Resource) {})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_aws", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_aws",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_apache_cloudstack", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_apache_cloudstack",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 
 	p.AddResourceConfigurator("spectrocloud_cluster_eks", func(r *config.Resource) {
-		r.UseAsync = true
 		r.References["cloud_account_id"] = config.Reference{
 			TerraformName: "spectrocloud_cloudaccount_aws",
 		}
-		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
-		r.References["backup_policy.backup_location_id"] = config.Reference{
-			TerraformName: "spectrocloud_backup_storage_location",
-		}
-		r.References["cluster_template.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_config_template",
-		}
-		r.References["cluster_template.cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
-		}
+		spectroClustersCommonConfigFields(r)
 	})
 }
 

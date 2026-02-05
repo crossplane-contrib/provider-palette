@@ -21,7 +21,7 @@ func (mg *EdgeNative) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this EdgeNative
 func (tr *EdgeNative) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this EdgeNative

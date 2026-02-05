@@ -21,7 +21,7 @@ func (mg *Openstack) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Openstack
 func (tr *Openstack) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this Openstack

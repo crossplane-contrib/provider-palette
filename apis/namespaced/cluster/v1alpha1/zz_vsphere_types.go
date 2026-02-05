@@ -1516,10 +1516,6 @@ type VsphereNamespacesParameters struct {
 
 type VsphereObservation struct {
 
-	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
-
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
@@ -1580,10 +1576,6 @@ type VsphereObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
-	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	LocationConfig []VsphereLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
