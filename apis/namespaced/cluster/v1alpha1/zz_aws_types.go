@@ -926,6 +926,9 @@ type AwsMachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []AwsMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
@@ -1050,6 +1053,9 @@ type AwsMachinePoolObservation struct {
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []AwsMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1194,6 +1200,10 @@ type AwsMachinePoolParameters struct {
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []AwsMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// +kubebuilder:validation:Optional
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional

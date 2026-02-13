@@ -4745,6 +4745,11 @@ func (in *AwsMachinePoolInitParameters) DeepCopyInto(out *AwsMachinePoolInitPara
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]AwsMachinePoolTaintsInitParameters, len(*in))
@@ -4991,6 +4996,11 @@ func (in *AwsMachinePoolObservation) DeepCopyInto(out *AwsMachinePoolObservation
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]AwsMachinePoolTaintsObservation, len(*in))
@@ -5236,6 +5246,11 @@ func (in *AwsMachinePoolParameters) DeepCopyInto(out *AwsMachinePoolParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
