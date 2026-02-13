@@ -926,6 +926,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -1928,6 +1933,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2126,11 +2136,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  adminKubeConfig:
-                    description: |-
-                      config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-                      Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-                    type: string
                   applySetting:
                     description: |-
                       (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -2475,11 +2480,6 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
-                  kubeconfig:
-                    description: |-
-                      (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-                      Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
-                    type: string
                   locationConfig:
                     description: |-
                       (List of Object) The location of the cluster. (see below for nested schema)
@@ -2644,6 +2644,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:

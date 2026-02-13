@@ -926,6 +926,10 @@ type AwsMachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []AwsMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
@@ -1050,6 +1054,10 @@ type AwsMachinePoolObservation struct {
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []AwsMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1195,6 +1203,11 @@ type AwsMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideScaling []AwsMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// +kubebuilder:validation:Optional
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []AwsMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1293,10 +1306,6 @@ type AwsNamespacesParameters struct {
 
 type AwsObservation struct {
 
-	// config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-	// Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.
-	AdminKubeConfig *string `json:"adminKubeConfig,omitempty" tf:"admin_kube_config,omitempty"`
-
 	// (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
 	// The setting to apply the cluster profile. `DownloadAndInstall` will download and install packs in one action. `DownloadAndInstallLater` will only download artifact and postpone install for later. Default value is `DownloadAndInstall`.
 	ApplySetting *string `json:"applySetting,omitempty" tf:"apply_setting,omitempty"`
@@ -1360,10 +1369,6 @@ type AwsObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-	// Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.
-	Kubeconfig *string `json:"kubeconfig,omitempty" tf:"kubeconfig,omitempty"`
 
 	// (List of Object) The location of the cluster. (see below for nested schema)
 	// The location of the cluster.

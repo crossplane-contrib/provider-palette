@@ -3810,6 +3810,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
                       "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",

@@ -53,6 +53,7 @@ spec:
       count: 1
       instanceType: m5.large
       name: worker-basic
+      skipK8SUpgrade: disabled
     name: ${var.cluster_name}
     scanPolicy:
     - configurationScanSchedule: 0 0 * * SUN

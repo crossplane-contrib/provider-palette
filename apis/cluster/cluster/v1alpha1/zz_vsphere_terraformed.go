@@ -21,7 +21,7 @@ func (mg *Vsphere) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Vsphere
 func (tr *Vsphere) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_kube_config": "status.atProvider.adminKubeConfig", "kubeconfig": "status.atProvider.kubeconfig"}
 }
 
 // GetObservation of this Vsphere
