@@ -1602,7 +1602,8 @@ resources:
                       },
                       "count": 1,
                       "instance_type": "m5.large",
-                      "name": "worker-basic"
+                      "name": "worker-basic",
+                      "skip_k8s_upgrade": "disabled"
                     }
                   ],
                   "name": "${var.cluster_name}",
@@ -1713,6 +1714,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
             ssh_key_name: (String) Public SSH key to be used for the cluster nodes.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
