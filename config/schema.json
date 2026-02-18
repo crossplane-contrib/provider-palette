@@ -49,7 +49,7 @@
       },
       "resource_schemas": {
         "spectrocloud_addon_deployment": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "apply_setting": {
@@ -79,7 +79,7 @@
             },
             "block_types": {
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -1454,7 +1454,7 @@
           }
         },
         "spectrocloud_cluster_aks": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -1759,7 +1759,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -2234,7 +2234,7 @@
           }
         },
         "spectrocloud_cluster_apache_cloudstack": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -2630,7 +2630,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -3174,7 +3174,7 @@
           }
         },
         "spectrocloud_cluster_aws": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -3447,7 +3447,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -3978,7 +3978,7 @@
           }
         },
         "spectrocloud_cluster_azure": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -4351,7 +4351,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -4862,7 +4862,7 @@
           }
         },
         "spectrocloud_cluster_brownfield": {
-          "version": 1,
+          "version": 2,
           "block": {
             "attributes": {
               "apply_setting": {
@@ -5104,7 +5104,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -5687,7 +5687,7 @@
           }
         },
         "spectrocloud_cluster_custom_cloud": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -5919,7 +5919,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -6330,7 +6330,7 @@
           }
         },
         "spectrocloud_cluster_edge_native": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -6580,7 +6580,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -7139,7 +7139,7 @@
           }
         },
         "spectrocloud_cluster_edge_vsphere": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -7397,7 +7397,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -7965,7 +7965,7 @@
           }
         },
         "spectrocloud_cluster_eks": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -8274,7 +8274,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -8870,7 +8870,7 @@
           }
         },
         "spectrocloud_cluster_gcp": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -9118,7 +9118,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -9597,7 +9597,7 @@
           }
         },
         "spectrocloud_cluster_gke": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -9848,7 +9848,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -10302,7 +10302,7 @@
           }
         },
         "spectrocloud_cluster_group": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "context": {
@@ -10341,7 +10341,7 @@
             },
             "block_types": {
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -10544,7 +10544,7 @@
           }
         },
         "spectrocloud_cluster_maas": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -10788,7 +10788,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -11402,7 +11402,7 @@
           }
         },
         "spectrocloud_cluster_openstack": {
-          "version": 1,
+          "version": 2,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -11660,7 +11660,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -12449,7 +12449,7 @@
           }
         },
         "spectrocloud_cluster_vsphere": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -12732,7 +12732,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -15806,7 +15806,7 @@
           }
         },
         "spectrocloud_virtual_cluster": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -16056,7 +16056,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -19254,7 +19254,7 @@
           }
         },
         "spectrocloud_cluster_group": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "context": {

@@ -125,5 +125,5 @@ func (tr *EdgeNative) LateInitialize(attrs []byte) (bool, error) {
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *EdgeNative) GetTerraformSchemaVersion() int {
-	return 3
+	return 4
 }
