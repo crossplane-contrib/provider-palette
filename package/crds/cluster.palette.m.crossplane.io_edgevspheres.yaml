@@ -901,6 +901,13 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: Controls whether worker pool updates occur in parallel
+                      or sequentially. When set to `true` (default), all worker pools
+                      are updated simultaneously. When `false`, worker pools are updated
+                      one at a time, reducing cluster disruption but taking longer
+                      to complete updates.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -1758,6 +1765,13 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: Controls whether worker pool updates occur in parallel
+                      or sequentially. When set to `true` (default), all worker pools
+                      are updated simultaneously. When `false`, worker pools are updated
+                      one at a time, reducing cluster disruption but taking longer
+                      to complete updates.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -2367,6 +2381,13 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: Controls whether worker pool updates occur in parallel
+                      or sequentially. When set to `true` (default), all worker pools
+                      are updated simultaneously. When `false`, worker pools are updated
+                      one at a time, reducing cluster disruption but taking longer
+                      to complete updates.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

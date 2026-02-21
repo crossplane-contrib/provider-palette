@@ -6,7 +6,7 @@ resources:
         title: spectrocloud_addon_deployment Resource - terraform-provider-spectrocloud
         argumentDocs:
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_uid: (String) The UID of the cluster to attach the addon profile to.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) Specifies cluster context where addon profile is attached. Allowed values are project or tenant. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -791,7 +791,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -876,6 +876,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1440,7 +1441,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) CloudStack cluster configuration. (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type cloudstack.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1533,7 +1534,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1641,7 +1642,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1714,7 +1715,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
-            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             ssh_key_name: (String) Public SSH key to be used for the cluster nodes.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
@@ -1726,6 +1727,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -1809,7 +1811,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1900,6 +1902,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2005,7 +2008,7 @@ resources:
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cloud_config_id: (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
             cloud_type: '(String) The cloud type of the cluster. Supported values: aws, eks-anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
@@ -2371,7 +2374,7 @@ resources:
             cloud_account_id: (String) The cloud account id to use for this cluster.
             cloud_config: '(Block List, Min: 1, Max: 1) The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)'
             cloud_config_id: (String, Deprecated)
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -2434,6 +2437,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the cloud config. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2508,7 +2512,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -2594,6 +2598,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2614,7 +2619,7 @@ resources:
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster: (String)
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -2706,6 +2711,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2792,7 +2798,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) The AWS environment configuration settings such as network parameters and encryption parameters that apply to this cluster. (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -2883,6 +2889,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2958,7 +2965,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -3037,6 +3044,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -3096,7 +3104,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) The GKE environment configuration settings such as project parameters and region parameters that apply to this cluster. (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -3171,7 +3179,8 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-            update_worker_pool_in_parallel: (Boolean)
+            update_worker_pool_in_parallel: (Boolean, Deprecated) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -3208,7 +3217,7 @@ resources:
               references:
                 clusters.cluster_uid: data.spectrocloud_cluster.host_cluster1.id
         argumentDocs:
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_uid: (String) The UID of the host cluster.
             clusters: (Block List) A list of clusters to include in the cluster group. (see below for nested schema)
             config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -3340,7 +3349,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type maas.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -3430,6 +3439,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             use_lxd_vm: (Boolean) Whether to use LXD VM. Default is false. Available once Palette with LXD support is released.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
@@ -3522,7 +3532,7 @@ resources:
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -3605,6 +3615,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -3945,7 +3956,7 @@ resources:
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster: (String) The name of the cluster to use for the machine pool. As it appears in the vSphere.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -4040,6 +4051,7 @@ resources:
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -4903,7 +4915,7 @@ resources:
             cloud_config: '(Block List, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
             cluster_group_uid: (String)
-            cluster_profile: (Block List) (see below for nested schema)
+            cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.

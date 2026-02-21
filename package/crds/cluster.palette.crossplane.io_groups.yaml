@@ -73,7 +73,7 @@ spec:
               forProvider:
                 properties:
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -322,7 +322,7 @@ spec:
                   autoscaler.
                 properties:
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -658,7 +658,7 @@ spec:
               atProvider:
                 properties:
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:

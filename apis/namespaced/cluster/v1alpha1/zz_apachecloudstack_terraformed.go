@@ -125,5 +125,5 @@ func (tr *ApacheCloudstack) LateInitialize(attrs []byte) (bool, error) {
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *ApacheCloudstack) GetTerraformSchemaVersion() int {
-	return 2
+	return 3
 }

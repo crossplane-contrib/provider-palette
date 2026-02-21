@@ -49,7 +49,7 @@
       },
       "resource_schemas": {
         "spectrocloud_addon_deployment": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "apply_setting": {
@@ -79,7 +79,7 @@
             },
             "block_types": {
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -1454,7 +1454,7 @@
           }
         },
         "spectrocloud_cluster_aks": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -1595,6 +1595,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -1759,7 +1765,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -2234,7 +2240,7 @@
           }
         },
         "spectrocloud_cluster_apache_cloudstack": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -2382,7 +2388,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -2630,7 +2636,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -3174,7 +3180,7 @@
           }
         },
         "spectrocloud_cluster_aws": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -3333,6 +3339,12 @@
                 "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -3447,7 +3459,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -3812,7 +3824,7 @@
                     },
                     "skip_k8s_upgrade": {
                       "type": "string",
-                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3978,7 +3990,7 @@
           }
         },
         "spectrocloud_cluster_azure": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -4121,6 +4133,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -4351,7 +4369,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -4862,7 +4880,7 @@
           }
         },
         "spectrocloud_cluster_brownfield": {
-          "version": 1,
+          "version": 2,
           "block": {
             "attributes": {
               "apply_setting": {
@@ -5104,7 +5122,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -5687,7 +5705,7 @@
           }
         },
         "spectrocloud_cluster_custom_cloud": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -5813,6 +5831,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -5919,7 +5943,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -6330,7 +6354,7 @@
           }
         },
         "spectrocloud_cluster_edge_native": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -6452,6 +6476,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -6580,7 +6610,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -7139,7 +7169,7 @@
           }
         },
         "spectrocloud_cluster_edge_vsphere": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -7255,6 +7285,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -7397,7 +7433,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -7965,7 +8001,7 @@
           }
         },
         "spectrocloud_cluster_eks": {
-          "version": 3,
+          "version": 4,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -8117,6 +8153,12 @@
                   "string"
                 ],
                 "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -8274,7 +8316,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -8870,7 +8912,7 @@
           }
         },
         "spectrocloud_cluster_gcp": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -9013,6 +9055,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -9118,7 +9166,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -9597,7 +9645,7 @@
           }
         },
         "spectrocloud_cluster_gke": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -9744,6 +9792,14 @@
               },
               "update_worker_pool_in_parallel": {
                 "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "deprecated": true,
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -9848,7 +9904,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -10302,7 +10358,7 @@
           }
         },
         "spectrocloud_cluster_group": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "context": {
@@ -10341,7 +10397,7 @@
             },
             "block_types": {
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -10544,7 +10600,7 @@
           }
         },
         "spectrocloud_cluster_maas": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -10677,6 +10733,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -10788,7 +10850,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -11402,7 +11464,7 @@
           }
         },
         "spectrocloud_cluster_openstack": {
-          "version": 1,
+          "version": 2,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -11524,6 +11586,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -11660,7 +11728,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -12449,7 +12517,7 @@
           }
         },
         "spectrocloud_cluster_vsphere": {
-          "version": 0,
+          "version": 1,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -12573,6 +12641,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -12732,7 +12806,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -15806,7 +15880,7 @@
           }
         },
         "spectrocloud_virtual_cluster": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "admin_kube_config": {
@@ -16056,7 +16130,7 @@
                 "max_items": 1
               },
               "cluster_profile": {
-                "nesting_mode": "list",
+                "nesting_mode": "set",
                 "block": {
                   "attributes": {
                     "id": {
@@ -19254,7 +19328,7 @@
           }
         },
         "spectrocloud_cluster_group": {
-          "version": 2,
+          "version": 3,
           "block": {
             "attributes": {
               "context": {

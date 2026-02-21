@@ -317,7 +317,7 @@ spec:
                         type: object
                     type: object
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -907,7 +907,7 @@ spec:
                         type: object
                     type: object
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -1440,7 +1440,7 @@ spec:
                     description: (String)
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:

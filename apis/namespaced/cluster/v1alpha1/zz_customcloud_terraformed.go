@@ -125,5 +125,5 @@ func (tr *CustomCloud) LateInitialize(attrs []byte) (bool, error) {
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *CustomCloud) GetTerraformSchemaVersion() int {
-	return 3
+	return 4
 }
