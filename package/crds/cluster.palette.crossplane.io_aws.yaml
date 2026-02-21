@@ -328,7 +328,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -536,7 +536,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -912,8 +912,8 @@ spec:
                           type: array
                         skipK8SUpgrade:
                           description: |-
-                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
                           type: string
                         taints:
                           description: (Block List) (see below for nested schema)
@@ -1036,6 +1036,11 @@ spec:
                       A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
                     type: object
                     x-kubernetes-map-type: granular
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -1305,7 +1310,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -1513,7 +1518,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -1889,8 +1894,8 @@ spec:
                           type: array
                         skipK8SUpgrade:
                           description: |-
-                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
                           type: string
                         taints:
                           description: (Block List) (see below for nested schema)
@@ -2013,6 +2018,11 @@ spec:
                       A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
                     type: object
                     x-kubernetes-map-type: granular
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -2228,7 +2238,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -2370,7 +2380,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -2628,8 +2638,8 @@ spec:
                           type: array
                         skipK8SUpgrade:
                           description: |-
-                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
                           type: string
                         taints:
                           description: (Block List) (see below for nested schema)
@@ -2752,6 +2762,11 @@ spec:
                       A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
                     type: object
                     x-kubernetes-map-type: granular
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

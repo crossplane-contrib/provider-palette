@@ -592,7 +592,7 @@ type GkeClusterTemplateClusterProfileParameters struct {
 
 type GkeClusterTemplateInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []GkeClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -612,7 +612,7 @@ type GkeClusterTemplateInitParameters struct {
 
 type GkeClusterTemplateObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []GkeClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -627,7 +627,7 @@ type GkeClusterTemplateObservation struct {
 
 type GkeClusterTemplateParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []GkeClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
@@ -738,7 +738,7 @@ type GkeInitParameters struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []GkeClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -818,8 +818,13 @@ type GkeInitParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean)
+	// (Boolean, Deprecated) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolInParallel *bool `json:"updateWorkerPoolInParallel,omitempty" tf:"update_worker_pool_in_parallel,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type GkeLocationConfigInitParameters struct {
@@ -1173,7 +1178,7 @@ type GkeObservation struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []GkeClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -1260,8 +1265,13 @@ type GkeObservation struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean)
+	// (Boolean, Deprecated) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolInParallel *bool `json:"updateWorkerPoolInParallel,omitempty" tf:"update_worker_pool_in_parallel,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type GkeParameters struct {
@@ -1299,7 +1309,7 @@ type GkeParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []GkeClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -1399,9 +1409,15 @@ type GkeParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean)
+	// (Boolean, Deprecated) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// +kubebuilder:validation:Optional
 	UpdateWorkerPoolInParallel *bool `json:"updateWorkerPoolInParallel,omitempty" tf:"update_worker_pool_in_parallel,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// +kubebuilder:validation:Optional
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type GkeScanPolicyInitParameters struct {

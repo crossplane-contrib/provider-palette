@@ -436,7 +436,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -644,7 +644,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -1129,8 +1129,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               initProvider:
@@ -1508,7 +1508,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -1716,7 +1716,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -2201,8 +2201,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               managementPolicies:
@@ -2524,7 +2524,7 @@ spec:
                       `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -2666,7 +2666,7 @@ spec:
                       properties:
                         clusterProfile:
                           description: |-
-                            (Block List) (see below for nested schema)
+                            (Block Set) (see below for nested schema)
                             The cluster profile of the cluster template.
                           items:
                             properties:
@@ -3059,8 +3059,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               conditions:

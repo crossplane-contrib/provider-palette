@@ -706,7 +706,7 @@ type VsphereClusterTemplateClusterProfileParameters struct {
 
 type VsphereClusterTemplateInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []VsphereClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -726,7 +726,7 @@ type VsphereClusterTemplateInitParameters struct {
 
 type VsphereClusterTemplateObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []VsphereClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -741,7 +741,7 @@ type VsphereClusterTemplateObservation struct {
 
 type VsphereClusterTemplateParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []VsphereClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
@@ -852,7 +852,7 @@ type VsphereInitParameters struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []VsphereClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -933,6 +933,10 @@ type VsphereInitParameters struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type VsphereLocationConfigInitParameters struct {
@@ -1539,7 +1543,7 @@ type VsphereObservation struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []VsphereClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -1623,6 +1627,10 @@ type VsphereObservation struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type VsphereParameters struct {
@@ -1660,7 +1668,7 @@ type VsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []VsphereClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -1762,6 +1770,11 @@ type VsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// +kubebuilder:validation:Optional
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type VsphereScanPolicyInitParameters struct {

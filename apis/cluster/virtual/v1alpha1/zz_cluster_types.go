@@ -260,7 +260,7 @@ type ClusterInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterGroupUIDSelector *v1.Selector `json:"clusterGroupUidSelector,omitempty" tf:"-"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []ClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -354,7 +354,7 @@ type ClusterObservation struct {
 	// (String)
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []ClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -464,7 +464,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterGroupUIDSelector *v1.Selector `json:"clusterGroupUidSelector,omitempty" tf:"-"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []ClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 

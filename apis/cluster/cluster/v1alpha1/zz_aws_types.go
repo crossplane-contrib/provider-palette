@@ -583,7 +583,7 @@ type AwsClusterTemplateClusterProfileParameters struct {
 
 type AwsClusterTemplateInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []AwsClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -603,7 +603,7 @@ type AwsClusterTemplateInitParameters struct {
 
 type AwsClusterTemplateObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []AwsClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -618,7 +618,7 @@ type AwsClusterTemplateObservation struct {
 
 type AwsClusterTemplateParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []AwsClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
@@ -728,7 +728,7 @@ type AwsInitParameters struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []AwsClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -814,6 +814,10 @@ type AwsInitParameters struct {
 	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type AwsLocationConfigInitParameters struct {
@@ -925,8 +929,8 @@ type AwsMachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1054,8 +1058,8 @@ type AwsMachinePoolObservation struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AwsMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1202,8 +1206,8 @@ type AwsMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideScaling []AwsMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
-	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
@@ -1327,7 +1331,7 @@ type AwsObservation struct {
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []AwsClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -1420,6 +1424,10 @@ type AwsObservation struct {
 	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type AwsParameters struct {
@@ -1456,7 +1464,7 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []AwsClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -1564,6 +1572,11 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// +kubebuilder:validation:Optional
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type AwsScanPolicyInitParameters struct {

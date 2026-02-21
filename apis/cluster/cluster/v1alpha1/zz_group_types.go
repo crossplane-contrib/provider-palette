@@ -364,7 +364,7 @@ type GroupClusterProfileParameters struct {
 
 type GroupInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []GroupClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) A list of clusters to include in the cluster group. (see below for nested schema)
@@ -394,7 +394,7 @@ type GroupInitParameters struct {
 
 type GroupObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []GroupClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) A list of clusters to include in the cluster group. (see below for nested schema)
@@ -427,7 +427,7 @@ type GroupObservation struct {
 
 type GroupParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []GroupClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 

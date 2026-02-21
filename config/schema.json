@@ -1597,6 +1597,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -2382,7 +2388,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -3333,6 +3339,12 @@
                 "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -3812,7 +3824,7 @@
                     },
                     "skip_k8s_upgrade": {
                       "type": "string",
-                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools. The skip_k8s_upgrade field is available from Palette 4.8.b.",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -4121,6 +4133,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -5813,6 +5831,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -6452,6 +6476,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -7255,6 +7285,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -8117,6 +8153,12 @@
                   "string"
                 ],
                 "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -9013,6 +9055,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -9744,6 +9792,14 @@
               },
               "update_worker_pool_in_parallel": {
                 "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "deprecated": true,
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -10677,6 +10733,12 @@
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
                 "description_kind": "plain",
                 "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "block_types": {
@@ -11524,6 +11586,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -12573,6 +12641,12 @@
                   "string"
                 ],
                 "description": "A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "update_worker_pools_in_parallel": {
+                "type": "bool",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }

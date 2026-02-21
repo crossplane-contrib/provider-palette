@@ -708,6 +708,9 @@ type EdgeVsphereInitParameters struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type EdgeVsphereLocationConfigInitParameters struct {
@@ -1124,6 +1127,9 @@ type EdgeVsphereObservation struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type EdgeVsphereParameters struct {
@@ -1222,6 +1228,10 @@ type EdgeVsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// +kubebuilder:validation:Optional
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type EdgeVsphereScanPolicyInitParameters struct {

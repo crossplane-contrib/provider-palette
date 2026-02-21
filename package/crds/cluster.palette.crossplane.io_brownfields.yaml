@@ -227,7 +227,7 @@ spec:
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -776,7 +776,7 @@ spec:
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
@@ -1341,7 +1341,7 @@ spec:
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
-                    description: (Block List) (see below for nested schema)
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:

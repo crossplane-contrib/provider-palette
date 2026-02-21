@@ -622,7 +622,7 @@ type CustomCloudClusterTemplateClusterProfileParameters struct {
 
 type CustomCloudClusterTemplateInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []CustomCloudClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -642,7 +642,7 @@ type CustomCloudClusterTemplateInitParameters struct {
 
 type CustomCloudClusterTemplateObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []CustomCloudClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -657,7 +657,7 @@ type CustomCloudClusterTemplateObservation struct {
 
 type CustomCloudClusterTemplateParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []CustomCloudClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
@@ -708,7 +708,7 @@ type CustomCloudInitParameters struct {
 	// The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
 	CloudConfig []CustomCloudCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []CustomCloudClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -786,6 +786,10 @@ type CustomCloudInitParameters struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type CustomCloudLocationConfigInitParameters struct {
@@ -1092,7 +1096,7 @@ type CustomCloudObservation struct {
 	// (String, Deprecated)
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []CustomCloudClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
 	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -1173,6 +1177,10 @@ type CustomCloudObservation struct {
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type CustomCloudParameters struct {
@@ -1211,7 +1219,7 @@ type CustomCloudParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudConfig []CustomCloudCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []CustomCloudClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
@@ -1309,6 +1317,11 @@ type CustomCloudParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// +kubebuilder:validation:Optional
+	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type CustomCloudScanPolicyInitParameters struct {
