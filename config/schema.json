@@ -12394,7 +12394,7 @@
                         "attributes": {
                           "default_value": {
                             "type": "string",
-                            "description": "The default value of the variable.",
+                            "description": "The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -12412,7 +12412,7 @@
                           },
                           "format": {
                             "type": "string",
-                            "description": "The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.",
+                            "description": "The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -12425,6 +12425,12 @@
                           "immutable": {
                             "type": "bool",
                             "description": "If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "input_type": {
+                            "type": "string",
+                            "description": "The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -12451,6 +12457,41 @@
                             "description": "The `required` to specify if the variable is optional or mandatory. If it is mandatory then default value must be provided.",
                             "description_kind": "plain",
                             "optional": true
+                          }
+                        },
+                        "block_types": {
+                          "options": {
+                            "nesting_mode": "list",
+                            "block": {
+                              "attributes": {
+                                "default": {
+                                  "type": "bool",
+                                  "description": "The default value of the option.",
+                                  "description_kind": "plain",
+                                  "computed": true
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "description": "The description of the option.",
+                                  "description_kind": "plain",
+                                  "optional": true
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "The label of the option.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "value": {
+                                  "type": "string",
+                                  "description": "The value of the option.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                }
+                              },
+                              "description": "The options of the variable. Only applicable for dropdown input type.",
+                              "description_kind": "plain"
+                            }
                           }
                         },
                         "description_kind": "plain"
