@@ -875,7 +875,7 @@ type AwsMachinePoolInitParameters struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+	// Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -894,9 +894,16 @@ type AwsMachinePoolInitParameters struct {
 	// The disk size in GB for the machine pool nodes.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// ARN of AWS Host Resource Group for node placement on dedicated hosts.
+	HostResourceGroupArn *string `json:"hostResourceGroupArn,omitempty" tf:"host_resource_group_arn,omitempty"`
+
 	// (String) The instance type to use for the machine pool nodes.
 	// The instance type to use for the machine pool nodes.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+
+	// List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+	// +listType=set
+	LicenseConfigurationArns []*string `json:"licenseConfigurationArns,omitempty" tf:"license_configuration_arns,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -1004,7 +1011,7 @@ type AwsMachinePoolObservation struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+	// Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -1023,9 +1030,16 @@ type AwsMachinePoolObservation struct {
 	// The disk size in GB for the machine pool nodes.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// ARN of AWS Host Resource Group for node placement on dedicated hosts.
+	HostResourceGroupArn *string `json:"hostResourceGroupArn,omitempty" tf:"host_resource_group_arn,omitempty"`
+
 	// (String) The instance type to use for the machine pool nodes.
 	// The instance type to use for the machine pool nodes.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+
+	// List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+	// +listType=set
+	LicenseConfigurationArns []*string `json:"licenseConfigurationArns,omitempty" tf:"license_configuration_arns,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -1138,7 +1152,7 @@ type AwsMachinePoolParameters struct {
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
-	// Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+	// Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
 	// +kubebuilder:validation:Optional
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
@@ -1162,10 +1176,19 @@ type AwsMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// ARN of AWS Host Resource Group for node placement on dedicated hosts.
+	// +kubebuilder:validation:Optional
+	HostResourceGroupArn *string `json:"hostResourceGroupArn,omitempty" tf:"host_resource_group_arn,omitempty"`
+
 	// (String) The instance type to use for the machine pool nodes.
 	// The instance type to use for the machine pool nodes.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
+
+	// List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	LicenseConfigurationArns []*string `json:"licenseConfigurationArns,omitempty" tf:"license_configuration_arns,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.

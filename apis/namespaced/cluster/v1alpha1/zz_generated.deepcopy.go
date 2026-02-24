@@ -4716,10 +4716,26 @@ func (in *AwsMachinePoolInitParameters) DeepCopyInto(out *AwsMachinePoolInitPara
 		*out = new(float64)
 		**out = **in
 	}
+	if in.HostResourceGroupArn != nil {
+		in, out := &in.HostResourceGroupArn, &out.HostResourceGroupArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
 		**out = **in
+	}
+	if in.LicenseConfigurationArns != nil {
+		in, out := &in.LicenseConfigurationArns, &out.LicenseConfigurationArns
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.Max != nil {
 		in, out := &in.Max, &out.Max
@@ -4967,10 +4983,26 @@ func (in *AwsMachinePoolObservation) DeepCopyInto(out *AwsMachinePoolObservation
 		*out = new(float64)
 		**out = **in
 	}
+	if in.HostResourceGroupArn != nil {
+		in, out := &in.HostResourceGroupArn, &out.HostResourceGroupArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
 		**out = **in
+	}
+	if in.LicenseConfigurationArns != nil {
+		in, out := &in.LicenseConfigurationArns, &out.LicenseConfigurationArns
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.Max != nil {
 		in, out := &in.Max, &out.Max
@@ -5218,10 +5250,26 @@ func (in *AwsMachinePoolParameters) DeepCopyInto(out *AwsMachinePoolParameters) 
 		*out = new(float64)
 		**out = **in
 	}
+	if in.HostResourceGroupArn != nil {
+		in, out := &in.HostResourceGroupArn, &out.HostResourceGroupArn
+		*out = new(string)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
 		**out = **in
+	}
+	if in.LicenseConfigurationArns != nil {
+		in, out := &in.LicenseConfigurationArns, &out.LicenseConfigurationArns
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.Max != nil {
 		in, out := &in.Max, &out.Max

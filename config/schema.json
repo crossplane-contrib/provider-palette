@@ -3752,7 +3752,7 @@
                     },
                     "capacity_type": {
                       "type": "string",
-                      "description": "Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.",
+                      "description": "Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3780,11 +3780,26 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "host_resource_group_arn": {
+                      "type": "string",
+                      "description": "ARN of AWS Host Resource Group for node placement on dedicated hosts.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "instance_type": {
                       "type": "string",
                       "description": "The instance type to use for the machine pool nodes.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "license_configuration_arns": {
+                      "type": [
+                        "set",
+                        "string"
+                      ],
+                      "description": "List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "max": {
                       "type": "number",
