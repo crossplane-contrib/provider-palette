@@ -161,8 +161,8 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
-                                  The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
+                                  The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
                                 description: |-
@@ -176,8 +176,8 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
                                 description: |-
@@ -189,6 +189,11 @@ spec:
                                   (Boolean) If immutable is set to true, then variable value can't be editable. By default the immutable flag will be set to false.
                                   If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.
                                 type: boolean
+                              inputType:
+                                description: |-
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+                                  The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+                                type: string
                               isSensitive:
                                 description: |-
                                   (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
@@ -199,6 +204,29 @@ spec:
                                   (String)
                                   The name of the variable should be unique among variables.
                                 type: string
+                              options:
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
+                                items:
+                                  properties:
+                                    description:
+                                      description: |-
+                                        (String)
+                                        The description of the option.
+                                      type: string
+                                    label:
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
+                                      type: string
+                                  type: object
+                                type: array
                               regex:
                                 description: |-
                                   (String) Regular expression pattern which the variable value must match.
@@ -335,8 +363,8 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
-                                  The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
+                                  The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
                                 description: |-
@@ -350,8 +378,8 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
                                 description: |-
@@ -363,6 +391,11 @@ spec:
                                   (Boolean) If immutable is set to true, then variable value can't be editable. By default the immutable flag will be set to false.
                                   If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.
                                 type: boolean
+                              inputType:
+                                description: |-
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+                                  The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+                                type: string
                               isSensitive:
                                 description: |-
                                   (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
@@ -373,6 +406,29 @@ spec:
                                   (String)
                                   The name of the variable should be unique among variables.
                                 type: string
+                              options:
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
+                                items:
+                                  properties:
+                                    description:
+                                      description: |-
+                                        (String)
+                                        The description of the option.
+                                      type: string
+                                    label:
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
+                                      type: string
+                                  type: object
+                                type: array
                               regex:
                                 description: |-
                                   (String) Regular expression pattern which the variable value must match.
@@ -604,8 +660,8 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
-                                  The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
+                                  The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
                                 description: |-
@@ -619,8 +675,8 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+                                  The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
                                 description: |-
@@ -632,6 +688,11 @@ spec:
                                   (Boolean) If immutable is set to true, then variable value can't be editable. By default the immutable flag will be set to false.
                                   If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.
                                 type: boolean
+                              inputType:
+                                description: |-
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+                                  The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+                                type: string
                               isSensitive:
                                 description: |-
                                   (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
@@ -642,6 +703,34 @@ spec:
                                   (String)
                                   The name of the variable should be unique among variables.
                                 type: string
+                              options:
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
+                                items:
+                                  properties:
+                                    default:
+                                      description: |-
+                                        (Boolean) The default value of the option.
+                                        The default value of the option.
+                                      type: boolean
+                                    description:
+                                      description: |-
+                                        (String)
+                                        The description of the option.
+                                      type: string
+                                    label:
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
+                                      type: string
+                                  type: object
+                                type: array
                               regex:
                                 description: |-
                                   (String) Regular expression pattern which the variable value must match.

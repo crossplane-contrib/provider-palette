@@ -13,6 +13,58 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type OptionsInitParameters struct {
+
+	// (String)
+	// The description of the option.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The label of the option.
+	// The label of the option.
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+
+	// (String) The value of the option.
+	// The value of the option.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type OptionsObservation struct {
+
+	// (Boolean) The default value of the option.
+	// The default value of the option.
+	Default *bool `json:"default,omitempty" tf:"default,omitempty"`
+
+	// (String)
+	// The description of the option.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The label of the option.
+	// The label of the option.
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+
+	// (String) The value of the option.
+	// The value of the option.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type OptionsParameters struct {
+
+	// (String)
+	// The description of the option.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The label of the option.
+	// The label of the option.
+	// +kubebuilder:validation:Optional
+	Label *string `json:"label" tf:"label,omitempty"`
+
+	// (String) The value of the option.
+	// The value of the option.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
 type ProfileInitParameters struct {
 
 	// all, aws, azure, gcp, vsphere, openstack, maas, virtual, baremetal, eks, aks, edge-native, generic, and gke or any custom cloud provider registered in Palette, e.g., nutanix.If the value is set to all, then the type must be set to add-on. Otherwise, the cluster profile may be incompatible with other providers. Default value is all.
@@ -305,8 +357,8 @@ type ProfileVariablesParameters struct {
 
 type VariableInitParameters struct {
 
-	// (String) The default value of the variable.
-	// The default value of the variable.
+	// line string. If the input type is dropdown, then the default value should be a option label.
+	// The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
 	// (String)
@@ -317,8 +369,8 @@ type VariableInitParameters struct {
 	// The display name of the variable should be unique among variables.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// (Boolean) If hidden is set to true, then variable will be hidden for overriding the value. By default the hidden flag will be set to false.
@@ -329,6 +381,10 @@ type VariableInitParameters struct {
 	// If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.
 	Immutable *bool `json:"immutable,omitempty" tf:"immutable,omitempty"`
 
+	// (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+	// The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+	InputType *string `json:"inputType,omitempty" tf:"input_type,omitempty"`
+
 	// (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
 	// If `is_sensitive` is set to `true`, then default value will be masked. By default the `is_sensitive` flag will be set to false.
 	IsSensitive *bool `json:"isSensitive,omitempty" tf:"is_sensitive,omitempty"`
@@ -336,6 +392,10 @@ type VariableInitParameters struct {
 	// (String)
 	// The name of the variable should be unique among variables.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+	// The options of the variable. Only applicable for dropdown input type.
+	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (String) Regular expression pattern which the variable value must match.
 	// Regular expression pattern which the variable value must match.
@@ -348,8 +408,8 @@ type VariableInitParameters struct {
 
 type VariableObservation struct {
 
-	// (String) The default value of the variable.
-	// The default value of the variable.
+	// line string. If the input type is dropdown, then the default value should be a option label.
+	// The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
 	// (String)
@@ -360,8 +420,8 @@ type VariableObservation struct {
 	// The display name of the variable should be unique among variables.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// (Boolean) If hidden is set to true, then variable will be hidden for overriding the value. By default the hidden flag will be set to false.
@@ -372,6 +432,10 @@ type VariableObservation struct {
 	// If `immutable` is set to `true`, then variable value can't be editable. By default the `immutable` flag will be set to `false`.
 	Immutable *bool `json:"immutable,omitempty" tf:"immutable,omitempty"`
 
+	// (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+	// The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+	InputType *string `json:"inputType,omitempty" tf:"input_type,omitempty"`
+
 	// (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
 	// If `is_sensitive` is set to `true`, then default value will be masked. By default the `is_sensitive` flag will be set to false.
 	IsSensitive *bool `json:"isSensitive,omitempty" tf:"is_sensitive,omitempty"`
@@ -379,6 +443,10 @@ type VariableObservation struct {
 	// (String)
 	// The name of the variable should be unique among variables.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+	// The options of the variable. Only applicable for dropdown input type.
+	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (String) Regular expression pattern which the variable value must match.
 	// Regular expression pattern which the variable value must match.
@@ -391,8 +459,8 @@ type VariableObservation struct {
 
 type VariableParameters struct {
 
-	// (String) The default value of the variable.
-	// The default value of the variable.
+	// line string. If the input type is dropdown, then the default value should be a option label.
+	// The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
 	// +kubebuilder:validation:Optional
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
@@ -406,8 +474,8 @@ type VariableParameters struct {
 	// +kubebuilder:validation:Optional
 	DisplayName *string `json:"displayName" tf:"display_name,omitempty"`
 
-	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
-	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`.
+	// (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
+	// The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
 	// +kubebuilder:validation:Optional
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
@@ -421,6 +489,11 @@ type VariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Immutable *bool `json:"immutable,omitempty" tf:"immutable,omitempty"`
 
+	// (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
+	// The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
+	// +kubebuilder:validation:Optional
+	InputType *string `json:"inputType,omitempty" tf:"input_type,omitempty"`
+
 	// (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
 	// If `is_sensitive` is set to `true`, then default value will be masked. By default the `is_sensitive` flag will be set to false.
 	// +kubebuilder:validation:Optional
@@ -430,6 +503,11 @@ type VariableParameters struct {
 	// The name of the variable should be unique among variables.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+	// The options of the variable. Only applicable for dropdown input type.
+	// +kubebuilder:validation:Optional
+	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (String) Regular expression pattern which the variable value must match.
 	// Regular expression pattern which the variable value must match.

@@ -834,8 +834,8 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
-                            Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
+                            Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
                           description: |-
@@ -857,11 +857,24 @@ spec:
                             (Number) The disk size in GB for the machine pool nodes.
                             The disk size in GB for the machine pool nodes.
                           type: number
+                        hostResourceGroupArn:
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                          type: string
                         instanceType:
                           description: |-
                             (String) The instance type to use for the machine pool nodes.
                             The instance type to use for the machine pool nodes.
                           type: string
+                        licenseConfigurationArns:
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -1846,8 +1859,8 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
-                            Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
+                            Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
                           description: |-
@@ -1869,11 +1882,24 @@ spec:
                             (Number) The disk size in GB for the machine pool nodes.
                             The disk size in GB for the machine pool nodes.
                           type: number
+                        hostResourceGroupArn:
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                          type: string
                         instanceType:
                           description: |-
                             (String) The instance type to use for the machine pool nodes.
                             The instance type to use for the machine pool nodes.
                           type: string
+                        licenseConfigurationArns:
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
@@ -2562,8 +2588,8 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
-                            Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
+                            Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
                           description: |-
@@ -2585,11 +2611,24 @@ spec:
                             (Number) The disk size in GB for the machine pool nodes.
                             The disk size in GB for the machine pool nodes.
                           type: number
+                        hostResourceGroupArn:
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                          type: string
                         instanceType:
                           description: |-
                             (String) The instance type to use for the machine pool nodes.
                             The instance type to use for the machine pool nodes.
                           type: string
+                        licenseConfigurationArns:
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
