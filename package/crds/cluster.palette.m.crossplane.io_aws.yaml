@@ -834,7 +834,7 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                             Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
@@ -858,8 +858,9 @@ spec:
                             The disk size in GB for the machine pool nodes.
                           type: number
                         hostResourceGroupArn:
-                          description: ARN of AWS Host Resource Group for node placement
-                            on dedicated hosts.
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
                           type: string
                         instanceType:
                           description: |-
@@ -867,8 +868,9 @@ spec:
                             The instance type to use for the machine pool nodes.
                           type: string
                         licenseConfigurationArns:
-                          description: List of AWS License Configuration ARNs (required
-                            when hostResourceGroupArn is specified, max 10)
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
                           items:
                             type: string
                           type: array
@@ -1857,7 +1859,7 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                             Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
@@ -1881,8 +1883,9 @@ spec:
                             The disk size in GB for the machine pool nodes.
                           type: number
                         hostResourceGroupArn:
-                          description: ARN of AWS Host Resource Group for node placement
-                            on dedicated hosts.
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
                           type: string
                         instanceType:
                           description: |-
@@ -1890,8 +1893,9 @@ spec:
                             The instance type to use for the machine pool nodes.
                           type: string
                         licenseConfigurationArns:
-                          description: List of AWS License Configuration ARNs (required
-                            when hostResourceGroupArn is specified, max 10)
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
                           items:
                             type: string
                           type: array
@@ -2584,7 +2588,7 @@ spec:
                           x-kubernetes-list-type: set
                         capacityType:
                           description: |-
-                            demand' or 'spot'. Defaults to 'on-demand'.
+                            demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                             Capacity type: 'on-demand', 'spot', or 'host-resource-group' (dedicated hosts). Defaults to 'on-demand'.
                           type: string
                         controlPlane:
@@ -2608,8 +2612,9 @@ spec:
                             The disk size in GB for the machine pool nodes.
                           type: number
                         hostResourceGroupArn:
-                          description: ARN of AWS Host Resource Group for node placement
-                            on dedicated hosts.
+                          description: |-
+                            (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
+                            ARN of AWS Host Resource Group for node placement on dedicated hosts.
                           type: string
                         instanceType:
                           description: |-
@@ -2617,8 +2622,9 @@ spec:
                             The instance type to use for the machine pool nodes.
                           type: string
                         licenseConfigurationArns:
-                          description: List of AWS License Configuration ARNs (required
-                            when hostResourceGroupArn is specified, max 10)
+                          description: |-
+                            (Set of String) List of AWS License Configuration ARNs
+                            List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
                           items:
                             type: string
                           type: array

@@ -517,6 +517,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the virtual cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -649,6 +654,11 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -1107,6 +1117,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the virtual cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1239,6 +1254,11 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -1574,6 +1594,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  clusterTimezone:
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                    type: string
                   context:
                     description: |-
                       (String) The context of the virtual cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -1740,6 +1765,11 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  updateWorkerPoolsInParallel:
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

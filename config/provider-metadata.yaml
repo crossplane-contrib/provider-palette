@@ -1637,7 +1637,7 @@ resources:
             azs: (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
-            capacity_type: (String) Capacity type is an instance type,  can be 'on-demand' or 'spot'. Defaults to 'on-demand'.
+            capacity_type: '(String) Capacity type: ''on-demand'', ''spot'', or ''host-resource-group'' (dedicated hosts). Defaults to ''on-demand''.'
             cloud_account_id: (String)
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
@@ -1669,6 +1669,7 @@ resources:
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+            host_resource_group_arn: (String) ARN of AWS Host Resource Group for node placement on dedicated hosts.
             id: (String) The ID of this resource.
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
@@ -1679,6 +1680,7 @@ resources:
             key: (String) The key of the taint.
             kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
             latitude: (Number)
+            license_configuration_arns: (Set of String) List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
@@ -2243,8 +2245,7 @@ resources:
             upgrade_now: '(String) Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
             value: (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
             variables: (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
-        importStatements:
-            - terraform import spectrocloud_cluster_config_template.example <template-id>
+        importStatements: []
     spectrocloud_cluster_custom_cloud:
         subCategory: ""
         description: Resource for managing custom cloud clusters in Spectro Cloud through Palette.
@@ -3821,17 +3822,21 @@ resources:
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
-            default_value: (String) The default value of the variable.
+            default: (Boolean) The default value of the option.
+            default_value: (String) The default value of the variable. If the format is multiline, then the default value should be a multi-line string. If the input type is dropdown, then the default value should be a option label.
             delete: (String)
             description: (String)
             display_name: (String) The display name of the variable should be unique among variables.
-            format: (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
+            format: (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
             hidden: (Boolean) If hidden is set to true, then variable will be hidden for overriding the value. By default the hidden flag will be set to false.
             id: (String) The ID of this resource.
             immutable: (Boolean) If immutable is set to true, then variable value can't be editable. By default the immutable flag will be set to false.
+            input_type: (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
             is_sensitive: (Boolean) If is_sensitive is set to true, then default value will be masked. By default the is_sensitive flag will be set to false.
+            label: (String) The label of the option.
             manifest: (Block List) (see below for nested schema)
             name: (String)
+            options: (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)'
             regex: (String) Regular expression pattern which the variable value must match.
@@ -3844,6 +3849,7 @@ resources:
             type: (String) Specify the cluster profile type to use. Allowed values are cluster, infra, add-on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
+            value: (String) The value of the option.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variable: '(Block List, Min: 1) (see below for nested schema)'
             version: '(String) Version of the cluster profile. Defaults to ''1.0.0''. Important: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles'
@@ -4320,7 +4326,9 @@ resources:
                 private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.gateway.id
         argumentDocs:
             <dns_map_id>: is the DNS map ID
+            <dns_map_name>: is the DNS map name
             <pcg_id>: is the Private Cloud Gateway ID
+            <pcg_name>: is the Private Cloud Gateway name
             create: (String)
             data_center: (String) The data center in which the private cloud resides.
             delete: (String)
@@ -4371,7 +4379,9 @@ resources:
                 private_cloud_gateway_id: data.spectrocloud_private_cloud_gateway.pcg.id
         argumentDocs:
             <ippool_id>: is the IP Pool ID
+            <ippool_name>: is the IP Pool name
             <pcg_id>: is the Private Cloud Gateway ID
+            <pcg_name>: is the Private Cloud Gateway name
             create: (String)
             delete: (String)
             gateway: (String) The network gateway IP address for the IP pool. Typically, this is the default network gateway for the subnet.
@@ -4917,6 +4927,7 @@ resources:
             cluster_group_uid: (String)
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
+            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
             conformance_scan_schedule: (String) The schedule for conformance scan.
@@ -4976,6 +4987,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
+            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
         importStatements: []

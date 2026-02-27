@@ -161,7 +161,7 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
                                   The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
@@ -176,7 +176,7 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
                                   The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
@@ -191,7 +191,7 @@ spec:
                                 type: boolean
                               inputType:
                                 description: |-
-                                  on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
                                   The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
                                 type: string
                               isSensitive:
@@ -205,8 +205,9 @@ spec:
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
-                                description: The options of the variable. Only applicable
-                                  for dropdown input type.
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
                                 items:
                                   properties:
                                     description:
@@ -215,10 +216,14 @@ spec:
                                         The description of the option.
                                       type: string
                                     label:
-                                      description: The label of the option.
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
                                       type: string
                                     value:
-                                      description: The value of the option.
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
                                       type: string
                                   type: object
                                 type: array
@@ -358,7 +363,7 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
                                   The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
@@ -373,7 +378,7 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
                                   The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
@@ -388,7 +393,7 @@ spec:
                                 type: boolean
                               inputType:
                                 description: |-
-                                  on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
                                   The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
                                 type: string
                               isSensitive:
@@ -402,8 +407,9 @@ spec:
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
-                                description: The options of the variable. Only applicable
-                                  for dropdown input type.
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
                                 items:
                                   properties:
                                     description:
@@ -412,10 +418,14 @@ spec:
                                         The description of the option.
                                       type: string
                                     label:
-                                      description: The label of the option.
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
                                       type: string
                                     value:
-                                      description: The value of the option.
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
                                       type: string
                                   type: object
                                 type: array
@@ -650,7 +660,7 @@ spec:
                             properties:
                               defaultValue:
                                 description: |-
-                                  (String) The default value of the variable.
+                                  line string. If the input type is dropdown, then the default value should be a option label.
                                   The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
                                 type: string
                               description:
@@ -665,7 +675,7 @@ spec:
                                 type: string
                               format:
                                 description: |-
-                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version.
+                                  (String) The format of the variable. Default is string, format field can only be set during cluster profile creation. Allowed formats include string, number, boolean, ipv4, ipv4cidr, ipv6, version, base64.
                                   The format of the variable. Default is `string`, `format` field can only be set during cluster profile creation. Allowed formats include `string`, `number`, `boolean`, `ipv4`, `ipv4cidr`, `ipv6`, `version`, `base64`.
                                 type: string
                               hidden:
@@ -680,7 +690,7 @@ spec:
                                 type: boolean
                               inputType:
                                 description: |-
-                                  on, and system. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a Full cluster profile.For an Infrastructure cluster profile, use the value infra; for an Add-on cluster profile, use the value add-on.System cluster profiles can be specified using the value system. To learn more about cluster profiles, refer to the Cluster Profile documentation. Default value is add-on.
+                                  (String) The input type of the variable. Defaults to text for backward compatibility. Allowed input types include text, dropdown, multiline.
                                   The input type of the variable. Defaults to `text` for backward compatibility. Allowed input types include `text`, `dropdown`, `multiline`.
                                 type: string
                               isSensitive:
@@ -694,12 +704,15 @@ spec:
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
-                                description: The options of the variable. Only applicable
-                                  for dropdown input type.
+                                description: |-
+                                  (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
+                                  The options of the variable. Only applicable for dropdown input type.
                                 items:
                                   properties:
                                     default:
-                                      description: The default value of the option.
+                                      description: |-
+                                        (Boolean) The default value of the option.
+                                        The default value of the option.
                                       type: boolean
                                     description:
                                       description: |-
@@ -707,10 +720,14 @@ spec:
                                         The description of the option.
                                       type: string
                                     label:
-                                      description: The label of the option.
+                                      description: |-
+                                        (String) The label of the option.
+                                        The label of the option.
                                       type: string
                                     value:
-                                      description: The value of the option.
+                                      description: |-
+                                        (String) The value of the option.
+                                        The value of the option.
                                       type: string
                                   type: object
                                 type: array
