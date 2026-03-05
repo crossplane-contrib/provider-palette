@@ -464,7 +464,7 @@ type UserInfoEndpointParameters struct {
 	// (String) The name of the claim that returns the user's email address from the identity provider.
 	// The name of the claim that returns the user's email address from the identity provider.
 	// +kubebuilder:validation:Optional
-	Email *string `json:"email" tf:"email,omitempty"`
+	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
 	// (String) The name of the claim that returns the user's first name from the identity provider.
 	// The name of the claim that returns the user's first name from the identity provider.
