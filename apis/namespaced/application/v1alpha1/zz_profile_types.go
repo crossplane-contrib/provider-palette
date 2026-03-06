@@ -16,37 +16,30 @@ import (
 
 type ManifestInitParameters struct {
 
-	// (String) The content of the manifest.
 	// The content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the manifest.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type ManifestObservation struct {
 
-	// (String) The content of the manifest.
 	// The content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the manifest.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique id of the pack. This is a computed field and is not required to be set.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ManifestParameters struct {
 
-	// (String) The content of the manifest.
 	// The content of the manifest.
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the manifest.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -54,154 +47,121 @@ type ManifestParameters struct {
 
 type PackInitParameters struct {
 
-	// 3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
 	// The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
 	InstallOrder *float64 `json:"installOrder,omitempty" tf:"install_order,omitempty"`
 
-	// (Block List) The manifest of the pack. (see below for nested schema)
 	// The manifest of the pack.
 	Manifest []ManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the specified pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
 	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
 	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The unique id of the pack to be used as the source for the pack.
 	// The unique id of the pack to be used as the source for the pack.
 	SourceAppTier *string `json:"sourceAppTier,omitempty" tf:"source_app_tier,omitempty"`
 
-	// (String) The identifier or version to label the pack.
 	// The identifier or version to label the pack.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// instance.
 	// The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique id of the pack. This is a computed field and is not required to be set.
 	// The unique id of the pack. This is a computed field and is not required to be set.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The values to be used for the pack. This is a stringified JSON object.
 	// The values to be used for the pack. This is a stringified JSON object.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type PackObservation struct {
 
-	// 3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
 	// The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
 	InstallOrder *float64 `json:"installOrder,omitempty" tf:"install_order,omitempty"`
 
-	// (Block List) The manifest of the pack. (see below for nested schema)
 	// The manifest of the pack.
 	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the specified pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
 	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
 	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The unique id of the pack to be used as the source for the pack.
 	// The unique id of the pack to be used as the source for the pack.
 	SourceAppTier *string `json:"sourceAppTier,omitempty" tf:"source_app_tier,omitempty"`
 
-	// (String) The identifier or version to label the pack.
 	// The identifier or version to label the pack.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// instance.
 	// The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique id of the pack. This is a computed field and is not required to be set.
 	// The unique id of the pack. This is a computed field and is not required to be set.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The values to be used for the pack. This is a stringified JSON object.
 	// The values to be used for the pack. This is a stringified JSON object.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type PackParameters struct {
 
-	// 3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
 	// The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
 	// +kubebuilder:validation:Optional
 	InstallOrder *float64 `json:"installOrder,omitempty" tf:"install_order,omitempty"`
 
-	// (Block List) The manifest of the pack. (see below for nested schema)
 	// The manifest of the pack.
 	// +kubebuilder:validation:Optional
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the application profile
 	// The name of the specified pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
 	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
 	// The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
-	// (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
 	// The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
-	// (String) The unique id of the pack to be used as the source for the pack.
 	// The unique id of the pack to be used as the source for the pack.
 	// +kubebuilder:validation:Optional
 	SourceAppTier *string `json:"sourceAppTier,omitempty" tf:"source_app_tier,omitempty"`
 
-	// (String) The identifier or version to label the pack.
 	// The identifier or version to label the pack.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
-	// instance.
 	// The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The unique id of the pack. This is a computed field and is not required to be set.
 	// The unique id of the pack. This is a computed field and is not required to be set.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The values to be used for the pack. This is a stringified JSON object.
 	// The values to be used for the pack. This is a stringified JSON object.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -209,105 +169,83 @@ type PackParameters struct {
 
 type ProfileInitParameters struct {
 
-	// (String) The cloud provider the profile is eligible for. Default value is all.
 	// The cloud provider the profile is eligible for. Default value is `all`.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) Description of the profile.
 	// Description of the profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Name of the application profile
 	// Name of the application profile
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
 	Pack []PackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
 	// Version of the profile. Default value is 1.0.0.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type ProfileObservation struct {
 
-	// (String) The cloud provider the profile is eligible for. Default value is all.
 	// The cloud provider the profile is eligible for. Default value is `all`.
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) Description of the profile.
 	// Description of the profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Name of the application profile
 	// Name of the application profile
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
 	Pack []PackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
 	// Version of the profile. Default value is 1.0.0.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type ProfileParameters struct {
 
-	// (String) The cloud provider the profile is eligible for. Default value is all.
 	// The cloud provider the profile is eligible for. Default value is `all`.
 	// +kubebuilder:validation:Optional
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	// (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) Description of the profile.
 	// Description of the profile.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Name of the application profile
 	// Name of the application profile
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
 	// A list of packs to be applied to the application profile.
 	// +kubebuilder:validation:Optional
 	Pack []PackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
-	// (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
 	// A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
 	// Version of the profile. Default value is 1.0.0.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`

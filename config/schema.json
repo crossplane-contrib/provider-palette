@@ -15469,7 +15469,7 @@
                             "type": "string",
                             "description": "The name of the claim that returns the user's email address from the identity provider.",
                             "description_kind": "plain",
-                            "required": true
+                            "optional": true
                           },
                           "first_name": {
                             "type": "string",
@@ -18920,6 +18920,12 @@
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
+              },
+              "private_cloud_gateway_id": {
+                "type": "string",
+                "description": "The ID of the Private Cloud Gateway associated with this Apache CloudStack cloud account.",
+                "description_kind": "plain",
+                "computed": true
               }
             },
             "description_kind": "plain"
@@ -19111,6 +19117,12 @@
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
+              },
+              "private_cloud_gateway_id": {
+                "type": "string",
+                "description": "The ID of the Private Cloud Gateway associated with this MaaS cloud account.",
+                "description_kind": "plain",
+                "computed": true
               }
             },
             "description_kind": "plain"
@@ -19139,6 +19151,12 @@
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
+              },
+              "private_cloud_gateway_id": {
+                "type": "string",
+                "description": "The ID of the Private Cloud Gateway associated with this OpenStack cloud account.",
+                "description_kind": "plain",
+                "computed": true
               }
             },
             "description_kind": "plain"
@@ -19166,6 +19184,12 @@
                 "description": "The name of the vSphere cloud account. Either `id` or `name` must be provided, but not both.",
                 "description_kind": "plain",
                 "optional": true,
+                "computed": true
+              },
+              "private_cloud_gateway_id": {
+                "type": "string",
+                "description": "The ID of the Private Cloud Gateway associated with this vSphere cloud account.",
+                "description_kind": "plain",
                 "computed": true
               }
             },

@@ -76,116 +76,98 @@ spec:
               forProvider:
                 properties:
                   cloud:
-                    description: |-
-                      (String) The cloud provider the profile is eligible for. Default value is all.
-                      The cloud provider the profile is eligible for. Default value is `all`.
+                    description: The cloud provider the profile is eligible for. Default
+                      value is `all`.
                     type: string
                   context:
-                    description: |-
-                      (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Context of the profile. Allowed values are `project`,
+                      `cluster`, or `namespace`. Default value is `project`.If  the
+                      `project` context is specified, the project name will sourced
+                      from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: |-
-                      (String) Description of the profile.
-                      Description of the profile.
+                    description: Description of the profile.
                     type: string
                   name:
-                    description: |-
-                      (String) Name of the application profile
-                      Name of the application profile
+                    description: Name of the application profile
                     type: string
                   pack:
-                    description: |-
-                      (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
-                      A list of packs to be applied to the application profile.
+                    description: A list of packs to be applied to the application
+                      profile.
                     items:
                       properties:
                         installOrder:
-                          description: |-
-                            3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
-                            The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
+                          description: The installation priority order of the app
+                            profile. The order of priority goes from lowest number
+                            to highest number. For example, a value of `-3` would
+                            be installed before an app profile with a higher number
+                            value. No upper and lower limits exist, and you may specify
+                            positive and negative integers. The default value is `0`.
                           type: number
                         manifest:
-                          description: |-
-                            (Block List) The manifest of the pack. (see below for nested schema)
-                            The manifest of the pack.
+                          description: The manifest of the pack.
                           items:
                             properties:
                               content:
-                                description: |-
-                                  (String) The content of the manifest.
-                                  The content of the manifest.
+                                description: The content of the manifest.
                                 type: string
                               name:
-                                description: |-
-                                  (String) Name of the application profile
-                                  The name of the manifest.
+                                description: The name of the manifest.
                                 type: string
                             type: object
                           type: array
                         name:
-                          description: |-
-                            (String) Name of the application profile
-                            The name of the specified pack.
+                          description: The name of the specified pack.
                           type: string
                         properties:
                           additionalProperties:
                             type: string
-                          description: |-
-                            (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
-                            The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+                          description: 'The various properties required by different
+                            database tiers eg: `databaseName` and `databaseVolumeSize`
+                            size for Redis etc.'
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:
-                          description: |-
-                            (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
-                            The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The name of the registry to be used for the
+                            pack. This can be used instead of `registry_uid` for better
+                            readability. Either `registry_uid` or `registry_name`
+                            can be specified, but not both.
                           type: string
                         registryUid:
-                          description: |-
-                            (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
-                            The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The unique id of the registry to be used for
+                            the pack. Either `registry_uid` or `registry_name` can
+                            be specified, but not both.
                           type: string
                         sourceAppTier:
-                          description: |-
-                            (String) The unique id of the pack to be used as the source for the pack.
-                            The unique id of the pack to be used as the source for the pack.
+                          description: The unique id of the pack to be used as the
+                            source for the pack.
                           type: string
                         tag:
-                          description: |-
-                            (String) The identifier or version to label the pack.
-                            The identifier or version to label the pack.
+                          description: The identifier or version to label the pack.
                           type: string
                         type:
-                          description: |-
-                            instance.
-                            The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
+                          description: The type of Pack. Allowed values are `container`,
+                            `helm`, `manifest`, or `operator-instance`.
                           type: string
                         uid:
-                          description: |-
-                            (String) The unique id of the pack. This is a computed field and is not required to be set.
-                            The unique id of the pack. This is a computed field and is not required to be set.
+                          description: The unique id of the pack. This is a computed
+                            field and is not required to be set.
                           type: string
                         values:
-                          description: |-
-                            (String) The values to be used for the pack. This is a stringified JSON object.
-                            The values to be used for the pack. This is a stringified JSON object.
+                          description: The values to be used for the pack. This is
+                            a stringified JSON object.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
-                      A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
+                    description: A list of tags to be applied to the application profile.
+                      Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   version:
-                    description: |-
-                      (String) Version of the profile. Default value is 1.0.0.
-                      Version of the profile. Default value is 1.0.0.
+                    description: Version of the profile. Default value is 1.0.0.
                     type: string
                 type: object
               initProvider:
@@ -202,116 +184,98 @@ spec:
                   autoscaler.
                 properties:
                   cloud:
-                    description: |-
-                      (String) The cloud provider the profile is eligible for. Default value is all.
-                      The cloud provider the profile is eligible for. Default value is `all`.
+                    description: The cloud provider the profile is eligible for. Default
+                      value is `all`.
                     type: string
                   context:
-                    description: |-
-                      (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Context of the profile. Allowed values are `project`,
+                      `cluster`, or `namespace`. Default value is `project`.If  the
+                      `project` context is specified, the project name will sourced
+                      from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: |-
-                      (String) Description of the profile.
-                      Description of the profile.
+                    description: Description of the profile.
                     type: string
                   name:
-                    description: |-
-                      (String) Name of the application profile
-                      Name of the application profile
+                    description: Name of the application profile
                     type: string
                   pack:
-                    description: |-
-                      (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
-                      A list of packs to be applied to the application profile.
+                    description: A list of packs to be applied to the application
+                      profile.
                     items:
                       properties:
                         installOrder:
-                          description: |-
-                            3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
-                            The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
+                          description: The installation priority order of the app
+                            profile. The order of priority goes from lowest number
+                            to highest number. For example, a value of `-3` would
+                            be installed before an app profile with a higher number
+                            value. No upper and lower limits exist, and you may specify
+                            positive and negative integers. The default value is `0`.
                           type: number
                         manifest:
-                          description: |-
-                            (Block List) The manifest of the pack. (see below for nested schema)
-                            The manifest of the pack.
+                          description: The manifest of the pack.
                           items:
                             properties:
                               content:
-                                description: |-
-                                  (String) The content of the manifest.
-                                  The content of the manifest.
+                                description: The content of the manifest.
                                 type: string
                               name:
-                                description: |-
-                                  (String) Name of the application profile
-                                  The name of the manifest.
+                                description: The name of the manifest.
                                 type: string
                             type: object
                           type: array
                         name:
-                          description: |-
-                            (String) Name of the application profile
-                            The name of the specified pack.
+                          description: The name of the specified pack.
                           type: string
                         properties:
                           additionalProperties:
                             type: string
-                          description: |-
-                            (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
-                            The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+                          description: 'The various properties required by different
+                            database tiers eg: `databaseName` and `databaseVolumeSize`
+                            size for Redis etc.'
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:
-                          description: |-
-                            (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
-                            The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The name of the registry to be used for the
+                            pack. This can be used instead of `registry_uid` for better
+                            readability. Either `registry_uid` or `registry_name`
+                            can be specified, but not both.
                           type: string
                         registryUid:
-                          description: |-
-                            (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
-                            The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The unique id of the registry to be used for
+                            the pack. Either `registry_uid` or `registry_name` can
+                            be specified, but not both.
                           type: string
                         sourceAppTier:
-                          description: |-
-                            (String) The unique id of the pack to be used as the source for the pack.
-                            The unique id of the pack to be used as the source for the pack.
+                          description: The unique id of the pack to be used as the
+                            source for the pack.
                           type: string
                         tag:
-                          description: |-
-                            (String) The identifier or version to label the pack.
-                            The identifier or version to label the pack.
+                          description: The identifier or version to label the pack.
                           type: string
                         type:
-                          description: |-
-                            instance.
-                            The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
+                          description: The type of Pack. Allowed values are `container`,
+                            `helm`, `manifest`, or `operator-instance`.
                           type: string
                         uid:
-                          description: |-
-                            (String) The unique id of the pack. This is a computed field and is not required to be set.
-                            The unique id of the pack. This is a computed field and is not required to be set.
+                          description: The unique id of the pack. This is a computed
+                            field and is not required to be set.
                           type: string
                         values:
-                          description: |-
-                            (String) The values to be used for the pack. This is a stringified JSON object.
-                            The values to be used for the pack. This is a stringified JSON object.
+                          description: The values to be used for the pack. This is
+                            a stringified JSON object.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
-                      A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
+                    description: A list of tags to be applied to the application profile.
+                      Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   version:
-                    description: |-
-                      (String) Version of the profile. Default value is 1.0.0.
-                      Version of the profile. Default value is 1.0.0.
+                    description: Version of the profile. Default value is 1.0.0.
                     type: string
                 type: object
               managementPolicies:
@@ -415,123 +379,102 @@ spec:
               atProvider:
                 properties:
                   cloud:
-                    description: |-
-                      (String) The cloud provider the profile is eligible for. Default value is all.
-                      The cloud provider the profile is eligible for. Default value is `all`.
+                    description: The cloud provider the profile is eligible for. Default
+                      value is `all`.
                     type: string
                   context:
-                    description: |-
-                      (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Context of the profile. Allowed values are `project`, `cluster`, or `namespace`. Default value is `project`.If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Context of the profile. Allowed values are `project`,
+                      `cluster`, or `namespace`. Default value is `project`.If  the
+                      `project` context is specified, the project name will sourced
+                      from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: |-
-                      (String) Description of the profile.
-                      Description of the profile.
+                    description: Description of the profile.
                     type: string
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: |-
-                      (String) Name of the application profile
-                      Name of the application profile
+                    description: Name of the application profile
                     type: string
                   pack:
-                    description: |-
-                      (Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)
-                      A list of packs to be applied to the application profile.
+                    description: A list of packs to be applied to the application
+                      profile.
                     items:
                       properties:
                         installOrder:
-                          description: |-
-                            3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
-                            The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of `-3` would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is `0`.
+                          description: The installation priority order of the app
+                            profile. The order of priority goes from lowest number
+                            to highest number. For example, a value of `-3` would
+                            be installed before an app profile with a higher number
+                            value. No upper and lower limits exist, and you may specify
+                            positive and negative integers. The default value is `0`.
                           type: number
                         manifest:
-                          description: |-
-                            (Block List) The manifest of the pack. (see below for nested schema)
-                            The manifest of the pack.
+                          description: The manifest of the pack.
                           items:
                             properties:
                               content:
-                                description: |-
-                                  (String) The content of the manifest.
-                                  The content of the manifest.
+                                description: The content of the manifest.
                                 type: string
                               name:
-                                description: |-
-                                  (String) Name of the application profile
-                                  The name of the manifest.
+                                description: The name of the manifest.
                                 type: string
                               uid:
-                                description: (String) The unique id of the pack. This
-                                  is a computed field and is not required to be set.
                                 type: string
                             type: object
                           type: array
                         name:
-                          description: |-
-                            (String) Name of the application profile
-                            The name of the specified pack.
+                          description: The name of the specified pack.
                           type: string
                         properties:
                           additionalProperties:
                             type: string
-                          description: |-
-                            (Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.
-                            The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+                          description: 'The various properties required by different
+                            database tiers eg: `databaseName` and `databaseVolumeSize`
+                            size for Redis etc.'
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:
-                          description: |-
-                            (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
-                            The name of the registry to be used for the pack. This can be used instead of `registry_uid` for better readability. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The name of the registry to be used for the
+                            pack. This can be used instead of `registry_uid` for better
+                            readability. Either `registry_uid` or `registry_name`
+                            can be specified, but not both.
                           type: string
                         registryUid:
-                          description: |-
-                            (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
-                            The unique id of the registry to be used for the pack. Either `registry_uid` or `registry_name` can be specified, but not both.
+                          description: The unique id of the registry to be used for
+                            the pack. Either `registry_uid` or `registry_name` can
+                            be specified, but not both.
                           type: string
                         sourceAppTier:
-                          description: |-
-                            (String) The unique id of the pack to be used as the source for the pack.
-                            The unique id of the pack to be used as the source for the pack.
+                          description: The unique id of the pack to be used as the
+                            source for the pack.
                           type: string
                         tag:
-                          description: |-
-                            (String) The identifier or version to label the pack.
-                            The identifier or version to label the pack.
+                          description: The identifier or version to label the pack.
                           type: string
                         type:
-                          description: |-
-                            instance.
-                            The type of Pack. Allowed values are `container`, `helm`, `manifest`, or `operator-instance`.
+                          description: The type of Pack. Allowed values are `container`,
+                            `helm`, `manifest`, or `operator-instance`.
                           type: string
                         uid:
-                          description: |-
-                            (String) The unique id of the pack. This is a computed field and is not required to be set.
-                            The unique id of the pack. This is a computed field and is not required to be set.
+                          description: The unique id of the pack. This is a computed
+                            field and is not required to be set.
                           type: string
                         values:
-                          description: |-
-                            (String) The values to be used for the pack. This is a stringified JSON object.
-                            The values to be used for the pack. This is a stringified JSON object.
+                          description: The values to be used for the pack. This is
+                            a stringified JSON object.
                           type: string
                       type: object
                     type: array
                   tags:
-                    description: |-
-                      (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
-                      A list of tags to be applied to the application profile. Tags must be in the form of `key:value`.
+                    description: A list of tags to be applied to the application profile.
+                      Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   version:
-                    description: |-
-                      (String) Version of the profile. Default value is 1.0.0.
-                      Version of the profile. Default value is 1.0.0.
+                    description: Version of the profile. Default value is 1.0.0.
                     type: string
                 type: object
               conditions:

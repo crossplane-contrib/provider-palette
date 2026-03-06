@@ -59,29 +59,22 @@ spec:
               forProvider:
                 properties:
                   cpu:
-                    description: |-
-                      (Number) Defines the number of CPU cores allocated to the cluster.
-                      Defines the number of CPU cores allocated to the cluster.
+                    description: Defines the number of CPU cores allocated to the
+                      cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: |-
-                      (Boolean) If set to true, hides the system cluster.
-                      If set to `true`, hides the system cluster.
+                    description: If set to `true`, hides the system cluster.
                     type: boolean
                   memory:
-                    description: |-
-                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
-                      Specifies the amount of memory (in GiB) allocated to the cluster.
+                    description: Specifies the amount of memory (in GiB) allocated
+                      to the cluster.
                     type: number
                   storage:
-                    description: |-
-                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
-                      Defines the storage capacity (in GiB) allocated to the cluster.
+                    description: Defines the storage capacity (in GiB) allocated to
+                      the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: |-
-                      (Number) Specifies the number of virtual clusters to be created.
-                      Specifies the number of virtual clusters to be created.
+                    description: Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               initProvider:
@@ -98,29 +91,22 @@ spec:
                   autoscaler.
                 properties:
                   cpu:
-                    description: |-
-                      (Number) Defines the number of CPU cores allocated to the cluster.
-                      Defines the number of CPU cores allocated to the cluster.
+                    description: Defines the number of CPU cores allocated to the
+                      cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: |-
-                      (Boolean) If set to true, hides the system cluster.
-                      If set to `true`, hides the system cluster.
+                    description: If set to `true`, hides the system cluster.
                     type: boolean
                   memory:
-                    description: |-
-                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
-                      Specifies the amount of memory (in GiB) allocated to the cluster.
+                    description: Specifies the amount of memory (in GiB) allocated
+                      to the cluster.
                     type: number
                   storage:
-                    description: |-
-                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
-                      Defines the storage capacity (in GiB) allocated to the cluster.
+                    description: Defines the storage capacity (in GiB) allocated to
+                      the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: |-
-                      (Number) Specifies the number of virtual clusters to be created.
-                      Specifies the number of virtual clusters to be created.
+                    description: Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               managementPolicies:
@@ -187,32 +173,24 @@ spec:
               atProvider:
                 properties:
                   cpu:
-                    description: |-
-                      (Number) Defines the number of CPU cores allocated to the cluster.
-                      Defines the number of CPU cores allocated to the cluster.
+                    description: Defines the number of CPU cores allocated to the
+                      cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: |-
-                      (Boolean) If set to true, hides the system cluster.
-                      If set to `true`, hides the system cluster.
+                    description: If set to `true`, hides the system cluster.
                     type: boolean
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   memory:
-                    description: |-
-                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
-                      Specifies the amount of memory (in GiB) allocated to the cluster.
+                    description: Specifies the amount of memory (in GiB) allocated
+                      to the cluster.
                     type: number
                   storage:
-                    description: |-
-                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
-                      Defines the storage capacity (in GiB) allocated to the cluster.
+                    description: Defines the storage capacity (in GiB) allocated to
+                      the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: |-
-                      (Number) Specifies the number of virtual clusters to be created.
-                      Specifies the number of virtual clusters to be created.
+                    description: Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               conditions:

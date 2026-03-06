@@ -15,34 +15,28 @@ import (
 
 type LoginBannerInitParameters struct {
 
-	// (String) Specify the message displayed in the login banner.
 	// Specify the message displayed in the login banner.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (String) Specify the title of the login banner.
 	// Specify the title of the login banner.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type LoginBannerObservation struct {
 
-	// (String) Specify the message displayed in the login banner.
 	// Specify the message displayed in the login banner.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (String) Specify the title of the login banner.
 	// Specify the title of the login banner.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type LoginBannerParameters struct {
 
-	// (String) Specify the message displayed in the login banner.
 	// Specify the message displayed in the login banner.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message" tf:"message,omitempty"`
 
-	// (String) Specify the title of the login banner.
 	// Specify the title of the login banner.
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title" tf:"title,omitempty"`
@@ -50,141 +44,110 @@ type LoginBannerParameters struct {
 
 type SettingInitParameters struct {
 
-	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
 	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
 	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
 
-	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
 	ClusterAutoRemediation *bool `json:"clusterAutoRemediation,omitempty" tf:"cluster_auto_remediation,omitempty"`
 
-	// (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (Boolean) Enables automatic remediation. set only with `project' context
 	// Enables automatic remediation. set only with `project' context
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
 	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	LoginBanner []LoginBannerInitParameters `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
-	// (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
 	// Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
 	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`
 }
 
 type SettingObservation struct {
 
-	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
 	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
 	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
 
-	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
 	ClusterAutoRemediation *bool `json:"clusterAutoRemediation,omitempty" tf:"cluster_auto_remediation,omitempty"`
 
-	// (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (Boolean) Enables automatic remediation. set only with `project' context
 	// Enables automatic remediation. set only with `project' context
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
 	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	LoginBanner []LoginBannerObservation `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
-	// (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
 	// Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
 	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`
 }
 
 type SettingParameters struct {
 
-	// (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
 	// Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
 	// +kubebuilder:validation:Optional
 	AutomaticClusterRoleBinding *bool `json:"automaticClusterRoleBinding,omitempty" tf:"automatic_cluster_role_binding,omitempty"`
 
-	// provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
 	// Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
 	// +kubebuilder:validation:Optional
 	ClusterAutoRemediation *bool `json:"clusterAutoRemediation,omitempty" tf:"cluster_auto_remediation,omitempty"`
 
-	// (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (Boolean) Enables automatic remediation. set only with `project' context
 	// Enables automatic remediation. set only with `project' context
 	// +kubebuilder:validation:Optional
 	EnableAutoRemediation *bool `json:"enableAutoRemediation,omitempty" tf:"enable_auto_remediation,omitempty"`
 
-	// (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
 	// Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	LoginBanner []LoginBannerParameters `json:"loginBanner,omitempty" tf:"login_banner,omitempty"`
 
-	// FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsAddonPack *bool `json:"nonFipsAddonPack,omitempty" tf:"non_fips_addon_pack,omitempty"`
 
-	// compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsClusterImport *bool `json:"nonFipsClusterImport,omitempty" tf:"non_fips_cluster_import,omitempty"`
 
-	// FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
 	// Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	NonFipsFeatures *bool `json:"nonFipsFeatures,omitempty" tf:"non_fips_features,omitempty"`
 
-	// (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
 	// Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
 	// Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
 	// +kubebuilder:validation:Optional
 	SessionTimeout *float64 `json:"sessionTimeout,omitempty" tf:"session_timeout,omitempty"`

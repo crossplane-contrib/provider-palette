@@ -73,24 +73,18 @@ spec:
               forProvider:
                 properties:
                   description:
-                    description: |-
-                      (String) A brief description of the registration token.
-                      A brief description of the registration token.
+                    description: A brief description of the registration token.
                     type: string
                   expiryDate:
-                    description: |-
-                      MM-DD format.
-                      The expiration date of the registration token in `YYYY-MM-DD` format.
+                    description: The expiration date of the registration token in
+                      `YYYY-MM-DD` format.
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the registration token.
-                      The name of the registration token.
+                    description: The name of the registration token.
                     type: string
                   projectUid:
-                    description: |-
-                      (String) The unique identifier of the project associated with the registration token.
-                      The unique identifier of the project associated with the registration token.
+                    description: The unique identifier of the project associated with
+                      the registration token.
                     type: string
                   projectUidRef:
                     description: Reference to a Project in spectrocloud to populate
@@ -169,9 +163,8 @@ spec:
                         type: object
                     type: object
                   status:
-                    description: |-
-                      (String) The status of the registration token. Allowed values are active or inactive. Default is active.
-                      The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
+                    description: The status of the registration token. Allowed values
+                      are `active` or `inactive`. Default is `active`.
                     type: string
                 type: object
               initProvider:
@@ -188,24 +181,18 @@ spec:
                   autoscaler.
                 properties:
                   description:
-                    description: |-
-                      (String) A brief description of the registration token.
-                      A brief description of the registration token.
+                    description: A brief description of the registration token.
                     type: string
                   expiryDate:
-                    description: |-
-                      MM-DD format.
-                      The expiration date of the registration token in `YYYY-MM-DD` format.
+                    description: The expiration date of the registration token in
+                      `YYYY-MM-DD` format.
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the registration token.
-                      The name of the registration token.
+                    description: The name of the registration token.
                     type: string
                   projectUid:
-                    description: |-
-                      (String) The unique identifier of the project associated with the registration token.
-                      The unique identifier of the project associated with the registration token.
+                    description: The unique identifier of the project associated with
+                      the registration token.
                     type: string
                   projectUidRef:
                     description: Reference to a Project in spectrocloud to populate
@@ -284,9 +271,8 @@ spec:
                         type: object
                     type: object
                   status:
-                    description: |-
-                      (String) The status of the registration token. Allowed values are active or inactive. Default is active.
-                      The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
+                    description: The status of the registration token. Allowed values
+                      are `active` or `inactive`. Default is `active`.
                     type: string
                 type: object
               managementPolicies:
@@ -390,35 +376,26 @@ spec:
               atProvider:
                 properties:
                   description:
-                    description: |-
-                      (String) A brief description of the registration token.
-                      A brief description of the registration token.
+                    description: A brief description of the registration token.
                     type: string
                   expiryDate:
-                    description: |-
-                      MM-DD format.
-                      The expiration date of the registration token in `YYYY-MM-DD` format.
+                    description: The expiration date of the registration token in
+                      `YYYY-MM-DD` format.
                     type: string
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: |-
-                      (String) The name of the registration token.
-                      The name of the registration token.
+                    description: The name of the registration token.
                     type: string
                   projectUid:
-                    description: |-
-                      (String) The unique identifier of the project associated with the registration token.
-                      The unique identifier of the project associated with the registration token.
+                    description: The unique identifier of the project associated with
+                      the registration token.
                     type: string
                   status:
-                    description: |-
-                      (String) The status of the registration token. Allowed values are active or inactive. Default is active.
-                      The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
+                    description: The status of the registration token. Allowed values
+                      are `active` or `inactive`. Default is `active`.
                     type: string
                   token:
-                    description: (String)
                     type: string
                 type: object
               conditions:
