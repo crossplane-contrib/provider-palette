@@ -15,19 +15,15 @@ import (
 
 type TokenInitParameters struct {
 
-	// (String) A brief description of the registration token.
 	// A brief description of the registration token.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// MM-DD format.
 	// The expiration date of the registration token in `YYYY-MM-DD` format.
 	ExpiryDate *string `json:"expiryDate,omitempty" tf:"expiry_date,omitempty"`
 
-	// (String) The name of the registration token.
 	// The name of the registration token.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/spectrocloud/v1alpha1.Project
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
@@ -40,58 +36,46 @@ type TokenInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectUIDSelector *v1.Selector `json:"projectUidSelector,omitempty" tf:"-"`
 
-	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 type TokenObservation struct {
 
-	// (String) A brief description of the registration token.
 	// A brief description of the registration token.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// MM-DD format.
 	// The expiration date of the registration token in `YYYY-MM-DD` format.
 	ExpiryDate *string `json:"expiryDate,omitempty" tf:"expiry_date,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the registration token.
 	// The name of the registration token.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
 
-	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String)
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 }
 
 type TokenParameters struct {
 
-	// (String) A brief description of the registration token.
 	// A brief description of the registration token.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// MM-DD format.
 	// The expiration date of the registration token in `YYYY-MM-DD` format.
 	// +kubebuilder:validation:Optional
 	ExpiryDate *string `json:"expiryDate,omitempty" tf:"expiry_date,omitempty"`
 
-	// (String) The name of the registration token.
 	// The name of the registration token.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The unique identifier of the project associated with the registration token.
 	// The unique identifier of the project associated with the registration token.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/spectrocloud/v1alpha1.Project
 	// +kubebuilder:validation:Optional
@@ -105,7 +89,6 @@ type TokenParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectUIDSelector *v1.Selector `json:"projectUidSelector,omitempty" tf:"-"`
 
-	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`

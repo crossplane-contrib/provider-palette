@@ -308,30 +308,7 @@ resources:
                 pack.registry_uid: data.spectrocloud_registry.Bitnami_registry.id
                 pack.source_app_tier: data.spectrocloud_pack_simple.redis_pack.id
                 pack.type: data.spectrocloud_pack_simple.redis_pack.type
-        argumentDocs:
-            cloud: (String) The cloud provider the profile is eligible for. Default value is all.
-            content: (String) The content of the manifest.
-            context: (String) Context of the profile. Allowed values are project, cluster, or namespace. Default value is project.If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            create: (String)
-            delete: (String)
-            description: (String) Description of the profile.
-            id: (String) The ID of this resource.
-            install_order: (Number) The installation priority order of the app profile. The order of priority goes from lowest number to highest number. For example, a value of -3 would be installed before an app profile with a higher number value. No upper and lower limits exist, and you may specify positive and negative integers. The default value is 0.
-            manifest: (Block List) The manifest of the pack. (see below for nested schema)
-            name: (String) Name of the application profile
-            pack: '(Block List, Min: 1) A list of packs to be applied to the application profile. (see below for nested schema)'
-            properties: '(Map of String) The various properties required by different database tiers eg: databaseName and databaseVolumeSize size for Redis etc.'
-            registry_name: (String) The name of the registry to be used for the pack. This can be used instead of registry_uid for better readability. Either registry_uid or registry_name can be specified, but not both.
-            registry_uid: (String) The unique id of the registry to be used for the pack. Either registry_uid or registry_name can be specified, but not both.
-            source_app_tier: (String) The unique id of the pack to be used as the source for the pack.
-            tag: (String) The identifier or version to label the pack.
-            tags: (Set of String) A list of tags to be applied to the application profile. Tags must be in the form of key:value.
-            timeouts: (Block, Optional) (see below for nested schema)
-            type: (String) The type of Pack. Allowed values are container, helm, manifest, or operator-instance.
-            uid: (String) The unique id of the pack. This is a computed field and is not required to be set.
-            update: (String)
-            values: (String) The values to be used for the pack. This is a stringified JSON object.
-            version: (String) Version of the profile. Default value is 1.0.0.
+        argumentDocs: {}
         importStatements: []
     spectrocloud_backup_storage_location:
         subCategory: ""
@@ -4132,17 +4109,7 @@ resources:
                   "storage": 100,
                   "virtual_clusters_limit": 10
                 }
-        argumentDocs:
-            cpu: (Number) Defines the number of CPU cores allocated to the cluster.
-            create: (String)
-            delete: (String)
-            hide_system_cluster_group: (Boolean) If set to true, hides the system cluster.
-            id: (String) The ID of this resource.
-            memory: (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
-            storage: (Number) Defines the storage capacity (in GiB) allocated to the cluster.
-            timeouts: (Block, Optional) (see below for nested schema)
-            update: (String)
-            virtual_clusters_limit: (Number) Specifies the number of virtual clusters to be created.
+        argumentDocs: {}
         importStatements: []
     spectrocloud_filter:
         subCategory: ""
@@ -4226,14 +4193,7 @@ resources:
                     "tenant_macro_2": "tenant_val2"
                   }
                 }
-        argumentDocs:
-            context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            create: (String)
-            delete: (String)
-            id: (String) The ID of this resource.
-            macros: (Map of String) The key-value mapping includes the macro name and its corresponding value, representing either a macro or a service variable output.
-            timeouts: (Block, Optional) (see below for nested schema)
-            update: (String)
+        argumentDocs: {}
         importStatements: []
     spectrocloud_password_policy:
         subCategory: ""
@@ -4251,20 +4211,7 @@ resources:
                   "min_uppercase_letters": 1,
                   "password_expiry_days": 123
                 }
-        argumentDocs:
-            create: (String)
-            delete: (String)
-            first_reminder_days: (Number) The number of days before the password expiry to send the first reminder to the user. Default is 5 days before expiry.
-            id: (String) The ID of this resource.
-            min_digits: (Number) The minimum number of numeric digits (0-9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be 1.
-            min_lowercase_letters: (Number) The minimum number of lowercase letters (a-z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be 1.
-            min_password_length: (Number) The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is 6.
-            min_special_characters: '(Number) The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password''s security level by including symbols. Minimum special characters should be 1.'
-            min_uppercase_letters: (Number) The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be 1.
-            password_expiry_days: (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
-            password_regex: (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
-            timeouts: (Block, Optional) (see below for nested schema)
-            update: (String)
+        argumentDocs: {}
         importStatements: []
     spectrocloud_platform_setting:
         subCategory: ""
@@ -4289,24 +4236,7 @@ resources:
                   "pause_agent_upgrades": "lock",
                   "session_timeout": 230
                 }
-        argumentDocs:
-            automatic_cluster_role_binding: (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
-            cluster_auto_remediation: (Boolean) Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
-            context: (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            create: (String)
-            delete: (String)
-            enable_auto_remediation: (Boolean) Enables automatic remediation. set only with `project' context
-            id: (String) The ID of this resource.
-            login_banner: '(Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)'
-            message: (String) Specify the message displayed in the login banner.
-            non_fips_addon_pack: (Boolean) Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
-            non_fips_cluster_import: (Boolean) Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
-            non_fips_features: (Boolean) Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
-            pause_agent_upgrades: (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
-            session_timeout: (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
-            timeouts: (Block, Optional) (see below for nested schema)
-            title: (String) Specify the title of the login banner.
-            update: (String)
+        argumentDocs: {}
         importStatements: []
     spectrocloud_privatecloudgateway_dns_map:
         subCategory: ""
@@ -4444,18 +4374,7 @@ resources:
                   "project_uid": "6514216503b",
                   "status": "active"
                 }
-        argumentDocs:
-            create: (String)
-            delete: (String)
-            description: (String) A brief description of the registration token.
-            expiry_date: (String) The expiration date of the registration token in YYYY-MM-DD format.
-            id: (String) The ID of this resource.
-            name: (String) The name of the registration token.
-            project_uid: (String) The unique identifier of the project associated with the registration token.
-            status: (String) The status of the registration token. Allowed values are active or inactive. Default is active.
-            timeouts: (Block, Optional) (see below for nested schema)
-            token: (String)
-            update: (String)
+        argumentDocs: {}
         importStatements: []
     spectrocloud_registry_helm:
         subCategory: ""

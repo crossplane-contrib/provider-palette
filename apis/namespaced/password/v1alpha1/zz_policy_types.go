@@ -16,115 +16,90 @@ import (
 
 type PolicyInitParameters struct {
 
-	// (Number) The number of days before the password expiry to send the first reminder to the user. Default is 5 days before expiry.
 	// The number of days before the password expiry to send the first reminder to the user. Default is `5` days before expiry.
 	FirstReminderDays *float64 `json:"firstReminderDays,omitempty" tf:"first_reminder_days,omitempty"`
 
-	// 9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be 1.
 	// The minimum number of numeric digits (0-9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be `1`.
 	MinDigits *float64 `json:"minDigits,omitempty" tf:"min_digits,omitempty"`
 
-	// z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be 1.
 	// The minimum number of lowercase letters (a-z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be `1`.
 	MinLowercaseLetters *float64 `json:"minLowercaseLetters,omitempty" tf:"min_lowercase_letters,omitempty"`
 
-	// (Number) The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is 6.
 	// The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is `6`.
 	MinPasswordLength *float64 `json:"minPasswordLength,omitempty" tf:"min_password_length,omitempty"`
 
-	// (Number) The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be 1.
 	// The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be `1`.
 	MinSpecialCharacters *float64 `json:"minSpecialCharacters,omitempty" tf:"min_special_characters,omitempty"`
 
-	// Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be 1.
 	// The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be `1`.
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
 	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 
-	// (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	// A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	PasswordRegex *string `json:"passwordRegex,omitempty" tf:"password_regex,omitempty"`
 }
 
 type PolicyObservation struct {
 
-	// (Number) The number of days before the password expiry to send the first reminder to the user. Default is 5 days before expiry.
 	// The number of days before the password expiry to send the first reminder to the user. Default is `5` days before expiry.
 	FirstReminderDays *float64 `json:"firstReminderDays,omitempty" tf:"first_reminder_days,omitempty"`
 
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// 9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be 1.
 	// The minimum number of numeric digits (0-9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be `1`.
 	MinDigits *float64 `json:"minDigits,omitempty" tf:"min_digits,omitempty"`
 
-	// z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be 1.
 	// The minimum number of lowercase letters (a-z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be `1`.
 	MinLowercaseLetters *float64 `json:"minLowercaseLetters,omitempty" tf:"min_lowercase_letters,omitempty"`
 
-	// (Number) The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is 6.
 	// The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is `6`.
 	MinPasswordLength *float64 `json:"minPasswordLength,omitempty" tf:"min_password_length,omitempty"`
 
-	// (Number) The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be 1.
 	// The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be `1`.
 	MinSpecialCharacters *float64 `json:"minSpecialCharacters,omitempty" tf:"min_special_characters,omitempty"`
 
-	// Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be 1.
 	// The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be `1`.
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
 	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 
-	// (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	// A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	PasswordRegex *string `json:"passwordRegex,omitempty" tf:"password_regex,omitempty"`
 }
 
 type PolicyParameters struct {
 
-	// (Number) The number of days before the password expiry to send the first reminder to the user. Default is 5 days before expiry.
 	// The number of days before the password expiry to send the first reminder to the user. Default is `5` days before expiry.
 	// +kubebuilder:validation:Optional
 	FirstReminderDays *float64 `json:"firstReminderDays,omitempty" tf:"first_reminder_days,omitempty"`
 
-	// 9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be 1.
 	// The minimum number of numeric digits (0-9) required in the password. Ensures that passwords contain numerical characters. Minimum length of digit should be `1`.
 	// +kubebuilder:validation:Optional
 	MinDigits *float64 `json:"minDigits,omitempty" tf:"min_digits,omitempty"`
 
-	// z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be 1.
 	// The minimum number of lowercase letters (a-z) required in the password. Ensures that lowercase characters are included for password complexity. Minimum length of lower case should be `1`.
 	// +kubebuilder:validation:Optional
 	MinLowercaseLetters *float64 `json:"minLowercaseLetters,omitempty" tf:"min_lowercase_letters,omitempty"`
 
-	// (Number) The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is 6.
 	// The minimum length required for the password. Enforces a stronger password policy by ensuring a minimum number of characters.  Default minimum length is `6`.
 	// +kubebuilder:validation:Optional
 	MinPasswordLength *float64 `json:"minPasswordLength,omitempty" tf:"min_password_length,omitempty"`
 
-	// (Number) The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be 1.
 	// The minimum number of special characters (e.g., !, @, #, $, %) required in the password. This increases the password's security level by including symbols. Minimum special characters should be `1`.
 	// +kubebuilder:validation:Optional
 	MinSpecialCharacters *float64 `json:"minSpecialCharacters,omitempty" tf:"min_special_characters,omitempty"`
 
-	// Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be 1.
 	// The minimum number of uppercase letters (A-Z) required in the password. Helps ensure password complexity with a mix of case-sensitive characters. Minimum length of upper case should be `1`.
 	// +kubebuilder:validation:Optional
 	MinUppercaseLetters *float64 `json:"minUppercaseLetters,omitempty" tf:"min_uppercase_letters,omitempty"`
 
-	// (Number) The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is 999 days for expiry. Conflicts with min_password_length, min_uppercase_letters, min_digits, min_lowercase_letters, min_special_characters
 	// The number of days before the password expires. Must be between 1 and 1000 days. Defines how often passwords must be changed.  Default is `999` days for expiry. Conflicts with `min_password_length`, `min_uppercase_letters`, `min_digits`, `min_lowercase_letters`, `min_special_characters`
 	// +kubebuilder:validation:Optional
 	PasswordExpiryDays *float64 `json:"passwordExpiryDays,omitempty" tf:"password_expiry_days,omitempty"`
 
-	// (String) A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	// A regular expression (regex) to define custom password patterns, such as enforcing specific characters or sequences in the password.
 	// +kubebuilder:validation:Optional
 	PasswordRegex *string `json:"passwordRegex,omitempty" tf:"password_regex,omitempty"`

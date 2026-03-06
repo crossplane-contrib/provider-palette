@@ -59,67 +59,68 @@ spec:
               forProvider:
                 properties:
                   automaticClusterRoleBinding:
-                    description: |-
-                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
-                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
-                    description: |-
-                      provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
-                      Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
+                    description: Enables automatic remediation for unhealthy nodes
+                      in Palette-provisioned clusters by replacing them with new nodes.
+                      Disabling this feature prevents auto-remediation. Not applicable
+                      to `EKS`, `AKS`, or `TKE` clusters.
                     type: boolean
                   context:
-                    description: |-
-                      (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Defines the scope of the platform setting. Valid
+                      values are `project` or `tenant`. By default, it is set to `tenant`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: |-
-                      (Boolean) Enables automatic remediation. set only with `project' context
-                      Enables automatic remediation. set only with `project' context
+                    description: Enables automatic remediation. set only with `project'
+                      context
                     type: boolean
                   loginBanner:
-                    description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
+                    description: Configure a login banner that users must acknowledge
+                      before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
-                          description: |-
-                            (String) Specify the message displayed in the login banner.
-                            Specify the message displayed in the login banner.
+                          description: Specify the message displayed in the login
+                            banner.
                           type: string
                         title:
-                          description: |-
-                            (String) Specify the title of the login banner.
-                            Specify the title of the login banner.
+                          description: Specify the title of the login banner.
                           type: string
                       type: object
                     type: array
                   nonFipsAddonPack:
-                    description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to use non-FIPS-compliant
+                      addon packs when creating cluster profiles. The `non_fips_addon_pack`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsClusterImport:
-                    description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to import clusters, but
+                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsFeatures:
-                    description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to access non-FIPS-compliant
+                      features such as backup, restore, and scans. The `non_fips_features`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
-                    description: |-
-                      (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
-                      Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
+                    description: Controls automatic upgrades for Palette components
+                      and agents in clusters deployed under a tenant or project. Setting
+                      it to `lock` disables automatic upgrades, while `unlock` (default)
+                      allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration (in minutes) of inactivity
+                      before a user is automatically logged out. The default is 240
+                      minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               initProvider:
@@ -136,67 +137,68 @@ spec:
                   autoscaler.
                 properties:
                   automaticClusterRoleBinding:
-                    description: |-
-                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
-                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
-                    description: |-
-                      provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
-                      Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
+                    description: Enables automatic remediation for unhealthy nodes
+                      in Palette-provisioned clusters by replacing them with new nodes.
+                      Disabling this feature prevents auto-remediation. Not applicable
+                      to `EKS`, `AKS`, or `TKE` clusters.
                     type: boolean
                   context:
-                    description: |-
-                      (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Defines the scope of the platform setting. Valid
+                      values are `project` or `tenant`. By default, it is set to `tenant`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: |-
-                      (Boolean) Enables automatic remediation. set only with `project' context
-                      Enables automatic remediation. set only with `project' context
+                    description: Enables automatic remediation. set only with `project'
+                      context
                     type: boolean
                   loginBanner:
-                    description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
+                    description: Configure a login banner that users must acknowledge
+                      before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
-                          description: |-
-                            (String) Specify the message displayed in the login banner.
-                            Specify the message displayed in the login banner.
+                          description: Specify the message displayed in the login
+                            banner.
                           type: string
                         title:
-                          description: |-
-                            (String) Specify the title of the login banner.
-                            Specify the title of the login banner.
+                          description: Specify the title of the login banner.
                           type: string
                       type: object
                     type: array
                   nonFipsAddonPack:
-                    description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to use non-FIPS-compliant
+                      addon packs when creating cluster profiles. The `non_fips_addon_pack`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsClusterImport:
-                    description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to import clusters, but
+                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsFeatures:
-                    description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to access non-FIPS-compliant
+                      features such as backup, restore, and scans. The `non_fips_features`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
-                    description: |-
-                      (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
-                      Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
+                    description: Controls automatic upgrades for Palette components
+                      and agents in clusters deployed under a tenant or project. Setting
+                      it to `lock` disables automatic upgrades, while `unlock` (default)
+                      allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration (in minutes) of inactivity
+                      before a user is automatically logged out. The default is 240
+                      minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               managementPolicies:
@@ -263,70 +265,70 @@ spec:
               atProvider:
                 properties:
                   automaticClusterRoleBinding:
-                    description: |-
-                      (Boolean) Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to false disables automatic cluster role binding.
-                      Enables automatic cluster role binding for clusters deployed under a tenant or project. Setting it to `false` disables automatic cluster role binding.
+                    description: Enables automatic cluster role binding for clusters
+                      deployed under a tenant or project. Setting it to `false` disables
+                      automatic cluster role binding.
                     type: boolean
                   clusterAutoRemediation:
-                    description: |-
-                      provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to EKS, AKS, or TKE clusters.
-                      Enables automatic remediation for unhealthy nodes in Palette-provisioned clusters by replacing them with new nodes. Disabling this feature prevents auto-remediation. Not applicable to `EKS`, `AKS`, or `TKE` clusters.
+                    description: Enables automatic remediation for unhealthy nodes
+                      in Palette-provisioned clusters by replacing them with new nodes.
+                      Disabling this feature prevents auto-remediation. Not applicable
+                      to `EKS`, `AKS`, or `TKE` clusters.
                     type: boolean
                   context:
-                    description: |-
-                      (String) Defines the scope of the platform setting. Valid values are project or tenant. By default, it is set to tenant. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-                      Defines the scope of the platform setting. Valid values are `project` or `tenant`. By default, it is set to `tenant`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: Defines the scope of the platform setting. Valid
+                      values are `project` or `tenant`. By default, it is set to `tenant`.
+                      If  the `project` context is specified, the project name will
+                      sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: |-
-                      (Boolean) Enables automatic remediation. set only with `project' context
-                      Enables automatic remediation. set only with `project' context
+                    description: Enables automatic remediation. set only with `project'
+                      context
                     type: boolean
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   loginBanner:
-                    description: |-
-                      (Block List, Max: 1) Configure a login banner that users must acknowledge before signing in. Allowed only for tenant context (see below for nested schema)
-                      Configure a login banner that users must acknowledge before signing in. Allowed only for `tenant` context
+                    description: Configure a login banner that users must acknowledge
+                      before signing in. Allowed only for `tenant` context
                     items:
                       properties:
                         message:
-                          description: |-
-                            (String) Specify the message displayed in the login banner.
-                            Specify the message displayed in the login banner.
+                          description: Specify the message displayed in the login
+                            banner.
                           type: string
                         title:
-                          description: |-
-                            (String) Specify the title of the login banner.
-                            Specify the title of the login banner.
+                          description: Specify the title of the login banner.
                           type: string
                       type: object
                     type: array
                   nonFipsAddonPack:
-                    description: |-
-                      FIPS-compliant addon packs when creating cluster profiles. The non_fips_addon_pack only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to use non-FIPS-compliant
+                      addon packs when creating cluster profiles. The `non_fips_addon_pack`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsClusterImport:
-                    description: |-
-                      compliant.  The non_fips_cluster_import only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to import clusters, but
+                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   nonFipsFeatures:
-                    description: |-
-                      FIPS-compliant features such as backup, restore, and scans. The non_fips_features only supported in palette vertex environment. Allowed only for tenant context
-                      Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context
+                    description: Allows users in this tenant to access non-FIPS-compliant
+                      features such as backup, restore, and scans. The `non_fips_features`
+                      only supported in palette vertex environment. Allowed only for
+                      `tenant` context
                     type: boolean
                   pauseAgentUpgrades:
-                    description: |-
-                      (String) Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to lock disables automatic upgrades, while unlock (default) allows automatic upgrades.
-                      Controls automatic upgrades for Palette components and agents in clusters deployed under a tenant or project. Setting it to `lock` disables automatic upgrades, while `unlock` (default) allows automatic upgrades.
+                    description: Controls automatic upgrades for Palette components
+                      and agents in clusters deployed under a tenant or project. Setting
+                      it to `lock` disables automatic upgrades, while `unlock` (default)
+                      allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: |-
-                      (Number) Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for tenant context
-                      Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration (in minutes) of inactivity
+                      before a user is automatically logged out. The default is 240
+                      minutes allowed in Palette. Allowed only for `tenant` context
                     type: number
                 type: object
               conditions:
