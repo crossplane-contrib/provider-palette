@@ -1120,6 +1120,9 @@ spec:
                                   Pod network.
                                 items:
                                   properties:
+                                    vmIpv6NetworkCidr:
+                                      description: CIDR for IPv6 vm network.
+                                      type: string
                                     vmNetworkCidr:
                                       description: |-
                                         (String) CIDR for vm network.
@@ -2685,6 +2688,9 @@ spec:
                                   Pod network.
                                 items:
                                   properties:
+                                    vmIpv6NetworkCidr:
+                                      description: CIDR for IPv6 vm network.
+                                      type: string
                                     vmNetworkCidr:
                                       description: |-
                                         (String) CIDR for vm network.
@@ -4364,6 +4370,9 @@ spec:
                                   Pod network.
                                 items:
                                   properties:
+                                    vmIpv6NetworkCidr:
+                                      description: CIDR for IPv6 vm network.
+                                      type: string
                                     vmNetworkCidr:
                                       description: |-
                                         (String) CIDR for vm network.

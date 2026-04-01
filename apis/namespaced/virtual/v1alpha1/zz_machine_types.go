@@ -2704,6 +2704,9 @@ type PodDNSConfigParameters struct {
 
 type PodInitParameters struct {
 
+	// CIDR for IPv6 vm network.
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
+
 	// (String) CIDR for vm network.
 	// CIDR for vm network.
 	VMNetworkCidr *string `json:"vmNetworkCidr,omitempty" tf:"vm_network_cidr,omitempty"`
@@ -2711,12 +2714,19 @@ type PodInitParameters struct {
 
 type PodObservation struct {
 
+	// CIDR for IPv6 vm network.
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
+
 	// (String) CIDR for vm network.
 	// CIDR for vm network.
 	VMNetworkCidr *string `json:"vmNetworkCidr,omitempty" tf:"vm_network_cidr,omitempty"`
 }
 
 type PodParameters struct {
+
+	// CIDR for IPv6 vm network.
+	// +kubebuilder:validation:Optional
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
 
 	// (String) CIDR for vm network.
 	// CIDR for vm network.

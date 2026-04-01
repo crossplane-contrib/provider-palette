@@ -52,9 +52,6 @@ func (tr *Group) Hub() {}
 func (tr *Maas) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Openstack) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Profile) Hub() {}
 
 // Hub marks this type as a conversion hub.

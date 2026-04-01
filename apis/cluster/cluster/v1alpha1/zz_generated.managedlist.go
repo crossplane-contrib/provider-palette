@@ -142,15 +142,6 @@ func (l *MaasList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this OpenstackList.
-func (l *OpenstackList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this ProfileList.
 func (l *ProfileList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
