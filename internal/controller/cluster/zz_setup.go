@@ -18,7 +18,6 @@ import (
 	custom "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/custom"
 	gcp "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/gcp"
 	maas "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/maas"
-	openstack "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/openstack"
 	vsphere "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/vsphere"
 	aks "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/aks"
 	apachecloudstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/apachecloudstack"
@@ -35,7 +34,6 @@ import (
 	gke "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/gke"
 	group "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/group"
 	maascluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/maas"
-	openstackcluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/openstack"
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/profile"
 	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cluster/vsphere"
 	setting "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/developer/setting"
@@ -78,7 +76,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		custom.Setup,
 		gcp.Setup,
 		maas.Setup,
-		openstack.Setup,
 		vsphere.Setup,
 		aks.Setup,
 		apachecloudstackcluster.Setup,
@@ -95,7 +92,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		gke.Setup,
 		group.Setup,
 		maascluster.Setup,
-		openstackcluster.Setup,
 		profilecluster.Setup,
 		vspherecluster.Setup,
 		setting.Setup,
@@ -144,7 +140,6 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		custom.SetupGated,
 		gcp.SetupGated,
 		maas.SetupGated,
-		openstack.SetupGated,
 		vsphere.SetupGated,
 		aks.SetupGated,
 		apachecloudstackcluster.SetupGated,
@@ -161,7 +156,6 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		gke.SetupGated,
 		group.SetupGated,
 		maascluster.SetupGated,
-		openstackcluster.SetupGated,
 		profilecluster.SetupGated,
 		vspherecluster.SetupGated,
 		setting.SetupGated,

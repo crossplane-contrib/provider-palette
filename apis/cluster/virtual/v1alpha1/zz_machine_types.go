@@ -2703,6 +2703,9 @@ type PodDNSConfigParameters struct {
 
 type PodInitParameters struct {
 
+	// CIDR for IPv6 vm network.
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
+
 	// (String) CIDR for vm network.
 	// CIDR for vm network.
 	VMNetworkCidr *string `json:"vmNetworkCidr,omitempty" tf:"vm_network_cidr,omitempty"`
@@ -2710,12 +2713,19 @@ type PodInitParameters struct {
 
 type PodObservation struct {
 
+	// CIDR for IPv6 vm network.
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
+
 	// (String) CIDR for vm network.
 	// CIDR for vm network.
 	VMNetworkCidr *string `json:"vmNetworkCidr,omitempty" tf:"vm_network_cidr,omitempty"`
 }
 
 type PodParameters struct {
+
+	// CIDR for IPv6 vm network.
+	// +kubebuilder:validation:Optional
+	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
 
 	// (String) CIDR for vm network.
 	// CIDR for vm network.
@@ -3488,7 +3498,7 @@ type StatusParameters struct {
 	// (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
 	// Hold the state information of the VirtualMachine and its VirtualMachineInstance.
 	// +kubebuilder:validation:Optional
-	Conditions []ConditionsParameters `json:"conditions" tf:"conditions,omitempty"`
+	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// (Boolean) Created indicates if the virtual machine is created in the cluster.
 	// Created indicates if the virtual machine is created in the cluster.
@@ -3503,7 +3513,7 @@ type StatusParameters struct {
 	// (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
 	// StateChangeRequests indicates a list of actions that should be taken on a VMI.
 	// +kubebuilder:validation:Optional
-	StateChangeRequests []StateChangeRequestsParameters `json:"stateChangeRequests" tf:"state_change_requests,omitempty"`
+	StateChangeRequests []StateChangeRequestsParameters `json:"stateChangeRequests,omitempty" tf:"state_change_requests,omitempty"`
 }
 
 type StorageInitParameters struct {
