@@ -17169,8 +17169,7 @@
                         },
                         "description": "Hold the state information of the VirtualMachine and its VirtualMachineInstance.",
                         "description_kind": "plain"
-                      },
-                      "min_items": 1
+                      }
                     },
                     "state_change_requests": {
                       "nesting_mode": "list",
@@ -17200,8 +17199,7 @@
                         },
                         "description": "StateChangeRequests indicates a list of actions that should be taken on a VMI.",
                         "description_kind": "plain"
-                      },
-                      "min_items": 1
+                      }
                     }
                   },
                   "description": "VirtualMachineStatus represents the status returned by the controller to describe how the VirtualMachine is doing.",
