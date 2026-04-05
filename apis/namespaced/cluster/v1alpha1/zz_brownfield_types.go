@@ -574,8 +574,8 @@ type BrownfieldInitParameters struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BrownfieldBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -822,8 +822,8 @@ type BrownfieldObservation struct {
 	// ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -946,8 +946,8 @@ type BrownfieldParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupPolicy []BrownfieldBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`,`openstack`. This field cannot be updated after creation.
+	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
@@ -1132,7 +1132,7 @@ type BrownfieldStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native, MAAS, and OpenStack). This feature is currently in preview.
+// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native and MAAS). This feature is currently in preview.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -624,44 +624,6 @@ resources:
             name: (String) Name of the MAAS cloud account.
             private_cloud_gateway_id: (String) ID of the private cloud gateway that is used to connect to the MAAS cloud.
         importStatements: []
-    spectrocloud_cloudaccount_openstack:
-        subCategory: ""
-        name: spectrocloud_cloudaccount_openstack
-        title: spectrocloud_cloudaccount_openstack Resource - terraform-provider-spectrocloud
-        examples:
-            - name: account
-              manifest: |-
-                {
-                  "default_domain": "${var.domain}",
-                  "default_project": "${var.project}",
-                  "identity_endpoint": "${var.identity_endpoint}",
-                  "name": "openstack-dev",
-                  "openstack_password": "${var.openstack_password}",
-                  "openstack_username": "${var.openstack_username}",
-                  "parent_region": "${var.region}",
-                  "private_cloud_gateway_id": ""
-                }
-              references:
-                default_domain: var.domain
-                default_project: var.project
-                identity_endpoint: var.identity_endpoint
-                openstack_password: var.openstack_password
-                openstack_username: var.openstack_username
-                parent_region: var.region
-        argumentDocs:
-            ca_certificate: (String) The CA certificate of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            context: (String) The context of the OpenStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            default_domain: (String) The default domain of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            default_project: (String) The default project of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            id: (String) The ID of this resource.
-            identity_endpoint: (String) The identity endpoint of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            name: (String) Name of the OpenStack cloud account.
-            openstack_allow_insecure: (Boolean) Whether to allow insecure connections to the OpenStack cloud. Default is false.
-            openstack_password: (String, Sensitive) The password of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            openstack_username: (String) The username of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            parent_region: (String) The parent region of the OpenStack cloud that is used to connect to the OpenStack cloud.
-            private_cloud_gateway_id: (String) ID of the private cloud gateway that is used to connect to the OpenStack cloud.
-        importStatements: []
     spectrocloud_cloudaccount_vsphere:
         subCategory: ""
         description: A resource to manage a vSphere cloud account in Palette.
@@ -1891,7 +1853,7 @@ resources:
         importStatements: []
     spectrocloud_cluster_brownfield:
         subCategory: ""
-        description: 'Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native, MAAS, and OpenStack). This feature is currently in preview.'
+        description: 'Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native and MAAS). This feature is currently in preview.'
         name: spectrocloud_cluster_brownfield
         title: spectrocloud_cluster_brownfield Resource - terraform-provider-spectrocloud
         examples:
@@ -1986,7 +1948,7 @@ resources:
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cloud_config_id: (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
-            cloud_type: '(String) The cloud type of the cluster. Supported values: aws, eks-anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.'
+            cloud_type: '(String) The cloud type of the cluster. Supported values: aws, eks-anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -3423,181 +3385,6 @@ resources:
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
         importStatements: []
-    spectrocloud_cluster_openstack:
-        subCategory: ""
-        description: Resource for managing Openstack clusters in Spectro Cloud through Palette.
-        name: spectrocloud_cluster_openstack
-        title: spectrocloud_cluster_openstack Resource - terraform-provider-spectrocloud
-        examples:
-            - name: cluster
-              manifest: |-
-                {
-                  "backup_policy": [
-                    {
-                      "backup_location_id": "${data.spectrocloud_backup_storage_location.bsl.id}",
-                      "expiry_in_hour": 7200,
-                      "include_cluster_resources": true,
-                      "include_disks": true,
-                      "prefix": "prod-backup",
-                      "schedule": "0 0 * * SUN"
-                    }
-                  ],
-                  "cloud_account_id": "${data.spectrocloud_cloudaccount_openstack.account.id}",
-                  "cloud_config": [
-                    {
-                      "dns_servers": [
-                        "10.10.128.8",
-                        "8.8.8.8"
-                      ],
-                      "domain": "Default",
-                      "project": "dev",
-                      "region": "RegionOne",
-                      "ssh_key": "Spectro2021",
-                      "subnet_cidr": "192.168.151.0/24"
-                    }
-                  ],
-                  "cluster_profile": [
-                    {
-                      "id": "${data.spectrocloud_cluster_profile.profile.id}"
-                    }
-                  ],
-                  "machine_pool": [
-                    {
-                      "azs": [
-                        "zone1"
-                      ],
-                      "control_plane": true,
-                      "control_plane_as_worker": true,
-                      "count": 1,
-                      "instance_type": "spectro-xlarge",
-                      "name": "cp-pool"
-                    },
-                    {
-                      "azs": [
-                        "zone1"
-                      ],
-                      "count": 2,
-                      "instance_type": "spectro-large",
-                      "name": "worker-basic"
-                    }
-                  ],
-                  "name": "openstack-piyush-tf-1",
-                  "scan_policy": [
-                    {
-                      "configuration_scan_schedule": "0 0 * * SUN",
-                      "conformance_scan_schedule": "0 0 1 * *",
-                      "penetration_scan_schedule": "0 0 * * SUN"
-                    }
-                  ],
-                  "tags": [
-                    "dev"
-                  ]
-                }
-              references:
-                backup_policy.backup_location_id: data.spectrocloud_backup_storage_location.bsl.id
-                cloud_account_id: data.spectrocloud_cloudaccount_openstack.account.id
-                cluster_profile.id: data.spectrocloud_cluster_profile.profile.id
-        argumentDocs:
-            action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
-            additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
-            additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
-            apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
-            azs: (Set of String)
-            backup_location_id: (String) The ID of the backup location to use for the backup.
-            backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
-            cloud_account_id: (String)
-            cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
-            cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
-            cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
-            cluster_profile: (Block Set) (see below for nested schema)
-            cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
-            cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
-            cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
-            configuration_scan_schedule: (String) The schedule for configuration scan.
-            conformance_scan_schedule: (String) The schedule for conformance scan.
-            content: (String) The content of the manifest. The content is the YAML content of the manifest.
-            context: (String) The context of the OpenStack cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            control_plane: (Boolean) Whether this machine pool is a control plane. Defaults to false.
-            control_plane_as_worker: (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
-            count: (Number) Number of nodes in the machine pool.
-            country_code: (String) The country code of the country the cluster is located in.
-            country_name: (String) The name of the country.
-            create: (String)
-            delete: (String)
-            description: (String) The description of the cluster. Default value is empty string.
-            dns_servers: (Set of String)
-            domain: (String)
-            effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
-            expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
-            external_traffic_policy: (String) The external traffic policy for the cluster.
-            force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
-            force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
-            host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
-            host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
-            id: (String) The ID of this resource.
-            include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
-            include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
-            include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
-            include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
-            ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
-            instance_type: (String)
-            key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
-            latitude: (Number) The latitude coordinates value.
-            load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
-            location_config: (Block List) (see below for nested schema)
-            longitude: (Number) The longitude coordinates value.
-            machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
-            manifest: (Block List) (see below for nested schema)
-            max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-            max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-            name: (String)
-            namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-            namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
-            network_id: (String)
-            node: (Block List) (see below for nested schema)
-            node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
-            node_repave_interval: (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
-            os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
-            os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
-            os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
-            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
-            override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
-            pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
-            pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
-            penetration_scan_schedule: (String) The schedule for penetration scan.
-            prefix: (String) Prefix for the backup name. The backup name will be of the format --.
-            project: (String)
-            region: (String)
-            region_code: (String) The region code of where the cluster is located in.
-            region_name: (String) The name of the region.
-            registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-            registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
-            resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu_limit: ''1'', gpu_provider: ''nvidia''}'
-            review_repave_state: (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
-            role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
-            scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
-            schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
-            skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
-            ssh_key: (String) Public SSH key to be used for the cluster nodes.
-            subjects: (Block List) (see below for nested schema)
-            subnet_cidr: (String)
-            subnet_id: (String)
-            tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
-            tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
-            taints: (Block List) (see below for nested schema)
-            timeouts: (Block, Optional) (see below for nested schema)
-            type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
-            uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
-            update: (String)
-            update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
-            update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-            value: (String) The value of the taint.
-            values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
-            variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
-        importStatements: []
     spectrocloud_cluster_profile:
         subCategory: ""
         description: The Cluster Profile resource allows you to create and manage cluster profiles.
@@ -3795,7 +3582,7 @@ resources:
                 pack.uid: data.spectrocloud_pack.csi.id
                 pack.values: data.spectrocloud_pack.csi.values
         argumentDocs:
-            cloud: (String) Specify the infrastructure provider the cluster profile is for. Only Palette supported infrastructure providers can be used. The supported cloud types are - all, aws, azure, gcp, vsphere, openstack, maas, virtual, baremetal, eks, aks, edge-native, generic, and gke or any custom cloud provider registered in Palette, e.g., nutanix.If the value is set to all, then the type must be set to add-on. Otherwise, the cluster profile may be incompatible with other providers. Default value is all.
+            cloud: (String) Specify the infrastructure provider the cluster profile is for. Only Palette supported infrastructure providers can be used. The supported cloud types are - all, aws, azure, gcp, vsphere, maas, virtual, baremetal, eks, aks, edge-native, generic, and gke or any custom cloud provider registered in Palette, e.g., nutanix.If the value is set to all, then the type must be set to add-on. Otherwise, the cluster profile may be incompatible with other providers. Default value is all.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
@@ -5044,7 +4831,7 @@ resources:
             cloud_init_no_cloud: (Block Set) Used to specify a cloud-init noCloud image. The image is expected to contain a disk image in a supported format. The disk image is extracted from the cloud-init noCloud image and used as the disk for the VM (see below for nested schema)
             cluster_context: (String) Context of the cluster. Allowed values are project, tenant. Default value is project.
             cluster_uid: (String) The cluster UID to which the virtual machine belongs to.
-            conditions: '(Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)'
+            conditions: (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
             config_map: '(Block List, Max: 1) ConfigMapVolumeSource adapts a ConfigMap into a volume. (see below for nested schema)'
             container_disk: (Block Set) A container disk is a disk that is backed by a container image. The container image is expected to contain a disk image in a supported format. The disk image is extracted from the container image and used as the disk for the VM. (see below for nested schema)
             content_type: '(String) ContentType options: "kubevirt", "archive".'
@@ -5146,7 +4933,7 @@ resources:
             sockets: (Number) Sockets is the number of sockets inside the vmi. Must be a value greater or equal 1.
             source: '(Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)'
             spec: '(Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)'
-            state_change_requests: '(Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)'
+            state_change_requests: (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
             status: '(Block List, Max: 1) VirtualMachineStatus represents the status returned by the controller to describe how the VirtualMachine is doing. (see below for nested schema)'
             storage: '(Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)'
             storage_class_name: (String) Name of the storage class requested by the claim
@@ -5168,6 +4955,7 @@ resources:
             value: '(String) Value of the option. Optional: Defaults to empty.'
             values: (Set of String) Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
             vm_action: '(String) The action to be performed on the virtual machine. Valid values are: start, stop, restart, pause, resume, migrate. Default value is start.'
+            vm_ipv6_network_cidr: (String) CIDR for IPv6 vm network.
             vm_network_cidr: (String) CIDR for vm network.
             volume: (Block List) Specification of the desired behavior of the VirtualMachineInstance on the host. (see below for nested schema)
             volume_mode: (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.

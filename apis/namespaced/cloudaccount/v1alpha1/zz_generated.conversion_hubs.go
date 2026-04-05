@@ -25,7 +25,4 @@ func (tr *GCP) Hub() {}
 func (tr *Maas) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Openstack) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Vsphere) Hub() {}
