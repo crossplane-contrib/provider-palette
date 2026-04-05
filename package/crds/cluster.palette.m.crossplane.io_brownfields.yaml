@@ -37,8 +37,8 @@ spec:
         description: 'Brownfield is the Schema for the Brownfields API. Register an
           existing Kubernetes cluster (brownfield) with Palette. This resource allows
           you to import and manage existing Kubernetes clusters. Supported cloud platforms:
-          (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native,
-          MAAS, and OpenStack). This feature is currently in preview.'
+          (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native
+          and MAAS). This feature is currently in preview.'
         properties:
           apiVersion:
             description: |-
@@ -215,7 +215,7 @@ spec:
                     type: array
                   cloudType:
                     description: |-
-                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
@@ -776,7 +776,7 @@ spec:
                     type: array
                   cloudType:
                     description: |-
-                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
@@ -1319,7 +1319,7 @@ spec:
                     type: string
                   cloudType:
                     description: |-
-                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas,openstack. This field cannot be updated after creation.
+                      anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
                       The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:

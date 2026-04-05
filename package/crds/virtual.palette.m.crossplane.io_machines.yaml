@@ -1107,7 +1107,9 @@ spec:
                                 items:
                                   properties:
                                     vmIpv6NetworkCidr:
-                                      description: CIDR for IPv6 vm network.
+                                      description: |-
+                                        (String) CIDR for IPv6 vm network.
+                                        CIDR for IPv6 vm network.
                                       type: string
                                     vmNetworkCidr:
                                       description: |-
@@ -1232,7 +1234,7 @@ spec:
                       properties:
                         conditions:
                           description: |-
-                            (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+                            (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
                             Hold the state information of the VirtualMachine and its VirtualMachineInstance.
                           items:
                             properties:
@@ -1270,7 +1272,7 @@ spec:
                           type: boolean
                         stateChangeRequests:
                           description: |-
-                            (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+                            (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
                             StateChangeRequests indicates a list of actions that should be taken on a VMI.
                           items:
                             properties:
@@ -2675,7 +2677,9 @@ spec:
                                 items:
                                   properties:
                                     vmIpv6NetworkCidr:
-                                      description: CIDR for IPv6 vm network.
+                                      description: |-
+                                        (String) CIDR for IPv6 vm network.
+                                        CIDR for IPv6 vm network.
                                       type: string
                                     vmNetworkCidr:
                                       description: |-
@@ -2800,7 +2804,7 @@ spec:
                       properties:
                         conditions:
                           description: |-
-                            (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+                            (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
                             Hold the state information of the VirtualMachine and its VirtualMachineInstance.
                           items:
                             properties:
@@ -2838,7 +2842,7 @@ spec:
                           type: boolean
                         stateChangeRequests:
                           description: |-
-                            (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+                            (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
                             StateChangeRequests indicates a list of actions that should be taken on a VMI.
                           items:
                             properties:
@@ -4329,7 +4333,9 @@ spec:
                                 items:
                                   properties:
                                     vmIpv6NetworkCidr:
-                                      description: CIDR for IPv6 vm network.
+                                      description: |-
+                                        (String) CIDR for IPv6 vm network.
+                                        CIDR for IPv6 vm network.
                                       type: string
                                     vmNetworkCidr:
                                       description: |-
@@ -4464,7 +4470,7 @@ spec:
                       properties:
                         conditions:
                           description: |-
-                            (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+                            (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
                             Hold the state information of the VirtualMachine and its VirtualMachineInstance.
                           items:
                             properties:
@@ -4502,7 +4508,7 @@ spec:
                           type: boolean
                         stateChangeRequests:
                           description: |-
-                            (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+                            (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
                             StateChangeRequests indicates a list of actions that should be taken on a VMI.
                           items:
                             properties:

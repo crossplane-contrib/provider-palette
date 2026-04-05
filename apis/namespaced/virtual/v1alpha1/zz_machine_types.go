@@ -2704,6 +2704,7 @@ type PodDNSConfigParameters struct {
 
 type PodInitParameters struct {
 
+	// (String) CIDR for IPv6 vm network.
 	// CIDR for IPv6 vm network.
 	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
 
@@ -2714,6 +2715,7 @@ type PodInitParameters struct {
 
 type PodObservation struct {
 
+	// (String) CIDR for IPv6 vm network.
 	// CIDR for IPv6 vm network.
 	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
 
@@ -2724,6 +2726,7 @@ type PodObservation struct {
 
 type PodParameters struct {
 
+	// (String) CIDR for IPv6 vm network.
 	// CIDR for IPv6 vm network.
 	// +kubebuilder:validation:Optional
 	VMIPv6NetworkCidr *string `json:"vmIpv6NetworkCidr,omitempty" tf:"vm_ipv6_network_cidr,omitempty"`
@@ -3458,7 +3461,7 @@ type StateChangeRequestsParameters struct {
 
 type StatusInitParameters struct {
 
-	// (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+	// (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
 	// Hold the state information of the VirtualMachine and its VirtualMachineInstance.
 	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
@@ -3470,14 +3473,14 @@ type StatusInitParameters struct {
 	// Ready indicates if the virtual machine is running and ready.
 	Ready *bool `json:"ready,omitempty" tf:"ready,omitempty"`
 
-	// (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+	// (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
 	// StateChangeRequests indicates a list of actions that should be taken on a VMI.
 	StateChangeRequests []StateChangeRequestsInitParameters `json:"stateChangeRequests,omitempty" tf:"state_change_requests,omitempty"`
 }
 
 type StatusObservation struct {
 
-	// (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+	// (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
 	// Hold the state information of the VirtualMachine and its VirtualMachineInstance.
 	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
@@ -3489,14 +3492,14 @@ type StatusObservation struct {
 	// Ready indicates if the virtual machine is running and ready.
 	Ready *bool `json:"ready,omitempty" tf:"ready,omitempty"`
 
-	// (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+	// (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
 	// StateChangeRequests indicates a list of actions that should be taken on a VMI.
 	StateChangeRequests []StateChangeRequestsObservation `json:"stateChangeRequests,omitempty" tf:"state_change_requests,omitempty"`
 }
 
 type StatusParameters struct {
 
-	// (Block List, Min: 1) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
+	// (Block List) Hold the state information of the VirtualMachine and its VirtualMachineInstance. (see below for nested schema)
 	// Hold the state information of the VirtualMachine and its VirtualMachineInstance.
 	// +kubebuilder:validation:Optional
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
@@ -3511,7 +3514,7 @@ type StatusParameters struct {
 	// +kubebuilder:validation:Optional
 	Ready *bool `json:"ready,omitempty" tf:"ready,omitempty"`
 
-	// (Block List, Min: 1) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
+	// (Block List) StateChangeRequests indicates a list of actions that should be taken on a VMI. (see below for nested schema)
 	// StateChangeRequests indicates a list of actions that should be taken on a VMI.
 	// +kubebuilder:validation:Optional
 	StateChangeRequests []StateChangeRequestsParameters `json:"stateChangeRequests,omitempty" tf:"state_change_requests,omitempty"`
