@@ -1036,8 +1036,8 @@ type EksLocationConfigParameters struct {
 
 type EksMachinePoolInitParameters struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD. AL2_x86_64and AL2_x86_64_GPU are deprecated and will be removed in the future.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`. `AL2_x86_64`and `AL2_x86_64_GPU` are deprecated and will be removed in the future.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
 	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
@@ -1146,8 +1146,8 @@ type EksMachinePoolNodeParameters struct {
 
 type EksMachinePoolObservation struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD. AL2_x86_64and AL2_x86_64_GPU are deprecated and will be removed in the future.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`. `AL2_x86_64`and `AL2_x86_64_GPU` are deprecated and will be removed in the future.
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
 	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
@@ -1256,8 +1256,8 @@ type EksMachinePoolOverrideScalingParameters struct {
 
 type EksMachinePoolParameters struct {
 
-	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
-	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.
+	// (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD. AL2_x86_64and AL2_x86_64_GPU are deprecated and will be removed in the future.
+	// Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`. `AL2_x86_64`and `AL2_x86_64_GPU` are deprecated and will be removed in the future.
 	// +kubebuilder:validation:Optional
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 

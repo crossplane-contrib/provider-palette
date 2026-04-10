@@ -788,6 +788,24 @@ spec:
                           type: string
                       type: object
                     type: array
+                  hyperShiftConfig:
+                    description: |-
+                      plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+                      HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+                    items:
+                      properties:
+                        clusterDeploymentType:
+                          description: |-
+                            (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+                            Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+                          type: string
+                        hostClusterUid:
+                          description: |-
+                            (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+                            UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
+                          type: string
+                      type: object
+                    type: array
                   locationConfig:
                     description: (Block List) (see below for nested schema)
                     items:
@@ -1854,6 +1872,24 @@ spec:
                           type: string
                       type: object
                     type: array
+                  hyperShiftConfig:
+                    description: |-
+                      plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+                      HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+                    items:
+                      properties:
+                        clusterDeploymentType:
+                          description: |-
+                            (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+                            Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+                          type: string
+                        hostClusterUid:
+                          description: |-
+                            (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+                            UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
+                          type: string
+                      type: object
+                    type: array
                   locationConfig:
                     description: (Block List) (see below for nested schema)
                     items:
@@ -2592,6 +2628,24 @@ spec:
                           description: |-
                             (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                             The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          type: string
+                      type: object
+                    type: array
+                  hyperShiftConfig:
+                    description: |-
+                      plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+                      HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+                    items:
+                      properties:
+                        clusterDeploymentType:
+                          description: |-
+                            (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+                            Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+                          type: string
+                        hostClusterUid:
+                          description: |-
+                            (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+                            UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
                           type: string
                       type: object
                     type: array
