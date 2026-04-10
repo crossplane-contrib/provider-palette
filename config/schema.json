@@ -8569,7 +8569,7 @@
                     },
                     "ami_type": {
                       "type": "string",
-                      "description": "Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`.",
+                      "description": "Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [`AL2_x86_64`, `AL2_x86_64_GPU`, `AL2023_x86_64_STANDARD`, `AL2023_x86_64_NEURON` and `AL2023_x86_64_NVIDIA`]. Defaults to `AL2023_x86_64_STANDARD`. `AL2_x86_64`and `AL2_x86_64_GPU` are deprecated and will be removed in the future.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -11025,6 +11025,28 @@
                   "description": "The host configuration for the cluster.",
                   "description_kind": "plain"
                 }
+              },
+              "hyper_shift_config": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cluster_deployment_type": {
+                      "type": "string",
+                      "description": "Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "host_cluster_uid": {
+                      "type": "string",
+                      "description": "UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description": "HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
               },
               "location_config": {
                 "nesting_mode": "list",

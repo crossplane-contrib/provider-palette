@@ -2727,7 +2727,7 @@ resources:
             additional_tags: (Map of String)
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             ami_id: (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
-            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD.
+            ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD. AL2_x86_64and AL2_x86_64_GPU are deprecated and will be removed in the future.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             az_subnets: (Map of String) Mutually exclusive with azs. Use for Static provisioning.
             azs: (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
@@ -3288,6 +3288,7 @@ resources:
             cloud_account_id: (String) ID of the Maas cloud account used for the cluster. This cloud account must be of type maas.
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type maas.
+            cluster_deployment_type: (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -3314,8 +3315,10 @@ resources:
             external_traffic_policy: (String) The external traffic policy for the cluster.
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
             force_delete_delay: (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+            host_cluster_uid: (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
             host_config: (Block List) The host configuration for the cluster. (see below for nested schema)
             host_endpoint_type: (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+            hyper_shift_config: '(Block List, Max: 1) HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)'
             id: (String) The ID of this resource.
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'

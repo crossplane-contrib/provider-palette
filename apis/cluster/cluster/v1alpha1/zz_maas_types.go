@@ -13,6 +13,41 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type HyperShiftConfigInitParameters struct {
+
+	// (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+	// Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+	ClusterDeploymentType *string `json:"clusterDeploymentType,omitempty" tf:"cluster_deployment_type,omitempty"`
+
+	// (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+	// UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
+	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
+}
+
+type HyperShiftConfigObservation struct {
+
+	// (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+	// Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+	ClusterDeploymentType *string `json:"clusterDeploymentType,omitempty" tf:"cluster_deployment_type,omitempty"`
+
+	// (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+	// UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
+	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
+}
+
+type HyperShiftConfigParameters struct {
+
+	// (String) Either hypershift (HyperShift management cluster) or openshift (OpenShift with control plane on HyperShift).
+	// Either `hypershift` (HyperShift management cluster) or `openshift` (OpenShift with control plane on HyperShift).
+	// +kubebuilder:validation:Optional
+	ClusterDeploymentType *string `json:"clusterDeploymentType" tf:"cluster_deployment_type,omitempty"`
+
+	// (String) UID of the host HyperShift cluster; required when cluster_deployment_type is openshift.
+	// UID of the host HyperShift cluster; required when `cluster_deployment_type` is `openshift`.
+	// +kubebuilder:validation:Optional
+	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
+}
+
 type MaasBackupPolicyInitParameters struct {
 
 	// (String) The ID of the backup location to use for the backup.
@@ -796,6 +831,10 @@ type MaasInitParameters struct {
 	// The host configuration for the cluster.
 	HostConfig []MaasHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+	// HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+	HyperShiftConfig []HyperShiftConfigInitParameters `json:"hyperShiftConfig,omitempty" tf:"hyper_shift_config,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	LocationConfig []MaasLocationConfigInitParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
@@ -1472,6 +1511,10 @@ type MaasObservation struct {
 	// The host configuration for the cluster.
 	HostConfig []MaasHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+	// HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+	HyperShiftConfig []HyperShiftConfigObservation `json:"hyperShiftConfig,omitempty" tf:"hyper_shift_config,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -1610,6 +1653,11 @@ type MaasParameters struct {
 	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []MaasHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
+
+	// plane hosting configuration for MAAS clusters. cluster_deployment_type hypershift denotes a management cluster; openshift denotes a hosted control plane and requires host_cluster_uid. (see below for nested schema)
+	// HyperShift / OpenShift control-plane hosting configuration for MAAS clusters. `cluster_deployment_type` `hypershift` denotes a management cluster; `openshift` denotes a hosted control plane and requires `host_cluster_uid`.
+	// +kubebuilder:validation:Optional
+	HyperShiftConfig []HyperShiftConfigParameters `json:"hyperShiftConfig,omitempty" tf:"hyper_shift_config,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
