@@ -1046,6 +1046,9 @@ type MaasMachinePoolInitParameters struct {
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Placement []MachinePoolPlacementInitParameters `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []MaasMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
@@ -1212,6 +1215,9 @@ type MaasMachinePoolObservation struct {
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Placement []MachinePoolPlacementObservation `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []MaasMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
@@ -1346,6 +1352,10 @@ type MaasMachinePoolParameters struct {
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Placement []MachinePoolPlacementParameters `json:"placement" tf:"placement,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional

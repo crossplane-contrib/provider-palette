@@ -905,7 +905,7 @@ spec:
                         count:
                           description: |-
                             (Number) Number of nodes in the machine pool.
-                            Number of nodes in the machine pool.
+                            Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
                           type: number
                         diskSizeGb:
                           description: (Number)
@@ -951,7 +951,7 @@ spec:
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         maxPrice:
                           description: (String)
@@ -959,7 +959,7 @@ spec:
                         min:
                           description: |-
                             (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         name:
                           description: (String) The name of the cluster.
@@ -1991,7 +1991,7 @@ spec:
                         count:
                           description: |-
                             (Number) Number of nodes in the machine pool.
-                            Number of nodes in the machine pool.
+                            Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
                           type: number
                         diskSizeGb:
                           description: (Number)
@@ -2037,7 +2037,7 @@ spec:
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         maxPrice:
                           description: (String)
@@ -2045,7 +2045,7 @@ spec:
                         min:
                           description: |-
                             (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         name:
                           description: (String) The name of the cluster.
@@ -2781,7 +2781,7 @@ spec:
                         count:
                           description: |-
                             (Number) Number of nodes in the machine pool.
-                            Number of nodes in the machine pool.
+                            Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
                           type: number
                         diskSizeGb:
                           description: (Number)
@@ -2827,7 +2827,7 @@ spec:
                         max:
                           description: |-
                             (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         maxPrice:
                           description: (String)
@@ -2835,7 +2835,7 @@ spec:
                         min:
                           description: |-
                             (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-                            Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+                            Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
                           type: number
                         name:
                           description: (String) The name of the cluster.

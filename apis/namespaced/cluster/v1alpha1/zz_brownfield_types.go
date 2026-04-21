@@ -575,7 +575,7 @@ type BrownfieldInitParameters struct {
 	BackupPolicy []BrownfieldBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -634,7 +634,7 @@ type BrownfieldInitParameters struct {
 	Namespaces []BrownfieldNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
@@ -642,7 +642,7 @@ type BrownfieldInitParameters struct {
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -823,7 +823,7 @@ type BrownfieldObservation struct {
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
 	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -901,7 +901,7 @@ type BrownfieldObservation struct {
 	Namespaces []BrownfieldNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
@@ -909,7 +909,7 @@ type BrownfieldObservation struct {
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
@@ -947,7 +947,7 @@ type BrownfieldParameters struct {
 	BackupPolicy []BrownfieldBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-	// The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
@@ -1021,7 +1021,7 @@ type BrownfieldParameters struct {
 	Namespaces []BrownfieldNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
@@ -1031,7 +1031,7 @@ type BrownfieldParameters struct {
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
 	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-	// Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 

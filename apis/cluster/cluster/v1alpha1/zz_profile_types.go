@@ -86,7 +86,7 @@ type ProfileInitParameters struct {
 	Pack []ProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-	// List of variables for the cluster profile.
+	// List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
 	ProfileVariables []ProfileVariablesInitParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -126,7 +126,7 @@ type ProfileObservation struct {
 	Pack []ProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-	// List of variables for the cluster profile.
+	// List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
 	ProfileVariables []ProfileVariablesObservation `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -316,7 +316,7 @@ type ProfileParameters struct {
 	Pack []ProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
 	// (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-	// List of variables for the cluster profile.
+	// List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
 	// +kubebuilder:validation:Optional
 	ProfileVariables []ProfileVariablesParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 

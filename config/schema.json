@@ -4831,7 +4831,7 @@
               },
               "cloud_type": {
                 "type": "string",
-                "description": "The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.",
+                "description": "The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` (\"generic\" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -4934,7 +4934,7 @@
               },
               "no_proxy": {
                 "type": "string",
-                "description": "Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.",
+                "description": "Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -4946,7 +4946,7 @@
               },
               "proxy": {
                 "type": "string",
-                "description": "Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.",
+                "description": "Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -5374,7 +5374,7 @@
                 }
               }
             },
-            "description": "Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native and MAAS). This feature is currently in preview.",
+            "description": "Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS (Iaas), Azure (Iaas), GCP (Iaas), Generic (Generic should be used for everything else that is not listed here), Apache CloudStack). This feature is currently in preview.",
             "description_kind": "plain"
           }
         },
@@ -8599,7 +8599,7 @@
                     },
                     "count": {
                       "type": "number",
-                      "description": "Number of nodes in the machine pool.",
+                      "description": "Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -8615,7 +8615,7 @@
                     },
                     "max": {
                       "type": "number",
-                      "description": "Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.",
+                      "description": "Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8626,7 +8626,7 @@
                     },
                     "min": {
                       "type": "number",
-                      "description": "Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.",
+                      "description": "Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -10497,6 +10497,7 @@
                     },
                     "values": {
                       "type": "string",
+                      "description": "Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -11180,6 +11181,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
                       "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
@@ -11668,7 +11675,7 @@
                       "min_items": 1
                     }
                   },
-                  "description": "List of variables for the cluster profile.",
+                  "description": "List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -12369,6 +12376,12 @@
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
                       "description_kind": "plain",
                       "optional": true
                     },

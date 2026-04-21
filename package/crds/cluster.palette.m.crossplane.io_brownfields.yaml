@@ -216,7 +216,7 @@ spec:
                   cloudType:
                     description: |-
                       anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
                     description: (Block Set) (see below for nested schema)
@@ -556,7 +556,7 @@ spec:
                   noProxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
@@ -566,7 +566,7 @@ spec:
                   proxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   reviewRepaveState:
                     description: |-
@@ -777,7 +777,7 @@ spec:
                   cloudType:
                     description: |-
                       anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
                     description: (Block Set) (see below for nested schema)
@@ -1117,7 +1117,7 @@ spec:
                   noProxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
@@ -1127,7 +1127,7 @@ spec:
                   proxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   reviewRepaveState:
                     description: |-
@@ -1320,7 +1320,7 @@ spec:
                   cloudType:
                     description: |-
                       anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
-                      The cloud type of the cluster. Supported values: `aws`, `eks-anywhere`, `azure`, `gcp`, `vsphere`, `openshift`, `generic`,`apache-cloudstack`,`edge-native`,`maas`. This field cannot be updated after creation.
+                      The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
                     type: string
                   clusterProfile:
                     description: (Block Set) (see below for nested schema)
@@ -1632,7 +1632,7 @@ spec:
                   noProxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   pauseAgentUpgrades:
                     description: |-
@@ -1642,7 +1642,7 @@ spec:
                   proxy:
                     description: |-
                       (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
-                      Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+                      Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
                     type: string
                   reviewRepaveState:
                     description: |-

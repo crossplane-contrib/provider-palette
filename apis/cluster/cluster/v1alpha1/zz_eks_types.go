@@ -1063,7 +1063,7 @@ type EksMachinePoolInitParameters struct {
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
+	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
@@ -1076,14 +1076,14 @@ type EksMachinePoolInitParameters struct {
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
 	// (String)
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
 	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
@@ -1173,7 +1173,7 @@ type EksMachinePoolObservation struct {
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
+	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
@@ -1186,14 +1186,14 @@ type EksMachinePoolObservation struct {
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
 	// (String)
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
 	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
@@ -1289,7 +1289,7 @@ type EksMachinePoolParameters struct {
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
 	// (Number) Number of nodes in the machine pool.
-	// Number of nodes in the machine pool.
+	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
@@ -1306,7 +1306,7 @@ type EksMachinePoolParameters struct {
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Maximum number of nodes in the machine pool. Used for autoscaling together with `min`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	// +kubebuilder:validation:Optional
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
@@ -1315,7 +1315,7 @@ type EksMachinePoolParameters struct {
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
 	// (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
-	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+	// Minimum number of nodes in the machine pool. Used for autoscaling together with `max`. When both `min` and `max` are greater than 0, `count` must equal `min`.
 	// +kubebuilder:validation:Optional
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
