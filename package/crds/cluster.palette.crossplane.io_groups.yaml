@@ -280,9 +280,7 @@ spec:
                             The storage limit in gigabytes (GB).
                           type: number
                         values:
-                          description: |-
-                            (String)
-                            Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
+                          description: (String)
                           type: string
                       type: object
                     type: array
@@ -531,9 +529,7 @@ spec:
                             The storage limit in gigabytes (GB).
                           type: number
                         values:
-                          description: |-
-                            (String)
-                            Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
+                          description: (String)
                           type: string
                       type: object
                     type: array
@@ -803,9 +799,7 @@ spec:
                             The storage limit in gigabytes (GB).
                           type: number
                         values:
-                          description: |-
-                            (String)
-                            Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
+                          description: (String)
                           type: string
                       type: object
                     type: array

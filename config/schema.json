@@ -10497,7 +10497,6 @@
                     },
                     "values": {
                       "type": "string",
-                      "description": "Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.",
                       "description_kind": "plain",
                       "optional": true
                     }

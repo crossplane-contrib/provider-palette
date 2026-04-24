@@ -76,7 +76,6 @@ type ConfigInitParameters struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
-	// Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -107,7 +106,6 @@ type ConfigObservation struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
-	// Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -144,7 +142,6 @@ type ConfigParameters struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
-	// Helm values YAML for the virtual cluster (vCluster) layer. The Palette UI always sends the full default pack values on create; omitting this field can yield API defaults that differ from the UI (see provider release notes). Prefer setting this for consistent behavior with the console.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
