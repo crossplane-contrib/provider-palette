@@ -1853,7 +1853,7 @@ resources:
         importStatements: []
     spectrocloud_cluster_brownfield:
         subCategory: ""
-        description: 'Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native and MAAS). This feature is currently in preview.'
+        description: 'Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS (Iaas), Azure (Iaas), GCP (Iaas), Generic (Generic should be used for everything else that is not listed here), Apache CloudStack). This feature is currently in preview.'
         name: spectrocloud_cluster_brownfield
         title: spectrocloud_cluster_brownfield Resource - terraform-provider-spectrocloud
         examples:
@@ -1948,7 +1948,7 @@ resources:
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cloud_config_id: (String) ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
-            cloud_type: '(String) The cloud type of the cluster. Supported values: aws, eks-anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.'
+            cloud_type: '(String) The cloud type of the cluster. Supported values: aws (IaaS Cluster), azure (IaaS Cluster), gcp (IaaS Cluster), generic ("generic" should be used and considered for everything else that is not listed here), apache-cloudstack. This field cannot be updated after creation.'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1989,7 +1989,7 @@ resources:
             name: (String) The name of the cluster to be registered. This field cannot be updated after creation.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
-            no_proxy: (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+            no_proxy: (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
             node: (Block List) (see below for nested schema)
             node_id: (String) The node_id of the node, For example i-07f899a33dee624f7
             node_name: (String) The name of the machine pool.
@@ -1997,7 +1997,7 @@ resources:
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
             penetration_scan_schedule: (String) The schedule for penetration scan.
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
-            proxy: (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+            proxy: (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
             read: (String)
             region_code: (String)
             region_name: (String)
@@ -2747,7 +2747,7 @@ resources:
             conformance_scan_schedule: (String) The schedule for conformance scan.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) The context of the EKS cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
-            count: (Number) Number of nodes in the machine pool.
+            count: '(Number) Desired pool size sent to the API as size (node count when not using autoscaling limits). When autoscaling is enabled (min and max both greater than 0), set count equal to min: Palette persists pool size at that minimum while the autoscaler adjusts the live node count between min and max. A count greater than min is rejected by the provider and would not match persisted state or the Palette UI.'
             country_code: (String)
             country_name: (String)
             create: (String)
@@ -2781,11 +2781,11 @@ resources:
             longitude: (Number)
             machine_pool: '(Block Set, Min: 1) The machine pool configuration for the cluster. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
-            max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+            max: (Number) Maximum number of nodes in the machine pool. Used for autoscaling together with min. When both min and max are greater than 0, count must equal min.
             max_price: (String)
             max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
-            min: (Number) Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
+            min: (Number) Minimum number of nodes in the machine pool. Used for autoscaling together with max. When both min and max are greater than 0, count must equal min.
             name: (String) The name of the cluster.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
             namespaces: (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -3372,6 +3372,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             static_ip: (Boolean) Whether to use static IP. Default is false.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
@@ -3605,7 +3606,7 @@ resources:
             name: (String)
             options: (Block List) The options of the variable. Only applicable for dropdown input type. (see below for nested schema)
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
-            profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)'
+            profile_variables: '(Block List, Max: 1) List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates. (see below for nested schema)'
             regex: (String) Regular expression pattern which the variable value must match.
             registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
@@ -3811,6 +3812,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             ssh_key: (String, Deprecated) The SSH key to be used for the cluster. This is the public key that will be used to access the cluster nodes. ssh_key & ssh_keys are mutually exclusive.
             ssh_keys: (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
             static_ip: (Boolean) Whether to use static IP addresses for the cluster. If true, the cluster will use static IP addresses. If false, the cluster will use DDNS. Default is false.

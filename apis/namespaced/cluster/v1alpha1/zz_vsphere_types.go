@@ -1083,6 +1083,7 @@ type VsphereMachinePoolInitParameters struct {
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Placement []VsphereMachinePoolPlacementInitParameters `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
@@ -1234,6 +1235,7 @@ type VsphereMachinePoolObservation struct {
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Placement []VsphereMachinePoolPlacementObservation `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
@@ -1351,6 +1353,7 @@ type VsphereMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Placement []VsphereMachinePoolPlacementParameters `json:"placement" tf:"placement,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`

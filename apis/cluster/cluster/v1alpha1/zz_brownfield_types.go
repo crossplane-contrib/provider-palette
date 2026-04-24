@@ -573,7 +573,7 @@ type BrownfieldInitParameters struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BrownfieldBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// cloudstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
@@ -632,7 +632,7 @@ type BrownfieldInitParameters struct {
 	// The namespaces for the cluster.
 	Namespaces []BrownfieldNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
@@ -640,7 +640,7 @@ type BrownfieldInitParameters struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
@@ -821,7 +821,7 @@ type BrownfieldObservation struct {
 	// ID of the cloud config used for the cluster. This is automatically set from the cluster's cloud config reference.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// cloudstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
@@ -899,7 +899,7 @@ type BrownfieldObservation struct {
 	// The namespaces for the cluster.
 	Namespaces []BrownfieldNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
 
@@ -907,7 +907,7 @@ type BrownfieldObservation struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
 
@@ -945,7 +945,7 @@ type BrownfieldParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupPolicy []BrownfieldBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// anywhere, azure, gcp, vsphere, openshift, generic,apache-cloudstack,edge-native,maas. This field cannot be updated after creation.
+	// cloudstack. This field cannot be updated after creation.
 	// The cloud type of the cluster. Supported values: `aws` (IaaS Cluster), `azure` (IaaS Cluster), `gcp` (IaaS Cluster), `generic` ("generic" should be used and considered for everything else that is not listed here), `apache-cloudstack`. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
@@ -1019,7 +1019,7 @@ type BrownfieldParameters struct {
 	// +kubebuilder:validation:Optional
 	Namespaces []BrownfieldNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
@@ -1029,7 +1029,7 @@ type BrownfieldParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
-	// (String) Location to mount Proxy CA cert inside container. This field supports vsphere and openshift clusters. This field cannot be updated after creation.
+	// (String) Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// Location to mount Proxy CA cert inside container. This field supports for generic clusters. This field cannot be updated after creation.
 	// +kubebuilder:validation:Optional
 	Proxy *string `json:"proxy,omitempty" tf:"proxy,omitempty"`
@@ -1131,7 +1131,7 @@ type BrownfieldStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS, Azure, GCP, vSphere, OpenShift, Generic, Apache CloudStack, Edge Native and MAAS). This feature is currently in preview.
+// Brownfield is the Schema for the Brownfields API. Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS (Iaas), Azure (Iaas), GCP (Iaas), Generic (Generic should be used for everything else that is not listed here), Apache CloudStack). This feature is currently in preview.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
