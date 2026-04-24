@@ -34079,6 +34079,11 @@ func (in *MaasMachinePoolInitParameters) DeepCopyInto(out *MaasMachinePoolInitPa
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]MaasMachinePoolTaintsInitParameters, len(*in))
@@ -34405,6 +34410,11 @@ func (in *MaasMachinePoolObservation) DeepCopyInto(out *MaasMachinePoolObservati
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]MaasMachinePoolTaintsObservation, len(*in))
@@ -34640,6 +34650,11 @@ func (in *MaasMachinePoolParameters) DeepCopyInto(out *MaasMachinePoolParameters
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -40971,6 +40986,11 @@ func (in *VsphereMachinePoolInitParameters) DeepCopyInto(out *VsphereMachinePool
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]VsphereMachinePoolTaintsInitParameters, len(*in))
@@ -41263,6 +41283,11 @@ func (in *VsphereMachinePoolObservation) DeepCopyInto(out *VsphereMachinePoolObs
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]VsphereMachinePoolTaintsObservation, len(*in))
@@ -41464,6 +41489,11 @@ func (in *VsphereMachinePoolParameters) DeepCopyInto(out *VsphereMachinePoolPara
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints

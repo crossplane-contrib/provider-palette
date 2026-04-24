@@ -136,8 +136,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-                      List of variables for the cluster profile.
+                      (Block List, Max: 1) List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates. (see below for nested schema)
+                      List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
                     items:
                       properties:
                         variable:
@@ -338,8 +338,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-                      List of variables for the cluster profile.
+                      (Block List, Max: 1) List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates. (see below for nested schema)
+                      List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
                     items:
                       properties:
                         variable:
@@ -607,8 +607,8 @@ spec:
                     type: array
                   profileVariables:
                     description: |-
-                      (Block List, Max: 1) List of variables for the cluster profile. (see below for nested schema)
-                      List of variables for the cluster profile.
+                      (Block List, Max: 1) List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates. (see below for nested schema)
+                      List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
                     items:
                       properties:
                         variable:

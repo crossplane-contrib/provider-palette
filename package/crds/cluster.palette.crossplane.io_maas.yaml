@@ -988,6 +988,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2042,6 +2047,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
@@ -2837,6 +2847,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        skipK8SUpgrade:
+                          description: |-
+                            3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                            Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+                          type: string
                         taints:
                           description: (Block List) (see below for nested schema)
                           items:
