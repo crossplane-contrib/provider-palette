@@ -89,7 +89,7 @@ spec:
                     description: Description of the profile.
                     type: string
                   name:
-                    description: Name of the application profile
+                    description: Readable name for the application profile.
                     type: string
                   pack:
                     description: A list of packs to be applied to the application
@@ -122,9 +122,8 @@ spec:
                         properties:
                           additionalProperties:
                             type: string
-                          description: 'The various properties required by different
-                            database tiers eg: `databaseName` and `databaseVolumeSize`
-                            size for Redis etc.'
+                          description: Map of property name to string value required
+                            by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:
@@ -197,7 +196,7 @@ spec:
                     description: Description of the profile.
                     type: string
                   name:
-                    description: Name of the application profile
+                    description: Readable name for the application profile.
                     type: string
                   pack:
                     description: A list of packs to be applied to the application
@@ -230,9 +229,8 @@ spec:
                         properties:
                           additionalProperties:
                             type: string
-                          description: 'The various properties required by different
-                            database tiers eg: `databaseName` and `databaseVolumeSize`
-                            size for Redis etc.'
+                          description: Map of property name to string value required
+                            by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:
@@ -394,7 +392,7 @@ spec:
                   id:
                     type: string
                   name:
-                    description: Name of the application profile
+                    description: Readable name for the application profile.
                     type: string
                   pack:
                     description: A list of packs to be applied to the application
@@ -429,9 +427,8 @@ spec:
                         properties:
                           additionalProperties:
                             type: string
-                          description: 'The various properties required by different
-                            database tiers eg: `databaseName` and `databaseVolumeSize`
-                            size for Redis etc.'
+                          description: Map of property name to string value required
+                            by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
                           type: object
                           x-kubernetes-map-type: granular
                         registryName:

@@ -264,15 +264,21 @@ spec:
                     items:
                       properties:
                         uid:
-                          description: (String)
+                          description: |-
+                            (String)
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the workspace.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -294,7 +300,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String)
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -321,7 +329,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String)
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array
@@ -555,15 +565,21 @@ spec:
                     items:
                       properties:
                         uid:
-                          description: (String)
+                          description: |-
+                            (String)
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the workspace.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -585,7 +601,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String)
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -612,7 +630,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String)
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array
@@ -860,18 +880,24 @@ spec:
                           description: (String)
                           type: string
                         uid:
-                          description: (String)
+                          description: |-
+                            (String)
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the workspace.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -893,7 +919,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String)
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -920,7 +948,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String)
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array

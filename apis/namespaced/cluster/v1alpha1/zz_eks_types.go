@@ -180,12 +180,12 @@ type EksBackupPolicyParameters struct {
 type EksCloudConfigInitParameters struct {
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use for Dynamic provisioning.
+	// List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (String) The ARN of the KMS encryption key to use for the cluster. Refer to the Enable Secrets Encryption for EKS Cluster for additional guidance.
@@ -207,6 +207,7 @@ type EksCloudConfigInitParameters struct {
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	// (String)
+	// AWS region where the EKS cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (String) Public SSH key to be used for the cluster nodes.
@@ -214,18 +215,19 @@ type EksCloudConfigInitParameters struct {
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
 	// (String)
+	// VPC ID used to provision the EKS cluster.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type EksCloudConfigObservation struct {
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use for Dynamic provisioning.
+	// List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// (String) The ARN of the KMS encryption key to use for the cluster. Refer to the Enable Secrets Encryption for EKS Cluster for additional guidance.
@@ -247,6 +249,7 @@ type EksCloudConfigObservation struct {
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	// (String)
+	// AWS region where the EKS cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (String) Public SSH key to be used for the cluster nodes.
@@ -254,19 +257,20 @@ type EksCloudConfigObservation struct {
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
 	// (String)
+	// VPC ID used to provision the EKS cluster.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type EksCloudConfigParameters struct {
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use for Dynamic provisioning.
+	// List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
 	// +kubebuilder:validation:Optional
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -293,6 +297,7 @@ type EksCloudConfigParameters struct {
 	PublicAccessCidrs []*string `json:"publicAccessCidrs,omitempty" tf:"public_access_cidrs,omitempty"`
 
 	// (String)
+	// AWS region where the EKS cluster is deployed. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
 
@@ -302,6 +307,7 @@ type EksCloudConfigParameters struct {
 	SSHKeyName *string `json:"sshKeyName,omitempty" tf:"ssh_key_name,omitempty"`
 
 	// (String)
+	// VPC ID used to provision the EKS cluster.
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
@@ -921,7 +927,7 @@ type EksInitParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 
@@ -937,7 +943,7 @@ type EksLaunchTemplateInitParameters struct {
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional AWS security group IDs to attach to the instance.
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
 
@@ -961,7 +967,7 @@ type EksLaunchTemplateObservation struct {
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional AWS security group IDs to attach to the instance.
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
 
@@ -986,7 +992,7 @@ type EksLaunchTemplateParameters struct {
 	AMIID *string `json:"amiId,omitempty" tf:"ami_id,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional AWS security group IDs to attach to the instance.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
@@ -1051,12 +1057,12 @@ type EksMachinePoolInitParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`.
+	// List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
@@ -1068,12 +1074,14 @@ type EksMachinePoolInitParameters struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
 	// (Block List, Max: 1) (see below for nested schema)
 	EksLaunchTemplate []EksLaunchTemplateInitParameters `json:"eksLaunchTemplate,omitempty" tf:"eks_launch_template,omitempty"`
 
 	// (String)
+	// AWS EC2 instance type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. Used for autoscaling together with min. When both min and max are greater than 0, count must equal min.
@@ -1081,6 +1089,7 @@ type EksMachinePoolInitParameters struct {
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
 	// (String)
+	// Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
 	// (Number) Minimum number of nodes in the machine pool. Used for autoscaling together with max. When both min and max are greater than 0, count must equal min.
@@ -1088,6 +1097,7 @@ type EksMachinePoolInitParameters struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the EKS machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1161,12 +1171,12 @@ type EksMachinePoolObservation struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`.
+	// List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// demand' or 'spot'. Defaults to 'on-demand'.
@@ -1178,12 +1188,14 @@ type EksMachinePoolObservation struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
 	// (Block List, Max: 1) (see below for nested schema)
 	EksLaunchTemplate []EksLaunchTemplateObservation `json:"eksLaunchTemplate,omitempty" tf:"eks_launch_template,omitempty"`
 
 	// (String)
+	// AWS EC2 instance type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (Number) Maximum number of nodes in the machine pool. Used for autoscaling together with min. When both min and max are greater than 0, count must equal min.
@@ -1191,6 +1203,7 @@ type EksMachinePoolObservation struct {
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
 	// (String)
+	// Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
 	// (Number) Minimum number of nodes in the machine pool. Used for autoscaling together with max. When both min and max are greater than 0, count must equal min.
@@ -1198,6 +1211,7 @@ type EksMachinePoolObservation struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the EKS machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1274,13 +1288,13 @@ type EksMachinePoolParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use for Static provisioning.
-	// Mutually exclusive with `azs`. Use for Static provisioning.
+	// Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`.
+	// List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
 	// +kubebuilder:validation:Optional
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -1295,6 +1309,7 @@ type EksMachinePoolParameters struct {
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb" tf:"disk_size_gb,omitempty"`
 
@@ -1303,6 +1318,7 @@ type EksMachinePoolParameters struct {
 	EksLaunchTemplate []EksLaunchTemplateParameters `json:"eksLaunchTemplate,omitempty" tf:"eks_launch_template,omitempty"`
 
 	// (String)
+	// AWS EC2 instance type used for nodes in this machine pool.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
@@ -1312,6 +1328,7 @@ type EksMachinePoolParameters struct {
 	Max *float64 `json:"max,omitempty" tf:"max,omitempty"`
 
 	// (String)
+	// Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
 	// +kubebuilder:validation:Optional
 	MaxPrice *string `json:"maxPrice,omitempty" tf:"max_price,omitempty"`
 
@@ -1321,6 +1338,7 @@ type EksMachinePoolParameters struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the EKS machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1551,7 +1569,7 @@ type EksObservation struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 
@@ -1701,7 +1719,7 @@ type EksParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
@@ -1763,43 +1781,51 @@ type EksScanPolicyParameters struct {
 type FargateProfileInitParameters struct {
 
 	// (Map of String)
+	// Map of additional tag key-value pairs applied to Fargate resources.
 	// +mapType=granular
 	AdditionalTags map[string]*string `json:"additionalTags,omitempty" tf:"additional_tags,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the Fargate profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	Selector []SelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
 	// (List of String)
+	// List of subnet ID strings used by this Fargate profile.
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 }
 
 type FargateProfileObservation struct {
 
 	// (Map of String)
+	// Map of additional tag key-value pairs applied to Fargate resources.
 	// +mapType=granular
 	AdditionalTags map[string]*string `json:"additionalTags,omitempty" tf:"additional_tags,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the Fargate profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	Selector []SelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
 	// (List of String)
+	// List of subnet ID strings used by this Fargate profile.
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 }
 
 type FargateProfileParameters struct {
 
 	// (Map of String)
+	// Map of additional tag key-value pairs applied to Fargate resources.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalTags map[string]*string `json:"additionalTags,omitempty" tf:"additional_tags,omitempty"`
 
 	// (String) The name of the cluster.
+	// Name of the Fargate profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1808,6 +1834,7 @@ type FargateProfileParameters struct {
 	Selector []SelectorParameters `json:"selector" tf:"selector,omitempty"`
 
 	// (List of String)
+	// List of subnet ID strings used by this Fargate profile.
 	// +kubebuilder:validation:Optional
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 }
@@ -1815,31 +1842,37 @@ type FargateProfileParameters struct {
 type SelectorInitParameters struct {
 
 	// (Map of String)
+	// Map of Kubernetes label key-value pairs used to match workloads for this selector.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// Kubernetes namespace matched by this Fargate selector.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SelectorObservation struct {
 
 	// (Map of String)
+	// Map of Kubernetes label key-value pairs used to match workloads for this selector.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// Kubernetes namespace matched by this Fargate selector.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SelectorParameters struct {
 
 	// (Map of String)
+	// Map of Kubernetes label key-value pairs used to match workloads for this selector.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+	// Kubernetes namespace matched by this Fargate selector.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace" tf:"namespace,omitempty"`
 }

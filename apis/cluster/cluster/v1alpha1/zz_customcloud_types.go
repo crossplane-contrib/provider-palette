@@ -1094,6 +1094,7 @@ type CustomCloudObservation struct {
 	CloudConfig []CustomCloudCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
 	// (String, Deprecated)
+	// Identifier of the generated cloud configuration associated with this custom cloud cluster.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
 	// (Block Set) (see below for nested schema)

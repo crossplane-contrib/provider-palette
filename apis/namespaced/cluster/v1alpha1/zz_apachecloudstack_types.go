@@ -626,7 +626,7 @@ type ApacheCloudstackInitParameters struct {
 	MachinePool []ApacheCloudstackMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String) The name of the cluster.
-	// The name of the cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -731,7 +731,7 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// Unique machine pool name within this cluster configuration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
@@ -806,7 +806,7 @@ type ApacheCloudstackMachinePoolObservation struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// Unique machine pool name within this cluster configuration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
@@ -884,7 +884,7 @@ type ApacheCloudstackMachinePoolParameters struct {
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
 	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// Unique machine pool name within this cluster configuration.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1043,7 +1043,7 @@ type ApacheCloudstackObservation struct {
 	MachinePool []ApacheCloudstackMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String) The name of the cluster.
-	// The name of the cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1174,7 +1174,7 @@ type ApacheCloudstackParameters struct {
 	MachinePool []ApacheCloudstackMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String) The name of the cluster.
-	// The name of the cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1627,7 +1627,7 @@ type NetworkInitParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Network name in this zone.
+	// CloudStack network name within the selected zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network mask for the network.
@@ -1662,7 +1662,7 @@ type NetworkObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Network name in this zone.
+	// CloudStack network name within the selected zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network mask for the network.
@@ -1699,7 +1699,7 @@ type NetworkParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Network name in this zone.
+	// CloudStack network name within the selected zone.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1774,7 +1774,7 @@ type ProjectInitParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// CloudStack project name.
+	// CloudStack project name used to scope cluster resources in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1785,7 +1785,7 @@ type ProjectObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// CloudStack project name.
+	// CloudStack project name used to scope cluster resources in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1797,7 +1797,7 @@ type ProjectParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// CloudStack project name.
+	// CloudStack project name used to scope cluster resources in this zone.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1809,7 +1809,7 @@ type TemplateInitParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1820,7 +1820,7 @@ type TemplateObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1832,7 +1832,7 @@ type TemplateParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1848,7 +1848,7 @@ type VPCInitParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// VPC name.
+	// CloudStack VPC name associated with the selected network.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
@@ -1867,7 +1867,7 @@ type VPCObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// VPC name.
+	// CloudStack VPC name associated with the selected network.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
@@ -1888,7 +1888,7 @@ type VPCParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) The name of the cluster.
-	// VPC name.
+	// CloudStack VPC name associated with the selected network.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 

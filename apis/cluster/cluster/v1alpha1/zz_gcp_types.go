@@ -179,38 +179,47 @@ type GCPBackupPolicyParameters struct {
 type GCPCloudConfigInitParameters struct {
 
 	// (String)
+	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (String)
+	// Google Cloud project ID where cluster resources are created.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// (String)
+	// Google Cloud region where the cluster is deployed.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type GCPCloudConfigObservation struct {
 
 	// (String)
+	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (String)
+	// Google Cloud project ID where cluster resources are created.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// (String)
+	// Google Cloud region where the cluster is deployed.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type GCPCloudConfigParameters struct {
 
 	// (String)
+	// VPC network name used to provision cluster resources.
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (String)
+	// Google Cloud project ID where cluster resources are created.
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project" tf:"project,omitempty"`
 
 	// (String)
+	// Google Cloud region where the cluster is deployed.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
 }
@@ -726,6 +735,7 @@ type GCPInitParameters struct {
 	BackupPolicy []GCPBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.GCP
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -783,6 +793,7 @@ type GCPInitParameters struct {
 	MachinePool []GCPMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the GCP cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -867,6 +878,7 @@ type GCPMachinePoolInitParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String)
+	// Set of availability zone name strings for machine pool placement.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -883,12 +895,15 @@ type GCPMachinePoolInitParameters struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
 	// (String)
+	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -962,6 +977,7 @@ type GCPMachinePoolObservation struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String)
+	// Set of availability zone name strings for machine pool placement.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -978,12 +994,15 @@ type GCPMachinePoolObservation struct {
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
 	// (String)
+	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1059,6 +1078,7 @@ type GCPMachinePoolParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String)
+	// Set of availability zone name strings for machine pool placement.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Azs []*string `json:"azs" tf:"azs,omitempty"`
@@ -1079,14 +1099,17 @@ type GCPMachinePoolParameters struct {
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
 	// (Number)
+	// Root disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
 	// (String)
+	// GCE machine type used for nodes in this machine pool.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1216,6 +1239,7 @@ type GCPObservation struct {
 	BackupPolicy []GCPBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -1275,6 +1299,7 @@ type GCPObservation struct {
 	MachinePool []GCPMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the GCP cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1332,6 +1357,7 @@ type GCPParameters struct {
 	BackupPolicy []GCPBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.GCP
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -1402,6 +1428,7 @@ type GCPParameters struct {
 	MachinePool []GCPMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the GCP cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

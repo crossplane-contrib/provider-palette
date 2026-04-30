@@ -219,7 +219,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a Aws in cloudaccount to populate cloudAccountId.
@@ -795,7 +797,7 @@ spec:
                         additionalSecurityGroups:
                           description: |-
                             (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -805,13 +807,13 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
                             (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -957,7 +959,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -1046,7 +1050,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:
@@ -1214,7 +1218,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a Aws in cloudaccount to populate cloudAccountId.
@@ -1790,7 +1796,7 @@ spec:
                         additionalSecurityGroups:
                           description: |-
                             (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -1800,13 +1806,13 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
                             (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -1952,7 +1958,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2041,7 +2049,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:
@@ -2224,7 +2232,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -2547,7 +2557,7 @@ spec:
                         additionalSecurityGroups:
                           description: |-
                             (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -2557,13 +2567,13 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
                             (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -2709,7 +2719,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2798,7 +2810,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:

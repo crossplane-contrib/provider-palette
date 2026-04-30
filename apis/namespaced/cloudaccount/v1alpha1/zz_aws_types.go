@@ -41,6 +41,7 @@ type AwsInitParameters struct {
 	ExternalIDSecretRef *v1.LocalSecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
 	// (String)
+	// Name of the AWS cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// us-gov' for AWS GovCloud (US) regions.
@@ -90,6 +91,7 @@ type AwsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String)
+	// Name of the AWS cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// us-gov' for AWS GovCloud (US) regions.
@@ -154,6 +156,7 @@ type AwsParameters struct {
 	ExternalIDSecretRef *v1.LocalSecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
 	// (String)
+	// Name of the AWS cloud account.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

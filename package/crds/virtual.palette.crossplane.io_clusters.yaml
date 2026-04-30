@@ -223,24 +223,36 @@ spec:
                     items:
                       properties:
                         chartName:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
-                          description: (String)
+                          description: |-
+                            (String)
+                            YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
                     type: array
                   clusterGroupUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cluster group used to select the host cluster.
                     type: string
                   clusterGroupUidRef:
                     description: Reference to a Group in cluster to populate clusterGroupUid.
@@ -543,10 +555,14 @@ spec:
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostClusterUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the host cluster where this virtual cluster is created.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -599,22 +615,34 @@ spec:
                     items:
                       properties:
                         maxCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object
                     type: array
@@ -823,24 +851,36 @@ spec:
                     items:
                       properties:
                         chartName:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
-                          description: (String)
+                          description: |-
+                            (String)
+                            YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
                     type: array
                   clusterGroupUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cluster group used to select the host cluster.
                     type: string
                   clusterGroupUidRef:
                     description: Reference to a Group in cluster to populate clusterGroupUid.
@@ -1143,10 +1183,14 @@ spec:
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostClusterUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the host cluster where this virtual cluster is created.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -1199,22 +1243,34 @@ spec:
                     items:
                       properties:
                         maxCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object
                     type: array
@@ -1435,19 +1491,29 @@ spec:
                     items:
                       properties:
                         chartName:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
-                          description: (String)
+                          description: |-
+                            (String)
+                            YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
                     type: array
@@ -1457,7 +1523,9 @@ spec:
                       ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
                     type: string
                   clusterGroupUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cluster group used to select the host cluster.
                     type: string
                   clusterProfile:
                     description: (Block Set) (see below for nested schema)
@@ -1620,7 +1688,9 @@ spec:
                       Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostClusterUid:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the host cluster where this virtual cluster is created.
                     type: string
                   id:
                     description: (String) The ID of this resource.
@@ -1657,7 +1727,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -1710,22 +1782,34 @@ spec:
                     items:
                       properties:
                         maxCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object
                     type: array

@@ -366,6 +366,7 @@ spec:
                       are `active` or `inactive`. Default is `active`.
                     type: string
                   token:
+                    description: Generated registration token value returned by Palette.
                     type: string
                 type: object
               conditions:

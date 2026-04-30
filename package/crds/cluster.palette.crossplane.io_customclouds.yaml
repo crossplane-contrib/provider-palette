@@ -2025,7 +2025,9 @@ spec:
                       type: object
                     type: array
                   cloudConfigId:
-                    description: (String, Deprecated)
+                    description: |-
+                      (String, Deprecated)
+                      Identifier of the generated cloud configuration associated with this custom cloud cluster.
                     type: string
                   clusterProfile:
                     description: (Block Set) (see below for nested schema)

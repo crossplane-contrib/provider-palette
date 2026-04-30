@@ -211,7 +211,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -788,12 +790,12 @@ spec:
                               defaultGateway:
                                 description: |-
                                   (String) Edge host default gateway
-                                  Edge host default gateway
+                                  Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
                                   (Set of String) Edge host DNS servers
-                                  Edge host DNS servers
+                                  Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
                                 type: array
@@ -801,12 +803,12 @@ spec:
                               hostName:
                                 description: |-
                                   (String) Edge host name
-                                  Edge host name
+                                  Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
                                   (String) Edge host id
-                                  Edge host id
+                                  UID of the edge host.
                                 type: string
                               nicName:
                                 description: |-
@@ -816,12 +818,12 @@ spec:
                               staticIp:
                                 description: |-
                                   (String) Edge host static IP address
-                                  Edge host static IP address
+                                  Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
                                   (String) Edge host subnet mask
-                                  Edge host subnet mask
+                                  Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
                                 description: |-
@@ -831,7 +833,9 @@ spec:
                             type: object
                           type: array
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -906,7 +910,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -1161,7 +1167,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -1738,12 +1746,12 @@ spec:
                               defaultGateway:
                                 description: |-
                                   (String) Edge host default gateway
-                                  Edge host default gateway
+                                  Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
                                   (Set of String) Edge host DNS servers
-                                  Edge host DNS servers
+                                  Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
                                 type: array
@@ -1751,12 +1759,12 @@ spec:
                               hostName:
                                 description: |-
                                   (String) Edge host name
-                                  Edge host name
+                                  Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
                                   (String) Edge host id
-                                  Edge host id
+                                  UID of the edge host.
                                 type: string
                               nicName:
                                 description: |-
@@ -1766,12 +1774,12 @@ spec:
                               staticIp:
                                 description: |-
                                   (String) Edge host static IP address
-                                  Edge host static IP address
+                                  Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
                                   (String) Edge host subnet mask
-                                  Edge host subnet mask
+                                  Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
                                 description: |-
@@ -1781,7 +1789,9 @@ spec:
                             type: object
                           type: array
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -1856,7 +1866,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2092,7 +2104,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -2446,12 +2460,12 @@ spec:
                               defaultGateway:
                                 description: |-
                                   (String) Edge host default gateway
-                                  Edge host default gateway
+                                  Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
                                   (Set of String) Edge host DNS servers
-                                  Edge host DNS servers
+                                  Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
                                 type: array
@@ -2459,12 +2473,12 @@ spec:
                               hostName:
                                 description: |-
                                   (String) Edge host name
-                                  Edge host name
+                                  Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
                                   (String) Edge host id
-                                  Edge host id
+                                  UID of the edge host.
                                 type: string
                               nicName:
                                 description: |-
@@ -2474,12 +2488,12 @@ spec:
                               staticIp:
                                 description: |-
                                   (String) Edge host static IP address
-                                  Edge host static IP address
+                                  Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
                                   (String) Edge host subnet mask
-                                  Edge host subnet mask
+                                  Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
                                 description: |-
@@ -2489,7 +2503,9 @@ spec:
                             type: object
                           type: array
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -2564,7 +2580,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-

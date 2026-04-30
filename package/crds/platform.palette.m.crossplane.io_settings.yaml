@@ -76,8 +76,8 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: Enables automatic remediation. set only with `project'
-                      context
+                    description: Enables automatic remediation. Allowed only for `project`
+                      context.
                     type: boolean
                   loginBanner:
                     description: Configure a login banner that users must acknowledge
@@ -96,20 +96,20 @@ spec:
                   nonFipsAddonPack:
                     description: Allows users in this tenant to use non-FIPS-compliant
                       addon packs when creating cluster profiles. The `non_fips_addon_pack`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   nonFipsClusterImport:
-                    description: Allows users in this tenant to import clusters, but
-                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                    description: Allows users in this tenant to import clusters that
+                      may not be FIPS-compliant. The `non_fips_cluster_import` setting
+                      is supported only in Palette Vertex environments. Allowed only
+                      for `tenant` context.
                     type: boolean
                   nonFipsFeatures:
                     description: Allows users in this tenant to access non-FIPS-compliant
                       features such as backup, restore, and scans. The `non_fips_features`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   pauseAgentUpgrades:
                     description: Controls automatic upgrades for Palette components
@@ -118,9 +118,9 @@ spec:
                       allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: Specifies the duration (in minutes) of inactivity
-                      before a user is automatically logged out. The default is 240
-                      minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration in minutes of inactivity before
+                      a user is automatically logged out. The default is 240 minutes
+                      in Palette. Allowed only for `tenant` context.
                     type: number
                 type: object
               initProvider:
@@ -154,8 +154,8 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: Enables automatic remediation. set only with `project'
-                      context
+                    description: Enables automatic remediation. Allowed only for `project`
+                      context.
                     type: boolean
                   loginBanner:
                     description: Configure a login banner that users must acknowledge
@@ -174,20 +174,20 @@ spec:
                   nonFipsAddonPack:
                     description: Allows users in this tenant to use non-FIPS-compliant
                       addon packs when creating cluster profiles. The `non_fips_addon_pack`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   nonFipsClusterImport:
-                    description: Allows users in this tenant to import clusters, but
-                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                    description: Allows users in this tenant to import clusters that
+                      may not be FIPS-compliant. The `non_fips_cluster_import` setting
+                      is supported only in Palette Vertex environments. Allowed only
+                      for `tenant` context.
                     type: boolean
                   nonFipsFeatures:
                     description: Allows users in this tenant to access non-FIPS-compliant
                       features such as backup, restore, and scans. The `non_fips_features`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   pauseAgentUpgrades:
                     description: Controls automatic upgrades for Palette components
@@ -196,9 +196,9 @@ spec:
                       allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: Specifies the duration (in minutes) of inactivity
-                      before a user is automatically logged out. The default is 240
-                      minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration in minutes of inactivity before
+                      a user is automatically logged out. The default is 240 minutes
+                      in Palette. Allowed only for `tenant` context.
                     type: number
                 type: object
               managementPolicies:
@@ -282,8 +282,8 @@ spec:
                       sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   enableAutoRemediation:
-                    description: Enables automatic remediation. set only with `project'
-                      context
+                    description: Enables automatic remediation. Allowed only for `project`
+                      context.
                     type: boolean
                   id:
                     type: string
@@ -304,20 +304,20 @@ spec:
                   nonFipsAddonPack:
                     description: Allows users in this tenant to use non-FIPS-compliant
                       addon packs when creating cluster profiles. The `non_fips_addon_pack`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   nonFipsClusterImport:
-                    description: Allows users in this tenant to import clusters, but
-                      the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                    description: Allows users in this tenant to import clusters that
+                      may not be FIPS-compliant. The `non_fips_cluster_import` setting
+                      is supported only in Palette Vertex environments. Allowed only
+                      for `tenant` context.
                     type: boolean
                   nonFipsFeatures:
                     description: Allows users in this tenant to access non-FIPS-compliant
                       features such as backup, restore, and scans. The `non_fips_features`
-                      only supported in palette vertex environment. Allowed only for
-                      `tenant` context
+                      setting is supported only in Palette Vertex environments. Allowed
+                      only for `tenant` context.
                     type: boolean
                   pauseAgentUpgrades:
                     description: Controls automatic upgrades for Palette components
@@ -326,9 +326,9 @@ spec:
                       allows automatic upgrades.
                     type: string
                   sessionTimeout:
-                    description: Specifies the duration (in minutes) of inactivity
-                      before a user is automatically logged out. The default is 240
-                      minutes allowed in Palette. Allowed only for `tenant` context
+                    description: Specifies the duration in minutes of inactivity before
+                      a user is automatically logged out. The default is 240 minutes
+                      in Palette. Allowed only for `tenant` context.
                     type: number
                 type: object
               conditions:

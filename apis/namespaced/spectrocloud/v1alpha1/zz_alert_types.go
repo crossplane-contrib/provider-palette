@@ -213,38 +213,47 @@ type HTTPParameters struct {
 type StatusInitParameters struct {
 
 	// (Boolean)
+	// Whether the latest alert delivery operation succeeded.
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
 	// (String)
+	// Status message from the latest alert delivery operation.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String)
+	// Timestamp of the latest alert delivery status update.
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
 
 type StatusObservation struct {
 
 	// (Boolean)
+	// Whether the latest alert delivery operation succeeded.
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
 	// (String)
+	// Status message from the latest alert delivery operation.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String)
+	// Timestamp of the latest alert delivery status update.
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
 
 type StatusParameters struct {
 
 	// (Boolean)
+	// Whether the latest alert delivery operation succeeded.
 	// +kubebuilder:validation:Optional
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
 	// (String)
+	// Status message from the latest alert delivery operation.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String)
+	// Timestamp of the latest alert delivery status update.
 	// +kubebuilder:validation:Optional
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }

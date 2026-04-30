@@ -81,12 +81,18 @@ spec:
                           items:
                             properties:
                               bus:
+                                description: Disk bus type used by the attached data
+                                  volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: Name of the disk definition in the virtual
+                                  machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: Name of the volume attachment in the virtual
+                            machine spec.
                           type: string
                         volumeSource:
                           items:
@@ -95,8 +101,12 @@ spec:
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: Whether this data volume can be
+                                        hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: Name of the data volume source
+                                        referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -105,6 +115,8 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: Resource context for the target cluster. Allowed
+                      values are `project` or `tenant`.
                     type: string
                   clusterUid:
                     description: The cluster UID to which the virtual machine belongs
@@ -117,23 +129,22 @@ spec:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: 'An unstructured key/value map stored with
+                            the DataVolume that can be used to store arbitrary metadata.
+                            More info: http://kubernetes.io/docs/user-guide/annotations.'
                           type: object
                           x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: 'Map of string key/value labels used to organize
+                            and categorize the DataVolume. May match selectors of
+                            replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.'
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: 'Name of the DataVolume. Must be unique and
+                            cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.'
                           type: string
                         namespace:
                           description: Namespace defines the space within which name
@@ -155,8 +166,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -169,19 +180,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -234,7 +244,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume
@@ -282,11 +292,12 @@ spec:
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: Name of the source PVC to clone
+                                        from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: Namespace where the source PVC
+                                        is located.
                                       type: string
                                   type: object
                                 type: array
@@ -310,8 +321,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -324,19 +335,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -386,7 +396,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume
@@ -447,12 +457,18 @@ spec:
                           items:
                             properties:
                               bus:
+                                description: Disk bus type used by the attached data
+                                  volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: Name of the disk definition in the virtual
+                                  machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: Name of the volume attachment in the virtual
+                            machine spec.
                           type: string
                         volumeSource:
                           items:
@@ -461,8 +477,12 @@ spec:
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: Whether this data volume can be
+                                        hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: Name of the data volume source
+                                        referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -471,6 +491,8 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: Resource context for the target cluster. Allowed
+                      values are `project` or `tenant`.
                     type: string
                   clusterUid:
                     description: The cluster UID to which the virtual machine belongs
@@ -483,23 +505,22 @@ spec:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: 'An unstructured key/value map stored with
+                            the DataVolume that can be used to store arbitrary metadata.
+                            More info: http://kubernetes.io/docs/user-guide/annotations.'
                           type: object
                           x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: 'Map of string key/value labels used to organize
+                            and categorize the DataVolume. May match selectors of
+                            replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.'
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: 'Name of the DataVolume. Must be unique and
+                            cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.'
                           type: string
                         namespace:
                           description: Namespace defines the space within which name
@@ -521,8 +542,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -535,19 +556,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -600,7 +620,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume
@@ -648,11 +668,12 @@ spec:
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: Name of the source PVC to clone
+                                        from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: Namespace where the source PVC
+                                        is located.
                                       type: string
                                   type: object
                                 type: array
@@ -676,8 +697,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -690,19 +711,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -752,7 +772,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume
@@ -908,12 +928,18 @@ spec:
                           items:
                             properties:
                               bus:
+                                description: Disk bus type used by the attached data
+                                  volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: Name of the disk definition in the virtual
+                                  machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: Name of the volume attachment in the virtual
+                            machine spec.
                           type: string
                         volumeSource:
                           items:
@@ -922,8 +948,12 @@ spec:
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: Whether this data volume can be
+                                        hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: Name of the data volume source
+                                        referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -932,6 +962,8 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: Resource context for the target cluster. Allowed
+                      values are `project` or `tenant`.
                     type: string
                   clusterUid:
                     description: The cluster UID to which the virtual machine belongs
@@ -946,9 +978,9 @@ spec:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: 'An unstructured key/value map stored with
+                            the DataVolume that can be used to store arbitrary metadata.
+                            More info: http://kubernetes.io/docs/user-guide/annotations.'
                           type: object
                           x-kubernetes-map-type: granular
                         generation:
@@ -958,15 +990,14 @@ spec:
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: 'Map of string key/value labels used to organize
+                            and categorize the DataVolume. May match selectors of
+                            replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.'
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: 'Name of the DataVolume. Must be unique and
+                            cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.'
                           type: string
                         namespace:
                           description: Namespace defines the space within which name
@@ -997,8 +1028,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -1011,19 +1042,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -1076,7 +1106,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume
@@ -1124,11 +1154,12 @@ spec:
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: Name of the source PVC to clone
+                                        from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: Namespace where the source PVC
+                                        is located.
                                       type: string
                                   type: object
                                 type: array
@@ -1152,8 +1183,8 @@ spec:
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: 'Set of desired access mode strings for
+                                  the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.'
                                 items:
                                   type: string
                                 type: array
@@ -1166,19 +1197,18 @@ spec:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: 'Map describing the maximum compute
+                                        resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
+                                      description: 'Map describing the minimum compute
+                                        resources required. If omitted, it defaults
+                                        to `limits` when explicitly specified, otherwise
                                         to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                        http://kubernetes.io/docs/user-guide/compute-resources/.'
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
@@ -1228,7 +1258,7 @@ spec:
                                 type: array
                               storageClassName:
                                 description: Name of the storage class requested by
-                                  the claim
+                                  the claim.
                                 type: string
                               volumeMode:
                                 description: volumeMode defines what type of volume

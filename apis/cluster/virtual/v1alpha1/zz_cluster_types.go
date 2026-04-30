@@ -179,58 +179,73 @@ type BackupPolicyParameters struct {
 type CloudConfigInitParameters struct {
 
 	// (String)
+	// Helm chart name used to install the virtual cluster control plane.
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
 	// (String)
+	// Helm repository URL for the virtual cluster chart.
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
 	// (String)
+	// YAML values override passed to the virtual cluster Helm chart.
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
 	// (String)
+	// Helm chart version for the virtual cluster deployment.
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
 	// (String)
+	// Kubernetes version for the virtual cluster control plane.
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
 
 type CloudConfigObservation struct {
 
 	// (String)
+	// Helm chart name used to install the virtual cluster control plane.
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
 	// (String)
+	// Helm repository URL for the virtual cluster chart.
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
 	// (String)
+	// YAML values override passed to the virtual cluster Helm chart.
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
 	// (String)
+	// Helm chart version for the virtual cluster deployment.
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
 	// (String)
+	// Kubernetes version for the virtual cluster control plane.
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
 
 type CloudConfigParameters struct {
 
 	// (String)
+	// Helm chart name used to install the virtual cluster control plane.
 	// +kubebuilder:validation:Optional
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
 	// (String)
+	// Helm repository URL for the virtual cluster chart.
 	// +kubebuilder:validation:Optional
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
 	// (String)
+	// YAML values override passed to the virtual cluster Helm chart.
 	// +kubebuilder:validation:Optional
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
 	// (String)
+	// Helm chart version for the virtual cluster deployment.
 	// +kubebuilder:validation:Optional
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
 	// (String)
+	// Kubernetes version for the virtual cluster control plane.
 	// +kubebuilder:validation:Optional
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
@@ -249,6 +264,7 @@ type ClusterInitParameters struct {
 	CloudConfig []CloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
 	// (String)
+	// UID of the cluster group used to select the host cluster.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Group
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
@@ -288,9 +304,11 @@ type ClusterInitParameters struct {
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
 	// (String)
+	// UID of the host cluster where this virtual cluster is created.
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
 	// (String)
+	// Name of the virtual cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -360,6 +378,7 @@ type ClusterObservation struct {
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
 	// (String)
+	// UID of the cluster group used to select the host cluster.
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -390,6 +409,7 @@ type ClusterObservation struct {
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
 	// (String)
+	// UID of the host cluster where this virtual cluster is created.
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
 	// (String) The ID of this resource.
@@ -404,6 +424,7 @@ type ClusterObservation struct {
 	LocationConfig []LocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
 	// (String)
+	// Name of the virtual cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -468,6 +489,7 @@ type ClusterParameters struct {
 	CloudConfig []CloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
 	// (String)
+	// UID of the cluster group used to select the host cluster.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
@@ -515,10 +537,12 @@ type ClusterParameters struct {
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
 	// (String)
+	// UID of the host cluster where this virtual cluster is created.
 	// +kubebuilder:validation:Optional
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
 	// (String)
+	// Name of the virtual cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -924,68 +948,86 @@ type PackParameters struct {
 type ResourcesInitParameters struct {
 
 	// (Number)
+	// Maximum vCPU allocation for the virtual cluster.
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
 	// (Number)
+	// Maximum memory allocation in MB for the virtual cluster.
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Maximum storage allocation in GB for the virtual cluster.
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
 	// (Number)
+	// Minimum vCPU allocation for the virtual cluster.
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
 	// (Number)
+	// Minimum memory allocation in MB for the virtual cluster.
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Minimum storage allocation in GB for the virtual cluster.
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }
 
 type ResourcesObservation struct {
 
 	// (Number)
+	// Maximum vCPU allocation for the virtual cluster.
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
 	// (Number)
+	// Maximum memory allocation in MB for the virtual cluster.
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Maximum storage allocation in GB for the virtual cluster.
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
 	// (Number)
+	// Minimum vCPU allocation for the virtual cluster.
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
 	// (Number)
+	// Minimum memory allocation in MB for the virtual cluster.
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Minimum storage allocation in GB for the virtual cluster.
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }
 
 type ResourcesParameters struct {
 
 	// (Number)
+	// Maximum vCPU allocation for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
 	// (Number)
+	// Maximum memory allocation in MB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Maximum storage allocation in GB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
 	// (Number)
+	// Minimum vCPU allocation for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
 	// (Number)
+	// Minimum memory allocation in MB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
 	// (Number)
+	// Minimum storage allocation in GB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }

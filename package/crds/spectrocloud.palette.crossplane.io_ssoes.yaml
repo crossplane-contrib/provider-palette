@@ -157,7 +157,7 @@ spec:
                         scopes:
                           description: |-
                             (Set of String) Scopes requested during OIDC authentication.
-                            Scopes requested during OIDC authentication.
+                            Set of OIDC scope strings requested during authentication.
                           items:
                             type: string
                           type: array
@@ -357,7 +357,7 @@ spec:
                         scopes:
                           description: |-
                             (Set of String) Scopes requested during OIDC authentication.
-                            Scopes requested during OIDC authentication.
+                            Set of OIDC scope strings requested during authentication.
                           items:
                             type: string
                           type: array
@@ -631,7 +631,7 @@ spec:
                         scopes:
                           description: |-
                             (Set of String) Scopes requested during OIDC authentication.
-                            Scopes requested during OIDC authentication.
+                            Set of OIDC scope strings requested during authentication.
                           items:
                             type: string
                           type: array

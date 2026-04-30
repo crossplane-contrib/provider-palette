@@ -325,7 +325,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  CloudStack project name.
+                                  CloudStack project name used to scope cluster resources in this zone.
                                 type: string
                             type: object
                           type: array
@@ -374,7 +374,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) The name of the cluster.
-                                        Network name in this zone.
+                                        CloudStack network name within the selected zone.
                                       type: string
                                     netmask:
                                       description: |-
@@ -415,7 +415,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) The name of the cluster.
-                                              VPC name.
+                                              CloudStack VPC name associated with the selected network.
                                             type: string
                                           offering:
                                             description: |-
@@ -925,7 +925,7 @@ spec:
                         name:
                           description: |-
                             (String) The name of the cluster.
-                            Name of the machine pool.
+                            Unique machine pool name within this cluster configuration.
                           type: string
                         network:
                           description: |-
@@ -1029,7 +1029,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  Template name. Either ID or name must be provided.
+                                  CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
                                 type: string
                             type: object
                           type: array
@@ -1043,7 +1043,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the cluster.
-                      The name of the cluster.
+                      Unique cluster name shown in Palette for this Apache CloudStack cluster.
                     type: string
                   namespaces:
                     description: |-
@@ -1397,7 +1397,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  CloudStack project name.
+                                  CloudStack project name used to scope cluster resources in this zone.
                                 type: string
                             type: object
                           type: array
@@ -1446,7 +1446,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) The name of the cluster.
-                                        Network name in this zone.
+                                        CloudStack network name within the selected zone.
                                       type: string
                                     netmask:
                                       description: |-
@@ -1487,7 +1487,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) The name of the cluster.
-                                              VPC name.
+                                              CloudStack VPC name associated with the selected network.
                                             type: string
                                           offering:
                                             description: |-
@@ -1997,7 +1997,7 @@ spec:
                         name:
                           description: |-
                             (String) The name of the cluster.
-                            Name of the machine pool.
+                            Unique machine pool name within this cluster configuration.
                           type: string
                         network:
                           description: |-
@@ -2101,7 +2101,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  Template name. Either ID or name must be provided.
+                                  CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
                                 type: string
                             type: object
                           type: array
@@ -2115,7 +2115,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the cluster.
-                      The name of the cluster.
+                      Unique cluster name shown in Palette for this Apache CloudStack cluster.
                     type: string
                   namespaces:
                     description: |-
@@ -2408,7 +2408,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  CloudStack project name.
+                                  CloudStack project name used to scope cluster resources in this zone.
                                 type: string
                             type: object
                           type: array
@@ -2457,7 +2457,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) The name of the cluster.
-                                        Network name in this zone.
+                                        CloudStack network name within the selected zone.
                                       type: string
                                     netmask:
                                       description: |-
@@ -2498,7 +2498,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) The name of the cluster.
-                                              VPC name.
+                                              CloudStack VPC name associated with the selected network.
                                             type: string
                                           offering:
                                             description: |-
@@ -2855,7 +2855,7 @@ spec:
                         name:
                           description: |-
                             (String) The name of the cluster.
-                            Name of the machine pool.
+                            Unique machine pool name within this cluster configuration.
                           type: string
                         network:
                           description: |-
@@ -2959,7 +2959,7 @@ spec:
                               name:
                                 description: |-
                                   (String) The name of the cluster.
-                                  Template name. Either ID or name must be provided.
+                                  CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
                                 type: string
                             type: object
                           type: array
@@ -2973,7 +2973,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the cluster.
-                      The name of the cluster.
+                      Unique cluster name shown in Palette for this Apache CloudStack cluster.
                     type: string
                   namespaces:
                     description: |-

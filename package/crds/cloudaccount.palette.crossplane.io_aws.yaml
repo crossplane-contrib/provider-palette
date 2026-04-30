@@ -145,7 +145,9 @@ spec:
                     - namespace
                     type: object
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-
@@ -270,7 +272,9 @@ spec:
                     - namespace
                     type: object
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-
@@ -424,7 +428,9 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-

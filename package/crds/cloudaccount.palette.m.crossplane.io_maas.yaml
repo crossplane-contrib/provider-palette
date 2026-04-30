@@ -66,7 +66,7 @@ spec:
                   maasApiEndpoint:
                     description: |-
                       (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   maasApiKeySecretRef:
                     description: |-
@@ -114,7 +114,7 @@ spec:
                   maasApiEndpoint:
                     description: |-
                       (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   maasApiKeySecretRef:
                     description: |-
@@ -233,7 +233,7 @@ spec:
                   maasApiEndpoint:
                     description: |-
                       (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   name:
                     description: |-

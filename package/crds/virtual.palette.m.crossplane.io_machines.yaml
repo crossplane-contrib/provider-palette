@@ -113,7 +113,7 @@ spec:
                                     weight:
                                       description: |-
                                         100
-                                        weight is in the range 1-100
+                                        Weight in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -176,7 +176,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -224,7 +224,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -232,14 +232,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -294,7 +294,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -302,7 +302,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -323,7 +323,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -371,7 +371,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -379,14 +379,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -441,7 +441,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -449,7 +449,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -489,7 +489,7 @@ spec:
                         cores:
                           description: |-
                             (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
-                            Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+                            Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
                           type: number
                         sockets:
                           description: |-
@@ -520,7 +520,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
-                                  An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+                                  An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                                 type: object
                                 x-kubernetes-map-type: granular
                               labels:
@@ -528,13 +528,13 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
-                                  Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                                  Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                                 type: object
                                 x-kubernetes-map-type: granular
                               name:
                                 description: |-
                                   (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                  Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+                                  Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                                 type: string
                               namespace:
                                 description: |-
@@ -563,7 +563,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -579,7 +579,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -587,7 +587,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -637,7 +637,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -696,12 +696,12 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              The name of the PVC.
+                                              Name of the source PVC to clone from.
                                             type: string
                                           namespace:
                                             description: |-
                                               (String) Namespace defines the space within, Name must be unique.
-                                              The namespace which the PVC located in.
+                                              Namespace where the source PVC is located.
                                             type: string
                                         type: object
                                       type: array
@@ -729,7 +729,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -745,7 +745,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -753,7 +753,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -803,7 +803,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -852,7 +852,7 @@ spec:
                                     pciAddress:
                                       description: |-
                                         (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
-                                        If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+                                        If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
                                       type: string
                                     readOnly:
                                       description: |-
@@ -866,7 +866,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Name is the device name
+                            Device name for this disk.
                           type: string
                         serial:
                           description: |-
@@ -992,7 +992,7 @@ spec:
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
-                      Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
+                      Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
                     type: string
                   hostname:
                     description: |-
@@ -1058,7 +1058,7 @@ spec:
                   name:
                     description: |-
                       (String) Name of the virtual machine, must be unique. Cannot be updated.
-                      Name of the virtual machine, must be unique. Cannot be updated.
+                      Unique virtual machine name within the namespace. This value is immutable after creation.
                     type: string
                   namespace:
                     description: |-
@@ -1074,7 +1074,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Network name.
+                            Logical network name used to reference this network from VM interfaces.
                           type: string
                         networkSource:
                           description: |-
@@ -1127,7 +1127,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
-                      NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+                      Map of node label key to value strings that must match for the VMI to be scheduled on a node.
                     type: object
                     x-kubernetes-map-type: granular
                   podDnsConfig:
@@ -1193,7 +1193,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                            Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+                            Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
                           type: object
                           x-kubernetes-map-type: granular
                         overCommitGuestOverhead:
@@ -1286,7 +1286,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Provides additional data in order to perform the Action.
-                                  Provides additional data in order to perform the Action.
+                                  Map of string key/value pairs with additional parameters required to perform the action.
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
@@ -1355,7 +1355,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Volume's name.
+                            Unique volume name used to reference this volume from VM disk definitions.
                           type: string
                         volumeSource:
                           description: |-
@@ -1388,7 +1388,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -1411,7 +1411,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -1442,7 +1442,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -1465,7 +1465,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -1489,8 +1489,9 @@ spec:
                                       items:
                                         properties:
                                           key:
-                                            description: (String) The label key that
-                                              the selector applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              Key name from the referenced ConfigMap to project into the volume.
                                             type: string
                                         type: object
                                       type: array
@@ -1518,7 +1519,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                        Name represents the name of the DataVolume in the same namespace.
+                                        Name of the DataVolume in the same namespace to attach as the volume source.
                                       type: string
                                   type: object
                                 type: array
@@ -1550,7 +1551,7 @@ spec:
                                           claimName:
                                             description: |-
                                               volumes#persistentvolumeclaims
-                                              ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                              Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                             type: string
                                           readOnly:
                                             description: |-
@@ -1588,7 +1589,7 @@ spec:
                                     claimName:
                                       description: |-
                                         volumes#persistentvolumeclaims
-                                        ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                        Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                       type: string
                                     readOnly:
                                       description: |-
@@ -1683,7 +1684,7 @@ spec:
                                     weight:
                                       description: |-
                                         100
-                                        weight is in the range 1-100
+                                        Weight in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -1746,7 +1747,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -1794,7 +1795,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -1802,14 +1803,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -1864,7 +1865,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -1872,7 +1873,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -1893,7 +1894,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -1941,7 +1942,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -1949,14 +1950,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -2011,7 +2012,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -2019,7 +2020,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -2059,7 +2060,7 @@ spec:
                         cores:
                           description: |-
                             (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
-                            Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+                            Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
                           type: number
                         sockets:
                           description: |-
@@ -2090,7 +2091,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
-                                  An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+                                  An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                                 type: object
                                 x-kubernetes-map-type: granular
                               labels:
@@ -2098,13 +2099,13 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
-                                  Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                                  Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                                 type: object
                                 x-kubernetes-map-type: granular
                               name:
                                 description: |-
                                   (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                  Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+                                  Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                                 type: string
                               namespace:
                                 description: |-
@@ -2133,7 +2134,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -2149,7 +2150,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -2157,7 +2158,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -2207,7 +2208,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -2266,12 +2267,12 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              The name of the PVC.
+                                              Name of the source PVC to clone from.
                                             type: string
                                           namespace:
                                             description: |-
                                               (String) Namespace defines the space within, Name must be unique.
-                                              The namespace which the PVC located in.
+                                              Namespace where the source PVC is located.
                                             type: string
                                         type: object
                                       type: array
@@ -2299,7 +2300,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -2315,7 +2316,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -2323,7 +2324,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -2373,7 +2374,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -2422,7 +2423,7 @@ spec:
                                     pciAddress:
                                       description: |-
                                         (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
-                                        If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+                                        If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
                                       type: string
                                     readOnly:
                                       description: |-
@@ -2436,7 +2437,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Name is the device name
+                            Device name for this disk.
                           type: string
                         serial:
                           description: |-
@@ -2562,7 +2563,7 @@ spec:
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
-                      Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
+                      Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
                     type: string
                   hostname:
                     description: |-
@@ -2628,7 +2629,7 @@ spec:
                   name:
                     description: |-
                       (String) Name of the virtual machine, must be unique. Cannot be updated.
-                      Name of the virtual machine, must be unique. Cannot be updated.
+                      Unique virtual machine name within the namespace. This value is immutable after creation.
                     type: string
                   namespace:
                     description: |-
@@ -2644,7 +2645,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Network name.
+                            Logical network name used to reference this network from VM interfaces.
                           type: string
                         networkSource:
                           description: |-
@@ -2697,7 +2698,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
-                      NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+                      Map of node label key to value strings that must match for the VMI to be scheduled on a node.
                     type: object
                     x-kubernetes-map-type: granular
                   podDnsConfig:
@@ -2763,7 +2764,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                            Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+                            Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
                           type: object
                           x-kubernetes-map-type: granular
                         overCommitGuestOverhead:
@@ -2856,7 +2857,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Provides additional data in order to perform the Action.
-                                  Provides additional data in order to perform the Action.
+                                  Map of string key/value pairs with additional parameters required to perform the action.
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
@@ -2925,7 +2926,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Volume's name.
+                            Unique volume name used to reference this volume from VM disk definitions.
                           type: string
                         volumeSource:
                           description: |-
@@ -2958,7 +2959,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -2981,7 +2982,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -3012,7 +3013,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -3035,7 +3036,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -3059,8 +3060,9 @@ spec:
                                       items:
                                         properties:
                                           key:
-                                            description: (String) The label key that
-                                              the selector applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              Key name from the referenced ConfigMap to project into the volume.
                                             type: string
                                         type: object
                                       type: array
@@ -3088,7 +3090,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                        Name represents the name of the DataVolume in the same namespace.
+                                        Name of the DataVolume in the same namespace to attach as the volume source.
                                       type: string
                                   type: object
                                 type: array
@@ -3120,7 +3122,7 @@ spec:
                                           claimName:
                                             description: |-
                                               volumes#persistentvolumeclaims
-                                              ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                              Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                             type: string
                                           readOnly:
                                             description: |-
@@ -3158,7 +3160,7 @@ spec:
                                     claimName:
                                       description: |-
                                         volumes#persistentvolumeclaims
-                                        ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                        Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                       type: string
                                     readOnly:
                                       description: |-
@@ -3316,7 +3318,7 @@ spec:
                                     weight:
                                       description: |-
                                         100
-                                        weight is in the range 1-100
+                                        Weight in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -3379,7 +3381,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -3427,7 +3429,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -3435,14 +3437,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -3497,7 +3499,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -3505,7 +3507,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -3526,7 +3528,7 @@ spec:
                                     podAffinityTerm:
                                       description: |-
                                         (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
-                                        A pod affinity term, associated with the corresponding weight
+                                        Pod affinity term associated with the corresponding weight.
                                       items:
                                         properties:
                                           labelSelector:
@@ -3574,7 +3576,7 @@ spec:
                                           namespaces:
                                             description: |-
                                               (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                              namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                              Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                             items:
                                               type: string
                                             type: array
@@ -3582,14 +3584,14 @@ spec:
                                           topologyKey:
                                             description: |-
                                               (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                              empty topology key is interpreted by the scheduler as 'all topologies'
+                                              Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                             type: string
                                         type: object
                                       type: array
                                     weight:
                                       description: |-
                                         100
-                                        weight associated with matching the corresponding podAffinityTerm, in the range 1-100
+                                        Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
                                       type: number
                                   type: object
                                 type: array
@@ -3644,7 +3646,7 @@ spec:
                                     namespaces:
                                       description: |-
                                         (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
-                                        namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+                                        Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
                                       items:
                                         type: string
                                       type: array
@@ -3652,7 +3654,7 @@ spec:
                                     topologyKey:
                                       description: |-
                                         (String) empty topology key is interpreted by the scheduler as 'all topologies'
-                                        empty topology key is interpreted by the scheduler as 'all topologies'
+                                        Topology key used by the scheduler; an empty value is interpreted as all topologies.
                                       type: string
                                   type: object
                                 type: array
@@ -3692,7 +3694,7 @@ spec:
                         cores:
                           description: |-
                             (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
-                            Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+                            Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
                           type: number
                         sockets:
                           description: |-
@@ -3723,7 +3725,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) An unstructured key value map stored with the VM that may be used to store arbitrary metadata.
-                                  An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+                                  An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                                 type: object
                                 x-kubernetes-map-type: granular
                               generation:
@@ -3736,13 +3738,13 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Map of string keys and values that can be used to organize and categorize (scope and select). May match selectors of replication controllers and services.
-                                  Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                                  Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                                 type: object
                                 x-kubernetes-map-type: granular
                               name:
                                 description: |-
                                   (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                  Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+                                  Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                                 type: string
                               namespace:
                                 description: |-
@@ -3781,7 +3783,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -3797,7 +3799,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -3805,7 +3807,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -3855,7 +3857,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -3914,12 +3916,12 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              The name of the PVC.
+                                              Name of the source PVC to clone from.
                                             type: string
                                           namespace:
                                             description: |-
                                               (String) Namespace defines the space within, Name must be unique.
-                                              The namespace which the PVC located in.
+                                              Namespace where the source PVC is located.
                                             type: string
                                         type: object
                                       type: array
@@ -3947,7 +3949,7 @@ spec:
                                     accessModes:
                                       description: |-
                                         guide/persistent-volumes#access-modes-1
-                                        A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+                                        Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                       items:
                                         type: string
                                       type: array
@@ -3963,7 +3965,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                                              Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           requests:
@@ -3971,7 +3973,7 @@ spec:
                                               type: string
                                             description: |-
                                               (Map of String) Requests is a description of the initial vmi resources.
-                                              Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+                                              Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                             type: object
                                             x-kubernetes-map-type: granular
                                         type: object
@@ -4021,7 +4023,7 @@ spec:
                                     storageClassName:
                                       description: |-
                                         (String) Name of the storage class requested by the claim
-                                        Name of the storage class requested by the claim
+                                        Name of the storage class requested by the claim.
                                       type: string
                                     volumeMode:
                                       description: |-
@@ -4070,7 +4072,7 @@ spec:
                                     pciAddress:
                                       description: |-
                                         (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
-                                        If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+                                        If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
                                       type: string
                                     readOnly:
                                       description: |-
@@ -4084,7 +4086,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Name is the device name
+                            Device name for this disk.
                           type: string
                         serial:
                           description: |-
@@ -4210,7 +4212,7 @@ spec:
                   generateName:
                     description: |-
                       architecture/api-conventions.md#idempotency
-                      Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency
+                      Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
                     type: string
                   generation:
                     description: |-
@@ -4284,7 +4286,7 @@ spec:
                   name:
                     description: |-
                       (String) Name of the virtual machine, must be unique. Cannot be updated.
-                      Name of the virtual machine, must be unique. Cannot be updated.
+                      Unique virtual machine name within the namespace. This value is immutable after creation.
                     type: string
                   namespace:
                     description: |-
@@ -4300,7 +4302,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Network name.
+                            Logical network name used to reference this network from VM interfaces.
                           type: string
                         networkSource:
                           description: |-
@@ -4353,7 +4355,7 @@ spec:
                       type: string
                     description: |-
                       (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
-                      NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+                      Map of node label key to value strings that must match for the VMI to be scheduled on a node.
                     type: object
                     x-kubernetes-map-type: granular
                   podDnsConfig:
@@ -4424,7 +4426,7 @@ spec:
                             type: string
                           description: |-
                             (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
-                            Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+                            Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
                           type: object
                           x-kubernetes-map-type: granular
                         overCommitGuestOverhead:
@@ -4522,7 +4524,7 @@ spec:
                                   type: string
                                 description: |-
                                   (Map of String) Provides additional data in order to perform the Action.
-                                  Provides additional data in order to perform the Action.
+                                  Map of string key/value pairs with additional parameters required to perform the action.
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
@@ -4596,7 +4598,7 @@ spec:
                         name:
                           description: |-
                             (String) Name of the virtual machine, must be unique. Cannot be updated.
-                            Volume's name.
+                            Unique volume name used to reference this volume from VM disk definitions.
                           type: string
                         volumeSource:
                           description: |-
@@ -4629,7 +4631,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -4652,7 +4654,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -4683,7 +4685,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -4706,7 +4708,7 @@ spec:
                                           name:
                                             description: |-
                                               (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                              Name of the referent.
+                                              Name of the referenced object (for example, a Secret or ConfigMap name).
                                             type: string
                                         type: object
                                       type: array
@@ -4730,8 +4732,9 @@ spec:
                                       items:
                                         properties:
                                           key:
-                                            description: (String) The label key that
-                                              the selector applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              Key name from the referenced ConfigMap to project into the volume.
                                             type: string
                                         type: object
                                       type: array
@@ -4759,7 +4762,7 @@ spec:
                                     name:
                                       description: |-
                                         (String) Name of the virtual machine, must be unique. Cannot be updated.
-                                        Name represents the name of the DataVolume in the same namespace.
+                                        Name of the DataVolume in the same namespace to attach as the volume source.
                                       type: string
                                   type: object
                                 type: array
@@ -4791,7 +4794,7 @@ spec:
                                           claimName:
                                             description: |-
                                               volumes#persistentvolumeclaims
-                                              ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                              Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                             type: string
                                           readOnly:
                                             description: |-
@@ -4829,7 +4832,7 @@ spec:
                                     claimName:
                                       description: |-
                                         volumes#persistentvolumeclaims
-                                        ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                                        Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
                                       type: string
                                     readOnly:
                                       description: |-

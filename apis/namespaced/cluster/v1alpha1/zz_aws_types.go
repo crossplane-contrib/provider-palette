@@ -711,6 +711,7 @@ type AwsInitParameters struct {
 	BackupPolicy []AwsBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.Aws
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -772,6 +773,7 @@ type AwsInitParameters struct {
 	MachinePool []AwsMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the AWS cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -812,7 +814,7 @@ type AwsInitParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 
@@ -861,17 +863,17 @@ type AwsMachinePoolInitParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional security group ID strings to attach to the instance.
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+	// Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -999,17 +1001,17 @@ type AwsMachinePoolObservation struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional security group ID strings to attach to the instance.
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+	// Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -1139,19 +1141,19 @@ type AwsMachinePoolParameters struct {
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Additional security groups to attach to the instance.
-	// Additional security groups to attach to the instance.
+	// Set of additional security group ID strings to attach to the instance.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AdditionalSecurityGroups []*string `json:"additionalSecurityGroups,omitempty" tf:"additional_security_groups,omitempty"`
 
 	// (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-	// Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+	// Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AzSubnets map[string]*string `json:"azSubnets,omitempty" tf:"az_subnets,omitempty"`
 
 	// (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-	// Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+	// Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -1348,6 +1350,7 @@ type AwsObservation struct {
 	BackupPolicy []AwsBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -1411,6 +1414,7 @@ type AwsObservation struct {
 	MachinePool []AwsMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the AWS cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1451,7 +1455,7 @@ type AwsObservation struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`
 
@@ -1473,6 +1477,7 @@ type AwsParameters struct {
 	BackupPolicy []AwsBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.Aws
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -1548,6 +1553,7 @@ type AwsParameters struct {
 	MachinePool []AwsMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the AWS cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1598,7 +1604,7 @@ type AwsParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-	// A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+	// A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	TagsMap map[string]*string `json:"tagsMap,omitempty" tf:"tags_map,omitempty"`

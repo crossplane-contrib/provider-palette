@@ -69,7 +69,7 @@ type CustomParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (Map of String, Sensitive) The credentials required for accessing the cloud.
-	// The credentials required for accessing the cloud.
+	// Map of credential key to credential value strings required for accessing the cloud.
 	// +kubebuilder:validation:Optional
 	CredentialsSecretRef *v1.SecretReference `json:"credentialsSecretRef,omitempty" tf:"-"`
 

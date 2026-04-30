@@ -54,7 +54,7 @@ type OidcInitParameters struct {
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
 	// (Set of String) Scopes requested during OIDC authentication.
-	// Scopes requested during OIDC authentication.
+	// Set of OIDC scope strings requested during authentication.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
@@ -111,7 +111,7 @@ type OidcObservation struct {
 	LogoutURL *string `json:"logoutUrl,omitempty" tf:"logout_url,omitempty"`
 
 	// (Set of String) Scopes requested during OIDC authentication.
-	// Scopes requested during OIDC authentication.
+	// Set of OIDC scope strings requested during authentication.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
@@ -173,7 +173,7 @@ type OidcParameters struct {
 	LastName *string `json:"lastName" tf:"last_name,omitempty"`
 
 	// (Set of String) Scopes requested during OIDC authentication.
-	// Scopes requested during OIDC authentication.
+	// Set of OIDC scope strings requested during authentication.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Scopes []*string `json:"scopes" tf:"scopes,omitempty"`

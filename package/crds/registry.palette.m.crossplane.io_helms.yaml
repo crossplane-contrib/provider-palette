@@ -99,7 +99,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the Helm registry. This must be unique
-                      The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:
                     description: Default value is false. Default value is `false`.
@@ -159,7 +159,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the Helm registry. This must be unique
-                      The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:
                     description: Default value is false. Default value is `false`.
@@ -289,7 +289,7 @@ spec:
                   name:
                     description: |-
                       (String) The name of the Helm registry. This must be unique
-                      The name of the Helm registry. This must be unique
+                      The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:
                     description: Default value is false. Default value is `false`.

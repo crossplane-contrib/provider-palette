@@ -17,6 +17,7 @@ import (
 type AddVolumeOptionsInitParameters struct {
 	Disk []DiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// Name of the volume attachment in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	VolumeSource []VolumeSourceInitParameters `json:"volumeSource,omitempty" tf:"volume_source,omitempty"`
@@ -25,6 +26,7 @@ type AddVolumeOptionsInitParameters struct {
 type AddVolumeOptionsObservation struct {
 	Disk []DiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// Name of the volume attachment in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	VolumeSource []VolumeSourceObservation `json:"volumeSource,omitempty" tf:"volume_source,omitempty"`
@@ -35,6 +37,7 @@ type AddVolumeOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Disk []DiskParameters `json:"disk" tf:"disk,omitempty"`
 
+	// Name of the volume attachment in the virtual machine spec.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -52,22 +55,30 @@ type BlankParameters struct {
 }
 
 type DataVolumeInitParameters struct {
+
+	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// Name of the data volume source referenced by this attachment.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeObservation struct {
+
+	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// Name of the data volume source referenced by this attachment.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeParameters struct {
 
+	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	// +kubebuilder:validation:Optional
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// Name of the data volume source referenced by this attachment.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
@@ -77,6 +88,7 @@ type DatavolumeInitParameters struct {
 	// DataVolumeSpec defines our specification for a DataVolume type
 	AddVolumeOptions []AddVolumeOptionsInitParameters `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
 	// The cluster UID to which the virtual machine belongs to.
@@ -103,6 +115,7 @@ type DatavolumeObservation struct {
 	// DataVolumeSpec defines our specification for a DataVolume type
 	AddVolumeOptions []AddVolumeOptionsObservation `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
 	// The cluster UID to which the virtual machine belongs to.
@@ -132,6 +145,7 @@ type DatavolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	AddVolumeOptions []AddVolumeOptionsParameters `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	// +kubebuilder:validation:Optional
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
@@ -190,22 +204,30 @@ type DatavolumeStatusParameters struct {
 }
 
 type DiskInitParameters struct {
+
+	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
+	// Name of the disk definition in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DiskObservation struct {
+
+	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
+	// Name of the disk definition in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DiskParameters struct {
 
+	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	// +kubebuilder:validation:Optional
 	Bus *string `json:"bus" tf:"bus,omitempty"`
 
+	// Name of the disk definition in the virtual machine spec.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
@@ -254,15 +276,15 @@ type MatchExpressionsParameters struct {
 
 type MetadataInitParameters struct {
 
-	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Namespace defines the space within which name of the DataVolume must be unique.
@@ -271,18 +293,18 @@ type MetadataInitParameters struct {
 
 type MetadataObservation struct {
 
-	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// A sequence number representing a specific generation of the desired state.
 	Generation *float64 `json:"generation,omitempty" tf:"generation,omitempty"`
 
-	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Namespace defines the space within which name of the DataVolume must be unique.
@@ -297,17 +319,17 @@ type MetadataObservation struct {
 
 type MetadataParameters struct {
 
-	// An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations
+	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -318,7 +340,7 @@ type MetadataParameters struct {
 
 type PvcInitParameters struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
@@ -328,7 +350,7 @@ type PvcInitParameters struct {
 	// A label query over volumes to consider for binding.
 	Selector []SelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -340,7 +362,7 @@ type PvcInitParameters struct {
 
 type PvcObservation struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
@@ -350,7 +372,7 @@ type PvcObservation struct {
 	// A label query over volumes to consider for binding.
 	Selector []SelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -362,7 +384,7 @@ type PvcObservation struct {
 
 type PvcParameters struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AccessModes []*string `json:"accessModes" tf:"access_modes,omitempty"`
@@ -375,7 +397,7 @@ type PvcParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector []SelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -409,34 +431,34 @@ type RegistryParameters struct {
 
 type ResourcesInitParameters struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
 type ResourcesObservation struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
 type ResourcesParameters struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
@@ -606,29 +628,29 @@ type SourceParameters struct {
 
 type SourcePvcInitParameters struct {
 
-	// The name of the PVC.
+	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The namespace which the PVC located in.
+	// Namespace where the source PVC is located.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SourcePvcObservation struct {
 
-	// The name of the PVC.
+	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The namespace which the PVC located in.
+	// Namespace where the source PVC is located.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SourcePvcParameters struct {
 
-	// The name of the PVC.
+	// Name of the source PVC to clone from.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The namespace which the PVC located in.
+	// Namespace where the source PVC is located.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
@@ -684,7 +706,7 @@ type SpecParameters struct {
 
 type StorageInitParameters struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
@@ -694,7 +716,7 @@ type StorageInitParameters struct {
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -706,7 +728,7 @@ type StorageInitParameters struct {
 
 type StorageObservation struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
@@ -716,7 +738,7 @@ type StorageObservation struct {
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -728,7 +750,7 @@ type StorageObservation struct {
 
 type StorageParameters struct {
 
-	// A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
@@ -741,7 +763,7 @@ type StorageParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector []StorageSelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// Name of the storage class requested by the claim
+	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -756,34 +778,34 @@ type StorageParameters struct {
 
 type StorageResourcesInitParameters struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
 type StorageResourcesObservation struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
 }
 
 type StorageResourcesParameters struct {
 
-	// Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
-	// Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/
+	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`

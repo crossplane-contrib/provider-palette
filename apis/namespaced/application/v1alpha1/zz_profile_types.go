@@ -56,7 +56,7 @@ type PackInitParameters struct {
 	// The name of the specified pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+	// Map of property name to string value required by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
@@ -93,7 +93,7 @@ type PackObservation struct {
 	// The name of the specified pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+	// Map of property name to string value required by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
@@ -133,7 +133,7 @@ type PackParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.
+	// Map of property name to string value required by the pack tier (for example, `databaseName` or `databaseVolumeSize`).
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
@@ -178,7 +178,7 @@ type ProfileInitParameters struct {
 	// Description of the profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Name of the application profile
+	// Readable name for the application profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// A list of packs to be applied to the application profile.
@@ -205,7 +205,7 @@ type ProfileObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Name of the application profile
+	// Readable name for the application profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// A list of packs to be applied to the application profile.
@@ -233,7 +233,7 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Name of the application profile
+	// Readable name for the application profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

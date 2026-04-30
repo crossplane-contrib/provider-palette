@@ -90,7 +90,7 @@ type HelmInitParameters struct {
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique
-	// The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Default value is false. Default value is `false`.
@@ -115,7 +115,7 @@ type HelmObservation struct {
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique
-	// The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Default value is false. Default value is `false`.
@@ -140,7 +140,7 @@ type HelmParameters struct {
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique
-	// The name of the Helm registry. This must be unique
+	// The name of the Helm registry. This must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

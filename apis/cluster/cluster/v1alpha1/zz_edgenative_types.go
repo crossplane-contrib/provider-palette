@@ -16,20 +16,20 @@ import (
 type EdgeHostInitParameters struct {
 
 	// (Set of String) Edge host DNS servers
-	// Edge host DNS servers
+	// Set of DNS server IP address strings for the edge host network interface.
 	// +listType=set
 	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
 
 	// (String) Edge host default gateway
-	// Edge host default gateway
+	// Default gateway IP address for the edge host network interface.
 	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
 
 	// (String) Edge host name
-	// Edge host name
+	// Name of the edge host.
 	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
 
 	// (String) Edge host id
-	// Edge host id
+	// UID of the edge host.
 	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
 
 	// (String) NIC Name for edge host.
@@ -37,11 +37,11 @@ type EdgeHostInitParameters struct {
 	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
 
 	// (String) Edge host static IP address
-	// Edge host static IP address
+	// Static IP address assigned to the edge host.
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
 	// (String) Edge host subnet mask
-	// Edge host subnet mask
+	// Subnet mask for the edge host network interface.
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
@@ -52,20 +52,20 @@ type EdgeHostInitParameters struct {
 type EdgeHostObservation struct {
 
 	// (Set of String) Edge host DNS servers
-	// Edge host DNS servers
+	// Set of DNS server IP address strings for the edge host network interface.
 	// +listType=set
 	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
 
 	// (String) Edge host default gateway
-	// Edge host default gateway
+	// Default gateway IP address for the edge host network interface.
 	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
 
 	// (String) Edge host name
-	// Edge host name
+	// Name of the edge host.
 	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
 
 	// (String) Edge host id
-	// Edge host id
+	// UID of the edge host.
 	HostUID *string `json:"hostUid,omitempty" tf:"host_uid,omitempty"`
 
 	// (String) NIC Name for edge host.
@@ -73,11 +73,11 @@ type EdgeHostObservation struct {
 	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
 
 	// (String) Edge host static IP address
-	// Edge host static IP address
+	// Static IP address assigned to the edge host.
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
 	// (String) Edge host subnet mask
-	// Edge host subnet mask
+	// Subnet mask for the edge host network interface.
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
@@ -88,23 +88,23 @@ type EdgeHostObservation struct {
 type EdgeHostParameters struct {
 
 	// (Set of String) Edge host DNS servers
-	// Edge host DNS servers
+	// Set of DNS server IP address strings for the edge host network interface.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	DNSServers []*string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
 
 	// (String) Edge host default gateway
-	// Edge host default gateway
+	// Default gateway IP address for the edge host network interface.
 	// +kubebuilder:validation:Optional
 	DefaultGateway *string `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
 
 	// (String) Edge host name
-	// Edge host name
+	// Name of the edge host.
 	// +kubebuilder:validation:Optional
 	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
 
 	// (String) Edge host id
-	// Edge host id
+	// UID of the edge host.
 	// +kubebuilder:validation:Optional
 	HostUID *string `json:"hostUid" tf:"host_uid,omitempty"`
 
@@ -114,12 +114,12 @@ type EdgeHostParameters struct {
 	NicName *string `json:"nicName,omitempty" tf:"nic_name,omitempty"`
 
 	// (String) Edge host static IP address
-	// Edge host static IP address
+	// Static IP address assigned to the edge host.
 	// +kubebuilder:validation:Optional
 	StaticIP *string `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
 	// (String) Edge host subnet mask
-	// Edge host subnet mask
+	// Subnet mask for the edge host network interface.
 	// +kubebuilder:validation:Optional
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
@@ -883,6 +883,7 @@ type EdgeNativeInitParameters struct {
 	BackupPolicy []EdgeNativeBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -934,6 +935,7 @@ type EdgeNativeInitParameters struct {
 	MachinePool []EdgeNativeMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the Edge Native cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1089,6 +1091,7 @@ type EdgeNativeMachinePoolInitParameters struct {
 	EdgeHost []EdgeHostInitParameters `json:"edgeHost,omitempty" tf:"edge_host,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1173,6 +1176,7 @@ type EdgeNativeMachinePoolObservation struct {
 	EdgeHost []EdgeHostObservation `json:"edgeHost,omitempty" tf:"edge_host,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -1262,6 +1266,7 @@ type EdgeNativeMachinePoolParameters struct {
 	EdgeHost []EdgeHostParameters `json:"edgeHost" tf:"edge_host,omitempty"`
 
 	// (String)
+	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1391,6 +1396,7 @@ type EdgeNativeObservation struct {
 	BackupPolicy []EdgeNativeBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) (see below for nested schema)
@@ -1449,6 +1455,7 @@ type EdgeNativeObservation struct {
 	MachinePool []EdgeNativeMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the Edge Native cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1506,6 +1513,7 @@ type EdgeNativeParameters struct {
 	BackupPolicy []EdgeNativeBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// (String)
+	// UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -1571,6 +1579,7 @@ type EdgeNativeParameters struct {
 	MachinePool []EdgeNativeMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
 	// (String)
+	// Name of the Edge Native cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

@@ -209,14 +209,24 @@ spec:
                     items:
                       properties:
                         datacenter:
+                          description: Name of the vSphere datacenter used by this
+                            cluster.
                           type: string
                         folder:
+                          description: vSphere inventory folder where cluster virtual
+                            machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: vSphere folder containing VM image templates
+                            used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: DNS search domain associated with the control
+                            plane endpoint.
                           type: string
                         networkType:
+                          description: Type of network endpoint used for the control
+                            plane address.
                           type: string
                         sshKey:
                           description: Public SSH Key (Secure Shell) to establish,
@@ -232,8 +242,12 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: Whether to use static IP addressing for the
+                            control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: Virtual IP address for the Kubernetes control
+                            plane endpoint.
                           type: string
                       type: object
                     type: array
@@ -656,6 +670,8 @@ spec:
                       empty string.
                     type: string
                   edgeHostUid:
+                    description: UID of the registered Edge host where this cluster
+                      is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
                     description: If set to `true`, the cluster will be force deleted
@@ -743,14 +759,21 @@ spec:
                           items:
                             properties:
                               cpu:
+                                description: Number of vCPUs for each node in this
+                                  machine pool.
                                 type: number
                               diskSizeGb:
+                                description: Disk size in GB for each node in this
+                                  machine pool.
                                 type: number
                               memoryMb:
+                                description: Memory size in MB for each node in this
+                                  machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: Name of the machine pool.
                           type: string
                         node:
                           items:
@@ -797,14 +820,24 @@ spec:
                           items:
                             properties:
                               cluster:
+                                description: Name of the vSphere compute cluster used
+                                  for node placement.
                                 type: string
                               datastore:
+                                description: Name of the vSphere datastore used for
+                                  node disks.
                                 type: string
                               network:
+                                description: Name of the vSphere network attached
+                                  to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: Name of the vSphere resource pool used
+                                  for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: UID of the static IP pool used for machine
+                                  pool networking.
                                 type: string
                             type: object
                           type: array
@@ -832,6 +865,8 @@ spec:
                       type: object
                     type: array
                   name:
+                    description: Name of the Edge vSphere cluster. Changing this forces
+                      a new resource.
                     type: string
                   namespaces:
                     description: The namespaces for the cluster.
@@ -1073,14 +1108,24 @@ spec:
                     items:
                       properties:
                         datacenter:
+                          description: Name of the vSphere datacenter used by this
+                            cluster.
                           type: string
                         folder:
+                          description: vSphere inventory folder where cluster virtual
+                            machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: vSphere folder containing VM image templates
+                            used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: DNS search domain associated with the control
+                            plane endpoint.
                           type: string
                         networkType:
+                          description: Type of network endpoint used for the control
+                            plane address.
                           type: string
                         sshKey:
                           description: Public SSH Key (Secure Shell) to establish,
@@ -1096,8 +1141,12 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: Whether to use static IP addressing for the
+                            control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: Virtual IP address for the Kubernetes control
+                            plane endpoint.
                           type: string
                       type: object
                     type: array
@@ -1520,6 +1569,8 @@ spec:
                       empty string.
                     type: string
                   edgeHostUid:
+                    description: UID of the registered Edge host where this cluster
+                      is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
                     description: If set to `true`, the cluster will be force deleted
@@ -1607,14 +1658,21 @@ spec:
                           items:
                             properties:
                               cpu:
+                                description: Number of vCPUs for each node in this
+                                  machine pool.
                                 type: number
                               diskSizeGb:
+                                description: Disk size in GB for each node in this
+                                  machine pool.
                                 type: number
                               memoryMb:
+                                description: Memory size in MB for each node in this
+                                  machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: Name of the machine pool.
                           type: string
                         node:
                           items:
@@ -1661,14 +1719,24 @@ spec:
                           items:
                             properties:
                               cluster:
+                                description: Name of the vSphere compute cluster used
+                                  for node placement.
                                 type: string
                               datastore:
+                                description: Name of the vSphere datastore used for
+                                  node disks.
                                 type: string
                               network:
+                                description: Name of the vSphere network attached
+                                  to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: Name of the vSphere resource pool used
+                                  for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: UID of the static IP pool used for machine
+                                  pool networking.
                                 type: string
                             type: object
                           type: array
@@ -1696,6 +1764,8 @@ spec:
                       type: object
                     type: array
                   name:
+                    description: Name of the Edge vSphere cluster. Changing this forces
+                      a new resource.
                     type: string
                   namespaces:
                     description: The namespaces for the cluster.
@@ -1922,14 +1992,24 @@ spec:
                     items:
                       properties:
                         datacenter:
+                          description: Name of the vSphere datacenter used by this
+                            cluster.
                           type: string
                         folder:
+                          description: vSphere inventory folder where cluster virtual
+                            machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: vSphere folder containing VM image templates
+                            used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: DNS search domain associated with the control
+                            plane endpoint.
                           type: string
                         networkType:
+                          description: Type of network endpoint used for the control
+                            plane address.
                           type: string
                         sshKey:
                           description: Public SSH Key (Secure Shell) to establish,
@@ -1945,8 +2025,12 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: Whether to use static IP addressing for the
+                            control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: Virtual IP address for the Kubernetes control
+                            plane endpoint.
                           type: string
                       type: object
                     type: array
@@ -2132,6 +2216,8 @@ spec:
                       empty string.
                     type: string
                   edgeHostUid:
+                    description: UID of the registered Edge host where this cluster
+                      is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
                     description: If set to `true`, the cluster will be force deleted
@@ -2221,14 +2307,21 @@ spec:
                           items:
                             properties:
                               cpu:
+                                description: Number of vCPUs for each node in this
+                                  machine pool.
                                 type: number
                               diskSizeGb:
+                                description: Disk size in GB for each node in this
+                                  machine pool.
                                 type: number
                               memoryMb:
+                                description: Memory size in MB for each node in this
+                                  machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: Name of the machine pool.
                           type: string
                         node:
                           items:
@@ -2275,16 +2368,26 @@ spec:
                           items:
                             properties:
                               cluster:
+                                description: Name of the vSphere compute cluster used
+                                  for node placement.
                                 type: string
                               datastore:
+                                description: Name of the vSphere datastore used for
+                                  node disks.
                                 type: string
                               id:
                                 type: string
                               network:
+                                description: Name of the vSphere network attached
+                                  to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: Name of the vSphere resource pool used
+                                  for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: UID of the static IP pool used for machine
+                                  pool networking.
                                 type: string
                             type: object
                           type: array
@@ -2312,6 +2415,8 @@ spec:
                       type: object
                     type: array
                   name:
+                    description: Name of the Edge vSphere cluster. Changing this forces
+                      a new resource.
                     type: string
                   namespaces:
                     description: The namespaces for the cluster.

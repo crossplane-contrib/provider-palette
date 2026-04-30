@@ -81,7 +81,7 @@ spec:
                   remoteShell:
                     description: |-
                       management/remote-shell/
-                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:
                     additionalProperties:
@@ -128,7 +128,7 @@ spec:
                   remoteShell:
                     description: |-
                       management/remote-shell/
-                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:
                     additionalProperties:
@@ -261,7 +261,7 @@ spec:
                   remoteShell:
                     description: |-
                       management/remote-shell/
-                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+                      Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:
                     additionalProperties:

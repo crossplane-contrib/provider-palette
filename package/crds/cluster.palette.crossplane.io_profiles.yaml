@@ -84,10 +84,14 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the cluster profile.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -259,7 +263,7 @@ spec:
                       this value will only update the version number of the existing
                       cluster profile. It will NOT create a new version in Palette.
                       To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                      at: https://github.'
                     type: string
                 type: object
               initProvider:
@@ -286,10 +290,14 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the cluster profile.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -461,7 +469,7 @@ spec:
                       this value will only update the version number of the existing
                       cluster profile. It will NOT create a new version in Palette.
                       To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                      at: https://github.'
                     type: string
                 type: object
               managementPolicies:
@@ -571,13 +579,17 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Description of the cluster profile.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -763,7 +775,7 @@ spec:
                       this value will only update the version number of the existing
                       cluster profile. It will NOT create a new version in Palette.
                       To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                      at: https://github.'
                     type: string
                 type: object
               conditions:

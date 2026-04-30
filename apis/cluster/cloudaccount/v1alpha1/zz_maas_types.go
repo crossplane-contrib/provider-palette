@@ -20,7 +20,7 @@ type MaasInitParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 
 	// (String, Sensitive) API key that is used to connect to the MAAS cloud.
@@ -46,7 +46,7 @@ type MaasObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 
 	// (String) Name of the MAAS cloud account.
@@ -66,7 +66,7 @@ type MaasParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-	// Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	// +kubebuilder:validation:Optional
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 

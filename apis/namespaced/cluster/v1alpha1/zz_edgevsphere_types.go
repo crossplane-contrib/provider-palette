@@ -148,14 +148,20 @@ type EdgeVsphereBackupPolicyParameters struct {
 }
 
 type EdgeVsphereCloudConfigInitParameters struct {
+
+	// Name of the vSphere datacenter used by this cluster.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// vSphere inventory folder where cluster virtual machines are created.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
+	// vSphere folder containing VM image templates used for node provisioning.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// DNS search domain associated with the control plane endpoint.
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// Type of network endpoint used for the control plane address.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
 	// Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
@@ -165,20 +171,28 @@ type EdgeVsphereCloudConfigInitParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
 type EdgeVsphereCloudConfigObservation struct {
+
+	// Name of the vSphere datacenter used by this cluster.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// vSphere inventory folder where cluster virtual machines are created.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
+	// vSphere folder containing VM image templates used for node provisioning.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// DNS search domain associated with the control plane endpoint.
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// Type of network endpoint used for the control plane address.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
 	// Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
@@ -188,25 +202,32 @@ type EdgeVsphereCloudConfigObservation struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
 type EdgeVsphereCloudConfigParameters struct {
 
+	// Name of the vSphere datacenter used by this cluster.
 	// +kubebuilder:validation:Optional
 	Datacenter *string `json:"datacenter" tf:"datacenter,omitempty"`
 
+	// vSphere inventory folder where cluster virtual machines are created.
 	// +kubebuilder:validation:Optional
 	Folder *string `json:"folder" tf:"folder,omitempty"`
 
+	// vSphere folder containing VM image templates used for node provisioning.
 	// +kubebuilder:validation:Optional
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// DNS search domain associated with the control plane endpoint.
 	// +kubebuilder:validation:Optional
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// Type of network endpoint used for the control plane address.
 	// +kubebuilder:validation:Optional
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
@@ -219,9 +240,11 @@ type EdgeVsphereCloudConfigParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	// +kubebuilder:validation:Optional
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	// +kubebuilder:validation:Optional
 	Vip *string `json:"vip" tf:"vip,omitempty"`
 }
@@ -665,6 +688,7 @@ type EdgeVsphereInitParameters struct {
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
@@ -680,6 +704,7 @@ type EdgeVsphereInitParameters struct {
 
 	MachinePool []EdgeVsphereMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The namespaces for the cluster.
@@ -804,6 +829,7 @@ type EdgeVsphereMachinePoolInitParameters struct {
 
 	InstanceType []InstanceTypeInitParameters `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Node []EdgeVsphereMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
@@ -875,6 +901,7 @@ type EdgeVsphereMachinePoolObservation struct {
 
 	InstanceType []InstanceTypeObservation `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Node []EdgeVsphereMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
@@ -952,6 +979,7 @@ type EdgeVsphereMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceType []InstanceTypeParameters `json:"instanceType" tf:"instance_type,omitempty"`
 
+	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1082,6 +1110,7 @@ type EdgeVsphereObservation struct {
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
@@ -1099,6 +1128,7 @@ type EdgeVsphereObservation struct {
 
 	MachinePool []EdgeVsphereMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The namespaces for the cluster.
@@ -1169,6 +1199,7 @@ type EdgeVsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
@@ -1190,6 +1221,7 @@ type EdgeVsphereParameters struct {
 	// +kubebuilder:validation:Optional
 	MachinePool []EdgeVsphereMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1275,73 +1307,101 @@ type EdgeVsphereScanPolicyParameters struct {
 }
 
 type InstanceTypeInitParameters struct {
+
+	// Number of vCPUs for each node in this machine pool.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// Disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// Memory size in MB for each node in this machine pool.
 	MemoryMb *float64 `json:"memoryMb,omitempty" tf:"memory_mb,omitempty"`
 }
 
 type InstanceTypeObservation struct {
+
+	// Number of vCPUs for each node in this machine pool.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// Disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// Memory size in MB for each node in this machine pool.
 	MemoryMb *float64 `json:"memoryMb,omitempty" tf:"memory_mb,omitempty"`
 }
 
 type InstanceTypeParameters struct {
 
+	// Number of vCPUs for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu" tf:"cpu,omitempty"`
 
+	// Disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb" tf:"disk_size_gb,omitempty"`
 
+	// Memory size in MB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	MemoryMb *float64 `json:"memoryMb" tf:"memory_mb,omitempty"`
 }
 
 type PlacementInitParameters struct {
+
+	// Name of the vSphere compute cluster used for node placement.
 	Cluster *string `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
+	// Name of the vSphere datastore used for node disks.
 	Datastore *string `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
+	// Name of the vSphere network attached to machine pool nodes.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
+	// Name of the vSphere resource pool used for node placement.
 	ResourcePool *string `json:"resourcePool,omitempty" tf:"resource_pool,omitempty"`
 
+	// UID of the static IP pool used for machine pool networking.
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }
 
 type PlacementObservation struct {
+
+	// Name of the vSphere compute cluster used for node placement.
 	Cluster *string `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
+	// Name of the vSphere datastore used for node disks.
 	Datastore *string `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Name of the vSphere network attached to machine pool nodes.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
+	// Name of the vSphere resource pool used for node placement.
 	ResourcePool *string `json:"resourcePool,omitempty" tf:"resource_pool,omitempty"`
 
+	// UID of the static IP pool used for machine pool networking.
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }
 
 type PlacementParameters struct {
 
+	// Name of the vSphere compute cluster used for node placement.
 	// +kubebuilder:validation:Optional
 	Cluster *string `json:"cluster" tf:"cluster,omitempty"`
 
+	// Name of the vSphere datastore used for node disks.
 	// +kubebuilder:validation:Optional
 	Datastore *string `json:"datastore" tf:"datastore,omitempty"`
 
+	// Name of the vSphere network attached to machine pool nodes.
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network" tf:"network,omitempty"`
 
+	// Name of the vSphere resource pool used for node placement.
 	// +kubebuilder:validation:Optional
 	ResourcePool *string `json:"resourcePool" tf:"resource_pool,omitempty"`
 
+	// UID of the static IP pool used for machine pool networking.
 	// +kubebuilder:validation:Optional
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }

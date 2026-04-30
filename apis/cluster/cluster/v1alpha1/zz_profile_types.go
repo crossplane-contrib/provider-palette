@@ -76,9 +76,11 @@ type ProfileInitParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String)
+	// Description of the cluster profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String)
+	// Name of the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -98,7 +100,7 @@ type ProfileInitParameters struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
+	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -113,12 +115,14 @@ type ProfileObservation struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String)
+	// Description of the cluster profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String)
+	// Name of the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -138,7 +142,7 @@ type ProfileObservation struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
+	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -303,10 +307,12 @@ type ProfileParameters struct {
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// (String)
+	// Description of the cluster profile.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String)
+	// Name of the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -331,7 +337,7 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github
+	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }

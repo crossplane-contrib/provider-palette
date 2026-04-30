@@ -245,6 +245,7 @@ type ClusterResourceAllocationsInitParameters struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 
 	// (String)
+	// UID of the cluster for this namespace-specific resource allocation.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -256,6 +257,7 @@ type ClusterResourceAllocationsObservation struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 
 	// (String)
+	// UID of the cluster for this namespace-specific resource allocation.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -268,6 +270,7 @@ type ClusterResourceAllocationsParameters struct {
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 
 	// (String)
+	// UID of the cluster for this namespace-specific resource allocation.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
@@ -275,6 +278,7 @@ type ClusterResourceAllocationsParameters struct {
 type ClustersInitParameters struct {
 
 	// (String)
+	// UID of the cluster attached to this workspace.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -284,12 +288,14 @@ type ClustersObservation struct {
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
 	// (String)
+	// UID of the cluster attached to this workspace.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ClustersParameters struct {
 
 	// (String)
+	// UID of the cluster attached to this workspace.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
@@ -417,9 +423,11 @@ type WorkspaceInitParameters_2 struct {
 	Clusters []ClustersInitParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// (String)
+	// Description of the workspace.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String)
+	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block Set) The namespaces for the cluster. (see below for nested schema)
@@ -427,6 +435,7 @@ type WorkspaceInitParameters_2 struct {
 	Namespaces []NamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (Set of String)
+	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -449,12 +458,14 @@ type WorkspaceObservation_2 struct {
 	Clusters []ClustersObservation `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// (String)
+	// Description of the workspace.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String)
+	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block Set) The namespaces for the cluster. (see below for nested schema)
@@ -462,6 +473,7 @@ type WorkspaceObservation_2 struct {
 	Namespaces []NamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (Set of String)
+	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -487,10 +499,12 @@ type WorkspaceParameters_2 struct {
 	Clusters []ClustersParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// (String)
+	// Description of the workspace.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String)
+	// Name of the workspace.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -500,6 +514,7 @@ type WorkspaceParameters_2 struct {
 	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
 	// (Set of String)
+	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`

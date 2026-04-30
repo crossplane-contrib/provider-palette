@@ -76,6 +76,7 @@ type ConfigInitParameters struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
+	// YAML values override string applied to the cluster group configuration.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -106,6 +107,7 @@ type ConfigObservation struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
+	// YAML values override string applied to the cluster group configuration.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -142,6 +144,7 @@ type ConfigParameters struct {
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
 	// (String)
+	// YAML values override string applied to the cluster group configuration.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
@@ -384,7 +387,7 @@ type GroupInitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) Name of the cluster group
-	// Name of the cluster group
+	// Name of the cluster group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
@@ -417,7 +420,7 @@ type GroupObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) Name of the cluster group
-	// Name of the cluster group
+	// Name of the cluster group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A list of tags to be applied to the cluster group. Tags must be in the form of key:value.
@@ -452,7 +455,7 @@ type GroupParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) Name of the cluster group
-	// Name of the cluster group
+	// Name of the cluster group.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

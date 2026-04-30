@@ -85,7 +85,7 @@ spec:
                   credentialsSecretRef:
                     description: |-
                       (Map of String, Sensitive) The credentials required for accessing the cloud.
-                      The credentials required for accessing the cloud.
+                      Map of credential key to credential value strings required for accessing the cloud.
                     properties:
                       name:
                         description: Name of the secret.

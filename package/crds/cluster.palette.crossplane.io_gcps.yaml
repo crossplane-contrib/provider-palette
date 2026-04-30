@@ -219,7 +219,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a GCP in cloudaccount to populate cloudAccountId.
@@ -301,13 +303,19 @@ spec:
                     items:
                       properties:
                         network:
-                          description: (String)
+                          description: |-
+                            (String)
+                            VPC network name used to provision cluster resources.
                           type: string
                         project:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
                     type: array
@@ -777,7 +785,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (Set of String)
+                          description: |-
+                            (Set of String)
+                            Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
                           type: array
@@ -798,13 +808,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -879,7 +895,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -1128,7 +1146,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a GCP in cloudaccount to populate cloudAccountId.
@@ -1210,13 +1230,19 @@ spec:
                     items:
                       properties:
                         network:
-                          description: (String)
+                          description: |-
+                            (String)
+                            VPC network name used to provision cluster resources.
                           type: string
                         project:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
                     type: array
@@ -1686,7 +1712,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (Set of String)
+                          description: |-
+                            (Set of String)
+                            Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
                           type: array
@@ -1707,13 +1735,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -1788,7 +1822,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2052,7 +2088,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -2060,13 +2098,19 @@ spec:
                     items:
                       properties:
                         network:
-                          description: (String)
+                          description: |-
+                            (String)
+                            VPC network name used to provision cluster resources.
                           type: string
                         project:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
                     type: array
@@ -2357,7 +2401,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
-                          description: (Set of String)
+                          description: |-
+                            (Set of String)
+                            Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
                           type: array
@@ -2378,13 +2424,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Name of the machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -2459,7 +2511,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String)
+                      Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-

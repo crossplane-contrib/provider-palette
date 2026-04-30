@@ -75,7 +75,7 @@ spec:
                   apiUrl:
                     description: |-
                       (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
                     type: string
                   context:
                     description: |-
@@ -147,7 +147,7 @@ spec:
                   apiUrl:
                     description: |-
                       (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
                     type: string
                   context:
                     description: |-
@@ -277,7 +277,7 @@ spec:
                   apiUrl:
                     description: |-
                       (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+                      The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
                     type: string
                   context:
                     description: |-

@@ -211,7 +211,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a GCP in cloudaccount to populate cloudAccountId.
@@ -305,7 +307,9 @@ spec:
                             GCP project name.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
                     type: array
@@ -800,13 +804,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String) The name of the cluster.
+                          description: |-
+                            (String) The name of the cluster.
+                            Name of the GKE machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -1138,7 +1148,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a GCP in cloudaccount to populate cloudAccountId.
@@ -1232,7 +1244,9 @@ spec:
                             GCP project name.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
                     type: array
@@ -1727,13 +1741,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String) The name of the cluster.
+                          description: |-
+                            (String) The name of the cluster.
+                            Name of the GKE machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
@@ -2046,7 +2066,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String)
+                      UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: |-
@@ -2060,7 +2082,9 @@ spec:
                             GCP project name.
                           type: string
                         region:
-                          description: (String)
+                          description: |-
+                            (String)
+                            Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
                     type: array
@@ -2358,13 +2382,19 @@ spec:
                             Number of nodes in the machine pool.
                           type: number
                         diskSizeGb:
-                          description: (Number)
+                          description: |-
+                            (Number)
+                            Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
-                          description: (String)
+                          description: |-
+                            (String)
+                            GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
-                          description: (String) The name of the cluster.
+                          description: |-
+                            (String) The name of the cluster.
+                            Name of the GKE machine pool.
                           type: string
                         node:
                           description: (Block List) (see below for nested schema)
