@@ -39,7 +39,9 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.26
+GO_REQUIRED_VERSION ?= 1.26.2
+# golang/go#75031 golang/go#78411: plain GOTOOLCHAIN=auto + module SDK can make `go test -cover` look for a missing covdata tool; pin the bootstrap toolchain.
+export GOTOOLCHAIN ?= go$(GO_REQUIRED_VERSION)+auto
 GOLANGCILINT_VERSION ?= 2.12.1
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)

@@ -2,6 +2,8 @@ module github.com/crossplane-contrib/provider-palette
 
 go 1.26.0
 
+toolchain go1.26.2
+
 require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
