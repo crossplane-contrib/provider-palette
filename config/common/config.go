@@ -5,10 +5,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+const (
+	tfClusterProfile = "spectrocloud_cluster_profile"
+	tfProject        = "spectrocloud_project"
+	tfRole           = "spectrocloud_role"
+)
+
 func spectroClustersCommonConfigFields(r *config.Resource) {
 	r.UseAsync = true
 	r.References["cluster_profile.id"] = config.Reference{
-		TerraformName: "spectrocloud_cluster_profile",
+		TerraformName: tfClusterProfile,
 	}
 	r.References["backup_policy.backup_location_id"] = config.Reference{
 		TerraformName: "spectrocloud_backup_storage_location",
@@ -17,7 +23,7 @@ func spectroClustersCommonConfigFields(r *config.Resource) {
 		TerraformName: "spectrocloud_cluster_config_template",
 	}
 	r.References["cluster_template.cluster_profile.id"] = config.Reference{
-		TerraformName: "spectrocloud_cluster_profile",
+		TerraformName: tfClusterProfile,
 	}
 	if s, ok := r.TerraformResource.Schema["kubeconfig"]; ok {
 		s.Sensitive = true
@@ -116,7 +122,7 @@ func configureCoreResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cluster_config_template", func(r *config.Resource) {
 		// Need add import(Observe) support for this resource in terraform provider
 		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
+			TerraformName: tfClusterProfile,
 		}
 		r.References["policy.id"] = config.Reference{
 			TerraformName: "spectrocloud_cluster_config_policy",
@@ -131,7 +137,7 @@ func configureCoreResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_cluster_group", func(r *config.Resource) {
 		// Need add import(Observe) support for this resource in terraform provider
 		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
+			TerraformName: tfClusterProfile,
 		}
 	})
 
@@ -140,7 +146,7 @@ func configureCoreResources(p *config.Provider) {
 		// Import case is not supported for this resource in terraform provider
 		r.UseAsync = true
 		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
+			TerraformName: tfClusterProfile,
 		}
 	})
 
@@ -163,7 +169,7 @@ func configureVirtualResources(p *config.Provider) {
 			TerraformName: "spectrocloud_backup_storage_location",
 		}
 		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
+			TerraformName: tfClusterProfile,
 		}
 	})
 
@@ -187,19 +193,19 @@ func configureAccessControlResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_team", func(r *config.Resource) {
 		// Need add import(Observe) support for this resource in terraform provider
 		r.References["project_role_mapping.id"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 		r.References["project_role_mapping.roles"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["tenant_role_mapping"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["workspace_role_mapping.id"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 		r.References["workspace_role_mapping.workspace.roles"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["workspace_role_mapping.workspace.id"] = config.Reference{
 			TerraformName: "spectrocloud_workspace",
@@ -213,28 +219,28 @@ func configureAccessControlResources(p *config.Provider) {
 		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}")
 		r.ExternalName.DisableNameInitializer = true
 		r.References["project_role.role_ids"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["project_role.project_id"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 		r.References["tenant_role"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["workspace_role.project_id"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 		r.References["workspace_role.workspace.role_ids"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["workspace_role.workspace.id"] = config.Reference{
 			TerraformName: "spectrocloud_workspace",
 		}
 		r.References["resource_role.project_ids"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 		r.References["resource_role.role_ids"] = config.Reference{
-			TerraformName: "spectrocloud_role",
+			TerraformName: tfRole,
 		}
 		r.References["resource_role.filter_ids"] = config.Reference{
 			TerraformName: "spectrocloud_filter",
@@ -270,7 +276,7 @@ func configureClusterResources(p *config.Provider) {
 		r.UseAsync = true
 
 		r.References["cluster_profile.id"] = config.Reference{
-			TerraformName: "spectrocloud_cluster_profile",
+			TerraformName: tfClusterProfile,
 		}
 		r.References["backup_policy.backup_location_id"] = config.Reference{
 			TerraformName: "spectrocloud_backup_storage_location",
@@ -384,7 +390,7 @@ func configureSecurityResources(p *config.Provider) {
 		r.ExternalName = config.TemplatedStringAsIdentifier("", "{{ .external_name }}")
 		r.ExternalName.DisableNameInitializer = true
 		r.References["project_uid"] = config.Reference{
-			TerraformName: "spectrocloud_project",
+			TerraformName: tfProject,
 		}
 	})
 
