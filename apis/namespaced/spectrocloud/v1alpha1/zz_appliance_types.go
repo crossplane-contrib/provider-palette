@@ -20,8 +20,8 @@ type ApplianceInitParameters struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
-	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	// management/remote-shell/.
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
 
 	// value pairs that can be used to organize and categorize the appliance.
@@ -51,8 +51,8 @@ type ApplianceObservation struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
-	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	// management/remote-shell/.
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
 
 	// value pairs that can be used to organize and categorize the appliance.
@@ -80,8 +80,8 @@ type ApplianceParameters struct {
 	// +kubebuilder:validation:Optional
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
-	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/
+	// management/remote-shell/.
+	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	// +kubebuilder:validation:Optional
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
 

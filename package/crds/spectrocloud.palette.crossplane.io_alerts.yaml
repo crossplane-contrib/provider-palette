@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Alert is the Schema for the Alerts API.
+        description: Alert is the Schema for the Alerts API. Resource for managing
+          project-level alert channels in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -143,13 +144,19 @@ spec:
                     items:
                       properties:
                         isSucceeded:
-                          description: (Boolean)
+                          description: |-
+                            (Boolean) Whether the latest alert delivery operation succeeded.
+                            Whether the latest alert delivery operation succeeded.
                           type: boolean
                         message:
-                          description: (String)
+                          description: |-
+                            (String) Status message from the latest alert delivery operation.
+                            Status message from the latest alert delivery operation.
                           type: string
                         time:
-                          description: (String)
+                          description: |-
+                            (String) Timestamp of the latest alert delivery status update.
+                            Timestamp of the latest alert delivery status update.
                           type: string
                       type: object
                     type: array
@@ -243,13 +250,19 @@ spec:
                     items:
                       properties:
                         isSucceeded:
-                          description: (Boolean)
+                          description: |-
+                            (Boolean) Whether the latest alert delivery operation succeeded.
+                            Whether the latest alert delivery operation succeeded.
                           type: boolean
                         message:
-                          description: (String)
+                          description: |-
+                            (String) Status message from the latest alert delivery operation.
+                            Status message from the latest alert delivery operation.
                           type: string
                         time:
-                          description: (String)
+                          description: |-
+                            (String) Timestamp of the latest alert delivery status update.
+                            Timestamp of the latest alert delivery status update.
                           type: string
                       type: object
                     type: array
@@ -437,13 +450,19 @@ spec:
                     items:
                       properties:
                         isSucceeded:
-                          description: (Boolean)
+                          description: |-
+                            (Boolean) Whether the latest alert delivery operation succeeded.
+                            Whether the latest alert delivery operation succeeded.
                           type: boolean
                         message:
-                          description: (String)
+                          description: |-
+                            (String) Status message from the latest alert delivery operation.
+                            Status message from the latest alert delivery operation.
                           type: string
                         time:
-                          description: (String)
+                          description: |-
+                            (String) Timestamp of the latest alert delivery status update.
+                            Timestamp of the latest alert delivery status update.
                           type: string
                       type: object
                     type: array

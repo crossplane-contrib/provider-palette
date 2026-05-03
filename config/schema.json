@@ -206,6 +206,7 @@
                 }
               }
             },
+            "description": "Resource for attaching cluster profiles as addon deployments to an existing cluster.",
             "description_kind": "plain"
           }
         },
@@ -308,16 +309,19 @@
                   "attributes": {
                     "is_succeeded": {
                       "type": "bool",
+                      "description": "Whether the latest alert delivery operation succeeded.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "message": {
                       "type": "string",
+                      "description": "Status message from the latest alert delivery operation.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "time": {
                       "type": "string",
+                      "description": "Timestamp of the latest alert delivery status update.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -350,6 +354,7 @@
                 }
               }
             },
+            "description": "Resource for managing project-level alert channels in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -371,7 +376,7 @@
               },
               "remote_shell": {
                 "type": "string",
-                "description": "Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured username and password credentials. https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/",
+                "description": "Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -552,6 +557,7 @@
                 }
               }
             },
+            "description": "Resource for managing applications deployed through Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -585,7 +591,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "Name of the application profile",
+                "description": "Readable name for the application profile.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -627,7 +633,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "The various properties required by different database tiers eg: `databaseName` and `databaseVolumeSize` size for Redis etc.",
+                      "description": "Map of property name to string value required by the pack tier (for example, `databaseName` or `databaseVolumeSize`).",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -949,6 +955,7 @@
                 }
               }
             },
+            "description": "Resource for managing backup storage locations in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -965,7 +972,7 @@
               },
               "api_url": {
                 "type": "string",
-                "description": "The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api",
+                "description": "The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -1013,6 +1020,7 @@
                 "sensitive": true
               }
             },
+            "description": "Resource for managing Apache CloudStack cloud accounts in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1067,6 +1075,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the AWS cloud account.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -1110,6 +1119,7 @@
                 "optional": true
               }
             },
+            "description": "Resource for managing AWS cloud account credentials in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1185,6 +1195,7 @@
                 "optional": true
               }
             },
+            "description": "Resource for managing Azure cloud account credentials in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1209,7 +1220,7 @@
                   "map",
                   "string"
                 ],
-                "description": "The credentials required for accessing the cloud.",
+                "description": "Map of credential key to credential value strings required for accessing the cloud.",
                 "description_kind": "plain",
                 "optional": true,
                 "sensitive": true
@@ -1233,6 +1244,7 @@
                 "required": true
               }
             },
+            "description": "Resource for managing custom cloud accounts in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1266,6 +1278,7 @@
                 "required": true
               }
             },
+            "description": "Resource for managing GCP cloud account credentials in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1287,7 +1300,7 @@
               },
               "maas_api_endpoint": {
                 "type": "string",
-                "description": "Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS",
+                "description": "Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -1311,6 +1324,7 @@
                 "required": true
               }
             },
+            "description": "Resource for managing MaaS cloud accounts in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -1390,6 +1404,7 @@
               },
               "cloud_account_id": {
                 "type": "string",
+                "description": "UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -1469,6 +1484,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the AKS cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -1607,16 +1623,19 @@
                   "attributes": {
                     "control_plane_cidr": {
                       "type": "string",
+                      "description": "CIDR block for the control plane subnet. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "control_plane_subnet_name": {
                       "type": "string",
+                      "description": "Name of the control plane subnet in the virtual network. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "control_plane_subnet_security_group_name": {
                       "type": "string",
+                      "description": "Security group name attached to the control plane subnet. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -1628,11 +1647,13 @@
                     },
                     "region": {
                       "type": "string",
+                      "description": "Azure region where the AKS cluster is deployed. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "resource_group": {
                       "type": "string",
+                      "description": "Azure resource group where AKS resources are created. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -1644,36 +1665,43 @@
                     },
                     "subscription_id": {
                       "type": "string",
+                      "description": "Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "vnet_cidr_block": {
                       "type": "string",
+                      "description": "CIDR block assigned to the virtual network. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "vnet_name": {
                       "type": "string",
+                      "description": "Name of the virtual network used for AKS static placement. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "vnet_resource_group": {
                       "type": "string",
+                      "description": "Azure resource group that contains the virtual network. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "worker_cidr": {
                       "type": "string",
+                      "description": "CIDR block for the worker subnet. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "worker_subnet_name": {
                       "type": "string",
+                      "description": "Name of the worker subnet in the virtual network. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "worker_subnet_security_group_name": {
                       "type": "string",
+                      "description": "Security group name attached to the worker subnet. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -1956,16 +1984,19 @@
                     },
                     "disk_size_gb": {
                       "type": "number",
+                      "description": "OS disk size in GB for each node in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "instance_type": {
                       "type": "string",
+                      "description": "Azure VM size used for nodes in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "is_system_node_pool": {
                       "type": "bool",
+                      "description": "Whether this machine pool is marked as the AKS system node pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -1983,6 +2014,7 @@
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the AKS machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -1994,6 +2026,7 @@
                     },
                     "storage_account_type": {
                       "type": "string",
+                      "description": "Storage account type for managed disks in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -2256,7 +2289,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "The name of the cluster.",
+                "description": "Unique cluster name shown in Palette for this Apache CloudStack cluster.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -2425,7 +2458,7 @@
                           },
                           "name": {
                             "type": "string",
-                            "description": "CloudStack project name.",
+                            "description": "CloudStack project name used to scope cluster resources in this zone.",
                             "description_kind": "plain",
                             "optional": true
                           }
@@ -2471,7 +2504,7 @@
                                 },
                                 "name": {
                                   "type": "string",
-                                  "description": "Network name in this zone.",
+                                  "description": "CloudStack network name within the selected zone.",
                                   "description_kind": "plain",
                                   "required": true
                                 },
@@ -2519,7 +2552,7 @@
                                       },
                                       "name": {
                                         "type": "string",
-                                        "description": "VPC name.",
+                                        "description": "CloudStack VPC name associated with the selected network.",
                                         "description_kind": "plain",
                                         "required": true
                                       },
@@ -2870,7 +2903,7 @@
                     },
                     "name": {
                       "type": "string",
-                      "description": "Name of the machine pool.",
+                      "description": "Unique machine pool name within this cluster configuration.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -3002,7 +3035,7 @@
                           },
                           "name": {
                             "type": "string",
-                            "description": "Template name. Either ID or name must be provided.",
+                            "description": "CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.",
                             "description_kind": "plain",
                             "optional": true
                           }
@@ -3116,6 +3149,7 @@
               },
               "cloud_account_id": {
                 "type": "string",
+                "description": "UID of the AWS cloud account used for this cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -3202,6 +3236,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the AWS cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -3255,7 +3290,7 @@
                   "map",
                   "string"
                 ],
-                "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
+                "description": "A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -3647,7 +3682,7 @@
                         "set",
                         "string"
                       ],
-                      "description": "Additional security groups to attach to the instance.",
+                      "description": "Set of additional security group ID strings to attach to the instance.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3656,7 +3691,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.",
+                      "description": "Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3665,7 +3700,7 @@
                         "set",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.",
+                      "description": "Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -5668,6 +5703,7 @@
               },
               "cloud_config_id": {
                 "type": "string",
+                "description": "Identifier of the generated cloud configuration associated with this custom cloud cluster.",
                 "description_kind": "plain",
                 "deprecated": true,
                 "computed": true
@@ -6305,6 +6341,7 @@
               },
               "cloud_account_id": {
                 "type": "string",
+                "description": "UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -6365,6 +6402,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the Edge Native cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -6866,6 +6904,7 @@
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -6895,7 +6934,7 @@
                         "attributes": {
                           "default_gateway": {
                             "type": "string",
-                            "description": "Edge host default gateway",
+                            "description": "Default gateway IP address for the edge host network interface.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -6904,19 +6943,19 @@
                               "set",
                               "string"
                             ],
-                            "description": "Edge host DNS servers",
+                            "description": "Set of DNS server IP address strings for the edge host network interface.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "host_name": {
                             "type": "string",
-                            "description": "Edge host name",
+                            "description": "Name of the edge host.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "host_uid": {
                             "type": "string",
-                            "description": "Edge host id",
+                            "description": "UID of the edge host.",
                             "description_kind": "plain",
                             "required": true
                           },
@@ -6928,13 +6967,13 @@
                           },
                           "static_ip": {
                             "type": "string",
-                            "description": "Edge host static IP address",
+                            "description": "Static IP address assigned to the edge host.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "subnet_mask": {
                             "type": "string",
-                            "description": "Edge host subnet mask",
+                            "description": "Subnet mask for the edge host network interface.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -7145,6 +7184,7 @@
               },
               "edge_host_uid": {
                 "type": "string",
+                "description": "UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -7174,6 +7214,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the Edge vSphere cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -7312,26 +7353,31 @@
                   "attributes": {
                     "datacenter": {
                       "type": "string",
+                      "description": "Name of the vSphere datacenter used by this cluster.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "folder": {
                       "type": "string",
+                      "description": "vSphere inventory folder where cluster virtual machines are created.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "image_template_folder": {
                       "type": "string",
+                      "description": "vSphere folder containing VM image templates used for node provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "network_search_domain": {
                       "type": "string",
+                      "description": "DNS search domain associated with the control plane endpoint.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "network_type": {
                       "type": "string",
+                      "description": "Type of network endpoint used for the control plane address.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -7352,11 +7398,13 @@
                     },
                     "static_ip": {
                       "type": "bool",
+                      "description": "Whether to use static IP addressing for the control plane endpoint. Default is `false`.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "vip": {
                       "type": "string",
+                      "description": "Virtual IP address for the Kubernetes control plane endpoint.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -7695,6 +7743,7 @@
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -7724,16 +7773,19 @@
                         "attributes": {
                           "cpu": {
                             "type": "number",
+                            "description": "Number of vCPUs for each node in this machine pool.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "disk_size_gb": {
                             "type": "number",
+                            "description": "Disk size in GB for each node in this machine pool.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "memory_mb": {
                             "type": "number",
+                            "description": "Memory size in MB for each node in this machine pool.",
                             "description_kind": "plain",
                             "required": true
                           }
@@ -7791,11 +7843,13 @@
                         "attributes": {
                           "cluster": {
                             "type": "string",
+                            "description": "Name of the vSphere compute cluster used for node placement.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "datastore": {
                             "type": "string",
+                            "description": "Name of the vSphere datastore used for node disks.",
                             "description_kind": "plain",
                             "required": true
                           },
@@ -7806,16 +7860,19 @@
                           },
                           "network": {
                             "type": "string",
+                            "description": "Name of the vSphere network attached to machine pool nodes.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "resource_pool": {
                             "type": "string",
+                            "description": "Name of the vSphere resource pool used for node placement.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "static_ip_pool_id": {
                             "type": "string",
+                            "description": "UID of the static IP pool used for machine pool networking.",
                             "description_kind": "plain",
                             "optional": true
                           }
@@ -7931,6 +7988,7 @@
                 }
               }
             },
+            "description": "Resource for managing Edge vSphere clusters in Spectro Cloud through Palette.",
             "description_kind": "plain"
           }
         },
@@ -8086,7 +8144,7 @@
                   "map",
                   "string"
                 ],
-                "description": "A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time",
+                "description": "A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -8183,7 +8241,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `azs`. Use for Static provisioning.",
+                      "description": "Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8192,7 +8250,7 @@
                         "list",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `az_subnets`. Use for Dynamic provisioning.",
+                      "description": "List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8228,6 +8286,7 @@
                     },
                     "region": {
                       "type": "string",
+                      "description": "AWS region where the EKS cluster is deployed. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -8239,6 +8298,7 @@
                     },
                     "vpc_id": {
                       "type": "string",
+                      "description": "VPC ID used to provision the EKS cluster.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -8468,11 +8528,13 @@
                         "map",
                         "string"
                       ],
+                      "description": "Map of additional tag key-value pairs applied to Fargate resources.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the Fargate profile.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -8481,6 +8543,7 @@
                         "list",
                         "string"
                       ],
+                      "description": "List of subnet ID strings used by this Fargate profile.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -8495,11 +8558,13 @@
                               "map",
                               "string"
                             ],
+                            "description": "Map of Kubernetes label key-value pairs used to match workloads for this selector.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "namespace": {
                             "type": "string",
+                            "description": "Kubernetes namespace matched by this Fargate selector.",
                             "description_kind": "plain",
                             "required": true
                           }
@@ -8578,7 +8643,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `azs`. Use for Static provisioning.",
+                      "description": "Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8587,7 +8652,7 @@
                         "list",
                         "string"
                       ],
-                      "description": "Mutually exclusive with `az_subnets`.",
+                      "description": "List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8605,11 +8670,13 @@
                     },
                     "disk_size_gb": {
                       "type": "number",
+                      "description": "Root disk size in GB for each node in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "instance_type": {
                       "type": "string",
+                      "description": "AWS EC2 instance type used for nodes in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -8621,6 +8688,7 @@
                     },
                     "max_price": {
                       "type": "string",
+                      "description": "Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -8632,6 +8700,7 @@
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the EKS machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -8658,7 +8727,7 @@
                               "set",
                               "string"
                             ],
-                            "description": "Additional security groups to attach to the instance.",
+                            "description": "Set of additional AWS security group IDs to attach to the instance.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -8863,6 +8932,7 @@
               },
               "cloud_account_id": {
                 "type": "string",
+                "description": "UID of the GCP cloud account used for this cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -8942,6 +9012,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the GCP cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -9080,16 +9151,19 @@
                   "attributes": {
                     "network": {
                       "type": "string",
+                      "description": "VPC network name used to provision cluster resources.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "project": {
                       "type": "string",
+                      "description": "Google Cloud project ID where cluster resources are created.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "region": {
                       "type": "string",
+                      "description": "Google Cloud region where the cluster is deployed.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -9369,6 +9443,7 @@
                         "set",
                         "string"
                       ],
+                      "description": "Set of availability zone name strings for machine pool placement.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -9392,16 +9467,19 @@
                     },
                     "disk_size_gb": {
                       "type": "number",
+                      "description": "Root disk size in GB for each node in this machine pool.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "instance_type": {
                       "type": "string",
+                      "description": "GCE machine type used for nodes in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -9596,6 +9674,7 @@
               },
               "cloud_account_id": {
                 "type": "string",
+                "description": "UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -9827,6 +9906,7 @@
                     },
                     "region": {
                       "type": "string",
+                      "description": "Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -10110,16 +10190,19 @@
                     },
                     "disk_size_gb": {
                       "type": "number",
+                      "description": "Root disk size in GB for each node in this machine pool.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "instance_type": {
                       "type": "string",
+                      "description": "GCE machine type used for nodes in this machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
                     "name": {
                       "type": "string",
+                      "description": "Name of the GKE machine pool.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -10315,7 +10398,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "Name of the cluster group",
+                "description": "Name of the cluster group.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -10497,6 +10580,7 @@
                     },
                     "values": {
                       "type": "string",
+                      "description": "YAML values override string applied to the cluster group configuration.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -10530,6 +10614,7 @@
                 }
               }
             },
+            "description": "Resource for managing host cluster groups in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -11119,7 +11204,7 @@
                         "set",
                         "string"
                       ],
-                      "description": "Availability zones in which the machine pool nodes to be provisioned.",
+                      "description": "Set of availability zone name strings where machine pool nodes are provisioned.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -11443,6 +11528,7 @@
               },
               "description": {
                 "type": "string",
+                "description": "Description of the cluster profile.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -11454,6 +11540,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the cluster profile.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -11474,7 +11561,7 @@
               },
               "version": {
                 "type": "string",
-                "description": "Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles",
+                "description": "Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -11725,10 +11812,12 @@
               },
               "import_file": {
                 "type": "string",
+                "description": "Absolute path to the cluster profile import file on the local filesystem.",
                 "description_kind": "plain",
                 "required": true
               }
             },
+            "description": "Resource for importing a cluster profile definition from a local file into Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -12624,6 +12713,7 @@
             "attributes": {
               "cluster_context": {
                 "type": "string",
+                "description": "Resource context for the target cluster. Allowed values are `project` or `tenant`.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -12659,6 +12749,7 @@
                   "attributes": {
                     "name": {
                       "type": "string",
+                      "description": "Name of the volume attachment in the virtual machine spec.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -12670,11 +12761,13 @@
                         "attributes": {
                           "bus": {
                             "type": "string",
+                            "description": "Disk bus type used by the attached data volume (for example, `virtio` or `sata`).",
                             "description_kind": "plain",
                             "required": true
                           },
                           "name": {
                             "type": "string",
+                            "description": "Name of the disk definition in the virtual machine spec.",
                             "description_kind": "plain",
                             "required": true
                           }
@@ -12694,11 +12787,13 @@
                               "attributes": {
                                 "hotpluggable": {
                                   "type": "bool",
+                                  "description": "Whether this data volume can be hot-plugged while the virtual machine is running.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
                                 "name": {
                                   "type": "string",
+                                  "description": "Name of the data volume source referenced by this attachment.",
                                   "description_kind": "plain",
                                   "required": true
                                 }
@@ -12730,7 +12825,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations",
+                      "description": "An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.",
                       "description_kind": "plain",
                       "optional": true,
                       "computed": true
@@ -12746,13 +12841,13 @@
                         "map",
                         "string"
                       ],
-                      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels",
+                      "description": "Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "name": {
                       "type": "string",
-                      "description": "Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names",
+                      "description": "Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.",
                       "description_kind": "plain",
                       "optional": true,
                       "computed": true
@@ -12803,13 +12898,13 @@
                               "set",
                               "string"
                             ],
-                            "description": "A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1",
+                            "description": "Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.",
                             "description_kind": "plain",
                             "required": true
                           },
                           "storage_class_name": {
                             "type": "string",
-                            "description": "Name of the storage class requested by the claim",
+                            "description": "Name of the storage class requested by the claim.",
                             "description_kind": "plain",
                             "optional": true,
                             "computed": true
@@ -12839,7 +12934,7 @@
                                     "map",
                                     "string"
                                   ],
-                                  "description": "Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                  "description": "Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
@@ -12848,7 +12943,7 @@
                                     "map",
                                     "string"
                                   ],
-                                  "description": "Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                  "description": "Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                   "description_kind": "plain",
                                   "optional": true
                                 }
@@ -12962,13 +13057,13 @@
                               "attributes": {
                                 "name": {
                                   "type": "string",
-                                  "description": "The name of the PVC.",
+                                  "description": "Name of the source PVC to clone from.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
                                 "namespace": {
                                   "type": "string",
-                                  "description": "The namespace which the PVC located in.",
+                                  "description": "Namespace where the source PVC is located.",
                                   "description_kind": "plain",
                                   "optional": true
                                 }
@@ -13009,13 +13104,13 @@
                               "set",
                               "string"
                             ],
-                            "description": "A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1",
+                            "description": "Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "storage_class_name": {
                             "type": "string",
-                            "description": "Name of the storage class requested by the claim",
+                            "description": "Name of the storage class requested by the claim.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -13042,7 +13137,7 @@
                                     "map",
                                     "string"
                                   ],
-                                  "description": "Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                  "description": "Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
@@ -13051,7 +13146,7 @@
                                     "map",
                                     "string"
                                   ],
-                                  "description": "Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                  "description": "Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                   "description_kind": "plain",
                                   "optional": true
                                 }
@@ -13168,6 +13263,7 @@
                 }
               }
             },
+            "description": "Resource for managing KubeVirt data volumes attached to virtual machines.",
             "description_kind": "plain"
           }
         },
@@ -13237,6 +13333,7 @@
                 }
               }
             },
+            "description": "Resource for managing tenant-level developer quota settings in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -13503,6 +13600,7 @@
                 }
               }
             },
+            "description": "Resource for managing tenant password policy settings in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -13530,7 +13628,7 @@
               },
               "enable_auto_remediation": {
                 "type": "bool",
-                "description": "Enables automatic remediation. set only with `project' context",
+                "description": "Enables automatic remediation. Allowed only for `project` context.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -13542,19 +13640,19 @@
               },
               "non_fips_addon_pack": {
                 "type": "bool",
-                "description": "Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` only supported in palette vertex environment. Allowed only for `tenant` context",
+                "description": "Allows users in this tenant to use non-FIPS-compliant addon packs when creating cluster profiles. The `non_fips_addon_pack` setting is supported only in Palette Vertex environments. Allowed only for `tenant` context.",
                 "description_kind": "plain",
                 "optional": true
               },
               "non_fips_cluster_import": {
                 "type": "bool",
-                "description": "Allows users in this tenant to import clusters, but the imported clusters may not be FIPS-compliant.  The `non_fips_cluster_import` only supported in palette vertex environment. Allowed only for `tenant` context",
+                "description": "Allows users in this tenant to import clusters that may not be FIPS-compliant. The `non_fips_cluster_import` setting is supported only in Palette Vertex environments. Allowed only for `tenant` context.",
                 "description_kind": "plain",
                 "optional": true
               },
               "non_fips_features": {
                 "type": "bool",
-                "description": "Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` only supported in palette vertex environment. Allowed only for `tenant` context",
+                "description": "Allows users in this tenant to access non-FIPS-compliant features such as backup, restore, and scans. The `non_fips_features` setting is supported only in Palette Vertex environments. Allowed only for `tenant` context.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -13566,7 +13664,7 @@
               },
               "session_timeout": {
                 "type": "number",
-                "description": "Specifies the duration (in minutes) of inactivity before a user is automatically logged out. The default is 240 minutes allowed in Palette. Allowed only for `tenant` context",
+                "description": "Specifies the duration in minutes of inactivity before a user is automatically logged out. The default is 240 minutes in Palette. Allowed only for `tenant` context.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -13618,6 +13716,7 @@
                 }
               }
             },
+            "description": "Resource for managing tenant and project platform settings in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -13824,7 +13923,7 @@
                   "set",
                   "string"
                 ],
-                "description": "Assign tags to the project.",
+                "description": "Set of tag strings to assign to the project.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -13900,6 +13999,7 @@
               },
               "token": {
                 "type": "string",
+                "description": "Generated registration token value returned by Palette.",
                 "description_kind": "plain",
                 "computed": true
               }
@@ -13929,6 +14029,7 @@
                 }
               }
             },
+            "description": "Resource for managing registration tokens in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -13956,7 +14057,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "The name of the Helm registry. This must be unique",
+                "description": "The name of the Helm registry. This must be unique.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -14027,6 +14128,7 @@
                 }
               }
             },
+            "description": "Resource for managing Helm registries in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -14206,6 +14308,7 @@
                 }
               }
             },
+            "description": "Resource for managing OCI registries in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -14377,6 +14480,7 @@
                 }
               }
             },
+            "description": "Resource for managing tenant-wide Palette object quota limits in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -14401,7 +14505,7 @@
                   "set",
                   "string"
                 ],
-                "description": "The permission's assigned to the role.",
+                "description": "Set of permission ID strings assigned to the role.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -14615,7 +14719,7 @@
                         "set",
                         "string"
                       ],
-                      "description": "Scopes requested during OIDC authentication.",
+                      "description": "Set of OIDC scope strings requested during authentication.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -14793,6 +14897,7 @@
                 }
               }
             },
+            "description": "Resource for managing tenant-level single sign-on configuration in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -14921,6 +15026,7 @@
                 }
               }
             },
+            "description": "Resource for managing teams and role mappings in Spectro Cloud.",
             "description_kind": "plain"
           }
         },
@@ -15126,6 +15232,7 @@
               },
               "cluster_group_uid": {
                 "type": "string",
+                "description": "UID of the cluster group used to select the host cluster.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -15161,6 +15268,7 @@
               },
               "host_cluster_uid": {
                 "type": "string",
+                "description": "UID of the host cluster where this virtual cluster is created.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -15197,6 +15305,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the virtual cluster. Changing this forces a new resource.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -15335,26 +15444,31 @@
                   "attributes": {
                     "chart_name": {
                       "type": "string",
+                      "description": "Helm chart name used to install the virtual cluster control plane.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "chart_repo": {
                       "type": "string",
+                      "description": "Helm repository URL for the virtual cluster chart.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "chart_values": {
                       "type": "string",
+                      "description": "YAML values override passed to the virtual cluster Helm chart.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "chart_version": {
                       "type": "string",
+                      "description": "Helm chart version for the virtual cluster deployment.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "k8s_version": {
                       "type": "string",
+                      "description": "Kubernetes version for the virtual cluster control plane.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -15555,31 +15669,37 @@
                   "attributes": {
                     "max_cpu": {
                       "type": "number",
+                      "description": "Maximum vCPU allocation for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "max_mem_in_mb": {
                       "type": "number",
+                      "description": "Maximum memory allocation in MB for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "max_storage_in_gb": {
                       "type": "number",
+                      "description": "Maximum storage allocation in GB for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "min_cpu": {
                       "type": "number",
+                      "description": "Minimum vCPU allocation for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "min_mem_in_mb": {
                       "type": "number",
+                      "description": "Minimum memory allocation in MB for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     },
                     "min_storage_in_gb": {
                       "type": "number",
+                      "description": "Minimum storage allocation in GB for the virtual cluster.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -15690,7 +15810,7 @@
               },
               "generate_name": {
                 "type": "string",
-                "description": "Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency",
+                "description": "Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -15723,7 +15843,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "Name of the virtual machine, must be unique. Cannot be updated.",
+                "description": "Unique virtual machine name within the namespace. This value is immutable after creation.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -15738,7 +15858,7 @@
                   "map",
                   "string"
                 ],
-                "description": "NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.",
+                "description": "Map of node label key to value strings that must match for the VMI to be scheduled on a node.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -15818,7 +15938,7 @@
                               "attributes": {
                                 "weight": {
                                   "type": "number",
-                                  "description": "weight is in the range 1-100",
+                                  "description": "Weight in the range `1-100`.",
                                   "description_kind": "plain",
                                   "required": true
                                 }
@@ -15935,7 +16055,7 @@
                               "attributes": {
                                 "weight": {
                                   "type": "number",
-                                  "description": "weight associated with matching the corresponding podAffinityTerm, in the range 1-100",
+                                  "description": "Weight associated with the matching `pod_affinity_term`, in the range `1-100`.",
                                   "description_kind": "plain",
                                   "required": true
                                 }
@@ -15950,13 +16070,13 @@
                                           "set",
                                           "string"
                                         ],
-                                        "description": "namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'",
+                                        "description": "Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.",
                                         "description_kind": "plain",
                                         "optional": true
                                       },
                                       "topology_key": {
                                         "type": "string",
-                                        "description": "empty topology key is interpreted by the scheduler as 'all topologies'",
+                                        "description": "Topology key used by the scheduler; an empty value is interpreted as all topologies.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -16013,7 +16133,7 @@
                                         }
                                       }
                                     },
-                                    "description": "A pod affinity term, associated with the corresponding weight",
+                                    "description": "Pod affinity term associated with the corresponding weight.",
                                     "description_kind": "plain"
                                   },
                                   "min_items": 1,
@@ -16033,13 +16153,13 @@
                                     "set",
                                     "string"
                                   ],
-                                  "description": "namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'",
+                                  "description": "Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
                                 "topology_key": {
                                   "type": "string",
-                                  "description": "empty topology key is interpreted by the scheduler as 'all topologies'",
+                                  "description": "Topology key used by the scheduler; an empty value is interpreted as all topologies.",
                                   "description_kind": "plain",
                                   "optional": true
                                 }
@@ -16116,7 +16236,7 @@
                               "attributes": {
                                 "weight": {
                                   "type": "number",
-                                  "description": "weight associated with matching the corresponding podAffinityTerm, in the range 1-100",
+                                  "description": "Weight associated with the matching `pod_affinity_term`, in the range `1-100`.",
                                   "description_kind": "plain",
                                   "required": true
                                 }
@@ -16131,13 +16251,13 @@
                                           "set",
                                           "string"
                                         ],
-                                        "description": "namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'",
+                                        "description": "Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.",
                                         "description_kind": "plain",
                                         "optional": true
                                       },
                                       "topology_key": {
                                         "type": "string",
-                                        "description": "empty topology key is interpreted by the scheduler as 'all topologies'",
+                                        "description": "Topology key used by the scheduler; an empty value is interpreted as all topologies.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -16194,7 +16314,7 @@
                                         }
                                       }
                                     },
-                                    "description": "A pod affinity term, associated with the corresponding weight",
+                                    "description": "Pod affinity term associated with the corresponding weight.",
                                     "description_kind": "plain"
                                   },
                                   "min_items": 1,
@@ -16214,13 +16334,13 @@
                                     "set",
                                     "string"
                                   ],
-                                  "description": "namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'",
+                                  "description": "Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
                                 "topology_key": {
                                   "type": "string",
-                                  "description": "empty topology key is interpreted by the scheduler as 'all topologies'",
+                                  "description": "Topology key used by the scheduler; an empty value is interpreted as all topologies.",
                                   "description_kind": "plain",
                                   "optional": true
                                 }
@@ -16299,7 +16419,7 @@
                   "attributes": {
                     "cores": {
                       "type": "number",
-                      "description": "Cores is the number of cores inside the vmi. Must be a value greater or equal 1",
+                      "description": "Number of CPU cores inside the VMI. Must be greater than or equal to `1`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -16334,7 +16454,7 @@
                               "map",
                               "string"
                             ],
-                            "description": "An unstructured key value map stored with the DataVolume that may be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations",
+                            "description": "An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.",
                             "description_kind": "plain",
                             "optional": true,
                             "computed": true
@@ -16350,13 +16470,13 @@
                               "map",
                               "string"
                             ],
-                            "description": "Map of string keys and values that can be used to organize and categorize (scope and select) the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels",
+                            "description": "Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.",
                             "description_kind": "plain",
                             "optional": true
                           },
                           "name": {
                             "type": "string",
-                            "description": "Name of the DataVolume, must be unique. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names",
+                            "description": "Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.",
                             "description_kind": "plain",
                             "optional": true,
                             "computed": true
@@ -16407,13 +16527,13 @@
                                     "set",
                                     "string"
                                   ],
-                                  "description": "A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1",
+                                  "description": "Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.",
                                   "description_kind": "plain",
                                   "required": true
                                 },
                                 "storage_class_name": {
                                   "type": "string",
-                                  "description": "Name of the storage class requested by the claim",
+                                  "description": "Name of the storage class requested by the claim.",
                                   "description_kind": "plain",
                                   "optional": true,
                                   "computed": true
@@ -16443,7 +16563,7 @@
                                           "map",
                                           "string"
                                         ],
-                                        "description": "Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                        "description": "Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                         "description_kind": "plain",
                                         "optional": true
                                       },
@@ -16452,7 +16572,7 @@
                                           "map",
                                           "string"
                                         ],
-                                        "description": "Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                        "description": "Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -16566,13 +16686,13 @@
                                     "attributes": {
                                       "name": {
                                         "type": "string",
-                                        "description": "The name of the PVC.",
+                                        "description": "Name of the source PVC to clone from.",
                                         "description_kind": "plain",
                                         "optional": true
                                       },
                                       "namespace": {
                                         "type": "string",
-                                        "description": "The namespace which the PVC located in.",
+                                        "description": "Namespace where the source PVC is located.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -16613,13 +16733,13 @@
                                     "set",
                                     "string"
                                   ],
-                                  "description": "A set of the desired access modes the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1",
+                                  "description": "Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
                                 "storage_class_name": {
                                   "type": "string",
-                                  "description": "Name of the storage class requested by the claim",
+                                  "description": "Name of the storage class requested by the claim.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
@@ -16646,7 +16766,7 @@
                                           "map",
                                           "string"
                                         ],
-                                        "description": "Map describing the maximum amount of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                        "description": "Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                         "description_kind": "plain",
                                         "optional": true
                                       },
@@ -16655,7 +16775,7 @@
                                           "map",
                                           "string"
                                         ],
-                                        "description": "Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/",
+                                        "description": "Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -16746,7 +16866,7 @@
                     },
                     "name": {
                       "type": "string",
-                      "description": "Name is the device name",
+                      "description": "Device name for this disk.",
                       "description_kind": "plain",
                       "required": true
                     },
@@ -16774,7 +16894,7 @@
                                 },
                                 "pci_address": {
                                   "type": "string",
-                                  "description": "If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10",
+                                  "description": "If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.",
                                   "description_kind": "plain",
                                   "optional": true
                                 },
@@ -16995,7 +17115,7 @@
                   "attributes": {
                     "name": {
                       "type": "string",
-                      "description": "Network name.",
+                      "description": "Logical network name used to reference this network from VM interfaces.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -17128,7 +17248,7 @@
                         "map",
                         "string"
                       ],
-                      "description": "Requests is the maximum amount of compute resources allowed. Valid resource keys are \"memory\" and \"cpu\"",
+                      "description": "Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -17220,7 +17340,7 @@
                               "map",
                               "string"
                             ],
-                            "description": "Provides additional data in order to perform the Action.",
+                            "description": "Map of string key/value pairs with additional parameters required to perform the action.",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -17304,7 +17424,7 @@
                   "attributes": {
                     "name": {
                       "type": "string",
-                      "description": "Volume's name.",
+                      "description": "Unique volume name used to reference this volume from VM disk definitions.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -17350,7 +17470,7 @@
                                     "attributes": {
                                       "name": {
                                         "type": "string",
-                                        "description": "Name of the referent.",
+                                        "description": "Name of the referenced object (for example, a Secret or ConfigMap name).",
                                         "description_kind": "plain",
                                         "required": true
                                       }
@@ -17366,7 +17486,7 @@
                                     "attributes": {
                                       "name": {
                                         "type": "string",
-                                        "description": "Name of the referent.",
+                                        "description": "Name of the referenced object (for example, a Secret or ConfigMap name).",
                                         "description_kind": "plain",
                                         "required": true
                                       }
@@ -17418,7 +17538,7 @@
                                     "attributes": {
                                       "name": {
                                         "type": "string",
-                                        "description": "Name of the referent.",
+                                        "description": "Name of the referenced object (for example, a Secret or ConfigMap name).",
                                         "description_kind": "plain",
                                         "required": true
                                       }
@@ -17434,7 +17554,7 @@
                                     "attributes": {
                                       "name": {
                                         "type": "string",
-                                        "description": "Name of the referent.",
+                                        "description": "Name of the referenced object (for example, a Secret or ConfigMap name).",
                                         "description_kind": "plain",
                                         "required": true
                                       }
@@ -17467,6 +17587,7 @@
                                     "attributes": {
                                       "key": {
                                         "type": "string",
+                                        "description": "Key name from the referenced ConfigMap to project into the volume.",
                                         "description_kind": "plain",
                                         "optional": true
                                       }
@@ -17502,7 +17623,7 @@
                               "attributes": {
                                 "name": {
                                   "type": "string",
-                                  "description": "Name represents the name of the DataVolume in the same namespace.",
+                                  "description": "Name of the DataVolume in the same namespace to attach as the volume source.",
                                   "description_kind": "plain",
                                   "required": true
                                 }
@@ -17538,7 +17659,7 @@
                                     "attributes": {
                                       "claim_name": {
                                         "type": "string",
-                                        "description": "ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
+                                        "description": "Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.",
                                         "description_kind": "plain",
                                         "required": true
                                       },
@@ -17588,7 +17709,7 @@
                               "attributes": {
                                 "claim_name": {
                                   "type": "string",
-                                  "description": "ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
+                                  "description": "Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.",
                                   "description_kind": "plain",
                                   "required": true
                                 },
@@ -17633,6 +17754,7 @@
                 }
               }
             },
+            "description": "Resource for managing KubeVirt virtual machines on Spectro Cloud clusters.",
             "description_kind": "plain"
           }
         },
@@ -17642,6 +17764,7 @@
             "attributes": {
               "description": {
                 "type": "string",
+                "description": "Description of the workspace.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -17653,6 +17776,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the workspace.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -17661,6 +17785,7 @@
                   "set",
                   "string"
                 ],
+                "description": "Set of tag strings in the form `key:value` applied to the workspace.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -17811,6 +17936,7 @@
                     },
                     "uid": {
                       "type": "string",
+                      "description": "UID of the cluster attached to this workspace.",
                       "description_kind": "plain",
                       "required": true
                     }
@@ -17864,6 +17990,7 @@
                           },
                           "uid": {
                             "type": "string",
+                            "description": "UID of the cluster for this namespace-specific resource allocation.",
                             "description_kind": "plain",
                             "required": true
                           }
@@ -17906,6 +18033,7 @@
                 "max_items": 1
               }
             },
+            "description": "Resource for managing workspaces in Spectro Cloud.",
             "description_kind": "plain"
           }
         }
@@ -18029,7 +18157,7 @@
               },
               "name": {
                 "type": "string",
-                "description": "Name of the application profile",
+                "description": "Name of the application profile to look up.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -18064,6 +18192,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a backup storage location by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18098,6 +18227,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up an Apache CloudStack cloud account by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18113,6 +18243,7 @@
               },
               "depends": {
                 "type": "string",
+                "description": "Dependency marker used internally by Terraform graph evaluation.",
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
@@ -18220,6 +18351,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a custom cloud account by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18295,6 +18427,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a MaaS cloud account by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18329,6 +18462,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a vSphere cloud account by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18391,6 +18525,7 @@
                 "optional": true
               }
             },
+            "description": "Data source for looking up a cluster by name and retrieving connection details.",
             "description_kind": "plain"
           }
         },
@@ -18437,7 +18572,7 @@
                   "set",
                   "string"
                 ],
-                "description": "Tags assigned to the cluster config policy.",
+                "description": "Set of tag strings assigned to the cluster config policy.",
                 "description_kind": "plain",
                 "computed": true
               }
@@ -18546,7 +18681,7 @@
                   "set",
                   "string"
                 ],
-                "description": "Tags assigned to the cluster config template.",
+                "description": "Set of tag strings assigned to the cluster config template.",
                 "description_kind": "plain",
                 "computed": true
               }
@@ -18578,6 +18713,7 @@
                 "required": true
               }
             },
+            "description": "Data source for looking up a cluster group by name within a given context.",
             "description_kind": "plain"
           }
         },
@@ -18642,6 +18778,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a cluster profile by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -18719,6 +18856,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up filter definitions by name.",
             "description_kind": "plain"
           }
         },
@@ -18745,6 +18883,7 @@
                 "required": true
               }
             },
+            "description": "Data source for looking up a private cloud gateway IP pool by name.",
             "description_kind": "plain"
           }
         },
@@ -18799,7 +18938,7 @@
                   "set",
                   "string"
                 ],
-                "description": "Filter results by cloud type. If not provided, all cloud types are returned.",
+                "description": "Set of cloud type strings used to filter results. If not provided, all cloud types are returned.",
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
@@ -18862,7 +19001,7 @@
                         "set",
                         "string"
                       ],
-                      "description": "Defines the type of add-on pack. Allowed values are `load balancer`, `ingress`, `logging`, `monitoring`, `security`, `authentication`, `servicemesh`, `system app`, `app services`, `registry` and `integration`. If not specified, all options will be set by default. For `storage` and `network` addon_type set `csi` or `cni` respectively in pack_layer",
+                      "description": "Set of add-on type strings to filter by. Allowed values are `load balancer`, `ingress`, `logging`, `monitoring`, `security`, `authentication`, `servicemesh`, `system app`, `app services`, `registry`, and `integration`. If not specified, all options are included. For `storage` and `network`, set `pack_layer` to `csi` or `cni` respectively.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -19001,6 +19140,7 @@
                 "optional": true
               }
             },
+            "description": "Data source for looking up permissions by name and scope.",
             "description_kind": "plain"
           }
         },
@@ -19063,6 +19203,7 @@
                 "required": true
               }
             },
+            "description": "Data source for looking up private cloud gateway DNS mappings.",
             "description_kind": "plain"
           }
         },
@@ -19078,11 +19219,13 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the project to look up.",
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
               }
             },
+            "description": "Data source for looking up a Spectro Cloud project by name.",
             "description_kind": "plain"
           }
         },
@@ -19123,11 +19266,12 @@
               },
               "token": {
                 "type": "string",
-                "description": "The registration token",
+                "description": "The registration token value.",
                 "description_kind": "plain",
                 "computed": true
               }
             },
+            "description": "Data source for looking up a registration token by name or UID.",
             "description_kind": "plain"
           }
         },
@@ -19143,6 +19287,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the registry to look up.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -19159,6 +19304,7 @@
                 "optional": true
               }
             },
+            "description": "Data source for looking up an OCI, Helm, or Spectro registry by name.",
             "description_kind": "plain"
           }
         },
@@ -19174,10 +19320,12 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the Helm registry to look up.",
                 "description_kind": "plain",
                 "required": true
               }
             },
+            "description": "Data source for looking up a Helm registry by name.",
             "description_kind": "plain"
           }
         },
@@ -19199,6 +19347,7 @@
                 "required": true
               }
             },
+            "description": "Data source for looking up an OCI registry by name.",
             "description_kind": "plain"
           }
         },
@@ -19214,10 +19363,12 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the pack registry to look up.",
                 "description_kind": "plain",
                 "required": true
               }
             },
+            "description": "Data source for looking up a Spectro pack registry by name.",
             "description_kind": "plain"
           }
         },
@@ -19233,6 +19384,7 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the role to look up.",
                 "description_kind": "plain",
                 "optional": true,
                 "computed": true
@@ -19247,6 +19399,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a Spectro Cloud role by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -19313,6 +19466,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a team by ID or name.",
             "description_kind": "plain"
           }
         },
@@ -19334,6 +19488,7 @@
                 "computed": true
               }
             },
+            "description": "Data source for looking up a user by ID or email address.",
             "description_kind": "plain"
           }
         },
@@ -19349,10 +19504,12 @@
               },
               "name": {
                 "type": "string",
+                "description": "Name of the workspace to look up.",
                 "description_kind": "plain",
                 "required": true
               }
             },
+            "description": "Data source for looking up a Spectro Cloud workspace by name.",
             "description_kind": "plain"
           }
         }

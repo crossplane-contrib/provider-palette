@@ -987,8 +987,8 @@ type MaasMachinePoolInitParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-	// Availability zones in which the machine pool nodes to be provisioned.
+	// (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+	// Set of availability zone name strings where machine pool nodes are provisioned.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -1157,8 +1157,8 @@ type MaasMachinePoolObservation struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-	// Availability zones in which the machine pool nodes to be provisioned.
+	// (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+	// Set of availability zone name strings where machine pool nodes are provisioned.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
 
@@ -1281,8 +1281,8 @@ type MaasMachinePoolParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-	// Availability zones in which the machine pool nodes to be provisioned.
+	// (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+	// Set of availability zone name strings where machine pool nodes are provisioned.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Azs []*string `json:"azs" tf:"azs,omitempty"`

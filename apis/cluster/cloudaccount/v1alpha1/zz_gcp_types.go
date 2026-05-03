@@ -91,7 +91,7 @@ type GCPStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// GCP is the Schema for the GCPs API.
+// GCP is the Schema for the GCPs API. Resource for managing GCP cloud account credentials in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

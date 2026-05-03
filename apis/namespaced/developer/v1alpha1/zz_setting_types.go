@@ -16,60 +16,76 @@ import (
 
 type SettingInitParameters struct {
 
+	// (Number) Defines the number of CPU cores allocated to the cluster.
 	// Defines the number of CPU cores allocated to the cluster.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Boolean) If set to true, hides the system cluster.
 	// If set to `true`, hides the system cluster.
 	HideSystemClusterGroup *bool `json:"hideSystemClusterGroup,omitempty" tf:"hide_system_cluster_group,omitempty"`
 
+	// (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
 	// Specifies the amount of memory (in GiB) allocated to the cluster.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// (Number) Defines the storage capacity (in GiB) allocated to the cluster.
 	// Defines the storage capacity (in GiB) allocated to the cluster.
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// (Number) Specifies the number of virtual clusters to be created.
 	// Specifies the number of virtual clusters to be created.
 	VirtualClustersLimit *float64 `json:"virtualClustersLimit,omitempty" tf:"virtual_clusters_limit,omitempty"`
 }
 
 type SettingObservation struct {
 
+	// (Number) Defines the number of CPU cores allocated to the cluster.
 	// Defines the number of CPU cores allocated to the cluster.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Boolean) If set to true, hides the system cluster.
 	// If set to `true`, hides the system cluster.
 	HideSystemClusterGroup *bool `json:"hideSystemClusterGroup,omitempty" tf:"hide_system_cluster_group,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
 	// Specifies the amount of memory (in GiB) allocated to the cluster.
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// (Number) Defines the storage capacity (in GiB) allocated to the cluster.
 	// Defines the storage capacity (in GiB) allocated to the cluster.
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// (Number) Specifies the number of virtual clusters to be created.
 	// Specifies the number of virtual clusters to be created.
 	VirtualClustersLimit *float64 `json:"virtualClustersLimit,omitempty" tf:"virtual_clusters_limit,omitempty"`
 }
 
 type SettingParameters struct {
 
+	// (Number) Defines the number of CPU cores allocated to the cluster.
 	// Defines the number of CPU cores allocated to the cluster.
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Boolean) If set to true, hides the system cluster.
 	// If set to `true`, hides the system cluster.
 	// +kubebuilder:validation:Optional
 	HideSystemClusterGroup *bool `json:"hideSystemClusterGroup,omitempty" tf:"hide_system_cluster_group,omitempty"`
 
+	// (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
 	// Specifies the amount of memory (in GiB) allocated to the cluster.
 	// +kubebuilder:validation:Optional
 	Memory *float64 `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// (Number) Defines the storage capacity (in GiB) allocated to the cluster.
 	// Defines the storage capacity (in GiB) allocated to the cluster.
 	// +kubebuilder:validation:Optional
 	Storage *float64 `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// (Number) Specifies the number of virtual clusters to be created.
 	// Specifies the number of virtual clusters to be created.
 	// +kubebuilder:validation:Optional
 	VirtualClustersLimit *float64 `json:"virtualClustersLimit,omitempty" tf:"virtual_clusters_limit,omitempty"`
@@ -102,7 +118,7 @@ type SettingStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Setting is the Schema for the Settings API.
+// Setting is the Schema for the Settings API. Resource for managing tenant-level developer quota settings in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -80,8 +80,8 @@ spec:
                     type: string
                   permissions:
                     description: |-
-                      (Set of String) The permission's assigned to the role.
-                      The permission's assigned to the role.
+                      (Set of String) Set of permission ID strings assigned to the role.
+                      Set of permission ID strings assigned to the role.
                     items:
                       type: string
                     type: array
@@ -112,8 +112,8 @@ spec:
                     type: string
                   permissions:
                     description: |-
-                      (Set of String) The permission's assigned to the role.
-                      The permission's assigned to the role.
+                      (Set of String) Set of permission ID strings assigned to the role.
+                      Set of permission ID strings assigned to the role.
                     items:
                       type: string
                     type: array
@@ -234,8 +234,8 @@ spec:
                     type: string
                   permissions:
                     description: |-
-                      (Set of String) The permission's assigned to the role.
-                      The permission's assigned to the role.
+                      (Set of String) Set of permission ID strings assigned to the role.
+                      Set of permission ID strings assigned to the role.
                     items:
                       type: string
                     type: array

@@ -466,7 +466,7 @@ type ApacheCloudstackClusterTemplateObservation struct {
 	// The ID of the cluster template.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the cluster template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -624,8 +624,8 @@ type ApacheCloudstackInitParameters struct {
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String) The name of the cluster.
-	// The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -729,8 +729,8 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	// Minimum number of nodes in the machine pool. This is used for autoscaling.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique machine pool name within this cluster configuration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
@@ -804,8 +804,8 @@ type ApacheCloudstackMachinePoolObservation struct {
 	// Minimum number of nodes in the machine pool. This is used for autoscaling.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique machine pool name within this cluster configuration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
@@ -882,8 +882,8 @@ type ApacheCloudstackMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String) The name of the cluster.
-	// Name of the machine pool.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique machine pool name within this cluster configuration.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -933,7 +933,7 @@ type ApacheCloudstackMachinePoolParameters struct {
 
 type ApacheCloudstackNamespacesInitParameters struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -945,7 +945,7 @@ type ApacheCloudstackNamespacesInitParameters struct {
 
 type ApacheCloudstackNamespacesObservation struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -957,7 +957,7 @@ type ApacheCloudstackNamespacesObservation struct {
 
 type ApacheCloudstackNamespacesParameters struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1041,8 +1041,8 @@ type ApacheCloudstackObservation struct {
 	// Machine pool configuration for the cluster.
 	MachinePool []ApacheCloudstackMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String) The name of the cluster.
-	// The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -1172,8 +1172,8 @@ type ApacheCloudstackParameters struct {
 	// +kubebuilder:validation:Optional
 	MachinePool []ApacheCloudstackMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String) The name of the cluster.
-	// The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1282,7 +1282,7 @@ type ClusterProfilePackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []PackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1316,7 +1316,7 @@ type ClusterProfilePackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []PackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1351,7 +1351,7 @@ type ClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []PackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1389,7 +1389,7 @@ type ClusterProfilePackParameters struct {
 
 type ClusterRbacBindingSubjectsInitParameters struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1404,7 +1404,7 @@ type ClusterRbacBindingSubjectsInitParameters struct {
 
 type ClusterRbacBindingSubjectsObservation struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1419,7 +1419,7 @@ type ClusterRbacBindingSubjectsObservation struct {
 
 type ClusterRbacBindingSubjectsParameters struct {
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1452,7 +1452,7 @@ type InstanceConfigObservation struct {
 	// (Number)
 	MemoryMib *float64 `json:"memoryMib,omitempty" tf:"memory_mib,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Number)
@@ -1625,8 +1625,8 @@ type NetworkInitParameters struct {
 	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Network name in this zone.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack network name within the selected zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network mask for the network.
@@ -1660,8 +1660,8 @@ type NetworkObservation struct {
 	// Network ID in CloudStack. Either `id` or `name` can be used to identify the network. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Network name in this zone.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack network name within the selected zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network mask for the network.
@@ -1697,8 +1697,8 @@ type NetworkParameters struct {
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Network name in this zone.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack network name within the selected zone.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1734,7 +1734,7 @@ type PackManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1745,7 +1745,7 @@ type PackManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1760,7 +1760,7 @@ type PackManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1772,8 +1772,8 @@ type ProjectInitParameters struct {
 	// CloudStack project ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// CloudStack project name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack project name used to scope cluster resources in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1783,8 +1783,8 @@ type ProjectObservation struct {
 	// CloudStack project ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// CloudStack project name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack project name used to scope cluster resources in this zone.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1795,8 +1795,8 @@ type ProjectParameters struct {
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// CloudStack project name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack project name used to scope cluster resources in this zone.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1807,8 +1807,8 @@ type TemplateInitParameters struct {
 	// Template ID. Either ID or name must be provided.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1818,8 +1818,8 @@ type TemplateObservation struct {
 	// Template ID. Either ID or name must be provided.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -1830,8 +1830,8 @@ type TemplateParameters struct {
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// Template name. Either ID or name must be provided.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack template name to use for this machine pool. Either `id` or `name` must be provided.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1846,8 +1846,8 @@ type VPCInitParameters struct {
 	// VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// VPC name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack VPC name associated with the selected network.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
@@ -1865,8 +1865,8 @@ type VPCObservation struct {
 	// VPC ID. Either `id` or `name` can be used to identify the VPC. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// VPC name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack VPC name associated with the selected network.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
@@ -1886,8 +1886,8 @@ type VPCParameters struct {
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
-	// VPC name.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// CloudStack VPC name associated with the selected network.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -1903,7 +1903,7 @@ type ZoneInitParameters struct {
 	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1918,7 +1918,7 @@ type ZoneObservation struct {
 	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1934,7 +1934,7 @@ type ZoneParameters struct {
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the cluster.
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
 	// CloudStack zone name where the cluster will be deployed.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`

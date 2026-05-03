@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Setting is the Schema for the Settings API.
+        description: Setting is the Schema for the Settings API. Resource for managing
+          tenant-level developer quota settings in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -59,22 +60,29 @@ spec:
               forProvider:
                 properties:
                   cpu:
-                    description: Defines the number of CPU cores allocated to the
-                      cluster.
+                    description: |-
+                      (Number) Defines the number of CPU cores allocated to the cluster.
+                      Defines the number of CPU cores allocated to the cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: If set to `true`, hides the system cluster.
+                    description: |-
+                      (Boolean) If set to true, hides the system cluster.
+                      If set to `true`, hides the system cluster.
                     type: boolean
                   memory:
-                    description: Specifies the amount of memory (in GiB) allocated
-                      to the cluster.
+                    description: |-
+                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
+                      Specifies the amount of memory (in GiB) allocated to the cluster.
                     type: number
                   storage:
-                    description: Defines the storage capacity (in GiB) allocated to
-                      the cluster.
+                    description: |-
+                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
+                      Defines the storage capacity (in GiB) allocated to the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: Specifies the number of virtual clusters to be created.
+                    description: |-
+                      (Number) Specifies the number of virtual clusters to be created.
+                      Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               initProvider:
@@ -91,22 +99,29 @@ spec:
                   autoscaler.
                 properties:
                   cpu:
-                    description: Defines the number of CPU cores allocated to the
-                      cluster.
+                    description: |-
+                      (Number) Defines the number of CPU cores allocated to the cluster.
+                      Defines the number of CPU cores allocated to the cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: If set to `true`, hides the system cluster.
+                    description: |-
+                      (Boolean) If set to true, hides the system cluster.
+                      If set to `true`, hides the system cluster.
                     type: boolean
                   memory:
-                    description: Specifies the amount of memory (in GiB) allocated
-                      to the cluster.
+                    description: |-
+                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
+                      Specifies the amount of memory (in GiB) allocated to the cluster.
                     type: number
                   storage:
-                    description: Defines the storage capacity (in GiB) allocated to
-                      the cluster.
+                    description: |-
+                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
+                      Defines the storage capacity (in GiB) allocated to the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: Specifies the number of virtual clusters to be created.
+                    description: |-
+                      (Number) Specifies the number of virtual clusters to be created.
+                      Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               managementPolicies:
@@ -173,24 +188,32 @@ spec:
               atProvider:
                 properties:
                   cpu:
-                    description: Defines the number of CPU cores allocated to the
-                      cluster.
+                    description: |-
+                      (Number) Defines the number of CPU cores allocated to the cluster.
+                      Defines the number of CPU cores allocated to the cluster.
                     type: number
                   hideSystemClusterGroup:
-                    description: If set to `true`, hides the system cluster.
+                    description: |-
+                      (Boolean) If set to true, hides the system cluster.
+                      If set to `true`, hides the system cluster.
                     type: boolean
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   memory:
-                    description: Specifies the amount of memory (in GiB) allocated
-                      to the cluster.
+                    description: |-
+                      (Number) Specifies the amount of memory (in GiB) allocated to the cluster.
+                      Specifies the amount of memory (in GiB) allocated to the cluster.
                     type: number
                   storage:
-                    description: Defines the storage capacity (in GiB) allocated to
-                      the cluster.
+                    description: |-
+                      (Number) Defines the storage capacity (in GiB) allocated to the cluster.
+                      Defines the storage capacity (in GiB) allocated to the cluster.
                     type: number
                   virtualClustersLimit:
-                    description: Specifies the number of virtual clusters to be created.
+                    description: |-
+                      (Number) Specifies the number of virtual clusters to be created.
+                      Specifies the number of virtual clusters to be created.
                     type: number
                 type: object
               conditions:

@@ -848,8 +848,8 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-                            Availability zones in which the machine pool nodes to be provisioned.
+                            (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+                            Set of availability zone name strings where machine pool nodes are provisioned.
                           items:
                             type: string
                           type: array
@@ -1907,8 +1907,8 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-                            Availability zones in which the machine pool nodes to be provisioned.
+                            (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+                            Set of availability zone name strings where machine pool nodes are provisioned.
                           items:
                             type: string
                           type: array
@@ -2702,8 +2702,8 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Availability zones in which the machine pool nodes to be provisioned.
-                            Availability zones in which the machine pool nodes to be provisioned.
+                            (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
+                            Set of availability zone name strings where machine pool nodes are provisioned.
                           items:
                             type: string
                           type: array

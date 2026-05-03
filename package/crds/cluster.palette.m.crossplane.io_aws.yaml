@@ -211,7 +211,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String) UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a Aws in cloudaccount to populate cloudAccountId.
@@ -433,14 +435,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AWS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -510,7 +512,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -810,8 +812,8 @@ spec:
                           x-kubernetes-map-type: granular
                         additionalSecurityGroups:
                           description: |-
-                            (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            (Set of String) Set of additional security group ID strings to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -820,14 +822,14 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use az_subnets for static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            (Set of String) Set of availability zone name strings. Mutually exclusive with az_subnets; use azs for dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -892,7 +894,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             The name of the machine pool.
                           type: string
                         node:
@@ -973,7 +975,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cluster. Changing this forces a new resource.
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -983,7 +987,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1061,8 +1065,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:
@@ -1236,7 +1240,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String) UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
                     description: Reference to a Aws in cloudaccount to populate cloudAccountId.
@@ -1458,14 +1464,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AWS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1535,7 +1541,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1835,8 +1841,8 @@ spec:
                           x-kubernetes-map-type: granular
                         additionalSecurityGroups:
                           description: |-
-                            (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            (Set of String) Set of additional security group ID strings to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -1845,14 +1851,14 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use az_subnets for static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            (Set of String) Set of availability zone name strings. Mutually exclusive with az_subnets; use azs for dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -1917,7 +1923,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             The name of the machine pool.
                           type: string
                         node:
@@ -1998,7 +2004,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cluster. Changing this forces a new resource.
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2008,7 +2016,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2086,8 +2094,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:
@@ -2242,7 +2250,9 @@ spec:
                       type: object
                     type: array
                   cloudAccountId:
-                    description: (String)
+                    description: |-
+                      (String) UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
+                      UID of the AWS cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
                     description: '(Block List, Min: 1, Max: 1) (see below for nested
@@ -2307,7 +2317,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AWS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -2324,7 +2334,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -2394,7 +2404,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AWS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -2450,7 +2460,7 @@ spec:
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             The name of the cluster template.
                           type: string
                       type: object
@@ -2564,8 +2574,8 @@ spec:
                           x-kubernetes-map-type: granular
                         additionalSecurityGroups:
                           description: |-
-                            (Set of String) Additional security groups to attach to the instance.
-                            Additional security groups to attach to the instance.
+                            (Set of String) Set of additional security group ID strings to attach to the instance.
+                            Set of additional security group ID strings to attach to the instance.
                           items:
                             type: string
                           type: array
@@ -2574,14 +2584,14 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use az_subnets for Static provisioning.
-                            Mutually exclusive with `azs`. Use `az_subnets` for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use az_subnets for static provisioning.
+                            Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use `az_subnets` for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String) Mutually exclusive with az_subnets. Use azs for Dynamic provisioning.
-                            Mutually exclusive with `az_subnets`. Use `azs` for Dynamic provisioning.
+                            (Set of String) Set of availability zone name strings. Mutually exclusive with az_subnets; use azs for dynamic provisioning.
+                            Set of availability zone name strings. Mutually exclusive with `az_subnets`; use `azs` for dynamic provisioning.
                           items:
                             type: string
                           type: array
@@ -2646,7 +2656,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             The name of the machine pool.
                           type: string
                         node:
@@ -2727,7 +2737,9 @@ spec:
                       type: object
                     type: array
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cluster. Changing this forces a new resource.
+                      Name of the AWS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
                     description: |-
@@ -2737,7 +2749,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AWS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2815,8 +2827,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
-                      A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
+                      A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
                   updateWorkerPoolsInParallel:

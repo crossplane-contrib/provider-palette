@@ -19,8 +19,8 @@ type ApacheCloudstackInitParameters struct {
 	// The API key for Apache CloudStack authentication.
 	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
+	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
 	// (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -50,8 +50,8 @@ type ApacheCloudstackInitParameters struct {
 
 type ApacheCloudstackObservation struct {
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
+	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
 	// (String) The context of the Apache CloudStack configuration. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -85,8 +85,8 @@ type ApacheCloudstackParameters struct {
 	// +kubebuilder:validation:Optional
 	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
-	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
-	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api
+	// (String) The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
+	// The API URL of the Apache CloudStack management server. For example: https://cloudstack.example.com:8080/client/api.
 	// +kubebuilder:validation:Optional
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
@@ -148,7 +148,7 @@ type ApacheCloudstackStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ApacheCloudstack is the Schema for the ApacheCloudstacks API.
+// ApacheCloudstack is the Schema for the ApacheCloudstacks API. Resource for managing Apache CloudStack cloud accounts in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

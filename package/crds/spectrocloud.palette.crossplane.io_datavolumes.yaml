@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Datavolume is the Schema for the Datavolumes API. <no value>
+        description: Datavolume is the Schema for the Datavolumes API. Manage KubeVirt
+          data volumes attached to virtual machines in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -73,30 +74,52 @@ spec:
               forProvider:
                 properties:
                   addVolumeOptions:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         disk:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               bus:
+                                description: |-
+                                  (String) Disk bus type used by the attached data volume (for example, virtio or sata).
+                                  Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: |-
+                                  (String) Name of the volume attachment in the virtual machine spec.
+                                  Name of the disk definition in the virtual machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the volume attachment in the virtual machine spec.
                           type: string
                         volumeSource:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               dataVolume:
+                                description: '(Block List, Min: 1, Max: 1) (see below
+                                  for nested schema)'
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: |-
+                                        plugged while the virtual machine is running.
+                                        Whether this data volume can be hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the data volume source referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -105,114 +128,124 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: |-
+                      (String) Resource context for the target cluster. Allowed values are project or tenant.
+                      Resource context for the target cluster. Allowed values are `project` or `tenant`.
                     type: string
                   clusterUid:
-                    description: The cluster UID to which the virtual machine belongs
-                      to.
+                    description: |-
+                      (String) The cluster UID to which the virtual machine belongs to.
+                      The cluster UID to which the virtual machine belongs to.
                     type: string
                   metadata:
-                    description: 'Standard DataVolume''s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata'
+                    description: |-
+                      architecture/api-conventions.md#metadata (see below for nested schema)
+                      Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
                     items:
                       properties:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: |-
+                            guide/annotations.
+                            An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                           type: object
                           x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: |-
+                            guide/labels.
+                            Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                           type: string
                         namespace:
-                          description: Namespace defines the space within which name
-                            of the DataVolume must be unique.
+                          description: |-
+                            (String) Namespace defines the space within which name of the DataVolume must be unique.
+                            Namespace defines the space within which name of the DataVolume must be unique.
                           type: string
                       type: object
                     type: array
                   spec:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         contentType:
-                          description: 'ContentType options: "kubevirt", "archive".'
+                          description: |-
+                            (String) ContentType options: "kubevirt", "archive".
+                            ContentType options: "kubevirt", "archive".
                           type: string
                         pvc:
-                          description: PVC is a pointer to the PVC Spec we want to
-                            use.
+                          description: |-
+                            (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                            PVC is a pointer to the PVC Spec we want to use.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators ard `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -222,150 +255,163 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                         source:
-                          description: Source is the src of the data for the requested
-                            DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
+                            Source is the src of the data for the requested DataVolume.
                           items:
                             properties:
                               blank:
-                                description: DataVolumeSourceBlank provides the parameters
-                                  to create a Data Volume from an empty source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
+                                  DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
                                 items:
                                   type: object
                                 type: array
                               http:
-                                description: DataVolumeSourceHTTP provides the parameters
-                                  to create a Data Volume from an HTTP source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
+                                  DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
                                 items:
                                   properties:
                                     certConfigMap:
-                                      description: Cert_config_map provides a reference
-                                        to the Registry certs.
+                                      description: |-
+                                        (String) Cert_config_map provides a reference to the Registry certs.
+                                        Cert_config_map provides a reference to the Registry certs.
                                       type: string
                                     secretRef:
-                                      description: Secret_ref provides the secret
-                                        reference needed to access the HTTP source.
+                                      description: |-
+                                        (String) Secret_ref provides the secret reference needed to access the HTTP source.
+                                        Secret_ref provides the secret reference needed to access the HTTP source.
                                       type: string
                                     url:
-                                      description: url is the URL of the http source.
+                                      description: |-
+                                        (String) url is the URL of the http source.
+                                        url is the URL of the http source.
                                       type: string
                                   type: object
                                 type: array
                               pvc:
-                                description: DataVolumeSourcePVC provides the parameters
-                                  to create a Data Volume from an existing PVC.
+                                description: |-
+                                  (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                                  DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the source PVC to clone from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: |-
+                                        (String) Namespace defines the space within which name of the DataVolume must be unique.
+                                        Namespace where the source PVC is located.
                                       type: string
                                   type: object
                                 type: array
                               registry:
-                                description: DataVolumeSourceRegistry provides the
-                                  parameters to create a Data Volume from an existing
-                                  PVC.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
+                                  DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     imageUrl:
-                                      description: The registry URL of the image to
-                                        download.
+                                      description: |-
+                                        (String) The registry URL of the image to download.
+                                        The registry URL of the image to download.
                                       type: string
                                   type: object
                                 type: array
                             type: object
                           type: array
                         storage:
-                          description: Storage is the requested storage specification
-                            for the DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
+                            Storage is the requested storage specification for the DataVolume.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators are `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
                                             items:
                                               type: string
                                             type: array
@@ -375,54 +421,59 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   status:
-                    description: DataVolumeStatus provides the parameters to store
-                      the phase of the Data Volume
+                    description: |-
+                      (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
+                      DataVolumeStatus provides the parameters to store the phase of the Data Volume
                     items:
                       properties:
                         phase:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                         progress:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                       type: object
                     type: array
                   vmName:
-                    description: The name of the virtual machine to which the data
-                      volume belongs to.
+                    description: |-
+                      (String) The name of the virtual machine to which the data volume belongs to.
+                      The name of the virtual machine to which the data volume belongs to.
                     type: string
                   vmNamespace:
-                    description: The namespace of the virtual machine to which the
-                      data volume belongs to.
+                    description: |-
+                      (String) The namespace of the virtual machine to which the data volume belongs to.
+                      The namespace of the virtual machine to which the data volume belongs to.
                     type: string
                 type: object
               initProvider:
@@ -439,30 +490,52 @@ spec:
                   autoscaler.
                 properties:
                   addVolumeOptions:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         disk:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               bus:
+                                description: |-
+                                  (String) Disk bus type used by the attached data volume (for example, virtio or sata).
+                                  Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: |-
+                                  (String) Name of the volume attachment in the virtual machine spec.
+                                  Name of the disk definition in the virtual machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the volume attachment in the virtual machine spec.
                           type: string
                         volumeSource:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               dataVolume:
+                                description: '(Block List, Min: 1, Max: 1) (see below
+                                  for nested schema)'
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: |-
+                                        plugged while the virtual machine is running.
+                                        Whether this data volume can be hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the data volume source referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -471,114 +544,124 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: |-
+                      (String) Resource context for the target cluster. Allowed values are project or tenant.
+                      Resource context for the target cluster. Allowed values are `project` or `tenant`.
                     type: string
                   clusterUid:
-                    description: The cluster UID to which the virtual machine belongs
-                      to.
+                    description: |-
+                      (String) The cluster UID to which the virtual machine belongs to.
+                      The cluster UID to which the virtual machine belongs to.
                     type: string
                   metadata:
-                    description: 'Standard DataVolume''s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata'
+                    description: |-
+                      architecture/api-conventions.md#metadata (see below for nested schema)
+                      Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
                     items:
                       properties:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: |-
+                            guide/annotations.
+                            An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                           type: object
                           x-kubernetes-map-type: granular
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: |-
+                            guide/labels.
+                            Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                           type: string
                         namespace:
-                          description: Namespace defines the space within which name
-                            of the DataVolume must be unique.
+                          description: |-
+                            (String) Namespace defines the space within which name of the DataVolume must be unique.
+                            Namespace defines the space within which name of the DataVolume must be unique.
                           type: string
                       type: object
                     type: array
                   spec:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         contentType:
-                          description: 'ContentType options: "kubevirt", "archive".'
+                          description: |-
+                            (String) ContentType options: "kubevirt", "archive".
+                            ContentType options: "kubevirt", "archive".
                           type: string
                         pvc:
-                          description: PVC is a pointer to the PVC Spec we want to
-                            use.
+                          description: |-
+                            (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                            PVC is a pointer to the PVC Spec we want to use.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators ard `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -588,150 +671,163 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                         source:
-                          description: Source is the src of the data for the requested
-                            DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
+                            Source is the src of the data for the requested DataVolume.
                           items:
                             properties:
                               blank:
-                                description: DataVolumeSourceBlank provides the parameters
-                                  to create a Data Volume from an empty source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
+                                  DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
                                 items:
                                   type: object
                                 type: array
                               http:
-                                description: DataVolumeSourceHTTP provides the parameters
-                                  to create a Data Volume from an HTTP source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
+                                  DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
                                 items:
                                   properties:
                                     certConfigMap:
-                                      description: Cert_config_map provides a reference
-                                        to the Registry certs.
+                                      description: |-
+                                        (String) Cert_config_map provides a reference to the Registry certs.
+                                        Cert_config_map provides a reference to the Registry certs.
                                       type: string
                                     secretRef:
-                                      description: Secret_ref provides the secret
-                                        reference needed to access the HTTP source.
+                                      description: |-
+                                        (String) Secret_ref provides the secret reference needed to access the HTTP source.
+                                        Secret_ref provides the secret reference needed to access the HTTP source.
                                       type: string
                                     url:
-                                      description: url is the URL of the http source.
+                                      description: |-
+                                        (String) url is the URL of the http source.
+                                        url is the URL of the http source.
                                       type: string
                                   type: object
                                 type: array
                               pvc:
-                                description: DataVolumeSourcePVC provides the parameters
-                                  to create a Data Volume from an existing PVC.
+                                description: |-
+                                  (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                                  DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the source PVC to clone from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: |-
+                                        (String) Namespace defines the space within which name of the DataVolume must be unique.
+                                        Namespace where the source PVC is located.
                                       type: string
                                   type: object
                                 type: array
                               registry:
-                                description: DataVolumeSourceRegistry provides the
-                                  parameters to create a Data Volume from an existing
-                                  PVC.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
+                                  DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     imageUrl:
-                                      description: The registry URL of the image to
-                                        download.
+                                      description: |-
+                                        (String) The registry URL of the image to download.
+                                        The registry URL of the image to download.
                                       type: string
                                   type: object
                                 type: array
                             type: object
                           type: array
                         storage:
-                          description: Storage is the requested storage specification
-                            for the DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
+                            Storage is the requested storage specification for the DataVolume.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators are `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
                                             items:
                                               type: string
                                             type: array
@@ -741,54 +837,59 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   status:
-                    description: DataVolumeStatus provides the parameters to store
-                      the phase of the Data Volume
+                    description: |-
+                      (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
+                      DataVolumeStatus provides the parameters to store the phase of the Data Volume
                     items:
                       properties:
                         phase:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                         progress:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                       type: object
                     type: array
                   vmName:
-                    description: The name of the virtual machine to which the data
-                      volume belongs to.
+                    description: |-
+                      (String) The name of the virtual machine to which the data volume belongs to.
+                      The name of the virtual machine to which the data volume belongs to.
                     type: string
                   vmNamespace:
-                    description: The namespace of the virtual machine to which the
-                      data volume belongs to.
+                    description: |-
+                      (String) The namespace of the virtual machine to which the data volume belongs to.
+                      The namespace of the virtual machine to which the data volume belongs to.
                     type: string
                 type: object
               managementPolicies:
@@ -900,30 +1001,52 @@ spec:
               atProvider:
                 properties:
                   addVolumeOptions:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         disk:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               bus:
+                                description: |-
+                                  (String) Disk bus type used by the attached data volume (for example, virtio or sata).
+                                  Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
                                 type: string
                               name:
+                                description: |-
+                                  (String) Name of the volume attachment in the virtual machine spec.
+                                  Name of the disk definition in the virtual machine spec.
                                 type: string
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the volume attachment in the virtual machine spec.
                           type: string
                         volumeSource:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               dataVolume:
+                                description: '(Block List, Min: 1, Max: 1) (see below
+                                  for nested schema)'
                                 items:
                                   properties:
                                     hotpluggable:
+                                      description: |-
+                                        plugged while the virtual machine is running.
+                                        Whether this data volume can be hot-plugged while the virtual machine is running.
                                       type: boolean
                                     name:
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the data volume source referenced by this attachment.
                                       type: string
                                   type: object
                                 type: array
@@ -932,129 +1055,142 @@ spec:
                       type: object
                     type: array
                   clusterContext:
+                    description: |-
+                      (String) Resource context for the target cluster. Allowed values are project or tenant.
+                      Resource context for the target cluster. Allowed values are `project` or `tenant`.
                     type: string
                   clusterUid:
-                    description: The cluster UID to which the virtual machine belongs
-                      to.
+                    description: |-
+                      (String) The cluster UID to which the virtual machine belongs to.
+                      The cluster UID to which the virtual machine belongs to.
                     type: string
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   metadata:
-                    description: 'Standard DataVolume''s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata'
+                    description: |-
+                      architecture/api-conventions.md#metadata (see below for nested schema)
+                      Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
                     items:
                       properties:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: 'An unstructured key value map stored with
-                            the DataVolume that may be used to store arbitrary metadata.
-                            More info: http://kubernetes.io/docs/user-guide/annotations'
+                          description: |-
+                            guide/annotations.
+                            An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
                           type: object
                           x-kubernetes-map-type: granular
                         generation:
-                          description: A sequence number representing a specific generation
-                            of the desired state.
+                          description: |-
+                            (Number) A sequence number representing a specific generation of the desired state.
+                            A sequence number representing a specific generation of the desired state.
                           type: number
                         labels:
                           additionalProperties:
                             type: string
-                          description: 'Map of string keys and values that can be
-                            used to organize and categorize (scope and select) the
-                            DataVolume. May match selectors of replication controllers
-                            and services. More info: http://kubernetes.io/docs/user-guide/labels'
+                          description: |-
+                            guide/labels.
+                            Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
                           type: object
                           x-kubernetes-map-type: granular
                         name:
-                          description: 'Name of the DataVolume, must be unique. Cannot
-                            be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                          description: |-
+                            (String) Name of the volume attachment in the virtual machine spec.
+                            Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
                           type: string
                         namespace:
-                          description: Namespace defines the space within which name
-                            of the DataVolume must be unique.
+                          description: |-
+                            (String) Namespace defines the space within which name of the DataVolume must be unique.
+                            Namespace defines the space within which name of the DataVolume must be unique.
                           type: string
                         resourceVersion:
-                          description: 'An opaque value that represents the internal
-                            version of this DataVolume that can be used by clients
-                            to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
+                          description: |-
+                            architecture/api-conventions.md#concurrency-control-and-consistency
+                            An opaque value that represents the internal version of this DataVolume that can be used by clients to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                           type: string
                         uid:
-                          description: 'The unique in time and space value for this
-                            DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids'
+                          description: |-
+                            guide/identifiers#uids
+                            The unique in time and space value for this DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
                           type: string
                       type: object
                     type: array
                   spec:
-                    description: DataVolumeSpec defines our specification for a DataVolume
-                      type
+                    description: |-
+                      (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
+                      DataVolumeSpec defines our specification for a DataVolume type
                     items:
                       properties:
                         contentType:
-                          description: 'ContentType options: "kubevirt", "archive".'
+                          description: |-
+                            (String) ContentType options: "kubevirt", "archive".
+                            ContentType options: "kubevirt", "archive".
                           type: string
                         pvc:
-                          description: PVC is a pointer to the PVC Spec we want to
-                            use.
+                          description: |-
+                            (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                            PVC is a pointer to the PVC Spec we want to use.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators ard `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -1064,150 +1200,163 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                         source:
-                          description: Source is the src of the data for the requested
-                            DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
+                            Source is the src of the data for the requested DataVolume.
                           items:
                             properties:
                               blank:
-                                description: DataVolumeSourceBlank provides the parameters
-                                  to create a Data Volume from an empty source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
+                                  DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
                                 items:
                                   type: object
                                 type: array
                               http:
-                                description: DataVolumeSourceHTTP provides the parameters
-                                  to create a Data Volume from an HTTP source.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
+                                  DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
                                 items:
                                   properties:
                                     certConfigMap:
-                                      description: Cert_config_map provides a reference
-                                        to the Registry certs.
+                                      description: |-
+                                        (String) Cert_config_map provides a reference to the Registry certs.
+                                        Cert_config_map provides a reference to the Registry certs.
                                       type: string
                                     secretRef:
-                                      description: Secret_ref provides the secret
-                                        reference needed to access the HTTP source.
+                                      description: |-
+                                        (String) Secret_ref provides the secret reference needed to access the HTTP source.
+                                        Secret_ref provides the secret reference needed to access the HTTP source.
                                       type: string
                                     url:
-                                      description: url is the URL of the http source.
+                                      description: |-
+                                        (String) url is the URL of the http source.
+                                        url is the URL of the http source.
                                       type: string
                                   type: object
                                 type: array
                               pvc:
-                                description: DataVolumeSourcePVC provides the parameters
-                                  to create a Data Volume from an existing PVC.
+                                description: |-
+                                  (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
+                                  DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     name:
-                                      description: The name of the PVC.
+                                      description: |-
+                                        (String) Name of the volume attachment in the virtual machine spec.
+                                        Name of the source PVC to clone from.
                                       type: string
                                     namespace:
-                                      description: The namespace which the PVC located
-                                        in.
+                                      description: |-
+                                        (String) Namespace defines the space within which name of the DataVolume must be unique.
+                                        Namespace where the source PVC is located.
                                       type: string
                                   type: object
                                 type: array
                               registry:
-                                description: DataVolumeSourceRegistry provides the
-                                  parameters to create a Data Volume from an existing
-                                  PVC.
+                                description: |-
+                                  (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
+                                  DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
                                 items:
                                   properties:
                                     imageUrl:
-                                      description: The registry URL of the image to
-                                        download.
+                                      description: |-
+                                        (String) The registry URL of the image to download.
+                                        The registry URL of the image to download.
                                       type: string
                                   type: object
                                 type: array
                             type: object
                           type: array
                         storage:
-                          description: Storage is the requested storage specification
-                            for the DataVolume.
+                          description: |-
+                            (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
+                            Storage is the requested storage specification for the DataVolume.
                           items:
                             properties:
                               accessModes:
-                                description: 'A set of the desired access modes the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                description: |-
+                                  guide/persistent-volumes#access-modes-1.
+                                  Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
                                 items:
                                   type: string
                                 type: array
                                 x-kubernetes-list-type: set
                               resources:
-                                description: 'A list of the minimum resources the
-                                  volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
+                                description: |-
+                                  guide/persistent-volumes#resources (see below for nested schema)
+                                  A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
                                 items:
                                   properties:
                                     limits:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the maximum amount
-                                        of compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        guide/compute-resources/.
+                                        Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                     requests:
                                       additionalProperties:
                                         type: string
-                                      description: 'Map describing the minimum amount
-                                        of compute resources required. If this is
-                                        omitted for a container, it defaults to `limits`
-                                        if that is explicitly specified, otherwise
-                                        to an implementation-defined value. More info:
-                                        http://kubernetes.io/docs/user-guide/compute-resources/'
+                                      description: |-
+                                        defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
+                                        Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               selector:
-                                description: A label query over volumes to consider
-                                  for binding.
+                                description: |-
+                                  (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
+                                  A label query over volumes to consider for binding.
                                 items:
                                   properties:
                                     matchExpressions:
-                                      description: A list of label selector requirements.
-                                        The requirements are ANDed.
+                                      description: |-
+                                        (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
+                                        A list of label selector requirements. The requirements are ANDed.
                                       items:
                                         properties:
                                           key:
-                                            description: The label key that the selector
-                                              applies to.
+                                            description: |-
+                                              (String) The label key that the selector applies to.
+                                              The label key that the selector applies to.
                                             type: string
                                           operator:
-                                            description: A key's relationship to a
-                                              set of values. Valid operators are `In`,
-                                              `NotIn`, `Exists` and `DoesNotExist`.
+                                            description: |-
+                                              (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
+                                              A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is `In` or `NotIn`,
-                                              the values array must be non-empty.
-                                              If the operator is `Exists` or `DoesNotExist`,
-                                              the values array must be empty.
+                                            description: |-
+                                              empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                              An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
                                             items:
                                               type: string
                                             type: array
@@ -1217,54 +1366,59 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: A map of {key,value} pairs. A single
-                                        {key,value} in the matchLabels map is equivalent
-                                        to an element of `match_expressions`, whose
-                                        key field is "key", the operator is "In",
-                                        and the values array contains only "value".
+                                      description: |-
+                                        (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                        A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
                                       type: object
                                       x-kubernetes-map-type: granular
                                   type: object
                                 type: array
                               storageClassName:
-                                description: Name of the storage class requested by
-                                  the claim
+                                description: |-
+                                  (String) Name of the storage class requested by the claim.
+                                  Name of the storage class requested by the claim.
                                 type: string
                               volumeMode:
-                                description: volumeMode defines what type of volume
-                                  is required by the claim. Value of Filesystem is
-                                  implied when not included in claim spec.
+                                description: |-
+                                  (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+                                  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
                                 type: string
                               volumeName:
-                                description: The binding reference to the PersistentVolume
-                                  backing this claim.
+                                description: |-
+                                  (String) The binding reference to the PersistentVolume backing this claim.
+                                  The binding reference to the PersistentVolume backing this claim.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   status:
-                    description: DataVolumeStatus provides the parameters to store
-                      the phase of the Data Volume
+                    description: |-
+                      (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
+                      DataVolumeStatus provides the parameters to store the phase of the Data Volume
                     items:
                       properties:
                         phase:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                         progress:
-                          description: DataVolumePhase is the current phase of the
-                            DataVolume.
+                          description: |-
+                            (String) DataVolumePhase is the current phase of the DataVolume.
+                            DataVolumePhase is the current phase of the DataVolume.
                           type: string
                       type: object
                     type: array
                   vmName:
-                    description: The name of the virtual machine to which the data
-                      volume belongs to.
+                    description: |-
+                      (String) The name of the virtual machine to which the data volume belongs to.
+                      The name of the virtual machine to which the data volume belongs to.
                     type: string
                   vmNamespace:
-                    description: The namespace of the virtual machine to which the
-                      data volume belongs to.
+                    description: |-
+                      (String) The namespace of the virtual machine to which the data volume belongs to.
+                      The namespace of the virtual machine to which the data volume belongs to.
                     type: string
                 type: object
               conditions:

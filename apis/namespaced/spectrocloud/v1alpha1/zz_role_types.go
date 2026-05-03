@@ -20,8 +20,8 @@ type RoleInitParameters struct {
 	// The name of the role.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) The permission's assigned to the role.
-	// The permission's assigned to the role.
+	// (Set of String) Set of permission ID strings assigned to the role.
+	// Set of permission ID strings assigned to the role.
 	// +listType=set
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
@@ -39,8 +39,8 @@ type RoleObservation struct {
 	// The name of the role.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) The permission's assigned to the role.
-	// The permission's assigned to the role.
+	// (Set of String) Set of permission ID strings assigned to the role.
+	// Set of permission ID strings assigned to the role.
 	// +listType=set
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
@@ -56,8 +56,8 @@ type RoleParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) The permission's assigned to the role.
-	// The permission's assigned to the role.
+	// (Set of String) Set of permission ID strings assigned to the role.
+	// Set of permission ID strings assigned to the role.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`

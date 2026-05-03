@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Workspace is the Schema for the Workspaces API.
+        description: Workspace is the Schema for the Workspaces API. Resource for
+          managing workspaces in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -229,7 +230,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the workspace.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -256,15 +257,21 @@ spec:
                     items:
                       properties:
                         uid:
-                          description: (String)
+                          description: |-
+                            (String) UID of the cluster attached to this workspace.
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the workspace.
+                      Description of the workspace.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the workspace.
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -286,7 +293,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String) UID of the cluster attached to this workspace.
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -299,7 +308,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the workspace.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -313,7 +322,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) Set of tag strings in the form key:value applied to the workspace.
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array
@@ -526,7 +537,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the workspace.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -553,15 +564,21 @@ spec:
                     items:
                       properties:
                         uid:
-                          description: (String)
+                          description: |-
+                            (String) UID of the cluster attached to this workspace.
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the workspace.
+                      Description of the workspace.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the workspace.
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -583,7 +600,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String) UID of the cluster attached to this workspace.
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -596,7 +615,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the workspace.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -610,7 +629,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) Set of tag strings in the form key:value applied to the workspace.
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array
@@ -800,7 +821,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the workspace.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -830,18 +851,24 @@ spec:
                           description: (String)
                           type: string
                         uid:
-                          description: (String)
+                          description: |-
+                            (String) UID of the cluster attached to this workspace.
+                            UID of the cluster attached to this workspace.
                           type: string
                       type: object
                     type: array
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the workspace.
+                      Description of the workspace.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the workspace.
+                      Name of the workspace.
                     type: string
                   namespaces:
                     description: |-
@@ -863,7 +890,9 @@ spec:
                                 type: object
                                 x-kubernetes-map-type: granular
                               uid:
-                                description: (String)
+                                description: |-
+                                  (String) UID of the cluster attached to this workspace.
+                                  UID of the cluster for this namespace-specific resource allocation.
                                 type: string
                             type: object
                           type: array
@@ -876,7 +905,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the workspace.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -890,7 +919,9 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String)
+                    description: |-
+                      (Set of String) Set of tag strings in the form key:value applied to the workspace.
+                      Set of tag strings in the form `key:value` applied to the workspace.
                     items:
                       type: string
                     type: array

@@ -84,10 +84,14 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the cluster profile.
+                      Description of the cluster profile.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the cluster profile.
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -106,14 +110,14 @@ spec:
                                 type: string
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the manifest. The name must be unique within the pack.
                                 type: string
                             type: object
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the cluster profile.
                             The name of the pack. The name must be unique within the cluster profile.
                           type: string
                         registryName:
@@ -166,7 +170,7 @@ spec:
                                 type: string
                               description:
                                 description: |-
-                                  (String)
+                                  (String) Description of the cluster profile.
                                   The description of the variable.
                                 type: string
                               displayName:
@@ -201,7 +205,7 @@ spec:
                                 type: boolean
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
@@ -212,7 +216,7 @@ spec:
                                   properties:
                                     description:
                                       description: |-
-                                        (String)
+                                        (String) Description of the cluster profile.
                                         The description of the option.
                                       type: string
                                     label:
@@ -255,11 +259,11 @@ spec:
                       Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
                     type: string
                   version:
-                    description: 'Defaults to ''1.0.0''. **Important**: Modifying
-                      this value will only update the version number of the existing
-                      cluster profile. It will NOT create a new version in Palette.
-                      To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                    description: 'Version of the cluster profile. Defaults to ''1.0.0''.
+                      **Important**: Modifying this value will only update the version
+                      number of the existing cluster profile. It will NOT create a
+                      new version in Palette. To create a new version of a cluster
+                      profile, refer to the example at: https://github.'
                     type: string
                 type: object
               initProvider:
@@ -286,10 +290,14 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the cluster profile.
+                      Description of the cluster profile.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the cluster profile.
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -308,14 +316,14 @@ spec:
                                 type: string
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the manifest. The name must be unique within the pack.
                                 type: string
                             type: object
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the cluster profile.
                             The name of the pack. The name must be unique within the cluster profile.
                           type: string
                         registryName:
@@ -368,7 +376,7 @@ spec:
                                 type: string
                               description:
                                 description: |-
-                                  (String)
+                                  (String) Description of the cluster profile.
                                   The description of the variable.
                                 type: string
                               displayName:
@@ -403,7 +411,7 @@ spec:
                                 type: boolean
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
@@ -414,7 +422,7 @@ spec:
                                   properties:
                                     description:
                                       description: |-
-                                        (String)
+                                        (String) Description of the cluster profile.
                                         The description of the option.
                                       type: string
                                     label:
@@ -457,11 +465,11 @@ spec:
                       Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
                     type: string
                   version:
-                    description: 'Defaults to ''1.0.0''. **Important**: Modifying
-                      this value will only update the version number of the existing
-                      cluster profile. It will NOT create a new version in Palette.
-                      To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                    description: 'Version of the cluster profile. Defaults to ''1.0.0''.
+                      **Important**: Modifying this value will only update the version
+                      number of the existing cluster profile. It will NOT create a
+                      new version in Palette. To create a new version of a cluster
+                      profile, refer to the example at: https://github.'
                     type: string
                 type: object
               managementPolicies:
@@ -571,13 +579,17 @@ spec:
                       The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: (String)
+                    description: |-
+                      (String) Description of the cluster profile.
+                      Description of the cluster profile.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the cluster profile.
+                      Name of the cluster profile.
                     type: string
                   pack:
                     description: |-
@@ -596,7 +608,7 @@ spec:
                                 type: string
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the manifest. The name must be unique within the pack.
                                 type: string
                               uid:
@@ -612,7 +624,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the cluster profile.
                             The name of the pack. The name must be unique within the cluster profile.
                           type: string
                         registryName:
@@ -665,7 +677,7 @@ spec:
                                 type: string
                               description:
                                 description: |-
-                                  (String)
+                                  (String) Description of the cluster profile.
                                   The description of the variable.
                                 type: string
                               displayName:
@@ -700,7 +712,7 @@ spec:
                                 type: boolean
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the cluster profile.
                                   The name of the variable should be unique among variables.
                                 type: string
                               options:
@@ -716,7 +728,7 @@ spec:
                                       type: boolean
                                     description:
                                       description: |-
-                                        (String)
+                                        (String) Description of the cluster profile.
                                         The description of the option.
                                       type: string
                                     label:
@@ -759,11 +771,11 @@ spec:
                       Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
                     type: string
                   version:
-                    description: 'Defaults to ''1.0.0''. **Important**: Modifying
-                      this value will only update the version number of the existing
-                      cluster profile. It will NOT create a new version in Palette.
-                      To create a new version of a cluster profile, refer to the example
-                      at: https://github'
+                    description: 'Version of the cluster profile. Defaults to ''1.0.0''.
+                      **Important**: Modifying this value will only update the version
+                      number of the existing cluster profile. It will NOT create a
+                      new version in Palette. To create a new version of a cluster
+                      profile, refer to the example at: https://github.'
                     type: string
                 type: object
               conditions:

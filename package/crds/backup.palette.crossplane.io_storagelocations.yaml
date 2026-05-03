@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: StorageLocation is the Schema for the StorageLocations API.
+        description: StorageLocation is the Schema for the StorageLocations API. Resource
+          for managing backup storage locations in Spectro Cloud.
         properties:
           apiVersion:
             description: |-

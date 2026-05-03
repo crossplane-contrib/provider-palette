@@ -1,6 +1,8 @@
 module github.com/crossplane-contrib/provider-palette
 
-go 1.24.0
+go 1.26.0
+
+toolchain go1.26.2
 
 require (
 	dario.cat/mergo v1.0.2

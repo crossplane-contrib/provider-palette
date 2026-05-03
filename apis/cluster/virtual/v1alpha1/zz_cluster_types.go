@@ -178,59 +178,74 @@ type BackupPolicyParameters struct {
 
 type CloudConfigInitParameters struct {
 
-	// (String)
+	// (String) Helm chart name used to install the virtual cluster control plane.
+	// Helm chart name used to install the virtual cluster control plane.
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
-	// (String)
+	// (String) Helm repository URL for the virtual cluster chart.
+	// Helm repository URL for the virtual cluster chart.
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
-	// (String)
+	// (String) YAML values override passed to the virtual cluster Helm chart.
+	// YAML values override passed to the virtual cluster Helm chart.
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
-	// (String)
+	// (String) Helm chart version for the virtual cluster deployment.
+	// Helm chart version for the virtual cluster deployment.
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
-	// (String)
+	// (String) Kubernetes version for the virtual cluster control plane.
+	// Kubernetes version for the virtual cluster control plane.
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
 
 type CloudConfigObservation struct {
 
-	// (String)
+	// (String) Helm chart name used to install the virtual cluster control plane.
+	// Helm chart name used to install the virtual cluster control plane.
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
-	// (String)
+	// (String) Helm repository URL for the virtual cluster chart.
+	// Helm repository URL for the virtual cluster chart.
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
-	// (String)
+	// (String) YAML values override passed to the virtual cluster Helm chart.
+	// YAML values override passed to the virtual cluster Helm chart.
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
-	// (String)
+	// (String) Helm chart version for the virtual cluster deployment.
+	// Helm chart version for the virtual cluster deployment.
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
-	// (String)
+	// (String) Kubernetes version for the virtual cluster control plane.
+	// Kubernetes version for the virtual cluster control plane.
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
 
 type CloudConfigParameters struct {
 
-	// (String)
+	// (String) Helm chart name used to install the virtual cluster control plane.
+	// Helm chart name used to install the virtual cluster control plane.
 	// +kubebuilder:validation:Optional
 	ChartName *string `json:"chartName,omitempty" tf:"chart_name,omitempty"`
 
-	// (String)
+	// (String) Helm repository URL for the virtual cluster chart.
+	// Helm repository URL for the virtual cluster chart.
 	// +kubebuilder:validation:Optional
 	ChartRepo *string `json:"chartRepo,omitempty" tf:"chart_repo,omitempty"`
 
-	// (String)
+	// (String) YAML values override passed to the virtual cluster Helm chart.
+	// YAML values override passed to the virtual cluster Helm chart.
 	// +kubebuilder:validation:Optional
 	ChartValues *string `json:"chartValues,omitempty" tf:"chart_values,omitempty"`
 
-	// (String)
+	// (String) Helm chart version for the virtual cluster deployment.
+	// Helm chart version for the virtual cluster deployment.
 	// +kubebuilder:validation:Optional
 	ChartVersion *string `json:"chartVersion,omitempty" tf:"chart_version,omitempty"`
 
-	// (String)
+	// (String) Kubernetes version for the virtual cluster control plane.
+	// Kubernetes version for the virtual cluster control plane.
 	// +kubebuilder:validation:Optional
 	K8SVersion *string `json:"k8sVersion,omitempty" tf:"k8s_version,omitempty"`
 }
@@ -248,7 +263,8 @@ type ClusterInitParameters struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	CloudConfig []CloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster group used to select the host cluster.
+	// UID of the cluster group used to select the host cluster.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Group
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
@@ -287,10 +303,12 @@ type ClusterInitParameters struct {
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
-	// (String)
+	// (String) UID of the host cluster where this virtual cluster is created.
+	// UID of the host cluster where this virtual cluster is created.
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
+	// Name of the virtual cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -359,7 +377,8 @@ type ClusterObservation struct {
 	// ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster group used to select the host cluster.
+	// UID of the cluster group used to select the host cluster.
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
 
 	// (Block Set) (see below for nested schema)
@@ -389,7 +408,8 @@ type ClusterObservation struct {
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
-	// (String)
+	// (String) UID of the host cluster where this virtual cluster is created.
+	// UID of the host cluster where this virtual cluster is created.
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
 	// (String) The ID of this resource.
@@ -403,7 +423,8 @@ type ClusterObservation struct {
 	// The location of the cluster.
 	LocationConfig []LocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
+	// Name of the virtual cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) The namespaces for the cluster. (see below for nested schema)
@@ -467,7 +488,8 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudConfig []CloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster group used to select the host cluster.
+	// UID of the cluster group used to select the host cluster.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	ClusterGroupUID *string `json:"clusterGroupUid,omitempty" tf:"cluster_group_uid,omitempty"`
@@ -514,11 +536,13 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
-	// (String)
+	// (String) UID of the host cluster where this virtual cluster is created.
+	// UID of the host cluster where this virtual cluster is created.
 	// +kubebuilder:validation:Optional
 	HostClusterUID *string `json:"hostClusterUid,omitempty" tf:"host_cluster_uid,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
+	// Name of the virtual cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -741,7 +765,7 @@ type ManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -752,7 +776,7 @@ type ManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -767,7 +791,7 @@ type ManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -775,7 +799,7 @@ type ManifestParameters struct {
 
 type NamespacesInitParameters struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -787,7 +811,7 @@ type NamespacesInitParameters struct {
 
 type NamespacesObservation struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -799,7 +823,7 @@ type NamespacesObservation struct {
 
 type NamespacesParameters struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -816,7 +840,7 @@ type PackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -850,7 +874,7 @@ type PackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -885,7 +909,7 @@ type PackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -923,69 +947,87 @@ type PackParameters struct {
 
 type ResourcesInitParameters struct {
 
-	// (Number)
+	// (Number) Maximum vCPU allocation for the virtual cluster.
+	// Maximum vCPU allocation for the virtual cluster.
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Maximum memory allocation in MB for the virtual cluster.
+	// Maximum memory allocation in MB for the virtual cluster.
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Maximum storage allocation in GB for the virtual cluster.
+	// Maximum storage allocation in GB for the virtual cluster.
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum vCPU allocation for the virtual cluster.
+	// Minimum vCPU allocation for the virtual cluster.
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Minimum memory allocation in MB for the virtual cluster.
+	// Minimum memory allocation in MB for the virtual cluster.
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum storage allocation in GB for the virtual cluster.
+	// Minimum storage allocation in GB for the virtual cluster.
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }
 
 type ResourcesObservation struct {
 
-	// (Number)
+	// (Number) Maximum vCPU allocation for the virtual cluster.
+	// Maximum vCPU allocation for the virtual cluster.
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Maximum memory allocation in MB for the virtual cluster.
+	// Maximum memory allocation in MB for the virtual cluster.
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Maximum storage allocation in GB for the virtual cluster.
+	// Maximum storage allocation in GB for the virtual cluster.
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum vCPU allocation for the virtual cluster.
+	// Minimum vCPU allocation for the virtual cluster.
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Minimum memory allocation in MB for the virtual cluster.
+	// Minimum memory allocation in MB for the virtual cluster.
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum storage allocation in GB for the virtual cluster.
+	// Minimum storage allocation in GB for the virtual cluster.
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }
 
 type ResourcesParameters struct {
 
-	// (Number)
+	// (Number) Maximum vCPU allocation for the virtual cluster.
+	// Maximum vCPU allocation for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxCPU *float64 `json:"maxCpu,omitempty" tf:"max_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Maximum memory allocation in MB for the virtual cluster.
+	// Maximum memory allocation in MB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxMemInMb *float64 `json:"maxMemInMb,omitempty" tf:"max_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Maximum storage allocation in GB for the virtual cluster.
+	// Maximum storage allocation in GB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MaxStorageInGb *float64 `json:"maxStorageInGb,omitempty" tf:"max_storage_in_gb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum vCPU allocation for the virtual cluster.
+	// Minimum vCPU allocation for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinCPU *float64 `json:"minCpu,omitempty" tf:"min_cpu,omitempty"`
 
-	// (Number)
+	// (Number) Minimum memory allocation in MB for the virtual cluster.
+	// Minimum memory allocation in MB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinMemInMb *float64 `json:"minMemInMb,omitempty" tf:"min_mem_in_mb,omitempty"`
 
-	// (Number)
+	// (Number) Minimum storage allocation in GB for the virtual cluster.
+	// Minimum storage allocation in GB for the virtual cluster.
 	// +kubebuilder:validation:Optional
 	MinStorageInGb *float64 `json:"minStorageInGb,omitempty" tf:"min_storage_in_gb,omitempty"`
 }
@@ -1040,7 +1082,7 @@ type ScanPolicyParameters struct {
 
 type SubjectsInitParameters struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1055,7 +1097,7 @@ type SubjectsInitParameters struct {
 
 type SubjectsObservation struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1070,7 +1112,7 @@ type SubjectsObservation struct {
 
 type SubjectsParameters struct {
 
-	// (String)
+	// (String) Name of the virtual cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`

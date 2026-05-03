@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Maas is the Schema for the Maass API.
+        description: Maas is the Schema for the Maass API. Resource for managing MaaS
+          cloud accounts in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -65,8 +66,8 @@ spec:
                     type: string
                   maasApiEndpoint:
                     description: |-
-                      (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   maasApiKeySecretRef:
                     description: |-
@@ -113,8 +114,8 @@ spec:
                     type: string
                   maasApiEndpoint:
                     description: |-
-                      (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   maasApiKeySecretRef:
                     description: |-
@@ -232,8 +233,8 @@ spec:
                     type: string
                   maasApiEndpoint:
                     description: |-
-                      (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
-                      Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+                      (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
+                      Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
                     type: string
                   name:
                     description: |-

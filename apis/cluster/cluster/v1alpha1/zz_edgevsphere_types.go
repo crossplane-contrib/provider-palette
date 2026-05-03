@@ -15,6 +15,7 @@ import (
 
 type EdgeVsphereBackupPolicyInitParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
@@ -27,73 +28,93 @@ type EdgeVsphereBackupPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type EdgeVsphereBackupPolicyObservation struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	BackupLocationID *string `json:"backupLocationId,omitempty" tf:"backup_location_id,omitempty"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	ExpiryInHour *float64 `json:"expiryInHour,omitempty" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type EdgeVsphereBackupPolicyParameters struct {
 
+	// (String) The ID of the backup location to use for the backup.
 	// The ID of the backup location to use for the backup.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/backup/v1alpha1.StorageLocation
 	// +kubebuilder:validation:Optional
@@ -107,126 +128,186 @@ type EdgeVsphereBackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupLocationIDSelector *v1.Selector `json:"backupLocationIdSelector,omitempty" tf:"-"`
 
+	// (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
 	// The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ClusterUids []*string `json:"clusterUids,omitempty" tf:"cluster_uids,omitempty"`
 
+	// (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
 	// +kubebuilder:validation:Optional
 	ExpiryInHour *float64 `json:"expiryInHour" tf:"expiry_in_hour,omitempty"`
 
+	// (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
 	// Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
 	// +kubebuilder:validation:Optional
 	IncludeAllClusters *bool `json:"includeAllClusters,omitempty" tf:"include_all_clusters,omitempty"`
 
+	// (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
 	// +kubebuilder:validation:Optional
 	IncludeClusterResources *bool `json:"includeClusterResources,omitempty" tf:"include_cluster_resources,omitempty"`
 
+	// (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
 	// Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
 	// +kubebuilder:validation:Optional
 	IncludeClusterResourcesMode *string `json:"includeClusterResourcesMode,omitempty" tf:"include_cluster_resources_mode,omitempty"`
 
+	// (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// -.
 	// Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix" tf:"prefix,omitempty"`
 
+	// (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
 	// The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
 	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule" tf:"schedule,omitempty"`
 }
 
 type EdgeVsphereCloudConfigInitParameters struct {
+
+	// (String) Name of the vSphere datacenter used by this cluster.
+	// Name of the vSphere datacenter used by this cluster.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// (String) vSphere inventory folder where cluster virtual machines are created.
+	// vSphere inventory folder where cluster virtual machines are created.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
+	// (String) vSphere folder containing VM image templates used for node provisioning.
+	// vSphere folder containing VM image templates used for node provisioning.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// (String) DNS search domain associated with the control plane endpoint.
+	// DNS search domain associated with the control plane endpoint.
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// (String) Type of network endpoint used for the control plane address.
+	// Type of network endpoint used for the control plane address.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
+	// (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// (String) Virtual IP address for the Kubernetes control plane endpoint.
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
 type EdgeVsphereCloudConfigObservation struct {
+
+	// (String) Name of the vSphere datacenter used by this cluster.
+	// Name of the vSphere datacenter used by this cluster.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// (String) vSphere inventory folder where cluster virtual machines are created.
+	// vSphere inventory folder where cluster virtual machines are created.
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
+	// (String) vSphere folder containing VM image templates used for node provisioning.
+	// vSphere folder containing VM image templates used for node provisioning.
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// (String) DNS search domain associated with the control plane endpoint.
+	// DNS search domain associated with the control plane endpoint.
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// (String) Type of network endpoint used for the control plane address.
+	// Type of network endpoint used for the control plane address.
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
+	// (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// (String) Virtual IP address for the Kubernetes control plane endpoint.
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
 type EdgeVsphereCloudConfigParameters struct {
 
+	// (String) Name of the vSphere datacenter used by this cluster.
+	// Name of the vSphere datacenter used by this cluster.
 	// +kubebuilder:validation:Optional
 	Datacenter *string `json:"datacenter" tf:"datacenter,omitempty"`
 
+	// (String) vSphere inventory folder where cluster virtual machines are created.
+	// vSphere inventory folder where cluster virtual machines are created.
 	// +kubebuilder:validation:Optional
 	Folder *string `json:"folder" tf:"folder,omitempty"`
 
+	// (String) vSphere folder containing VM image templates used for node provisioning.
+	// vSphere folder containing VM image templates used for node provisioning.
 	// +kubebuilder:validation:Optional
 	ImageTemplateFolder *string `json:"imageTemplateFolder,omitempty" tf:"image_template_folder,omitempty"`
 
+	// (String) DNS search domain associated with the control plane endpoint.
+	// DNS search domain associated with the control plane endpoint.
 	// +kubebuilder:validation:Optional
 	NetworkSearchDomain *string `json:"networkSearchDomain,omitempty" tf:"network_search_domain,omitempty"`
 
+	// (String) Type of network endpoint used for the control plane address.
+	// Type of network endpoint used for the control plane address.
 	// +kubebuilder:validation:Optional
 	NetworkType *string `json:"networkType,omitempty" tf:"network_type,omitempty"`
 
+	// (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +kubebuilder:validation:Optional
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
+	// (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
 	// List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+	// Whether to use static IP addressing for the control plane endpoint. Default is `false`.
 	// +kubebuilder:validation:Optional
 	StaticIP *bool `json:"staticIp,omitempty" tf:"static_ip,omitempty"`
 
+	// (String) Virtual IP address for the Kubernetes control plane endpoint.
+	// Virtual IP address for the Kubernetes control plane endpoint.
 	// +kubebuilder:validation:Optional
 	Vip *string `json:"vip" tf:"vip,omitempty"`
 }
 
 type EdgeVsphereClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -239,9 +320,11 @@ type EdgeVsphereClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []EdgeVsphereClusterProfilePackInitParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -249,127 +332,163 @@ type EdgeVsphereClusterProfileInitParameters struct {
 
 type EdgeVsphereClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []EdgeVsphereClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackInitParameters struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []EdgeVsphereClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackManifestInitParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackManifestObservation struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackManifestParameters struct {
 
+	// (String) The content of the manifest. The content is the YAML content of the manifest.
 	// The content of the manifest. The content is the YAML content of the manifest.
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackObservation struct {
+
+	// (Block List) (see below for nested schema)
 	Manifest []EdgeVsphereClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type EdgeVsphereClusterProfilePackParameters struct {
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Manifest []EdgeVsphereClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryName *string `json:"registryName,omitempty" tf:"registry_name,omitempty"`
 
+	// (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
 	// The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
 	// +kubebuilder:validation:Optional
 	RegistryUID *string `json:"registryUid,omitempty" tf:"registry_uid,omitempty"`
 
+	// (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
 	// The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -377,6 +496,7 @@ type EdgeVsphereClusterProfilePackParameters struct {
 
 type EdgeVsphereClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -390,10 +510,12 @@ type EdgeVsphereClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
+	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	// +kubebuilder:validation:Optional
 	Pack []EdgeVsphereClusterProfilePackParameters `json:"pack,omitempty" tf:"pack,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -402,48 +524,60 @@ type EdgeVsphereClusterProfileParameters struct {
 
 type EdgeVsphereClusterRbacBindingInitParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []EdgeVsphereClusterRbacBindingSubjectsInitParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeVsphereClusterRbacBindingObservation struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Subjects []EdgeVsphereClusterRbacBindingSubjectsObservation `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeVsphereClusterRbacBindingParameters struct {
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Role map[string]*string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Subjects []EdgeVsphereClusterRbacBindingSubjectsParameters `json:"subjects,omitempty" tf:"subjects,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -451,38 +585,47 @@ type EdgeVsphereClusterRbacBindingParameters struct {
 
 type EdgeVsphereClusterRbacBindingSubjectsInitParameters struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeVsphereClusterRbacBindingSubjectsObservation struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EdgeVsphereClusterRbacBindingSubjectsParameters struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
 	// The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
 	// The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -490,6 +633,7 @@ type EdgeVsphereClusterRbacBindingSubjectsParameters struct {
 
 type EdgeVsphereClusterTemplateClusterProfileInitParameters struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -502,6 +646,7 @@ type EdgeVsphereClusterTemplateClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -509,9 +654,11 @@ type EdgeVsphereClusterTemplateClusterProfileInitParameters struct {
 
 type EdgeVsphereClusterTemplateClusterProfileObservation struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +mapType=granular
 	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -519,6 +666,7 @@ type EdgeVsphereClusterTemplateClusterProfileObservation struct {
 
 type EdgeVsphereClusterTemplateClusterProfileParameters struct {
 
+	// (String) The ID of this resource.
 	// The UID of the cluster profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.Profile
 	// +kubebuilder:validation:Optional
@@ -532,6 +680,7 @@ type EdgeVsphereClusterTemplateClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
 
+	// value pairs. For example: priority = "5".
 	// A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -540,9 +689,11 @@ type EdgeVsphereClusterTemplateClusterProfileParameters struct {
 
 type EdgeVsphereClusterTemplateInitParameters struct {
 
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -558,22 +709,27 @@ type EdgeVsphereClusterTemplateInitParameters struct {
 
 type EdgeVsphereClusterTemplateObservation struct {
 
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// The name of the cluster template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type EdgeVsphereClusterTemplateParameters struct {
 
+	// (Block Set) (see below for nested schema)
 	// The cluster profile of the cluster template.
 	// +kubebuilder:validation:Optional
 	ClusterProfile []EdgeVsphereClusterTemplateClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (String) The ID of this resource.
 	// The ID of the cluster template.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cluster/v1alpha1.ConfigTemplate
 	// +kubebuilder:validation:Optional
@@ -590,48 +746,60 @@ type EdgeVsphereClusterTemplateParameters struct {
 
 type EdgeVsphereHostConfigInitParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type EdgeVsphereHostConfigObservation struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
 }
 
 type EdgeVsphereHostConfigParameters struct {
 
+	// (String) The external traffic policy for the cluster.
 	// The external traffic policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ExternalTrafficPolicy *string `json:"externalTrafficPolicy,omitempty" tf:"external_traffic_policy,omitempty"`
 
+	// (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
+	// (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
 	// +kubebuilder:validation:Optional
 	IngressHost *string `json:"ingressHost,omitempty" tf:"ingress_host,omitempty"`
 
+	// (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
 	// +kubebuilder:validation:Optional
 	LoadBalancerSourceRanges *string `json:"loadBalancerSourceRanges,omitempty" tf:"load_balancer_source_ranges,omitempty"`
@@ -639,144 +807,190 @@ type EdgeVsphereHostConfigParameters struct {
 
 type EdgeVsphereInitParameters struct {
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []EdgeVsphereBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	CloudConfig []EdgeVsphereCloudConfigInitParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []EdgeVsphereClusterProfileInitParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []EdgeVsphereClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []EdgeVsphereHostConfigInitParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	LocationConfig []EdgeVsphereLocationConfigInitParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	MachinePool []EdgeVsphereMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []EdgeVsphereNamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []EdgeVsphereScanPolicyInitParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type EdgeVsphereLocationConfigInitParameters struct {
 
+	// (String) The country code of the country the cluster is located in.
 	// The country code of the country the cluster is located in.
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String) The name of the country.
 	// The name of the country.
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number) The latitude coordinates value.
 	// The latitude coordinates value.
 	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number) The longitude coordinates value.
 	// The longitude coordinates value.
 	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String) The region code of where the cluster is located in.
 	// The region code of where the cluster is located in.
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String) The name of the region.
 	// The name of the region.
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
 type EdgeVsphereLocationConfigObservation struct {
 
+	// (String) The country code of the country the cluster is located in.
 	// The country code of the country the cluster is located in.
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String) The name of the country.
 	// The name of the country.
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number) The latitude coordinates value.
 	// The latitude coordinates value.
 	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number) The longitude coordinates value.
 	// The longitude coordinates value.
 	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String) The region code of where the cluster is located in.
 	// The region code of where the cluster is located in.
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String) The name of the region.
 	// The name of the region.
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
 }
 
 type EdgeVsphereLocationConfigParameters struct {
 
+	// (String) The country code of the country the cluster is located in.
 	// The country code of the country the cluster is located in.
 	// +kubebuilder:validation:Optional
 	CountryCode *string `json:"countryCode,omitempty" tf:"country_code,omitempty"`
 
+	// (String) The name of the country.
 	// The name of the country.
 	// +kubebuilder:validation:Optional
 	CountryName *string `json:"countryName,omitempty" tf:"country_name,omitempty"`
 
+	// (Number) The latitude coordinates value.
 	// The latitude coordinates value.
 	// +kubebuilder:validation:Optional
 	Latitude *float64 `json:"latitude" tf:"latitude,omitempty"`
 
+	// (Number) The longitude coordinates value.
 	// The longitude coordinates value.
 	// +kubebuilder:validation:Optional
 	Longitude *float64 `json:"longitude" tf:"longitude,omitempty"`
 
+	// (String) The region code of where the cluster is located in.
 	// The region code of where the cluster is located in.
 	// +kubebuilder:validation:Optional
 	RegionCode *string `json:"regionCode,omitempty" tf:"region_code,omitempty"`
 
+	// (String) The name of the region.
 	// The name of the region.
 	// +kubebuilder:validation:Optional
 	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
@@ -784,70 +998,91 @@ type EdgeVsphereLocationConfigParameters struct {
 
 type EdgeVsphereMachinePoolInitParameters struct {
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	InstanceType []InstanceTypeInitParameters `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []EdgeVsphereMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EdgeVsphereMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	Placement []PlacementInitParameters `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Taints []EdgeVsphereMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type EdgeVsphereMachinePoolNodeInitParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 }
 
 type EdgeVsphereMachinePoolNodeObservation struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
 }
 
 type EdgeVsphereMachinePoolNodeParameters struct {
 
+	// (String) The action to perform on the node. Valid values are: cordon, uncordon.
 	// The action to perform on the node. Valid values are: `cordon`, `uncordon`.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
 
+	// 07f899a33dee624f7
 	// The node_id of the node, For example `i-07f899a33dee624f7`
 	// +kubebuilder:validation:Optional
 	NodeID *string `json:"nodeId" tf:"node_id,omitempty"`
@@ -855,70 +1090,91 @@ type EdgeVsphereMachinePoolNodeParameters struct {
 
 type EdgeVsphereMachinePoolObservation struct {
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	InstanceType []InstanceTypeObservation `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Node []EdgeVsphereMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EdgeVsphereMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	Placement []PlacementObservation `json:"placement,omitempty" tf:"placement,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	Taints []EdgeVsphereMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
 }
 
 type EdgeVsphereMachinePoolOverrideScalingInitParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type EdgeVsphereMachinePoolOverrideScalingObservation struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 }
 
 type EdgeVsphereMachinePoolOverrideScalingParameters struct {
 
+	// (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxSurge *string `json:"maxSurge,omitempty" tf:"max_surge,omitempty"`
 
+	// (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
 	// +kubebuilder:validation:Optional
 	MaxUnavailable *string `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
@@ -926,55 +1182,70 @@ type EdgeVsphereMachinePoolOverrideScalingParameters struct {
 
 type EdgeVsphereMachinePoolParameters struct {
 
+	// (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
 	// Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalAnnotations map[string]*string `json:"additionalAnnotations,omitempty" tf:"additional_annotations,omitempty"`
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
 
+	// (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
 	// Whether this machine pool is a control plane and a worker. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	ControlPlaneAsWorker *bool `json:"controlPlaneAsWorker,omitempty" tf:"control_plane_as_worker,omitempty"`
 
+	// (Number) Number of nodes in the machine pool.
 	// Number of nodes in the machine pool.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	InstanceType []InstanceTypeParameters `json:"instanceType" tf:"instance_type,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []EdgeVsphereMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	// +kubebuilder:validation:Optional
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
+	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []EdgeVsphereMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Placement []PlacementParameters `json:"placement" tf:"placement,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Taints []EdgeVsphereMachinePoolTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
+	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
@@ -982,38 +1253,47 @@ type EdgeVsphereMachinePoolParameters struct {
 
 type EdgeVsphereMachinePoolTaintsInitParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type EdgeVsphereMachinePoolTaintsObservation struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type EdgeVsphereMachinePoolTaintsParameters struct {
 
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
 	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
 	// +kubebuilder:validation:Optional
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
+	// (String) The key of the taint.
 	// The key of the taint.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
+	// (String) The value of the taint.
 	// The value of the taint.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
@@ -1021,9 +1301,11 @@ type EdgeVsphereMachinePoolTaintsParameters struct {
 
 type EdgeVsphereNamespacesInitParameters struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -1031,9 +1313,11 @@ type EdgeVsphereNamespacesInitParameters struct {
 
 type EdgeVsphereNamespacesObservation struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
@@ -1041,10 +1325,12 @@ type EdgeVsphereNamespacesObservation struct {
 
 type EdgeVsphereNamespacesParameters struct {
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
 	// Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -1053,182 +1339,240 @@ type EdgeVsphereNamespacesParameters struct {
 
 type EdgeVsphereObservation struct {
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []EdgeVsphereBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	CloudConfig []EdgeVsphereCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
 	// ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block Set) (see below for nested schema)
 	ClusterProfile []EdgeVsphereClusterProfileObservation `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	ClusterTemplate []EdgeVsphereClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	HostConfig []EdgeVsphereHostConfigObservation `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	LocationConfig []EdgeVsphereLocationConfigObservation `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	MachinePool []EdgeVsphereMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []EdgeVsphereNamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	ScanPolicy []EdgeVsphereScanPolicyObservation `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
 type EdgeVsphereParameters struct {
 
+	// (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	// +kubebuilder:validation:Optional
 	BackupPolicy []EdgeVsphereBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	CloudConfig []EdgeVsphereCloudConfigParameters `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
+	// (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
 	// `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
 	// +kubebuilder:validation:Optional
 	ClusterMetaAttribute *string `json:"clusterMetaAttribute,omitempty" tf:"cluster_meta_attribute,omitempty"`
 
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ClusterProfile []EdgeVsphereClusterProfileParameters `json:"clusterProfile,omitempty" tf:"cluster_profile,omitempty"`
 
+	// (Block List) The RBAC binding for the cluster. (see below for nested schema)
 	// The RBAC binding for the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []EdgeVsphereClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
+	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
 	// The cluster template of the cluster.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []EdgeVsphereClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
+	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
 	// +kubebuilder:validation:Optional
 	ClusterTimezone *string `json:"clusterTimezone,omitempty" tf:"cluster_timezone,omitempty"`
 
+	// (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
 	// The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
+	// (String) The description of the cluster. Default value is empty string.
 	// The description of the cluster. Default value is empty string.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+	// UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	EdgeHostUID *string `json:"edgeHostUid,omitempty" tf:"edge_host_uid,omitempty"`
 
+	// (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
 	// +kubebuilder:validation:Optional
 	ForceDelete *bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 
+	// (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
 	// +kubebuilder:validation:Optional
 	ForceDeleteDelay *float64 `json:"forceDeleteDelay,omitempty" tf:"force_delete_delay,omitempty"`
 
+	// (Block List) The host configuration for the cluster. (see below for nested schema)
 	// The host configuration for the cluster.
 	// +kubebuilder:validation:Optional
 	HostConfig []EdgeVsphereHostConfigParameters `json:"hostConfig,omitempty" tf:"host_config,omitempty"`
 
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	LocationConfig []EdgeVsphereLocationConfigParameters `json:"locationConfig,omitempty" tf:"location_config,omitempty"`
 
+	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	MachinePool []EdgeVsphereMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
+	// (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+	// Name of the Edge vSphere cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []EdgeVsphereNamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
+	// 01-02T15:04:05Z07:00
 	// Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
 	// +kubebuilder:validation:Optional
 	OsPatchAfter *string `json:"osPatchAfter,omitempty" tf:"os_patch_after,omitempty"`
 
+	// (Boolean) Whether to apply OS patch on boot. Default is false.
 	// Whether to apply OS patch on boot. Default is `false`.
 	// +kubebuilder:validation:Optional
 	OsPatchOnBoot *bool `json:"osPatchOnBoot,omitempty" tf:"os_patch_on_boot,omitempty"`
 
+	// (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
 	// Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
 	// +kubebuilder:validation:Optional
 	OsPatchSchedule *string `json:"osPatchSchedule,omitempty" tf:"os_patch_schedule,omitempty"`
 
+	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	// +kubebuilder:validation:Optional
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
 
+	// (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
 	// The scan policy for the cluster.
 	// +kubebuilder:validation:Optional
 	ScanPolicy []EdgeVsphereScanPolicyParameters `json:"scanPolicy,omitempty" tf:"scan_policy,omitempty"`
 
+	// (Boolean) If true, the cluster will be created asynchronously. Default value is false.
 	// If `true`, the cluster will be created asynchronously. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	SkipCompletion *bool `json:"skipCompletion,omitempty" tf:"skip_completion,omitempty"`
 
+	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// +kubebuilder:validation:Optional
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
@@ -1236,111 +1580,173 @@ type EdgeVsphereParameters struct {
 
 type EdgeVsphereScanPolicyInitParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type EdgeVsphereScanPolicyObservation struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule,omitempty" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule,omitempty" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule,omitempty" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type EdgeVsphereScanPolicyParameters struct {
 
+	// (String) The schedule for configuration scan.
 	// The schedule for configuration scan.
 	// +kubebuilder:validation:Optional
 	ConfigurationScanSchedule *string `json:"configurationScanSchedule" tf:"configuration_scan_schedule,omitempty"`
 
+	// (String) The schedule for conformance scan.
 	// The schedule for conformance scan.
 	// +kubebuilder:validation:Optional
 	ConformanceScanSchedule *string `json:"conformanceScanSchedule" tf:"conformance_scan_schedule,omitempty"`
 
+	// (String) The schedule for penetration scan.
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
 }
 
 type InstanceTypeInitParameters struct {
+
+	// (Number) Number of vCPUs for each node in this machine pool.
+	// Number of vCPUs for each node in this machine pool.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Number) Disk size in GB for each node in this machine pool.
+	// Disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// (Number) Memory size in MB for each node in this machine pool.
+	// Memory size in MB for each node in this machine pool.
 	MemoryMb *float64 `json:"memoryMb,omitempty" tf:"memory_mb,omitempty"`
 }
 
 type InstanceTypeObservation struct {
+
+	// (Number) Number of vCPUs for each node in this machine pool.
+	// Number of vCPUs for each node in this machine pool.
 	CPU *float64 `json:"cpu,omitempty" tf:"cpu,omitempty"`
 
+	// (Number) Disk size in GB for each node in this machine pool.
+	// Disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	// (Number) Memory size in MB for each node in this machine pool.
+	// Memory size in MB for each node in this machine pool.
 	MemoryMb *float64 `json:"memoryMb,omitempty" tf:"memory_mb,omitempty"`
 }
 
 type InstanceTypeParameters struct {
 
+	// (Number) Number of vCPUs for each node in this machine pool.
+	// Number of vCPUs for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	CPU *float64 `json:"cpu" tf:"cpu,omitempty"`
 
+	// (Number) Disk size in GB for each node in this machine pool.
+	// Disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb" tf:"disk_size_gb,omitempty"`
 
+	// (Number) Memory size in MB for each node in this machine pool.
+	// Memory size in MB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	MemoryMb *float64 `json:"memoryMb" tf:"memory_mb,omitempty"`
 }
 
 type PlacementInitParameters struct {
+
+	// (String) Name of the vSphere compute cluster used for node placement.
+	// Name of the vSphere compute cluster used for node placement.
 	Cluster *string `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
+	// (String) Name of the vSphere datastore used for node disks.
+	// Name of the vSphere datastore used for node disks.
 	Datastore *string `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
+	// (String) Name of the vSphere network attached to machine pool nodes.
+	// Name of the vSphere network attached to machine pool nodes.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
+	// (String) Name of the vSphere resource pool used for node placement.
+	// Name of the vSphere resource pool used for node placement.
 	ResourcePool *string `json:"resourcePool,omitempty" tf:"resource_pool,omitempty"`
 
+	// (String) UID of the static IP pool used for machine pool networking.
+	// UID of the static IP pool used for machine pool networking.
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }
 
 type PlacementObservation struct {
+
+	// (String) Name of the vSphere compute cluster used for node placement.
+	// Name of the vSphere compute cluster used for node placement.
 	Cluster *string `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
+	// (String) Name of the vSphere datastore used for node disks.
+	// Name of the vSphere datastore used for node disks.
 	Datastore *string `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name of the vSphere network attached to machine pool nodes.
+	// Name of the vSphere network attached to machine pool nodes.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
+	// (String) Name of the vSphere resource pool used for node placement.
+	// Name of the vSphere resource pool used for node placement.
 	ResourcePool *string `json:"resourcePool,omitempty" tf:"resource_pool,omitempty"`
 
+	// (String) UID of the static IP pool used for machine pool networking.
+	// UID of the static IP pool used for machine pool networking.
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }
 
 type PlacementParameters struct {
 
+	// (String) Name of the vSphere compute cluster used for node placement.
+	// Name of the vSphere compute cluster used for node placement.
 	// +kubebuilder:validation:Optional
 	Cluster *string `json:"cluster" tf:"cluster,omitempty"`
 
+	// (String) Name of the vSphere datastore used for node disks.
+	// Name of the vSphere datastore used for node disks.
 	// +kubebuilder:validation:Optional
 	Datastore *string `json:"datastore" tf:"datastore,omitempty"`
 
+	// (String) Name of the vSphere network attached to machine pool nodes.
+	// Name of the vSphere network attached to machine pool nodes.
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network" tf:"network,omitempty"`
 
+	// (String) Name of the vSphere resource pool used for node placement.
+	// Name of the vSphere resource pool used for node placement.
 	// +kubebuilder:validation:Optional
 	ResourcePool *string `json:"resourcePool" tf:"resource_pool,omitempty"`
 
+	// (String) UID of the static IP pool used for machine pool networking.
+	// UID of the static IP pool used for machine pool networking.
 	// +kubebuilder:validation:Optional
 	StaticIPPoolID *string `json:"staticIpPoolId,omitempty" tf:"static_ip_pool_id,omitempty"`
 }
@@ -1372,7 +1778,7 @@ type EdgeVsphereStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EdgeVsphere is the Schema for the EdgeVspheres API. <no value>
+// EdgeVsphere is the Schema for the EdgeVspheres API. Resource for managing Edge vSphere clusters in Spectro Cloud through Palette.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

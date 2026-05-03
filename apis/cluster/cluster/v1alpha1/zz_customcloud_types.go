@@ -1093,7 +1093,8 @@ type CustomCloudObservation struct {
 	// The Cloud environment configuration settings such as network parameters and encryption parameters that apply to this cluster.
 	CloudConfig []CustomCloudCloudConfigObservation `json:"cloudConfig,omitempty" tf:"cloud_config,omitempty"`
 
-	// (String, Deprecated)
+	// (String, Deprecated) Identifier of the generated cloud configuration associated with this custom cloud cluster.
+	// Identifier of the generated cloud configuration associated with this custom cloud cluster.
 	CloudConfigID *string `json:"cloudConfigId,omitempty" tf:"cloud_config_id,omitempty"`
 
 	// (Block Set) (see below for nested schema)

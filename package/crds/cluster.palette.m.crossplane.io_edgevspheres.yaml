@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EdgeVsphere is the Schema for the EdgeVspheres API. <no value>
+        description: EdgeVsphere is the Schema for the EdgeVspheres API. Resource
+          for managing Edge vSphere clusters in Spectro Cloud through Palette.
         properties:
           apiVersion:
             description: |-
@@ -59,13 +60,15 @@ spec:
               forProvider:
                 properties:
                   backupPolicy:
-                    description: The backup policy for the cluster. If not specified,
-                      no backups will be taken.
+                    description: |-
+                      (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+                      The backup policy for the cluster. If not specified, no backups will be taken.
                     items:
                       properties:
                         backupLocationId:
-                          description: The ID of the backup location to use for the
-                            backup.
+                          description: |-
+                            (String) The ID of the backup location to use for the backup.
+                            The ID of the backup location to use for the backup.
                           type: string
                         backupLocationIdRef:
                           description: Reference to a StorageLocation in backup to
@@ -150,103 +153,126 @@ spec:
                               type: object
                           type: object
                         clusterUids:
-                          description: The list of cluster UIDs to include in the
-                            backup. If `include_all_clusters` is set to `true`, then
-                            all clusters will be included.
+                          description: |-
+                            (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+                            The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         expiryInHour:
-                          description: The number of hours after which the backup
-                            will be deleted. For example, if the expiry is set to
-                            24, the backup will be deleted after 24 hours.
+                          description: |-
+                            (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+                            The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
                           type: number
                         includeAllClusters:
-                          description: Whether to include all clusters in the backup.
-                            If set to false, only the clusters specified in `cluster_uids`
-                            will be included.
+                          description: |-
+                            (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+                            Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
                           type: boolean
                         includeClusterResources:
-                          description: 'Indicates whether to include cluster resources
-                            in the backup. If set to false, only the cluster configuration
-                            and disks will be backed up. (Note: Starting with Palette
-                            version 4.6, the include_cluster_resources attribute will
-                            be deprecated, and a new attribute, include_cluster_resources_mode,
-                            will be introduced.)'
+                          description: |-
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
                         includeClusterResourcesMode:
-                          description: Specifies whether to include the cluster resources
-                            in the backup. Supported values are `always`, `never`,
-                            and `auto`.
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
                           type: string
                         includeDisks:
-                          description: Whether to include the disks in the backup.
-                            If set to false, only the cluster configuration will be
-                            backed up.
+                          description: |-
+                            (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+                            Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
                           type: boolean
                         namespaces:
-                          description: The list of Kubernetes namespaces to include
-                            in the backup. If not specified, all namespaces will be
-                            included.
+                          description: |-
+                            (Block List) The namespaces for the cluster. (see below for nested schema)
+                            The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         prefix:
-                          description: Prefix for the backup name. The backup name
-                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          description: |-
+                            -.
+                            Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
                           type: string
                         schedule:
-                          description: The schedule for the backup. The schedule is
-                            specified in cron format. For example, to run the backup
-                            every day at 1:00 AM, the schedule should be set to `0
-                            1 * * *`.
+                          description: |-
+                            (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+                            The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
                           type: string
                       type: object
                     type: array
                   cloudConfig:
+                    description: '(Block List, Min: 1, Max: 1) (see below for nested
+                      schema)'
                     items:
                       properties:
                         datacenter:
+                          description: |-
+                            (String) Name of the vSphere datacenter used by this cluster.
+                            Name of the vSphere datacenter used by this cluster.
                           type: string
                         folder:
+                          description: |-
+                            (String) vSphere inventory folder where cluster virtual machines are created.
+                            vSphere inventory folder where cluster virtual machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: |-
+                            (String) vSphere folder containing VM image templates used for node provisioning.
+                            vSphere folder containing VM image templates used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: |-
+                            (String) DNS search domain associated with the control plane endpoint.
+                            DNS search domain associated with the control plane endpoint.
                           type: string
                         networkType:
+                          description: |-
+                            (String) Type of network endpoint used for the control plane address.
+                            Type of network endpoint used for the control plane address.
                           type: string
                         sshKey:
-                          description: Public SSH Key (Secure Shell) to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           type: string
                         sshKeys:
-                          description: List of public SSH (Secure Shell) keys to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: |-
+                            (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+                            Whether to use static IP addressing for the control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: |-
+                            (String) Virtual IP address for the Kubernetes control plane endpoint.
+                            Virtual IP address for the Kubernetes control plane endpoint.
                           type: string
                       type: object
                     type: array
                   clusterMetaAttribute:
-                    description: '`cluster_meta_attribute` can be used to set additional
-                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
-                      ''stage''}`'
+                    description: |-
+                      (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+                      `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
-                          description: The ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster profile.
                           type: string
                         idRef:
                           description: Reference to a Profile in cluster to populate
@@ -331,133 +357,137 @@ spec:
                               type: object
                           type: object
                         pack:
-                          description: For packs of type `spectro`, `helm`, and `manifest`,
-                            at least one pack must be specified.
+                          description: |-
+                            (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+                            For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
                           items:
                             properties:
                               manifest:
+                                description: (Block List) (see below for nested schema)
                                 items:
                                   properties:
                                     content:
-                                      description: The content of the manifest. The
-                                        content is the YAML content of the manifest.
+                                      description: |-
+                                        (String) The content of the manifest. The content is the YAML content of the manifest.
+                                        The content of the manifest. The content is the YAML content of the manifest.
                                       type: string
                                     name:
-                                      description: The name of the manifest. The name
-                                        must be unique within the pack.
+                                      description: |-
+                                        (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                        The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
-                                description: The name of the pack. The name must be
-                                  unique within the cluster profile.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
-                                description: The registry name of the pack. The registry
-                                  name is the human-readable name of the registry.
-                                  This attribute can be used instead of `registry_uid`
-                                  for better readability. If `uid` is not provided,
-                                  this field can be used along with `name` and `tag`
-                                  to resolve the pack UID internally. Either `registry_uid`
-                                  or `registry_name` can be specified, but not both.
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               registryUid:
-                                description: The registry UID of the pack. The registry
-                                  UID is the unique identifier of the registry. This
-                                  attribute is required if there is more than one
-                                  registry that contains a pack with the same name.
-                                  If `uid` is not provided, this field is required
-                                  along with `name` and `tag` to resolve the pack
-                                  UID internally. Either `registry_uid` or `registry_name`
-                                  can be specified, but not both.
+                                description: |-
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
-                                description: The tag of the pack. The tag is the version
-                                  of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`. If `uid` is not provided,
-                                  this field is required along with `name` and `registry_uid`
-                                  (or `registry_name`) to resolve the pack UID internally.
+                                description: |-
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
-                                description: The type of the pack. Allowed values
-                                  are `spectro`, `manifest`, `helm`, or `oci`. The
-                                  default value is spectro. If using an OCI registry
-                                  for pack, set the type to `oci`.
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
-                                description: The unique identifier of the pack. The
-                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
-                                  data source. This value is required if the pack
-                                  type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry. If not provided, all
-                                  of `name`, `tag`, and `registry_uid` must be specified
-                                  to resolve the pack UID internally.
+                                description: |-
+                                  (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
                                 type: string
                               values:
-                                description: The values of the pack. The values are
-                                  the configuration values of the pack. The values
-                                  are specified in YAML format.
+                                description: |-
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+                                  The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
                           type: array
                         variables:
                           additionalProperties:
                             type: string
-                          description: 'A map of cluster profile variables, specified
-                            as key-value pairs. For example: `priority = "5"`.'
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:
-                    description: The RBAC binding for the cluster.
+                    description: |-
+                      (Block List) The RBAC binding for the cluster. (see below for nested schema)
+                      The RBAC binding for the cluster.
                     items:
                       properties:
                         namespace:
-                          description: The Kubernetes namespace of the RBAC binding.
-                            Required if 'type' is set to 'RoleBinding'.
+                          description: |-
+                            (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                            The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: string
                         role:
                           additionalProperties:
                             type: string
-                          description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'. Must include 'name' and 'kind'
-                            fields.
+                          description: |-
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               name:
-                                description: The name of the subject. Required if
-                                  'type' is set to 'User' or 'Group'.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
-                                description: The Kubernetes namespace of the subject.
-                                  Required if 'type' is set to 'ServiceAccount'.
+                                description: |-
+                                  (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                                  The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
                                 type: string
                               type:
-                                description: 'The type of the subject. Can be one
-                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
-                          description: 'The type of the RBAC binding. Can be one of
-                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          description: |-
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
-                          description: The cluster profile of the cluster template.
+                          description: |-
+                            (Block Set) (see below for nested schema)
+                            The cluster profile of the cluster template.
                           items:
                             properties:
                               id:
-                                description: The UID of the cluster profile.
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
                                 type: string
                               idRef:
                                 description: Reference to a Profile in cluster to
@@ -544,15 +574,17 @@ spec:
                               variables:
                                 additionalProperties:
                                   type: string
-                                description: 'A map of cluster profile variables,
-                                  specified as key-value pairs. For example: `priority
-                                  = "5"`.'
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                                 type: object
                                 x-kubernetes-map-type: granular
                             type: object
                           type: array
                         id:
-                          description: The ID of the cluster template.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
                           type: string
                         idRef:
                           description: Reference to a ConfigTemplate in cluster to
@@ -639,274 +671,356 @@ spec:
                       type: object
                     type: array
                   clusterTimezone:
-                    description: Defines the time zone used by this cluster to interpret
-                      scheduled operations. Maintenance tasks like upgrades will follow
-                      this time zone to ensure they run at the appropriate local time
-                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
-                      'Asia/Kolkata', 'Europe/London').
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
                   context:
-                    description: The context of the Edge cluster. Allowed values are
-                      `project` or `tenant`. Default is `project`. If  the `project`
-                      context is specified, the project name will sourced from the
-                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster. Default value is
-                      empty string.
+                    description: |-
+                      (String) The description of the cluster. Default value is empty string.
+                      The description of the cluster. Default value is empty string.
                     type: string
                   edgeHostUid:
+                    description: |-
+                      (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+                      UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
-                    description: If set to `true`, the cluster will be force deleted
-                      and user has to manually clean up the provisioned cloud resources.
+                    description: |-
+                      (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+                      If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
                     type: boolean
                   forceDeleteDelay:
-                    description: Delay duration in minutes to before invoking cluster
-                      force delete. Default and minimum is 20.
+                    description: |-
+                      (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+                      Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostConfig:
-                    description: The host configuration for the cluster.
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
                     items:
                       properties:
                         externalTrafficPolicy:
-                          description: The external traffic policy for the cluster.
+                          description: |-
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
                           type: string
                         hostEndpointType:
-                          description: The type of endpoint for the cluster. Can be
-                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          description: |-
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
                           type: string
                         ingressHost:
-                          description: The host for the Ingress endpoint. Required
-                            if 'host_endpoint_type' is set to 'Ingress'.
+                          description: |-
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
                           type: string
                         loadBalancerSourceRanges:
-                          description: The source ranges for the load balancer. Required
-                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          description: |-
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                           type: string
                       type: object
                     type: array
                   locationConfig:
+                    description: (Block List) (see below for nested schema)
                     items:
                       properties:
                         countryCode:
-                          description: The country code of the country the cluster
-                            is located in.
+                          description: |-
+                            (String) The country code of the country the cluster is located in.
+                            The country code of the country the cluster is located in.
                           type: string
                         countryName:
-                          description: The name of the country.
+                          description: |-
+                            (String) The name of the country.
+                            The name of the country.
                           type: string
                         latitude:
-                          description: The latitude coordinates value.
+                          description: |-
+                            (Number) The latitude coordinates value.
+                            The latitude coordinates value.
                           type: number
                         longitude:
-                          description: The longitude coordinates value.
+                          description: |-
+                            (Number) The longitude coordinates value.
+                            The longitude coordinates value.
                           type: number
                         regionCode:
-                          description: The region code of where the cluster is located
-                            in.
+                          description: |-
+                            (String) The region code of where the cluster is located in.
+                            The region code of where the cluster is located in.
                           type: string
                         regionName:
-                          description: The name of the region.
+                          description: |-
+                            (String) The name of the region.
+                            The name of the region.
                           type: string
                       type: object
                     type: array
                   machinePool:
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         additionalAnnotations:
                           additionalProperties:
                             type: string
-                          description: Additional annotations to be applied to the
-                            machine pool. Annotations must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: Additional labels to be applied to the machine
-                            pool. Labels must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
-                          description: Whether this machine pool is a control plane.
-                            Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
+                            Whether this machine pool is a control plane. Defaults to `false`.
                           type: boolean
                         controlPlaneAsWorker:
-                          description: Whether this machine pool is a control plane
-                            and a worker. Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
                           type: boolean
                         count:
-                          description: Number of nodes in the machine pool.
+                          description: |-
+                            (Number) Number of nodes in the machine pool.
+                            Number of nodes in the machine pool.
                           type: number
                         instanceType:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cpu:
+                                description: |-
+                                  (Number) Number of vCPUs for each node in this machine pool.
+                                  Number of vCPUs for each node in this machine pool.
                                 type: number
                               diskSizeGb:
+                                description: |-
+                                  (Number) Disk size in GB for each node in this machine pool.
+                                  Disk size in GB for each node in this machine pool.
                                 type: number
                               memoryMb:
+                                description: |-
+                                  (Number) Memory size in MB for each node in this machine pool.
+                                  Memory size in MB for each node in this machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the machine pool.
                           type: string
                         node:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               action:
-                                description: 'The action to perform on the node. Valid
-                                  values are: `cordon`, `uncordon`.'
+                                description: |-
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
                               nodeId:
-                                description: The node_id of the node, For example
-                                  `i-07f899a33dee624f7`
+                                description: |-
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
                             type: object
                           type: array
                         nodeRepaveInterval:
-                          description: Minimum number of seconds node should be Ready,
-                            before the next node is selected for repave. Default value
-                            is `0`, Applicable only for worker pools.
+                          description: |-
+                            (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+                            Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
                         overrideKubeadmConfiguration:
-                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
-                            postKubeadmCommands. Overrides pack-level settings. Worker
-                            pools only.
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
                           type: string
                         overrideScaling:
-                          description: Rolling update strategy for the machine pool.
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
                           items:
                             properties:
                               maxSurge:
-                                description: Max extra nodes during rolling update.
-                                  Integer or percentage (e.g., '1' or '20%'). Only
-                                  valid when type=OverrideScaling. Both maxSurge and
-                                  maxUnavailable are required.
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                               maxUnavailable:
-                                description: Max unavailable nodes during rolling
-                                  update. Integer or percentage (e.g., '0' or '10%').
-                                  Only valid when type=OverrideScaling. Both maxSurge
-                                  and maxUnavailable are required.
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                             type: object
                           type: array
                         placement:
+                          description: '(Block List, Min: 1) (see below for nested
+                            schema)'
                           items:
                             properties:
                               cluster:
+                                description: |-
+                                  (String) Name of the vSphere compute cluster used for node placement.
+                                  Name of the vSphere compute cluster used for node placement.
                                 type: string
                               datastore:
+                                description: |-
+                                  (String) Name of the vSphere datastore used for node disks.
+                                  Name of the vSphere datastore used for node disks.
                                 type: string
                               network:
+                                description: |-
+                                  (String) Name of the vSphere network attached to machine pool nodes.
+                                  Name of the vSphere network attached to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: |-
+                                  (String) Name of the vSphere resource pool used for node placement.
+                                  Name of the vSphere resource pool used for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: |-
+                                  (String) UID of the static IP pool used for machine pool networking.
+                                  UID of the static IP pool used for machine pool networking.
                                 type: string
                             type: object
                           type: array
                         taints:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: 'The effect of the taint. Allowed values
-                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                description: |-
+                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
                                 type: string
                               key:
-                                description: The key of the taint.
+                                description: |-
+                                  (String) The key of the taint.
+                                  The key of the taint.
                                 type: string
                               value:
-                                description: The value of the taint.
+                                description: |-
+                                  (String) The value of the taint.
+                                  The value of the taint.
                                 type: string
                             type: object
                           type: array
                         updateStrategy:
-                          description: Update strategy for the machine pool. Valid
-                            values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn`
-                            and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling`
-                            must be specified with both `max_surge` and `max_unavailable`.
+                          description: |-
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
                   name:
+                    description: |-
+                      (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                      Name of the Edge vSphere cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
-                    description: The namespaces for the cluster.
+                    description: |-
+                      (Block List) The namespaces for the cluster. (see below for nested schema)
+                      The namespaces for the cluster.
                     items:
                       properties:
                         name:
-                          description: Name of the namespace. This is the name of
-                            the Kubernetes namespace in the cluster.
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
                           additionalProperties:
                             type: string
-                          description: 'Resource allocation for the namespace. This
-                            is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
-                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
+                          description: |-
+                            (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
-                    description: 'Date and time after which to patch cluster `RFC3339:
-                      2006-01-02T15:04:05Z07:00`'
+                    description: |-
+                      01-02T15:04:05Z07:00
+                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
                     type: string
                   osPatchOnBoot:
-                    description: Whether to apply OS patch on boot. Default is `false`.
+                    description: |-
+                      (Boolean) Whether to apply OS patch on boot. Default is false.
+                      Whether to apply OS patch on boot. Default is `false`.
                     type: boolean
                   osPatchSchedule:
-                    description: Cron schedule for OS patching. This must be in the
-                      form of `0 0 * * *`.
+                    description: |-
+                      (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+                      Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
                     type: string
                   pauseAgentUpgrades:
-                    description: The pause agent upgrades setting allows to control
-                      the automatic upgrade of the Palette component and agent for
-                      an individual cluster. The default value is `unlock`, meaning
-                      upgrades occur automatically. Setting it to `lock` pauses automatic
-                      agent upgrades for the cluster.
+                    description: |-
+                      (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+                      The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
                     type: string
                   reviewRepaveState:
-                    description: To authorize the cluster repave, set the value to
-                      `Approved` for approval and `""` to decline. Default value is
-                      `""`.
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
-                    description: The scan policy for the cluster.
+                    description: |-
+                      (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+                      The scan policy for the cluster.
                     items:
                       properties:
                         configurationScanSchedule:
-                          description: The schedule for configuration scan.
+                          description: |-
+                            (String) The schedule for configuration scan.
+                            The schedule for configuration scan.
                           type: string
                         conformanceScanSchedule:
-                          description: The schedule for conformance scan.
+                          description: |-
+                            (String) The schedule for conformance scan.
+                            The schedule for conformance scan.
                           type: string
                         penetrationScanSchedule:
-                          description: The schedule for penetration scan.
+                          description: |-
+                            (String) The schedule for penetration scan.
+                            The schedule for penetration scan.
                           type: string
                       type: object
                     type: array
                   skipCompletion:
-                    description: If `true`, the cluster will be created asynchronously.
-                      Default value is `false`.
+                    description: |-
+                      (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+                      If `true`, the cluster will be created asynchronously. Default value is `false`.
                     type: boolean
                   tags:
-                    description: A list of tags to be applied to the cluster. Tags
-                      must be in the form of `key:value`.
+                    description: |-
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
-                    description: Controls whether worker pool updates occur in parallel
-                      or sequentially. When set to `true` (default), all worker pools
-                      are updated simultaneously. When `false`, worker pools are updated
-                      one at a time, reducing cluster disruption but taking longer
-                      to complete updates.
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               initProvider:
@@ -923,13 +1037,15 @@ spec:
                   autoscaler.
                 properties:
                   backupPolicy:
-                    description: The backup policy for the cluster. If not specified,
-                      no backups will be taken.
+                    description: |-
+                      (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+                      The backup policy for the cluster. If not specified, no backups will be taken.
                     items:
                       properties:
                         backupLocationId:
-                          description: The ID of the backup location to use for the
-                            backup.
+                          description: |-
+                            (String) The ID of the backup location to use for the backup.
+                            The ID of the backup location to use for the backup.
                           type: string
                         backupLocationIdRef:
                           description: Reference to a StorageLocation in backup to
@@ -1014,103 +1130,126 @@ spec:
                               type: object
                           type: object
                         clusterUids:
-                          description: The list of cluster UIDs to include in the
-                            backup. If `include_all_clusters` is set to `true`, then
-                            all clusters will be included.
+                          description: |-
+                            (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+                            The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         expiryInHour:
-                          description: The number of hours after which the backup
-                            will be deleted. For example, if the expiry is set to
-                            24, the backup will be deleted after 24 hours.
+                          description: |-
+                            (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+                            The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
                           type: number
                         includeAllClusters:
-                          description: Whether to include all clusters in the backup.
-                            If set to false, only the clusters specified in `cluster_uids`
-                            will be included.
+                          description: |-
+                            (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+                            Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
                           type: boolean
                         includeClusterResources:
-                          description: 'Indicates whether to include cluster resources
-                            in the backup. If set to false, only the cluster configuration
-                            and disks will be backed up. (Note: Starting with Palette
-                            version 4.6, the include_cluster_resources attribute will
-                            be deprecated, and a new attribute, include_cluster_resources_mode,
-                            will be introduced.)'
+                          description: |-
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
                         includeClusterResourcesMode:
-                          description: Specifies whether to include the cluster resources
-                            in the backup. Supported values are `always`, `never`,
-                            and `auto`.
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
                           type: string
                         includeDisks:
-                          description: Whether to include the disks in the backup.
-                            If set to false, only the cluster configuration will be
-                            backed up.
+                          description: |-
+                            (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+                            Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
                           type: boolean
                         namespaces:
-                          description: The list of Kubernetes namespaces to include
-                            in the backup. If not specified, all namespaces will be
-                            included.
+                          description: |-
+                            (Block List) The namespaces for the cluster. (see below for nested schema)
+                            The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         prefix:
-                          description: Prefix for the backup name. The backup name
-                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          description: |-
+                            -.
+                            Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
                           type: string
                         schedule:
-                          description: The schedule for the backup. The schedule is
-                            specified in cron format. For example, to run the backup
-                            every day at 1:00 AM, the schedule should be set to `0
-                            1 * * *`.
+                          description: |-
+                            (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+                            The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
                           type: string
                       type: object
                     type: array
                   cloudConfig:
+                    description: '(Block List, Min: 1, Max: 1) (see below for nested
+                      schema)'
                     items:
                       properties:
                         datacenter:
+                          description: |-
+                            (String) Name of the vSphere datacenter used by this cluster.
+                            Name of the vSphere datacenter used by this cluster.
                           type: string
                         folder:
+                          description: |-
+                            (String) vSphere inventory folder where cluster virtual machines are created.
+                            vSphere inventory folder where cluster virtual machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: |-
+                            (String) vSphere folder containing VM image templates used for node provisioning.
+                            vSphere folder containing VM image templates used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: |-
+                            (String) DNS search domain associated with the control plane endpoint.
+                            DNS search domain associated with the control plane endpoint.
                           type: string
                         networkType:
+                          description: |-
+                            (String) Type of network endpoint used for the control plane address.
+                            Type of network endpoint used for the control plane address.
                           type: string
                         sshKey:
-                          description: Public SSH Key (Secure Shell) to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           type: string
                         sshKeys:
-                          description: List of public SSH (Secure Shell) keys to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: |-
+                            (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+                            Whether to use static IP addressing for the control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: |-
+                            (String) Virtual IP address for the Kubernetes control plane endpoint.
+                            Virtual IP address for the Kubernetes control plane endpoint.
                           type: string
                       type: object
                     type: array
                   clusterMetaAttribute:
-                    description: '`cluster_meta_attribute` can be used to set additional
-                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
-                      ''stage''}`'
+                    description: |-
+                      (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+                      `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
-                          description: The ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster profile.
                           type: string
                         idRef:
                           description: Reference to a Profile in cluster to populate
@@ -1195,133 +1334,137 @@ spec:
                               type: object
                           type: object
                         pack:
-                          description: For packs of type `spectro`, `helm`, and `manifest`,
-                            at least one pack must be specified.
+                          description: |-
+                            (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+                            For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
                           items:
                             properties:
                               manifest:
+                                description: (Block List) (see below for nested schema)
                                 items:
                                   properties:
                                     content:
-                                      description: The content of the manifest. The
-                                        content is the YAML content of the manifest.
+                                      description: |-
+                                        (String) The content of the manifest. The content is the YAML content of the manifest.
+                                        The content of the manifest. The content is the YAML content of the manifest.
                                       type: string
                                     name:
-                                      description: The name of the manifest. The name
-                                        must be unique within the pack.
+                                      description: |-
+                                        (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                        The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
-                                description: The name of the pack. The name must be
-                                  unique within the cluster profile.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
-                                description: The registry name of the pack. The registry
-                                  name is the human-readable name of the registry.
-                                  This attribute can be used instead of `registry_uid`
-                                  for better readability. If `uid` is not provided,
-                                  this field can be used along with `name` and `tag`
-                                  to resolve the pack UID internally. Either `registry_uid`
-                                  or `registry_name` can be specified, but not both.
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               registryUid:
-                                description: The registry UID of the pack. The registry
-                                  UID is the unique identifier of the registry. This
-                                  attribute is required if there is more than one
-                                  registry that contains a pack with the same name.
-                                  If `uid` is not provided, this field is required
-                                  along with `name` and `tag` to resolve the pack
-                                  UID internally. Either `registry_uid` or `registry_name`
-                                  can be specified, but not both.
+                                description: |-
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
-                                description: The tag of the pack. The tag is the version
-                                  of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`. If `uid` is not provided,
-                                  this field is required along with `name` and `registry_uid`
-                                  (or `registry_name`) to resolve the pack UID internally.
+                                description: |-
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
-                                description: The type of the pack. Allowed values
-                                  are `spectro`, `manifest`, `helm`, or `oci`. The
-                                  default value is spectro. If using an OCI registry
-                                  for pack, set the type to `oci`.
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
-                                description: The unique identifier of the pack. The
-                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
-                                  data source. This value is required if the pack
-                                  type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry. If not provided, all
-                                  of `name`, `tag`, and `registry_uid` must be specified
-                                  to resolve the pack UID internally.
+                                description: |-
+                                  (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
                                 type: string
                               values:
-                                description: The values of the pack. The values are
-                                  the configuration values of the pack. The values
-                                  are specified in YAML format.
+                                description: |-
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+                                  The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
                           type: array
                         variables:
                           additionalProperties:
                             type: string
-                          description: 'A map of cluster profile variables, specified
-                            as key-value pairs. For example: `priority = "5"`.'
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:
-                    description: The RBAC binding for the cluster.
+                    description: |-
+                      (Block List) The RBAC binding for the cluster. (see below for nested schema)
+                      The RBAC binding for the cluster.
                     items:
                       properties:
                         namespace:
-                          description: The Kubernetes namespace of the RBAC binding.
-                            Required if 'type' is set to 'RoleBinding'.
+                          description: |-
+                            (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                            The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: string
                         role:
                           additionalProperties:
                             type: string
-                          description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'. Must include 'name' and 'kind'
-                            fields.
+                          description: |-
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               name:
-                                description: The name of the subject. Required if
-                                  'type' is set to 'User' or 'Group'.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
-                                description: The Kubernetes namespace of the subject.
-                                  Required if 'type' is set to 'ServiceAccount'.
+                                description: |-
+                                  (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                                  The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
                                 type: string
                               type:
-                                description: 'The type of the subject. Can be one
-                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
-                          description: 'The type of the RBAC binding. Can be one of
-                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          description: |-
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
-                          description: The cluster profile of the cluster template.
+                          description: |-
+                            (Block Set) (see below for nested schema)
+                            The cluster profile of the cluster template.
                           items:
                             properties:
                               id:
-                                description: The UID of the cluster profile.
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
                                 type: string
                               idRef:
                                 description: Reference to a Profile in cluster to
@@ -1408,15 +1551,17 @@ spec:
                               variables:
                                 additionalProperties:
                                   type: string
-                                description: 'A map of cluster profile variables,
-                                  specified as key-value pairs. For example: `priority
-                                  = "5"`.'
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                                 type: object
                                 x-kubernetes-map-type: granular
                             type: object
                           type: array
                         id:
-                          description: The ID of the cluster template.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
                           type: string
                         idRef:
                           description: Reference to a ConfigTemplate in cluster to
@@ -1503,274 +1648,356 @@ spec:
                       type: object
                     type: array
                   clusterTimezone:
-                    description: Defines the time zone used by this cluster to interpret
-                      scheduled operations. Maintenance tasks like upgrades will follow
-                      this time zone to ensure they run at the appropriate local time
-                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
-                      'Asia/Kolkata', 'Europe/London').
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
                   context:
-                    description: The context of the Edge cluster. Allowed values are
-                      `project` or `tenant`. Default is `project`. If  the `project`
-                      context is specified, the project name will sourced from the
-                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster. Default value is
-                      empty string.
+                    description: |-
+                      (String) The description of the cluster. Default value is empty string.
+                      The description of the cluster. Default value is empty string.
                     type: string
                   edgeHostUid:
+                    description: |-
+                      (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+                      UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
-                    description: If set to `true`, the cluster will be force deleted
-                      and user has to manually clean up the provisioned cloud resources.
+                    description: |-
+                      (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+                      If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
                     type: boolean
                   forceDeleteDelay:
-                    description: Delay duration in minutes to before invoking cluster
-                      force delete. Default and minimum is 20.
+                    description: |-
+                      (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+                      Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostConfig:
-                    description: The host configuration for the cluster.
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
                     items:
                       properties:
                         externalTrafficPolicy:
-                          description: The external traffic policy for the cluster.
+                          description: |-
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
                           type: string
                         hostEndpointType:
-                          description: The type of endpoint for the cluster. Can be
-                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          description: |-
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
                           type: string
                         ingressHost:
-                          description: The host for the Ingress endpoint. Required
-                            if 'host_endpoint_type' is set to 'Ingress'.
+                          description: |-
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
                           type: string
                         loadBalancerSourceRanges:
-                          description: The source ranges for the load balancer. Required
-                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          description: |-
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                           type: string
                       type: object
                     type: array
                   locationConfig:
+                    description: (Block List) (see below for nested schema)
                     items:
                       properties:
                         countryCode:
-                          description: The country code of the country the cluster
-                            is located in.
+                          description: |-
+                            (String) The country code of the country the cluster is located in.
+                            The country code of the country the cluster is located in.
                           type: string
                         countryName:
-                          description: The name of the country.
+                          description: |-
+                            (String) The name of the country.
+                            The name of the country.
                           type: string
                         latitude:
-                          description: The latitude coordinates value.
+                          description: |-
+                            (Number) The latitude coordinates value.
+                            The latitude coordinates value.
                           type: number
                         longitude:
-                          description: The longitude coordinates value.
+                          description: |-
+                            (Number) The longitude coordinates value.
+                            The longitude coordinates value.
                           type: number
                         regionCode:
-                          description: The region code of where the cluster is located
-                            in.
+                          description: |-
+                            (String) The region code of where the cluster is located in.
+                            The region code of where the cluster is located in.
                           type: string
                         regionName:
-                          description: The name of the region.
+                          description: |-
+                            (String) The name of the region.
+                            The name of the region.
                           type: string
                       type: object
                     type: array
                   machinePool:
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         additionalAnnotations:
                           additionalProperties:
                             type: string
-                          description: Additional annotations to be applied to the
-                            machine pool. Annotations must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: Additional labels to be applied to the machine
-                            pool. Labels must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
-                          description: Whether this machine pool is a control plane.
-                            Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
+                            Whether this machine pool is a control plane. Defaults to `false`.
                           type: boolean
                         controlPlaneAsWorker:
-                          description: Whether this machine pool is a control plane
-                            and a worker. Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
                           type: boolean
                         count:
-                          description: Number of nodes in the machine pool.
+                          description: |-
+                            (Number) Number of nodes in the machine pool.
+                            Number of nodes in the machine pool.
                           type: number
                         instanceType:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cpu:
+                                description: |-
+                                  (Number) Number of vCPUs for each node in this machine pool.
+                                  Number of vCPUs for each node in this machine pool.
                                 type: number
                               diskSizeGb:
+                                description: |-
+                                  (Number) Disk size in GB for each node in this machine pool.
+                                  Disk size in GB for each node in this machine pool.
                                 type: number
                               memoryMb:
+                                description: |-
+                                  (Number) Memory size in MB for each node in this machine pool.
+                                  Memory size in MB for each node in this machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the machine pool.
                           type: string
                         node:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               action:
-                                description: 'The action to perform on the node. Valid
-                                  values are: `cordon`, `uncordon`.'
+                                description: |-
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
                               nodeId:
-                                description: The node_id of the node, For example
-                                  `i-07f899a33dee624f7`
+                                description: |-
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
                             type: object
                           type: array
                         nodeRepaveInterval:
-                          description: Minimum number of seconds node should be Ready,
-                            before the next node is selected for repave. Default value
-                            is `0`, Applicable only for worker pools.
+                          description: |-
+                            (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+                            Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
                         overrideKubeadmConfiguration:
-                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
-                            postKubeadmCommands. Overrides pack-level settings. Worker
-                            pools only.
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
                           type: string
                         overrideScaling:
-                          description: Rolling update strategy for the machine pool.
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
                           items:
                             properties:
                               maxSurge:
-                                description: Max extra nodes during rolling update.
-                                  Integer or percentage (e.g., '1' or '20%'). Only
-                                  valid when type=OverrideScaling. Both maxSurge and
-                                  maxUnavailable are required.
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                               maxUnavailable:
-                                description: Max unavailable nodes during rolling
-                                  update. Integer or percentage (e.g., '0' or '10%').
-                                  Only valid when type=OverrideScaling. Both maxSurge
-                                  and maxUnavailable are required.
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                             type: object
                           type: array
                         placement:
+                          description: '(Block List, Min: 1) (see below for nested
+                            schema)'
                           items:
                             properties:
                               cluster:
+                                description: |-
+                                  (String) Name of the vSphere compute cluster used for node placement.
+                                  Name of the vSphere compute cluster used for node placement.
                                 type: string
                               datastore:
+                                description: |-
+                                  (String) Name of the vSphere datastore used for node disks.
+                                  Name of the vSphere datastore used for node disks.
                                 type: string
                               network:
+                                description: |-
+                                  (String) Name of the vSphere network attached to machine pool nodes.
+                                  Name of the vSphere network attached to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: |-
+                                  (String) Name of the vSphere resource pool used for node placement.
+                                  Name of the vSphere resource pool used for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: |-
+                                  (String) UID of the static IP pool used for machine pool networking.
+                                  UID of the static IP pool used for machine pool networking.
                                 type: string
                             type: object
                           type: array
                         taints:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: 'The effect of the taint. Allowed values
-                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                description: |-
+                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
                                 type: string
                               key:
-                                description: The key of the taint.
+                                description: |-
+                                  (String) The key of the taint.
+                                  The key of the taint.
                                 type: string
                               value:
-                                description: The value of the taint.
+                                description: |-
+                                  (String) The value of the taint.
+                                  The value of the taint.
                                 type: string
                             type: object
                           type: array
                         updateStrategy:
-                          description: Update strategy for the machine pool. Valid
-                            values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn`
-                            and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling`
-                            must be specified with both `max_surge` and `max_unavailable`.
+                          description: |-
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
                   name:
+                    description: |-
+                      (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                      Name of the Edge vSphere cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
-                    description: The namespaces for the cluster.
+                    description: |-
+                      (Block List) The namespaces for the cluster. (see below for nested schema)
+                      The namespaces for the cluster.
                     items:
                       properties:
                         name:
-                          description: Name of the namespace. This is the name of
-                            the Kubernetes namespace in the cluster.
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
                           additionalProperties:
                             type: string
-                          description: 'Resource allocation for the namespace. This
-                            is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
-                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
+                          description: |-
+                            (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
-                    description: 'Date and time after which to patch cluster `RFC3339:
-                      2006-01-02T15:04:05Z07:00`'
+                    description: |-
+                      01-02T15:04:05Z07:00
+                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
                     type: string
                   osPatchOnBoot:
-                    description: Whether to apply OS patch on boot. Default is `false`.
+                    description: |-
+                      (Boolean) Whether to apply OS patch on boot. Default is false.
+                      Whether to apply OS patch on boot. Default is `false`.
                     type: boolean
                   osPatchSchedule:
-                    description: Cron schedule for OS patching. This must be in the
-                      form of `0 0 * * *`.
+                    description: |-
+                      (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+                      Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
                     type: string
                   pauseAgentUpgrades:
-                    description: The pause agent upgrades setting allows to control
-                      the automatic upgrade of the Palette component and agent for
-                      an individual cluster. The default value is `unlock`, meaning
-                      upgrades occur automatically. Setting it to `lock` pauses automatic
-                      agent upgrades for the cluster.
+                    description: |-
+                      (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+                      The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
                     type: string
                   reviewRepaveState:
-                    description: To authorize the cluster repave, set the value to
-                      `Approved` for approval and `""` to decline. Default value is
-                      `""`.
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
-                    description: The scan policy for the cluster.
+                    description: |-
+                      (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+                      The scan policy for the cluster.
                     items:
                       properties:
                         configurationScanSchedule:
-                          description: The schedule for configuration scan.
+                          description: |-
+                            (String) The schedule for configuration scan.
+                            The schedule for configuration scan.
                           type: string
                         conformanceScanSchedule:
-                          description: The schedule for conformance scan.
+                          description: |-
+                            (String) The schedule for conformance scan.
+                            The schedule for conformance scan.
                           type: string
                         penetrationScanSchedule:
-                          description: The schedule for penetration scan.
+                          description: |-
+                            (String) The schedule for penetration scan.
+                            The schedule for penetration scan.
                           type: string
                       type: object
                     type: array
                   skipCompletion:
-                    description: If `true`, the cluster will be created asynchronously.
-                      Default value is `false`.
+                    description: |-
+                      (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+                      If `true`, the cluster will be created asynchronously. Default value is `false`.
                     type: boolean
                   tags:
-                    description: A list of tags to be applied to the cluster. Tags
-                      must be in the form of `key:value`.
+                    description: |-
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
-                    description: Controls whether worker pool updates occur in parallel
-                      or sequentially. When set to `true` (default), all worker pools
-                      are updated simultaneously. When `false`, worker pools are updated
-                      one at a time, reducing cluster disruption but taking longer
-                      to complete updates.
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               managementPolicies:
@@ -1854,539 +2081,665 @@ spec:
               atProvider:
                 properties:
                   backupPolicy:
-                    description: The backup policy for the cluster. If not specified,
-                      no backups will be taken.
+                    description: |-
+                      (Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)
+                      The backup policy for the cluster. If not specified, no backups will be taken.
                     items:
                       properties:
                         backupLocationId:
-                          description: The ID of the backup location to use for the
-                            backup.
+                          description: |-
+                            (String) The ID of the backup location to use for the backup.
+                            The ID of the backup location to use for the backup.
                           type: string
                         clusterUids:
-                          description: The list of cluster UIDs to include in the
-                            backup. If `include_all_clusters` is set to `true`, then
-                            all clusters will be included.
+                          description: |-
+                            (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
+                            The list of cluster UIDs to include in the backup. If `include_all_clusters` is set to `true`, then all clusters will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         expiryInHour:
-                          description: The number of hours after which the backup
-                            will be deleted. For example, if the expiry is set to
-                            24, the backup will be deleted after 24 hours.
+                          description: |-
+                            (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
+                            The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
                           type: number
                         includeAllClusters:
-                          description: Whether to include all clusters in the backup.
-                            If set to false, only the clusters specified in `cluster_uids`
-                            will be included.
+                          description: |-
+                            (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
+                            Whether to include all clusters in the backup. If set to false, only the clusters specified in `cluster_uids` will be included.
                           type: boolean
                         includeClusterResources:
-                          description: 'Indicates whether to include cluster resources
-                            in the backup. If set to false, only the cluster configuration
-                            and disks will be backed up. (Note: Starting with Palette
-                            version 4.6, the include_cluster_resources attribute will
-                            be deprecated, and a new attribute, include_cluster_resources_mode,
-                            will be introduced.)'
+                          description: |-
+                            (Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
+                            Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)
                           type: boolean
                         includeClusterResourcesMode:
-                          description: Specifies whether to include the cluster resources
-                            in the backup. Supported values are `always`, `never`,
-                            and `auto`.
+                          description: |-
+                            (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
+                            Specifies whether to include the cluster resources in the backup. Supported values are `always`, `never`, and `auto`.
                           type: string
                         includeDisks:
-                          description: Whether to include the disks in the backup.
-                            If set to false, only the cluster configuration will be
-                            backed up.
+                          description: |-
+                            (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
+                            Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
                           type: boolean
                         namespaces:
-                          description: The list of Kubernetes namespaces to include
-                            in the backup. If not specified, all namespaces will be
-                            included.
+                          description: |-
+                            (Block List) The namespaces for the cluster. (see below for nested schema)
+                            The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         prefix:
-                          description: Prefix for the backup name. The backup name
-                            will be of the format <prefix>-<cluster-name>-<timestamp>.
+                          description: |-
+                            -.
+                            Prefix for the backup name. The backup name will be of the format <prefix>-<cluster-name>-<timestamp>.
                           type: string
                         schedule:
-                          description: The schedule for the backup. The schedule is
-                            specified in cron format. For example, to run the backup
-                            every day at 1:00 AM, the schedule should be set to `0
-                            1 * * *`.
+                          description: |-
+                            (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
+                            The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to `0 1 * * *`.
                           type: string
                       type: object
                     type: array
                   cloudConfig:
+                    description: '(Block List, Min: 1, Max: 1) (see below for nested
+                      schema)'
                     items:
                       properties:
                         datacenter:
+                          description: |-
+                            (String) Name of the vSphere datacenter used by this cluster.
+                            Name of the vSphere datacenter used by this cluster.
                           type: string
                         folder:
+                          description: |-
+                            (String) vSphere inventory folder where cluster virtual machines are created.
+                            vSphere inventory folder where cluster virtual machines are created.
                           type: string
                         imageTemplateFolder:
+                          description: |-
+                            (String) vSphere folder containing VM image templates used for node provisioning.
+                            vSphere folder containing VM image templates used for node provisioning.
                           type: string
                         networkSearchDomain:
+                          description: |-
+                            (String) DNS search domain associated with the control plane endpoint.
+                            DNS search domain associated with the control plane endpoint.
                           type: string
                         networkType:
+                          description: |-
+                            (String) Type of network endpoint used for the control plane address.
+                            Type of network endpoint used for the control plane address.
                           type: string
                         sshKey:
-                          description: Public SSH Key (Secure Shell) to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (String) Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            Public SSH Key (Secure Shell) to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           type: string
                         sshKeys:
-                          description: List of public SSH (Secure Shell) keys to establish,
-                            administer, and communicate with remote clusters, `ssh_key
-                            & ssh_keys` are mutually exclusive.
+                          description: |-
+                            (Set of String) List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, ssh_key & ssh_keys are mutually exclusive.
+                            List of public SSH (Secure Shell) keys to establish, administer, and communicate with remote clusters, `ssh_key & ssh_keys` are mutually exclusive.
                           items:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
                         staticIp:
+                          description: |-
+                            (Boolean) Whether to use static IP addressing for the control plane endpoint. Default is false.
+                            Whether to use static IP addressing for the control plane endpoint. Default is `false`.
                           type: boolean
                         vip:
+                          description: |-
+                            (String) Virtual IP address for the Kubernetes control plane endpoint.
+                            Virtual IP address for the Kubernetes control plane endpoint.
                           type: string
                       type: object
                     type: array
                   cloudConfigId:
-                    description: ID of the cloud config used for the cluster. This
-                      cloud config must be of type `azure`.
+                    description: |-
+                      (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
+                      ID of the cloud config used for the cluster. This cloud config must be of type `azure`.
                     type: string
                   clusterMetaAttribute:
-                    description: '`cluster_meta_attribute` can be used to set additional
-                      cluster metadata information, eg `{''nic_name'': ''test'', ''env'':
-                      ''stage''}`'
+                    description: |-
+                      (String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {'nic_name': 'test', 'env': 'stage'}
+                      `cluster_meta_attribute` can be used to set additional cluster metadata information, eg `{'nic_name': 'test', 'env': 'stage'}`
                     type: string
                   clusterProfile:
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:
-                          description: The ID of the cluster profile.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster profile.
                           type: string
                         pack:
-                          description: For packs of type `spectro`, `helm`, and `manifest`,
-                            at least one pack must be specified.
+                          description: |-
+                            (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
+                            For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
                           items:
                             properties:
                               manifest:
+                                description: (Block List) (see below for nested schema)
                                 items:
                                   properties:
                                     content:
-                                      description: The content of the manifest. The
-                                        content is the YAML content of the manifest.
+                                      description: |-
+                                        (String) The content of the manifest. The content is the YAML content of the manifest.
+                                        The content of the manifest. The content is the YAML content of the manifest.
                                       type: string
                                     name:
-                                      description: The name of the manifest. The name
-                                        must be unique within the pack.
+                                      description: |-
+                                        (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                        The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
+                                      description: (String) The unique identifier
+                                        of the pack. The value can be looked up using
+                                        the spectrocloud_pack data source. This value
+                                        is required if the pack type is spectro and
+                                        for helm if the chart is from a public helm
+                                        registry. If not provided, all of name, tag,
+                                        and registry_uid must be specified to resolve
+                                        the pack UID internally.
                                       type: string
                                   type: object
                                 type: array
                               name:
-                                description: The name of the pack. The name must be
-                                  unique within the cluster profile.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
-                                description: The registry name of the pack. The registry
-                                  name is the human-readable name of the registry.
-                                  This attribute can be used instead of `registry_uid`
-                                  for better readability. If `uid` is not provided,
-                                  this field can be used along with `name` and `tag`
-                                  to resolve the pack UID internally. Either `registry_uid`
-                                  or `registry_name` can be specified, but not both.
+                                description: |-
+                                  readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of `registry_uid` for better readability. If `uid` is not provided, this field can be used along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               registryUid:
-                                description: The registry UID of the pack. The registry
-                                  UID is the unique identifier of the registry. This
-                                  attribute is required if there is more than one
-                                  registry that contains a pack with the same name.
-                                  If `uid` is not provided, this field is required
-                                  along with `name` and `tag` to resolve the pack
-                                  UID internally. Either `registry_uid` or `registry_name`
-                                  can be specified, but not both.
+                                description: |-
+                                  (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
+                                  The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If `uid` is not provided, this field is required along with `name` and `tag` to resolve the pack UID internally. Either `registry_uid` or `registry_name` can be specified, but not both.
                                 type: string
                               tag:
-                                description: The tag of the pack. The tag is the version
-                                  of the pack. This attribute is required if the pack
-                                  type is `spectro` or `helm`. If `uid` is not provided,
-                                  this field is required along with `name` and `registry_uid`
-                                  (or `registry_name`) to resolve the pack UID internally.
+                                description: |-
+                                  (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
+                                  The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is `spectro` or `helm`. If `uid` is not provided, this field is required along with `name` and `registry_uid` (or `registry_name`) to resolve the pack UID internally.
                                 type: string
                               type:
-                                description: The type of the pack. Allowed values
-                                  are `spectro`, `manifest`, `helm`, or `oci`. The
-                                  default value is spectro. If using an OCI registry
-                                  for pack, set the type to `oci`.
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the pack. Allowed values are `spectro`, `manifest`, `helm`, or `oci`. The default value is spectro. If using an OCI registry for pack, set the type to `oci`.
                                 type: string
                               uid:
-                                description: The unique identifier of the pack. The
-                                  value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack)
-                                  data source. This value is required if the pack
-                                  type is `spectro` and for `helm` if the chart is
-                                  from a public helm registry. If not provided, all
-                                  of `name`, `tag`, and `registry_uid` must be specified
-                                  to resolve the pack UID internally.
+                                description: |-
+                                  (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
+                                  The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
                                 type: string
                               values:
-                                description: The values of the pack. The values are
-                                  the configuration values of the pack. The values
-                                  are specified in YAML format.
+                                description: |-
+                                  (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
+                                  The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
                           type: array
                         variables:
                           additionalProperties:
                             type: string
-                          description: 'A map of cluster profile variables, specified
-                            as key-value pairs. For example: `priority = "5"`.'
+                          description: |-
+                            value pairs. For example: priority = "5".
+                            A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   clusterRbacBinding:
-                    description: The RBAC binding for the cluster.
+                    description: |-
+                      (Block List) The RBAC binding for the cluster. (see below for nested schema)
+                      The RBAC binding for the cluster.
                     items:
                       properties:
                         namespace:
-                          description: The Kubernetes namespace of the RBAC binding.
-                            Required if 'type' is set to 'RoleBinding'.
+                          description: |-
+                            (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                            The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
                           type: string
                         role:
                           additionalProperties:
                             type: string
-                          description: The role of the RBAC binding. Required if 'type'
-                            is set to 'RoleBinding'. Must include 'name' and 'kind'
-                            fields.
+                          description: |-
+                            (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
+                            The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.
                           type: object
                           x-kubernetes-map-type: granular
                         subjects:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               name:
-                                description: The name of the subject. Required if
-                                  'type' is set to 'User' or 'Group'.
+                                description: |-
+                                  (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                                  The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
-                                description: The Kubernetes namespace of the subject.
-                                  Required if 'type' is set to 'ServiceAccount'.
+                                description: |-
+                                  (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
+                                  The Kubernetes namespace of the subject. Required if 'type' is set to 'ServiceAccount'.
                                 type: string
                               type:
-                                description: 'The type of the subject. Can be one
-                                  of the following values: `User`, `Group`, or `ServiceAccount`.'
+                                description: |-
+                                  (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                                  The type of the subject. Can be one of the following values: `User`, `Group`, or `ServiceAccount`.
                                 type: string
                             type: object
                           type: array
                         type:
-                          description: 'The type of the RBAC binding. Can be one of
-                            the following values: `RoleBinding`, or `ClusterRoleBinding`.'
+                          description: |-
+                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            The type of the RBAC binding. Can be one of the following values: `RoleBinding`, or `ClusterRoleBinding`.
                           type: string
                       type: object
                     type: array
                   clusterTemplate:
-                    description: The cluster template of the cluster.
+                    description: |-
+                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+                      The cluster template of the cluster.
                     items:
                       properties:
                         clusterProfile:
-                          description: The cluster profile of the cluster template.
+                          description: |-
+                            (Block Set) (see below for nested schema)
+                            The cluster profile of the cluster template.
                           items:
                             properties:
                               id:
-                                description: The UID of the cluster profile.
+                                description: |-
+                                  (String) The ID of this resource.
+                                  The UID of the cluster profile.
                                 type: string
                               variables:
                                 additionalProperties:
                                   type: string
-                                description: 'A map of cluster profile variables,
-                                  specified as key-value pairs. For example: `priority
-                                  = "5"`.'
+                                description: |-
+                                  value pairs. For example: priority = "5".
+                                  A map of cluster profile variables, specified as key-value pairs. For example: `priority = "5"`.
                                 type: object
                                 x-kubernetes-map-type: granular
                             type: object
                           type: array
                         id:
-                          description: The ID of the cluster template.
+                          description: |-
+                            (String) The ID of this resource.
+                            The ID of the cluster template.
                           type: string
                         name:
-                          description: The name of the cluster template.
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            The name of the cluster template.
                           type: string
                       type: object
                     type: array
                   clusterTimezone:
-                    description: Defines the time zone used by this cluster to interpret
-                      scheduled operations. Maintenance tasks like upgrades will follow
-                      this time zone to ensure they run at the appropriate local time
-                      for the cluster. Must be in IANA timezone format (e.g., 'America/New_York',
-                      'Asia/Kolkata', 'Europe/London').
+                    description: |-
+                      (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
+                      Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
                     type: string
                   context:
-                    description: The context of the Edge cluster. Allowed values are
-                      `project` or `tenant`. Default is `project`. If  the `project`
-                      context is specified, the project name will sourced from the
-                      provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
+                    description: |-
+                      (String) The context of the Edge cluster. Allowed values are project or tenant. Default is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
+                      The context of the Edge cluster. Allowed values are `project` or `tenant`. Default is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
                     type: string
                   description:
-                    description: The description of the cluster. Default value is
-                      empty string.
+                    description: |-
+                      (String) The description of the cluster. Default value is empty string.
+                      The description of the cluster. Default value is empty string.
                     type: string
                   edgeHostUid:
+                    description: |-
+                      (String) UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
+                      UID of the registered Edge host where this cluster is deployed. Changing this forces a new resource.
                     type: string
                   forceDelete:
-                    description: If set to `true`, the cluster will be force deleted
-                      and user has to manually clean up the provisioned cloud resources.
+                    description: |-
+                      (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
+                      If set to `true`, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
                     type: boolean
                   forceDeleteDelay:
-                    description: Delay duration in minutes to before invoking cluster
-                      force delete. Default and minimum is 20.
+                    description: |-
+                      (Number) Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
+                      Delay duration in minutes to before invoking cluster force delete. Default and minimum is 20.
                     type: number
                   hostConfig:
-                    description: The host configuration for the cluster.
+                    description: |-
+                      (Block List) The host configuration for the cluster. (see below for nested schema)
+                      The host configuration for the cluster.
                     items:
                       properties:
                         externalTrafficPolicy:
-                          description: The external traffic policy for the cluster.
+                          description: |-
+                            (String) The external traffic policy for the cluster.
+                            The external traffic policy for the cluster.
                           type: string
                         hostEndpointType:
-                          description: The type of endpoint for the cluster. Can be
-                            either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                          description: |-
+                            (String) The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
+                            The type of endpoint for the cluster. Can be either 'Ingress' or 'LoadBalancer'. The default is 'Ingress'.
                           type: string
                         ingressHost:
-                          description: The host for the Ingress endpoint. Required
-                            if 'host_endpoint_type' is set to 'Ingress'.
+                          description: |-
+                            (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
+                            The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
                           type: string
                         loadBalancerSourceRanges:
-                          description: The source ranges for the load balancer. Required
-                            if 'host_endpoint_type' is set to 'LoadBalancer'.
+                          description: |-
+                            (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
+                            The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
                           type: string
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   locationConfig:
+                    description: (Block List) (see below for nested schema)
                     items:
                       properties:
                         countryCode:
-                          description: The country code of the country the cluster
-                            is located in.
+                          description: |-
+                            (String) The country code of the country the cluster is located in.
+                            The country code of the country the cluster is located in.
                           type: string
                         countryName:
-                          description: The name of the country.
+                          description: |-
+                            (String) The name of the country.
+                            The name of the country.
                           type: string
                         latitude:
-                          description: The latitude coordinates value.
+                          description: |-
+                            (Number) The latitude coordinates value.
+                            The latitude coordinates value.
                           type: number
                         longitude:
-                          description: The longitude coordinates value.
+                          description: |-
+                            (Number) The longitude coordinates value.
+                            The longitude coordinates value.
                           type: number
                         regionCode:
-                          description: The region code of where the cluster is located
-                            in.
+                          description: |-
+                            (String) The region code of where the cluster is located in.
+                            The region code of where the cluster is located in.
                           type: string
                         regionName:
-                          description: The name of the region.
+                          description: |-
+                            (String) The name of the region.
+                            The name of the region.
                           type: string
                       type: object
                     type: array
                   machinePool:
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         additionalAnnotations:
                           additionalProperties:
                             type: string
-                          description: Additional annotations to be applied to the
-                            machine pool. Annotations must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
+                            Additional annotations to be applied to the machine pool. Annotations must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         additionalLabels:
                           additionalProperties:
                             type: string
-                          description: Additional labels to be applied to the machine
-                            pool. Labels must be in the form of `key:value`.
+                          description: |-
+                            (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                            Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
                         controlPlane:
-                          description: Whether this machine pool is a control plane.
-                            Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane. Defaults to false.
+                            Whether this machine pool is a control plane. Defaults to `false`.
                           type: boolean
                         controlPlaneAsWorker:
-                          description: Whether this machine pool is a control plane
-                            and a worker. Defaults to `false`.
+                          description: |-
+                            (Boolean) Whether this machine pool is a control plane and a worker. Defaults to false.
+                            Whether this machine pool is a control plane and a worker. Defaults to `false`.
                           type: boolean
                         count:
-                          description: Number of nodes in the machine pool.
+                          description: |-
+                            (Number) Number of nodes in the machine pool.
+                            Number of nodes in the machine pool.
                           type: number
                         instanceType:
+                          description: '(Block List, Min: 1, Max: 1) (see below for
+                            nested schema)'
                           items:
                             properties:
                               cpu:
+                                description: |-
+                                  (Number) Number of vCPUs for each node in this machine pool.
+                                  Number of vCPUs for each node in this machine pool.
                                 type: number
                               diskSizeGb:
+                                description: |-
+                                  (Number) Disk size in GB for each node in this machine pool.
+                                  Disk size in GB for each node in this machine pool.
                                 type: number
                               memoryMb:
+                                description: |-
+                                  (Number) Memory size in MB for each node in this machine pool.
+                                  Memory size in MB for each node in this machine pool.
                                 type: number
                             type: object
                           type: array
                         name:
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the machine pool.
                           type: string
                         node:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               action:
-                                description: 'The action to perform on the node. Valid
-                                  values are: `cordon`, `uncordon`.'
+                                description: |-
+                                  (String) The action to perform on the node. Valid values are: cordon, uncordon.
+                                  The action to perform on the node. Valid values are: `cordon`, `uncordon`.
                                 type: string
                               nodeId:
-                                description: The node_id of the node, For example
-                                  `i-07f899a33dee624f7`
+                                description: |-
+                                  07f899a33dee624f7
+                                  The node_id of the node, For example `i-07f899a33dee624f7`
                                 type: string
                             type: object
                           type: array
                         nodeRepaveInterval:
-                          description: Minimum number of seconds node should be Ready,
-                            before the next node is selected for repave. Default value
-                            is `0`, Applicable only for worker pools.
+                          description: |-
+                            (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
+                            Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
                         overrideKubeadmConfiguration:
-                          description: YAML config for kubeletExtraArgs, preKubeadmCommands,
-                            postKubeadmCommands. Overrides pack-level settings. Worker
-                            pools only.
+                          description: |-
+                            level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
                           type: string
                         overrideScaling:
-                          description: Rolling update strategy for the machine pool.
+                          description: |-
+                            (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
+                            Rolling update strategy for the machine pool.
                           items:
                             properties:
                               maxSurge:
-                                description: Max extra nodes during rolling update.
-                                  Integer or percentage (e.g., '1' or '20%'). Only
-                                  valid when type=OverrideScaling. Both maxSurge and
-                                  maxUnavailable are required.
+                                description: |-
+                                  (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                               maxUnavailable:
-                                description: Max unavailable nodes during rolling
-                                  update. Integer or percentage (e.g., '0' or '10%').
-                                  Only valid when type=OverrideScaling. Both maxSurge
-                                  and maxUnavailable are required.
+                                description: |-
+                                  (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
+                                  Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
                                 type: string
                             type: object
                           type: array
                         placement:
+                          description: '(Block List, Min: 1) (see below for nested
+                            schema)'
                           items:
                             properties:
                               cluster:
+                                description: |-
+                                  (String) Name of the vSphere compute cluster used for node placement.
+                                  Name of the vSphere compute cluster used for node placement.
                                 type: string
                               datastore:
+                                description: |-
+                                  (String) Name of the vSphere datastore used for node disks.
+                                  Name of the vSphere datastore used for node disks.
                                 type: string
                               id:
+                                description: (String) The ID of this resource.
                                 type: string
                               network:
+                                description: |-
+                                  (String) Name of the vSphere network attached to machine pool nodes.
+                                  Name of the vSphere network attached to machine pool nodes.
                                 type: string
                               resourcePool:
+                                description: |-
+                                  (String) Name of the vSphere resource pool used for node placement.
+                                  Name of the vSphere resource pool used for node placement.
                                 type: string
                               staticIpPoolId:
+                                description: |-
+                                  (String) UID of the static IP pool used for machine pool networking.
+                                  UID of the static IP pool used for machine pool networking.
                                 type: string
                             type: object
                           type: array
                         taints:
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               effect:
-                                description: 'The effect of the taint. Allowed values
-                                  are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.'
+                                description: |-
+                                  (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                  The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
                                 type: string
                               key:
-                                description: The key of the taint.
+                                description: |-
+                                  (String) The key of the taint.
+                                  The key of the taint.
                                 type: string
                               value:
-                                description: The value of the taint.
+                                description: |-
+                                  (String) The value of the taint.
+                                  The value of the taint.
                                 type: string
                             type: object
                           type: array
                         updateStrategy:
-                          description: Update strategy for the machine pool. Valid
-                            values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn`
-                            and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling`
-                            must be specified with both `max_surge` and `max_unavailable`.
+                          description: |-
+                            (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
+                            Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
                       type: object
                     type: array
                   name:
+                    description: |-
+                      (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                      Name of the Edge vSphere cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
-                    description: The namespaces for the cluster.
+                    description: |-
+                      (Block List) The namespaces for the cluster. (see below for nested schema)
+                      The namespaces for the cluster.
                     items:
                       properties:
                         name:
-                          description: Name of the namespace. This is the name of
-                            the Kubernetes namespace in the cluster.
+                          description: |-
+                            (String) Name of the Edge vSphere cluster. Changing this forces a new resource.
+                            Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
                           additionalProperties:
                             type: string
-                          description: 'Resource allocation for the namespace. This
-                            is a map containing the resource type and the resource
-                            value. For example, `{cpu_cores: ''2'', memory_MiB: ''2048'',
-                            gpu_limit: ''1'', gpu_provider: ''nvidia''}`'
+                          description: |-
+                            (Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, {cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}
+                            Resource allocation for the namespace. This is a map containing the resource type and the resource value. For example, `{cpu_cores: '2', memory_MiB: '2048', gpu_limit: '1', gpu_provider: 'nvidia'}`
                           type: object
                           x-kubernetes-map-type: granular
                       type: object
                     type: array
                   osPatchAfter:
-                    description: 'Date and time after which to patch cluster `RFC3339:
-                      2006-01-02T15:04:05Z07:00`'
+                    description: |-
+                      01-02T15:04:05Z07:00
+                      Date and time after which to patch cluster `RFC3339: 2006-01-02T15:04:05Z07:00`
                     type: string
                   osPatchOnBoot:
-                    description: Whether to apply OS patch on boot. Default is `false`.
+                    description: |-
+                      (Boolean) Whether to apply OS patch on boot. Default is false.
+                      Whether to apply OS patch on boot. Default is `false`.
                     type: boolean
                   osPatchSchedule:
-                    description: Cron schedule for OS patching. This must be in the
-                      form of `0 0 * * *`.
+                    description: |-
+                      (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+                      Cron schedule for OS patching. This must be in the form of `0 0 * * *`.
                     type: string
                   pauseAgentUpgrades:
-                    description: The pause agent upgrades setting allows to control
-                      the automatic upgrade of the Palette component and agent for
-                      an individual cluster. The default value is `unlock`, meaning
-                      upgrades occur automatically. Setting it to `lock` pauses automatic
-                      agent upgrades for the cluster.
+                    description: |-
+                      (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
+                      The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
                     type: string
                   reviewRepaveState:
-                    description: To authorize the cluster repave, set the value to
-                      `Approved` for approval and `""` to decline. Default value is
-                      `""`.
+                    description: |-
+                      (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
+                      To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
                     type: string
                   scanPolicy:
-                    description: The scan policy for the cluster.
+                    description: |-
+                      (Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)
+                      The scan policy for the cluster.
                     items:
                       properties:
                         configurationScanSchedule:
-                          description: The schedule for configuration scan.
+                          description: |-
+                            (String) The schedule for configuration scan.
+                            The schedule for configuration scan.
                           type: string
                         conformanceScanSchedule:
-                          description: The schedule for conformance scan.
+                          description: |-
+                            (String) The schedule for conformance scan.
+                            The schedule for conformance scan.
                           type: string
                         penetrationScanSchedule:
-                          description: The schedule for penetration scan.
+                          description: |-
+                            (String) The schedule for penetration scan.
+                            The schedule for penetration scan.
                           type: string
                       type: object
                     type: array
                   skipCompletion:
-                    description: If `true`, the cluster will be created asynchronously.
-                      Default value is `false`.
+                    description: |-
+                      (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+                      If `true`, the cluster will be created asynchronously. Default value is `false`.
                     type: boolean
                   tags:
-                    description: A list of tags to be applied to the cluster. Tags
-                      must be in the form of `key:value`.
+                    description: |-
+                      (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
+                      A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
-                    description: Controls whether worker pool updates occur in parallel
-                      or sequentially. When set to `true` (default), all worker pools
-                      are updated simultaneously. When `false`, worker pools are updated
-                      one at a time, reducing cluster disruption but taking longer
-                      to complete updates.
+                    description: |-
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               conditions:

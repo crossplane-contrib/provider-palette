@@ -23,8 +23,8 @@ type ProjectInitParameters struct {
 	// The name of the project.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) Assign tags to the project.
-	// Assign tags to the project.
+	// (Set of String) Set of tag strings to assign to the project.
+	// Set of tag strings to assign to the project.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -42,8 +42,8 @@ type ProjectObservation struct {
 	// The name of the project.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) Assign tags to the project.
-	// Assign tags to the project.
+	// (Set of String) Set of tag strings to assign to the project.
+	// Set of tag strings to assign to the project.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -60,8 +60,8 @@ type ProjectParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) Assign tags to the project.
-	// Assign tags to the project.
+	// (Set of String) Set of tag strings to assign to the project.
+	// Set of tag strings to assign to the project.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`

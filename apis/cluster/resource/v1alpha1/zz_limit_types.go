@@ -338,7 +338,7 @@ type LimitStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Limit is the Schema for the Limits API.
+// Limit is the Schema for the Limits API. Resource for managing tenant-wide Palette object quota limits in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

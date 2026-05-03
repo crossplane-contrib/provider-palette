@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Aws is the Schema for the Awss API.
+        description: Aws is the Schema for the Awss API. Resource for managing AWS
+          cloud account credentials in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -145,7 +146,9 @@ spec:
                     - namespace
                     type: object
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cloud account.
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-
@@ -270,7 +273,9 @@ spec:
                     - namespace
                     type: object
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cloud account.
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-
@@ -424,7 +429,9 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   name:
-                    description: (String)
+                    description: |-
+                      (String) Name of the AWS cloud account.
+                      Name of the AWS cloud account.
                     type: string
                   partition:
                     description: |-

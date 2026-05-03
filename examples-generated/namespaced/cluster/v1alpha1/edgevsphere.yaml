@@ -1,0 +1,13 @@
+apiVersion: cluster.palette.m.crossplane.io/v1alpha1
+kind: EdgeVsphere
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cluster/v1alpha1/edgevsphere
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    edgeHostUid: edge-host-uid
+    name: edge-vsphere-cluster

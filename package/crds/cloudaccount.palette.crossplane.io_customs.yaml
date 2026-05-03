@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Custom is the Schema for the Customs API.
+        description: Custom is the Schema for the Customs API. Resource for managing
+          custom cloud accounts in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -84,8 +85,8 @@ spec:
                     type: string
                   credentialsSecretRef:
                     description: |-
-                      (Map of String, Sensitive) The credentials required for accessing the cloud.
-                      The credentials required for accessing the cloud.
+                      (Map of String, Sensitive) Map of credential key to credential value strings required for accessing the cloud.
+                      Map of credential key to credential value strings required for accessing the cloud.
                     properties:
                       name:
                         description: Name of the secret.
