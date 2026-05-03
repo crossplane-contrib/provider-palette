@@ -422,7 +422,7 @@ type StorageLocationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// StorageLocation is the Schema for the StorageLocations API.
+// StorageLocation is the Schema for the StorageLocations API. Resource for managing backup storage locations in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

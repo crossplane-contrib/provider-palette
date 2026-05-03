@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Team is the Schema for the Teams API.
+        description: Team is the Schema for the Teams API. Resource for managing teams
+          and role mappings in Spectro Cloud.
         properties:
           apiVersion:
             description: |-

@@ -211,47 +211,47 @@ type HTTPParameters struct {
 
 type StatusInitParameters struct {
 
-	// (Boolean)
+	// (Boolean) Whether the latest alert delivery operation succeeded.
 	// Whether the latest alert delivery operation succeeded.
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
-	// (String)
+	// (String) Status message from the latest alert delivery operation.
 	// Status message from the latest alert delivery operation.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (String)
+	// (String) Timestamp of the latest alert delivery status update.
 	// Timestamp of the latest alert delivery status update.
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
 
 type StatusObservation struct {
 
-	// (Boolean)
+	// (Boolean) Whether the latest alert delivery operation succeeded.
 	// Whether the latest alert delivery operation succeeded.
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
-	// (String)
+	// (String) Status message from the latest alert delivery operation.
 	// Status message from the latest alert delivery operation.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (String)
+	// (String) Timestamp of the latest alert delivery status update.
 	// Timestamp of the latest alert delivery status update.
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 }
 
 type StatusParameters struct {
 
-	// (Boolean)
+	// (Boolean) Whether the latest alert delivery operation succeeded.
 	// Whether the latest alert delivery operation succeeded.
 	// +kubebuilder:validation:Optional
 	IsSucceeded *bool `json:"isSucceeded,omitempty" tf:"is_succeeded,omitempty"`
 
-	// (String)
+	// (String) Status message from the latest alert delivery operation.
 	// Status message from the latest alert delivery operation.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (String)
+	// (String) Timestamp of the latest alert delivery status update.
 	// Timestamp of the latest alert delivery status update.
 	// +kubebuilder:validation:Optional
 	Time *string `json:"time,omitempty" tf:"time,omitempty"`
@@ -284,7 +284,7 @@ type AlertStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Alert is the Schema for the Alerts API.
+// Alert is the Schema for the Alerts API. Resource for managing project-level alert channels in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

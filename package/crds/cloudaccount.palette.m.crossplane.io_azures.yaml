@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Azure is the Schema for the Azures API.
+        description: Azure is the Schema for the Azures API. Resource for managing
+          Azure cloud account credentials in Spectro Cloud.
         properties:
           apiVersion:
             description: |-

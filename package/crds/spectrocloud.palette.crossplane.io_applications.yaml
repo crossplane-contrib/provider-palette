@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Application is the Schema for the Applications API.
+        description: Application is the Schema for the Applications API. Resource
+          for managing applications deployed through Spectro Cloud.
         properties:
           apiVersion:
             description: |-

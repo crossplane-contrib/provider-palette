@@ -224,34 +224,34 @@ spec:
                       properties:
                         chartName:
                           description: |-
-                            (String)
+                            (String) Helm chart name used to install the virtual cluster control plane.
                             Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
                           description: |-
-                            (String)
+                            (String) Helm repository URL for the virtual cluster chart.
                             Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
                           description: |-
-                            (String)
+                            (String) YAML values override passed to the virtual cluster Helm chart.
                             YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
                           description: |-
-                            (String)
+                            (String) Helm chart version for the virtual cluster deployment.
                             Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
                           description: |-
-                            (String)
+                            (String) Kubernetes version for the virtual cluster control plane.
                             Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
                     type: array
                   clusterGroupUid:
                     description: |-
-                      (String)
+                      (String) UID of the cluster group used to select the host cluster.
                       UID of the cluster group used to select the host cluster.
                     type: string
                   clusterGroupUidRef:
@@ -430,14 +430,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the virtual cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -507,7 +507,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -556,12 +556,12 @@ spec:
                     type: number
                   hostClusterUid:
                     description: |-
-                      (String)
+                      (String) UID of the host cluster where this virtual cluster is created.
                       UID of the host cluster where this virtual cluster is created.
                     type: string
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the virtual cluster. Changing this forces a new resource.
                       Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -572,7 +572,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the virtual cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -616,32 +616,32 @@ spec:
                       properties:
                         maxCpu:
                           description: |-
-                            (Number)
+                            (Number) Maximum vCPU allocation for the virtual cluster.
                             Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Maximum memory allocation in MB for the virtual cluster.
                             Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Maximum storage allocation in GB for the virtual cluster.
                             Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
                           description: |-
-                            (Number)
+                            (Number) Minimum vCPU allocation for the virtual cluster.
                             Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Minimum memory allocation in MB for the virtual cluster.
                             Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Minimum storage allocation in GB for the virtual cluster.
                             Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object
@@ -852,34 +852,34 @@ spec:
                       properties:
                         chartName:
                           description: |-
-                            (String)
+                            (String) Helm chart name used to install the virtual cluster control plane.
                             Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
                           description: |-
-                            (String)
+                            (String) Helm repository URL for the virtual cluster chart.
                             Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
                           description: |-
-                            (String)
+                            (String) YAML values override passed to the virtual cluster Helm chart.
                             YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
                           description: |-
-                            (String)
+                            (String) Helm chart version for the virtual cluster deployment.
                             Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
                           description: |-
-                            (String)
+                            (String) Kubernetes version for the virtual cluster control plane.
                             Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
                     type: array
                   clusterGroupUid:
                     description: |-
-                      (String)
+                      (String) UID of the cluster group used to select the host cluster.
                       UID of the cluster group used to select the host cluster.
                     type: string
                   clusterGroupUidRef:
@@ -1058,14 +1058,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the virtual cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1135,7 +1135,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1184,12 +1184,12 @@ spec:
                     type: number
                   hostClusterUid:
                     description: |-
-                      (String)
+                      (String) UID of the host cluster where this virtual cluster is created.
                       UID of the host cluster where this virtual cluster is created.
                     type: string
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the virtual cluster. Changing this forces a new resource.
                       Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -1200,7 +1200,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the virtual cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1244,32 +1244,32 @@ spec:
                       properties:
                         maxCpu:
                           description: |-
-                            (Number)
+                            (Number) Maximum vCPU allocation for the virtual cluster.
                             Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Maximum memory allocation in MB for the virtual cluster.
                             Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Maximum storage allocation in GB for the virtual cluster.
                             Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
                           description: |-
-                            (Number)
+                            (Number) Minimum vCPU allocation for the virtual cluster.
                             Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Minimum memory allocation in MB for the virtual cluster.
                             Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Minimum storage allocation in GB for the virtual cluster.
                             Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object
@@ -1492,27 +1492,27 @@ spec:
                       properties:
                         chartName:
                           description: |-
-                            (String)
+                            (String) Helm chart name used to install the virtual cluster control plane.
                             Helm chart name used to install the virtual cluster control plane.
                           type: string
                         chartRepo:
                           description: |-
-                            (String)
+                            (String) Helm repository URL for the virtual cluster chart.
                             Helm repository URL for the virtual cluster chart.
                           type: string
                         chartValues:
                           description: |-
-                            (String)
+                            (String) YAML values override passed to the virtual cluster Helm chart.
                             YAML values override passed to the virtual cluster Helm chart.
                           type: string
                         chartVersion:
                           description: |-
-                            (String)
+                            (String) Helm chart version for the virtual cluster deployment.
                             Helm chart version for the virtual cluster deployment.
                           type: string
                         k8sVersion:
                           description: |-
-                            (String)
+                            (String) Kubernetes version for the virtual cluster control plane.
                             Kubernetes version for the virtual cluster control plane.
                           type: string
                       type: object
@@ -1524,7 +1524,7 @@ spec:
                     type: string
                   clusterGroupUid:
                     description: |-
-                      (String)
+                      (String) UID of the cluster group used to select the host cluster.
                       UID of the cluster group used to select the host cluster.
                     type: string
                   clusterProfile:
@@ -1553,7 +1553,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the virtual cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -1570,7 +1570,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1640,7 +1640,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the virtual cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1689,7 +1689,7 @@ spec:
                     type: number
                   hostClusterUid:
                     description: |-
-                      (String)
+                      (String) UID of the host cluster where this virtual cluster is created.
                       UID of the host cluster where this virtual cluster is created.
                     type: string
                   id:
@@ -1728,7 +1728,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the virtual cluster. Changing this forces a new resource.
                       Name of the virtual cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -1739,7 +1739,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the virtual cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1783,32 +1783,32 @@ spec:
                       properties:
                         maxCpu:
                           description: |-
-                            (Number)
+                            (Number) Maximum vCPU allocation for the virtual cluster.
                             Maximum vCPU allocation for the virtual cluster.
                           type: number
                         maxMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Maximum memory allocation in MB for the virtual cluster.
                             Maximum memory allocation in MB for the virtual cluster.
                           type: number
                         maxStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Maximum storage allocation in GB for the virtual cluster.
                             Maximum storage allocation in GB for the virtual cluster.
                           type: number
                         minCpu:
                           description: |-
-                            (Number)
+                            (Number) Minimum vCPU allocation for the virtual cluster.
                             Minimum vCPU allocation for the virtual cluster.
                           type: number
                         minMemInMb:
                           description: |-
-                            (Number)
+                            (Number) Minimum memory allocation in MB for the virtual cluster.
                             Minimum memory allocation in MB for the virtual cluster.
                           type: number
                         minStorageInGb:
                           description: |-
-                            (Number)
+                            (Number) Minimum storage allocation in GB for the virtual cluster.
                             Minimum storage allocation in GB for the virtual cluster.
                           type: number
                       type: object

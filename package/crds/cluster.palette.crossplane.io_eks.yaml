@@ -307,13 +307,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
                           items:
                             type: string
@@ -346,7 +346,7 @@ spec:
                           x-kubernetes-list-type: set
                         region:
                           description: |-
-                            (String)
+                            (String) AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                             AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         sshKeyName:
@@ -356,7 +356,7 @@ spec:
                           type: string
                         vpcId:
                           description: |-
-                            (String)
+                            (String) VPC ID used to provision the EKS cluster.
                             VPC ID used to provision the EKS cluster.
                           type: string
                       type: object
@@ -776,7 +776,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String)
+                            value pairs applied to Fargate resources.
                             Map of additional tag key-value pairs applied to Fargate resources.
                           type: object
                           x-kubernetes-map-type: granular
@@ -794,7 +794,7 @@ spec:
                                 additionalProperties:
                                   type: string
                                 description: |-
-                                  (Map of String)
+                                  value pairs used to match workloads for this selector.
                                   Map of Kubernetes label key-value pairs used to match workloads for this selector.
                                 type: object
                                 x-kubernetes-map-type: granular
@@ -807,7 +807,7 @@ spec:
                           type: array
                         subnets:
                           description: |-
-                            (List of String)
+                            (List of String) List of subnet ID strings used by this Fargate profile.
                             List of subnet ID strings used by this Fargate profile.
                           items:
                             type: string
@@ -883,13 +883,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
                           items:
                             type: string
@@ -906,7 +906,7 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         eksLaunchTemplate:
@@ -916,7 +916,7 @@ spec:
                             properties:
                               additionalSecurityGroups:
                                 description: |-
-                                  (Set of String) Additional security groups to attach to the instance.
+                                  (Set of String) Set of additional AWS security group IDs to attach to the instance.
                                   Set of additional AWS security group IDs to attach to the instance.
                                 items:
                                   type: string
@@ -946,7 +946,7 @@ spec:
                           type: array
                         instanceType:
                           description: |-
-                            (String)
+                            (String) AWS EC2 instance type used for nodes in this machine pool.
                             AWS EC2 instance type used for nodes in this machine pool.
                           type: string
                         max:
@@ -956,7 +956,7 @@ spec:
                           type: number
                         maxPrice:
                           description: |-
-                            (String)
+                            (String) Maximum hourly spot instance price for this machine pool. Used only when capacity_type is spot.
                             Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
                           type: string
                         min:
@@ -1127,7 +1127,7 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
                       A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
@@ -1384,13 +1384,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
                           items:
                             type: string
@@ -1423,7 +1423,7 @@ spec:
                           x-kubernetes-list-type: set
                         region:
                           description: |-
-                            (String)
+                            (String) AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                             AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         sshKeyName:
@@ -1433,7 +1433,7 @@ spec:
                           type: string
                         vpcId:
                           description: |-
-                            (String)
+                            (String) VPC ID used to provision the EKS cluster.
                             VPC ID used to provision the EKS cluster.
                           type: string
                       type: object
@@ -1853,7 +1853,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String)
+                            value pairs applied to Fargate resources.
                             Map of additional tag key-value pairs applied to Fargate resources.
                           type: object
                           x-kubernetes-map-type: granular
@@ -1871,7 +1871,7 @@ spec:
                                 additionalProperties:
                                   type: string
                                 description: |-
-                                  (Map of String)
+                                  value pairs used to match workloads for this selector.
                                   Map of Kubernetes label key-value pairs used to match workloads for this selector.
                                 type: object
                                 x-kubernetes-map-type: granular
@@ -1884,7 +1884,7 @@ spec:
                           type: array
                         subnets:
                           description: |-
-                            (List of String)
+                            (List of String) List of subnet ID strings used by this Fargate profile.
                             List of subnet ID strings used by this Fargate profile.
                           items:
                             type: string
@@ -1960,13 +1960,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
                           items:
                             type: string
@@ -1983,7 +1983,7 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         eksLaunchTemplate:
@@ -1993,7 +1993,7 @@ spec:
                             properties:
                               additionalSecurityGroups:
                                 description: |-
-                                  (Set of String) Additional security groups to attach to the instance.
+                                  (Set of String) Set of additional AWS security group IDs to attach to the instance.
                                   Set of additional AWS security group IDs to attach to the instance.
                                 items:
                                   type: string
@@ -2023,7 +2023,7 @@ spec:
                           type: array
                         instanceType:
                           description: |-
-                            (String)
+                            (String) AWS EC2 instance type used for nodes in this machine pool.
                             AWS EC2 instance type used for nodes in this machine pool.
                           type: string
                         max:
@@ -2033,7 +2033,7 @@ spec:
                           type: number
                         maxPrice:
                           description: |-
-                            (String)
+                            (String) Maximum hourly spot instance price for this machine pool. Used only when capacity_type is spot.
                             Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
                           type: string
                         min:
@@ -2204,7 +2204,7 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
                       A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular
@@ -2402,13 +2402,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names. Mutually exclusive with `az_subnets`; use for dynamic provisioning.
                           items:
                             type: string
@@ -2441,7 +2441,7 @@ spec:
                           x-kubernetes-list-type: set
                         region:
                           description: |-
-                            (String)
+                            (String) AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                             AWS region where the EKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         sshKeyName:
@@ -2451,7 +2451,7 @@ spec:
                           type: string
                         vpcId:
                           description: |-
-                            (String)
+                            (String) VPC ID used to provision the EKS cluster.
                             VPC ID used to provision the EKS cluster.
                           type: string
                       type: object
@@ -2663,7 +2663,7 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String)
+                            value pairs applied to Fargate resources.
                             Map of additional tag key-value pairs applied to Fargate resources.
                           type: object
                           x-kubernetes-map-type: granular
@@ -2681,7 +2681,7 @@ spec:
                                 additionalProperties:
                                   type: string
                                 description: |-
-                                  (Map of String)
+                                  value pairs used to match workloads for this selector.
                                   Map of Kubernetes label key-value pairs used to match workloads for this selector.
                                 type: object
                                 x-kubernetes-map-type: granular
@@ -2694,7 +2694,7 @@ spec:
                           type: array
                         subnets:
                           description: |-
-                            (List of String)
+                            (List of String) List of subnet ID strings used by this Fargate profile.
                             List of subnet ID strings used by this Fargate profile.
                           items:
                             type: string
@@ -2799,13 +2799,13 @@ spec:
                           additionalProperties:
                             type: string
                           description: |-
-                            (Map of String) Mutually exclusive with azs. Use for Static provisioning.
+                            (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use for static provisioning.
                             Map of availability zone name to subnet ID string for machine pool placement. Mutually exclusive with `azs`; use for static provisioning.
                           type: object
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (List of String) Mutually exclusive with az_subnets. Use for Dynamic provisioning.
+                            (List of String) List of availability zone names. Mutually exclusive with az_subnets; use for dynamic provisioning.
                             List of availability zone names for machine pool placement. Mutually exclusive with `az_subnets`.
                           items:
                             type: string
@@ -2822,7 +2822,7 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         eksLaunchTemplate:
@@ -2832,7 +2832,7 @@ spec:
                             properties:
                               additionalSecurityGroups:
                                 description: |-
-                                  (Set of String) Additional security groups to attach to the instance.
+                                  (Set of String) Set of additional AWS security group IDs to attach to the instance.
                                   Set of additional AWS security group IDs to attach to the instance.
                                 items:
                                   type: string
@@ -2862,7 +2862,7 @@ spec:
                           type: array
                         instanceType:
                           description: |-
-                            (String)
+                            (String) AWS EC2 instance type used for nodes in this machine pool.
                             AWS EC2 instance type used for nodes in this machine pool.
                           type: string
                         max:
@@ -2872,7 +2872,7 @@ spec:
                           type: number
                         maxPrice:
                           description: |-
-                            (String)
+                            (String) Maximum hourly spot instance price for this machine pool. Used only when capacity_type is spot.
                             Maximum hourly spot instance price for this machine pool. Used only when `capacity_type` is `spot`.
                           type: string
                         min:
@@ -3043,7 +3043,7 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive — only one should be used at a time
+                      (Map of String) A map of tags to be applied to the cluster. tags and tags_map are mutually exclusive; only one should be used at a time.
                       A map of tags to be applied to the cluster. `tags` and `tags_map` are mutually exclusive; only one should be used at a time.
                     type: object
                     x-kubernetes-map-type: granular

@@ -39,7 +39,7 @@ type AwsInitParameters struct {
 	// An optional external ID that can be used for cross-account access in AWS. Used for STS credential type.
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
-	// (String)
+	// (String) Name of the AWS cloud account.
 	// Name of the AWS cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -89,7 +89,7 @@ type AwsObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) Name of the AWS cloud account.
 	// Name of the AWS cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -154,7 +154,7 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	ExternalIDSecretRef *v1.SecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
-	// (String)
+	// (String) Name of the AWS cloud account.
 	// Name of the AWS cloud account.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -221,7 +221,7 @@ type AwsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Aws is the Schema for the Awss API.
+// Aws is the Schema for the Awss API. Resource for managing AWS cloud account credentials in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

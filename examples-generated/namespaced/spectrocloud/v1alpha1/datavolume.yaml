@@ -1,0 +1,29 @@
+apiVersion: spectrocloud.palette.m.crossplane.io/v1alpha1
+kind: Datavolume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: spectrocloud/v1alpha1/datavolume
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    addVolumeOptions:
+    - disk:
+      - bus: virtio
+        name: data-volume-example
+      name: data-volume-example
+      volumeSource:
+      - dataVolume:
+        - hotpluggable: true
+          name: data-volume-example
+    clusterContext: project
+    clusterUid: cluster-uid
+    metadata:
+    - name: data-volume-example
+      namespace: default
+    spec:
+    - {}
+    vmName: vm-example
+    vmNamespace: default

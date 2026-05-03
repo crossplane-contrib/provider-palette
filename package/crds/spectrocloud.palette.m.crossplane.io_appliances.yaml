@@ -66,7 +66,7 @@ spec:
                     type: string
                   remoteShell:
                     description: |-
-                      management/remote-shell/
+                      management/remote-shell/.
                       Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:
@@ -113,7 +113,7 @@ spec:
                     type: string
                   remoteShell:
                     description: |-
-                      management/remote-shell/
+                      management/remote-shell/.
                       Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:
@@ -218,7 +218,7 @@ spec:
                     type: string
                   remoteShell:
                     description: |-
-                      management/remote-shell/
+                      management/remote-shell/.
                       Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
                     type: string
                   tags:

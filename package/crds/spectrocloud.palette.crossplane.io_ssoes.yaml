@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Sso is the Schema for the Ssos API.
+        description: Sso is the Schema for the Ssos API. Resource for managing tenant-level
+          single sign-on configuration in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -156,7 +157,7 @@ spec:
                           type: string
                         scopes:
                           description: |-
-                            (Set of String) Scopes requested during OIDC authentication.
+                            (Set of String) Set of OIDC scope strings requested during authentication.
                             Set of OIDC scope strings requested during authentication.
                           items:
                             type: string
@@ -356,7 +357,7 @@ spec:
                           type: string
                         scopes:
                           description: |-
-                            (Set of String) Scopes requested during OIDC authentication.
+                            (Set of String) Set of OIDC scope strings requested during authentication.
                             Set of OIDC scope strings requested during authentication.
                           items:
                             type: string
@@ -630,7 +631,7 @@ spec:
                           type: string
                         scopes:
                           description: |-
-                            (Set of String) Scopes requested during OIDC authentication.
+                            (Set of String) Set of OIDC scope strings requested during authentication.
                             Set of OIDC scope strings requested during authentication.
                           items:
                             type: string

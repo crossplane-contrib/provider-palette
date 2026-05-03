@@ -173,7 +173,7 @@ type BootloaderParameters struct {
 
 type CPUInitParameters struct {
 
-	// (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+	// (Number) Number of CPU cores inside the VMI. Must be greater than or equal to 1.
 	// Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
@@ -188,7 +188,7 @@ type CPUInitParameters struct {
 
 type CPUObservation struct {
 
-	// (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+	// (Number) Number of CPU cores inside the VMI. Must be greater than or equal to 1.
 	// Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
@@ -203,7 +203,7 @@ type CPUObservation struct {
 
 type CPUParameters struct {
 
-	// (Number) Cores is the number of cores inside the vmi. Must be a value greater or equal 1
+	// (Number) Number of CPU cores inside the VMI. Must be greater than or equal to 1.
 	// Number of CPU cores inside the VMI. Must be greater than or equal to `1`.
 	// +kubebuilder:validation:Optional
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
@@ -335,21 +335,21 @@ type CloudInitNoCloudInitParameters struct {
 
 type CloudInitNoCloudNetworkDataSecretRefInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type CloudInitNoCloudNetworkDataSecretRefObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type CloudInitNoCloudNetworkDataSecretRefParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -417,21 +417,21 @@ type CloudInitNoCloudParameters struct {
 
 type CloudInitNoCloudUserDataSecretRefInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type CloudInitNoCloudUserDataSecretRefObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type CloudInitNoCloudUserDataSecretRefParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -557,21 +557,21 @@ type ContainerDiskParameters struct {
 
 type DataVolumeInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume in the same namespace to attach as the volume source.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume in the same namespace to attach as the volume source.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume in the same namespace to attach as the volume source.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -618,7 +618,7 @@ type DiskDeviceDiskInitParameters struct {
 	// Bus indicates the type of disk device to emulate.
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
-	// (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+	// (String) If specified, the virtual disk is placed on the guest PCI address. For example: 0000:81:01.10.
 	// If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
 
@@ -633,7 +633,7 @@ type DiskDeviceDiskObservation struct {
 	// Bus indicates the type of disk device to emulate.
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
-	// (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+	// (String) If specified, the virtual disk is placed on the guest PCI address. For example: 0000:81:01.10.
 	// If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
 
@@ -649,7 +649,7 @@ type DiskDeviceDiskParameters struct {
 	// +kubebuilder:validation:Optional
 	Bus *string `json:"bus" tf:"bus,omitempty"`
 
-	// (String) If specified, the virtual disk will be placed on the guests pci address with the specified PCI address. For example: 0000:81:01.10
+	// (String) If specified, the virtual disk is placed on the guest PCI address. For example: 0000:81:01.10.
 	// If specified, the virtual disk is placed on the guest PCI address. For example: `0000:81:01.10`.
 	// +kubebuilder:validation:Optional
 	PciAddress *string `json:"pciAddress,omitempty" tf:"pci_address,omitempty"`
@@ -692,7 +692,7 @@ type DiskInitParameters struct {
 	// DiskDevice specifies as which device the disk should be added to the guest.
 	DiskDevice []DiskDeviceInitParameters `json:"diskDevice,omitempty" tf:"disk_device,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Device name for this disk.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -711,7 +711,7 @@ type DiskObservation struct {
 	// DiskDevice specifies as which device the disk should be added to the guest.
 	DiskDevice []DiskDeviceObservation `json:"diskDevice,omitempty" tf:"disk_device,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Device name for this disk.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -732,7 +732,7 @@ type DiskParameters struct {
 	// +kubebuilder:validation:Optional
 	DiskDevice []DiskDeviceParameters `json:"diskDevice" tf:"disk_device,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Device name for this disk.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1011,7 +1011,7 @@ type InterfaceInitParameters struct {
 	// Represents the method which will be used to connect the interface to the guest.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical name of the interface as well as a reference to the associated networks.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1026,7 +1026,7 @@ type InterfaceObservation struct {
 	// Represents the method which will be used to connect the interface to the guest.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical name of the interface as well as a reference to the associated networks.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1043,7 +1043,7 @@ type InterfaceParameters struct {
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical name of the interface as well as a reference to the associated networks.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1220,7 +1220,7 @@ type MachineInitParameters struct {
 	// Firmware configuration for the virtual machine.
 	Firmware []FirmwareInitParameters `json:"firmware,omitempty" tf:"firmware,omitempty"`
 
-	// architecture/api-conventions.md#idempotency
+	// architecture/api-conventions.md#idempotency.
 	// Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
 	GenerateName *string `json:"generateName,omitempty" tf:"generate_name,omitempty"`
 
@@ -1245,7 +1245,7 @@ type MachineInitParameters struct {
 	// Memory allows specifying the vmi memory features.
 	Memory []MemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique virtual machine name within the namespace. This value is immutable after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1257,7 +1257,7 @@ type MachineInitParameters struct {
 	// List of networks that can be attached to a vm's virtual interface.
 	Network []NetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+	// (Map of String) Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// +mapType=granular
 	NodeSelector map[string]*string `json:"nodeSelector,omitempty" tf:"node_selector,omitempty"`
@@ -1366,7 +1366,7 @@ type MachineObservation struct {
 	// Firmware configuration for the virtual machine.
 	Firmware []FirmwareObservation `json:"firmware,omitempty" tf:"firmware,omitempty"`
 
-	// architecture/api-conventions.md#idempotency
+	// architecture/api-conventions.md#idempotency.
 	// Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
 	GenerateName *string `json:"generateName,omitempty" tf:"generate_name,omitempty"`
 
@@ -1398,7 +1398,7 @@ type MachineObservation struct {
 	// Memory allows specifying the vmi memory features.
 	Memory []MemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique virtual machine name within the namespace. This value is immutable after creation.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1410,7 +1410,7 @@ type MachineObservation struct {
 	// List of networks that can be attached to a vm's virtual interface.
 	Network []NetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+	// (Map of String) Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// +mapType=granular
 	NodeSelector map[string]*string `json:"nodeSelector,omitempty" tf:"node_selector,omitempty"`
@@ -1543,7 +1543,7 @@ type MachineParameters struct {
 	// +kubebuilder:validation:Optional
 	Firmware []FirmwareParameters `json:"firmware,omitempty" tf:"firmware,omitempty"`
 
-	// architecture/api-conventions.md#idempotency
+	// architecture/api-conventions.md#idempotency.
 	// Prefix used by the server to generate a unique name only if `name` is not provided. This value is combined with a unique suffix. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency.
 	// +kubebuilder:validation:Optional
 	GenerateName *string `json:"generateName,omitempty" tf:"generate_name,omitempty"`
@@ -1574,7 +1574,7 @@ type MachineParameters struct {
 	// +kubebuilder:validation:Optional
 	Memory []MemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique virtual machine name within the namespace. This value is immutable after creation.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -1589,7 +1589,7 @@ type MachineParameters struct {
 	// +kubebuilder:validation:Optional
 	Network []NetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (Map of String) NodeSelector is a selector which must be true for the vmi to fit on a node. Selector which must match a node's labels for the vmi to be scheduled on that node.
+	// (Map of String) Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// Map of node label key to value strings that must match for the VMI to be scheduled on a node.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -1663,7 +1663,7 @@ type MachineParameters struct {
 
 type MachineResourcesInitParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -1680,7 +1680,7 @@ type MachineResourcesInitParameters struct {
 
 type MachineResourcesObservation struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -1697,7 +1697,7 @@ type MachineResourcesObservation struct {
 
 type MachineResourcesParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map of maximum compute resources allowed. Valid keys include `memory` and `cpu`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -1813,7 +1813,7 @@ type MetadataInitParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1838,7 +1838,7 @@ type MetadataObservation struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1869,7 +1869,7 @@ type MetadataParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -1917,21 +1917,21 @@ type MultusParameters struct {
 
 type NetworkDataSecretRefInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type NetworkDataSecretRefObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type NetworkDataSecretRefParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1939,7 +1939,7 @@ type NetworkDataSecretRefParameters struct {
 
 type NetworkInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical network name used to reference this network from VM interfaces.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1950,7 +1950,7 @@ type NetworkInitParameters struct {
 
 type NetworkObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical network name used to reference this network from VM interfaces.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1961,7 +1961,7 @@ type NetworkObservation struct {
 
 type NetworkParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Logical network name used to reference this network from VM interfaces.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -2117,7 +2117,7 @@ type NodeSelectorTermParameters struct {
 
 type OptionInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the option.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -2128,7 +2128,7 @@ type OptionInitParameters struct {
 
 type OptionObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the option.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -2139,7 +2139,7 @@ type OptionObservation struct {
 
 type OptionParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the option.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -2152,7 +2152,7 @@ type OptionParameters struct {
 
 type PersistentVolumeClaimInitParameters struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	ClaimName *string `json:"claimName,omitempty" tf:"claim_name,omitempty"`
 
@@ -2163,7 +2163,7 @@ type PersistentVolumeClaimInitParameters struct {
 
 type PersistentVolumeClaimObservation struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	ClaimName *string `json:"claimName,omitempty" tf:"claim_name,omitempty"`
 
@@ -2174,7 +2174,7 @@ type PersistentVolumeClaimObservation struct {
 
 type PersistentVolumeClaimParameters struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	// +kubebuilder:validation:Optional
 	ClaimName *string `json:"claimName" tf:"claim_name,omitempty"`
@@ -2222,34 +2222,34 @@ type PodAffinityParameters struct {
 
 type PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionInitParameters struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	PodAffinityTerm []PodAffinityTermInitParameters `json:"podAffinityTerm,omitempty" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionObservation struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	PodAffinityTerm []PodAffinityTermObservation `json:"podAffinityTerm,omitempty" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionParameters struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	// +kubebuilder:validation:Optional
 	PodAffinityTerm []PodAffinityTermParameters `json:"podAffinityTerm" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	// +kubebuilder:validation:Optional
 	Weight *float64 `json:"weight" tf:"weight,omitempty"`
@@ -2261,12 +2261,12 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionInitParameters str
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorInitParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2277,12 +2277,12 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionObservation struct
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorObservation `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2294,13 +2294,13 @@ type PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionParameters struct 
 	// +kubebuilder:validation:Optional
 	LabelSelector []RequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// +kubebuilder:validation:Optional
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
@@ -2312,12 +2312,12 @@ type PodAffinityTermInitParameters struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []LabelSelectorInitParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2417,12 +2417,12 @@ type PodAffinityTermObservation struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []LabelSelectorObservation `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2434,13 +2434,13 @@ type PodAffinityTermParameters struct {
 	// +kubebuilder:validation:Optional
 	LabelSelector []LabelSelectorParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// +kubebuilder:validation:Optional
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
@@ -2483,34 +2483,34 @@ type PodAntiAffinityParameters struct {
 
 type PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionInitParameters struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	PodAffinityTerm []PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermInitParameters `json:"podAffinityTerm,omitempty" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionObservation struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	PodAffinityTerm []PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermObservation `json:"podAffinityTerm,omitempty" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionParameters struct {
 
-	// (Block List, Min: 1, Max: 1) A pod affinity term, associated with the corresponding weight (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Pod affinity term associated with the corresponding weight. (see below for nested schema)
 	// Pod affinity term associated with the corresponding weight.
 	// +kubebuilder:validation:Optional
 	PodAffinityTerm []PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermParameters `json:"podAffinityTerm" tf:"pod_affinity_term,omitempty"`
 
-	// 100
+	// 100.
 	// Weight associated with the matching `pod_affinity_term`, in the range `1-100`.
 	// +kubebuilder:validation:Optional
 	Weight *float64 `json:"weight" tf:"weight,omitempty"`
@@ -2522,12 +2522,12 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionInitParameters
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorInitParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2627,12 +2627,12 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionObservation st
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorObservation `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2644,13 +2644,13 @@ type PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionParameters str
 	// +kubebuilder:validation:Optional
 	LabelSelector []PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// +kubebuilder:validation:Optional
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
@@ -2767,7 +2767,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionInitParameters struct {
 	// A node selector term, associated with the corresponding weight.
 	Preference []PreferenceInitParameters `json:"preference,omitempty" tf:"preference,omitempty"`
 
-	// 100
+	// 100.
 	// Weight in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
@@ -2778,7 +2778,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionObservation struct {
 	// A node selector term, associated with the corresponding weight.
 	Preference []PreferenceObservation `json:"preference,omitempty" tf:"preference,omitempty"`
 
-	// 100
+	// 100.
 	// Weight in the range `1-100`.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
@@ -2790,7 +2790,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionParameters struct {
 	// +kubebuilder:validation:Optional
 	Preference []PreferenceParameters `json:"preference" tf:"preference,omitempty"`
 
-	// 100
+	// 100.
 	// Weight in the range `1-100`.
 	// +kubebuilder:validation:Optional
 	Weight *float64 `json:"weight" tf:"weight,omitempty"`
@@ -2802,12 +2802,12 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermInitParameter
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []PodAffinityTermLabelSelectorInitParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2818,12 +2818,12 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermObservation s
 	// A label query over a set of resources, in this case pods.
 	LabelSelector []PodAffinityTermLabelSelectorObservation `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
 }
@@ -2835,13 +2835,13 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermParameters st
 	// +kubebuilder:validation:Optional
 	LabelSelector []PodAffinityTermLabelSelectorParameters `json:"labelSelector,omitempty" tf:"label_selector,omitempty"`
 
-	// (Set of String) namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace'
+	// (Set of String) Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// Set of namespace name strings that the label selector applies to; null or empty means this pod's namespace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (String) empty topology key is interpreted by the scheduler as 'all topologies'
+	// (String) Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// Topology key used by the scheduler; an empty value is interpreted as all topologies.
 	// +kubebuilder:validation:Optional
 	TopologyKey *string `json:"topologyKey,omitempty" tf:"topology_key,omitempty"`
@@ -2849,7 +2849,7 @@ type PreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermParameters st
 
 type PvcInitParameters struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
@@ -2862,7 +2862,7 @@ type PvcInitParameters struct {
 	// A label query over volumes to consider for binding.
 	Selector []SelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -2877,7 +2877,7 @@ type PvcInitParameters struct {
 
 type PvcObservation struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
@@ -2890,7 +2890,7 @@ type PvcObservation struct {
 	// A label query over volumes to consider for binding.
 	Selector []SelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -2905,7 +2905,7 @@ type PvcObservation struct {
 
 type PvcParameters struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -2921,7 +2921,7 @@ type PvcParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector []SelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
@@ -2939,7 +2939,7 @@ type PvcParameters struct {
 
 type PvcResourcesInitParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -2952,7 +2952,7 @@ type PvcResourcesInitParameters struct {
 
 type PvcResourcesObservation struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -2965,7 +2965,7 @@ type PvcResourcesObservation struct {
 
 type PvcResourcesParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -3316,7 +3316,7 @@ type SourceParameters struct {
 
 type SourcePvcInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -3327,7 +3327,7 @@ type SourcePvcInitParameters struct {
 
 type SourcePvcObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -3338,7 +3338,7 @@ type SourcePvcObservation struct {
 
 type SourcePvcParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the source PVC to clone from.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -3416,7 +3416,7 @@ type StateChangeRequestsInitParameters struct {
 	// Indicates the type of action that is requested. e.g. Start or Stop.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (Map of String) Provides additional data in order to perform the Action.
+	// (Map of String) Map of string key/value pairs with additional parameters required to perform the action.
 	// Map of string key/value pairs with additional parameters required to perform the action.
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
@@ -3432,7 +3432,7 @@ type StateChangeRequestsObservation struct {
 	// Indicates the type of action that is requested. e.g. Start or Stop.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (Map of String) Provides additional data in order to perform the Action.
+	// (Map of String) Map of string key/value pairs with additional parameters required to perform the action.
 	// Map of string key/value pairs with additional parameters required to perform the action.
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
@@ -3449,7 +3449,7 @@ type StateChangeRequestsParameters struct {
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (Map of String) Provides additional data in order to perform the Action.
+	// (Map of String) Map of string key/value pairs with additional parameters required to perform the action.
 	// Map of string key/value pairs with additional parameters required to perform the action.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -3524,7 +3524,7 @@ type StatusParameters struct {
 
 type StorageInitParameters struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
@@ -3537,7 +3537,7 @@ type StorageInitParameters struct {
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -3552,7 +3552,7 @@ type StorageInitParameters struct {
 
 type StorageObservation struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
@@ -3565,7 +3565,7 @@ type StorageObservation struct {
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
@@ -3580,7 +3580,7 @@ type StorageObservation struct {
 
 type StorageParameters struct {
 
-	// guide/persistent-volumes#access-modes-1
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -3596,7 +3596,7 @@ type StorageParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector []StorageSelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
-	// (String) Name of the storage class requested by the claim
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
@@ -3614,7 +3614,7 @@ type StorageParameters struct {
 
 type StorageResourcesInitParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -3627,7 +3627,7 @@ type StorageResourcesInitParameters struct {
 
 type StorageResourcesObservation struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
@@ -3640,7 +3640,7 @@ type StorageResourcesObservation struct {
 
 type StorageResourcesParameters struct {
 
-	// (Map of String) Requests is the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu"
+	// (Map of String) Map of maximum compute resources allowed. Valid keys include memory and cpu.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -3818,21 +3818,21 @@ type TolerationsParameters struct {
 
 type UserDataSecretRefInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type UserDataSecretRefObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type UserDataSecretRefParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Name of the referenced object (for example, a Secret or ConfigMap name).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -3840,7 +3840,7 @@ type UserDataSecretRefParameters struct {
 
 type VolumeInitParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique volume name used to reference this volume from VM disk definitions.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -3851,7 +3851,7 @@ type VolumeInitParameters struct {
 
 type VolumeObservation struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique volume name used to reference this volume from VM disk definitions.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -3862,7 +3862,7 @@ type VolumeObservation struct {
 
 type VolumeParameters struct {
 
-	// (String) Name of the virtual machine, must be unique. Cannot be updated.
+	// (String) Unique virtual machine name within the namespace. This value is immutable after creation.
 	// Unique volume name used to reference this volume from VM disk definitions.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -4014,7 +4014,7 @@ type VolumeSourceParameters struct {
 
 type VolumeSourcePersistentVolumeClaimInitParameters struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	ClaimName *string `json:"claimName,omitempty" tf:"claim_name,omitempty"`
 
@@ -4025,7 +4025,7 @@ type VolumeSourcePersistentVolumeClaimInitParameters struct {
 
 type VolumeSourcePersistentVolumeClaimObservation struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	ClaimName *string `json:"claimName,omitempty" tf:"claim_name,omitempty"`
 
@@ -4036,7 +4036,7 @@ type VolumeSourcePersistentVolumeClaimObservation struct {
 
 type VolumeSourcePersistentVolumeClaimParameters struct {
 
-	// volumes#persistentvolumeclaims
+	// volumes#persistentvolumeclaims.
 	// Name of the PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
 	// +kubebuilder:validation:Optional
 	ClaimName *string `json:"claimName" tf:"claim_name,omitempty"`
@@ -4074,7 +4074,7 @@ type MachineStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Machine is the Schema for the Machines API.
+// Machine is the Schema for the Machines API. Resource for managing KubeVirt virtual machines on Spectro Cloud clusters.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

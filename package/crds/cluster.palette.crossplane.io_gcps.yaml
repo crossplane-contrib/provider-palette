@@ -220,7 +220,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -304,17 +304,17 @@ spec:
                       properties:
                         network:
                           description: |-
-                            (String)
+                            (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
                           type: string
                         project:
                           description: |-
-                            (String)
+                            (String) Google Cloud project ID where cluster resources are created.
                             Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the cluster is deployed.
                             Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
@@ -426,14 +426,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the GCP cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -503,7 +503,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -786,7 +786,7 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String)
+                            (Set of String) Set of availability zone name strings for machine pool placement.
                             Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
@@ -809,17 +809,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -896,7 +896,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the GCP cluster. Changing this forces a new resource.
                       Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -907,7 +907,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1147,7 +1147,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -1231,17 +1231,17 @@ spec:
                       properties:
                         network:
                           description: |-
-                            (String)
+                            (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
                           type: string
                         project:
                           description: |-
-                            (String)
+                            (String) Google Cloud project ID where cluster resources are created.
                             Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the cluster is deployed.
                             Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
@@ -1353,14 +1353,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the GCP cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1430,7 +1430,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1713,7 +1713,7 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String)
+                            (Set of String) Set of availability zone name strings for machine pool placement.
                             Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
@@ -1736,17 +1736,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -1823,7 +1823,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the GCP cluster. Changing this forces a new resource.
                       Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -1834,7 +1834,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2089,7 +2089,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -2099,17 +2099,17 @@ spec:
                       properties:
                         network:
                           description: |-
-                            (String)
+                            (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
                           type: string
                         project:
                           description: |-
-                            (String)
+                            (String) Google Cloud project ID where cluster resources are created.
                             Google Cloud project ID where cluster resources are created.
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the cluster is deployed.
                             Google Cloud region where the cluster is deployed.
                           type: string
                       type: object
@@ -2150,7 +2150,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the GCP cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -2167,7 +2167,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -2237,7 +2237,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the GCP cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -2293,7 +2293,7 @@ spec:
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             The name of the cluster template.
                           type: string
                       type: object
@@ -2402,7 +2402,7 @@ spec:
                           x-kubernetes-map-type: granular
                         azs:
                           description: |-
-                            (Set of String)
+                            (Set of String) Set of availability zone name strings for machine pool placement.
                             Set of availability zone name strings for machine pool placement.
                           items:
                             type: string
@@ -2425,17 +2425,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -2512,7 +2512,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the GCP cluster. Changing this forces a new resource.
                       Name of the GCP cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -2523,7 +2523,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the GCP cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:

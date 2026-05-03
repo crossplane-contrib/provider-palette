@@ -2026,7 +2026,7 @@ spec:
                     type: array
                   cloudConfigId:
                     description: |-
-                      (String, Deprecated)
+                      (String, Deprecated) Identifier of the generated cloud configuration associated with this custom cloud cluster.
                       Identifier of the generated cloud configuration associated with this custom cloud cluster.
                     type: string
                   clusterProfile:

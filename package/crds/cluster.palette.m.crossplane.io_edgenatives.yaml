@@ -212,7 +212,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                       UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -366,14 +366,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -443,7 +443,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -789,12 +789,12 @@ spec:
                             properties:
                               defaultGateway:
                                 description: |-
-                                  (String) Edge host default gateway
+                                  (String) Default gateway IP address for the edge host network interface.
                                   Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
-                                  (Set of String) Edge host DNS servers
+                                  (Set of String) Set of DNS server IP address strings for the edge host network interface.
                                   Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
@@ -802,12 +802,12 @@ spec:
                                 x-kubernetes-list-type: set
                               hostName:
                                 description: |-
-                                  (String) Edge host name
+                                  (String) Name of the edge host.
                                   Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
-                                  (String) Edge host id
+                                  (String) UID of the edge host.
                                   UID of the edge host.
                                 type: string
                               nicName:
@@ -817,12 +817,12 @@ spec:
                                 type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP address
+                                  (String) Static IP address assigned to the edge host.
                                   Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
-                                  (String) Edge host subnet mask
+                                  (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
@@ -834,7 +834,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -911,7 +911,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the Edge Native cluster. Changing this forces a new resource.
                       Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -922,7 +922,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1168,7 +1168,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                       UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -1322,14 +1322,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1399,7 +1399,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1745,12 +1745,12 @@ spec:
                             properties:
                               defaultGateway:
                                 description: |-
-                                  (String) Edge host default gateway
+                                  (String) Default gateway IP address for the edge host network interface.
                                   Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
-                                  (Set of String) Edge host DNS servers
+                                  (Set of String) Set of DNS server IP address strings for the edge host network interface.
                                   Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
@@ -1758,12 +1758,12 @@ spec:
                                 x-kubernetes-list-type: set
                               hostName:
                                 description: |-
-                                  (String) Edge host name
+                                  (String) Name of the edge host.
                                   Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
-                                  (String) Edge host id
+                                  (String) UID of the edge host.
                                   UID of the edge host.
                                 type: string
                               nicName:
@@ -1773,12 +1773,12 @@ spec:
                                 type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP address
+                                  (String) Static IP address assigned to the edge host.
                                   Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
-                                  (String) Edge host subnet mask
+                                  (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
@@ -1790,7 +1790,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -1867,7 +1867,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the Edge Native cluster. Changing this forces a new resource.
                       Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -1878,7 +1878,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2105,7 +2105,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                       UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -2182,7 +2182,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -2199,7 +2199,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -2269,7 +2269,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the Edge Native cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -2325,7 +2325,7 @@ spec:
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             The name of the cluster template.
                           type: string
                       type: object
@@ -2459,12 +2459,12 @@ spec:
                             properties:
                               defaultGateway:
                                 description: |-
-                                  (String) Edge host default gateway
+                                  (String) Default gateway IP address for the edge host network interface.
                                   Default gateway IP address for the edge host network interface.
                                 type: string
                               dnsServers:
                                 description: |-
-                                  (Set of String) Edge host DNS servers
+                                  (Set of String) Set of DNS server IP address strings for the edge host network interface.
                                   Set of DNS server IP address strings for the edge host network interface.
                                 items:
                                   type: string
@@ -2472,12 +2472,12 @@ spec:
                                 x-kubernetes-list-type: set
                               hostName:
                                 description: |-
-                                  (String) Edge host name
+                                  (String) Name of the edge host.
                                   Name of the edge host.
                                 type: string
                               hostUid:
                                 description: |-
-                                  (String) Edge host id
+                                  (String) UID of the edge host.
                                   UID of the edge host.
                                 type: string
                               nicName:
@@ -2487,12 +2487,12 @@ spec:
                                 type: string
                               staticIp:
                                 description: |-
-                                  (String) Edge host static IP address
+                                  (String) Static IP address assigned to the edge host.
                                   Static IP address assigned to the edge host.
                                 type: string
                               subnetMask:
                                 description: |-
-                                  (String) Edge host subnet mask
+                                  (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
                               twoNodeRole:
@@ -2504,7 +2504,7 @@ spec:
                           type: array
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the machine pool.
                           type: string
                         node:
@@ -2581,7 +2581,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the Edge Native cluster. Changing this forces a new resource.
                       Name of the Edge Native cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -2592,7 +2592,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the Edge Native cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:

@@ -1,0 +1,17 @@
+apiVersion: addon.palette.m.crossplane.io/v1alpha1
+kind: Deployment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: addon/v1alpha1/deployment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    clusterProfile:
+    - idSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    clusterUid: cluster-uid
+    context: project

@@ -212,7 +212,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                       UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -304,17 +304,17 @@ spec:
                       properties:
                         controlPlaneCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the control plane subnet. Changing this forces a new resource.
                             CIDR block for the control plane subnet. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                             Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         privateCluster:
@@ -324,12 +324,12 @@ spec:
                           type: boolean
                         region:
                           description: |-
-                            (String)
+                            (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                             Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         resourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
                             Azure resource group where AKS resources are created. Changing this forces a new resource.
                           type: string
                         sshKey:
@@ -339,37 +339,37 @@ spec:
                           type: string
                         subscriptionId:
                           description: |-
-                            (String)
+                            (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                             Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                           type: string
                         vnetCidrBlock:
                           description: |-
-                            (String)
+                            (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
                             CIDR block assigned to the virtual network. Changing this forces a new resource.
                           type: string
                         vnetName:
                           description: |-
-                            (String)
+                            (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                             Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                           type: string
                         vnetResourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
                             Azure resource group that contains the virtual network. Changing this forces a new resource.
                           type: string
                         workerCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the worker subnet. Changing this forces a new resource.
                             CIDR block for the worker subnet. Changing this forces a new resource.
                           type: string
                         workerSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
                             Name of the worker subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         workerSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the worker subnet. Changing this forces a new resource.
                             Security group name attached to the worker subnet. Changing this forces a new resource.
                           type: string
                       type: object
@@ -487,14 +487,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AKS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -564,7 +564,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -864,17 +864,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) OS disk size in GB for each node in this machine pool.
                             OS disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) Azure VM size used for nodes in this machine pool.
                             Azure VM size used for nodes in this machine pool.
                           type: string
                         isSystemNodePool:
                           description: |-
-                            (Boolean)
+                            (Boolean) Whether this machine pool is marked as the AKS system node pool.
                             Whether this machine pool is marked as the AKS system node pool.
                           type: boolean
                         max:
@@ -889,7 +889,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the AKS machine pool.
                           type: string
                         node:
@@ -933,7 +933,7 @@ spec:
                           type: array
                         storageAccountType:
                           description: |-
-                            (String)
+                            (String) Storage account type for managed disks in this machine pool.
                             Storage account type for managed disks in this machine pool.
                           type: string
                         taints:
@@ -966,7 +966,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the AKS cluster. Changing this forces a new resource.
                       Name of the AKS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -977,7 +977,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -1223,7 +1223,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                       UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -1315,17 +1315,17 @@ spec:
                       properties:
                         controlPlaneCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the control plane subnet. Changing this forces a new resource.
                             CIDR block for the control plane subnet. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                             Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         privateCluster:
@@ -1335,12 +1335,12 @@ spec:
                           type: boolean
                         region:
                           description: |-
-                            (String)
+                            (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                             Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         resourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
                             Azure resource group where AKS resources are created. Changing this forces a new resource.
                           type: string
                         sshKey:
@@ -1350,37 +1350,37 @@ spec:
                           type: string
                         subscriptionId:
                           description: |-
-                            (String)
+                            (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                             Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                           type: string
                         vnetCidrBlock:
                           description: |-
-                            (String)
+                            (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
                             CIDR block assigned to the virtual network. Changing this forces a new resource.
                           type: string
                         vnetName:
                           description: |-
-                            (String)
+                            (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                             Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                           type: string
                         vnetResourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
                             Azure resource group that contains the virtual network. Changing this forces a new resource.
                           type: string
                         workerCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the worker subnet. Changing this forces a new resource.
                             CIDR block for the worker subnet. Changing this forces a new resource.
                           type: string
                         workerSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
                             Name of the worker subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         workerSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the worker subnet. Changing this forces a new resource.
                             Security group name attached to the worker subnet. Changing this forces a new resource.
                           type: string
                       type: object
@@ -1498,14 +1498,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AKS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -1575,7 +1575,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -1875,17 +1875,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) OS disk size in GB for each node in this machine pool.
                             OS disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) Azure VM size used for nodes in this machine pool.
                             Azure VM size used for nodes in this machine pool.
                           type: string
                         isSystemNodePool:
                           description: |-
-                            (Boolean)
+                            (Boolean) Whether this machine pool is marked as the AKS system node pool.
                             Whether this machine pool is marked as the AKS system node pool.
                           type: boolean
                         max:
@@ -1900,7 +1900,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the AKS machine pool.
                           type: string
                         node:
@@ -1944,7 +1944,7 @@ spec:
                           type: array
                         storageAccountType:
                           description: |-
-                            (String)
+                            (String) Storage account type for managed disks in this machine pool.
                             Storage account type for managed disks in this machine pool.
                           type: string
                         taints:
@@ -1977,7 +1977,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the AKS cluster. Changing this forces a new resource.
                       Name of the AKS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -1988,7 +1988,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:
@@ -2215,7 +2215,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                       UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -2225,17 +2225,17 @@ spec:
                       properties:
                         controlPlaneCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the control plane subnet. Changing this forces a new resource.
                             CIDR block for the control plane subnet. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                             Name of the control plane subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         controlPlaneSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         privateCluster:
@@ -2245,12 +2245,12 @@ spec:
                           type: boolean
                         region:
                           description: |-
-                            (String)
+                            (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                             Azure region where the AKS cluster is deployed. Changing this forces a new resource.
                           type: string
                         resourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
                             Azure resource group where AKS resources are created. Changing this forces a new resource.
                           type: string
                         sshKey:
@@ -2260,37 +2260,37 @@ spec:
                           type: string
                         subscriptionId:
                           description: |-
-                            (String)
+                            (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                             Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
                           type: string
                         vnetCidrBlock:
                           description: |-
-                            (String)
+                            (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
                             CIDR block assigned to the virtual network. Changing this forces a new resource.
                           type: string
                         vnetName:
                           description: |-
-                            (String)
+                            (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                             Name of the virtual network used for AKS static placement. Changing this forces a new resource.
                           type: string
                         vnetResourceGroup:
                           description: |-
-                            (String)
+                            (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
                             Azure resource group that contains the virtual network. Changing this forces a new resource.
                           type: string
                         workerCidr:
                           description: |-
-                            (String)
+                            (String) CIDR block for the worker subnet. Changing this forces a new resource.
                             CIDR block for the worker subnet. Changing this forces a new resource.
                           type: string
                         workerSubnetName:
                           description: |-
-                            (String)
+                            (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
                             Name of the worker subnet in the virtual network. Changing this forces a new resource.
                           type: string
                         workerSubnetSecurityGroupName:
                           description: |-
-                            (String)
+                            (String) Security group name attached to the worker subnet. Changing this forces a new resource.
                             Security group name attached to the worker subnet. Changing this forces a new resource.
                           type: string
                       type: object
@@ -2331,7 +2331,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String)
+                                        (String) Name of the AKS cluster. Changing this forces a new resource.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -2348,7 +2348,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -2418,7 +2418,7 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  (String)
+                                  (String) Name of the AKS cluster. Changing this forces a new resource.
                                   The name of the subject. Required if 'type' is set to 'User' or 'Group'.
                                 type: string
                               namespace:
@@ -2474,7 +2474,7 @@ spec:
                           type: string
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             The name of the cluster template.
                           type: string
                       type: object
@@ -2588,17 +2588,17 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) OS disk size in GB for each node in this machine pool.
                             OS disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) Azure VM size used for nodes in this machine pool.
                             Azure VM size used for nodes in this machine pool.
                           type: string
                         isSystemNodePool:
                           description: |-
-                            (Boolean)
+                            (Boolean) Whether this machine pool is marked as the AKS system node pool.
                             Whether this machine pool is marked as the AKS system node pool.
                           type: boolean
                         max:
@@ -2613,7 +2613,7 @@ spec:
                           type: number
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the AKS machine pool.
                           type: string
                         node:
@@ -2657,7 +2657,7 @@ spec:
                           type: array
                         storageAccountType:
                           description: |-
-                            (String)
+                            (String) Storage account type for managed disks in this machine pool.
                             Storage account type for managed disks in this machine pool.
                           type: string
                         taints:
@@ -2690,7 +2690,7 @@ spec:
                     type: array
                   name:
                     description: |-
-                      (String)
+                      (String) Name of the AKS cluster. Changing this forces a new resource.
                       Name of the AKS cluster. Changing this forces a new resource.
                     type: string
                   namespaces:
@@ -2701,7 +2701,7 @@ spec:
                       properties:
                         name:
                           description: |-
-                            (String)
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
                             Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
                           type: string
                         resourceAllocation:

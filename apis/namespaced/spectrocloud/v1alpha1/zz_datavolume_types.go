@@ -15,32 +15,43 @@ import (
 )
 
 type AddVolumeOptionsInitParameters struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Disk []DiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the volume attachment in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	VolumeSource []VolumeSourceInitParameters `json:"volumeSource,omitempty" tf:"volume_source,omitempty"`
 }
 
 type AddVolumeOptionsObservation struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	Disk []DiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the volume attachment in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	VolumeSource []VolumeSourceObservation `json:"volumeSource,omitempty" tf:"volume_source,omitempty"`
 }
 
 type AddVolumeOptionsParameters struct {
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Disk []DiskParameters `json:"disk" tf:"disk,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the volume attachment in the virtual machine spec.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	VolumeSource []VolumeSourceParameters `json:"volumeSource" tf:"volume_source,omitempty"`
 }
@@ -56,28 +67,34 @@ type BlankParameters struct {
 
 type DataVolumeInitParameters struct {
 
+	// plugged while the virtual machine is running.
 	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the data volume source referenced by this attachment.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeObservation struct {
 
+	// plugged while the virtual machine is running.
 	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the data volume source referenced by this attachment.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DataVolumeParameters struct {
 
+	// plugged while the virtual machine is running.
 	// Whether this data volume can be hot-plugged while the virtual machine is running.
 	// +kubebuilder:validation:Optional
 	Hotpluggable *bool `json:"hotpluggable,omitempty" tf:"hotpluggable,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the data volume source referenced by this attachment.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -85,90 +102,115 @@ type DataVolumeParameters struct {
 
 type DatavolumeInitParameters struct {
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	AddVolumeOptions []AddVolumeOptionsInitParameters `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// (String) Resource context for the target cluster. Allowed values are project or tenant.
 	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
+	// (String) The cluster UID to which the virtual machine belongs to.
 	// The cluster UID to which the virtual machine belongs to.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
+	// architecture/api-conventions.md#metadata (see below for nested schema)
 	// Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
 	// DataVolumeStatus provides the parameters to store the phase of the Data Volume
 	Status []DatavolumeStatusInitParameters `json:"status,omitempty" tf:"status,omitempty"`
 
+	// (String) The name of the virtual machine to which the data volume belongs to.
 	// The name of the virtual machine to which the data volume belongs to.
 	VMName *string `json:"vmName,omitempty" tf:"vm_name,omitempty"`
 
+	// (String) The namespace of the virtual machine to which the data volume belongs to.
 	// The namespace of the virtual machine to which the data volume belongs to.
 	VMNamespace *string `json:"vmNamespace,omitempty" tf:"vm_namespace,omitempty"`
 }
 
 type DatavolumeObservation struct {
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	AddVolumeOptions []AddVolumeOptionsObservation `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// (String) Resource context for the target cluster. Allowed values are project or tenant.
 	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
+	// (String) The cluster UID to which the virtual machine belongs to.
 	// The cluster UID to which the virtual machine belongs to.
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// architecture/api-conventions.md#metadata (see below for nested schema)
 	// Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
 	// DataVolumeStatus provides the parameters to store the phase of the Data Volume
 	Status []DatavolumeStatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 
+	// (String) The name of the virtual machine to which the data volume belongs to.
 	// The name of the virtual machine to which the data volume belongs to.
 	VMName *string `json:"vmName,omitempty" tf:"vm_name,omitempty"`
 
+	// (String) The namespace of the virtual machine to which the data volume belongs to.
 	// The namespace of the virtual machine to which the data volume belongs to.
 	VMNamespace *string `json:"vmNamespace,omitempty" tf:"vm_namespace,omitempty"`
 }
 
 type DatavolumeParameters struct {
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	// +kubebuilder:validation:Optional
 	AddVolumeOptions []AddVolumeOptionsParameters `json:"addVolumeOptions,omitempty" tf:"add_volume_options,omitempty"`
 
+	// (String) Resource context for the target cluster. Allowed values are project or tenant.
 	// Resource context for the target cluster. Allowed values are `project` or `tenant`.
 	// +kubebuilder:validation:Optional
 	ClusterContext *string `json:"clusterContext,omitempty" tf:"cluster_context,omitempty"`
 
+	// (String) The cluster UID to which the virtual machine belongs to.
 	// The cluster UID to which the virtual machine belongs to.
 	// +kubebuilder:validation:Optional
 	ClusterUID *string `json:"clusterUid,omitempty" tf:"cluster_uid,omitempty"`
 
+	// architecture/api-conventions.md#metadata (see below for nested schema)
 	// Standard DataVolume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
 	// +kubebuilder:validation:Optional
 	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) DataVolumeSpec defines our specification for a DataVolume type (see below for nested schema)
 	// DataVolumeSpec defines our specification for a DataVolume type
 	// +kubebuilder:validation:Optional
 	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeStatus provides the parameters to store the phase of the Data Volume (see below for nested schema)
 	// DataVolumeStatus provides the parameters to store the phase of the Data Volume
 	// +kubebuilder:validation:Optional
 	Status []DatavolumeStatusParameters `json:"status,omitempty" tf:"status,omitempty"`
 
+	// (String) The name of the virtual machine to which the data volume belongs to.
 	// The name of the virtual machine to which the data volume belongs to.
 	// +kubebuilder:validation:Optional
 	VMName *string `json:"vmName,omitempty" tf:"vm_name,omitempty"`
 
+	// (String) The namespace of the virtual machine to which the data volume belongs to.
 	// The namespace of the virtual machine to which the data volume belongs to.
 	// +kubebuilder:validation:Optional
 	VMNamespace *string `json:"vmNamespace,omitempty" tf:"vm_namespace,omitempty"`
@@ -176,28 +218,34 @@ type DatavolumeParameters struct {
 
 type DatavolumeStatusInitParameters struct {
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	Phase *string `json:"phase,omitempty" tf:"phase,omitempty"`
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	Progress *string `json:"progress,omitempty" tf:"progress,omitempty"`
 }
 
 type DatavolumeStatusObservation struct {
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	Phase *string `json:"phase,omitempty" tf:"phase,omitempty"`
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	Progress *string `json:"progress,omitempty" tf:"progress,omitempty"`
 }
 
 type DatavolumeStatusParameters struct {
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	// +kubebuilder:validation:Optional
 	Phase *string `json:"phase,omitempty" tf:"phase,omitempty"`
 
+	// (String) DataVolumePhase is the current phase of the DataVolume.
 	// DataVolumePhase is the current phase of the DataVolume.
 	// +kubebuilder:validation:Optional
 	Progress *string `json:"progress,omitempty" tf:"progress,omitempty"`
@@ -205,28 +253,34 @@ type DatavolumeStatusParameters struct {
 
 type DiskInitParameters struct {
 
+	// (String) Disk bus type used by the attached data volume (for example, virtio or sata).
 	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the disk definition in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DiskObservation struct {
 
+	// (String) Disk bus type used by the attached data volume (for example, virtio or sata).
 	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	Bus *string `json:"bus,omitempty" tf:"bus,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the disk definition in the virtual machine spec.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DiskParameters struct {
 
+	// (String) Disk bus type used by the attached data volume (for example, virtio or sata).
 	// Disk bus type used by the attached data volume (for example, `virtio` or `sata`).
 	// +kubebuilder:validation:Optional
 	Bus *string `json:"bus" tf:"bus,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the disk definition in the virtual machine spec.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -234,12 +288,15 @@ type DiskParameters struct {
 
 type MatchExpressionsInitParameters struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -247,12 +304,15 @@ type MatchExpressionsInitParameters struct {
 
 type MatchExpressionsObservation struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -260,14 +320,17 @@ type MatchExpressionsObservation struct {
 
 type MatchExpressionsParameters struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -276,63 +339,78 @@ type MatchExpressionsParameters struct {
 
 type MetadataInitParameters struct {
 
+	// guide/annotations.
 	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// guide/labels.
 	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace defines the space within which name of the DataVolume must be unique.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type MetadataObservation struct {
 
+	// guide/annotations.
 	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (Number) A sequence number representing a specific generation of the desired state.
 	// A sequence number representing a specific generation of the desired state.
 	Generation *float64 `json:"generation,omitempty" tf:"generation,omitempty"`
 
+	// guide/labels.
 	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace defines the space within which name of the DataVolume must be unique.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
+	// architecture/api-conventions.md#concurrency-control-and-consistency
 	// An opaque value that represents the internal version of this DataVolume that can be used by clients to determine when DataVolume has changed. Read more: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 	ResourceVersion *string `json:"resourceVersion,omitempty" tf:"resource_version,omitempty"`
 
+	// guide/identifiers#uids
 	// The unique in time and space value for this DataVolume. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type MetadataParameters struct {
 
+	// guide/annotations.
 	// An unstructured key/value map stored with the DataVolume that can be used to store arbitrary metadata. More info: http://kubernetes.io/docs/user-guide/annotations.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// guide/labels.
 	// Map of string key/value labels used to organize and categorize the DataVolume. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the DataVolume. Must be unique and cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace defines the space within which name of the DataVolume must be unique.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
@@ -340,71 +418,89 @@ type MetadataParameters struct {
 
 type PvcInitParameters struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
 	Resources []ResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	Selector []SelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
 }
 
 type PvcObservation struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
 	Resources []ResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	Selector []SelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
 }
 
 type PvcParameters struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AccessModes []*string `json:"accessModes" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/user-guide/persistent-volumes#resources
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	// +kubebuilder:validation:Optional
 	Selector []SelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// +kubebuilder:validation:Optional
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	// +kubebuilder:validation:Optional
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
@@ -412,18 +508,21 @@ type PvcParameters struct {
 
 type RegistryInitParameters struct {
 
+	// (String) The registry URL of the image to download.
 	// The registry URL of the image to download.
 	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
 }
 
 type RegistryObservation struct {
 
+	// (String) The registry URL of the image to download.
 	// The registry URL of the image to download.
 	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
 }
 
 type RegistryParameters struct {
 
+	// (String) The registry URL of the image to download.
 	// The registry URL of the image to download.
 	// +kubebuilder:validation:Optional
 	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
@@ -431,10 +530,12 @@ type RegistryParameters struct {
 
 type ResourcesInitParameters struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
@@ -442,10 +543,12 @@ type ResourcesInitParameters struct {
 
 type ResourcesObservation struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
@@ -453,11 +556,13 @@ type ResourcesObservation struct {
 
 type ResourcesParameters struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -466,9 +571,11 @@ type ResourcesParameters struct {
 
 type SelectorInitParameters struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	MatchExpressions []MatchExpressionsInitParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
@@ -476,12 +583,15 @@ type SelectorInitParameters struct {
 
 type SelectorMatchExpressionsInitParameters struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
 	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -489,12 +599,15 @@ type SelectorMatchExpressionsInitParameters struct {
 
 type SelectorMatchExpressionsObservation struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
 	// +listType=set
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -502,14 +615,17 @@ type SelectorMatchExpressionsObservation struct {
 
 type SelectorMatchExpressionsParameters struct {
 
+	// (String) The label key that the selector applies to.
 	// The label key that the selector applies to.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// (String) A key's relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.
 	// A key's relationship to a set of values. Valid operators are `In`, `NotIn`, `Exists` and `DoesNotExist`.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
+	// empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	// An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -518,9 +634,11 @@ type SelectorMatchExpressionsParameters struct {
 
 type SelectorObservation struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	MatchExpressions []MatchExpressionsObservation `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
@@ -528,10 +646,12 @@ type SelectorObservation struct {
 
 type SelectorParameters struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	// +kubebuilder:validation:Optional
 	MatchExpressions []MatchExpressionsParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -540,38 +660,47 @@ type SelectorParameters struct {
 
 type SourceHTTPInitParameters struct {
 
+	// (String) Cert_config_map provides a reference to the Registry certs.
 	// Cert_config_map provides a reference to the Registry certs.
 	CertConfigMap *string `json:"certConfigMap,omitempty" tf:"cert_config_map,omitempty"`
 
+	// (String) Secret_ref provides the secret reference needed to access the HTTP source.
 	// Secret_ref provides the secret reference needed to access the HTTP source.
 	SecretRef *string `json:"secretRef,omitempty" tf:"secret_ref,omitempty"`
 
+	// (String) url is the URL of the http source.
 	// url is the URL of the http source.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type SourceHTTPObservation struct {
 
+	// (String) Cert_config_map provides a reference to the Registry certs.
 	// Cert_config_map provides a reference to the Registry certs.
 	CertConfigMap *string `json:"certConfigMap,omitempty" tf:"cert_config_map,omitempty"`
 
+	// (String) Secret_ref provides the secret reference needed to access the HTTP source.
 	// Secret_ref provides the secret reference needed to access the HTTP source.
 	SecretRef *string `json:"secretRef,omitempty" tf:"secret_ref,omitempty"`
 
+	// (String) url is the URL of the http source.
 	// url is the URL of the http source.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type SourceHTTPParameters struct {
 
+	// (String) Cert_config_map provides a reference to the Registry certs.
 	// Cert_config_map provides a reference to the Registry certs.
 	// +kubebuilder:validation:Optional
 	CertConfigMap *string `json:"certConfigMap,omitempty" tf:"cert_config_map,omitempty"`
 
+	// (String) Secret_ref provides the secret reference needed to access the HTTP source.
 	// Secret_ref provides the secret reference needed to access the HTTP source.
 	// +kubebuilder:validation:Optional
 	SecretRef *string `json:"secretRef,omitempty" tf:"secret_ref,omitempty"`
 
+	// (String) url is the URL of the http source.
 	// url is the URL of the http source.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -579,48 +708,60 @@ type SourceHTTPParameters struct {
 
 type SourceInitParameters struct {
 
+	// (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
 	// DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
 	Blank []BlankInitParameters `json:"blank,omitempty" tf:"blank,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
 	// DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
 	HTTP []SourceHTTPInitParameters `json:"http,omitempty" tf:"http,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
 	Pvc []SourcePvcInitParameters `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
 	// DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
 	Registry []RegistryInitParameters `json:"registry,omitempty" tf:"registry,omitempty"`
 }
 
 type SourceObservation struct {
 
+	// (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
 	// DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
 	Blank []BlankParameters `json:"blank,omitempty" tf:"blank,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
 	// DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
 	HTTP []SourceHTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
 	Pvc []SourcePvcObservation `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
 	// DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
 	Registry []RegistryObservation `json:"registry,omitempty" tf:"registry,omitempty"`
 }
 
 type SourceParameters struct {
 
+	// (Block List, Max: 1) DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source. (see below for nested schema)
 	// DataVolumeSourceBlank provides the parameters to create a Data Volume from an empty source.
 	// +kubebuilder:validation:Optional
 	Blank []BlankParameters `json:"blank,omitempty" tf:"blank,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source. (see below for nested schema)
 	// DataVolumeSourceHTTP provides the parameters to create a Data Volume from an HTTP source.
 	// +kubebuilder:validation:Optional
 	HTTP []SourceHTTPParameters `json:"http,omitempty" tf:"http,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// DataVolumeSourcePVC provides the parameters to create a Data Volume from an existing PVC.
 	// +kubebuilder:validation:Optional
 	Pvc []SourcePvcParameters `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC. (see below for nested schema)
 	// DataVolumeSourceRegistry provides the parameters to create a Data Volume from an existing PVC.
 	// +kubebuilder:validation:Optional
 	Registry []RegistryParameters `json:"registry,omitempty" tf:"registry,omitempty"`
@@ -628,28 +769,34 @@ type SourceParameters struct {
 
 type SourcePvcInitParameters struct {
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace where the source PVC is located.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SourcePvcObservation struct {
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the source PVC to clone from.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace where the source PVC is located.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type SourcePvcParameters struct {
 
+	// (String) Name of the volume attachment in the virtual machine spec.
 	// Name of the source PVC to clone from.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Namespace defines the space within which name of the DataVolume must be unique.
 	// Namespace where the source PVC is located.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
@@ -657,48 +804,60 @@ type SourcePvcParameters struct {
 
 type SpecInitParameters struct {
 
+	// (String) ContentType options: "kubevirt", "archive".
 	// ContentType options: "kubevirt", "archive".
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// PVC is a pointer to the PVC Spec we want to use.
 	Pvc []PvcInitParameters `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
 	// Source is the src of the data for the requested DataVolume.
 	Source []SourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
 	// Storage is the requested storage specification for the DataVolume.
 	Storage []StorageInitParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type SpecObservation struct {
 
+	// (String) ContentType options: "kubevirt", "archive".
 	// ContentType options: "kubevirt", "archive".
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// PVC is a pointer to the PVC Spec we want to use.
 	Pvc []PvcObservation `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
 	// Source is the src of the data for the requested DataVolume.
 	Source []SourceObservation `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
 	// Storage is the requested storage specification for the DataVolume.
 	Storage []StorageObservation `json:"storage,omitempty" tf:"storage,omitempty"`
 }
 
 type SpecParameters struct {
 
+	// (String) ContentType options: "kubevirt", "archive".
 	// ContentType options: "kubevirt", "archive".
 	// +kubebuilder:validation:Optional
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (Block List, Max: 1) PVC is a pointer to the PVC Spec we want to use. (see below for nested schema)
 	// PVC is a pointer to the PVC Spec we want to use.
 	// +kubebuilder:validation:Optional
 	Pvc []PvcParameters `json:"pvc,omitempty" tf:"pvc,omitempty"`
 
+	// (Block List, Max: 1) Source is the src of the data for the requested DataVolume. (see below for nested schema)
 	// Source is the src of the data for the requested DataVolume.
 	// +kubebuilder:validation:Optional
 	Source []SourceParameters `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Storage is the requested storage specification for the DataVolume. (see below for nested schema)
 	// Storage is the requested storage specification for the DataVolume.
 	// +kubebuilder:validation:Optional
 	Storage []StorageParameters `json:"storage,omitempty" tf:"storage,omitempty"`
@@ -706,71 +865,89 @@ type SpecParameters struct {
 
 type StorageInitParameters struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources []StorageResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorInitParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
 }
 
 type StorageObservation struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources []StorageResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	Selector []StorageSelectorObservation `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
 }
 
 type StorageParameters struct {
 
+	// guide/persistent-volumes#access-modes-1.
 	// Set of desired access mode strings for the volume. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AccessModes []*string `json:"accessModes,omitempty" tf:"access_modes,omitempty"`
 
+	// guide/persistent-volumes#resources (see below for nested schema)
 	// A list of the minimum resources the volume should have. More info: http://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	// +kubebuilder:validation:Optional
 	Resources []StorageResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// (Block List, Max: 1) A label query over volumes to consider for binding. (see below for nested schema)
 	// A label query over volumes to consider for binding.
 	// +kubebuilder:validation:Optional
 	Selector []StorageSelectorParameters `json:"selector,omitempty" tf:"selector,omitempty"`
 
+	// (String) Name of the storage class requested by the claim.
 	// Name of the storage class requested by the claim.
 	// +kubebuilder:validation:Optional
 	StorageClassName *string `json:"storageClassName,omitempty" tf:"storage_class_name,omitempty"`
 
+	// (String) volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	// +kubebuilder:validation:Optional
 	VolumeMode *string `json:"volumeMode,omitempty" tf:"volume_mode,omitempty"`
 
+	// (String) The binding reference to the PersistentVolume backing this claim.
 	// The binding reference to the PersistentVolume backing this claim.
 	// +kubebuilder:validation:Optional
 	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
@@ -778,10 +955,12 @@ type StorageParameters struct {
 
 type StorageResourcesInitParameters struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
@@ -789,10 +968,12 @@ type StorageResourcesInitParameters struct {
 
 type StorageResourcesObservation struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +mapType=granular
 	Requests map[string]*string `json:"requests,omitempty" tf:"requests,omitempty"`
@@ -800,11 +981,13 @@ type StorageResourcesObservation struct {
 
 type StorageResourcesParameters struct {
 
+	// guide/compute-resources/.
 	// Map describing the maximum compute resources allowed. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Limits map[string]*string `json:"limits,omitempty" tf:"limits,omitempty"`
 
+	// defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// Map describing the minimum compute resources required. If omitted, it defaults to `limits` when explicitly specified, otherwise to an implementation-defined value. More info: http://kubernetes.io/docs/user-guide/compute-resources/.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -813,9 +996,11 @@ type StorageResourcesParameters struct {
 
 type StorageSelectorInitParameters struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	MatchExpressions []SelectorMatchExpressionsInitParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
 	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
@@ -823,9 +1008,11 @@ type StorageSelectorInitParameters struct {
 
 type StorageSelectorObservation struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	MatchExpressions []SelectorMatchExpressionsObservation `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
 	// +mapType=granular
 	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
@@ -833,10 +1020,12 @@ type StorageSelectorObservation struct {
 
 type StorageSelectorParameters struct {
 
+	// (Block List) A list of label selector requirements. The requirements are ANDed. (see below for nested schema)
 	// A list of label selector requirements. The requirements are ANDed.
 	// +kubebuilder:validation:Optional
 	MatchExpressions []SelectorMatchExpressionsParameters `json:"matchExpressions,omitempty" tf:"match_expressions,omitempty"`
 
+	// (Map of String) A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of match_expressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 	// A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is "key", the operator is "In", and the values array contains only "value".
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -844,15 +1033,20 @@ type StorageSelectorParameters struct {
 }
 
 type VolumeSourceInitParameters struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	DataVolume []DataVolumeInitParameters `json:"dataVolume,omitempty" tf:"data_volume,omitempty"`
 }
 
 type VolumeSourceObservation struct {
+
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	DataVolume []DataVolumeObservation `json:"dataVolume,omitempty" tf:"data_volume,omitempty"`
 }
 
 type VolumeSourceParameters struct {
 
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	DataVolume []DataVolumeParameters `json:"dataVolume" tf:"data_volume,omitempty"`
 }
@@ -884,7 +1078,7 @@ type DatavolumeStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Datavolume is the Schema for the Datavolumes API. <no value>
+// Datavolume is the Schema for the Datavolumes API. Manage KubeVirt data volumes attached to virtual machines in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

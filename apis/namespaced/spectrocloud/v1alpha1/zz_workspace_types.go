@@ -245,7 +245,7 @@ type ClusterResourceAllocationsInitParameters struct {
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster for this namespace-specific resource allocation.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
@@ -257,7 +257,7 @@ type ClusterResourceAllocationsObservation struct {
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation,omitempty" tf:"resource_allocation,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster for this namespace-specific resource allocation.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
@@ -270,7 +270,7 @@ type ClusterResourceAllocationsParameters struct {
 	// +mapType=granular
 	ResourceAllocation map[string]*string `json:"resourceAllocation" tf:"resource_allocation,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster for this namespace-specific resource allocation.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
@@ -278,7 +278,7 @@ type ClusterResourceAllocationsParameters struct {
 
 type ClustersInitParameters struct {
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster attached to this workspace.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
@@ -288,14 +288,14 @@ type ClustersObservation struct {
 	// (String)
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster attached to this workspace.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ClustersParameters struct {
 
-	// (String)
+	// (String) UID of the cluster attached to this workspace.
 	// UID of the cluster attached to this workspace.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
@@ -310,7 +310,7 @@ type NamespacesInitParameters struct {
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -329,7 +329,7 @@ type NamespacesObservation struct {
 	// List of images to disallow for the namespace. For example, `['nginx:latest', 'redis:latest']`
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -350,7 +350,7 @@ type NamespacesParameters struct {
 	// +kubebuilder:validation:Optional
 	ImagesBlacklist []*string `json:"imagesBlacklist,omitempty" tf:"images_blacklist,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -364,7 +364,7 @@ type NamespacesParameters struct {
 
 type SubjectsInitParameters struct {
 
-	// (String)
+	// (String) Name of the workspace.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -379,7 +379,7 @@ type SubjectsInitParameters struct {
 
 type SubjectsObservation struct {
 
-	// (String)
+	// (String) Name of the workspace.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -394,7 +394,7 @@ type SubjectsObservation struct {
 
 type SubjectsParameters struct {
 
-	// (String)
+	// (String) Name of the workspace.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -423,11 +423,11 @@ type WorkspaceInitParameters_2 struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	Clusters []ClustersInitParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
-	// (String)
+	// (String) Description of the workspace.
 	// Description of the workspace.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -435,7 +435,7 @@ type WorkspaceInitParameters_2 struct {
 	// The namespaces for the cluster.
 	Namespaces []NamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of tag strings in the form key:value applied to the workspace.
 	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -458,14 +458,14 @@ type WorkspaceObservation_2 struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	Clusters []ClustersObservation `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
-	// (String)
+	// (String) Description of the workspace.
 	// Description of the workspace.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -473,7 +473,7 @@ type WorkspaceObservation_2 struct {
 	// The namespaces for the cluster.
 	Namespaces []NamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of tag strings in the form key:value applied to the workspace.
 	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -499,12 +499,12 @@ type WorkspaceParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	Clusters []ClustersParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
-	// (String)
+	// (String) Description of the workspace.
 	// Description of the workspace.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String)
+	// (String) Name of the workspace.
 	// Name of the workspace.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -514,7 +514,7 @@ type WorkspaceParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of tag strings in the form key:value applied to the workspace.
 	// Set of tag strings in the form `key:value` applied to the workspace.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -601,7 +601,7 @@ type WorkspaceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Workspace is the Schema for the Workspaces API.
+// Workspace is the Schema for the Workspaces API. Resource for managing workspaces in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

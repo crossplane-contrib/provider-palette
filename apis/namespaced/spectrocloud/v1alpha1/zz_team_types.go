@@ -361,7 +361,7 @@ type TeamStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Team is the Schema for the Teams API.
+// Team is the Schema for the Teams API. Resource for managing teams and role mappings in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

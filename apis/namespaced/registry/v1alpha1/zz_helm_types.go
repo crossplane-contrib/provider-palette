@@ -89,7 +89,7 @@ type HelmInitParameters struct {
 	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The name of the Helm registry. This must be unique
+	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -114,7 +114,7 @@ type HelmObservation struct {
 	// Specifies whether the Helm registry is private or public.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The name of the Helm registry. This must be unique
+	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -139,7 +139,7 @@ type HelmParameters struct {
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
-	// (String) The name of the Helm registry. This must be unique
+	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -176,7 +176,7 @@ type HelmStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Helm is the Schema for the Helms API.
+// Helm is the Schema for the Helms API. Resource for managing Helm registries in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

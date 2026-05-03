@@ -179,47 +179,47 @@ type GCPBackupPolicyParameters struct {
 
 type GCPCloudConfigInitParameters struct {
 
-	// (String)
+	// (String) VPC network name used to provision cluster resources.
 	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (String)
+	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the cluster is deployed.
 	// Google Cloud region where the cluster is deployed.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type GCPCloudConfigObservation struct {
 
-	// (String)
+	// (String) VPC network name used to provision cluster resources.
 	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (String)
+	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the cluster is deployed.
 	// Google Cloud region where the cluster is deployed.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type GCPCloudConfigParameters struct {
 
-	// (String)
+	// (String) VPC network name used to provision cluster resources.
 	// VPC network name used to provision cluster resources.
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
-	// (String)
+	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the cluster is deployed.
 	// Google Cloud region where the cluster is deployed.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
@@ -271,7 +271,7 @@ type GCPClusterProfilePackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []GCPClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -306,7 +306,7 @@ type GCPClusterProfilePackManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -317,7 +317,7 @@ type GCPClusterProfilePackManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -332,7 +332,7 @@ type GCPClusterProfilePackManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -343,7 +343,7 @@ type GCPClusterProfilePackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []GCPClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -378,7 +378,7 @@ type GCPClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []GCPClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -505,7 +505,7 @@ type GCPClusterRbacBindingParameters struct {
 
 type GCPClusterRbacBindingSubjectsInitParameters struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -520,7 +520,7 @@ type GCPClusterRbacBindingSubjectsInitParameters struct {
 
 type GCPClusterRbacBindingSubjectsObservation struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -535,7 +535,7 @@ type GCPClusterRbacBindingSubjectsObservation struct {
 
 type GCPClusterRbacBindingSubjectsParameters struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -637,7 +637,7 @@ type GCPClusterTemplateObservation struct {
 	// The ID of the cluster template.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// The name of the cluster template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -735,7 +735,7 @@ type GCPInitParameters struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []GCPBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.GCP
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -793,7 +793,7 @@ type GCPInitParameters struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	MachinePool []GCPMachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the GCP cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -878,7 +878,7 @@ type GCPMachinePoolInitParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of availability zone name strings for machine pool placement.
 	// Set of availability zone name strings for machine pool placement.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -895,15 +895,15 @@ type GCPMachinePoolInitParameters struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -977,7 +977,7 @@ type GCPMachinePoolObservation struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of availability zone name strings for machine pool placement.
 	// Set of availability zone name strings for machine pool placement.
 	// +listType=set
 	Azs []*string `json:"azs,omitempty" tf:"azs,omitempty"`
@@ -994,15 +994,15 @@ type GCPMachinePoolObservation struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1078,7 +1078,7 @@ type GCPMachinePoolParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (Set of String)
+	// (Set of String) Set of availability zone name strings for machine pool placement.
 	// Set of availability zone name strings for machine pool placement.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -1099,17 +1099,17 @@ type GCPMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1193,7 +1193,7 @@ type GCPMachinePoolTaintsParameters struct {
 
 type GCPNamespacesInitParameters struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1205,7 +1205,7 @@ type GCPNamespacesInitParameters struct {
 
 type GCPNamespacesObservation struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1217,7 +1217,7 @@ type GCPNamespacesObservation struct {
 
 type GCPNamespacesParameters struct {
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1239,7 +1239,7 @@ type GCPObservation struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []GCPBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -1299,7 +1299,7 @@ type GCPObservation struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	MachinePool []GCPMachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the GCP cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1357,7 +1357,7 @@ type GCPParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupPolicy []GCPBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1.GCP
 	// +kubebuilder:validation:Optional
@@ -1428,7 +1428,7 @@ type GCPParameters struct {
 	// +kubebuilder:validation:Optional
 	MachinePool []GCPMachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
 	// Name of the GCP cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

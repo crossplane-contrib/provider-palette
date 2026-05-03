@@ -19,7 +19,7 @@ type ApplianceInitParameters struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
+	// management/remote-shell/.
 	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
 
@@ -50,7 +50,7 @@ type ApplianceObservation struct {
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
+	// management/remote-shell/.
 	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`
 
@@ -79,7 +79,7 @@ type ApplianceParameters struct {
 	// +kubebuilder:validation:Optional
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
-	// management/remote-shell/
+	// management/remote-shell/.
 	// Activate remote shell access to troubleshoot edge hosts by initiating an SSH connection from Palette using the configured credentials. See https://docs.spectrocloud.com/clusters/edge/cluster-management/remote-shell/.
 	// +kubebuilder:validation:Optional
 	RemoteShell *string `json:"remoteShell,omitempty" tf:"remote_shell,omitempty"`

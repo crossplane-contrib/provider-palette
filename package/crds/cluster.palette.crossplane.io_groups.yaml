@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Group is the Schema for the Groups API.
+        description: Group is the Schema for the Groups API. Resource for managing
+          host cluster groups in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -174,14 +175,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) Name of the cluster group
+                                        (String) Name of the cluster group.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) Name of the cluster group
+                                  (String) Name of the cluster group.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -211,7 +212,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String)
+                                  (String) YAML values override string applied to the cluster group configuration.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -281,7 +282,7 @@ spec:
                           type: number
                         values:
                           description: |-
-                            (String)
+                            (String) YAML values override string applied to the cluster group configuration.
                             YAML values override string applied to the cluster group configuration.
                           type: string
                       type: object
@@ -298,7 +299,7 @@ spec:
                     type: string
                   name:
                     description: |-
-                      (String) Name of the cluster group
+                      (String) Name of the cluster group.
                       Name of the cluster group.
                     type: string
                   tags:
@@ -425,14 +426,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) Name of the cluster group
+                                        (String) Name of the cluster group.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) Name of the cluster group
+                                  (String) Name of the cluster group.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -462,7 +463,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String)
+                                  (String) YAML values override string applied to the cluster group configuration.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -532,7 +533,7 @@ spec:
                           type: number
                         values:
                           description: |-
-                            (String)
+                            (String) YAML values override string applied to the cluster group configuration.
                             YAML values override string applied to the cluster group configuration.
                           type: string
                       type: object
@@ -549,7 +550,7 @@ spec:
                     type: string
                   name:
                     description: |-
-                      (String) Name of the cluster group
+                      (String) Name of the cluster group.
                       Name of the cluster group.
                     type: string
                   tags:
@@ -687,7 +688,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) Name of the cluster group
+                                        (String) Name of the cluster group.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -704,7 +705,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String) Name of the cluster group
+                                  (String) Name of the cluster group.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -734,7 +735,7 @@ spec:
                                 type: string
                               values:
                                 description: |-
-                                  (String)
+                                  (String) YAML values override string applied to the cluster group configuration.
                                   The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
                                 type: string
                             type: object
@@ -804,7 +805,7 @@ spec:
                           type: number
                         values:
                           description: |-
-                            (String)
+                            (String) YAML values override string applied to the cluster group configuration.
                             YAML values override string applied to the cluster group configuration.
                           type: string
                       type: object
@@ -824,7 +825,7 @@ spec:
                     type: string
                   name:
                     description: |-
-                      (String) Name of the cluster group
+                      (String) Name of the cluster group.
                       Name of the cluster group.
                     type: string
                   tags:

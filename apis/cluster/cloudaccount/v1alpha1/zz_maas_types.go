@@ -19,7 +19,7 @@ type MaasInitParameters struct {
 	// The context of the MAAS configuration. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
 	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 
@@ -45,7 +45,7 @@ type MaasObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
 	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
 
@@ -65,7 +65,7 @@ type MaasParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String) Endpoint of the MAAS API that is used to connect to the MAAS cloud. I.e. http://maas:5240/MAAS
+	// (String) Endpoint of the MAAS API used to connect to the MAAS cloud, for example http://maas:5240/MAAS.
 	// Endpoint of the MAAS API used to connect to the MAAS cloud, for example `http://maas:5240/MAAS`.
 	// +kubebuilder:validation:Optional
 	MaasAPIEndpoint *string `json:"maasApiEndpoint,omitempty" tf:"maas_api_endpoint,omitempty"`
@@ -113,7 +113,7 @@ type MaasStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Maas is the Schema for the Maass API.
+// Maas is the Schema for the Maass API. Resource for managing MaaS cloud accounts in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

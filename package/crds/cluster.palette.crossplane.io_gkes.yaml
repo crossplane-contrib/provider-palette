@@ -220,7 +220,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -310,7 +310,7 @@ spec:
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                             Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
@@ -789,12 +789,12 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
@@ -1127,7 +1127,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudAccountIdRef:
@@ -1217,7 +1217,7 @@ spec:
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                             Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
@@ -1696,12 +1696,12 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:
@@ -2049,7 +2049,7 @@ spec:
                     type: array
                   cloudAccountId:
                     description: |-
-                      (String)
+                      (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                       UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
                     type: string
                   cloudConfig:
@@ -2065,7 +2065,7 @@ spec:
                           type: string
                         region:
                           description: |-
-                            (String)
+                            (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                             Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
                           type: string
                       type: object
@@ -2365,12 +2365,12 @@ spec:
                           type: number
                         diskSizeGb:
                           description: |-
-                            (Number)
+                            (Number) Root disk size in GB for each node in this machine pool.
                             Root disk size in GB for each node in this machine pool.
                           type: number
                         instanceType:
                           description: |-
-                            (String)
+                            (String) GCE machine type used for nodes in this machine pool.
                             GCE machine type used for nodes in this machine pool.
                           type: string
                         name:

@@ -23,7 +23,7 @@ type AksInitParameters struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	// UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.Azure
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -81,7 +81,7 @@ type AksInitParameters struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	MachinePool []MachinePoolInitParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -137,7 +137,7 @@ type AksObservation struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []BackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	// UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -197,7 +197,7 @@ type AksObservation struct {
 	// (Block Set, Min: 1) (see below for nested schema)
 	MachinePool []MachinePoolObservation `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS cluster. Changing this forces a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -255,7 +255,7 @@ type AksParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupPolicy []BackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	// UID of the Azure cloud account used for this AKS cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.Azure
 	// +kubebuilder:validation:Optional
@@ -326,7 +326,7 @@ type AksParameters struct {
 	// +kubebuilder:validation:Optional
 	MachinePool []MachinePoolParameters `json:"machinePool,omitempty" tf:"machine_pool,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -548,15 +548,15 @@ type BackupPolicyParameters struct {
 
 type CloudConfigInitParameters struct {
 
-	// (String)
+	// (String) CIDR block for the control plane subnet. Changing this forces a new resource.
 	// CIDR block for the control plane subnet. Changing this forces a new resource.
 	ControlPlaneCidr *string `json:"controlPlaneCidr,omitempty" tf:"control_plane_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	// Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	ControlPlaneSubnetName *string `json:"controlPlaneSubnetName,omitempty" tf:"control_plane_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
@@ -564,11 +564,11 @@ type CloudConfigInitParameters struct {
 	// Whether to create a private cluster(API endpoint). Default is `false`.
 	PrivateCluster *bool `json:"privateCluster,omitempty" tf:"private_cluster,omitempty"`
 
-	// (String)
+	// (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	// Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// (String)
+	// (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
 	// Azure resource group where AKS resources are created. Changing this forces a new resource.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
@@ -576,46 +576,46 @@ type CloudConfigInitParameters struct {
 	// Public SSH key to be used for the cluster nodes.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
-	// (String)
+	// (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	// Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
 
-	// (String)
+	// (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
 	// CIDR block assigned to the virtual network. Changing this forces a new resource.
 	VnetCidrBlock *string `json:"vnetCidrBlock,omitempty" tf:"vnet_cidr_block,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	// Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	VnetName *string `json:"vnetName,omitempty" tf:"vnet_name,omitempty"`
 
-	// (String)
+	// (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
 	// Azure resource group that contains the virtual network. Changing this forces a new resource.
 	VnetResourceGroup *string `json:"vnetResourceGroup,omitempty" tf:"vnet_resource_group,omitempty"`
 
-	// (String)
+	// (String) CIDR block for the worker subnet. Changing this forces a new resource.
 	// CIDR block for the worker subnet. Changing this forces a new resource.
 	WorkerCidr *string `json:"workerCidr,omitempty" tf:"worker_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	// Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	WorkerSubnetName *string `json:"workerSubnetName,omitempty" tf:"worker_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the worker subnet. Changing this forces a new resource.
 	// Security group name attached to the worker subnet. Changing this forces a new resource.
 	WorkerSubnetSecurityGroupName *string `json:"workerSubnetSecurityGroupName,omitempty" tf:"worker_subnet_security_group_name,omitempty"`
 }
 
 type CloudConfigObservation struct {
 
-	// (String)
+	// (String) CIDR block for the control plane subnet. Changing this forces a new resource.
 	// CIDR block for the control plane subnet. Changing this forces a new resource.
 	ControlPlaneCidr *string `json:"controlPlaneCidr,omitempty" tf:"control_plane_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	// Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	ControlPlaneSubnetName *string `json:"controlPlaneSubnetName,omitempty" tf:"control_plane_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
@@ -623,11 +623,11 @@ type CloudConfigObservation struct {
 	// Whether to create a private cluster(API endpoint). Default is `false`.
 	PrivateCluster *bool `json:"privateCluster,omitempty" tf:"private_cluster,omitempty"`
 
-	// (String)
+	// (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	// Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// (String)
+	// (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
 	// Azure resource group where AKS resources are created. Changing this forces a new resource.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
@@ -635,48 +635,48 @@ type CloudConfigObservation struct {
 	// Public SSH key to be used for the cluster nodes.
 	SSHKey *string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 
-	// (String)
+	// (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	// Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
 
-	// (String)
+	// (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
 	// CIDR block assigned to the virtual network. Changing this forces a new resource.
 	VnetCidrBlock *string `json:"vnetCidrBlock,omitempty" tf:"vnet_cidr_block,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	// Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	VnetName *string `json:"vnetName,omitempty" tf:"vnet_name,omitempty"`
 
-	// (String)
+	// (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
 	// Azure resource group that contains the virtual network. Changing this forces a new resource.
 	VnetResourceGroup *string `json:"vnetResourceGroup,omitempty" tf:"vnet_resource_group,omitempty"`
 
-	// (String)
+	// (String) CIDR block for the worker subnet. Changing this forces a new resource.
 	// CIDR block for the worker subnet. Changing this forces a new resource.
 	WorkerCidr *string `json:"workerCidr,omitempty" tf:"worker_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	// Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	WorkerSubnetName *string `json:"workerSubnetName,omitempty" tf:"worker_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the worker subnet. Changing this forces a new resource.
 	// Security group name attached to the worker subnet. Changing this forces a new resource.
 	WorkerSubnetSecurityGroupName *string `json:"workerSubnetSecurityGroupName,omitempty" tf:"worker_subnet_security_group_name,omitempty"`
 }
 
 type CloudConfigParameters struct {
 
-	// (String)
+	// (String) CIDR block for the control plane subnet. Changing this forces a new resource.
 	// CIDR block for the control plane subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ControlPlaneCidr *string `json:"controlPlaneCidr,omitempty" tf:"control_plane_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	// Name of the control plane subnet in the virtual network. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnetName *string `json:"controlPlaneSubnetName,omitempty" tf:"control_plane_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
@@ -686,12 +686,12 @@ type CloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivateCluster *bool `json:"privateCluster,omitempty" tf:"private_cluster,omitempty"`
 
-	// (String)
+	// (String) Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	// Azure region where the AKS cluster is deployed. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
 
-	// (String)
+	// (String) Azure resource group where AKS resources are created. Changing this forces a new resource.
 	// Azure resource group where AKS resources are created. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
@@ -701,37 +701,37 @@ type CloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHKey *string `json:"sshKey" tf:"ssh_key,omitempty"`
 
-	// (String)
+	// (String) Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	// Azure subscription ID used to provision the AKS cluster. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
 
-	// (String)
+	// (String) CIDR block assigned to the virtual network. Changing this forces a new resource.
 	// CIDR block assigned to the virtual network. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	VnetCidrBlock *string `json:"vnetCidrBlock,omitempty" tf:"vnet_cidr_block,omitempty"`
 
-	// (String)
+	// (String) Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	// Name of the virtual network used for AKS static placement. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	VnetName *string `json:"vnetName,omitempty" tf:"vnet_name,omitempty"`
 
-	// (String)
+	// (String) Azure resource group that contains the virtual network. Changing this forces a new resource.
 	// Azure resource group that contains the virtual network. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	VnetResourceGroup *string `json:"vnetResourceGroup,omitempty" tf:"vnet_resource_group,omitempty"`
 
-	// (String)
+	// (String) CIDR block for the worker subnet. Changing this forces a new resource.
 	// CIDR block for the worker subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	WorkerCidr *string `json:"workerCidr,omitempty" tf:"worker_cidr,omitempty"`
 
-	// (String)
+	// (String) Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	// Name of the worker subnet in the virtual network. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	WorkerSubnetName *string `json:"workerSubnetName,omitempty" tf:"worker_subnet_name,omitempty"`
 
-	// (String)
+	// (String) Security group name attached to the worker subnet. Changing this forces a new resource.
 	// Security group name attached to the worker subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	WorkerSubnetSecurityGroupName *string `json:"workerSubnetSecurityGroupName,omitempty" tf:"worker_subnet_security_group_name,omitempty"`
@@ -953,7 +953,7 @@ type ClusterTemplateObservation struct {
 	// The ID of the cluster template.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the cluster template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1084,15 +1084,15 @@ type MachinePoolInitParameters struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) OS disk size in GB for each node in this machine pool.
 	// OS disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) Azure VM size used for nodes in this machine pool.
 	// Azure VM size used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Whether this machine pool is marked as the AKS system node pool.
 	// Whether this machine pool is marked as the AKS system node pool.
 	IsSystemNodePool *bool `json:"isSystemNodePool,omitempty" tf:"is_system_node_pool,omitempty"`
 
@@ -1104,7 +1104,7 @@ type MachinePoolInitParameters struct {
 	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1119,7 +1119,7 @@ type MachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []OverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// (String)
+	// (String) Storage account type for managed disks in this machine pool.
 	// Storage account type for managed disks in this machine pool.
 	StorageAccountType *string `json:"storageAccountType,omitempty" tf:"storage_account_type,omitempty"`
 
@@ -1147,15 +1147,15 @@ type MachinePoolObservation struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) OS disk size in GB for each node in this machine pool.
 	// OS disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) Azure VM size used for nodes in this machine pool.
 	// Azure VM size used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Whether this machine pool is marked as the AKS system node pool.
 	// Whether this machine pool is marked as the AKS system node pool.
 	IsSystemNodePool *bool `json:"isSystemNodePool,omitempty" tf:"is_system_node_pool,omitempty"`
 
@@ -1167,7 +1167,7 @@ type MachinePoolObservation struct {
 	// Minimum number of nodes in the machine pool. This is used for autoscaling the machine pool.
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS machine pool.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1182,7 +1182,7 @@ type MachinePoolObservation struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []OverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// (String)
+	// (String) Storage account type for managed disks in this machine pool.
 	// Storage account type for managed disks in this machine pool.
 	StorageAccountType *string `json:"storageAccountType,omitempty" tf:"storage_account_type,omitempty"`
 
@@ -1213,17 +1213,17 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) OS disk size in GB for each node in this machine pool.
 	// OS disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) Azure VM size used for nodes in this machine pool.
 	// Azure VM size used for nodes in this machine pool.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
 
-	// (Boolean)
+	// (Boolean) Whether this machine pool is marked as the AKS system node pool.
 	// Whether this machine pool is marked as the AKS system node pool.
 	// +kubebuilder:validation:Optional
 	IsSystemNodePool *bool `json:"isSystemNodePool" tf:"is_system_node_pool,omitempty"`
@@ -1238,7 +1238,7 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Min *float64 `json:"min,omitempty" tf:"min,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the AKS machine pool.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1257,7 +1257,7 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideScaling []OverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
-	// (String)
+	// (String) Storage account type for managed disks in this machine pool.
 	// Storage account type for managed disks in this machine pool.
 	// +kubebuilder:validation:Optional
 	StorageAccountType *string `json:"storageAccountType" tf:"storage_account_type,omitempty"`
@@ -1278,7 +1278,7 @@ type ManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -1289,7 +1289,7 @@ type ManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1304,7 +1304,7 @@ type ManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1312,7 +1312,7 @@ type ManifestParameters struct {
 
 type NamespacesInitParameters struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1324,7 +1324,7 @@ type NamespacesInitParameters struct {
 
 type NamespacesObservation struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1336,7 +1336,7 @@ type NamespacesObservation struct {
 
 type NamespacesParameters struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// Name of the namespace. This is the name of the Kubernetes namespace in the cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1423,7 +1423,7 @@ type PackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1457,7 +1457,7 @@ type PackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1492,7 +1492,7 @@ type PackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -1578,7 +1578,7 @@ type ScanPolicyParameters struct {
 
 type SubjectsInitParameters struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1593,7 +1593,7 @@ type SubjectsInitParameters struct {
 
 type SubjectsObservation struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -1608,7 +1608,7 @@ type SubjectsObservation struct {
 
 type SubjectsParameters struct {
 
-	// (String)
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
 	// The name of the subject. Required if 'type' is set to 'User' or 'Group'.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`

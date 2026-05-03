@@ -182,7 +182,7 @@ type GkeCloudConfigInitParameters struct {
 	// GCP project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	// Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -193,7 +193,7 @@ type GkeCloudConfigObservation struct {
 	// GCP project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	// Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -205,7 +205,7 @@ type GkeCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project" tf:"project,omitempty"`
 
-	// (String)
+	// (String) Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	// Google Cloud region where the GKE cluster is deployed. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
@@ -721,7 +721,7 @@ type GkeInitParameters struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []GkeBackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.GCP
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
@@ -874,11 +874,11 @@ type GkeMachinePoolInitParameters struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
@@ -956,11 +956,11 @@ type GkeMachinePoolObservation struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
 
@@ -1041,12 +1041,12 @@ type GkeMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
-	// (Number)
+	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// (String)
+	// (String) GCE machine type used for nodes in this machine pool.
 	// GCE machine type used for nodes in this machine pool.
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
@@ -1176,7 +1176,7 @@ type GkeObservation struct {
 	// The backup policy for the cluster. If not specified, no backups will be taken.
 	BackupPolicy []GkeBackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	CloudAccountID *string `json:"cloudAccountId,omitempty" tf:"cloud_account_id,omitempty"`
 
@@ -1300,7 +1300,7 @@ type GkeParameters struct {
 	// +kubebuilder:validation:Optional
 	BackupPolicy []GkeBackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
-	// (String)
+	// (String) UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	// UID of the GCP cloud account used for this GKE cluster. Changing this forces a new resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-palette/apis/cluster/cloudaccount/v1alpha1.GCP
 	// +kubebuilder:validation:Optional

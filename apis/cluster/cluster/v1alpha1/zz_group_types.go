@@ -74,7 +74,7 @@ type ConfigInitParameters struct {
 	// The storage limit in gigabytes (GB).
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// YAML values override string applied to the cluster group configuration.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
@@ -105,7 +105,7 @@ type ConfigObservation struct {
 	// The storage limit in gigabytes (GB).
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// YAML values override string applied to the cluster group configuration.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
@@ -142,7 +142,7 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	StorageInGb *float64 `json:"storageInGb,omitempty" tf:"storage_in_gb,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// YAML values override string applied to the cluster group configuration.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -194,7 +194,7 @@ type GroupClusterProfilePackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []GroupClusterProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -218,7 +218,7 @@ type GroupClusterProfilePackInitParameters struct {
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
@@ -229,7 +229,7 @@ type GroupClusterProfilePackManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -240,7 +240,7 @@ type GroupClusterProfilePackManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -255,7 +255,7 @@ type GroupClusterProfilePackManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -266,7 +266,7 @@ type GroupClusterProfilePackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []GroupClusterProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -290,7 +290,7 @@ type GroupClusterProfilePackObservation struct {
 	// The unique identifier of the pack. The value can be looked up using the [`spectrocloud_pack`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) data source. This value is required if the pack type is `spectro` and for `helm` if the chart is from a public helm registry. If not provided, all of `name`, `tag`, and `registry_uid` must be specified to resolve the pack UID internally.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
 }
@@ -301,7 +301,7 @@ type GroupClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []GroupClusterProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -331,7 +331,7 @@ type GroupClusterProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String)
+	// (String) YAML values override string applied to the cluster group configuration.
 	// The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
 	// +kubebuilder:validation:Optional
 	Values *string `json:"values,omitempty" tf:"values,omitempty"`
@@ -385,7 +385,7 @@ type GroupInitParameters struct {
 	// The description of the cluster. Default value is empty string.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// Name of the cluster group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -418,7 +418,7 @@ type GroupObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// Name of the cluster group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -453,7 +453,7 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Name of the cluster group
+	// (String) Name of the cluster group.
 	// Name of the cluster group.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -492,7 +492,7 @@ type GroupStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Group is the Schema for the Groups API.
+// Group is the Schema for the Groups API. Resource for managing host cluster groups in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

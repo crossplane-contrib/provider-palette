@@ -85,7 +85,7 @@ spec:
                     type: string
                   tags:
                     description: |-
-                      (Set of String) Assign tags to the project.
+                      (Set of String) Set of tag strings to assign to the project.
                       Set of tag strings to assign to the project.
                     items:
                       type: string
@@ -117,7 +117,7 @@ spec:
                     type: string
                   tags:
                     description: |-
-                      (Set of String) Assign tags to the project.
+                      (Set of String) Set of tag strings to assign to the project.
                       Set of tag strings to assign to the project.
                     items:
                       type: string
@@ -235,7 +235,7 @@ spec:
                     type: string
                   tags:
                     description: |-
-                      (Set of String) Assign tags to the project.
+                      (Set of String) Set of tag strings to assign to the project.
                       Set of tag strings to assign to the project.
                     items:
                       type: string

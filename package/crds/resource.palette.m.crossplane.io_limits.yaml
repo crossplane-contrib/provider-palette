@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Limit is the Schema for the Limits API.
+        description: Limit is the Schema for the Limits API. Resource for managing
+          tenant-wide Palette object quota limits in Spectro Cloud.
         properties:
           apiVersion:
             description: |-

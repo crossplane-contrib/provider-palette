@@ -68,7 +68,7 @@ type CustomParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (Map of String, Sensitive) The credentials required for accessing the cloud.
+	// (Map of String, Sensitive) Map of credential key to credential value strings required for accessing the cloud.
 	// Map of credential key to credential value strings required for accessing the cloud.
 	// +kubebuilder:validation:Optional
 	CredentialsSecretRef *v1.SecretReference `json:"credentialsSecretRef,omitempty" tf:"-"`
@@ -111,7 +111,7 @@ type CustomStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Custom is the Schema for the Customs API.
+// Custom is the Schema for the Customs API. Resource for managing custom cloud accounts in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

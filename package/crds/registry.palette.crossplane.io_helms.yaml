@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Helm is the Schema for the Helms API.
+        description: Helm is the Schema for the Helms API. Resource for managing Helm
+          registries in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -112,7 +113,7 @@ spec:
                     type: boolean
                   name:
                     description: |-
-                      (String) The name of the Helm registry. This must be unique
+                      (String) The name of the Helm registry. This must be unique.
                       The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:
@@ -172,7 +173,7 @@ spec:
                     type: boolean
                   name:
                     description: |-
-                      (String) The name of the Helm registry. This must be unique
+                      (String) The name of the Helm registry. This must be unique.
                       The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:
@@ -330,7 +331,7 @@ spec:
                     type: boolean
                   name:
                     description: |-
-                      (String) The name of the Helm registry. This must be unique
+                      (String) The name of the Helm registry. This must be unique.
                       The name of the Helm registry. This must be unique.
                     type: string
                   waitForSync:

@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: GCP is the Schema for the GCPs API.
+        description: GCP is the Schema for the GCPs API. Resource for managing GCP
+          cloud account credentials in Spectro Cloud.
         properties:
           apiVersion:
             description: |-

@@ -53,7 +53,7 @@ type OidcInitParameters struct {
 	// The name of the claim that returns the user's last name from the identity provider.
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
-	// (Set of String) Scopes requested during OIDC authentication.
+	// (Set of String) Set of OIDC scope strings requested during authentication.
 	// Set of OIDC scope strings requested during authentication.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
@@ -110,7 +110,7 @@ type OidcObservation struct {
 	// URL used for logging out of the OIDC session.
 	LogoutURL *string `json:"logoutUrl,omitempty" tf:"logout_url,omitempty"`
 
-	// (Set of String) Scopes requested during OIDC authentication.
+	// (Set of String) Set of OIDC scope strings requested during authentication.
 	// Set of OIDC scope strings requested during authentication.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
@@ -172,7 +172,7 @@ type OidcParameters struct {
 	// +kubebuilder:validation:Optional
 	LastName *string `json:"lastName" tf:"last_name,omitempty"`
 
-	// (Set of String) Scopes requested during OIDC authentication.
+	// (Set of String) Set of OIDC scope strings requested during authentication.
 	// Set of OIDC scope strings requested during authentication.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -510,7 +510,7 @@ type SsoStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Sso is the Schema for the Ssos API.
+// Sso is the Schema for the Ssos API. Resource for managing tenant-level single sign-on configuration in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

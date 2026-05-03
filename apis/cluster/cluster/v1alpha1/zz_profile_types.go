@@ -15,7 +15,7 @@ import (
 
 type OptionsInitParameters struct {
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the option.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -34,7 +34,7 @@ type OptionsObservation struct {
 	// The default value of the option.
 	Default *bool `json:"default,omitempty" tf:"default,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the option.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -49,7 +49,7 @@ type OptionsObservation struct {
 
 type OptionsParameters struct {
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the option.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -75,11 +75,11 @@ type ProfileInitParameters struct {
 	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// Description of the cluster profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// Name of the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -100,7 +100,7 @@ type ProfileInitParameters struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -114,14 +114,14 @@ type ProfileObservation struct {
 	// The context of the cluster profile. Allowed values are `project` or `tenant`. Default value is `project`. If  the `project` context is specified, the project name will sourced from the provider configuration parameter [`project_name`](https://registry.io/providers/spectrocloud/spectrocloud/latest/docs#schema).
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// Description of the cluster profile.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// Name of the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -142,7 +142,7 @@ type ProfileObservation struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -151,7 +151,7 @@ type ProfilePackInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ProfilePackManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -186,7 +186,7 @@ type ProfilePackManifestInitParameters struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -197,7 +197,7 @@ type ProfilePackManifestObservation struct {
 	// The content of the manifest. The content is the YAML content of the manifest.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the manifest. The name must be unique within the pack.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -212,7 +212,7 @@ type ProfilePackManifestParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content" tf:"content,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the manifest. The name must be unique within the pack.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -223,7 +223,7 @@ type ProfilePackObservation struct {
 	// (Block List) (see below for nested schema)
 	Manifest []ProfilePackManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the pack. The name must be unique within the cluster profile.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -258,7 +258,7 @@ type ProfilePackParameters struct {
 	// +kubebuilder:validation:Optional
 	Manifest []ProfilePackManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the pack. The name must be unique within the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -306,12 +306,12 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Context *string `json:"context,omitempty" tf:"context,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// Description of the cluster profile.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// Name of the cluster profile.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -337,7 +337,7 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
@@ -367,7 +367,7 @@ type VariableInitParameters struct {
 	// The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the variable.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -395,7 +395,7 @@ type VariableInitParameters struct {
 	// If `is_sensitive` is set to `true`, then default value will be masked. By default the `is_sensitive` flag will be set to false.
 	IsSensitive *bool `json:"isSensitive,omitempty" tf:"is_sensitive,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the variable should be unique among variables.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -418,7 +418,7 @@ type VariableObservation struct {
 	// The default value of the variable. If the format is `multiline`, then the default value should be a multi-line string. If the input type is `dropdown`, then the default value should be a option label.
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the variable.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -446,7 +446,7 @@ type VariableObservation struct {
 	// If `is_sensitive` is set to `true`, then default value will be masked. By default the `is_sensitive` flag will be set to false.
 	IsSensitive *bool `json:"isSensitive,omitempty" tf:"is_sensitive,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the variable should be unique among variables.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -470,7 +470,7 @@ type VariableParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultValue *string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
 
-	// (String)
+	// (String) Description of the cluster profile.
 	// The description of the variable.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -505,7 +505,7 @@ type VariableParameters struct {
 	// +kubebuilder:validation:Optional
 	IsSensitive *bool `json:"isSensitive,omitempty" tf:"is_sensitive,omitempty"`
 
-	// (String)
+	// (String) Name of the cluster profile.
 	// The name of the variable should be unique among variables.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
