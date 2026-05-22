@@ -13,6 +13,15 @@
               "optional": true,
               "sensitive": true
             },
+            "feature_flag": {
+              "type": [
+                "map",
+                "bool"
+              ],
+              "description": "Optional provider feature flags (map of booleans). Unknown keys are ignored. Set `disable_addon_deployment_resource` to `true` to block the `spectrocloud_addon_deployment` resource during plan and apply.",
+              "description_kind": "plain",
+              "optional": true
+            },
             "host": {
               "type": "string",
               "description": "The Spectro Cloud API host url. Can also be set with the `SPECTROCLOUD_HOST` environment variable. Defaults to https://api.spectrocloud.com",
