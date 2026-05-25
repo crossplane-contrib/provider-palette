@@ -312,8 +312,8 @@ type EdgeNativeCloudConfigInitParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
-	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
-	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range. When not specified, Palette assigns the VIP and the assigned value is populated on read.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`. When not specified, Palette assigns the VIP and the assigned value is populated on read.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
@@ -337,8 +337,8 @@ type EdgeNativeCloudConfigObservation struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
-	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
-	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range. When not specified, Palette assigns the VIP and the assigned value is populated on read.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`. When not specified, Palette assigns the VIP and the assigned value is populated on read.
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }
 
@@ -366,8 +366,8 @@ type EdgeNativeCloudConfigParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
-	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
-	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.
+	// (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range. When not specified, Palette assigns the VIP and the assigned value is populated on read.
+	// The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`. When not specified, Palette assigns the VIP and the assigned value is populated on read.
 	// +kubebuilder:validation:Optional
 	Vip *string `json:"vip,omitempty" tf:"vip,omitempty"`
 }

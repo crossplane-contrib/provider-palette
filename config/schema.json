@@ -6580,9 +6580,10 @@
                     },
                     "vip": {
                       "type": "string",
-                      "description": "The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`.",
+                      "description": "The `vip` can be specified as either an IP address or a fully qualified domain name (FQDN). If `overlay_cidr_range` is set, the `vip` should be within the specified `overlay_cidr_range`. By default, the `vip` is set to the first IP address within the given `overlay_cidr_range`. When not specified, Palette assigns the VIP and the assigned value is populated on read.",
                       "description_kind": "plain",
-                      "optional": true
+                      "optional": true,
+                      "computed": true
                     }
                   },
                   "description_kind": "plain"
