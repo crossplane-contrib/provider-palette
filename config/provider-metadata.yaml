@@ -2587,7 +2587,7 @@ resources:
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
-            vip: (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range.
+            vip: (String) The vip can be specified as either an IP address or a fully qualified domain name (FQDN). If overlay_cidr_range is set, the vip should be within the specified overlay_cidr_range. By default, the vip is set to the first IP address within the given overlay_cidr_range. When not specified, Palette assigns the VIP and the assigned value is populated on read.
         importStatements: []
     spectrocloud_cluster_edge_vsphere:
         subCategory: ""
