@@ -174,6 +174,11 @@ func (in *AksInitParameters) DeepCopyInto(out *AksInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -392,6 +397,11 @@ func (in *AksObservation) DeepCopyInto(out *AksObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -568,6 +578,11 @@ func (in *AksParameters) DeepCopyInto(out *AksParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -1827,6 +1842,11 @@ func (in *ApacheCloudstackInitParameters) DeepCopyInto(out *ApacheCloudstackInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -2631,6 +2651,11 @@ func (in *ApacheCloudstackObservation) DeepCopyInto(out *ApacheCloudstackObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -2807,6 +2832,11 @@ func (in *ApacheCloudstackParameters) DeepCopyInto(out *ApacheCloudstackParamete
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -3321,6 +3351,11 @@ func (in *AwsCloudConfigInitParameters) DeepCopyInto(out *AwsCloudConfigInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -3356,6 +3391,11 @@ func (in *AwsCloudConfigObservation) DeepCopyInto(out *AwsCloudConfigObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -3388,6 +3428,11 @@ func (in *AwsCloudConfigParameters) DeepCopyInto(out *AwsCloudConfigParameters) 
 	*out = *in
 	if in.ControlPlaneLB != nil {
 		in, out := &in.ControlPlaneLB, &out.ControlPlaneLB
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
 		**out = **in
 	}
@@ -4450,6 +4495,11 @@ func (in *AwsInitParameters) DeepCopyInto(out *AwsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -4769,6 +4819,11 @@ func (in *AwsMachinePoolInitParameters) DeepCopyInto(out *AwsMachinePoolInitPara
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -5036,6 +5091,11 @@ func (in *AwsMachinePoolObservation) DeepCopyInto(out *AwsMachinePoolObservation
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -5301,6 +5361,11 @@ func (in *AwsMachinePoolParameters) DeepCopyInto(out *AwsMachinePoolParameters) 
 	if in.NodeRepaveInterval != nil {
 		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
 		*out = new(float64)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
 		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
@@ -5688,6 +5753,11 @@ func (in *AwsObservation) DeepCopyInto(out *AwsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -5885,6 +5955,11 @@ func (in *AwsParameters) DeepCopyInto(out *AwsParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -7702,6 +7777,11 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -8751,6 +8831,11 @@ func (in *AzureObservation) DeepCopyInto(out *AzureObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -8927,6 +9012,11 @@ func (in *AzureParameters) DeepCopyInto(out *AzureParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -10483,6 +10573,11 @@ func (in *BrownfieldInitParameters) DeepCopyInto(out *BrownfieldInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -11056,6 +11151,11 @@ func (in *BrownfieldObservation) DeepCopyInto(out *BrownfieldObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -11213,6 +11313,11 @@ func (in *BrownfieldParameters) DeepCopyInto(out *BrownfieldParameters) {
 	}
 	if in.Proxy != nil {
 		in, out := &in.Proxy, &out.Proxy
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -11399,6 +11504,11 @@ func (in *CloudConfigInitParameters) DeepCopyInto(out *CloudConfigInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateCluster != nil {
 		in, out := &in.PrivateCluster, &out.PrivateCluster
 		*out = new(bool)
@@ -11484,6 +11594,11 @@ func (in *CloudConfigObservation) DeepCopyInto(out *CloudConfigObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateCluster != nil {
 		in, out := &in.PrivateCluster, &out.PrivateCluster
 		*out = new(bool)
@@ -11566,6 +11681,11 @@ func (in *CloudConfigParameters) DeepCopyInto(out *CloudConfigParameters) {
 	}
 	if in.ControlPlaneSubnetSecurityGroupName != nil {
 		in, out := &in.ControlPlaneSubnetSecurityGroupName, &out.ControlPlaneSubnetSecurityGroupName
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
 		**out = **in
 	}
@@ -14862,6 +14982,11 @@ func (in *CustomCloudInitParameters) DeepCopyInto(out *CustomCloudInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ScanPolicy != nil {
 		in, out := &in.ScanPolicy, &out.ScanPolicy
 		*out = make([]CustomCloudScanPolicyInitParameters, len(*in))
@@ -15575,6 +15700,11 @@ func (in *CustomCloudObservation) DeepCopyInto(out *CustomCloudObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ScanPolicy != nil {
 		in, out := &in.ScanPolicy, &out.ScanPolicy
 		*out = make([]CustomCloudScanPolicyObservation, len(*in))
@@ -15751,6 +15881,11 @@ func (in *CustomCloudParameters) DeepCopyInto(out *CustomCloudParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -17715,6 +17850,11 @@ func (in *EdgeNativeInitParameters) DeepCopyInto(out *EdgeNativeInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -18731,6 +18871,11 @@ func (in *EdgeNativeObservation) DeepCopyInto(out *EdgeNativeObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -18904,6 +19049,11 @@ func (in *EdgeNativeParameters) DeepCopyInto(out *EdgeNativeParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -20652,6 +20802,11 @@ func (in *EdgeVsphereInitParameters) DeepCopyInto(out *EdgeVsphereInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -21699,6 +21854,11 @@ func (in *EdgeVsphereObservation) DeepCopyInto(out *EdgeVsphereObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -21867,6 +22027,11 @@ func (in *EdgeVsphereParameters) DeepCopyInto(out *EdgeVsphereParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -23699,6 +23864,11 @@ func (in *EksInitParameters) DeepCopyInto(out *EksInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -24972,6 +25142,11 @@ func (in *EksObservation) DeepCopyInto(out *EksObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -25171,6 +25346,11 @@ func (in *EksParameters) DeepCopyInto(out *EksParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -26997,6 +27177,11 @@ func (in *GCPInitParameters) DeepCopyInto(out *GCPInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -28010,6 +28195,11 @@ func (in *GCPObservation) DeepCopyInto(out *GCPObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -28186,6 +28376,11 @@ func (in *GCPParameters) DeepCopyInto(out *GCPParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -29819,6 +30014,11 @@ func (in *GkeInitParameters) DeepCopyInto(out *GkeInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -30759,6 +30959,11 @@ func (in *GkeObservation) DeepCopyInto(out *GkeObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -30940,6 +31145,11 @@ func (in *GkeParameters) DeepCopyInto(out *GkeParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -32525,6 +32735,17 @@ func (in *MaasCloudConfigInitParameters) DeepCopyInto(out *MaasCloudConfigInitPa
 			}
 		}
 	}
+	if in.SSHKeys != nil {
+		in, out := &in.SSHKeys, &out.SSHKeys
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MaasCloudConfigInitParameters.
@@ -32561,6 +32782,17 @@ func (in *MaasCloudConfigObservation) DeepCopyInto(out *MaasCloudConfigObservati
 			}
 		}
 	}
+	if in.SSHKeys != nil {
+		in, out := &in.SSHKeys, &out.SSHKeys
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MaasCloudConfigObservation.
@@ -32588,6 +32820,17 @@ func (in *MaasCloudConfigParameters) DeepCopyInto(out *MaasCloudConfigParameters
 	}
 	if in.NtpServers != nil {
 		in, out := &in.NtpServers, &out.NtpServers
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.SSHKeys != nil {
+		in, out := &in.SSHKeys, &out.SSHKeys
 		*out = make([]*string, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
@@ -33732,6 +33975,11 @@ func (in *MaasInitParameters) DeepCopyInto(out *MaasInitParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -35036,6 +35284,11 @@ func (in *MaasObservation) DeepCopyInto(out *MaasObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -35231,6 +35484,11 @@ func (in *MaasParameters) DeepCopyInto(out *MaasParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}
@@ -35480,6 +35738,11 @@ func (in *MachinePoolInitParameters) DeepCopyInto(out *MachinePoolInitParameters
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
@@ -35824,6 +36087,11 @@ func (in *MachinePoolObservation) DeepCopyInto(out *MachinePoolObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -36016,6 +36284,11 @@ func (in *MachinePoolParameters) DeepCopyInto(out *MachinePoolParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
@@ -40671,6 +40944,11 @@ func (in *VsphereInitParameters) DeepCopyInto(out *VsphereInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -41983,6 +42261,11 @@ func (in *VsphereObservation) DeepCopyInto(out *VsphereObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.ReviewRepaveState != nil {
 		in, out := &in.ReviewRepaveState, &out.ReviewRepaveState
 		*out = new(string)
@@ -42166,6 +42449,11 @@ func (in *VsphereParameters) DeepCopyInto(out *VsphereParameters) {
 	}
 	if in.PauseAgentUpgrades != nil {
 		in, out := &in.PauseAgentUpgrades, &out.PauseAgentUpgrades
+		*out = new(string)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
 		*out = new(string)
 		**out = **in
 	}

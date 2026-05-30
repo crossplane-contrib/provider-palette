@@ -1453,6 +1453,11 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.Resources != nil {
 		in, out := &in.Resources, &out.Resources
 		*out = make([]ResourcesInitParameters, len(*in))
@@ -1667,6 +1672,11 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
+		**out = **in
+	}
 	if in.Resources != nil {
 		in, out := &in.Resources, &out.Resources
 		*out = make([]ResourcesObservation, len(*in))
@@ -1830,6 +1840,11 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.PauseCluster != nil {
 		in, out := &in.PauseCluster, &out.PauseCluster
 		*out = new(bool)
+		**out = **in
+	}
+	if in.RenewK8SCertificatesNow != nil {
+		in, out := &in.RenewK8SCertificatesNow, &out.RenewK8SCertificatesNow
+		*out = new(string)
 		**out = **in
 	}
 	if in.Resources != nil {
