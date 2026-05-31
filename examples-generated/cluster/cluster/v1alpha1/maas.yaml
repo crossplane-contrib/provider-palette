@@ -27,6 +27,7 @@ spec:
       - 0.pool.ntp.org
       - 1.pool.ntp.org
       - time.google.com
+      sshKeys: ${var.cluster_ssh_public_keys}
     clusterProfile:
     - idSelector:
         matchLabels:

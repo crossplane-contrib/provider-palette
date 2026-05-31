@@ -183,6 +183,7 @@ type AwsCloudConfigInitParameters struct {
 	// Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
 	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -205,6 +206,7 @@ type AwsCloudConfigObservation struct {
 	// Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
 	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -228,6 +230,7 @@ type AwsCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	ControlPlaneLB *string `json:"controlPlaneLb,omitempty" tf:"control_plane_lb,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
@@ -806,6 +809,7 @@ type AwsInitParameters struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
@@ -946,6 +950,7 @@ type AwsMachinePoolInitParameters struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -1087,6 +1092,7 @@ type AwsMachinePoolObservation struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -1247,6 +1253,7 @@ type AwsMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
@@ -1460,6 +1467,7 @@ type AwsObservation struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
@@ -1608,6 +1616,7 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// +kubebuilder:validation:Optional
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`

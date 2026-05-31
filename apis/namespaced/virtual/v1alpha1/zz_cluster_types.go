@@ -336,6 +336,7 @@ type ClusterInitParameters struct {
 	// To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
@@ -455,6 +456,7 @@ type ClusterObservation struct {
 	// To pause and resume cluster state. Set to true to pause running cluster & false to resume it.
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
@@ -583,6 +585,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseCluster *bool `json:"pauseCluster,omitempty" tf:"pause_cluster,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
 	// +kubebuilder:validation:Optional
 	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
