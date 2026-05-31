@@ -225,6 +225,11 @@ type MaasCloudConfigInitParameters struct {
 	// A list of NTP servers to use instead of the machine image's default NTP server list.
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// +listType=set
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 }
 
 type MaasCloudConfigObservation struct {
@@ -241,6 +246,11 @@ type MaasCloudConfigObservation struct {
 	// A list of NTP servers to use instead of the machine image's default NTP server list.
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// +listType=set
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 }
 
 type MaasCloudConfigParameters struct {
@@ -260,6 +270,12 @@ type MaasCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 }
 
 type MaasClusterProfileInitParameters struct {
@@ -864,6 +880,10 @@ type MaasInitParameters struct {
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -1561,6 +1581,10 @@ type MaasObservation struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
+
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
@@ -1709,6 +1733,11 @@ type MaasParameters struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// +kubebuilder:validation:Optional
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.

@@ -105,6 +105,10 @@ type AksInitParameters struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
 
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
+
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
 	ReviewRepaveState *string `json:"reviewRepaveState,omitempty" tf:"review_repave_state,omitempty"`
@@ -220,6 +224,10 @@ type AksObservation struct {
 	// (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -355,6 +363,11 @@ type AksParameters struct {
 	// The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
 	// +kubebuilder:validation:Optional
 	PauseAgentUpgrades *string `json:"pauseAgentUpgrades,omitempty" tf:"pause_agent_upgrades,omitempty"`
+
+	// the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+	// +kubebuilder:validation:Optional
+	RenewK8SCertificatesNow *string `json:"renewK8SCertificatesNow,omitempty" tf:"renew_k8s_certificates_now,omitempty"`
 
 	// (String) To authorize the cluster repave, set the value to Approved for approval and "" to decline. Default value is "".
 	// To authorize the cluster repave, set the value to `Approved` for approval and `""` to decline. Default value is `""`.
@@ -560,6 +573,10 @@ type CloudConfigInitParameters struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (Boolean) Whether to create a private cluster(API endpoint). Default is false.
 	// Whether to create a private cluster(API endpoint). Default is `false`.
 	PrivateCluster *bool `json:"privateCluster,omitempty" tf:"private_cluster,omitempty"`
@@ -618,6 +635,10 @@ type CloudConfigObservation struct {
 	// (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Boolean) Whether to create a private cluster(API endpoint). Default is false.
 	// Whether to create a private cluster(API endpoint). Default is `false`.
@@ -680,6 +701,11 @@ type CloudConfigParameters struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Boolean) Whether to create a private cluster(API endpoint). Default is false.
 	// Whether to create a private cluster(API endpoint). Default is `false`.
@@ -1111,6 +1137,10 @@ type MachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []NodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1173,6 +1203,10 @@ type MachinePoolObservation struct {
 
 	// (Block List) (see below for nested schema)
 	Node []NodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
@@ -1246,6 +1280,11 @@ type MachinePoolParameters struct {
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []NodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.

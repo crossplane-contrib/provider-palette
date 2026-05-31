@@ -307,6 +307,11 @@ spec:
                             facing and internal. Defaults to “ (empty string).
                             Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
                           type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         region:
                           description: |-
                             (String) The AWS region to deploy the cluster in.
@@ -902,6 +907,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -1003,6 +1013,11 @@ spec:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  renewK8SCertificatesNow:
+                    description: |-
+                      the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+                      Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
                     type: string
                   reviewRepaveState:
                     description: |-
@@ -1306,6 +1321,11 @@ spec:
                             facing and internal. Defaults to “ (empty string).
                             Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
                           type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         region:
                           description: |-
                             (String) The AWS region to deploy the cluster in.
@@ -1901,6 +1921,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -2002,6 +2027,11 @@ spec:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  renewK8SCertificatesNow:
+                    description: |-
+                      the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+                      Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
                     type: string
                   reviewRepaveState:
                     description: |-
@@ -2245,6 +2275,11 @@ spec:
                           description: |-
                             facing and internal. Defaults to “ (empty string).
                             Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to “ (empty string).
+                          type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         region:
                           description: |-
@@ -2662,6 +2697,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -2763,6 +2803,11 @@ spec:
                     description: |-
                       (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
                       The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.
+                    type: string
+                  renewK8SCertificatesNow:
+                    description: |-
+                      the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
+                      Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').
                     type: string
                   reviewRepaveState:
                     description: |-

@@ -1521,6 +1521,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "review_repave_state": {
                 "type": "string",
                 "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
@@ -1645,6 +1651,12 @@
                     "control_plane_subnet_security_group_name": {
                       "type": "string",
                       "description": "Security group name attached to the control plane subnet. Changing this forces a new resource.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -2027,6 +2039,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
@@ -2323,6 +2341,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -3273,6 +3297,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "review_repave_state": {
                 "type": "string",
                 "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
@@ -3394,6 +3424,12 @@
                     "control_plane_lb": {
                       "type": "string",
                       "description": "Control plane load balancer type. Valid values are `Internet-facing` and `internal`. Defaults to `` (empty string).",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -3794,6 +3830,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
@@ -4090,6 +4132,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -4994,6 +5042,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "review_repave_state": {
                 "type": "string",
                 "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
@@ -5796,6 +5850,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "skip_completion": {
                 "type": "bool",
                 "description": "If `true`, the cluster will be created asynchronously. Default value is `false`.",
@@ -6436,6 +6496,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -7249,6 +7315,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -8125,6 +8197,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -9050,6 +9128,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "review_repave_state": {
                 "type": "string",
                 "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
@@ -9789,6 +9873,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -10742,6 +10832,12 @@
                 "description_kind": "plain",
                 "optional": true
               },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
+                "description_kind": "plain",
+                "optional": true
+              },
               "review_repave_state": {
                 "type": "string",
                 "description": "To authorize the cluster repave, set the value to `Approved` for approval and `\"\"` to decline. Default value is `\"\"`.",
@@ -10869,6 +10965,15 @@
                         "string"
                       ],
                       "description": "A list of NTP servers to use instead of the machine image's default NTP server list.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "ssh_keys": {
+                      "type": [
+                        "set",
+                        "string"
+                      ],
+                      "description": "List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -11935,6 +12040,12 @@
               "pause_agent_upgrades": {
                 "type": "string",
                 "description": "The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is `unlock`, meaning upgrades occur automatically. Setting it to `lock` pauses automatic agent upgrades for the cluster.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -15346,6 +15457,12 @@
               "pause_cluster": {
                 "type": "bool",
                 "description": "To pause and resume cluster state. Set to true to pause running cluster & false to resume it.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "renew_k8s_certificates_now": {
+                "type": "string",
+                "description": "Timestamp to trigger an immediate renewal of control plane Kubernetes PKI certificates for this cluster. NOTE: The renewal is initiated immediately when this value changes - the timestamp does NOT schedule a future renewal. Set this to the current timestamp each time you want to trigger certificate renewal. This field can also be used for tracking when renewals were triggered. Renewal may take several minutes depending on cluster size. Only control plane certificates are renewed; worker node certificates are not supported. Format: RFC3339 (e.g., '2024-01-15T10:30:00Z').",
                 "description_kind": "plain",
                 "optional": true
               },

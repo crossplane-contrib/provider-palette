@@ -9,7 +9,7 @@ PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 export TERRAFORM_VERSION ?= 1.5.7
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.29.3-pre
+export TERRAFORM_PROVIDER_VERSION := 0.29.3
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-spectrocloud
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-spectrocloud_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH := docs/resources
@@ -126,11 +126,25 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM) $(YQ)
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 
 pull-docs:
-	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
-  		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
-		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
+	@DOCS_DIR="$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)"; \
+	PROVIDER_DIR="$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
+	DESIRED_TAG="v$(TERRAFORM_PROVIDER_VERSION)"; \
+	if [ ! -d "$$PROVIDER_DIR/.git" ]; then \
+		mkdir -p "$$(dirname $$PROVIDER_DIR)" && \
+		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "$$DESIRED_TAG" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$$PROVIDER_DIR"; \
+	else \
+		CURRENT=$$(git -C "$$PROVIDER_DIR" describe --tags --exact-match 2>/dev/null || true); \
+		if [ "$$CURRENT" != "$$DESIRED_TAG" ]; then \
+			rm -rf "$$PROVIDER_DIR"; \
+			mkdir -p "$$(dirname $$PROVIDER_DIR)" && \
+			git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "$$DESIRED_TAG" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$$PROVIDER_DIR"; \
+		fi; \
+	fi; \
+	git -C "$$PROVIDER_DIR" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"; \
+	if [ ! -d "$$DOCS_DIR" ]; then \
+		git -C "$$PROVIDER_DIR" reset --hard HEAD; \
+		git -C "$$PROVIDER_DIR" sparse-checkout reapply; \
 	fi
-	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
 
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 
