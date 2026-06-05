@@ -110,6 +110,7 @@ resources:
             - name: appliance
               manifest: |-
                 {
+                  "arch_type": "amd64",
                   "tags": {
                     "name": "appliance_name"
                   },
@@ -117,6 +118,7 @@ resources:
                   "wait": true
                 }
         argumentDocs:
+            arch_type: (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
@@ -829,6 +831,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            os_sku: (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+            os_type: (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
             override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
@@ -2461,6 +2465,7 @@ resources:
                   ],
                   "machine_pool": [
                     {
+                      "arch_type": "amd64",
                       "control_plane": true,
                       "control_plane_as_worker": true,
                       "edge_host": [
@@ -2499,6 +2504,7 @@ resources:
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
+            arch_type: (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cloud_account_id: (String) UID of the cloud account associated with this Edge Native cluster. Changing this forces a new resource.

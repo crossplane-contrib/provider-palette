@@ -897,6 +897,16 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        osSku:
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
+                          type: string
+                        osType:
+                          description: |-
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+                            Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
+                          type: string
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.
@@ -1893,6 +1903,16 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        osSku:
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
+                          type: string
+                        osType:
+                          description: |-
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+                            Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
+                          type: string
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.
@@ -2649,6 +2669,16 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        osSku:
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
+                          type: string
+                        osType:
+                          description: |-
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+                            Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
+                          type: string
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.

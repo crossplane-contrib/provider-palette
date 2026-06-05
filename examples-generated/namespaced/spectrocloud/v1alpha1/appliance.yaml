@@ -9,6 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    archType: amd64
     tags:
       name: appliance_name
     uid: test-dec9

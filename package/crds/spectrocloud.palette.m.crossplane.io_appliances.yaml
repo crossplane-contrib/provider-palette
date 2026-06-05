@@ -59,6 +59,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   pairingKey:
                     description: |-
                       (String) The pairing key used for appliance pairing.
@@ -106,6 +111,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   pairingKey:
                     description: |-
                       (String) The pairing key used for appliance pairing.
@@ -208,6 +218,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string

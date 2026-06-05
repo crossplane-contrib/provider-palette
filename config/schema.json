@@ -371,6 +371,12 @@
           "version": 2,
           "block": {
             "attributes": {
+              "arch_type": {
+                "type": "string",
+                "description": "Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "id": {
                 "type": "string",
                 "description_kind": "plain",
@@ -2038,6 +2044,18 @@
                       "description": "Name of the AKS machine pool.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "os_sku": {
+                      "type": "string",
+                      "description": "OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "os_type": {
+                      "type": "string",
+                      "description": "Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "override_cluster_api_config": {
                       "type": "string",
@@ -6963,6 +6981,12 @@
                         "string"
                       ],
                       "description": "Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "arch_type": {
+                      "type": "string",
+                      "description": "Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.",
                       "description_kind": "plain",
                       "optional": true
                     },

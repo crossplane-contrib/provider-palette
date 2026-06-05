@@ -772,6 +772,11 @@ spec:
                             Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
+                        archType:
+                          description: |-
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                            Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                          type: string
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -1733,6 +1738,11 @@ spec:
                             Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
+                        archType:
+                          description: |-
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                            Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                          type: string
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
@@ -2452,6 +2462,11 @@ spec:
                             Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
                           type: object
                           x-kubernetes-map-type: granular
+                        archType:
+                          description: |-
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                            Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                          type: string
                         controlPlane:
                           description: |-
                             (Boolean) Whether this machine pool is a control plane. Defaults to false.
