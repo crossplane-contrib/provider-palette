@@ -1138,10 +1138,11 @@ type MachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []NodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
 	// OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
 	OsSku *string `json:"osSku,omitempty" tf:"os_sku,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
 
@@ -1212,10 +1213,11 @@ type MachinePoolObservation struct {
 	// (Block List) (see below for nested schema)
 	Node []NodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
 	// OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
 	OsSku *string `json:"osSku,omitempty" tf:"os_sku,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
 
@@ -1296,11 +1298,12 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Node []NodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
 	// OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
 	// +kubebuilder:validation:Optional
 	OsSku *string `json:"osSku,omitempty" tf:"os_sku,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	// +kubebuilder:validation:Optional
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`

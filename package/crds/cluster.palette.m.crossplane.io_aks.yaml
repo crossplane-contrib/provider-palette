@@ -914,13 +914,13 @@ spec:
                             type: object
                           type: array
                         osSku:
-                          description: OS SKU for the AKS node pool. Valid values
-                            are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable
-                            after creation.
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
                           type: string
                         osType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
                         overrideClusterApiConfig:
@@ -1950,13 +1950,13 @@ spec:
                             type: object
                           type: array
                         osSku:
-                          description: OS SKU for the AKS node pool. Valid values
-                            are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable
-                            after creation.
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
                           type: string
                         osType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
                         overrideClusterApiConfig:
@@ -2688,13 +2688,13 @@ spec:
                             type: object
                           type: array
                         osSku:
-                          description: OS SKU for the AKS node pool. Valid values
-                            are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable
-                            after creation.
+                          description: |-
+                            (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
+                            OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.
                           type: string
                         osType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
                             Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
                           type: string
                         overrideClusterApiConfig:

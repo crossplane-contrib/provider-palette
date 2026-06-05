@@ -15,6 +15,7 @@ import (
 
 type ApplianceInitParameters struct {
 
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
@@ -46,6 +47,7 @@ type ApplianceInitParameters struct {
 
 type ApplianceObservation struct {
 
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
@@ -80,6 +82,7 @@ type ApplianceObservation struct {
 
 type ApplianceParameters struct {
 
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	// +kubebuilder:validation:Optional
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`

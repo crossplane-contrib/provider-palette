@@ -1084,7 +1084,7 @@ type EdgeNativeMachinePoolInitParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
@@ -1173,7 +1173,7 @@ type EdgeNativeMachinePoolObservation struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
@@ -1264,7 +1264,7 @@ type EdgeNativeMachinePoolParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
-	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
 	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
 	// +kubebuilder:validation:Optional
 	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`

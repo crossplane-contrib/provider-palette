@@ -764,7 +764,7 @@ spec:
                           x-kubernetes-map-type: granular
                         archType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
                             Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
                           type: string
                         controlPlane:
@@ -1706,7 +1706,7 @@ spec:
                           x-kubernetes-map-type: granular
                         archType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
                             Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
                           type: string
                         controlPlane:
@@ -2458,7 +2458,7 @@ spec:
                           x-kubernetes-map-type: granular
                         archType:
                           description: |-
-                            (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+                            (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
                             Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
                           type: string
                         controlPlane:
