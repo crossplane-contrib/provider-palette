@@ -16,6 +16,9 @@ import (
 
 type ApplianceInitParameters struct {
 
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
+
 	// (String) The pairing key used for appliance pairing.
 	// The pairing key used for appliance pairing.
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
@@ -43,6 +46,9 @@ type ApplianceInitParameters struct {
 }
 
 type ApplianceObservation struct {
+
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -74,6 +80,10 @@ type ApplianceObservation struct {
 }
 
 type ApplianceParameters struct {
+
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	// +kubebuilder:validation:Optional
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
 	// (String) The pairing key used for appliance pairing.
 	// The pairing key used for appliance pairing.

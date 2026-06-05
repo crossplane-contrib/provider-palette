@@ -1083,6 +1083,10 @@ type EdgeNativeMachinePoolInitParameters struct {
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
+
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
 	ControlPlane *bool `json:"controlPlane,omitempty" tf:"control_plane,omitempty"`
@@ -1167,6 +1171,10 @@ type EdgeNativeMachinePoolObservation struct {
 	// Additional labels to be applied to the machine pool. Labels must be in the form of `key:value`.
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
@@ -1254,6 +1262,11 @@ type EdgeNativeMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
+	// (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
+	// Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+	// +kubebuilder:validation:Optional
+	ArchType *string `json:"archType,omitempty" tf:"arch_type,omitempty"`
 
 	// (Boolean) Whether this machine pool is a control plane. Defaults to false.
 	// Whether this machine pool is a control plane. Defaults to `false`.
