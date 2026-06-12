@@ -37760,6 +37760,11 @@ func (in *ProfileInitParameters) DeepCopyInto(out *ProfileInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]*string, len(*in))
@@ -37866,6 +37871,11 @@ func (in *ProfileObservation) DeepCopyInto(out *ProfileObservation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -38187,6 +38197,11 @@ func (in *ProfileParameters) DeepCopyInto(out *ProfileParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags

@@ -89,8 +89,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-
@@ -141,8 +141,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-
@@ -251,8 +251,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-

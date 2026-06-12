@@ -15,9 +15,9 @@ import (
 
 type OciCredentialsInitParameters struct {
 
-	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+	// (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+	// The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
@@ -50,10 +50,6 @@ type OciCredentialsInitParameters struct {
 
 type OciCredentialsObservation struct {
 
-	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
-
 	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
@@ -77,10 +73,10 @@ type OciCredentialsObservation struct {
 
 type OciCredentialsParameters struct {
 
-	// (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-	// The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+	// (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+	// The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// based authentication. Required if 'credential_type' is 'sts'.
 	// The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.

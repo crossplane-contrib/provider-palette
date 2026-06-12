@@ -160,9 +160,9 @@ type GCPStorageConfigParameters struct {
 
 type S3InitParameters struct {
 
-	// (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+	// (String, Sensitive) The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+	// The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+	AccessKeySecretRef *v1.LocalSecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
@@ -191,10 +191,6 @@ type S3InitParameters struct {
 
 type S3Observation struct {
 
-	// (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
-
 	// (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
@@ -218,10 +214,10 @@ type S3Observation struct {
 
 type S3Parameters struct {
 
-	// (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-	// The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+	// (String, Sensitive) The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+	// The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
 	// +kubebuilder:validation:Optional
-	AccessKey *string `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+	AccessKeySecretRef *v1.LocalSecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
 	// The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.

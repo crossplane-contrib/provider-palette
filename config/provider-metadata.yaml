@@ -127,7 +127,7 @@ resources:
             tags: (Map of String) A set of key-value pairs that can be used to organize and categorize the appliance.
             temporary_shell_credentials: (String) Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
             timeouts: (Block, Optional) (see below for nested schema)
-            uid: (String) The unique identifier (UID) for the appliance.
+            uid: '(String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.'
             update: (String)
             wait: (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
         importStatements: []
@@ -399,7 +399,7 @@ resources:
                 s3.external_id: var.external_id
         argumentDocs:
             <bsl_id>: is the Backup Storage Location ID
-            access_key: (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
+            access_key: (String, Sensitive) The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
             arn: (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
             azure_client_id: (String) Unique client Id from Azure console.
             azure_client_secret: (String, Sensitive) Azure secret for authentication.
@@ -769,7 +769,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -812,7 +812,7 @@ resources:
             instance_type: (String) Azure VM size used for nodes in this machine pool.
             is_system_node_pool: (Boolean) Whether this machine pool is marked as the AKS system node pool.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
@@ -1421,7 +1421,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotation to be applied to the machine pool. annotation must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -1468,7 +1468,7 @@ resources:
             instance_config: (List of Object) Instance configuration details returned by the CloudStack API. This is a computed field based on the selected offering. (see below for nested schema)
             ip_address: '(String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.'
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
@@ -1622,7 +1622,7 @@ resources:
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             additional_security_groups: (Set of String) Set of additional security group ID strings to attach to the instance.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             az_subnets: (Map of String) Map of availability zone name to subnet ID string. Mutually exclusive with azs; use az_subnets for static provisioning.
             azs: (Set of String) Set of availability zone name strings. Mutually exclusive with az_subnets; use azs for dynamic provisioning.
@@ -1669,7 +1669,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) The instance type to use for the machine pool nodes.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             license_configuration_arns: (Set of String) List of AWS License Configuration ARNs (required when hostResourceGroupArn is specified, max 10)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
@@ -1796,7 +1796,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String) Availability zones for the machine pool. Check if your region provides availability zones on the Azure documentation. Default value is [""].
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -1842,7 +1842,7 @@ resources:
             instance_type: (String) Azure instance type from the Azure portal.
             is_system_node_pool: (Boolean) Whether this machine pool is a system node pool. Default value is `false'.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
@@ -2362,7 +2362,7 @@ resources:
                 cluster_profile.id: data.spectrocloud_cluster_profile.profile.id
                 name: local.cloud_config_override_variables.CLUSTER_NAME
         argumentDocs:
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -2398,7 +2398,7 @@ resources:
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number) The latitude coordinates value.
             location_config: (Block List) (see below for nested schema)
             longitude: (Number) The longitude coordinates value.
@@ -2502,7 +2502,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             arch_type: (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -2547,7 +2547,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             is_two_node_cluster: (Boolean) Set to true to enable a two-node cluster.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number) The latitude coordinates value.
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (Block List) (see below for nested schema)
@@ -2620,7 +2620,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
@@ -2666,7 +2666,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number) The latitude coordinates value.
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (Block List) (see below for nested schema)
@@ -2794,7 +2794,7 @@ resources:
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             additional_security_groups: (Set of String) Set of additional AWS security group IDs to attach to the instance.
             additional_tags: (Map of String) Map of additional tag key-value pairs applied to Fargate resources.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             ami_id: (String) The ID of the custom Amazon Machine Image (AMI). If you do not set an ami_id, Palette will repave the cluster when it automatically updates the EKS AMI.
             ami_type: (String) Specifies the type of Amazon Machine Image (AMI) to use for the machine pool. Valid values are [AL2_x86_64, AL2_x86_64_GPU, AL2023_x86_64_STANDARD, AL2023_x86_64_NEURON and AL2023_x86_64_NVIDIA]. Defaults to AL2023_x86_64_STANDARD. AL2_x86_64and AL2_x86_64_GPU are deprecated and will be removed in the future.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
@@ -2842,7 +2842,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) AWS EC2 instance type used for nodes in this machine pool.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             labels: (Map of String) Map of Kubernetes label key-value pairs used to match workloads for this selector.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
@@ -2966,7 +2966,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String) Set of availability zone name strings for machine pool placement.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -3008,7 +3008,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) GCE machine type used for nodes in this machine pool.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
@@ -3107,7 +3107,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -3146,7 +3146,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: (String) GCE machine type used for nodes in this machine pool.
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
@@ -3355,7 +3355,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             azs: (Set of String) Set of availability zone name strings where machine pool nodes are provisioned.
             backup_location_id: (String) The ID of the backup location to use for the backup.
@@ -3402,7 +3402,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number) The latitude coordinates value.
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (Block List) (see below for nested schema)
@@ -3662,11 +3662,42 @@ resources:
               references:
                 pack.uid: data.spectrocloud_pack.csi.id
                 pack.values: data.spectrocloud_pack.csi.values
+            - name: addon
+              manifest: |-
+                {
+                  "context": "project",
+                  "lifecycle": [
+                    {
+                      "create_before_destroy": true
+                    }
+                  ],
+                  "name": "example-addon",
+                  "pack": [
+                    {
+                      "manifest": [
+                        {
+                          "content": "${file(\"${path.module}/manifests/example.yaml\")}",
+                          "name": "example"
+                        }
+                      ],
+                      "name": "example-manifest",
+                      "type": "manifest"
+                    }
+                  ],
+                  "skip_destroy": true,
+                  "type": "add-on",
+                  "version": "${var.profile_version}"
+                }
+              references:
+                version: var.profile_version
         argumentDocs:
+            Delete: honors skip_destroy = true
+            POST /v1/clusterprofiles/{uid}/clone: against any existing version of the lineage, then overwriting the clone with the user's HCL content
             cloud: (String) Specify the infrastructure provider the cluster profile is for. Only Palette supported infrastructure providers can be used. The supported cloud types are - all, aws, azure, gcp, vsphere, maas, virtual, baremetal, eks, aks, edge-native, generic, and gke or any custom cloud provider registered in Palette, e.g., nutanix.If the value is set to all, then the type must be set to add-on. Otherwise, the cluster profile may be incompatible with other providers. Default value is all.
             content: (String) The content of the manifest. The content is the YAML content of the manifest.
             context: (String) The context of the cluster profile. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             create: (String)
+            create_before_destroy = true: ensures the new version exists before Terraform removes the old one from state
             default: (Boolean) The default value of the option.
             default_value: (String) The default value of the variable. If the format is multiline, then the default value should be a multi-line string. If the input type is dropdown, then the default value should be a option label.
             delete: (String)
@@ -3688,6 +3719,7 @@ resources:
             registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             required: (Boolean) The required to specify if the variable is optional or mandatory. If it is mandatory then default value must be provided.
+            skip_destroy: (Boolean) When true, terraform destroy removes the cluster profile from Terraform state without calling the Palette delete API, leaving the underlying profile version intact in Palette.
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
             timeouts: (Block, Optional) (see below for nested schema)
@@ -3697,7 +3729,7 @@ resources:
             value: (String) The value of the option.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variable: '(Block List, Min: 1) (see below for nested schema)'
-            version: '(String) Version of the cluster profile. Defaults to ''1.0.0''. Important: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles.'
+            version: trigger a Terraform resource replacement (ForceNew) instead of an in-place update
         importStatements: []
     spectrocloud_cluster_profile_import:
         subCategory: ""
@@ -3799,7 +3831,7 @@ resources:
             action: '(String) The action to perform on the node. Valid values are: cordon, uncordon.'
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -3847,7 +3879,7 @@ resources:
             ingress_host: (String) The host for the Ingress endpoint. Required if 'host_endpoint_type' is set to 'Ingress'.
             instance_type: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             key: (String) The key of the taint.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number) The latitude coordinates value.
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (Block List) (see below for nested schema)
@@ -4346,7 +4378,7 @@ resources:
             project_uid: (String) The unique identifier of the project associated with the registration token.
             status: (String) The status of the registration token. Allowed values are active or inactive. Default is active.
             timeouts: (Block, Optional) (see below for nested schema)
-            token: (String) Generated registration token value returned by Palette.
+            token: (String, Sensitive) Generated registration token (credential). Anyone with this value can enroll hosts against the token scope; treat as a secret.
             update: (String)
         importStatements: []
     spectrocloud_registry_helm:
@@ -4378,9 +4410,9 @@ resources:
             id: (String) The ID of this resource.
             is_private: (Boolean) Specifies whether the Helm registry is private or public.
             name: (String) The name of the Helm registry. This must be unique.
-            password: (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
+            password: (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
             timeouts: (Block, Optional) (see below for nested schema)
-            token: (String) The authentication token. Required if 'credential_type' is set to 'token'.
+            token: (String, Sensitive) Auth token (credential). Required when credential_type is token.
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
             wait_for_sync: (Boolean) If true, Terraform will wait for the Helm registry to complete its initial synchronization before marking the resource as created or updated. Default value is false.
@@ -4407,7 +4439,7 @@ resources:
                   "type": "ecr"
                 }
         argumentDocs:
-            access_key: (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
+            access_key: (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
             arn: (String) The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
             base_content_path: (String) The relative path to the endpoint specified.
             certificate: (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
@@ -4811,7 +4843,7 @@ resources:
               references:
                 host_cluster_uid: var.host_cluster_uid
         argumentDocs:
-            admin_kube_config: (String) Admin Kube-config for the cluster. This can be used to connect to the cluster using kubectl, With admin privilege.
+            admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -4845,7 +4877,7 @@ resources:
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
             include_disks: (Boolean) Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
             k8s_version: (String) Kubernetes version for the virtual cluster control plane.
-            kubeconfig: (String) Kubeconfig for the cluster. This can be used to connect to the cluster using kubectl.
+            kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
             latitude: (Number)
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
@@ -5272,7 +5304,7 @@ resources:
             memory: (Number) Memory in Mib that the entire workspace is allowed to consume. The default value is 0, which imposes no limit.
             name: (String) Name of the workspace.
             namespace: (String) The Kubernetes namespace of the RBAC binding. Required if 'type' is set to 'RoleBinding'.
-            namespaces: (Block Set) The namespaces for the cluster. (see below for nested schema)
+            namespaces: '(Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)'
             prefix: (String) Prefix for the backup name. The backup name will be of the format --.
             resource_allocation: '(Map of String) Resource allocation for the namespace. This is a map containing the resource type and the resource value. Only the following field names are supported for resource configuration: cpu_cores, memory_MiB, gpu, and gpu_provider. Any other field names will not be honored by the system. For example, {cpu_cores: ''2'', memory_MiB: ''2048'', gpu: ''1'', gpu_provider: ''nvidia''}'
             role: (Map of String) The role of the RBAC binding. Required if 'type' is set to 'RoleBinding'. Must include 'name' and 'kind' fields.

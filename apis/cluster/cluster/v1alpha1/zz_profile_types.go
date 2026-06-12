@@ -91,6 +91,9 @@ type ProfileInitParameters struct {
 	// List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
 	ProfileVariables []ProfileVariablesInitParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
+	// Defaults to `false`.
+	SkipDestroy *bool `json:"skipDestroy,omitempty" tf:"skip_destroy,omitempty"`
+
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
@@ -100,7 +103,10 @@ type ProfileInitParameters struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// place update
+	// Version of the cluster profile. Defaults to '1.0.0'.
+	//
+	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -133,6 +139,9 @@ type ProfileObservation struct {
 	// List of variables for the cluster profile. During Day 2 operations, variable updates are prioritized over pack updates due to variable reference constraints. Any additions or removals will apply variable changes first, followed by pack updates.
 	ProfileVariables []ProfileVariablesObservation `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
+	// Defaults to `false`.
+	SkipDestroy *bool `json:"skipDestroy,omitempty" tf:"skip_destroy,omitempty"`
+
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +listType=set
@@ -142,7 +151,10 @@ type ProfileObservation struct {
 	// Specify the cluster profile type to use. Allowed values are `cluster`, `infra`, `add-on`, and `system`. These values map to the following User Interface (UI) labels. Use the value ' cluster ' for a **Full** cluster profile.For an Infrastructure cluster profile, use the value `infra`; for an Add-on cluster profile, use the value `add-on`.System cluster profiles can be specified using the value `system`. To learn more about cluster profiles, refer to the [Cluster Profile](https://docs.spectrocloud.com/cluster-profiles) documentation. Default value is `add-on`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// place update
+	// Version of the cluster profile. Defaults to '1.0.0'.
+	//
+	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -326,6 +338,10 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	ProfileVariables []ProfileVariablesParameters `json:"profileVariables,omitempty" tf:"profile_variables,omitempty"`
 
+	// Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	SkipDestroy *bool `json:"skipDestroy,omitempty" tf:"skip_destroy,omitempty"`
+
 	// (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
 	// A list of tags to be applied to the cluster. Tags must be in the form of `key:value`.
 	// +kubebuilder:validation:Optional
@@ -337,7 +353,10 @@ type ProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.
+	// place update
+	// Version of the cluster profile. Defaults to '1.0.0'.
+	//
+	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }

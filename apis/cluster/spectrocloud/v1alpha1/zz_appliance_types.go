@@ -36,8 +36,8 @@ type ApplianceInitParameters struct {
 	// Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
 	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
-	// (String) The unique identifier (UID) for the appliance.
-	// The unique identifier (UID) for the appliance.
+	// (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+	// The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
@@ -71,8 +71,8 @@ type ApplianceObservation struct {
 	// Enable the creation of a temporary user on the edge host with sudo privileges for SSH access from Palette. These credentials will be embedded in the SSH connection string for auto login, and the temporary user is deleted upon deactivation.
 	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
-	// (String) The unique identifier (UID) for the appliance.
-	// The unique identifier (UID) for the appliance.
+	// (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+	// The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
 	// (Boolean) If set to true, the resource creation will wait for the appliance provisioning process to complete before returning. Defaults to false.
@@ -108,8 +108,8 @@ type ApplianceParameters struct {
 	// +kubebuilder:validation:Optional
 	TemporaryShellCredentials *string `json:"temporaryShellCredentials,omitempty" tf:"temporary_shell_credentials,omitempty"`
 
-	// (String) The unique identifier (UID) for the appliance.
-	// The unique identifier (UID) for the appliance.
+	// (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+	// The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 

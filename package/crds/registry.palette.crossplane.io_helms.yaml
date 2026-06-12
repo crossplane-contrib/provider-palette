@@ -84,16 +84,44 @@ spec:
                             based authentication.
                             The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
-                        password:
+                        passwordSecretRef:
                           description: |-
-                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                          type: string
-                        token:
+                            (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
+                            Password for basic auth (credential). Required when credential_type is `basic`.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        tokenSecretRef:
                           description: |-
-                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
-                            The authentication token. Required if 'credential_type' is set to 'token'.
-                          type: string
+                            (String, Sensitive) Auth token (credential). Required when credential_type is token.
+                            Auth token (credential). Required when credential_type is `token`.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -144,16 +172,44 @@ spec:
                             based authentication.
                             The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
-                        password:
+                        passwordSecretRef:
                           description: |-
-                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                          type: string
-                        token:
+                            (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
+                            Password for basic auth (credential). Required when credential_type is `basic`.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        tokenSecretRef:
                           description: |-
-                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
-                            The authentication token. Required if 'credential_type' is set to 'token'.
-                          type: string
+                            (String, Sensitive) Auth token (credential). Required when credential_type is token.
+                            Auth token (credential). Required when credential_type is `token`.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -298,16 +354,6 @@ spec:
                           description: |-
                             based authentication.
                             The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
-                          type: string
-                        password:
-                          description: |-
-                            (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                            The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-                          type: string
-                        token:
-                          description: |-
-                            (String) The authentication token. Required if 'credential_type' is set to 'token'.
-                            The authentication token. Required if 'credential_type' is set to 'token'.
                           type: string
                         username:
                           description: |-

@@ -54,7 +54,7 @@ type BackupPolicyInitParameters struct {
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -99,7 +99,7 @@ type BackupPolicyObservation struct {
 	// Whether to include the disks in the backup. If set to false, only the cluster configuration will be backed up.
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +listType=set
 	Namespaces []*string `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -160,7 +160,7 @@ type BackupPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	IncludeDisks *bool `json:"includeDisks,omitempty" tf:"include_disks,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -431,7 +431,7 @@ type WorkspaceInitParameters_2 struct {
 	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []NamespacesInitParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
@@ -469,7 +469,7 @@ type WorkspaceObservation_2 struct {
 	// Name of the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	Namespaces []NamespacesObservation `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
 
@@ -509,7 +509,7 @@ type WorkspaceParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set) The namespaces for the cluster. (see below for nested schema)
+	// (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
 	// The namespaces for the cluster.
 	// +kubebuilder:validation:Optional
 	Namespaces []NamespacesParameters `json:"namespaces,omitempty" tf:"namespaces,omitempty"`
@@ -612,6 +612,7 @@ type Workspace struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusters) || (has(self.initProvider) && has(self.initProvider.clusters))",message="spec.forProvider.clusters is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namespaces) || (has(self.initProvider) && has(self.initProvider.namespaces))",message="spec.forProvider.namespaces is a required parameter"
 	Spec   WorkspaceSpec   `json:"spec"`
 	Status WorkspaceStatus `json:"status,omitempty"`
 }
