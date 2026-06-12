@@ -18102,6 +18102,11 @@ func (in *EdgeNativeMachinePoolInitParameters) DeepCopyInto(out *EdgeNativeMachi
 			(*out)[key] = outVal
 		}
 	}
+	if in.ArchType != nil {
+		in, out := &in.ArchType, &out.ArchType
+		*out = new(string)
+		**out = **in
+	}
 	if in.ControlPlane != nil {
 		in, out := &in.ControlPlane, &out.ControlPlane
 		*out = new(bool)
@@ -18282,6 +18287,11 @@ func (in *EdgeNativeMachinePoolObservation) DeepCopyInto(out *EdgeNativeMachineP
 			(*out)[key] = outVal
 		}
 	}
+	if in.ArchType != nil {
+		in, out := &in.ArchType, &out.ArchType
+		*out = new(string)
+		**out = **in
+	}
 	if in.ControlPlane != nil {
 		in, out := &in.ControlPlane, &out.ControlPlane
 		*out = new(bool)
@@ -18461,6 +18471,11 @@ func (in *EdgeNativeMachinePoolParameters) DeepCopyInto(out *EdgeNativeMachinePo
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.ArchType != nil {
+		in, out := &in.ArchType, &out.ArchType
+		*out = new(string)
+		**out = **in
 	}
 	if in.ControlPlane != nil {
 		in, out := &in.ControlPlane, &out.ControlPlane
@@ -35739,6 +35754,16 @@ func (in *MachinePoolInitParameters) DeepCopyInto(out *MachinePoolInitParameters
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.OsSku != nil {
+		in, out := &in.OsSku, &out.OsSku
+		*out = new(string)
+		**out = **in
+	}
+	if in.OsType != nil {
+		in, out := &in.OsType, &out.OsType
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
@@ -36087,6 +36112,16 @@ func (in *MachinePoolObservation) DeepCopyInto(out *MachinePoolObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.OsSku != nil {
+		in, out := &in.OsSku, &out.OsSku
+		*out = new(string)
+		**out = **in
+	}
+	if in.OsType != nil {
+		in, out := &in.OsType, &out.OsType
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
@@ -36284,6 +36319,16 @@ func (in *MachinePoolParameters) DeepCopyInto(out *MachinePoolParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.OsSku != nil {
+		in, out := &in.OsSku, &out.OsSku
+		*out = new(string)
+		**out = **in
+	}
+	if in.OsType != nil {
+		in, out := &in.OsType, &out.OsType
+		*out = new(string)
+		**out = **in
 	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
@@ -37715,6 +37760,11 @@ func (in *ProfileInitParameters) DeepCopyInto(out *ProfileInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]*string, len(*in))
@@ -37821,6 +37871,11 @@ func (in *ProfileObservation) DeepCopyInto(out *ProfileObservation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -38142,6 +38197,11 @@ func (in *ProfileParameters) DeepCopyInto(out *ProfileParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipDestroy != nil {
+		in, out := &in.SkipDestroy, &out.SkipDestroy
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags

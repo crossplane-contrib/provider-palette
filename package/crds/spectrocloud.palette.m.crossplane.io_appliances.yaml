@@ -59,6 +59,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   pairingKey:
                     description: |-
                       (String) The pairing key used for appliance pairing.
@@ -84,8 +89,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-
@@ -106,6 +111,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   pairingKey:
                     description: |-
                       (String) The pairing key used for appliance pairing.
@@ -131,8 +141,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-
@@ -208,6 +218,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  archType:
+                    description: |-
+                      (String) Architecture type of the machine pool. Allowed values are amd64 and arm64. Default is amd64.
+                      Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -236,8 +251,8 @@ spec:
                     type: string
                   uid:
                     description: |-
-                      (String) The unique identifier (UID) for the appliance.
-                      The unique identifier (UID) for the appliance.
+                      (String) The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
+                      The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.
                     type: string
                   wait:
                     description: |-

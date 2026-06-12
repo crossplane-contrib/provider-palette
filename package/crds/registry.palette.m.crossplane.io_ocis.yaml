@@ -70,11 +70,20 @@ spec:
                       Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
-                        accessKey:
+                        accessKeySecretRef:
                           description: |-
-                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                          type: string
+                            (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+                            The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
                         arn:
                           description: |-
                             based authentication. Required if 'credential_type' is 'sts'.
@@ -214,11 +223,20 @@ spec:
                       Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
-                        accessKey:
+                        accessKeySecretRef:
                           description: |-
-                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                          type: string
+                            (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+                            The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
                         arn:
                           description: |-
                             based authentication. Required if 'credential_type' is 'sts'.
@@ -429,11 +447,6 @@ spec:
                       Authentication credentials to access the private OCI registry. Required if `is_private` is set to `true`
                     items:
                       properties:
-                        accessKey:
-                          description: |-
-                            (String) The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                            The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.
-                          type: string
                         arn:
                           description: |-
                             based authentication. Required if 'credential_type' is 'sts'.

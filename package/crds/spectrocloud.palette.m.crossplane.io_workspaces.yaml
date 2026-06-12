@@ -187,7 +187,7 @@ spec:
                           type: boolean
                         namespaces:
                           description: |-
-                            (Block Set) The namespaces for the cluster. (see below for nested schema)
+                            (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                             The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
@@ -275,7 +275,7 @@ spec:
                     type: string
                   namespaces:
                     description: |-
-                      (Block Set) The namespaces for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                       The namespaces for the cluster.
                     items:
                       properties:
@@ -494,7 +494,7 @@ spec:
                           type: boolean
                         namespaces:
                           description: |-
-                            (Block Set) The namespaces for the cluster. (see below for nested schema)
+                            (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                             The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
@@ -582,7 +582,7 @@ spec:
                     type: string
                   namespaces:
                     description: |-
-                      (Block Set) The namespaces for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                       The namespaces for the cluster.
                     items:
                       properties:
@@ -727,6 +727,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.namespaces is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.namespaces)
+                || (has(self.initProvider) && has(self.initProvider.namespaces))'
           status:
             description: WorkspaceStatus defines the observed state of Workspace.
             properties:
@@ -778,7 +782,7 @@ spec:
                           type: boolean
                         namespaces:
                           description: |-
-                            (Block Set) The namespaces for the cluster. (see below for nested schema)
+                            (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                             The list of Kubernetes namespaces to include in the backup. If not specified, all namespaces will be included.
                           items:
                             type: string
@@ -872,7 +876,7 @@ spec:
                     type: string
                   namespaces:
                     description: |-
-                      (Block Set) The namespaces for the cluster. (see below for nested schema)
+                      (Block Set, Min: 1) The namespaces for the cluster. (see below for nested schema)
                       The namespaces for the cluster.
                     items:
                       properties:

@@ -22,6 +22,15 @@
               "description_kind": "plain",
               "optional": true
             },
+            "feature_preview": {
+              "type": [
+                "map",
+                "bool"
+              ],
+              "description": "A map of feature preview flags. Supported flags: `immutable-clusterprofiles`. \n\nThe `immutable-clusterprofiles` flag enables the standard Terraform Plugin SDK v2 immutable-versioned-resource pattern for `spectrocloud_cluster_profile`. When set, the resource's `version` field becomes `ForceNew` (changes trigger a Terraform replacement instead of an in-place update), the new `skip_destroy` schema field is honored, and the Create function clones from any existing version of the lineage to produce the new immutable version. The Terraform resource id is set once at Create time and never mutates mid-update, so it respects the SDK v2 contract that a resource's primary id is stable across in-place updates. \n\nWithout the flag, `spectrocloud_cluster_profile` uses its legacy in-place mutation behavior (PUT-based updates that overwrite the previous version). The flag is purely opt-in; existing user configurations are unaffected.",
+              "description_kind": "plain",
+              "optional": true
+            },
             "host": {
               "type": "string",
               "description": "The Spectro Cloud API host url. Can also be set with the `SPECTROCLOUD_HOST` environment variable. Defaults to https://api.spectrocloud.com",
@@ -371,6 +380,12 @@
           "version": 2,
           "block": {
             "attributes": {
+              "arch_type": {
+                "type": "string",
+                "description": "Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "id": {
                 "type": "string",
                 "description_kind": "plain",
@@ -406,7 +421,7 @@
               },
               "uid": {
                 "type": "string",
-                "description": "The unique identifier (UID) for the appliance.",
+                "description": "The unique identifier (UID) for the appliance. Note: This field is required and must be unique across all appliances in the tenant.",
                 "description_kind": "plain",
                 "required": true
               },
@@ -893,9 +908,10 @@
                   "attributes": {
                     "access_key": {
                       "type": "string",
-                      "description": "The access key for S3 authentication, required if 'credential_type' is set to 'secret'.",
+                      "description": "The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.",
                       "description_kind": "plain",
-                      "optional": true
+                      "optional": true,
+                      "sensitive": true
                     },
                     "arn": {
                       "type": "string",
@@ -1401,9 +1417,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -1468,9 +1485,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -2039,6 +2057,18 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "os_sku": {
+                      "type": "string",
+                      "description": "OS SKU for the AKS node pool. Valid values are `Ubuntu`, `AzureLinux`, and `Windows2022`. Immutable after creation.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "os_type": {
+                      "type": "string",
+                      "description": "Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_cluster_api_config": {
                       "type": "string",
                       "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
@@ -2224,9 +2254,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -2291,9 +2322,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -3170,9 +3202,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -3244,9 +3277,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -4015,9 +4049,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -4082,9 +4117,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -5742,9 +5778,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -5816,9 +5853,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -6398,9 +6436,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -6465,9 +6504,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -6966,6 +7006,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "arch_type": {
+                      "type": "string",
+                      "description": "Architecture type of the machine pool. Allowed values are `amd64` and `arm64`. Default is `amd64`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "control_plane": {
                       "type": "bool",
                       "description": "Whether this machine pool is a control plane. Defaults to `false`.",
@@ -7223,9 +7269,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "cloud_config_id": {
                 "type": "string",
@@ -7284,9 +7331,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -8080,9 +8128,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -8147,9 +8196,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -9008,9 +9058,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -9075,9 +9126,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -9756,9 +9808,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -9823,9 +9876,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -10724,9 +10778,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -10798,9 +10853,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -11659,6 +11715,12 @@
                 "description_kind": "plain",
                 "required": true
               },
+              "skip_destroy": {
+                "type": "bool",
+                "description": "When `true`, `terraform destroy` removes the cluster profile from Terraform state without calling the Palette delete API, leaving the underlying profile version intact in Palette. \n\nThis is the standard Terraform Plugin SDK v2 preservation pattern for immutable-versioned resources. Combined with the `immutable-clusterprofiles` feature_preview flag and `lifecycle { create_before_destroy = true }`, it lets you bump the `version` field as a normal in-HCL edit while every previous version stays preserved in Palette -- Terraform's state advances cleanly to the new version while older versions remain immutable in Palette. Defaults to `false`.",
+                "description_kind": "plain",
+                "optional": true
+              },
               "tags": {
                 "type": [
                   "set",
@@ -11676,7 +11738,7 @@
               },
               "version": {
                 "type": "string",
-                "description": "Version of the cluster profile. Defaults to '1.0.0'. **Important**: Modifying this value will only update the version number of the existing cluster profile. It will NOT create a new version in Palette. To create a new version of a cluster profile, refer to the example at: https://github.com/spectrocloud/spectro-samples/tree/main/terraform/cluster-profiles.",
+                "description": "Version of the cluster profile. Defaults to '1.0.0'. \n\nDefault behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. \n\nWhen the `immutable-clusterprofiles` feature_preview flag is enabled, changing this value triggers a Terraform resource **replacement** (`ForceNew`) instead of an in-place update. This is the standard Terraform Plugin SDK v2 pattern for immutable-versioned resources. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette. The Terraform resource id is set once at Create time and never mutates mid-update, so it respects the SDK v2 contract that a resource's primary id is stable across in-place updates -- outputs that reference `.id` always reflect the current version without needing `terraform apply -refresh-only`.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -11942,9 +12004,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -12009,9 +12072,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -14120,9 +14184,10 @@
               },
               "token": {
                 "type": "string",
-                "description": "Generated registration token value returned by Palette.",
+                "description": "Generated registration token (credential). Anyone with this value can enroll hosts against the token scope; treat as a secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               }
             },
             "block_types": {
@@ -14202,15 +14267,17 @@
                     },
                     "password": {
                       "type": "string",
-                      "description": "The password for basic authentication. Required if 'credential_type' is set to 'basic'.",
+                      "description": "Password for basic auth (credential). Required when credential_type is `basic`.",
                       "description_kind": "plain",
-                      "optional": true
+                      "optional": true,
+                      "sensitive": true
                     },
                     "token": {
                       "type": "string",
-                      "description": "The authentication token. Required if 'credential_type' is set to 'token'.",
+                      "description": "Auth token (credential). Required when credential_type is `token`.",
                       "description_kind": "plain",
-                      "optional": true
+                      "optional": true,
+                      "sensitive": true
                     },
                     "username": {
                       "type": "string",
@@ -14332,9 +14399,10 @@
                   "attributes": {
                     "access_key": {
                       "type": "string",
-                      "description": "The access key for accessing the registry. Required if 'credential_type' is set to 'secret'.",
+                      "description": "The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.",
                       "description_kind": "plain",
-                      "optional": true
+                      "optional": true,
+                      "sensitive": true
                     },
                     "arn": {
                       "type": "string",
@@ -15334,9 +15402,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "Admin Kube-config for the cluster. This can be used to connect to the cluster using `kubectl`, With admin privilege.",
+                "description": "Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "apply_setting": {
                 "type": "string",
@@ -15401,9 +15470,10 @@
               },
               "kubeconfig": {
                 "type": "string",
-                "description": "Kubeconfig for the cluster. This can be used to connect to the cluster using `kubectl`.",
+                "description": "Kubeconfig for the cluster (credential material). Use with `kubectl` and protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "location_config": {
                 "type": [
@@ -18129,7 +18199,8 @@
                   },
                   "description": "The namespaces for the cluster.",
                   "description_kind": "plain"
-                }
+                },
+                "min_items": 1
               },
               "workspace_quota": {
                 "nesting_mode": "list",
@@ -18599,9 +18670,10 @@
             "attributes": {
               "admin_kube_config": {
                 "type": "string",
-                "description": "The admin kubeconfig file for accessing the cluster. This is computed automatically.",
+                "description": "Admin kubeconfig (cluster-admin credential). Computed from the cluster; treat as a highly sensitive secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "cluster_timezone": {
                 "type": "string",
@@ -18629,9 +18701,10 @@
               },
               "kube_config": {
                 "type": "string",
-                "description": "The kubeconfig file for accessing the cluster as a non-admin user. This is computed automatically.",
+                "description": "Non-admin kubeconfig (credential material). Computed from the cluster; protect like any kubeconfig secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               },
               "name": {
                 "type": "string",
@@ -19393,9 +19466,10 @@
               },
               "token": {
                 "type": "string",
-                "description": "The registration token value.",
+                "description": "Registration token value (credential). Treat as a secret.",
                 "description_kind": "plain",
-                "computed": true
+                "computed": true,
+                "sensitive": true
               }
             },
             "description": "Data source for looking up a registration token by name or UID.",

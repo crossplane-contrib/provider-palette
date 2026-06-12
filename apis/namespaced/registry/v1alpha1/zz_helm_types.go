@@ -20,13 +20,13 @@ type CredentialsInitParameters struct {
 	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
-	// (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+	// (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
+	// Password for basic auth (credential). Required when credential_type is `basic`.
+	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// (String) The authentication token. Required if 'credential_type' is set to 'token'.
-	// The authentication token. Required if 'credential_type' is set to 'token'.
-	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
+	// Auth token (credential). Required when credential_type is `token`.
+	TokenSecretRef *v1.LocalSecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -38,14 +38,6 @@ type CredentialsObservation struct {
 	// based authentication.
 	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
-
-	// (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
-
-	// (String) The authentication token. Required if 'credential_type' is set to 'token'.
-	// The authentication token. Required if 'credential_type' is set to 'token'.
-	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -59,15 +51,15 @@ type CredentialsParameters struct {
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType" tf:"credential_type,omitempty"`
 
-	// (String) The password for basic authentication. Required if 'credential_type' is set to 'basic'.
-	// The password for basic authentication. Required if 'credential_type' is set to 'basic'.
+	// (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
+	// Password for basic auth (credential). Required when credential_type is `basic`.
 	// +kubebuilder:validation:Optional
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// (String) The authentication token. Required if 'credential_type' is set to 'token'.
-	// The authentication token. Required if 'credential_type' is set to 'token'.
+	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
+	// Auth token (credential). Required when credential_type is `token`.
 	// +kubebuilder:validation:Optional
-	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+	TokenSecretRef *v1.LocalSecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.

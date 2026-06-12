@@ -19,7 +19,8 @@ spec:
         matchLabels:
           testing.upbound.io/example-name: spectrocloud_cluster_profile
     machinePool:
-    - controlPlane: true
+    - archType: amd64
+      controlPlane: true
       controlPlaneAsWorker: true
       edgeHost:
       - hostUid: test-dec9

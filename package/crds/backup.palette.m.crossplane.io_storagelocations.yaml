@@ -170,11 +170,20 @@ spec:
                       S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
-                        accessKey:
+                        accessKeySecretRef:
                           description: |-
-                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                          type: string
+                            (String, Sensitive) The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+                            The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
                         arn:
                           description: |-
                             (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
@@ -348,11 +357,20 @@ spec:
                       S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
-                        accessKey:
+                        accessKeySecretRef:
                           description: |-
-                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                          type: string
+                            (String, Sensitive) The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+                            The access key for S3 authentication (credential), required if 'credential_type' is set to 'secret'.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
                         arn:
                           description: |-
                             (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.
@@ -568,11 +586,6 @@ spec:
                       S3-specific settings for configuring the backup storage location.
                     items:
                       properties:
-                        accessKey:
-                          description: |-
-                            (String) The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                            The access key for S3 authentication, required if 'credential_type' is set to 'secret'.
-                          type: string
                         arn:
                           description: |-
                             (String) The Amazon Resource Name (ARN) of the IAM role to assume for accessing S3 when using 'sts' credentials.

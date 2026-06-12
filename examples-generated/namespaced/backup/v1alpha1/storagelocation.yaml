@@ -15,7 +15,9 @@ spec:
     name: dev-backup-s3
     region: us-east-2
     s3:
-    - accessKey: ${var.aws_access_key}
+    - accessKeySecretRef:
+        key: example-key
+        name: example-secret
       credentialType: ${var.credential_type}
       s3ForcePathStyle: false
       secretKeySecretRef:

@@ -70,10 +70,6 @@ type TokenObservation struct {
 	// (String) The status of the registration token. Allowed values are active or inactive. Default is active.
 	// The status of the registration token. Allowed values are `active` or `inactive`. Default is `active`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
-
-	// (String) Generated registration token value returned by Palette.
-	// Generated registration token value returned by Palette.
-	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 }
 
 type TokenParameters struct {

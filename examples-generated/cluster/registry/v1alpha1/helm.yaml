@@ -10,7 +10,10 @@ spec:
   forProvider:
     credentials:
     - credentialType: noAuth
-      password: def
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
       username: abc
     endpoint: https://123456.dkr.ecr.us-west-1.amazonaws.com
     isPrivate: true
