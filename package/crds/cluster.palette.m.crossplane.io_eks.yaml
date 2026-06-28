@@ -327,8 +327,9 @@ spec:
                             Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         privateAccessCidrs:
                           description: |-
@@ -1006,8 +1007,9 @@ spec:
                             type: object
                           type: array
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
@@ -1447,8 +1449,9 @@ spec:
                             Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         privateAccessCidrs:
                           description: |-
@@ -2126,8 +2129,9 @@ spec:
                             type: object
                           type: array
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
@@ -2468,8 +2472,9 @@ spec:
                             Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         privateAccessCidrs:
                           description: |-
@@ -2950,8 +2955,9 @@ spec:
                             type: object
                           type: array
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-

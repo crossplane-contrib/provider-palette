@@ -16,89 +16,113 @@ import (
 
 type CloudwatchInitParameters struct {
 
+	// (String, Sensitive) AWS access key. Required when credential_type is secret.
 	// AWS access key. Required when `credential_type` is `secret`.
 	AccessKeySecretRef *v1.LocalSecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
+	// (String) IAM role ARN. Required when credential_type is sts.
 	// IAM role ARN. Required when `credential_type` is `sts`.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// (String) AWS credential type. Allowed values are secret or sts. Default is secret.
 	// AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (String, Sensitive) External ID for STS role assumption. Used with credential_type sts.
 	// External ID for STS role assumption. Used with `credential_type` `sts`.
 	ExternalIDSecretRef *v1.LocalSecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
+	// (String) CloudWatch log group name.
 	// CloudWatch log group name.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// us-gov. Default is aws.
 	// AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) AWS region for CloudWatch.
 	// AWS region for CloudWatch.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// (String, Sensitive) AWS secret key. Required when credential_type is secret.
 	// AWS secret key. Required when `credential_type` is `secret`.
 	SecretKeySecretRef *v1.LocalSecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
+	// (String) Optional CloudWatch log stream name.
 	// Optional CloudWatch log stream name.
 	Stream *string `json:"stream,omitempty" tf:"stream,omitempty"`
 }
 
 type CloudwatchObservation struct {
 
+	// (String) IAM role ARN. Required when credential_type is sts.
 	// IAM role ARN. Required when `credential_type` is `sts`.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// (String) AWS credential type. Allowed values are secret or sts. Default is secret.
 	// AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (String) CloudWatch log group name.
 	// CloudWatch log group name.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// us-gov. Default is aws.
 	// AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) AWS region for CloudWatch.
 	// AWS region for CloudWatch.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// (String) Optional CloudWatch log stream name.
 	// Optional CloudWatch log stream name.
 	Stream *string `json:"stream,omitempty" tf:"stream,omitempty"`
 }
 
 type CloudwatchParameters struct {
 
+	// (String, Sensitive) AWS access key. Required when credential_type is secret.
 	// AWS access key. Required when `credential_type` is `secret`.
 	// +kubebuilder:validation:Optional
 	AccessKeySecretRef *v1.LocalSecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
+	// (String) IAM role ARN. Required when credential_type is sts.
 	// IAM role ARN. Required when `credential_type` is `sts`.
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// (String) AWS credential type. Allowed values are secret or sts. Default is secret.
 	// AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (String, Sensitive) External ID for STS role assumption. Used with credential_type sts.
 	// External ID for STS role assumption. Used with `credential_type` `sts`.
 	// +kubebuilder:validation:Optional
 	ExternalIDSecretRef *v1.LocalSecretKeySelector `json:"externalIdSecretRef,omitempty" tf:"-"`
 
+	// (String) CloudWatch log group name.
 	// CloudWatch log group name.
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group" tf:"group,omitempty"`
 
+	// us-gov. Default is aws.
 	// AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
 	// +kubebuilder:validation:Optional
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
+	// (String) AWS region for CloudWatch.
 	// AWS region for CloudWatch.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region" tf:"region,omitempty"`
 
+	// (String, Sensitive) AWS secret key. Required when credential_type is secret.
 	// AWS secret key. Required when `credential_type` is `secret`.
 	// +kubebuilder:validation:Optional
 	SecretKeySecretRef *v1.LocalSecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
+	// (String) Optional CloudWatch log stream name.
 	// Optional CloudWatch log stream name.
 	// +kubebuilder:validation:Optional
 	Stream *string `json:"stream,omitempty" tf:"stream,omitempty"`
@@ -106,55 +130,69 @@ type CloudwatchParameters struct {
 
 type SplunkInitParameters struct {
 
+	// (String) Splunk HTTP Event Collector (HEC) URL.
 	// Splunk HTTP Event Collector (HEC) URL.
 	HecURL *string `json:"hecUrl,omitempty" tf:"hec_url,omitempty"`
 
+	// (String) Optional Splunk index. Uses the token default when empty.
 	// Optional Splunk index. Uses the token default when empty.
 	Index *string `json:"index,omitempty" tf:"index,omitempty"`
 
+	// (String) Optional Splunk source. Uses the token default when empty.
 	// Optional Splunk source. Uses the token default when empty.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
 	// Optional TLS configuration for Splunk HEC.
 	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (String, Sensitive) Splunk HEC token.
 	// Splunk HEC token.
 	TokenSecretRef v1.LocalSecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type SplunkObservation struct {
 
+	// (String) Splunk HTTP Event Collector (HEC) URL.
 	// Splunk HTTP Event Collector (HEC) URL.
 	HecURL *string `json:"hecUrl,omitempty" tf:"hec_url,omitempty"`
 
+	// (String) Optional Splunk index. Uses the token default when empty.
 	// Optional Splunk index. Uses the token default when empty.
 	Index *string `json:"index,omitempty" tf:"index,omitempty"`
 
+	// (String) Optional Splunk source. Uses the token default when empty.
 	// Optional Splunk source. Uses the token default when empty.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
 	// Optional TLS configuration for Splunk HEC.
 	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 }
 
 type SplunkParameters struct {
 
+	// (String) Splunk HTTP Event Collector (HEC) URL.
 	// Splunk HTTP Event Collector (HEC) URL.
 	// +kubebuilder:validation:Optional
 	HecURL *string `json:"hecUrl" tf:"hec_url,omitempty"`
 
+	// (String) Optional Splunk index. Uses the token default when empty.
 	// Optional Splunk index. Uses the token default when empty.
 	// +kubebuilder:validation:Optional
 	Index *string `json:"index,omitempty" tf:"index,omitempty"`
 
+	// (String) Optional Splunk source. Uses the token default when empty.
 	// Optional Splunk source. Uses the token default when empty.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
 	// Optional TLS configuration for Splunk HEC.
 	// +kubebuilder:validation:Optional
 	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (String, Sensitive) Splunk HEC token.
 	// Splunk HEC token.
 	// +kubebuilder:validation:Optional
 	TokenSecretRef v1.LocalSecretKeySelector `json:"tokenSecretRef" tf:"-"`
@@ -162,31 +200,38 @@ type SplunkParameters struct {
 
 type TLSConfigInitParameters struct {
 
+	// encoded CA certificate for self-signed Splunk instances.
 	// Base64-encoded CA certificate for self-signed Splunk instances.
 	CACertBase64 *string `json:"caCertBase64,omitempty" tf:"ca_cert_base64,omitempty"`
 
+	// (Boolean) Skip TLS certificate verification when set to true. Default is false.
 	// Skip TLS certificate verification when set to `true`. Default is `false`.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
 type TLSConfigObservation struct {
 
+	// encoded CA certificate for self-signed Splunk instances.
 	// Base64-encoded CA certificate for self-signed Splunk instances.
 	CACertBase64 *string `json:"caCertBase64,omitempty" tf:"ca_cert_base64,omitempty"`
 
+	// (Boolean) Skip TLS certificate verification when set to true. Default is false.
 	// Skip TLS certificate verification when set to `true`. Default is `false`.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 
+	// (Boolean) Whether TLS certificate verification is enabled. Computed as the inverse of insecure_skip_verify.
 	// Whether TLS certificate verification is enabled. Computed as the inverse of `insecure_skip_verify`.
 	TLSVerification *bool `json:"tlsVerification,omitempty" tf:"tls_verification,omitempty"`
 }
 
 type TLSConfigParameters struct {
 
+	// encoded CA certificate for self-signed Splunk instances.
 	// Base64-encoded CA certificate for self-signed Splunk instances.
 	// +kubebuilder:validation:Optional
 	CACertBase64 *string `json:"caCertBase64,omitempty" tf:"ca_cert_base64,omitempty"`
 
+	// (Boolean) Skip TLS certificate verification when set to true. Default is false.
 	// Skip TLS certificate verification when set to `true`. Default is `false`.
 	// +kubebuilder:validation:Optional
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
@@ -194,40 +239,50 @@ type TLSConfigParameters struct {
 
 type TrailInitParameters struct {
 
+	// (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
 	// CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
 	Cloudwatch []CloudwatchInitParameters `json:"cloudwatch,omitempty" tf:"cloudwatch,omitempty"`
 
+	// (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
 	// Splunk HEC audit trail configuration. Required when `type` is `splunk`.
 	Splunk []SplunkInitParameters `json:"splunk,omitempty" tf:"splunk,omitempty"`
 
+	// (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
 	// Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type TrailObservation struct {
 
+	// (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
 	// CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
 	Cloudwatch []CloudwatchObservation `json:"cloudwatch,omitempty" tf:"cloudwatch,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
 	// Splunk HEC audit trail configuration. Required when `type` is `splunk`.
 	Splunk []SplunkObservation `json:"splunk,omitempty" tf:"splunk,omitempty"`
 
+	// (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
 	// Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type TrailParameters struct {
 
+	// (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
 	// CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
 	// +kubebuilder:validation:Optional
 	Cloudwatch []CloudwatchParameters `json:"cloudwatch,omitempty" tf:"cloudwatch,omitempty"`
 
+	// (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
 	// Splunk HEC audit trail configuration. Required when `type` is `splunk`.
 	// +kubebuilder:validation:Optional
 	Splunk []SplunkParameters `json:"splunk,omitempty" tf:"splunk,omitempty"`
 
+	// (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
 	// Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -260,7 +315,7 @@ type TrailStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Trail is the Schema for the Trails API. <no value>
+// Trail is the Schema for the Trails API. Resource for managing tenant audit trail data sinks (CloudWatch or Splunk) in Spectro Cloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

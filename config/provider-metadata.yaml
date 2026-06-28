@@ -350,6 +350,99 @@ resources:
             values: (String) The values to be used for the pack. This is a stringified JSON object.
             version: (String) Version of the profile. Default value is 1.0.0.
         importStatements: []
+    spectrocloud_audit_trail:
+        subCategory: ""
+        description: Resource for managing tenant audit trail data sinks (CloudWatch or Splunk) in Spectro Cloud.
+        name: spectrocloud_audit_trail
+        title: spectrocloud_audit_trail Resource - terraform-provider-spectrocloud
+        examples:
+            - name: cloudwatch
+              manifest: |-
+                {
+                  "cloudwatch": [
+                    {
+                      "access_key": "${var.aws_access_key}",
+                      "credential_type": "secret",
+                      "group": "dev-hubble-audits",
+                      "partition": "aws",
+                      "region": "us-east-1",
+                      "secret_key": "${var.aws_secret_key}"
+                    }
+                  ],
+                  "name": "rag",
+                  "type": "cloudwatch"
+                }
+              references:
+                cloudwatch.access_key: var.aws_access_key
+                cloudwatch.secret_key: var.aws_secret_key
+            - name: cloudwatch_sts
+              manifest: |-
+                {
+                  "cloudwatch": [
+                    {
+                      "arn": "${var.aws_sts_role_arn}",
+                      "credential_type": "sts",
+                      "external_id": "${var.aws_external_id}",
+                      "group": "dev-hubble-audits",
+                      "partition": "aws",
+                      "region": "us-east-1"
+                    }
+                  ],
+                  "name": "rag-sts",
+                  "type": "cloudwatch"
+                }
+              references:
+                cloudwatch.arn: var.aws_sts_role_arn
+                cloudwatch.external_id: var.aws_external_id
+            - name: splunk
+              manifest: |-
+                {
+                  "name": "test-tf",
+                  "splunk": [
+                    {
+                      "hec_url": "https://http-inputs-example.splunkcloud.com:443",
+                      "index": "main",
+                      "source": "palette",
+                      "tls_config": [
+                        {
+                          "insecure_skip_verify": false
+                        }
+                      ],
+                      "token": "${var.splunk_hec_token}"
+                    }
+                  ],
+                  "type": "splunk"
+                }
+              references:
+                splunk.token: var.splunk_hec_token
+        argumentDocs:
+            access_key: (String, Sensitive) AWS access key. Required when credential_type is secret.
+            arn: (String) IAM role ARN. Required when credential_type is sts.
+            ca_cert_base64: (String) Base64-encoded CA certificate for self-signed Splunk instances.
+            cloudwatch: '(Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)'
+            create: (String)
+            credential_type: (String) AWS credential type. Allowed values are secret or sts. Default is secret.
+            delete: (String)
+            external_id: (String, Sensitive) External ID for STS role assumption. Used with credential_type sts.
+            group: (String) CloudWatch log group name.
+            hec_url: (String) Splunk HTTP Event Collector (HEC) URL.
+            id: (String) The ID of this resource.
+            index: (String) Optional Splunk index. Uses the token default when empty.
+            insecure_skip_verify: (Boolean) Skip TLS certificate verification when set to true. Default is false.
+            name: (String) Human-readable name for the audit trail.
+            partition: (String) AWS partition. Allowed values are aws or aws-us-gov. Default is aws.
+            region: (String) AWS region for CloudWatch.
+            secret_key: (String, Sensitive) AWS secret key. Required when credential_type is secret.
+            source: (String) Optional Splunk source. Uses the token default when empty.
+            splunk: '(Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)'
+            stream: (String) Optional CloudWatch log stream name.
+            timeouts: (Block, Optional) (see below for nested schema)
+            tls_config: '(Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)'
+            tls_verification: (Boolean) Whether TLS certificate verification is enabled. Computed as the inverse of insecure_skip_verify.
+            token: (String, Sensitive) Splunk HEC token.
+            type: (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
+            update: (String)
+        importStatements: []
     spectrocloud_backup_storage_location:
         subCategory: ""
         description: Resource for managing backup storage locations in Spectro Cloud.
@@ -889,6 +982,7 @@ resources:
                   "cloud_account_id": "${data.spectrocloud_cloudaccount_apache_cloudstack.account.id}",
                   "cloud_config": [
                     {
+                      "override_cluster_api_config": "spec:\n  controlPlaneConfiguration:\n    apiServer:\n      extraArgs:\n        authorization-mode: Node,RBAC\n",
                       "ssh_key_name": "my-ssh-key",
                       "zone": [
                         {
@@ -935,7 +1029,8 @@ resources:
                           "network_name": "DefaultNetwork"
                         }
                       ],
-                      "offering": "Large Instance"
+                      "offering": "Large Instance",
+                      "override_cluster_api_config": "spec:\n  template:\n    spec:\n      nodeDrainTimeout: 5m\n"
                     }
                   ],
                   "name": "apache-cloudstack-cluster-1",
@@ -964,6 +1059,7 @@ resources:
                   "cloud_account_id": "${data.spectrocloud_cloudaccount_apache_cloudstack.account.id}",
                   "cloud_config": [
                     {
+                      "override_cluster_api_config": "spec:\n  controlPlaneConfiguration:\n    apiServer:\n      extraArgs:\n        authorization-mode: Node,RBAC\n",
                       "project": [
                         {
                           "id": "project-uuid",
@@ -1390,6 +1486,7 @@ resources:
                       "min": 3,
                       "name": "worker-pool-backend",
                       "node_repave_interval": 90,
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n",
                       "override_kubeadm_configuration": "kubeletExtraArgs:\n  node-labels: \"tier=backend,compute=high\"\n  max-pods: \"200\"\n  kube-reserved: \"cpu=1,memory=2Gi,ephemeral-storage=1Gi\"\n  system-reserved: \"cpu=500m,memory=1Gi,ephemeral-storage=1Gi\"\npreKubeadmCommands:\n  - echo 'Configuring backend worker node'\n  - sysctl -w vm.max_map_count=262144\n  - sysctl -w fs.file-max=2097152\npostKubeadmCommands:\n  - echo 'Backend worker node setup complete'\n",
                       "placement": [
                         {
@@ -1494,6 +1591,8 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -1595,6 +1694,7 @@ resources:
                       "count": 1,
                       "instance_type": "m5.large",
                       "name": "worker-basic",
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n",
                       "skip_k8s_upgrade": "disabled"
                     }
                   ],
@@ -1692,6 +1792,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
             override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -1740,6 +1841,7 @@ resources:
                   "cloud_account_id": "${data.spectrocloud_cloudaccount_azure.account.id}",
                   "cloud_config": [
                     {
+                      "override_cluster_api_config": "spec:\n  controlPlaneConfiguration:\n    apiServer:\n      extraArgs:\n        authorization-mode: Node,RBAC\n",
                       "region": "${var.azure_region}",
                       "resource_group": "${var.azure_resource_group}",
                       "ssh_key": "${var.cluster_ssh_public_key}",
@@ -1774,7 +1876,9 @@ resources:
                       ],
                       "count": 1,
                       "instance_type": "Standard_D2_v3",
-                      "name": "worker-basic"
+                      "name": "worker-basic",
+                      "override_cluster_api_config": "spec:\n  template:\n    spec:\n      nodeDrainTimeout: 5m\n",
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n"
                     }
                   ],
                   "name": "${var.cluster_name}",
@@ -1862,6 +1966,8 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             os_type: (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -2489,7 +2595,9 @@ resources:
                           "subnet_mask": "2.2.1.0"
                         }
                       ],
-                      "name": "worker-pool"
+                      "name": "worker-pool",
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n",
+                      "skip_k8s_upgrade": "disabled"
                     }
                   ],
                   "name": "edge-native-example",
@@ -2568,6 +2676,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
             overlay_cidr_range: (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -2585,6 +2694,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             ssh_keys: (Set of String) List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.
             static_ip: (String) Static IP address assigned to the edge host.
             subjects: (Block List) (see below for nested schema)
@@ -2688,6 +2798,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -2748,6 +2859,7 @@ resources:
                   "cloud_account_id": "${data.spectrocloud_cloudaccount_aws.account.id}",
                   "cloud_config": [
                     {
+                      "override_cluster_api_config": "spec:\n  controlPlaneConfiguration:\n    apiServer:\n      extraArgs:\n        authorization-mode: Node,RBAC\n",
                       "region": "us-west-2",
                       "ssh_key_name": "default"
                     }
@@ -2863,6 +2975,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -2945,7 +3058,8 @@ resources:
                       ],
                       "count": 1,
                       "instance_type": "e2-standard-2",
-                      "name": "worker-basic"
+                      "name": "worker-basic",
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n"
                     }
                   ],
                   "name": "${var.cluster_name}",
@@ -3027,6 +3141,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -3324,6 +3439,7 @@ resources:
                         }
                       ],
                       "name": "worker-basic",
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n",
                       "placement": [
                         {
                           "resource_pool": "Production-Compute-Pool-2"
@@ -3428,6 +3544,7 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -3804,6 +3921,7 @@ resources:
                       ],
                       "name": "worker-basic",
                       "node_repave_interval": 30,
+                      "override_health_check_configuration": "maxUnhealthy: 40%\nnodeStartupTimeout: 10m\nunhealthyConditions:\n  - type: Ready\n    status: \"False\"\n    timeout: 5m\n  - type: Ready\n    status: \"Unknown\"\n    timeout: 5m\n",
                       "placement": [
                         {
                           "cluster": "${var.vsphere_cluster}",
@@ -3904,6 +4022,7 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)

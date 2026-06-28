@@ -43,6 +43,16 @@ spec:
         memoryMb: 8192
       name: worker-basic
       nodeRepaveInterval: 30
+      overrideHealthCheckConfiguration: |
+        maxUnhealthy: 40%
+        nodeStartupTimeout: 10m
+        unhealthyConditions:
+          - type: Ready
+            status: "False"
+            timeout: 5m
+          - type: Ready
+            status: "Unknown"
+            timeout: 5m
       placement:
       - cluster: ${var.vsphere_cluster}
         datastore: ${var.vsphere_datastore}

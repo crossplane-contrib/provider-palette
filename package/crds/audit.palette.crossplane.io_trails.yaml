@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Trail is the Schema for the Trails API. <no value>
+        description: Trail is the Schema for the Trails API. Resource for managing
+          tenant audit trail data sinks (CloudWatch or Splunk) in Spectro Cloud.
         properties:
           apiVersion:
             description: |-
@@ -73,13 +74,15 @@ spec:
               forProvider:
                 properties:
                   cloudwatch:
-                    description: CloudWatch audit trail configuration. Required when
-                      `type` is `cloudwatch`.
+                    description: |-
+                      (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
+                      CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
                     items:
                       properties:
                         accessKeySecretRef:
-                          description: AWS access key. Required when `credential_type`
-                            is `secret`.
+                          description: |-
+                            (String, Sensitive) AWS access key. Required when credential_type is secret.
+                            AWS access key. Required when `credential_type` is `secret`.
                           properties:
                             key:
                               description: The key to select.
@@ -96,16 +99,19 @@ spec:
                           - namespace
                           type: object
                         arn:
-                          description: IAM role ARN. Required when `credential_type`
-                            is `sts`.
+                          description: |-
+                            (String) IAM role ARN. Required when credential_type is sts.
+                            IAM role ARN. Required when `credential_type` is `sts`.
                           type: string
                         credentialType:
-                          description: AWS credential type. Allowed values are `secret`
-                            or `sts`. Default is `secret`.
+                          description: |-
+                            (String) AWS credential type. Allowed values are secret or sts. Default is secret.
+                            AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
                           type: string
                         externalIdSecretRef:
-                          description: External ID for STS role assumption. Used with
-                            `credential_type` `sts`.
+                          description: |-
+                            (String, Sensitive) External ID for STS role assumption. Used with credential_type sts.
+                            External ID for STS role assumption. Used with `credential_type` `sts`.
                           properties:
                             key:
                               description: The key to select.
@@ -122,18 +128,24 @@ spec:
                           - namespace
                           type: object
                         group:
-                          description: CloudWatch log group name.
+                          description: |-
+                            (String) CloudWatch log group name.
+                            CloudWatch log group name.
                           type: string
                         partition:
-                          description: AWS partition. Allowed values are `aws` or
-                            `aws-us-gov`. Default is `aws`.
+                          description: |-
+                            us-gov. Default is aws.
+                            AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
                           type: string
                         region:
-                          description: AWS region for CloudWatch.
+                          description: |-
+                            (String) AWS region for CloudWatch.
+                            AWS region for CloudWatch.
                           type: string
                         secretKeySecretRef:
-                          description: AWS secret key. Required when `credential_type`
-                            is `secret`.
+                          description: |-
+                            (String, Sensitive) AWS secret key. Required when credential_type is secret.
+                            AWS secret key. Required when `credential_type` is `secret`.
                           properties:
                             key:
                               description: The key to select.
@@ -150,42 +162,55 @@ spec:
                           - namespace
                           type: object
                         stream:
-                          description: Optional CloudWatch log stream name.
+                          description: |-
+                            (String) Optional CloudWatch log stream name.
+                            Optional CloudWatch log stream name.
                           type: string
                       type: object
                     type: array
                   splunk:
-                    description: Splunk HEC audit trail configuration. Required when
-                      `type` is `splunk`.
+                    description: |-
+                      (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
+                      Splunk HEC audit trail configuration. Required when `type` is `splunk`.
                     items:
                       properties:
                         hecUrl:
-                          description: Splunk HTTP Event Collector (HEC) URL.
+                          description: |-
+                            (String) Splunk HTTP Event Collector (HEC) URL.
+                            Splunk HTTP Event Collector (HEC) URL.
                           type: string
                         index:
-                          description: Optional Splunk index. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk index. Uses the token default when empty.
+                            Optional Splunk index. Uses the token default when empty.
                           type: string
                         source:
-                          description: Optional Splunk source. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk source. Uses the token default when empty.
+                            Optional Splunk source. Uses the token default when empty.
                           type: string
                         tlsConfig:
-                          description: Optional TLS configuration for Splunk HEC.
+                          description: |-
+                            (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
+                            Optional TLS configuration for Splunk HEC.
                           items:
                             properties:
                               caCertBase64:
-                                description: Base64-encoded CA certificate for self-signed
-                                  Splunk instances.
+                                description: |-
+                                  encoded CA certificate for self-signed Splunk instances.
+                                  Base64-encoded CA certificate for self-signed Splunk instances.
                                 type: string
                               insecureSkipVerify:
-                                description: Skip TLS certificate verification when
-                                  set to `true`. Default is `false`.
+                                description: |-
+                                  (Boolean) Skip TLS certificate verification when set to true. Default is false.
+                                  Skip TLS certificate verification when set to `true`. Default is `false`.
                                 type: boolean
                             type: object
                           type: array
                         tokenSecretRef:
-                          description: Splunk HEC token.
+                          description: |-
+                            (String, Sensitive) Splunk HEC token.
+                            Splunk HEC token.
                           properties:
                             key:
                               description: The key to select.
@@ -204,8 +229,9 @@ spec:
                       type: object
                     type: array
                   type:
-                    description: Audit trail sink type. Allowed values are `cloudwatch`
-                      or `splunk`.
+                    description: |-
+                      (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
+                      Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
                     type: string
                 type: object
               initProvider:
@@ -222,13 +248,15 @@ spec:
                   autoscaler.
                 properties:
                   cloudwatch:
-                    description: CloudWatch audit trail configuration. Required when
-                      `type` is `cloudwatch`.
+                    description: |-
+                      (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
+                      CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
                     items:
                       properties:
                         accessKeySecretRef:
-                          description: AWS access key. Required when `credential_type`
-                            is `secret`.
+                          description: |-
+                            (String, Sensitive) AWS access key. Required when credential_type is secret.
+                            AWS access key. Required when `credential_type` is `secret`.
                           properties:
                             key:
                               description: The key to select.
@@ -245,16 +273,19 @@ spec:
                           - namespace
                           type: object
                         arn:
-                          description: IAM role ARN. Required when `credential_type`
-                            is `sts`.
+                          description: |-
+                            (String) IAM role ARN. Required when credential_type is sts.
+                            IAM role ARN. Required when `credential_type` is `sts`.
                           type: string
                         credentialType:
-                          description: AWS credential type. Allowed values are `secret`
-                            or `sts`. Default is `secret`.
+                          description: |-
+                            (String) AWS credential type. Allowed values are secret or sts. Default is secret.
+                            AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
                           type: string
                         externalIdSecretRef:
-                          description: External ID for STS role assumption. Used with
-                            `credential_type` `sts`.
+                          description: |-
+                            (String, Sensitive) External ID for STS role assumption. Used with credential_type sts.
+                            External ID for STS role assumption. Used with `credential_type` `sts`.
                           properties:
                             key:
                               description: The key to select.
@@ -271,18 +302,24 @@ spec:
                           - namespace
                           type: object
                         group:
-                          description: CloudWatch log group name.
+                          description: |-
+                            (String) CloudWatch log group name.
+                            CloudWatch log group name.
                           type: string
                         partition:
-                          description: AWS partition. Allowed values are `aws` or
-                            `aws-us-gov`. Default is `aws`.
+                          description: |-
+                            us-gov. Default is aws.
+                            AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
                           type: string
                         region:
-                          description: AWS region for CloudWatch.
+                          description: |-
+                            (String) AWS region for CloudWatch.
+                            AWS region for CloudWatch.
                           type: string
                         secretKeySecretRef:
-                          description: AWS secret key. Required when `credential_type`
-                            is `secret`.
+                          description: |-
+                            (String, Sensitive) AWS secret key. Required when credential_type is secret.
+                            AWS secret key. Required when `credential_type` is `secret`.
                           properties:
                             key:
                               description: The key to select.
@@ -299,42 +336,55 @@ spec:
                           - namespace
                           type: object
                         stream:
-                          description: Optional CloudWatch log stream name.
+                          description: |-
+                            (String) Optional CloudWatch log stream name.
+                            Optional CloudWatch log stream name.
                           type: string
                       type: object
                     type: array
                   splunk:
-                    description: Splunk HEC audit trail configuration. Required when
-                      `type` is `splunk`.
+                    description: |-
+                      (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
+                      Splunk HEC audit trail configuration. Required when `type` is `splunk`.
                     items:
                       properties:
                         hecUrl:
-                          description: Splunk HTTP Event Collector (HEC) URL.
+                          description: |-
+                            (String) Splunk HTTP Event Collector (HEC) URL.
+                            Splunk HTTP Event Collector (HEC) URL.
                           type: string
                         index:
-                          description: Optional Splunk index. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk index. Uses the token default when empty.
+                            Optional Splunk index. Uses the token default when empty.
                           type: string
                         source:
-                          description: Optional Splunk source. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk source. Uses the token default when empty.
+                            Optional Splunk source. Uses the token default when empty.
                           type: string
                         tlsConfig:
-                          description: Optional TLS configuration for Splunk HEC.
+                          description: |-
+                            (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
+                            Optional TLS configuration for Splunk HEC.
                           items:
                             properties:
                               caCertBase64:
-                                description: Base64-encoded CA certificate for self-signed
-                                  Splunk instances.
+                                description: |-
+                                  encoded CA certificate for self-signed Splunk instances.
+                                  Base64-encoded CA certificate for self-signed Splunk instances.
                                 type: string
                               insecureSkipVerify:
-                                description: Skip TLS certificate verification when
-                                  set to `true`. Default is `false`.
+                                description: |-
+                                  (Boolean) Skip TLS certificate verification when set to true. Default is false.
+                                  Skip TLS certificate verification when set to `true`. Default is `false`.
                                 type: boolean
                             type: object
                           type: array
                         tokenSecretRef:
-                          description: Splunk HEC token.
+                          description: |-
+                            (String, Sensitive) Splunk HEC token.
+                            Splunk HEC token.
                           properties:
                             key:
                               description: The key to select.
@@ -355,8 +405,9 @@ spec:
                       type: object
                     type: array
                   type:
-                    description: Audit trail sink type. Allowed values are `cloudwatch`
-                      or `splunk`.
+                    description: |-
+                      (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
+                      Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
                     type: string
                 type: object
               managementPolicies:
@@ -456,74 +507,96 @@ spec:
               atProvider:
                 properties:
                   cloudwatch:
-                    description: CloudWatch audit trail configuration. Required when
-                      `type` is `cloudwatch`.
+                    description: |-
+                      (Block List, Max: 1) CloudWatch audit trail configuration. Required when type is cloudwatch. (see below for nested schema)
+                      CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.
                     items:
                       properties:
                         arn:
-                          description: IAM role ARN. Required when `credential_type`
-                            is `sts`.
+                          description: |-
+                            (String) IAM role ARN. Required when credential_type is sts.
+                            IAM role ARN. Required when `credential_type` is `sts`.
                           type: string
                         credentialType:
-                          description: AWS credential type. Allowed values are `secret`
-                            or `sts`. Default is `secret`.
+                          description: |-
+                            (String) AWS credential type. Allowed values are secret or sts. Default is secret.
+                            AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.
                           type: string
                         group:
-                          description: CloudWatch log group name.
+                          description: |-
+                            (String) CloudWatch log group name.
+                            CloudWatch log group name.
                           type: string
                         partition:
-                          description: AWS partition. Allowed values are `aws` or
-                            `aws-us-gov`. Default is `aws`.
+                          description: |-
+                            us-gov. Default is aws.
+                            AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.
                           type: string
                         region:
-                          description: AWS region for CloudWatch.
+                          description: |-
+                            (String) AWS region for CloudWatch.
+                            AWS region for CloudWatch.
                           type: string
                         stream:
-                          description: Optional CloudWatch log stream name.
+                          description: |-
+                            (String) Optional CloudWatch log stream name.
+                            Optional CloudWatch log stream name.
                           type: string
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   splunk:
-                    description: Splunk HEC audit trail configuration. Required when
-                      `type` is `splunk`.
+                    description: |-
+                      (Block List, Max: 1) Splunk HEC audit trail configuration. Required when type is splunk. (see below for nested schema)
+                      Splunk HEC audit trail configuration. Required when `type` is `splunk`.
                     items:
                       properties:
                         hecUrl:
-                          description: Splunk HTTP Event Collector (HEC) URL.
+                          description: |-
+                            (String) Splunk HTTP Event Collector (HEC) URL.
+                            Splunk HTTP Event Collector (HEC) URL.
                           type: string
                         index:
-                          description: Optional Splunk index. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk index. Uses the token default when empty.
+                            Optional Splunk index. Uses the token default when empty.
                           type: string
                         source:
-                          description: Optional Splunk source. Uses the token default
-                            when empty.
+                          description: |-
+                            (String) Optional Splunk source. Uses the token default when empty.
+                            Optional Splunk source. Uses the token default when empty.
                           type: string
                         tlsConfig:
-                          description: Optional TLS configuration for Splunk HEC.
+                          description: |-
+                            (Block List, Max: 1) Optional TLS configuration for Splunk HEC. (see below for nested schema)
+                            Optional TLS configuration for Splunk HEC.
                           items:
                             properties:
                               caCertBase64:
-                                description: Base64-encoded CA certificate for self-signed
-                                  Splunk instances.
+                                description: |-
+                                  encoded CA certificate for self-signed Splunk instances.
+                                  Base64-encoded CA certificate for self-signed Splunk instances.
                                 type: string
                               insecureSkipVerify:
-                                description: Skip TLS certificate verification when
-                                  set to `true`. Default is `false`.
+                                description: |-
+                                  (Boolean) Skip TLS certificate verification when set to true. Default is false.
+                                  Skip TLS certificate verification when set to `true`. Default is `false`.
                                 type: boolean
                               tlsVerification:
-                                description: Whether TLS certificate verification
-                                  is enabled. Computed as the inverse of `insecure_skip_verify`.
+                                description: |-
+                                  (Boolean) Whether TLS certificate verification is enabled. Computed as the inverse of insecure_skip_verify.
+                                  Whether TLS certificate verification is enabled. Computed as the inverse of `insecure_skip_verify`.
                                 type: boolean
                             type: object
                           type: array
                       type: object
                     type: array
                   type:
-                    description: Audit trail sink type. Allowed values are `cloudwatch`
-                      or `splunk`.
+                    description: |-
+                      (String) Audit trail sink type. Allowed values are cloudwatch or splunk.
+                      Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.
                     type: string
                 type: object
               conditions:

@@ -196,6 +196,7 @@ type EksCloudConfigInitParameters struct {
 	// Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -241,6 +242,7 @@ type EksCloudConfigObservation struct {
 	// Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -290,6 +292,7 @@ type EksCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
@@ -1117,6 +1120,7 @@ type EksMachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -1234,6 +1238,7 @@ type EksMachinePoolObservation struct {
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
@@ -1366,6 +1371,7 @@ type EksMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Node []EksMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level and Palette-managed values.
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`

@@ -13,7 +13,13 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: spectrocloud_cloudaccount_apache_cloudstack
     cloudConfig:
-    - sshKeyName: my-ssh-key
+    - overrideClusterApiConfig: |
+        spec:
+          controlPlaneConfiguration:
+            apiServer:
+              extraArgs:
+                authorization-mode: Node,RBAC
+      sshKeyName: my-ssh-key
       zone:
       - name: Zone1
         network:
@@ -40,6 +46,11 @@ spec:
       network:
       - networkName: DefaultNetwork
       offering: Large Instance
+      overrideClusterApiConfig: |
+        spec:
+          template:
+            spec:
+              nodeDrainTimeout: 5m
     name: apache-cloudstack-cluster-1
     tags:
     - dev

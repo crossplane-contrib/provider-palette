@@ -312,8 +312,9 @@ spec:
                             Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         project:
                           description: |-
@@ -976,17 +977,14 @@ spec:
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideHealthCheckConfiguration:
-                          description: YAML override for Machine Health Check configuration
-                            at the node pool level (control plane and worker pools).
-                            Accepts CAPI MachineHealthCheck fields such as maxUnhealthy,
-                            nodeStartupTimeout, and unhealthyConditions. Falls back
-                            to Palette defaults when unset. Still respects the project/tenant
-                            Cluster Auto Remediation setting. Changing this value
-                            may repave your nodes.
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
@@ -1406,8 +1404,9 @@ spec:
                             Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         project:
                           description: |-
@@ -2070,17 +2069,14 @@ spec:
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideHealthCheckConfiguration:
-                          description: YAML override for Machine Health Check configuration
-                            at the node pool level (control plane and worker pools).
-                            Accepts CAPI MachineHealthCheck fields such as maxUnhealthy,
-                            nodeStartupTimeout, and unhealthyConditions. Falls back
-                            to Palette defaults when unset. Still respects the project/tenant
-                            Cluster Auto Remediation setting. Changing this value
-                            may repave your nodes.
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
@@ -2439,8 +2435,9 @@ spec:
                             Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at cluster
-                            level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         project:
                           description: |-
@@ -2951,17 +2948,14 @@ spec:
                             Apache CloudStack compute offering (instance type/size) name.
                           type: string
                         overrideClusterApiConfig:
-                          description: YAML override for CAPI properties at machine
-                            pool level. Overrides pack-level and Palette-managed values.
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
                         overrideHealthCheckConfiguration:
-                          description: YAML override for Machine Health Check configuration
-                            at the node pool level (control plane and worker pools).
-                            Accepts CAPI MachineHealthCheck fields such as maxUnhealthy,
-                            nodeStartupTimeout, and unhealthyConditions. Falls back
-                            to Palette defaults when unset. Still respects the project/tenant
-                            Cluster Auto Remediation setting. Changing this value
-                            may repave your nodes.
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
