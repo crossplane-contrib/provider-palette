@@ -189,6 +189,10 @@ type AzureCloudConfigInitParameters struct {
 	// Azure network resource group in which the cluster is to be provisioned.
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
 	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
 	PrivateAPIServer []PrivateAPIServerInitParameters `json:"privateApiServer,omitempty" tf:"private_api_server,omitempty"`
@@ -237,6 +241,10 @@ type AzureCloudConfigObservation struct {
 	// (String) Azure network resource group in which the cluster is to be provisioned.
 	// Azure network resource group in which the cluster is to be provisioned.
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
 	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
@@ -289,6 +297,11 @@ type AzureCloudConfigParameters struct {
 	// Azure network resource group in which the cluster is to be provisioned.
 	// +kubebuilder:validation:Optional
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// cloud/azure/create-azure-cluster/#private-api-server-lb-settings (see below for nested schema)
 	// Custom private DNS zone for your cluster's API server. For more details, refer to the https://docs.spectrocloud.com/clusters/public-cloud/azure/create-azure-cluster/#private-api-server-lb-settings
@@ -1036,6 +1049,14 @@ type AzureMachinePoolInitParameters struct {
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1142,6 +1163,14 @@ type AzureMachinePoolObservation struct {
 	// (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
@@ -1262,6 +1291,16 @@ type AzureMachinePoolParameters struct {
 	// Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.
 	// +kubebuilder:validation:Optional
 	OsType *string `json:"osType,omitempty" tf:"os_type,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// +kubebuilder:validation:Optional
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.

@@ -912,6 +912,11 @@ spec:
                             level and Palette-managed values.
                             YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
+                        overrideHealthCheckConfiguration:
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -1926,6 +1931,11 @@ spec:
                             level and Palette-managed values.
                             YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
                           type: string
+                        overrideHealthCheckConfiguration:
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -2701,6 +2711,11 @@ spec:
                           description: |-
                             level and Palette-managed values.
                             YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
+                        overrideHealthCheckConfiguration:
+                          description: |-
+                            (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+                            YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-

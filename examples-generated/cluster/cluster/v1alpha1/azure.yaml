@@ -12,7 +12,13 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: spectrocloud_cloudaccount_azure
     cloudConfig:
-    - region: ${var.azure_region}
+    - overrideClusterApiConfig: |
+        spec:
+          controlPlaneConfiguration:
+            apiServer:
+              extraArgs:
+                authorization-mode: Node,RBAC
+      region: ${var.azure_region}
       resourceGroup: ${var.azure_resource_group}
       sshKey: ${var.cluster_ssh_public_key}
       subscriptionId: ${var.azure_subscription_id}
@@ -36,6 +42,21 @@ spec:
       count: 1
       instanceType: Standard_D2_v3
       name: worker-basic
+      overrideClusterApiConfig: |
+        spec:
+          template:
+            spec:
+              nodeDrainTimeout: 5m
+      overrideHealthCheckConfiguration: |
+        maxUnhealthy: 40%
+        nodeStartupTimeout: 10m
+        unhealthyConditions:
+          - type: Ready
+            status: "False"
+            timeout: 5m
+          - type: Ready
+            status: "Unknown"
+            timeout: 5m
     name: ${var.cluster_name}
     tags:
     - dev

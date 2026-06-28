@@ -1,0 +1,23 @@
+apiVersion: audit.palette.m.crossplane.io/v1alpha1
+kind: Trail
+metadata:
+  annotations:
+    meta.upbound.io/example-id: audit/v1alpha1/trail
+  labels:
+    testing.upbound.io/example-name: cloudwatch
+  name: cloudwatch
+  namespace: upbound-system
+spec:
+  forProvider:
+    cloudwatch:
+    - accessKeySecretRef:
+        key: example-key
+        name: example-secret
+      credentialType: secret
+      group: dev-hubble-audits
+      partition: aws
+      region: us-east-1
+      secretKeySecretRef:
+        key: example-key
+        name: example-secret
+    type: cloudwatch

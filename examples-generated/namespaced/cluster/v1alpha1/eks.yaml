@@ -22,7 +22,13 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: spectrocloud_cloudaccount_aws
     cloudConfig:
-    - region: us-west-2
+    - overrideClusterApiConfig: |
+        spec:
+          controlPlaneConfiguration:
+            apiServer:
+              extraArgs:
+                authorization-mode: Node,RBAC
+      region: us-west-2
       sshKeyName: default
     clusterProfile:
     - idSelector:
