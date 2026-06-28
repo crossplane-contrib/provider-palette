@@ -1109,6 +1109,9 @@ type EdgeNativeMachinePoolInitParameters struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1116,6 +1119,9 @@ type EdgeNativeMachinePoolInitParameters struct {
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EdgeNativeMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []EdgeNativeMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1198,6 +1204,9 @@ type EdgeNativeMachinePoolObservation struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1205,6 +1214,9 @@ type EdgeNativeMachinePoolObservation struct {
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []EdgeNativeMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []EdgeNativeMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1296,6 +1308,10 @@ type EdgeNativeMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// +kubebuilder:validation:Optional
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	// +kubebuilder:validation:Optional
@@ -1305,6 +1321,10 @@ type EdgeNativeMachinePoolParameters struct {
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []EdgeNativeMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional

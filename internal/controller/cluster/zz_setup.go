@@ -11,6 +11,7 @@ import (
 
 	deployment "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/addon/deployment"
 	profile "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/application/profile"
+	trail "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/audit/trail"
 	storagelocation "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/backup/storagelocation"
 	apachecloudstack "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/apachecloudstack"
 	aws "github.com/crossplane-contrib/provider-palette/internal/controller/cluster/cloudaccount/aws"
@@ -69,6 +70,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		deployment.Setup,
 		profile.Setup,
+		trail.Setup,
 		storagelocation.Setup,
 		apachecloudstack.Setup,
 		aws.Setup,
@@ -133,6 +135,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		deployment.SetupGated,
 		profile.SetupGated,
+		trail.SetupGated,
 		storagelocation.SetupGated,
 		apachecloudstack.SetupGated,
 		aws.SetupGated,

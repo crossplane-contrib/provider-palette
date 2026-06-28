@@ -766,6 +766,190 @@
             "description_kind": "plain"
           }
         },
+        "spectrocloud_audit_trail": {
+          "version": 2,
+          "block": {
+            "attributes": {
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Human-readable name for the audit trail.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "type": {
+                "type": "string",
+                "description": "Audit trail sink type. Allowed values are `cloudwatch` or `splunk`.",
+                "description_kind": "plain",
+                "required": true
+              }
+            },
+            "block_types": {
+              "cloudwatch": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "access_key": {
+                      "type": "string",
+                      "description": "AWS access key. Required when `credential_type` is `secret`.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "sensitive": true
+                    },
+                    "arn": {
+                      "type": "string",
+                      "description": "IAM role ARN. Required when `credential_type` is `sts`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "credential_type": {
+                      "type": "string",
+                      "description": "AWS credential type. Allowed values are `secret` or `sts`. Default is `secret`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "external_id": {
+                      "type": "string",
+                      "description": "External ID for STS role assumption. Used with `credential_type` `sts`.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "sensitive": true
+                    },
+                    "group": {
+                      "type": "string",
+                      "description": "CloudWatch log group name.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "partition": {
+                      "type": "string",
+                      "description": "AWS partition. Allowed values are `aws` or `aws-us-gov`. Default is `aws`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "region": {
+                      "type": "string",
+                      "description": "AWS region for CloudWatch.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "secret_key": {
+                      "type": "string",
+                      "description": "AWS secret key. Required when `credential_type` is `secret`.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "sensitive": true
+                    },
+                    "stream": {
+                      "type": "string",
+                      "description": "Optional CloudWatch log stream name.",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description": "CloudWatch audit trail configuration. Required when `type` is `cloudwatch`.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "splunk": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "hec_url": {
+                      "type": "string",
+                      "description": "Splunk HTTP Event Collector (HEC) URL.",
+                      "description_kind": "plain",
+                      "required": true
+                    },
+                    "index": {
+                      "type": "string",
+                      "description": "Optional Splunk index. Uses the token default when empty.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "Optional Splunk source. Uses the token default when empty.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "Splunk HEC token.",
+                      "description_kind": "plain",
+                      "required": true,
+                      "sensitive": true
+                    }
+                  },
+                  "block_types": {
+                    "tls_config": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "ca_cert_base64": {
+                            "type": "string",
+                            "description": "Base64-encoded CA certificate for self-signed Splunk instances.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "insecure_skip_verify": {
+                            "type": "bool",
+                            "description": "Skip TLS certificate verification when set to `true`. Default is `false`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "tls_verification": {
+                            "type": "bool",
+                            "description": "Whether TLS certificate verification is enabled. Computed as the inverse of `insecure_skip_verify`.",
+                            "description_kind": "plain",
+                            "computed": true
+                          }
+                        },
+                        "description": "Optional TLS configuration for Splunk HEC.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Splunk HEC audit trail configuration. Required when `type` is `splunk`.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "Resource for managing tenant audit trail data sinks (CloudWatch or Splunk) in Spectro Cloud.",
+            "description_kind": "plain"
+          }
+        },
         "spectrocloud_backup_storage_location": {
           "version": 2,
           "block": {
@@ -2497,6 +2681,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "ssh_key_name": {
                       "type": "string",
                       "description": "SSH key name for accessing cluster nodes.",
@@ -2983,6 +3173,18 @@
                       "description": "Apache CloudStack compute offering (instance type/size) name.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "override_kubeadm_configuration": {
                       "type": "string",
@@ -3870,6 +4072,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
@@ -4295,6 +4503,12 @@
                     "network_resource_group": {
                       "type": "string",
                       "description": "Azure network resource group in which the cluster is to be provisioned.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -4749,6 +4963,18 @@
                     "os_type": {
                       "type": "string",
                       "description": "Operating system type for the machine pool. Valid values are `Linux` and `Windows`. Defaults to `Linux`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -7036,9 +7262,21 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -7883,6 +8121,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
@@ -8404,6 +8648,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "private_access_cidrs": {
                       "type": [
                         "set",
@@ -8841,6 +9091,12 @@
                       "description": "Name of the EKS machine pool.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "override_kubeadm_configuration": {
                       "type": "string",
@@ -9632,6 +9888,12 @@
                     "node_repave_interval": {
                       "type": "number",
                       "description": "Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -11430,6 +11692,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
@@ -12643,6 +12911,12 @@
                     "node_repave_interval": {
                       "type": "number",
                       "description": "Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_health_check_configuration": {
+                      "type": "string",
+                      "description": "YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.",
                       "description_kind": "plain",
                       "optional": true
                     },

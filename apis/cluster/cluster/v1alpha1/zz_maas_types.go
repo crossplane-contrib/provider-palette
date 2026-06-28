@@ -1054,6 +1054,9 @@ type MaasMachinePoolInitParameters struct {
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1224,6 +1227,9 @@ type MaasMachinePoolObservation struct {
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1359,6 +1365,10 @@ type MaasMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
+
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// +kubebuilder:validation:Optional
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.

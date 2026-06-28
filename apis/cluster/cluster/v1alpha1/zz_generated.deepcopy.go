@@ -952,6 +952,11 @@ func (in *ApacheCloudstackCloudConfigInitParameters) DeepCopyInto(out *ApacheClo
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.Project != nil {
 		in, out := &in.Project, &out.Project
 		*out = make([]ProjectInitParameters, len(*in))
@@ -996,6 +1001,11 @@ func (in *ApacheCloudstackCloudConfigObservation) DeepCopyInto(out *ApacheClouds
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.Project != nil {
 		in, out := &in.Project, &out.Project
 		*out = make([]ProjectObservation, len(*in))
@@ -1037,6 +1047,11 @@ func (in *ApacheCloudstackCloudConfigParameters) DeepCopyInto(out *ApacheCloudst
 	*out = *in
 	if in.ControlPlaneEndpoint != nil {
 		in, out := &in.ControlPlaneEndpoint, &out.ControlPlaneEndpoint
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
 		**out = **in
 	}
@@ -2088,6 +2103,16 @@ func (in *ApacheCloudstackMachinePoolInitParameters) DeepCopyInto(out *ApacheClo
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -2227,6 +2252,16 @@ func (in *ApacheCloudstackMachinePoolObservation) DeepCopyInto(out *ApacheClouds
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -2356,6 +2391,16 @@ func (in *ApacheCloudstackMachinePoolParameters) DeepCopyInto(out *ApacheCloudst
 	}
 	if in.Offering != nil {
 		in, out := &in.Offering, &out.Offering
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
 		*out = new(string)
 		**out = **in
 	}
@@ -4824,6 +4869,11 @@ func (in *AwsMachinePoolInitParameters) DeepCopyInto(out *AwsMachinePoolInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -5096,6 +5146,11 @@ func (in *AwsMachinePoolObservation) DeepCopyInto(out *AwsMachinePoolObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -5365,6 +5420,11 @@ func (in *AwsMachinePoolParameters) DeepCopyInto(out *AwsMachinePoolParameters) 
 	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
 		*out = new(string)
 		**out = **in
 	}
@@ -6447,6 +6507,11 @@ func (in *AzureCloudConfigInitParameters) DeepCopyInto(out *AzureCloudConfigInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateAPIServer != nil {
 		in, out := &in.PrivateAPIServer, &out.PrivateAPIServer
 		*out = make([]PrivateAPIServerInitParameters, len(*in))
@@ -6528,6 +6593,11 @@ func (in *AzureCloudConfigObservation) DeepCopyInto(out *AzureCloudConfigObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateAPIServer != nil {
 		in, out := &in.PrivateAPIServer, &out.PrivateAPIServer
 		*out = make([]PrivateAPIServerObservation, len(*in))
@@ -6606,6 +6676,11 @@ func (in *AzureCloudConfigParameters) DeepCopyInto(out *AzureCloudConfigParamete
 	}
 	if in.NetworkResourceGroup != nil {
 		in, out := &in.NetworkResourceGroup, &out.NetworkResourceGroup
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
 		**out = **in
 	}
@@ -8034,6 +8109,16 @@ func (in *AzureMachinePoolInitParameters) DeepCopyInto(out *AzureMachinePoolInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -8245,6 +8330,16 @@ func (in *AzureMachinePoolObservation) DeepCopyInto(out *AzureMachinePoolObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -8453,6 +8548,16 @@ func (in *AzureMachinePoolParameters) DeepCopyInto(out *AzureMachinePoolParamete
 	}
 	if in.OsType != nil {
 		in, out := &in.OsType, &out.OsType
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
 		*out = new(string)
 		**out = **in
 	}
@@ -18141,6 +18246,11 @@ func (in *EdgeNativeMachinePoolInitParameters) DeepCopyInto(out *EdgeNativeMachi
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -18152,6 +18262,11 @@ func (in *EdgeNativeMachinePoolInitParameters) DeepCopyInto(out *EdgeNativeMachi
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -18326,6 +18441,11 @@ func (in *EdgeNativeMachinePoolObservation) DeepCopyInto(out *EdgeNativeMachineP
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -18337,6 +18457,11 @@ func (in *EdgeNativeMachinePoolObservation) DeepCopyInto(out *EdgeNativeMachineP
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -18511,6 +18636,11 @@ func (in *EdgeNativeMachinePoolParameters) DeepCopyInto(out *EdgeNativeMachinePo
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -18522,6 +18652,11 @@ func (in *EdgeNativeMachinePoolParameters) DeepCopyInto(out *EdgeNativeMachinePo
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -21108,6 +21243,11 @@ func (in *EdgeVsphereMachinePoolInitParameters) DeepCopyInto(out *EdgeVsphereMac
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -21300,6 +21440,11 @@ func (in *EdgeVsphereMachinePoolObservation) DeepCopyInto(out *EdgeVsphereMachin
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -21490,6 +21635,11 @@ func (in *EdgeVsphereMachinePoolParameters) DeepCopyInto(out *EdgeVsphereMachine
 	if in.NodeRepaveInterval != nil {
 		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
 		*out = new(float64)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
 		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
@@ -22538,6 +22688,11 @@ func (in *EksCloudConfigInitParameters) DeepCopyInto(out *EksCloudConfigInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateAccessCidrs != nil {
 		in, out := &in.PrivateAccessCidrs, &out.PrivateAccessCidrs
 		*out = make([]*string, len(*in))
@@ -22627,6 +22782,11 @@ func (in *EksCloudConfigObservation) DeepCopyInto(out *EksCloudConfigObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateAccessCidrs != nil {
 		in, out := &in.PrivateAccessCidrs, &out.PrivateAccessCidrs
 		*out = make([]*string, len(*in))
@@ -22713,6 +22873,11 @@ func (in *EksCloudConfigParameters) DeepCopyInto(out *EksCloudConfigParameters) 
 	}
 	if in.EndpointAccess != nil {
 		in, out := &in.EndpointAccess, &out.EndpointAccess
+		*out = new(string)
+		**out = **in
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
 		**out = **in
 	}
@@ -24311,6 +24476,11 @@ func (in *EksMachinePoolInitParameters) DeepCopyInto(out *EksMachinePoolInitPara
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -24543,6 +24713,11 @@ func (in *EksMachinePoolObservation) DeepCopyInto(out *EksMachinePoolObservation
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -24774,6 +24949,11 @@ func (in *EksMachinePoolParameters) DeepCopyInto(out *EksMachinePoolParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.OverrideClusterAPIConfig != nil {
+		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
+		*out = new(string)
+		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
@@ -27437,6 +27617,11 @@ func (in *GCPMachinePoolInitParameters) DeepCopyInto(out *GCPMachinePoolInitPara
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -27636,6 +27821,11 @@ func (in *GCPMachinePoolObservation) DeepCopyInto(out *GCPMachinePoolObservation
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -27833,6 +28023,11 @@ func (in *GCPMachinePoolParameters) DeepCopyInto(out *GCPMachinePoolParameters) 
 	if in.NodeRepaveInterval != nil {
 		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
 		*out = new(float64)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
 		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
@@ -34323,6 +34518,11 @@ func (in *MaasMachinePoolInitParameters) DeepCopyInto(out *MaasMachinePoolInitPa
 			}
 		}
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -34654,6 +34854,11 @@ func (in *MaasMachinePoolObservation) DeepCopyInto(out *MaasMachinePoolObservati
 			}
 		}
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -34894,6 +35099,11 @@ func (in *MaasMachinePoolParameters) DeepCopyInto(out *MaasMachinePoolParameters
 				**out = **in
 			}
 		}
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
@@ -41305,6 +41515,11 @@ func (in *VsphereMachinePoolInitParameters) DeepCopyInto(out *VsphereMachinePool
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -41602,6 +41817,11 @@ func (in *VsphereMachinePoolObservation) DeepCopyInto(out *VsphereMachinePoolObs
 		*out = new(float64)
 		**out = **in
 	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
+		**out = **in
+	}
 	if in.OverrideKubeadmConfiguration != nil {
 		in, out := &in.OverrideKubeadmConfiguration, &out.OverrideKubeadmConfiguration
 		*out = new(string)
@@ -41807,6 +42027,11 @@ func (in *VsphereMachinePoolParameters) DeepCopyInto(out *VsphereMachinePoolPara
 	if in.NodeRepaveInterval != nil {
 		in, out := &in.NodeRepaveInterval, &out.NodeRepaveInterval
 		*out = new(float64)
+		**out = **in
+	}
+	if in.OverrideHealthCheckConfiguration != nil {
+		in, out := &in.OverrideHealthCheckConfiguration, &out.OverrideHealthCheckConfiguration
+		*out = new(string)
 		**out = **in
 	}
 	if in.OverrideKubeadmConfiguration != nil {

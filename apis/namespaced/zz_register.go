@@ -12,6 +12,7 @@ import (
 
 	v1alpha1 "github.com/crossplane-contrib/provider-palette/apis/namespaced/addon/v1alpha1"
 	v1alpha1application "github.com/crossplane-contrib/provider-palette/apis/namespaced/application/v1alpha1"
+	v1alpha1audit "github.com/crossplane-contrib/provider-palette/apis/namespaced/audit/v1alpha1"
 	v1alpha1backup "github.com/crossplane-contrib/provider-palette/apis/namespaced/backup/v1alpha1"
 	v1alpha1cloudaccount "github.com/crossplane-contrib/provider-palette/apis/namespaced/cloudaccount/v1alpha1"
 	v1alpha1cluster "github.com/crossplane-contrib/provider-palette/apis/namespaced/cluster/v1alpha1"
@@ -34,6 +35,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1application.SchemeBuilder.AddToScheme,
+		v1alpha1audit.SchemeBuilder.AddToScheme,
 		v1alpha1backup.SchemeBuilder.AddToScheme,
 		v1alpha1cloudaccount.SchemeBuilder.AddToScheme,
 		v1alpha1cluster.SchemeBuilder.AddToScheme,

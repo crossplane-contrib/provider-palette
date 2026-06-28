@@ -182,6 +182,9 @@ type ApacheCloudstackCloudConfigInitParameters struct {
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
 
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
 	Project []ProjectInitParameters `json:"project,omitempty" tf:"project,omitempty"`
@@ -204,6 +207,9 @@ type ApacheCloudstackCloudConfigObservation struct {
 	// (String) Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
+
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
@@ -228,6 +234,10 @@ type ApacheCloudstackCloudConfigParameters struct {
 	// Endpoint IP to be used for the API server. Should only be set for static CloudStack networks.
 	// +kubebuilder:validation:Optional
 	ControlPlaneEndpoint *string `json:"controlPlaneEndpoint,omitempty" tf:"control_plane_endpoint,omitempty"`
+
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Block List, Max: 1) CloudStack project configuration . If not specified, the cluster will be created in the domain's default project. (see below for nested schema)
 	// CloudStack project configuration (optional). If not specified, the cluster will be created in the domain's default project.
@@ -752,6 +762,12 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
 
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -826,6 +842,12 @@ type ApacheCloudstackMachinePoolObservation struct {
 	// (String) Network offering name to use when creating the network. Optional for advanced network configurations.
 	// Apache CloudStack compute offering (instance type/size) name.
 	Offering *string `json:"offering,omitempty" tf:"offering,omitempty"`
+
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
@@ -909,6 +931,14 @@ type ApacheCloudstackMachinePoolParameters struct {
 	// Apache CloudStack compute offering (instance type/size) name.
 	// +kubebuilder:validation:Optional
 	Offering *string `json:"offering" tf:"offering,omitempty"`
+
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
+	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
+	// +kubebuilder:validation:Optional
+	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.

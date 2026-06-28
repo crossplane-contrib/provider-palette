@@ -196,6 +196,9 @@ type EksCloudConfigInitParameters struct {
 	// Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
 
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (Set of String) List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
 	// List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
 	// +listType=set
@@ -237,6 +240,9 @@ type EksCloudConfigObservation struct {
 	// (String) Choose between private, public, or private_and_public to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is public.
 	// Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
+
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Set of String) List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
 	// List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
@@ -283,6 +289,10 @@ type EksCloudConfigParameters struct {
 	// Choose between `private`, `public`, or `private_and_public` to define how communication is established with the endpoint for the managed Kubernetes API server and your cluster. The default value is `public`.
 	// +kubebuilder:validation:Optional
 	EndpointAccess *string `json:"endpointAccess,omitempty" tf:"endpoint_access,omitempty"`
+
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Set of String) List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
 	// List of CIDR blocks that define the allowed private access to the resource. Only requests originating from addresses within these CIDR blocks will be permitted to access the resource.
@@ -1107,6 +1117,9 @@ type EksMachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -1220,6 +1233,9 @@ type EksMachinePoolObservation struct {
 
 	// (Block List) (see below for nested schema)
 	Node []EksMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
@@ -1349,6 +1365,10 @@ type EksMachinePoolParameters struct {
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []EksMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
