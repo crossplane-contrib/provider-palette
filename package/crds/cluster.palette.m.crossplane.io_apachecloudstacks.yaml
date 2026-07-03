@@ -351,7 +351,7 @@ spec:
                               id:
                                 description: |-
                                   (String) The ID of this resource.
-                                  CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+                                  CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
                                 type: string
                               name:
                                 description: |-
@@ -951,7 +951,7 @@ spec:
                         network:
                           description: |-
                             (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-                            Network configuration for the machine pool instances.
+                            Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
                           items:
                             properties:
                               ipAddress:
@@ -959,10 +959,15 @@ spec:
                                   (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
                                   Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
                                 type: string
+                              networkId:
+                                description: |-
+                                  (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                  CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                type: string
                               networkName:
                                 description: |-
-                                  (String) Network name to attach to the machine pool.
-                                  Network name to attach to the machine pool.
+                                  (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+                                  CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
                                 type: string
                             type: object
                           type: array
@@ -1165,8 +1170,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               initProvider:
@@ -1473,7 +1478,7 @@ spec:
                               id:
                                 description: |-
                                   (String) The ID of this resource.
-                                  CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+                                  CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
                                 type: string
                               name:
                                 description: |-
@@ -2073,7 +2078,7 @@ spec:
                         network:
                           description: |-
                             (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-                            Network configuration for the machine pool instances.
+                            Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
                           items:
                             properties:
                               ipAddress:
@@ -2081,10 +2086,15 @@ spec:
                                   (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
                                   Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
                                 type: string
+                              networkId:
+                                description: |-
+                                  (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                  CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                type: string
                               networkName:
                                 description: |-
-                                  (String) Network name to attach to the machine pool.
-                                  Network name to attach to the machine pool.
+                                  (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+                                  CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
                                 type: string
                             type: object
                           type: array
@@ -2287,8 +2297,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               managementPolicies:
@@ -2494,7 +2504,7 @@ spec:
                               id:
                                 description: |-
                                   (String) The ID of this resource.
-                                  CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+                                  CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
                                 type: string
                               name:
                                 description: |-
@@ -2924,7 +2934,7 @@ spec:
                         network:
                           description: |-
                             (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-                            Network configuration for the machine pool instances.
+                            Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
                           items:
                             properties:
                               ipAddress:
@@ -2932,10 +2942,15 @@ spec:
                                   (String, Deprecated) Static IP address to assign. DEPRECATED: This field is no longer supported by CloudStack and will be ignored.
                                   Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
                                 type: string
+                              networkId:
+                                description: |-
+                                  (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                  CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+                                type: string
                               networkName:
                                 description: |-
-                                  (String) Network name to attach to the machine pool.
-                                  Network name to attach to the machine pool.
+                                  (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+                                  CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
                                 type: string
                             type: object
                           type: array
@@ -3138,8 +3153,8 @@ spec:
                     x-kubernetes-list-type: set
                   updateWorkerPoolsInParallel:
                     description: |-
-                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+                      Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
                     type: boolean
                 type: object
               conditions:

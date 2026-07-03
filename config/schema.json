@@ -1752,7 +1752,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -2589,7 +2589,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -2729,9 +2729,10 @@
                         "attributes": {
                           "id": {
                             "type": "string",
-                            "description": "CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.",
+                            "description": "CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.",
                             "description_kind": "plain",
-                            "optional": true
+                            "optional": true,
+                            "computed": true
                           },
                           "name": {
                             "type": "string",
@@ -3211,14 +3212,21 @@
                             "deprecated": true,
                             "optional": true
                           },
+                          "network_id": {
+                            "type": "string",
+                            "description": "CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          },
                           "network_name": {
                             "type": "string",
-                            "description": "Network name to attach to the machine pool.",
+                            "description": "CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.",
                             "description_kind": "plain",
-                            "required": true
+                            "optional": true
                           }
                         },
-                        "description": "Network configuration for the machine pool instances.",
+                        "description": "Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.",
                         "description_kind": "plain"
                       }
                     },
@@ -3571,7 +3579,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -4408,7 +4416,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -6137,7 +6145,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -6794,7 +6802,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -7633,7 +7641,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -8532,7 +8540,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -9465,7 +9473,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -10228,7 +10236,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -11179,7 +11187,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -12404,7 +12412,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -15827,7 +15835,7 @@
               },
               "update_worker_pools_in_parallel": {
                 "type": "bool",
-                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
+                "description": "Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.",
                 "description_kind": "plain",
                 "optional": true
               }

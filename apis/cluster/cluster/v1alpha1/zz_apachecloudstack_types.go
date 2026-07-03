@@ -682,8 +682,8 @@ type ApacheCloudstackInitParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
@@ -751,7 +751,7 @@ type ApacheCloudstackMachinePoolInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-	// Network configuration for the machine pool instances.
+	// Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
 	Network []MachinePoolNetworkInitParameters `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -834,7 +834,7 @@ type ApacheCloudstackMachinePoolObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-	// Network configuration for the machine pool instances.
+	// Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
 	Network []MachinePoolNetworkObservation `json:"network,omitempty" tf:"network,omitempty"`
 
 	// (Block List) (see below for nested schema)
@@ -921,7 +921,7 @@ type ApacheCloudstackMachinePoolParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// (Block List, Max: 1) Network configuration for this zone. (see below for nested schema)
-	// Network configuration for the machine pool instances.
+	// Network configuration for the machine pool instances. Set `network_name` (and optionally `network_id`); when `network_id` is omitted it is resolved at apply time and stored in state.
 	// +kubebuilder:validation:Optional
 	Network []MachinePoolNetworkParameters `json:"network,omitempty" tf:"network,omitempty"`
 
@@ -1129,8 +1129,8 @@ type ApacheCloudstackObservation struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
 
@@ -1275,8 +1275,8 @@ type ApacheCloudstackParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true (default), all worker pools are updated simultaneously. When false, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
-	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true` (default), all worker pools are updated simultaneously. When `false`, worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+	// Controls whether worker pool updates occur in parallel or sequentially. When set to `true`, all worker pools are updated simultaneously. When set to `false` (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
 	// +kubebuilder:validation:Optional
 	UpdateWorkerPoolsInParallel *bool `json:"updateWorkerPoolsInParallel,omitempty" tf:"update_worker_pools_in_parallel,omitempty"`
 }
@@ -1520,8 +1520,12 @@ type MachinePoolNetworkInitParameters struct {
 	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
-	// (String) Network name to attach to the machine pool.
-	// Network name to attach to the machine pool.
+	// (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+	// CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+	// CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
 	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
 }
 
@@ -1531,8 +1535,12 @@ type MachinePoolNetworkObservation struct {
 	// Static IP address to assign. **DEPRECATED**: This field is no longer supported by CloudStack and will be ignored.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
-	// (String) Network name to attach to the machine pool.
-	// Network name to attach to the machine pool.
+	// (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+	// CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+	// CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
 	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
 }
 
@@ -1543,10 +1551,15 @@ type MachinePoolNetworkParameters struct {
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
-	// (String) Network name to attach to the machine pool.
-	// Network name to attach to the machine pool.
+	// (String) CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and network_name is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
+	// CloudStack network ID attached to the machine pool. Optional in configuration; when omitted and `network_name` is set, the provider resolves the ID at apply time from the cloud account. Populated from the API after create or read.
 	// +kubebuilder:validation:Optional
-	NetworkName *string `json:"networkName" tf:"network_name,omitempty"`
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// (String) CloudStack network name to attach to the machine pool. Either network_id or network_name must be provided. When only network_name is set, the provider resolves network_id from the cloud account using cloud_config.zone.id (resolved from zone.name when needed) and optional project/VPC context.
+	// CloudStack network name to attach to the machine pool. Either `network_id` or `network_name` must be provided. When only `network_name` is set, the provider resolves `network_id` from the cloud account using `cloud_config.zone.id` (resolved from `zone.name` when needed) and optional project/VPC context.
+	// +kubebuilder:validation:Optional
+	NetworkName *string `json:"networkName,omitempty" tf:"network_name,omitempty"`
 }
 
 type MachinePoolNodeInitParameters struct {
@@ -1952,7 +1965,7 @@ type VPCParameters struct {
 type ZoneInitParameters struct {
 
 	// (String) The ID of this resource.
-	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+	// CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
@@ -1967,7 +1980,7 @@ type ZoneInitParameters struct {
 type ZoneObservation struct {
 
 	// (String) The ID of this resource.
-	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+	// CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
@@ -1982,7 +1995,7 @@ type ZoneObservation struct {
 type ZoneParameters struct {
 
 	// (String) The ID of this resource.
-	// CloudStack zone ID. Either `id` or `name` can be used to identify the zone. If both are specified, `id` takes precedence.
+	// CloudStack zone ID. Optional in configuration; when omitted, the provider resolves the ID at apply time from the cloud account using `name`. If both `id` and `name` are set, `id` takes precedence. Populated from the API after create or read.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
