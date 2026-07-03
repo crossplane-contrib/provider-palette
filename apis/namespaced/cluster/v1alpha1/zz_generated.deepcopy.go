@@ -36103,6 +36103,11 @@ func (in *MachinePoolNetworkInitParameters) DeepCopyInto(out *MachinePoolNetwork
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
+		*out = new(string)
+		**out = **in
+	}
 	if in.NetworkName != nil {
 		in, out := &in.NetworkName, &out.NetworkName
 		*out = new(string)
@@ -36128,6 +36133,11 @@ func (in *MachinePoolNetworkObservation) DeepCopyInto(out *MachinePoolNetworkObs
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
+		*out = new(string)
+		**out = **in
+	}
 	if in.NetworkName != nil {
 		in, out := &in.NetworkName, &out.NetworkName
 		*out = new(string)
@@ -36150,6 +36160,11 @@ func (in *MachinePoolNetworkParameters) DeepCopyInto(out *MachinePoolNetworkPara
 	*out = *in
 	if in.IPAddress != nil {
 		in, out := &in.IPAddress, &out.IPAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
 		*out = new(string)
 		**out = **in
 	}
