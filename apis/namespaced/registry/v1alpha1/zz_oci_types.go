@@ -117,8 +117,8 @@ type OciCredentialsParameters struct {
 
 type OciInitParameters struct {
 
-	// (String) The relative path to the endpoint specified.
-	// The relative path to the endpoint specified.
+	// (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+	// The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
 	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
@@ -163,8 +163,8 @@ type OciInitParameters struct {
 
 type OciObservation struct {
 
-	// (String) The relative path to the endpoint specified.
-	// The relative path to the endpoint specified.
+	// (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+	// The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
 	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Authentication credentials to access the private OCI registry. Required if is_private is set to true (see below for nested schema)
@@ -212,8 +212,8 @@ type OciObservation struct {
 
 type OciParameters struct {
 
-	// (String) The relative path to the endpoint specified.
-	// The relative path to the endpoint specified.
+	// (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+	// The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
 	// +kubebuilder:validation:Optional
 	BaseContentPath *string `json:"baseContentPath,omitempty" tf:"base_content_path,omitempty"`
 

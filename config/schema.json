@@ -14608,7 +14608,7 @@
             "attributes": {
               "base_content_path": {
                 "type": "string",
-                "description": "The relative path to the endpoint specified.",
+                "description": "The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.",
                 "description_kind": "plain",
                 "optional": true
               },
