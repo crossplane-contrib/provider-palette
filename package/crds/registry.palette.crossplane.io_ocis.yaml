@@ -75,8 +75,8 @@ spec:
                 properties:
                   baseContentPath:
                     description: |-
-                      (String) The relative path to the endpoint specified.
-                      The relative path to the endpoint specified.
+                      (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+                      The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
                     type: string
                   credentials:
                     description: |-
@@ -243,8 +243,8 @@ spec:
                 properties:
                   baseContentPath:
                     description: |-
-                      (String) The relative path to the endpoint specified.
-                      The relative path to the endpoint specified.
+                      (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+                      The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
                     type: string
                   credentials:
                     description: |-
@@ -510,8 +510,8 @@ spec:
                 properties:
                   baseContentPath:
                     description: |-
-                      (String) The relative path to the endpoint specified.
-                      The relative path to the endpoint specified.
+                      (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
+                      The relative path to the endpoint specified. Required when `is_synchronization` is set to `true`.
                     type: string
                   credentials:
                     description: |-

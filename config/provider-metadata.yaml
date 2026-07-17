@@ -4561,7 +4561,7 @@ resources:
         argumentDocs:
             access_key: (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
             arn: (String) The Amazon Resource Name (ARN) used for AWS-based authentication. Required if 'credential_type' is 'sts'.
-            base_content_path: (String) The relative path to the endpoint specified.
+            base_content_path: (String) The relative path to the endpoint specified. Required when is_synchronization is set to true.
             certificate: (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
             create: (String)
             credential_type: (String) The type of authentication used for accessing the registry. Supported values are 'secret', 'sts', 'basic', and 'noAuth'.
