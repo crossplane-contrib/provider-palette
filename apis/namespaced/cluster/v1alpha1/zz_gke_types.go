@@ -179,6 +179,10 @@ type GkeBackupPolicyParameters struct {
 
 type GkeCloudConfigInitParameters struct {
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) GCP project name.
 	// GCP project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -190,6 +194,10 @@ type GkeCloudConfigInitParameters struct {
 
 type GkeCloudConfigObservation struct {
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) GCP project name.
 	// GCP project name.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -200,6 +208,11 @@ type GkeCloudConfigObservation struct {
 }
 
 type GkeCloudConfigParameters struct {
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) GCP project name.
 	// GCP project name.
@@ -894,6 +907,10 @@ type GkeMachinePoolInitParameters struct {
 	// (Block List) (see below for nested schema)
 	Node []GkeMachinePoolNodeInitParameters `json:"node,omitempty" tf:"node,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
@@ -975,6 +992,10 @@ type GkeMachinePoolObservation struct {
 
 	// (Block List) (see below for nested schema)
 	Node []GkeMachinePoolNodeObservation `json:"node,omitempty" tf:"node,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
@@ -1064,6 +1085,11 @@ type GkeMachinePoolParameters struct {
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Node []GkeMachinePoolNodeParameters `json:"node,omitempty" tf:"node,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// level settings. Worker pools only.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.

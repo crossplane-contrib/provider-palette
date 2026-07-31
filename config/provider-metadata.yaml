@@ -3142,6 +3142,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
@@ -3279,6 +3280,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
@@ -3545,6 +3547,7 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
@@ -4023,6 +4026,7 @@ resources:
             os_patch_after: '(String) The date and time after which to patch the cluster. Prefix the time value with the respective RFC. Ex: RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
+            override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
             override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
