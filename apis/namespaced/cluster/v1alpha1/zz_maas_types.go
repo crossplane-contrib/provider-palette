@@ -227,6 +227,10 @@ type MaasCloudConfigInitParameters struct {
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
 	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
 	// +listType=set
@@ -247,6 +251,10 @@ type MaasCloudConfigObservation struct {
 	// A list of NTP servers to use instead of the machine image's default NTP server list.
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
 	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
@@ -271,6 +279,11 @@ type MaasCloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (Set of String) List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
 	// List of SSH public keys injected into MAAS nodes as authorized keys for the 'spectro' user.
@@ -1055,6 +1068,10 @@ type MaasMachinePoolInitParameters struct {
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
@@ -1229,6 +1246,10 @@ type MaasMachinePoolObservation struct {
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
@@ -1368,6 +1389,11 @@ type MaasMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NodeTags []*string `json:"nodeTags,omitempty" tf:"node_tags,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.

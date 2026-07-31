@@ -305,6 +305,11 @@ spec:
                             (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
                           type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         project:
                           description: |-
                             (String) Google Cloud project ID where cluster resources are created.
@@ -859,6 +864,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideHealthCheckConfiguration:
                           description: |-
                             (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
@@ -1272,6 +1282,11 @@ spec:
                             (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
                           type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         project:
                           description: |-
                             (String) Google Cloud project ID where cluster resources are created.
@@ -1826,6 +1841,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideHealthCheckConfiguration:
                           description: |-
                             (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
@@ -2139,6 +2159,11 @@ spec:
                           description: |-
                             (String) VPC network name used to provision cluster resources.
                             VPC network name used to provision cluster resources.
+                          type: string
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
                           type: string
                         project:
                           description: |-
@@ -2497,6 +2522,11 @@ spec:
                             (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
                             Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
                           type: number
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideHealthCheckConfiguration:
                           description: |-
                             (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.

@@ -301,6 +301,11 @@ spec:
                       The GKE environment configuration settings such as project parameters and region parameters that apply to this cluster.
                     items:
                       properties:
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         project:
                           description: |-
                             (String) GCP project name.
@@ -834,6 +839,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -1243,6 +1253,11 @@ spec:
                       The GKE environment configuration settings such as project parameters and region parameters that apply to this cluster.
                     items:
                       properties:
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         project:
                           description: |-
                             (String) GCP project name.
@@ -1776,6 +1791,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
@@ -2086,6 +2106,11 @@ spec:
                       The GKE environment configuration settings such as project parameters and region parameters that apply to this cluster.
                     items:
                       properties:
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+                          type: string
                         project:
                           description: |-
                             (String) GCP project name.
@@ -2422,6 +2447,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        overrideClusterApiConfig:
+                          description: |-
+                            level and Palette-managed values.
+                            YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+                          type: string
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.

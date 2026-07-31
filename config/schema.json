@@ -9565,6 +9565,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "project": {
                       "type": "string",
                       "description": "Google Cloud project ID where cluster resources are created.",
@@ -9896,6 +9902,12 @@
                     "node_repave_interval": {
                       "type": "number",
                       "description": "Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -10322,6 +10334,12 @@
                 "nesting_mode": "list",
                 "block": {
                   "attributes": {
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "project": {
                       "type": "string",
                       "description": "GCP project name.",
@@ -10629,6 +10647,12 @@
                       "description": "Name of the GKE machine pool.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "override_kubeadm_configuration": {
                       "type": "string",
@@ -11294,6 +11318,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "ssh_keys": {
                       "type": [
                         "set",
@@ -11697,6 +11727,12 @@
                         "string"
                       ],
                       "description": "Node tags to dynamically place nodes in a pool by using MAAS automatic tags. Specify the tag values that you want to apply to all nodes in the node pool.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -12543,6 +12579,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "ssh_key": {
                       "type": "string",
                       "description": "The SSH key to be used for the cluster. This is the public key that will be used to access the cluster nodes. `ssh_key & ssh_keys` are mutually exclusive.",
@@ -12919,6 +12961,12 @@
                     "node_repave_interval": {
                       "type": "number",
                       "description": "Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "override_cluster_api_config": {
+                      "type": "string",
+                      "description": "YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.",
                       "description_kind": "plain",
                       "optional": true
                     },

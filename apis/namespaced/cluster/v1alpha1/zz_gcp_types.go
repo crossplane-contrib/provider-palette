@@ -183,6 +183,10 @@ type GCPCloudConfigInitParameters struct {
 	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -197,6 +201,10 @@ type GCPCloudConfigObservation struct {
 	// (String) VPC network name used to provision cluster resources.
 	// VPC network name used to provision cluster resources.
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
@@ -213,6 +221,11 @@ type GCPCloudConfigParameters struct {
 	// VPC network name used to provision cluster resources.
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) Google Cloud project ID where cluster resources are created.
 	// Google Cloud project ID where cluster resources are created.
@@ -918,6 +931,10 @@ type GCPMachinePoolInitParameters struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
 
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
+
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	OverrideHealthCheckConfiguration *string `json:"overrideHealthCheckConfiguration,omitempty" tf:"override_health_check_configuration,omitempty"`
@@ -1020,6 +1037,10 @@ type GCPMachinePoolObservation struct {
 	// (Number) Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is 0, Applicable only for worker pools.
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
@@ -1134,6 +1155,11 @@ type GCPMachinePoolParameters struct {
 	// Minimum number of seconds node should be Ready, before the next node is selected for repave. Default value is `0`, Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	NodeRepaveInterval *float64 `json:"nodeRepaveInterval,omitempty" tf:"node_repave_interval,omitempty"`
+
+	// level and Palette-managed values.
+	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
+	// +kubebuilder:validation:Optional
+	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
 	// (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
 	// YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
