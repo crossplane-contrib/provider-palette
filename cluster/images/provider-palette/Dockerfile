@@ -43,6 +43,11 @@ ENV TERRAFORM_PROVIDER_SOURCE ${TERRAFORM_PROVIDER_SOURCE}
 ENV TERRAFORM_PROVIDER_VERSION ${TERRAFORM_PROVIDER_VERSION}
 ENV TERRAFORM_NATIVE_PROVIDER_PATH ${PLUGIN_DIR}/${TERRAFORM_NATIVE_PROVIDER_BINARY}
 
+# Identifies Crossplane-driven traffic on the wrapped terraform-provider-spectrocloud
+# binary's X-SpectroCloud-Client header (undocumented override on that provider's
+# side, not user-facing -- inherited via process env by the subprocess it spawns).
+ENV SPECTROCLOUD_CLIENT_HEADER crossplane-provider-palette-v${TERRAFORM_PROVIDER_VERSION}
+
 USER ${USER_ID}
 EXPOSE 8080
 

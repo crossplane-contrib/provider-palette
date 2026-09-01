@@ -104,7 +104,7 @@ type ProfileInitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// place update
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	//
 	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
@@ -152,7 +152,7 @@ type ProfileObservation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// place update
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	//
 	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
@@ -354,7 +354,7 @@ type ProfileParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// place update
-	// Version of the cluster profile. Defaults to '1.0.0'.
+	// Version of the cluster profile. Defaults to '1.0.0'. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	//
 	// Default behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette.
 	// +kubebuilder:validation:Optional

@@ -23,6 +23,9 @@ type CredentialsInitParameters struct {
 	// Password for basic auth (credential). Required when credential_type is `basic`.
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
 	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
 	// Auth token (credential). Required when credential_type is `token`.
 	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
@@ -37,6 +40,9 @@ type CredentialsObservation struct {
 	// based authentication.
 	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -54,6 +60,10 @@ type CredentialsParameters struct {
 	// Password for basic auth (credential). Required when credential_type is `basic`.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	// +kubebuilder:validation:Optional
+	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
 	// Auth token (credential). Required when credential_type is `token`.
@@ -138,6 +148,62 @@ type HelmParameters struct {
 	// Default value is false. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
+}
+
+type TLSConfigInitParameters struct {
+
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	KeySecretRef *v1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
+}
+
+type TLSConfigObservation struct {
+
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigParameters struct {
+
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	// +kubebuilder:validation:Optional
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	// +kubebuilder:validation:Optional
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	// +kubebuilder:validation:Optional
+	KeySecretRef *v1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
 }
 
 // HelmSpec defines the desired state of Helm

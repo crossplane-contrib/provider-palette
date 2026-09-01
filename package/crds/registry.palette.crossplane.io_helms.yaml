@@ -103,6 +103,55 @@ spec:
                           - name
                           - namespace
                           type: object
+                        tlsConfig:
+                          description: TLS configuration for the registry. If omitted,
+                            no TLS configuration is sent.
+                          items:
+                            properties:
+                              ca:
+                                description: The certificate authority (CA) certificate,
+                                  in PEM format, used to validate the Helm registry's
+                                  TLS certificate.
+                                type: string
+                              certificate:
+                                description: The client certificate, in PEM format,
+                                  used for mutual TLS (mTLS) authentication with the
+                                  Helm registry.
+                                type: string
+                              enabled:
+                                description: Specifies whether TLS is enabled for
+                                  the connection to the Helm registry. Default value
+                                  is `true`.
+                                type: boolean
+                              insecureSkipVerify:
+                                description: 'Disables TLS certificate verification
+                                  when set to true. ⚠️ WARNING: Setting this to true
+                                  disables SSL certificate verification and makes
+                                  connections vulnerable to man-in-the-middle attacks.
+                                  Only use this when connecting to registries with
+                                  self-signed certificates in trusted networks.'
+                                type: boolean
+                              keySecretRef:
+                                description: The private key, in PEM format, corresponding
+                                  to the client certificate used for mutual TLS (mTLS)
+                                  authentication with the Helm registry.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
+                            type: object
+                          type: array
                         tokenSecretRef:
                           description: |-
                             (String, Sensitive) Auth token (credential). Required when credential_type is token.
@@ -191,6 +240,55 @@ spec:
                           - name
                           - namespace
                           type: object
+                        tlsConfig:
+                          description: TLS configuration for the registry. If omitted,
+                            no TLS configuration is sent.
+                          items:
+                            properties:
+                              ca:
+                                description: The certificate authority (CA) certificate,
+                                  in PEM format, used to validate the Helm registry's
+                                  TLS certificate.
+                                type: string
+                              certificate:
+                                description: The client certificate, in PEM format,
+                                  used for mutual TLS (mTLS) authentication with the
+                                  Helm registry.
+                                type: string
+                              enabled:
+                                description: Specifies whether TLS is enabled for
+                                  the connection to the Helm registry. Default value
+                                  is `true`.
+                                type: boolean
+                              insecureSkipVerify:
+                                description: 'Disables TLS certificate verification
+                                  when set to true. ⚠️ WARNING: Setting this to true
+                                  disables SSL certificate verification and makes
+                                  connections vulnerable to man-in-the-middle attacks.
+                                  Only use this when connecting to registries with
+                                  self-signed certificates in trusted networks.'
+                                type: boolean
+                              keySecretRef:
+                                description: The private key, in PEM format, corresponding
+                                  to the client certificate used for mutual TLS (mTLS)
+                                  authentication with the Helm registry.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
+                            type: object
+                          type: array
                         tokenSecretRef:
                           description: |-
                             (String, Sensitive) Auth token (credential). Required when credential_type is token.
@@ -355,6 +453,36 @@ spec:
                             based authentication.
                             The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
+                        tlsConfig:
+                          description: TLS configuration for the registry. If omitted,
+                            no TLS configuration is sent.
+                          items:
+                            properties:
+                              ca:
+                                description: The certificate authority (CA) certificate,
+                                  in PEM format, used to validate the Helm registry's
+                                  TLS certificate.
+                                type: string
+                              certificate:
+                                description: The client certificate, in PEM format,
+                                  used for mutual TLS (mTLS) authentication with the
+                                  Helm registry.
+                                type: string
+                              enabled:
+                                description: Specifies whether TLS is enabled for
+                                  the connection to the Helm registry. Default value
+                                  is `true`.
+                                type: boolean
+                              insecureSkipVerify:
+                                description: 'Disables TLS certificate verification
+                                  when set to true. ⚠️ WARNING: Setting this to true
+                                  disables SSL certificate verification and makes
+                                  connections vulnerable to man-in-the-middle attacks.
+                                  Only use this when connecting to registries with
+                                  self-signed certificates in trusted networks.'
+                                type: boolean
+                            type: object
+                          type: array
                         username:
                           description: |-
                             (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
