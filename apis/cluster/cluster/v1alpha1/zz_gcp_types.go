@@ -946,6 +946,9 @@ type GCPMachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []GCPMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
+
 	// (Block List) (see below for nested schema)
 	Taints []GCPMachinePoolTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
@@ -1052,6 +1055,9 @@ type GCPMachinePoolObservation struct {
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []GCPMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	Taints []GCPMachinePoolTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
@@ -1174,6 +1180,10 @@ type GCPMachinePoolParameters struct {
 	// Rolling update strategy for the machine pool.
 	// +kubebuilder:validation:Optional
 	OverrideScaling []GCPMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
+
+	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
+	// +kubebuilder:validation:Optional
+	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional

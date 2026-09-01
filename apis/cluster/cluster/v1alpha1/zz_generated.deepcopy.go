@@ -2125,6 +2125,11 @@ func (in *ApacheCloudstackMachinePoolInitParameters) DeepCopyInto(out *ApacheClo
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]MachinePoolTaintsInitParameters, len(*in))
@@ -2274,6 +2279,11 @@ func (in *ApacheCloudstackMachinePoolObservation) DeepCopyInto(out *ApacheClouds
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]MachinePoolTaintsObservation, len(*in))
@@ -2415,6 +2425,11 @@ func (in *ApacheCloudstackMachinePoolParameters) DeepCopyInto(out *ApacheCloudst
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -8131,6 +8146,11 @@ func (in *AzureMachinePoolInitParameters) DeepCopyInto(out *AzureMachinePoolInit
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]AzureMachinePoolTaintsInitParameters, len(*in))
@@ -8352,6 +8372,11 @@ func (in *AzureMachinePoolObservation) DeepCopyInto(out *AzureMachinePoolObserva
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]AzureMachinePoolTaintsObservation, len(*in))
@@ -8572,6 +8597,11 @@ func (in *AzureMachinePoolParameters) DeepCopyInto(out *AzureMachinePoolParamete
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -27654,6 +27684,11 @@ func (in *GCPMachinePoolInitParameters) DeepCopyInto(out *GCPMachinePoolInitPara
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]GCPMachinePoolTaintsInitParameters, len(*in))
@@ -27863,6 +27898,11 @@ func (in *GCPMachinePoolObservation) DeepCopyInto(out *GCPMachinePoolObservation
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
+	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
 		*out = make([]GCPMachinePoolTaintsObservation, len(*in))
@@ -28071,6 +28111,11 @@ func (in *GCPMachinePoolParameters) DeepCopyInto(out *GCPMachinePoolParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SkipK8SUpgrade != nil {
+		in, out := &in.SkipK8SUpgrade, &out.SkipK8SUpgrade
+		*out = new(string)
+		**out = **in
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints

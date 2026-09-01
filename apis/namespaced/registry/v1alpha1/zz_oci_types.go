@@ -14,6 +14,41 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type CredentialsTLSConfigInitParameters struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type CredentialsTLSConfigObservation struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type CredentialsTLSConfigParameters struct {
+
+	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
+	// +kubebuilder:validation:Optional
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
 type OciCredentialsInitParameters struct {
 
 	// (String, Sensitive) The access key for accessing the registry (credential). Required if 'credential_type' is set to 'secret'.
@@ -42,7 +77,7 @@ type OciCredentialsInitParameters struct {
 
 	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
 	// TLS configuration for the registry.
-	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []CredentialsTLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -65,7 +100,7 @@ type OciCredentialsObservation struct {
 
 	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
 	// TLS configuration for the registry.
-	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []CredentialsTLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -107,7 +142,7 @@ type OciCredentialsParameters struct {
 	// (Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)
 	// TLS configuration for the registry.
 	// +kubebuilder:validation:Optional
-	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []CredentialsTLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is 'basic'.
@@ -265,41 +300,6 @@ type OciParameters struct {
 	// This option is applicable when provider_type is set to zarf or helm. Default value is false. This option is applicable when `provider_type` is set to `zarf` or `helm`. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
-}
-
-type TLSConfigInitParameters struct {
-
-	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
-
-	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
-}
-
-type TLSConfigObservation struct {
-
-	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
-
-	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
-}
-
-type TLSConfigParameters struct {
-
-	// (String) Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	// Specifies the TLS certificate used for secure communication. Required for enabling SSL/TLS encryption.
-	// +kubebuilder:validation:Optional
-	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
-
-	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
-	// +kubebuilder:validation:Optional
-	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
 // OciSpec defines the desired state of Oci
