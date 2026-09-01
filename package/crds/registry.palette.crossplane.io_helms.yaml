@@ -186,7 +186,15 @@ spec:
                   isPrivate:
                     description: |-
                       (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                    type: boolean
+                  isSynchronization:
+                    description: Specifies whether the Helm registry is private (requiring
+                      authentication) and, as a result, synchronized by Palette. Replaces
+                      `is_private` for naming parity with `spectrocloud_registry_oci`;
+                      the Helm registry API has no independent sync flag, so this
+                      maps onto the same underlying value as the deprecated `is_private`.
+                      Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-
@@ -323,7 +331,15 @@ spec:
                   isPrivate:
                     description: |-
                       (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                    type: boolean
+                  isSynchronization:
+                    description: Specifies whether the Helm registry is private (requiring
+                      authentication) and, as a result, synchronized by Palette. Replaces
+                      `is_private` for naming parity with `spectrocloud_registry_oci`;
+                      the Helm registry API has no independent sync flag, so this
+                      maps onto the same underlying value as the deprecated `is_private`.
+                      Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-
@@ -429,10 +445,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.endpoint)
                 || (has(self.initProvider) && has(self.initProvider.endpoint))'
-            - message: spec.forProvider.isPrivate is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.isPrivate)
-                || (has(self.initProvider) && has(self.initProvider.isPrivate))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -501,7 +513,15 @@ spec:
                   isPrivate:
                     description: |-
                       (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public.
+                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                    type: boolean
+                  isSynchronization:
+                    description: Specifies whether the Helm registry is private (requiring
+                      authentication) and, as a result, synchronized by Palette. Replaces
+                      `is_private` for naming parity with `spectrocloud_registry_oci`;
+                      the Helm registry API has no independent sync flag, so this
+                      maps onto the same underlying value as the deprecated `is_private`.
+                      Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-

@@ -88,8 +88,11 @@ type HelmInitParameters struct {
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// Specifies whether the Helm registry is private (requiring authentication) and, as a result, synchronized by Palette. Replaces `is_private` for naming parity with `spectrocloud_registry_oci`; the Helm registry API has no independent sync flag, so this maps onto the same underlying value as the deprecated `is_private`. Mutually exclusive with `is_private` — set only one.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -113,8 +116,11 @@ type HelmObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// Specifies whether the Helm registry is private (requiring authentication) and, as a result, synchronized by Palette. Replaces `is_private` for naming parity with `spectrocloud_registry_oci`; the Helm registry API has no independent sync flag, so this maps onto the same underlying value as the deprecated `is_private`. Mutually exclusive with `is_private` — set only one.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -137,9 +143,13 @@ type HelmParameters struct {
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
 	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// Specifies whether the Helm registry is private (requiring authentication) and, as a result, synchronized by Palette. Replaces `is_private` for naming parity with `spectrocloud_registry_oci`; the Helm registry API has no independent sync flag, so this maps onto the same underlying value as the deprecated `is_private`. Mutually exclusive with `is_private` — set only one.
+	// +kubebuilder:validation:Optional
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -245,7 +255,6 @@ type Helm struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentials) || (has(self.initProvider) && has(self.initProvider.credentials))",message="spec.forProvider.credentials is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpoint) || (has(self.initProvider) && has(self.initProvider.endpoint))",message="spec.forProvider.endpoint is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPrivate) || (has(self.initProvider) && has(self.initProvider.isPrivate))",message="spec.forProvider.isPrivate is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   HelmSpec   `json:"spec"`
 	Status HelmStatus `json:"status,omitempty"`

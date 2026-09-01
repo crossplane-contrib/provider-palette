@@ -251,6 +251,11 @@ func (in *HelmInitParameters) DeepCopyInto(out *HelmInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IsSynchronization != nil {
+		in, out := &in.IsSynchronization, &out.IsSynchronization
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -330,6 +335,11 @@ func (in *HelmObservation) DeepCopyInto(out *HelmObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IsSynchronization != nil {
+		in, out := &in.IsSynchronization, &out.IsSynchronization
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -369,6 +379,11 @@ func (in *HelmParameters) DeepCopyInto(out *HelmParameters) {
 	}
 	if in.IsPrivate != nil {
 		in, out := &in.IsPrivate, &out.IsPrivate
+		*out = new(bool)
+		**out = **in
+	}
+	if in.IsSynchronization != nil {
+		in, out := &in.IsSynchronization, &out.IsSynchronization
 		*out = new(bool)
 		**out = **in
 	}

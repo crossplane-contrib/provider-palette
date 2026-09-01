@@ -14585,9 +14585,18 @@
               },
               "is_private": {
                 "type": "bool",
-                "description": "Specifies whether the Helm registry is private or public.",
+                "description": "Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.",
                 "description_kind": "plain",
-                "required": true
+                "deprecated": true,
+                "optional": true,
+                "computed": true
+              },
+              "is_synchronization": {
+                "type": "bool",
+                "description": "Specifies whether the Helm registry is private (requiring authentication) and, as a result, synchronized by Palette. Replaces `is_private` for naming parity with `spectrocloud_registry_oci`; the Helm registry API has no independent sync flag, so this maps onto the same underlying value as the deprecated `is_private`. Mutually exclusive with `is_private` — set only one.",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
               },
               "name": {
                 "type": "string",
