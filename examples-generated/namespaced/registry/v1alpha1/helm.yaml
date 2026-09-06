@@ -16,5 +16,5 @@ spec:
         name: example-secret
       username: abc
     endpoint: https://123456.dkr.ecr.us-west-1.amazonaws.com
-    isPrivate: true
+    isSynchronization: false
     name: us-artifactory

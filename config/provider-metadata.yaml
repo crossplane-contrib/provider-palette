@@ -348,7 +348,7 @@ resources:
             uid: (String) The unique id of the pack. This is a computed field and is not required to be set.
             update: (String)
             values: (String) The values to be used for the pack. This is a stringified JSON object.
-            version: (String) Version of the profile. Default value is 1.0.0.
+            version: (String) Version of the profile. Default value is 1.0.0. Must be a valid semantic version (e.g. 1.2.3) or a short/coerced form (e.g. 1, 1.2, v1.2.3) - malformed versions (e.g. 1.2.3.beta, V1.2.3, chart-v1.2.3) are rejected by the API on create and update.
         importStatements: []
     spectrocloud_audit_trail:
         subCategory: ""
@@ -1613,6 +1613,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             ssh_key_name: (String) SSH key name for accessing cluster nodes.
             subjects: (Block List) (see below for nested schema)
             sync_with_cks: (Boolean) Determines if an external managed CKS (CloudStack Kubernetes Service) cluster should be created. Default is false.
@@ -1992,6 +1993,7 @@ resources:
             security_group_name: (String) Network Security Group(NSG) to be attached to subnet.
             size_gb: (Number) Size of the disk in GB.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             ssh_key: (String) Public SSH key to be used for the cluster nodes.
             static_ip: (String) Static IP address for the private API server load balancer. This is optional. If not provided, Dynamic IP allocation will be used.
             storage_account_name: (String) Azure storage account name.
@@ -3163,6 +3165,7 @@ resources:
             scan_policy: '(Block List, Max: 1) The scan policy for the cluster. (see below for nested schema)'
             schedule: (String) The schedule for the backup. The schedule is specified in cron format. For example, to run the backup every day at 1:00 AM, the schedule should be set to 0 1 * * *.
             skip_completion: (Boolean) If true, the cluster will be created asynchronously. Default value is false.
+            skip_k8s_upgrade: (String) Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
             subjects: (Block List) (see below for nested schema)
             tag: (String) The tag of the pack. The tag is the version of the pack. This attribute is required if the pack type is spectro or helm. If uid is not provided, this field is required along with name and registry_uid (or registry_name) to resolve the pack UID internally.
             tags: (Set of String) A list of tags to be applied to the cluster. Tags must be in the form of key:value.
@@ -4522,20 +4525,29 @@ resources:
                     }
                   ],
                   "endpoint": "https://123456.dkr.ecr.us-west-1.amazonaws.com",
-                  "is_private": true,
+                  "is_synchronization": false,
                   "name": "us-artifactory"
                 }
         argumentDocs:
+            ca: (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+            certificate: (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
             create: (String)
             credential_type: (String) The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
             credentials: '(Block List, Min: 1, Max: 1) Authentication credentials for accessing the Helm registry. (see below for nested schema)'
             delete: (String)
+            enabled: (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
             endpoint: (String) The URL endpoint of the Helm registry where the charts are hosted.
             id: (String) The ID of this resource.
-            is_private: (Boolean) Specifies whether the Helm registry is private or public.
+            insecure_skip_verify: '(Boolean) Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.'
+            is_private: '(Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.'
+            is_synchronization: (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+            is_synchronization = false: — the registry is treated as private and is not synchronized. Use this when the repository is not reachable by Palette.
+            is_synchronization = true: — the registry is treated as public and is synchronized.
+            key: (String, Sensitive) The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
             name: (String) The name of the Helm registry. This must be unique.
             password: (String, Sensitive) Password for basic auth (credential). Required when credential_type is basic.
             timeouts: (Block, Optional) (see below for nested schema)
+            tls_config: '(Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)'
             token: (String, Sensitive) Auth token (credential). Required when credential_type is token.
             update: (String)
             username: (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.

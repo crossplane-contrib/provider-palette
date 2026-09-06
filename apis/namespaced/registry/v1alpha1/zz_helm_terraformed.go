@@ -21,7 +21,7 @@ func (mg *Helm) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Helm
 func (tr *Helm) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"credentials[*].password": "credentials[*].passwordSecretRef", "credentials[*].token": "credentials[*].tokenSecretRef"}
+	return map[string]string{"credentials[*].password": "credentials[*].passwordSecretRef", "credentials[*].tls_config[*].key": "credentials[*].tlsConfig[*].keySecretRef", "credentials[*].token": "credentials[*].tokenSecretRef"}
 }
 
 // GetObservation of this Helm

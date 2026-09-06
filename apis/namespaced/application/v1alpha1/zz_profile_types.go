@@ -234,8 +234,8 @@ type ProfileInitParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
-	// Version of the profile. Default value is 1.0.0.
+	// malformed versions (e.g. 1.2.3.beta, V1.2.3, chart-v1.2.3) are rejected by the API on create and update.
+	// Version of the profile. Default value is 1.0.0. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -269,8 +269,8 @@ type ProfileObservation struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
-	// Version of the profile. Default value is 1.0.0.
+	// malformed versions (e.g. 1.2.3.beta, V1.2.3, chart-v1.2.3) are rejected by the API on create and update.
+	// Version of the profile. Default value is 1.0.0. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -307,8 +307,8 @@ type ProfileParameters struct {
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Version of the profile. Default value is 1.0.0.
-	// Version of the profile. Default value is 1.0.0.
+	// malformed versions (e.g. 1.2.3.beta, V1.2.3, chart-v1.2.3) are rejected by the API on create and update.
+	// Version of the profile. Default value is 1.0.0. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }

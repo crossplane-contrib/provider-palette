@@ -24,6 +24,10 @@ type CredentialsInitParameters struct {
 	// Password for basic auth (credential). Required when credential_type is `basic`.
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
 	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
 	// Auth token (credential). Required when credential_type is `token`.
 	TokenSecretRef *v1.LocalSecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
@@ -38,6 +42,10 @@ type CredentialsObservation struct {
 	// based authentication.
 	// The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String) The username for basic authentication. Required if 'credential_type' is set to 'basic'.
 	// The username for basic authentication. Required if 'credential_type' is set to 'basic'.
@@ -55,6 +63,11 @@ type CredentialsParameters struct {
 	// Password for basic auth (credential). Required when credential_type is `basic`.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
+	// +kubebuilder:validation:Optional
+	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (String, Sensitive) Auth token (credential). Required when credential_type is token.
 	// Auth token (credential). Required when credential_type is `token`.
@@ -77,9 +90,13 @@ type HelmInitParameters struct {
 	// The URL endpoint of the Helm registry where the charts are hosted.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+	// Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+	// Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -102,9 +119,13 @@ type HelmObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+	// Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+	// Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -126,10 +147,15 @@ type HelmParameters struct {
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// (Boolean) Specifies whether the Helm registry is private or public.
-	// Specifies whether the Helm registry is private or public.
+	// (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+	// Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
 	// +kubebuilder:validation:Optional
 	IsPrivate *bool `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
+
+	// (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+	// Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
+	// +kubebuilder:validation:Optional
+	IsSynchronization *bool `json:"isSynchronization,omitempty" tf:"is_synchronization,omitempty"`
 
 	// (String) The name of the Helm registry. This must be unique.
 	// The name of the Helm registry. This must be unique.
@@ -139,6 +165,76 @@ type HelmParameters struct {
 	// Default value is false. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
+}
+
+type TLSConfigInitParameters struct {
+
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String, Sensitive) The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	// The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	KeySecretRef *v1.LocalSecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
+}
+
+type TLSConfigObservation struct {
+
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigParameters struct {
+
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	// The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+	// +kubebuilder:validation:Optional
+	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
+
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+	// +kubebuilder:validation:Optional
+	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
+
+	// (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+	// Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String, Sensitive) The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	// The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+	// +kubebuilder:validation:Optional
+	KeySecretRef *v1.LocalSecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
 }
 
 // HelmSpec defines the desired state of Helm
@@ -179,7 +275,6 @@ type Helm struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentials) || (has(self.initProvider) && has(self.initProvider.credentials))",message="spec.forProvider.credentials is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpoint) || (has(self.initProvider) && has(self.initProvider.endpoint))",message="spec.forProvider.endpoint is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPrivate) || (has(self.initProvider) && has(self.initProvider.isPrivate))",message="spec.forProvider.isPrivate is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   HelmSpec   `json:"spec"`
 	Status HelmStatus `json:"status,omitempty"`

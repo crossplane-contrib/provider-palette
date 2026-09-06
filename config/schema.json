@@ -630,7 +630,7 @@
               },
               "version": {
                 "type": "string",
-                "description": "Version of the profile. Default value is 1.0.0.",
+                "description": "Version of the profile. Default value is 1.0.0. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -3193,6 +3193,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
                       "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
@@ -4989,6 +4995,12 @@
                     "override_kubeadm_configuration": {
                       "type": "string",
                       "description": "YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -9923,6 +9935,12 @@
                       "description_kind": "plain",
                       "optional": true
                     },
+                    "skip_k8s_upgrade": {
+                      "type": "string",
+                      "description": "Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "update_strategy": {
                       "type": "string",
                       "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
@@ -12050,7 +12068,7 @@
               },
               "version": {
                 "type": "string",
-                "description": "Version of the cluster profile. Defaults to '1.0.0'. \n\nDefault behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. \n\nWhen the `immutable-clusterprofiles` feature_preview flag is enabled, changing this value triggers a Terraform resource **replacement** (`ForceNew`) instead of an in-place update. This is the standard Terraform Plugin SDK v2 pattern for immutable-versioned resources. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette. The Terraform resource id is set once at Create time and never mutates mid-update, so it respects the SDK v2 contract that a resource's primary id is stable across in-place updates -- outputs that reference `.id` always reflect the current version without needing `terraform apply -refresh-only`.",
+                "description": "Version of the cluster profile. Defaults to '1.0.0'. Must be a valid semantic version (e.g. `1.2.3`) or a short/coerced form (e.g. `1`, `1.2`, `v1.2.3`) - malformed versions (e.g. `1.2.3.beta`, `V1.2.3`, `chart-v1.2.3`) are rejected by the API on create and update. \n\nDefault behavior (no feature flag set): changing this value on an existing profile updates the version in place via `PUT /v1/clusterprofiles/{uid}`, which destroys the previous version. This is the legacy behavior preserved for backward compatibility. \n\nWhen the `immutable-clusterprofiles` feature_preview flag is enabled, changing this value triggers a Terraform resource **replacement** (`ForceNew`) instead of an in-place update. This is the standard Terraform Plugin SDK v2 pattern for immutable-versioned resources. Combined with `skip_destroy = true` and `lifecycle { create_before_destroy = true }`, the new version is created by cloning from the existing Palette lineage while the previous version is preserved untouched in Palette. The Terraform resource id is set once at Create time and never mutates mid-update, so it respects the SDK v2 contract that a resource's primary id is stable across in-place updates -- outputs that reference `.id` always reflect the current version without needing `terraform apply -refresh-only`.",
                 "description_kind": "plain",
                 "optional": true
               }
@@ -14567,9 +14585,18 @@
               },
               "is_private": {
                 "type": "bool",
-                "description": "Specifies whether the Helm registry is private or public.",
+                "description": "Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.",
                 "description_kind": "plain",
-                "required": true
+                "deprecated": true,
+                "optional": true,
+                "computed": true
+              },
+              "is_synchronization": {
+                "type": "bool",
+                "description": "Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
               },
               "name": {
                 "type": "string",
@@ -14614,6 +14641,49 @@
                       "description": "The username for basic authentication. Required if 'credential_type' is set to 'basic'.",
                       "description_kind": "plain",
                       "optional": true
+                    }
+                  },
+                  "block_types": {
+                    "tls_config": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "ca": {
+                            "type": "string",
+                            "description": "The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "certificate": {
+                            "type": "string",
+                            "description": "The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "enabled": {
+                            "type": "bool",
+                            "description": "Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "insecure_skip_verify": {
+                            "type": "bool",
+                            "description": "Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "key": {
+                            "type": "string",
+                            "description": "The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "sensitive": true
+                          }
+                        },
+                        "description": "TLS configuration for the registry. If omitted, no TLS configuration is sent.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
                     }
                   },
                   "description": "Authentication credentials for accessing the Helm registry.",
