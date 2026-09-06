@@ -104,37 +104,35 @@ spec:
                           - namespace
                           type: object
                         tlsConfig:
-                          description: TLS configuration for the registry. If omitted,
-                            no TLS configuration is sent.
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+                            TLS configuration for the registry. If omitted, no TLS configuration is sent.
                           items:
                             properties:
                               ca:
-                                description: The certificate authority (CA) certificate,
-                                  in PEM format, used to validate the Helm registry's
-                                  TLS certificate.
+                                description: |-
+                                  (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+                                  The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
                                 type: string
                               certificate:
-                                description: The client certificate, in PEM format,
-                                  used for mutual TLS (mTLS) authentication with the
-                                  Helm registry.
+                                description: |-
+                                  (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+                                  The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
                                 type: string
                               enabled:
-                                description: Specifies whether TLS is enabled for
-                                  the connection to the Helm registry. Default value
-                                  is `true`.
+                                description: |-
+                                  (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+                                  Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
                                 type: boolean
                               insecureSkipVerify:
-                                description: 'Disables TLS certificate verification
-                                  when set to true. ⚠️ WARNING: Setting this to true
-                                  disables SSL certificate verification and makes
-                                  connections vulnerable to man-in-the-middle attacks.
-                                  Only use this when connecting to registries with
-                                  self-signed certificates in trusted networks.'
+                                description: |-
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+                                  Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                               keySecretRef:
-                                description: The private key, in PEM format, corresponding
-                                  to the client certificate used for mutual TLS (mTLS)
-                                  authentication with the Helm registry.
+                                description: |-
+                                  (String, Sensitive) The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+                                  The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
                                 properties:
                                   key:
                                     description: The key to select.
@@ -185,16 +183,13 @@ spec:
                     type: string
                   isPrivate:
                     description: |-
-                      (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                      (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+                      Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
                     type: boolean
                   isSynchronization:
-                    description: Specifies whether the Helm registry is private (requiring
-                      authentication) and, as a result, synchronized by Palette. Replaces
-                      `is_private` for naming parity with `spectrocloud_registry_oci`;
-                      the Helm registry API has no independent sync flag, so this
-                      maps onto the same underlying value as the deprecated `is_private`.
-                      Mutually exclusive with `is_private` — set only one.
+                    description: |-
+                      (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+                      Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-
@@ -249,37 +244,35 @@ spec:
                           - namespace
                           type: object
                         tlsConfig:
-                          description: TLS configuration for the registry. If omitted,
-                            no TLS configuration is sent.
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+                            TLS configuration for the registry. If omitted, no TLS configuration is sent.
                           items:
                             properties:
                               ca:
-                                description: The certificate authority (CA) certificate,
-                                  in PEM format, used to validate the Helm registry's
-                                  TLS certificate.
+                                description: |-
+                                  (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+                                  The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
                                 type: string
                               certificate:
-                                description: The client certificate, in PEM format,
-                                  used for mutual TLS (mTLS) authentication with the
-                                  Helm registry.
+                                description: |-
+                                  (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+                                  The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
                                 type: string
                               enabled:
-                                description: Specifies whether TLS is enabled for
-                                  the connection to the Helm registry. Default value
-                                  is `true`.
+                                description: |-
+                                  (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+                                  Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
                                 type: boolean
                               insecureSkipVerify:
-                                description: 'Disables TLS certificate verification
-                                  when set to true. ⚠️ WARNING: Setting this to true
-                                  disables SSL certificate verification and makes
-                                  connections vulnerable to man-in-the-middle attacks.
-                                  Only use this when connecting to registries with
-                                  self-signed certificates in trusted networks.'
+                                description: |-
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+                                  Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                               keySecretRef:
-                                description: The private key, in PEM format, corresponding
-                                  to the client certificate used for mutual TLS (mTLS)
-                                  authentication with the Helm registry.
+                                description: |-
+                                  (String, Sensitive) The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
+                                  The private key, in PEM format, corresponding to the client certificate used for mutual TLS (mTLS) authentication with the Helm registry.
                                 properties:
                                   key:
                                     description: The key to select.
@@ -330,16 +323,13 @@ spec:
                     type: string
                   isPrivate:
                     description: |-
-                      (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                      (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+                      Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
                     type: boolean
                   isSynchronization:
-                    description: Specifies whether the Helm registry is private (requiring
-                      authentication) and, as a result, synchronized by Palette. Replaces
-                      `is_private` for naming parity with `spectrocloud_registry_oci`;
-                      the Helm registry API has no independent sync flag, so this
-                      maps onto the same underlying value as the deprecated `is_private`.
-                      Mutually exclusive with `is_private` — set only one.
+                    description: |-
+                      (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+                      Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-
@@ -466,32 +456,30 @@ spec:
                             The type of authentication used for the Helm registry. Supported values are 'noAuth' for no authentication, 'basic' for username/password, and 'token' for token-based authentication.
                           type: string
                         tlsConfig:
-                          description: TLS configuration for the registry. If omitted,
-                            no TLS configuration is sent.
+                          description: |-
+                            (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
+                            TLS configuration for the registry. If omitted, no TLS configuration is sent.
                           items:
                             properties:
                               ca:
-                                description: The certificate authority (CA) certificate,
-                                  in PEM format, used to validate the Helm registry's
-                                  TLS certificate.
+                                description: |-
+                                  (String) The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
+                                  The certificate authority (CA) certificate, in PEM format, used to validate the Helm registry's TLS certificate.
                                 type: string
                               certificate:
-                                description: The client certificate, in PEM format,
-                                  used for mutual TLS (mTLS) authentication with the
-                                  Helm registry.
+                                description: |-
+                                  (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
+                                  The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Helm registry.
                                 type: string
                               enabled:
-                                description: Specifies whether TLS is enabled for
-                                  the connection to the Helm registry. Default value
-                                  is `true`.
+                                description: |-
+                                  (Boolean) Specifies whether TLS is enabled for the connection to the Helm registry. Default value is true.
+                                  Specifies whether TLS is enabled for the connection to the Helm registry. Default value is `true`.
                                 type: boolean
                               insecureSkipVerify:
-                                description: 'Disables TLS certificate verification
-                                  when set to true. ⚠️ WARNING: Setting this to true
-                                  disables SSL certificate verification and makes
-                                  connections vulnerable to man-in-the-middle attacks.
-                                  Only use this when connecting to registries with
-                                  self-signed certificates in trusted networks.'
+                                description: |-
+                                  in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
+                                  Disables TLS certificate verification when set to true. ⚠️ WARNING: Setting this to true disables SSL certificate verification and makes connections vulnerable to man-in-the-middle attacks. Only use this when connecting to registries with self-signed certificates in trusted networks.
                                 type: boolean
                             type: object
                           type: array
@@ -512,16 +500,13 @@ spec:
                     type: string
                   isPrivate:
                     description: |-
-                      (Boolean) Specifies whether the Helm registry is private or public.
-                      Specifies whether the Helm registry is private or public. Private registries require authentication to access. **Deprecated:** use `is_synchronization` here instead.
+                      (Boolean, Deprecated) Specifies whether the Helm registry is private or public. When set to true, the registry is treated as private, requires authentication, and Palette will not synchronize it. Deprecated: use is_synchronization instead.
+                      Specifies whether the Helm registry is private or public. When set to `true`, the registry is treated as private, requires authentication, and Palette will **not** synchronize it. **Deprecated:** use `is_synchronization` instead.
                     type: boolean
                   isSynchronization:
-                    description: Specifies whether the Helm registry is private (requiring
-                      authentication) and, as a result, synchronized by Palette. Replaces
-                      `is_private` for naming parity with `spectrocloud_registry_oci`;
-                      the Helm registry API has no independent sync flag, so this
-                      maps onto the same underlying value as the deprecated `is_private`.
-                      Mutually exclusive with `is_private` — set only one.
+                    description: |-
+                      (Boolean) Specifies whether Palette synchronizes the Helm registry. When set to true, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to false, the registry is treated as private and is not synchronized — set this to false when the repository is not reachable by Palette. Mutually exclusive with is_private — set only one.
+                      Specifies whether Palette synchronizes the Helm registry. When set to `true`, the registry is treated as public and Palette synchronizes it, reading the Helm charts in the repository so their details are shown in the cluster profile section when adding layers using Helm. When set to `false`, the registry is treated as private and is **not** synchronized — set this to `false` when the repository is not reachable by Palette. Mutually exclusive with `is_private` — set only one.
                     type: boolean
                   name:
                     description: |-

@@ -1066,6 +1066,7 @@ type AzureMachinePoolInitParameters struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AzureMachinePoolOverrideScalingInitParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
@@ -1184,6 +1185,7 @@ type AzureMachinePoolObservation struct {
 	// Rolling update strategy for the machine pool.
 	OverrideScaling []AzureMachinePoolOverrideScalingObservation `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
 
@@ -1319,6 +1321,7 @@ type AzureMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideScaling []AzureMachinePoolOverrideScalingParameters `json:"overrideScaling,omitempty" tf:"override_scaling,omitempty"`
 
+	// 3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// Skip Kubernetes version upgrade for this worker pool. Use 'enabled' to skip OS/K8s update on profile upgrade (N-3 skew allowed); 'disabled' to upgrade with profile (default). Applicable only for worker pools.
 	// +kubebuilder:validation:Optional
 	SkipK8SUpgrade *string `json:"skipK8SUpgrade,omitempty" tf:"skip_k8s_upgrade,omitempty"`
