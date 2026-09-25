@@ -5754,7 +5754,7 @@
                 }
               }
             },
-            "description": "Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS (Iaas), Azure (Iaas), GCP (Iaas), Generic (Generic should be used for everything else that is not listed here), Apache CloudStack). This feature is currently in preview.",
+            "description": "Register an existing Kubernetes cluster (brownfield) with Palette. This resource allows you to import and manage existing Kubernetes clusters. Supported cloud platforms: (AWS (Iaas), Azure (Iaas), GCP (Iaas), Generic (Generic should be used for everything else that is not listed here), Apache CloudStack).",
             "description_kind": "plain"
           }
         },
@@ -5848,7 +5848,7 @@
                 }
               }
             },
-            "description": "A resource for creating and managing cluster config policies (maintenance policies). **Tech Preview**: This resource is in tech preview and may undergo changes.",
+            "description": "A resource for creating and managing cluster config policies (maintenance policies).",
             "description_kind": "plain"
           }
         },
@@ -6014,7 +6014,7 @@
                 }
               }
             },
-            "description": "A resource for creating and managing cluster config templates. **Tech Preview**: This resource is in tech preview and may undergo changes.",
+            "description": "A resource for creating and managing cluster config templates.",
             "description_kind": "plain"
           }
         },
@@ -19286,7 +19286,7 @@
                 "computed": true
               }
             },
-            "description": "Data source for retrieving information about a cluster config template. **Tech Preview**: This data source is in tech preview and may undergo changes.",
+            "description": "Data source for retrieving information about a cluster config template.",
             "description_kind": "plain"
           }
         },

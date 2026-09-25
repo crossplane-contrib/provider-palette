@@ -336,7 +336,7 @@ type ConfigTemplateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ConfigTemplate is the Schema for the ConfigTemplates API. A resource for creating and managing cluster config templates. Tech Preview: This resource is in tech preview and may undergo changes.
+// ConfigTemplate is the Schema for the ConfigTemplates API. A resource for creating and managing cluster config templates.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
