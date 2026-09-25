@@ -34,9 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'ConfigPolicy is the Schema for the ConfigPolicys API. A resource
+        description: ConfigPolicy is the Schema for the ConfigPolicys API. A resource
           for creating and managing cluster config policies (maintenance policies).
-          Tech Preview: This resource is in tech preview and may undergo changes.'
         properties:
           apiVersion:
             description: |-

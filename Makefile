@@ -9,7 +9,7 @@ PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 export TERRAFORM_VERSION ?= 1.5.7
 export TERRAFORM_PROVIDER_SOURCE := spectrocloud/spectrocloud
 export TERRAFORM_PROVIDER_REPO := https://github.com/spectrocloud/terraform-provider-spectrocloud
-export TERRAFORM_PROVIDER_VERSION := 0.30.1
+export TERRAFORM_PROVIDER_VERSION := 0.30.2
 # Identifies Crossplane-driven traffic to the wrapped terraform-provider-spectrocloud
 # binary's X-SpectroCloud-Client header (undocumented override, not user-facing --
 # see resolveClientHeader in that provider's provider.go). Inherited via process env
