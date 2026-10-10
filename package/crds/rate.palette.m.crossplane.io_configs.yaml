@@ -34,7 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Config is the Schema for the Configs API. <no value>
+        description: Config is the Schema for the Configs API. Resource for managing
+          the tenant-level cloud rate config in Spectro Cloud. The rate config defines
+          the unit prices Palette uses to estimate cluster cloud cost and usage cost.
         properties:
           apiVersion:
             description: |-
@@ -59,241 +61,287 @@ spec:
               forProvider:
                 properties:
                   apacheCloudstack:
-                    description: Unit prices used to estimate the cost of Apache CloudStack
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   aws:
-                    description: Rate proportions used to estimate the cost of AWS
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   azure:
-                    description: Rate proportions used to estimate the cost of Azure
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   custom:
-                    description: Unit prices applied to custom cloud types registered
-                      in the tenant. Each block configures one custom cloud.
+                    description: |-
+                      (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
+                      Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
                     items:
                       properties:
                         cloudType:
-                          description: Name of the custom cloud type the rates apply
-                            to. The custom cloud must already be registered in the
-                            tenant.
+                          description: |-
+                            (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
+                            Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
                           type: string
                         rateConfig:
-                          description: Unit prices used to estimate the cost of resources
-                            running on this custom cloud.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
+                            Unit prices used to estimate the cost of resources running on this custom cloud.
                           items:
                             properties:
                               cpuUnitPricePerHour:
-                                description: Price in US dollars charged for one CPU
-                                  core per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one CPU core per hour.
+                                  Price in US dollars charged for one CPU core per hour.
                                 type: number
                               gpuUnitPricePerHour:
-                                description: Price in US dollars charged for one GPU
-                                  per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GPU per hour.
+                                  Price in US dollars charged for one GPU per hour.
                                 type: number
                               memoryUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of memory per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of memory per hour.
+                                  Price in US dollars charged for one GiB of memory per hour.
                                 type: number
                               storageUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of storage per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of storage per hour.
+                                  Price in US dollars charged for one GiB of storage per hour.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   gcp:
-                    description: Rate proportions used to estimate the cost of GCP
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   generic:
-                    description: Unit prices used to estimate the cost of generic
-                      cloud resources. When omitted, Palette applies its built-in
-                      rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   maas:
-                    description: Unit prices used to estimate the cost of MAAS resources.
-                      When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   vsphere:
-                    description: Unit prices used to estimate the cost of VMware vSphere
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
@@ -312,241 +360,287 @@ spec:
                   autoscaler.
                 properties:
                   apacheCloudstack:
-                    description: Unit prices used to estimate the cost of Apache CloudStack
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   aws:
-                    description: Rate proportions used to estimate the cost of AWS
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   azure:
-                    description: Rate proportions used to estimate the cost of Azure
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   custom:
-                    description: Unit prices applied to custom cloud types registered
-                      in the tenant. Each block configures one custom cloud.
+                    description: |-
+                      (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
+                      Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
                     items:
                       properties:
                         cloudType:
-                          description: Name of the custom cloud type the rates apply
-                            to. The custom cloud must already be registered in the
-                            tenant.
+                          description: |-
+                            (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
+                            Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
                           type: string
                         rateConfig:
-                          description: Unit prices used to estimate the cost of resources
-                            running on this custom cloud.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
+                            Unit prices used to estimate the cost of resources running on this custom cloud.
                           items:
                             properties:
                               cpuUnitPricePerHour:
-                                description: Price in US dollars charged for one CPU
-                                  core per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one CPU core per hour.
+                                  Price in US dollars charged for one CPU core per hour.
                                 type: number
                               gpuUnitPricePerHour:
-                                description: Price in US dollars charged for one GPU
-                                  per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GPU per hour.
+                                  Price in US dollars charged for one GPU per hour.
                                 type: number
                               memoryUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of memory per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of memory per hour.
+                                  Price in US dollars charged for one GiB of memory per hour.
                                 type: number
                               storageUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of storage per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of storage per hour.
+                                  Price in US dollars charged for one GiB of storage per hour.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   gcp:
-                    description: Rate proportions used to estimate the cost of GCP
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   generic:
-                    description: Unit prices used to estimate the cost of generic
-                      cloud resources. When omitted, Palette applies its built-in
-                      rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   maas:
-                    description: Unit prices used to estimate the cost of MAAS resources.
-                      When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   vsphere:
-                    description: Unit prices used to estimate the cost of VMware vSphere
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
@@ -615,243 +709,290 @@ spec:
               atProvider:
                 properties:
                   apacheCloudstack:
-                    description: Unit prices used to estimate the cost of Apache CloudStack
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   aws:
-                    description: Rate proportions used to estimate the cost of AWS
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   azure:
-                    description: Rate proportions used to estimate the cost of Azure
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   custom:
-                    description: Unit prices applied to custom cloud types registered
-                      in the tenant. Each block configures one custom cloud.
+                    description: |-
+                      (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
+                      Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
                     items:
                       properties:
                         cloudType:
-                          description: Name of the custom cloud type the rates apply
-                            to. The custom cloud must already be registered in the
-                            tenant.
+                          description: |-
+                            (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
+                            Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
                           type: string
                         rateConfig:
-                          description: Unit prices used to estimate the cost of resources
-                            running on this custom cloud.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
+                            Unit prices used to estimate the cost of resources running on this custom cloud.
                           items:
                             properties:
                               cpuUnitPricePerHour:
-                                description: Price in US dollars charged for one CPU
-                                  core per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one CPU core per hour.
+                                  Price in US dollars charged for one CPU core per hour.
                                 type: number
                               gpuUnitPricePerHour:
-                                description: Price in US dollars charged for one GPU
-                                  per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GPU per hour.
+                                  Price in US dollars charged for one GPU per hour.
                                 type: number
                               memoryUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of memory per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of memory per hour.
+                                  Price in US dollars charged for one GiB of memory per hour.
                                 type: number
                               storageUnitPriceGibPerHour:
-                                description: Price in US dollars charged for one GiB
-                                  of storage per hour.
+                                description: |-
+                                  (Number) Price in US dollars charged for one GiB of storage per hour.
+                                  Price in US dollars charged for one GiB of storage per hour.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   gcp:
-                    description: Rate proportions used to estimate the cost of GCP
-                      instances. When omitted, Palette applies its built-in proportions.
+                    description: |-
+                      in proportions. (see below for nested schema)
+                      Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
                     items:
                       properties:
                         computeOptimized:
-                          description: Rate proportions applied to general purpose,
-                            compute optimized and GPU optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
+                            Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                         memoryOptimized:
-                          description: Rate proportions applied to memory optimized
-                            and storage optimized instance types.
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
+                            Rate proportions applied to memory optimized and storage optimized instance types.
                           items:
                             properties:
                               computeRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to compute. Must add up to 100 together with `memory_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+                                  Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
                                 type: number
                               memoryRateProportion:
-                                description: Percentage of the instance price attributed
-                                  to memory. Must add up to 100 together with `compute_rate_proportion`.
+                                description: |-
+                                  (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+                                  Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
                                 type: number
                             type: object
                           type: array
                       type: object
                     type: array
                   generic:
-                    description: Unit prices used to estimate the cost of generic
-                      cloud resources. When omitted, Palette applies its built-in
-                      rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   maas:
-                    description: Unit prices used to estimate the cost of MAAS resources.
-                      When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array
                   vsphere:
-                    description: Unit prices used to estimate the cost of VMware vSphere
-                      resources. When omitted, Palette applies its built-in rates.
+                    description: |-
+                      in rates. (see below for nested schema)
+                      Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
                     items:
                       properties:
                         cpuUnitPricePerHour:
-                          description: Price in US dollars charged for one CPU core
-                            per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one CPU core per hour.
+                            Price in US dollars charged for one CPU core per hour.
                           type: number
                         gpuUnitPricePerHour:
-                          description: Price in US dollars charged for one GPU per
-                            hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GPU per hour.
+                            Price in US dollars charged for one GPU per hour.
                           type: number
                         memoryUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            memory per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of memory per hour.
+                            Price in US dollars charged for one GiB of memory per hour.
                           type: number
                         storageUnitPriceGibPerHour:
-                          description: Price in US dollars charged for one GiB of
-                            storage per hour.
+                          description: |-
+                            (Number) Price in US dollars charged for one GiB of storage per hour.
+                            Price in US dollars charged for one GiB of storage per hour.
                           type: number
                       type: object
                     type: array

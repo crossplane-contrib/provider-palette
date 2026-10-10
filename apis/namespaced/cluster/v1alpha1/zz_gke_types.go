@@ -763,7 +763,7 @@ type GkeInitParameters struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []GkeClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+	// a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
 	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []GkeClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -892,6 +892,7 @@ type GkeMachinePoolInitParameters struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (Boolean) If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint node.spectrocloud.com/dedicated=true:NoExecute to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
 
@@ -981,6 +982,7 @@ type GkeMachinePoolObservation struct {
 	// Number of nodes in the machine pool.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// (Boolean) If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint node.spectrocloud.com/dedicated=true:NoExecute to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
 
@@ -1073,6 +1075,7 @@ type GkeMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
 
+	// (Boolean) If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint node.spectrocloud.com/dedicated=true:NoExecute to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
 	// +kubebuilder:validation:Optional
 	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
@@ -1240,7 +1243,7 @@ type GkeObservation struct {
 	// The RBAC binding for the cluster.
 	ClusterRbacBinding []GkeClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+	// a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
 	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []GkeClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
@@ -1378,7 +1381,7 @@ type GkeParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterRbacBinding []GkeClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
-	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
+	// a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
 	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []GkeClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`

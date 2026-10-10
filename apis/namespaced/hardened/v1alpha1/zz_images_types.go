@@ -18,20 +18,29 @@ type ClustersInitParameters struct {
 }
 
 type ClustersObservation struct {
+
+	// (Boolean)
 	Exclude *bool `json:"exclude,omitempty" tf:"exclude,omitempty"`
 
+	// (String)
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String)
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 
+	// (String)
 	ProjectUID *string `json:"projectUid,omitempty" tf:"project_uid,omitempty"`
 
+	// (String)
 	Reason *string `json:"reason,omitempty" tf:"reason,omitempty"`
 
+	// (String) Aggregated rollout progress for the tenant. Palette reports Completed once every enrolled cluster holds the secret, InProgress while the rollout is running, and Failed when at least one cluster could not be updated.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
+	// (String)
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -40,6 +49,7 @@ type ClustersParameters struct {
 
 type ImagesInitParameters struct {
 
+	// enrolls that cluster on the next apply.
 	// Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
 	// +listType=set
 	ExcludedClusterUids []*string `json:"excludedClusterUids,omitempty" tf:"excluded_cluster_uids,omitempty"`
@@ -47,24 +57,30 @@ type ImagesInitParameters struct {
 
 type ImagesObservation struct {
 
+	// (List of Object) One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too. (see below for nested schema)
 	// One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too.
 	Clusters []ClustersObservation `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
+	// enrolls that cluster on the next apply.
 	// Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
 	// +listType=set
 	ExcludedClusterUids []*string `json:"excludedClusterUids,omitempty" tf:"excluded_cluster_uids,omitempty"`
 
+	// cluster failure reason.
 	// Number of enrolled clusters that Palette could not deliver the image pull secret to. Inspect the `clusters` attribute for the per-cluster failure reason.
 	FailedClustersCount *float64 `json:"failedClustersCount,omitempty" tf:"failed_clusters_count,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Aggregated rollout progress for the tenant. Palette reports Completed once every enrolled cluster holds the secret, InProgress while the rollout is running, and Failed when at least one cluster could not be updated.
 	// Aggregated rollout progress for the tenant. Palette reports `Completed` once every enrolled cluster holds the secret, `InProgress` while the rollout is running, and `Failed` when at least one cluster could not be updated.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 type ImagesParameters struct {
 
+	// enrolls that cluster on the next apply.
 	// Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -98,7 +114,7 @@ type ImagesStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Images is the Schema for the Imagess API. <no value>
+// Images is the Schema for the Imagess API. Resource for managing hardened image adoption across a tenant in Spectro Cloud. Palette propagates the Spectro Cloud registry image pull secret to every managed workload cluster so that clusters can pull hardened images. Use this resource to opt individual clusters out of that propagation and to observe the rollout status across the tenant.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

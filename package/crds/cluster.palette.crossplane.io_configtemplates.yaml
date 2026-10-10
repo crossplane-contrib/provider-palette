@@ -177,10 +177,9 @@ spec:
                                   Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               clusterIds:
-                                description: UIDs of the specific clusters `value`
-                                  applies to. Required when `assign_strategy` is `cluster`;
-                                  must be empty when `assign_strategy` is `all` (the
-                                  value applies to every cluster attached to the template).
+                                description: |-
+                                  (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+                                  UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
                                 items:
                                   type: string
                                 type: array
@@ -439,10 +438,9 @@ spec:
                                   Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               clusterIds:
-                                description: UIDs of the specific clusters `value`
-                                  applies to. Required when `assign_strategy` is `cluster`;
-                                  must be empty when `assign_strategy` is `all` (the
-                                  value applies to every cluster attached to the template).
+                                description: |-
+                                  (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+                                  UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
                                 items:
                                   type: string
                                 type: array
@@ -726,10 +724,9 @@ spec:
                                   Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
                                 type: string
                               clusterIds:
-                                description: UIDs of the specific clusters `value`
-                                  applies to. Required when `assign_strategy` is `cluster`;
-                                  must be empty when `assign_strategy` is `all` (the
-                                  value applies to every cluster attached to the template).
+                                description: |-
+                                  (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+                                  UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
                                 items:
                                   type: string
                                 type: array

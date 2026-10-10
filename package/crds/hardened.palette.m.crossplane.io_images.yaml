@@ -34,7 +34,12 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Images is the Schema for the Imagess API. <no value>
+        description: Images is the Schema for the Imagess API. Resource for managing
+          hardened image adoption across a tenant in Spectro Cloud. Palette propagates
+          the Spectro Cloud registry image pull secret to every managed workload cluster
+          so that clusters can pull hardened images. Use this resource to opt individual
+          clusters out of that propagation and to observe the rollout status across
+          the tenant.
         properties:
           apiVersion:
             description: |-
@@ -59,10 +64,9 @@ spec:
               forProvider:
                 properties:
                   excludedClusterUids:
-                    description: Unique identifiers of the clusters that must not
-                      receive the hardened image pull secret. Palette keeps every
-                      other cluster in the tenant enrolled. Dropping an identifier
-                      from this set re-enrolls that cluster on the next apply.
+                    description: |-
+                      enrolls that cluster on the next apply.
+                      Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
                     items:
                       type: string
                     type: array
@@ -82,10 +86,9 @@ spec:
                   autoscaler.
                 properties:
                   excludedClusterUids:
-                    description: Unique identifiers of the clusters that must not
-                      receive the hardened image pull secret. Palette keeps every
-                      other cluster in the tenant enrolled. Dropping an identifier
-                      from this set re-enrolls that cluster on the next apply.
+                    description: |-
+                      enrolls that cluster on the next apply.
+                      Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
                     items:
                       type: string
                     type: array
@@ -155,51 +158,61 @@ spec:
               atProvider:
                 properties:
                   clusters:
-                    description: One entry per cluster in the tenant, reporting how
-                      far the hardened image pull secret rollout has progressed on
-                      that cluster. Clusters that are currently opted out are listed
-                      too.
+                    description: |-
+                      (List of Object) One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too. (see below for nested schema)
+                      One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too.
                     items:
                       properties:
                         exclude:
+                          description: (Boolean)
                           type: boolean
                         message:
+                          description: (String)
                           type: string
                         name:
+                          description: (String)
                           type: string
                         projectName:
+                          description: (String)
                           type: string
                         projectUid:
+                          description: (String)
                           type: string
                         reason:
+                          description: (String)
                           type: string
                         state:
+                          description: (String) Aggregated rollout progress for the
+                            tenant. Palette reports Completed once every enrolled
+                            cluster holds the secret, InProgress while the rollout
+                            is running, and Failed when at least one cluster could
+                            not be updated.
                           type: string
                         uid:
+                          description: (String)
                           type: string
                       type: object
                     type: array
                   excludedClusterUids:
-                    description: Unique identifiers of the clusters that must not
-                      receive the hardened image pull secret. Palette keeps every
-                      other cluster in the tenant enrolled. Dropping an identifier
-                      from this set re-enrolls that cluster on the next apply.
+                    description: |-
+                      enrolls that cluster on the next apply.
+                      Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   failedClustersCount:
-                    description: Number of enrolled clusters that Palette could not
-                      deliver the image pull secret to. Inspect the `clusters` attribute
-                      for the per-cluster failure reason.
+                    description: |-
+                      cluster failure reason.
+                      Number of enrolled clusters that Palette could not deliver the image pull secret to. Inspect the `clusters` attribute for the per-cluster failure reason.
                     type: number
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   state:
-                    description: Aggregated rollout progress for the tenant. Palette
-                      reports `Completed` once every enrolled cluster holds the secret,
-                      `InProgress` while the rollout is running, and `Failed` when
-                      at least one cluster could not be updated.
+                    description: |-
+                      (String) Aggregated rollout progress for the tenant. Palette reports Completed once every enrolled cluster holds the secret, InProgress while the rollout is running, and Failed when at least one cluster could not be updated.
+                      Aggregated rollout progress for the tenant. Palette reports `Completed` once every enrolled cluster holds the secret, `InProgress` while the rollout is running, and `Failed` when at least one cluster could not be updated.
                     type: string
                 type: object
               conditions:

@@ -16,48 +16,60 @@ import (
 
 type ApacheCloudstackInitParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type ApacheCloudstackObservation struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type ApacheCloudstackParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	// +kubebuilder:validation:Optional
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	// +kubebuilder:validation:Optional
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	// +kubebuilder:validation:Optional
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	// +kubebuilder:validation:Optional
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
@@ -65,28 +77,34 @@ type ApacheCloudstackParameters struct {
 
 type AwsInitParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []ComputeOptimizedInitParameters `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []MemoryOptimizedInitParameters `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type AwsObservation struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []ComputeOptimizedObservation `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []MemoryOptimizedObservation `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type AwsParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	// +kubebuilder:validation:Optional
 	ComputeOptimized []ComputeOptimizedParameters `json:"computeOptimized" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	// +kubebuilder:validation:Optional
 	MemoryOptimized []MemoryOptimizedParameters `json:"memoryOptimized" tf:"memory_optimized,omitempty"`
@@ -94,28 +112,34 @@ type AwsParameters struct {
 
 type AzureComputeOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type AzureComputeOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type AzureComputeOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -123,37 +147,45 @@ type AzureComputeOptimizedParameters struct {
 
 type AzureInitParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []AzureComputeOptimizedInitParameters `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []AzureMemoryOptimizedInitParameters `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type AzureMemoryOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type AzureMemoryOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type AzureMemoryOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -161,19 +193,23 @@ type AzureMemoryOptimizedParameters struct {
 
 type AzureObservation struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []AzureComputeOptimizedObservation `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []AzureMemoryOptimizedObservation `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type AzureParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	// +kubebuilder:validation:Optional
 	ComputeOptimized []AzureComputeOptimizedParameters `json:"computeOptimized" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	// +kubebuilder:validation:Optional
 	MemoryOptimized []AzureMemoryOptimizedParameters `json:"memoryOptimized" tf:"memory_optimized,omitempty"`
@@ -181,28 +217,34 @@ type AzureParameters struct {
 
 type ComputeOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type ComputeOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type ComputeOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -210,90 +252,115 @@ type ComputeOptimizedParameters struct {
 
 type ConfigInitParameters struct {
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
 	ApacheCloudstack []ApacheCloudstackInitParameters `json:"apacheCloudstack,omitempty" tf:"apache_cloudstack,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
 	Aws []AwsInitParameters `json:"aws,omitempty" tf:"aws,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
 	Azure []AzureInitParameters `json:"azure,omitempty" tf:"azure,omitempty"`
 
+	// (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
 	// Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
 	Custom []CustomInitParameters `json:"custom,omitempty" tf:"custom,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
 	GCP []GCPInitParameters `json:"gcp,omitempty" tf:"gcp,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
 	Generic []GenericInitParameters `json:"generic,omitempty" tf:"generic,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
 	Maas []MaasInitParameters `json:"maas,omitempty" tf:"maas,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
 	Vsphere []VsphereInitParameters `json:"vsphere,omitempty" tf:"vsphere,omitempty"`
 }
 
 type ConfigObservation struct {
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
 	ApacheCloudstack []ApacheCloudstackObservation `json:"apacheCloudstack,omitempty" tf:"apache_cloudstack,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
 	Aws []AwsObservation `json:"aws,omitempty" tf:"aws,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
 	Azure []AzureObservation `json:"azure,omitempty" tf:"azure,omitempty"`
 
+	// (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
 	// Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
 	Custom []CustomObservation `json:"custom,omitempty" tf:"custom,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
 	GCP []GCPObservation `json:"gcp,omitempty" tf:"gcp,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
 	Generic []GenericObservation `json:"generic,omitempty" tf:"generic,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
 	Maas []MaasObservation `json:"maas,omitempty" tf:"maas,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
 	Vsphere []VsphereObservation `json:"vsphere,omitempty" tf:"vsphere,omitempty"`
 }
 
 type ConfigParameters struct {
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.
 	// +kubebuilder:validation:Optional
 	ApacheCloudstack []ApacheCloudstackParameters `json:"apacheCloudstack,omitempty" tf:"apache_cloudstack,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.
 	// +kubebuilder:validation:Optional
 	Aws []AwsParameters `json:"aws,omitempty" tf:"aws,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.
 	// +kubebuilder:validation:Optional
 	Azure []AzureParameters `json:"azure,omitempty" tf:"azure,omitempty"`
 
+	// (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
 	// Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.
 	// +kubebuilder:validation:Optional
 	Custom []CustomParameters `json:"custom,omitempty" tf:"custom,omitempty"`
 
+	// in proportions. (see below for nested schema)
 	// Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.
 	// +kubebuilder:validation:Optional
 	GCP []GCPParameters `json:"gcp,omitempty" tf:"gcp,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.
 	// +kubebuilder:validation:Optional
 	Generic []GenericParameters `json:"generic,omitempty" tf:"generic,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.
 	// +kubebuilder:validation:Optional
 	Maas []MaasParameters `json:"maas,omitempty" tf:"maas,omitempty"`
 
+	// in rates. (see below for nested schema)
 	// Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.
 	// +kubebuilder:validation:Optional
 	Vsphere []VsphereParameters `json:"vsphere,omitempty" tf:"vsphere,omitempty"`
@@ -301,28 +368,34 @@ type ConfigParameters struct {
 
 type CustomInitParameters struct {
 
+	// (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	// Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
 	// Unit prices used to estimate the cost of resources running on this custom cloud.
 	RateConfig []RateConfigInitParameters `json:"rateConfig,omitempty" tf:"rate_config,omitempty"`
 }
 
 type CustomObservation struct {
 
+	// (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	// Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	CloudType *string `json:"cloudType,omitempty" tf:"cloud_type,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
 	// Unit prices used to estimate the cost of resources running on this custom cloud.
 	RateConfig []RateConfigObservation `json:"rateConfig,omitempty" tf:"rate_config,omitempty"`
 }
 
 type CustomParameters struct {
 
+	// (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	// Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
 	// +kubebuilder:validation:Optional
 	CloudType *string `json:"cloudType" tf:"cloud_type,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)
 	// Unit prices used to estimate the cost of resources running on this custom cloud.
 	// +kubebuilder:validation:Optional
 	RateConfig []RateConfigParameters `json:"rateConfig" tf:"rate_config,omitempty"`
@@ -330,28 +403,34 @@ type CustomParameters struct {
 
 type GCPComputeOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type GCPComputeOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type GCPComputeOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -359,37 +438,45 @@ type GCPComputeOptimizedParameters struct {
 
 type GCPInitParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []GCPComputeOptimizedInitParameters `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []GCPMemoryOptimizedInitParameters `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type GCPMemoryOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type GCPMemoryOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type GCPMemoryOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -397,19 +484,23 @@ type GCPMemoryOptimizedParameters struct {
 
 type GCPObservation struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	ComputeOptimized []GCPComputeOptimizedObservation `json:"computeOptimized,omitempty" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	MemoryOptimized []GCPMemoryOptimizedObservation `json:"memoryOptimized,omitempty" tf:"memory_optimized,omitempty"`
 }
 
 type GCPParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)
 	// Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.
 	// +kubebuilder:validation:Optional
 	ComputeOptimized []GCPComputeOptimizedParameters `json:"computeOptimized" tf:"compute_optimized,omitempty"`
 
+	// (Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)
 	// Rate proportions applied to memory optimized and storage optimized instance types.
 	// +kubebuilder:validation:Optional
 	MemoryOptimized []GCPMemoryOptimizedParameters `json:"memoryOptimized" tf:"memory_optimized,omitempty"`
@@ -417,48 +508,60 @@ type GCPParameters struct {
 
 type GenericInitParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type GenericObservation struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type GenericParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	// +kubebuilder:validation:Optional
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	// +kubebuilder:validation:Optional
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	// +kubebuilder:validation:Optional
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	// +kubebuilder:validation:Optional
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
@@ -466,48 +569,60 @@ type GenericParameters struct {
 
 type MaasInitParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type MaasObservation struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type MaasParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	// +kubebuilder:validation:Optional
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	// +kubebuilder:validation:Optional
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	// +kubebuilder:validation:Optional
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	// +kubebuilder:validation:Optional
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
@@ -515,28 +630,34 @@ type MaasParameters struct {
 
 type MemoryOptimizedInitParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type MemoryOptimizedObservation struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	ComputeRateProportion *float64 `json:"computeRateProportion,omitempty" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	MemoryRateProportion *float64 `json:"memoryRateProportion,omitempty" tf:"memory_rate_proportion,omitempty"`
 }
 
 type MemoryOptimizedParameters struct {
 
+	// (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
 	// Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	ComputeRateProportion *float64 `json:"computeRateProportion" tf:"compute_rate_proportion,omitempty"`
 
+	// (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
 	// Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.
 	// +kubebuilder:validation:Optional
 	MemoryRateProportion *float64 `json:"memoryRateProportion" tf:"memory_rate_proportion,omitempty"`
@@ -544,48 +665,60 @@ type MemoryOptimizedParameters struct {
 
 type RateConfigInitParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type RateConfigObservation struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type RateConfigParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	// +kubebuilder:validation:Optional
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	// +kubebuilder:validation:Optional
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	// +kubebuilder:validation:Optional
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	// +kubebuilder:validation:Optional
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
@@ -593,48 +726,60 @@ type RateConfigParameters struct {
 
 type VsphereInitParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type VsphereObservation struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
 }
 
 type VsphereParameters struct {
 
+	// (Number) Price in US dollars charged for one CPU core per hour.
 	// Price in US dollars charged for one CPU core per hour.
 	// +kubebuilder:validation:Optional
 	CPUUnitPricePerHour *float64 `json:"cpuUnitPricePerHour,omitempty" tf:"cpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GPU per hour.
 	// Price in US dollars charged for one GPU per hour.
 	// +kubebuilder:validation:Optional
 	GpuUnitPricePerHour *float64 `json:"gpuUnitPricePerHour,omitempty" tf:"gpu_unit_price_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of memory per hour.
 	// Price in US dollars charged for one GiB of memory per hour.
 	// +kubebuilder:validation:Optional
 	MemoryUnitPriceGibPerHour *float64 `json:"memoryUnitPriceGibPerHour,omitempty" tf:"memory_unit_price_gib_per_hour,omitempty"`
 
+	// (Number) Price in US dollars charged for one GiB of storage per hour.
 	// Price in US dollars charged for one GiB of storage per hour.
 	// +kubebuilder:validation:Optional
 	StorageUnitPriceGibPerHour *float64 `json:"storageUnitPriceGibPerHour,omitempty" tf:"storage_unit_price_gib_per_hour,omitempty"`
@@ -667,7 +812,7 @@ type ConfigStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Config is the Schema for the Configs API. <no value>
+// Config is the Schema for the Configs API. Resource for managing the tenant-level cloud rate config in Spectro Cloud. The rate config defines the unit prices Palette uses to estimate cluster cloud cost and usage cost.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

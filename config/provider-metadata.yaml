@@ -872,7 +872,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -1530,7 +1530,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -1737,7 +1737,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
@@ -1914,7 +1914,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -2332,6 +2332,7 @@ resources:
             assign_strategy: (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
             attached_cluster: (List of Object) List of clusters attached to this template. (see below for nested schema)
             cloud_type: '(String) The cloud type for the cluster template. Examples: ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
+            cluster_ids: (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
             cluster_profile: (Block Set) Set of cluster profile references. (see below for nested schema)
             cluster_uid: (String)
             context: (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2481,7 +2482,7 @@ resources:
             cloud_config_id: (String, Deprecated) Identifier of the generated cloud configuration associated with this custom cloud cluster.
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
@@ -2624,7 +2625,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -2742,7 +2743,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -2924,7 +2925,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -2935,6 +2936,7 @@ resources:
             country_code: (String)
             country_name: (String)
             create: (String)
+            dedicate_node_pool_for_system_pods: (Boolean) If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint node.spectrocloud.com/dedicated=true:NoExecute to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
             delete: (String)
             description: (String) The description of the cluster. Default value is empty string.
             disk_size_gb: (Number) Root disk size in GB for each node in this machine pool.
@@ -3094,7 +3096,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -3237,7 +3239,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -3248,6 +3250,7 @@ resources:
             country_code: (String)
             country_name: (String)
             create: (String)
+            dedicate_node_pool_for_system_pods: (Boolean) If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint node.spectrocloud.com/dedicated=true:NoExecute to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
             delete: (String)
             description: (String) The description of the cluster. Default value is empty string.
             disk_size_gb: (Number) Root disk size in GB for each node in this machine pool.
@@ -3364,7 +3367,7 @@ resources:
             host_dns: (String) The host DNS wildcard for the cluster. i.e. *.dev or *test.com
             host_endpoint_type: (String) The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
             id: (String) The ID of this resource.
-            k8s_distribution: (String) The Kubernetes distribution, allowed values are vcluster-generic,k3s and cncf_k8s.
+            k8s_distribution: (String) The Kubernetes distribution, allowed values are vcluster-generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
             manifest: (Block List) (see below for nested schema)
             memory_in_mb: (Number) The memory limit in megabytes (MB).
             name: (String) Name of the cluster group.
@@ -3489,7 +3492,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_type: (String) The cluster type. Valid values are PureManage and PureAttach. This field can only be set during cluster creation and cannot be modified after the cluster is created. If not specified, the cluster will use the default type determined by the system.
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
@@ -3967,7 +3970,7 @@ resources:
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
-            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)'
+            cluster_template: '(Block List, Max: 1) The cluster template of the cluster. If the cluster was created with cluster_profile and this is populated in a later apply (with cluster_profile removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template''s batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)'
             cluster_timezone: (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
             cluster_uids: (Set of String) The list of cluster UIDs to include in the backup. If include_all_clusters is set to true, then all clusters will be included.
             configuration_scan_schedule: (String) The schedule for configuration scan.
@@ -4251,6 +4254,38 @@ resources:
             update: (String)
             values: (List of String) Values of the filter.
         importStatements: []
+    spectrocloud_hardened_images:
+        subCategory: ""
+        description: Resource for managing hardened image adoption across a tenant in Spectro Cloud. Palette propagates the Spectro Cloud registry image pull secret to every managed workload cluster so that clusters can pull hardened images. Use this resource to opt individual clusters out of that propagation and to observe the rollout status across the tenant.
+        name: spectrocloud_hardened_images
+        title: spectrocloud_hardened_images Resource - terraform-provider-spectrocloud
+        examples:
+            - name: hardened_images
+              manifest: |-
+                {
+                  "excluded_cluster_uids": [
+                    "6512f1a3b0e4d8c7a9f21b40",
+                    "6512f1a3b0e4d8c7a9f21b57"
+                  ]
+                }
+        argumentDocs:
+            clusters: (List of Object) One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too. (see below for nested schema)
+            create: (String)
+            delete: (String)
+            exclude: (Boolean)
+            excluded_cluster_uids: (Set of String) Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.
+            failed_clusters_count: (Number) Number of enrolled clusters that Palette could not deliver the image pull secret to. Inspect the clusters attribute for the per-cluster failure reason.
+            id: (String) The ID of this resource.
+            message: (String)
+            name: (String)
+            project_name: (String)
+            project_uid: (String)
+            reason: (String)
+            state: (String) Aggregated rollout progress for the tenant. Palette reports Completed once every enrolled cluster holds the secret, InProgress while the rollout is running, and Failed when at least one cluster could not be updated.
+            timeouts: (Block, Optional) (see below for nested schema)
+            uid: (String)
+            update: (String)
+        importStatements: []
     spectrocloud_macros:
         subCategory: ""
         description: A resource for creating and managing service output variables and macros.
@@ -4479,6 +4514,78 @@ resources:
             tags: (Set of String) Set of tag strings to assign to the project.
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
+        importStatements: []
+    spectrocloud_rate_config:
+        subCategory: ""
+        description: Resource for managing the tenant-level cloud rate config in Spectro Cloud. The rate config defines the unit prices Palette uses to estimate cluster cloud cost and usage cost.
+        name: spectrocloud_rate_config
+        title: spectrocloud_rate_config Resource - terraform-provider-spectrocloud
+        examples:
+            - name: rate_config
+              manifest: |-
+                {
+                  "aws": [
+                    {
+                      "compute_optimized": [
+                        {
+                          "compute_rate_proportion": 65,
+                          "memory_rate_proportion": 35
+                        }
+                      ],
+                      "memory_optimized": [
+                        {
+                          "compute_rate_proportion": 25,
+                          "memory_rate_proportion": 75
+                        }
+                      ]
+                    }
+                  ],
+                  "custom": [
+                    {
+                      "cloud_type": "my-custom-cloud",
+                      "rate_config": [
+                        {
+                          "cpu_unit_price_per_hour": 0.03,
+                          "gpu_unit_price_per_hour": 3.5,
+                          "memory_unit_price_gib_per_hour": 0.004,
+                          "storage_unit_price_gib_per_hour": 0.00004
+                        }
+                      ]
+                    }
+                  ],
+                  "vsphere": [
+                    {
+                      "cpu_unit_price_per_hour": 0.025,
+                      "gpu_unit_price_per_hour": 3.1,
+                      "memory_unit_price_gib_per_hour": 0.003,
+                      "storage_unit_price_gib_per_hour": 0.00003
+                    }
+                  ]
+                }
+        argumentDocs:
+            apache_cloudstack: '(Block List, Max: 1) Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates. (see below for nested schema)'
+            aws: '(Block List, Max: 1) Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions. (see below for nested schema)'
+            azure: '(Block List, Max: 1) Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions. (see below for nested schema)'
+            cloud_type: (String) Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.
+            compute_optimized: '(Block List, Min: 1, Max: 1) Rate proportions applied to general purpose, compute optimized and GPU optimized instance types. (see below for nested schema)'
+            compute_rate_proportion: (Number) Percentage of the instance price attributed to compute. Must add up to 100 together with memory_rate_proportion.
+            cpu_unit_price_per_hour: (Number) Price in US dollars charged for one CPU core per hour.
+            create: (String)
+            custom: (Block List) Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud. (see below for nested schema)
+            delete: (String)
+            gcp: '(Block List, Max: 1) Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions. (see below for nested schema)'
+            generic: '(Block List, Max: 1) Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates. (see below for nested schema)'
+            gpu_unit_price_per_hour: (Number) Price in US dollars charged for one GPU per hour.
+            id: (String) The ID of this resource.
+            maas: '(Block List, Max: 1) Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates. (see below for nested schema)'
+            memory_optimized: '(Block List, Min: 1, Max: 1) Rate proportions applied to memory optimized and storage optimized instance types. (see below for nested schema)'
+            memory_rate_proportion: (Number) Percentage of the instance price attributed to memory. Must add up to 100 together with compute_rate_proportion.
+            memory_unit_price_gib_per_hour: (Number) Price in US dollars charged for one GiB of memory per hour.
+            rate_config: '(Block List, Min: 1, Max: 1) Unit prices used to estimate the cost of resources running on this custom cloud. (see below for nested schema)'
+            storage_unit_price_gib_per_hour: (Number) Price in US dollars charged for one GiB of storage per hour.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            vsphere: '(Block List, Max: 1) Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates. (see below for nested schema)'
         importStatements: []
     spectrocloud_registration_token:
         subCategory: ""
