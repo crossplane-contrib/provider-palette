@@ -59,8 +59,8 @@ type ConfigInitParameters struct {
 	// The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// generic,k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 
 	// (Number) The memory limit in megabytes (MB).
@@ -90,8 +90,8 @@ type ConfigObservation struct {
 	// The host endpoint type. Allowed values are 'Ingress' or 'LoadBalancer'. Defaults to 'Ingress'.
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// generic,k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 
 	// (Number) The memory limit in megabytes (MB).
@@ -123,8 +123,8 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	HostEndpointType *string `json:"hostEndpointType,omitempty" tf:"host_endpoint_type,omitempty"`
 
-	// generic,k3s and cncf_k8s.
-	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+	// generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+	// The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
 	// +kubebuilder:validation:Optional
 	K8SDistribution *string `json:"k8sDistribution,omitempty" tf:"k8s_distribution,omitempty"`
 

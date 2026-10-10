@@ -2139,7 +2139,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -3048,7 +3048,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -3912,7 +3912,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -4863,7 +4863,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -5946,6 +5946,15 @@
                             "description_kind": "plain",
                             "optional": true
                           },
+                          "cluster_ids": {
+                            "type": [
+                              "set",
+                              "string"
+                            ],
+                            "description": "UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
                           "name": {
                             "type": "string",
                             "description": "Name of the variable.",
@@ -6470,7 +6479,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -7148,7 +7157,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -7312,6 +7321,15 @@
                       "nesting_mode": "set",
                       "block": {
                         "attributes": {
+                          "additional_labels": {
+                            "type": [
+                              "map",
+                              "string"
+                            ],
+                            "description": "Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
                           "default_gateway": {
                             "type": "string",
                             "description": "Default gateway IP address for the edge host network interface.",
@@ -7362,6 +7380,34 @@
                             "description": "Two node role for edge host. Valid values are `primary` and `secondary`.",
                             "description_kind": "plain",
                             "optional": true
+                          }
+                        },
+                        "block_types": {
+                          "taints": {
+                            "nesting_mode": "list",
+                            "block": {
+                              "attributes": {
+                                "effect": {
+                                  "type": "string",
+                                  "description": "The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "key": {
+                                  "type": "string",
+                                  "description": "The key of the taint.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                },
+                                "value": {
+                                  "type": "string",
+                                  "description": "The value of the taint.",
+                                  "description_kind": "plain",
+                                  "required": true
+                                }
+                              },
+                              "description_kind": "plain"
+                            }
                           }
                         },
                         "description_kind": "plain"
@@ -8007,7 +8053,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -8922,7 +8968,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -9075,6 +9121,12 @@
                       "description": "Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "dedicate_node_pool_for_system_pods": {
+                      "type": "bool",
+                      "description": "If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "disk_size_gb": {
                       "type": "number",
@@ -9806,7 +9858,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -10582,7 +10634,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -10647,6 +10699,12 @@
                       "description": "Number of nodes in the machine pool.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "dedicate_node_pool_for_system_pods": {
+                      "type": "bool",
+                      "description": "If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.",
+                      "description_kind": "plain",
+                      "optional": true
                     },
                     "disk_size_gb": {
                       "type": "number",
@@ -11022,7 +11080,7 @@
                     },
                     "k8s_distribution": {
                       "type": "string",
-                      "description": "The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.",
+                      "description": "The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -11562,7 +11620,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -12836,7 +12894,7 @@
                       }
                     }
                   },
-                  "description": "The cluster template of the cluster.",
+                  "description": "The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.",
                   "description_kind": "plain"
                 },
                 "max_items": 1
@@ -13994,6 +14052,88 @@
             "description_kind": "plain"
           }
         },
+        "spectrocloud_hardened_images": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "clusters": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "exclude": "bool",
+                      "message": "string",
+                      "name": "string",
+                      "project_name": "string",
+                      "project_uid": "string",
+                      "reason": "string",
+                      "state": "string",
+                      "uid": "string"
+                    }
+                  ]
+                ],
+                "description": "One entry per cluster in the tenant, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "excluded_cluster_uids": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Unique identifiers of the clusters that must not receive the hardened image pull secret. Palette keeps every other cluster in the tenant enrolled. Dropping an identifier from this set re-enrolls that cluster on the next apply.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "failed_clusters_count": {
+                "type": "number",
+                "description": "Number of enrolled clusters that Palette could not deliver the image pull secret to. Inspect the `clusters` attribute for the per-cluster failure reason.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "state": {
+                "type": "string",
+                "description": "Aggregated rollout progress for the tenant. Palette reports `Completed` once every enrolled cluster holds the secret, `InProgress` while the rollout is running, and `Failed` when at least one cluster could not be updated.",
+                "description_kind": "plain",
+                "computed": true
+              }
+            },
+            "block_types": {
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "Resource for managing hardened image adoption across a tenant in Spectro Cloud. Palette propagates the Spectro Cloud registry image pull secret to every managed workload cluster so that clusters can pull hardened images. Use this resource to opt individual clusters out of that propagation and to observe the rollout status across the tenant.",
+            "description_kind": "plain"
+          }
+        },
         "spectrocloud_macros": {
           "version": 1,
           "block": {
@@ -14487,6 +14627,422 @@
               }
             },
             "description": "Create and manage projects in Palette.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_rate_config": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              }
+            },
+            "block_types": {
+              "apache_cloudstack": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one CPU core per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "gpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GPU per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "memory_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of memory per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "storage_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of storage per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    }
+                  },
+                  "description": "Unit prices used to estimate the cost of Apache CloudStack resources. When omitted, Palette applies its built-in rates.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "aws": {
+                "nesting_mode": "list",
+                "block": {
+                  "block_types": {
+                    "compute_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    },
+                    "memory_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to memory optimized and storage optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Rate proportions used to estimate the cost of AWS instances. When omitted, Palette applies its built-in proportions.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "azure": {
+                "nesting_mode": "list",
+                "block": {
+                  "block_types": {
+                    "compute_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    },
+                    "memory_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to memory optimized and storage optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Rate proportions used to estimate the cost of Azure instances. When omitted, Palette applies its built-in proportions.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "custom": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cloud_type": {
+                      "type": "string",
+                      "description": "Name of the custom cloud type the rates apply to. The custom cloud must already be registered in the tenant.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "block_types": {
+                    "rate_config": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "cpu_unit_price_per_hour": {
+                            "type": "number",
+                            "description": "Price in US dollars charged for one CPU core per hour.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "gpu_unit_price_per_hour": {
+                            "type": "number",
+                            "description": "Price in US dollars charged for one GPU per hour.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "memory_unit_price_gib_per_hour": {
+                            "type": "number",
+                            "description": "Price in US dollars charged for one GiB of memory per hour.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "storage_unit_price_gib_per_hour": {
+                            "type": "number",
+                            "description": "Price in US dollars charged for one GiB of storage per hour.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "computed": true
+                          }
+                        },
+                        "description": "Unit prices used to estimate the cost of resources running on this custom cloud.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Unit prices applied to custom cloud types registered in the tenant. Each block configures one custom cloud.",
+                  "description_kind": "plain"
+                }
+              },
+              "gcp": {
+                "nesting_mode": "list",
+                "block": {
+                  "block_types": {
+                    "compute_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to general purpose, compute optimized and GPU optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    },
+                    "memory_optimized": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "compute_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to compute. Must add up to 100 together with `memory_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          },
+                          "memory_rate_proportion": {
+                            "type": "number",
+                            "description": "Percentage of the instance price attributed to memory. Must add up to 100 together with `compute_rate_proportion`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "Rate proportions applied to memory optimized and storage optimized instance types.",
+                        "description_kind": "plain"
+                      },
+                      "min_items": 1,
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Rate proportions used to estimate the cost of GCP instances. When omitted, Palette applies its built-in proportions.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "generic": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one CPU core per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "gpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GPU per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "memory_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of memory per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "storage_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of storage per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    }
+                  },
+                  "description": "Unit prices used to estimate the cost of generic cloud resources. When omitted, Palette applies its built-in rates.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "maas": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one CPU core per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "gpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GPU per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "memory_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of memory per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "storage_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of storage per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    }
+                  },
+                  "description": "Unit prices used to estimate the cost of MAAS resources. When omitted, Palette applies its built-in rates.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              },
+              "vsphere": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "cpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one CPU core per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "gpu_unit_price_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GPU per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "memory_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of memory per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "storage_unit_price_gib_per_hour": {
+                      "type": "number",
+                      "description": "Price in US dollars charged for one GiB of storage per hour.",
+                      "description_kind": "plain",
+                      "optional": true,
+                      "computed": true
+                    }
+                  },
+                  "description": "Unit prices used to estimate the cost of VMware vSphere resources. When omitted, Palette applies its built-in rates.",
+                  "description_kind": "plain"
+                },
+                "max_items": 1
+              }
+            },
+            "description": "Resource for managing the tenant-level cloud rate config in Spectro Cloud. The rate config defines the unit prices Palette uses to estimate cluster cloud cost and usage cost.",
             "description_kind": "plain"
           }
         },
@@ -19460,6 +20016,75 @@
             "description_kind": "plain"
           }
         },
+        "spectrocloud_hardened_images": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "cluster_name": {
+                "type": "string",
+                "description": "Restrict the report to clusters whose name matches this value.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "clusters": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "exclude": "bool",
+                      "message": "string",
+                      "name": "string",
+                      "project_name": "string",
+                      "project_uid": "string",
+                      "reason": "string",
+                      "state": "string",
+                      "uid": "string"
+                    }
+                  ]
+                ],
+                "description": "One entry per cluster the filters matched, reporting how far the hardened image pull secret rollout has progressed on that cluster. Clusters that are currently opted out are listed too.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "excluded_cluster_uids": {
+                "type": [
+                  "set",
+                  "string"
+                ],
+                "description": "Unique identifiers of the clusters that are currently opted out of hardened image pull secret propagation.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "failed_clusters_count": {
+                "type": "number",
+                "description": "Number of enrolled clusters that Palette could not deliver the image pull secret to. Inspect the `clusters` attribute for the per-cluster failure reason.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "project_uid": {
+                "type": "string",
+                "description": "Restrict the report to clusters that belong to the project with this unique identifier.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "state": {
+                "type": "string",
+                "description": "Aggregated rollout progress for the tenant. Palette reports `Completed` once every enrolled cluster holds the secret, `InProgress` while the rollout is running, and `Failed` when at least one cluster could not be updated.",
+                "description_kind": "plain",
+                "computed": true
+              }
+            },
+            "description": "Provides the hardened image rollout status for a tenant. Palette propagates the Spectro Cloud registry image pull secret to managed workload clusters so they can pull hardened images, and this data source reports how far that rollout has progressed.",
+            "description_kind": "plain"
+          }
+        },
         "spectrocloud_ippool": {
           "version": 0,
           "block": {
@@ -19826,6 +20451,214 @@
               }
             },
             "description": "Data source for looking up a Spectro Cloud project by name.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_rate_config": {
+          "version": 1,
+          "block": {
+            "attributes": {
+              "apache_cloudstack": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cpu_unit_price_per_hour": "number",
+                      "gpu_unit_price_per_hour": "number",
+                      "memory_unit_price_gib_per_hour": "number",
+                      "storage_unit_price_gib_per_hour": "number"
+                    }
+                  ]
+                ],
+                "description": "Unit prices used to estimate the cost of Apache CloudStack resources.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "aws": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "compute_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ],
+                      "memory_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Rate proportions used to estimate the cost of AWS instances.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "azure": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "compute_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ],
+                      "memory_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Rate proportions used to estimate the cost of Azure instances.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "custom": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cloud_type": "string",
+                      "rate_config": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "cpu_unit_price_per_hour": "number",
+                            "gpu_unit_price_per_hour": "number",
+                            "memory_unit_price_gib_per_hour": "number",
+                            "storage_unit_price_gib_per_hour": "number"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Unit prices applied to the custom cloud types registered in the tenant. One block per custom cloud.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "gcp": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "compute_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ],
+                      "memory_optimized": [
+                        "list",
+                        [
+                          "object",
+                          {
+                            "compute_rate_proportion": "number",
+                            "memory_rate_proportion": "number"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ],
+                "description": "Rate proportions used to estimate the cost of GCP instances.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "generic": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cpu_unit_price_per_hour": "number",
+                      "gpu_unit_price_per_hour": "number",
+                      "memory_unit_price_gib_per_hour": "number",
+                      "storage_unit_price_gib_per_hour": "number"
+                    }
+                  ]
+                ],
+                "description": "Unit prices used to estimate the cost of generic cloud resources.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "maas": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cpu_unit_price_per_hour": "number",
+                      "gpu_unit_price_per_hour": "number",
+                      "memory_unit_price_gib_per_hour": "number",
+                      "storage_unit_price_gib_per_hour": "number"
+                    }
+                  ]
+                ],
+                "description": "Unit prices used to estimate the cost of MAAS resources.",
+                "description_kind": "plain",
+                "computed": true
+              },
+              "vsphere": {
+                "type": [
+                  "list",
+                  [
+                    "object",
+                    {
+                      "cpu_unit_price_per_hour": "number",
+                      "gpu_unit_price_per_hour": "number",
+                      "memory_unit_price_gib_per_hour": "number",
+                      "storage_unit_price_gib_per_hour": "number"
+                    }
+                  ]
+                ],
+                "description": "Unit prices used to estimate the cost of VMware vSphere resources.",
+                "description_kind": "plain",
+                "computed": true
+              }
+            },
+            "description": "Provides the tenant-level cloud rate config, the unit prices Palette uses to estimate cluster cloud cost and usage cost.",
             "description_kind": "plain"
           }
         },

@@ -1,0 +1,30 @@
+apiVersion: rate.palette.m.crossplane.io/v1alpha1
+kind: Config
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rate/v1alpha1/config
+  labels:
+    testing.upbound.io/example-name: rate_config
+  name: rate-config
+  namespace: upbound-system
+spec:
+  forProvider:
+    aws:
+    - computeOptimized:
+      - computeRateProportion: 65
+        memoryRateProportion: 35
+      memoryOptimized:
+      - computeRateProportion: 25
+        memoryRateProportion: 75
+    custom:
+    - cloudType: my-custom-cloud
+      rateConfig:
+      - cpuUnitPricePerHour: 0.03
+        gpuUnitPricePerHour: 3.5
+        memoryUnitPriceGibPerHour: 0.004
+        storageUnitPriceGibPerHour: 4e-05
+    vsphere:
+    - cpuUnitPricePerHour: 0.025
+      gpuUnitPricePerHour: 3.1
+      memoryUnitPriceGibPerHour: 0.003
+      storageUnitPriceGibPerHour: 3e-05

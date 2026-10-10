@@ -469,8 +469,8 @@ spec:
                     type: array
                   clusterTemplate:
                     description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                      a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
+                      The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
                     items:
                       properties:
                         clusterProfile:
@@ -782,6 +782,14 @@ spec:
                             schema)'
                           items:
                             properties:
+                              additionalLabels:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                                  Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+                                type: object
+                                x-kubernetes-map-type: granular
                               defaultGateway:
                                 description: |-
                                   (String) Default gateway IP address for the edge host network interface.
@@ -820,6 +828,27 @@ spec:
                                   (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
+                              taints:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    effect:
+                                      description: |-
+                                        (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                        The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                      type: string
+                                    key:
+                                      description: |-
+                                        (String) The key of the taint.
+                                        The key of the taint.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the taint.
+                                        The value of the taint.
+                                      type: string
+                                  type: object
+                                type: array
                               twoNodeRole:
                                 description: |-
                                   (String) Two node role for edge host. Valid values are primary and secondary.
@@ -1421,8 +1450,8 @@ spec:
                     type: array
                   clusterTemplate:
                     description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                      a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
+                      The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
                     items:
                       properties:
                         clusterProfile:
@@ -1734,6 +1763,14 @@ spec:
                             schema)'
                           items:
                             properties:
+                              additionalLabels:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                                  Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+                                type: object
+                                x-kubernetes-map-type: granular
                               defaultGateway:
                                 description: |-
                                   (String) Default gateway IP address for the edge host network interface.
@@ -1772,6 +1809,27 @@ spec:
                                   (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
+                              taints:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    effect:
+                                      description: |-
+                                        (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                        The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                      type: string
+                                    key:
+                                      description: |-
+                                        (String) The key of the taint.
+                                        The key of the taint.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the taint.
+                                        The value of the taint.
+                                      type: string
+                                  type: object
+                                type: array
                               twoNodeRole:
                                 description: |-
                                   (String) Two node role for edge host. Valid values are primary and secondary.
@@ -2327,8 +2385,8 @@ spec:
                     type: array
                   clusterTemplate:
                     description: |-
-                      (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-                      The cluster template of the cluster.
+                      a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to cluster_profile, so removing cluster_template after it has been set is rejected. (see below for nested schema)
+                      The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
                     items:
                       properties:
                         clusterProfile:
@@ -2496,6 +2554,14 @@ spec:
                             schema)'
                           items:
                             properties:
+                              additionalLabels:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+                                  Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+                                type: object
+                                x-kubernetes-map-type: granular
                               defaultGateway:
                                 description: |-
                                   (String) Default gateway IP address for the edge host network interface.
@@ -2534,6 +2600,27 @@ spec:
                                   (String) Subnet mask for the edge host network interface.
                                   Subnet mask for the edge host network interface.
                                 type: string
+                              taints:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    effect:
+                                      description: |-
+                                        (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+                                        The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+                                      type: string
+                                    key:
+                                      description: |-
+                                        (String) The key of the taint.
+                                        The key of the taint.
+                                      type: string
+                                    value:
+                                      description: |-
+                                        (String) The value of the taint.
+                                        The value of the taint.
+                                      type: string
+                                  type: object
+                                type: array
                               twoNodeRole:
                                 description: |-
                                   (String) Two node role for edge host. Valid values are primary and secondary.

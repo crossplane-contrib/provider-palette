@@ -38,11 +38,13 @@ import (
 	profilecluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/profile"
 	vspherecluster "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/cluster/vsphere"
 	setting "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/developer/setting"
+	images "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/hardened/images"
 	policy "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/password/policy"
 	settingplatform "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/platform/setting"
 	dnsmap "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/privatecloudgateway/dnsmap"
 	ippool "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/privatecloudgateway/ippool"
 	providerconfig "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/providerconfig"
+	config "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/rate/config"
 	token "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registration/token"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registry/helm"
 	oci "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registry/oci"
@@ -97,11 +99,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		profilecluster.Setup,
 		vspherecluster.Setup,
 		setting.Setup,
+		images.Setup,
 		policy.Setup,
 		settingplatform.Setup,
 		dnsmap.Setup,
 		ippool.Setup,
 		providerconfig.Setup,
+		config.Setup,
 		token.Setup,
 		helm.Setup,
 		oci.Setup,
@@ -162,11 +166,13 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		profilecluster.SetupGated,
 		vspherecluster.SetupGated,
 		setting.SetupGated,
+		images.SetupGated,
 		policy.SetupGated,
 		settingplatform.SetupGated,
 		dnsmap.SetupGated,
 		ippool.SetupGated,
 		providerconfig.SetupGated,
+		config.SetupGated,
 		token.SetupGated,
 		helm.SetupGated,
 		oci.SetupGated,

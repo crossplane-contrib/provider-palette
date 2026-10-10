@@ -1,0 +1,17 @@
+apiVersion: hardened.palette.crossplane.io/v1alpha1
+kind: Images
+metadata:
+  annotations:
+    meta.upbound.io/example-id: hardened/v1alpha1/images
+    description: "Tenant-level hardened image propagation and its cluster exclusions"
+  labels:
+    testing.upbound.io/example-name: hardened-images
+  name: hardened-images
+# Hardened image propagation is a tenant-level singleton that is always on, so the
+# provider pins its external name to "default-hardened-images-id". Applying this
+# manifest adopts the tenant's existing configuration and applies the exclusions
+# below; every cluster not listed stays enrolled.
+spec:
+  forProvider:
+    excludedClusterUids:
+      - 6600c1b7f0b1a9a2e3f4d5c6

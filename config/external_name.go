@@ -171,6 +171,41 @@ func platformSetting() config.ExternalName {
 	return e
 }
 
+// Fixed identifiers that the Terraform provider assigns to its tenant-level
+// singleton resources (see resource_rate_config.go / resource_hardened_images.go
+// upstream).
+const (
+	rateConfigID     = "default-rate-config-id"
+	hardenedImagesID = "default-hardened-images-id"
+)
+
+// tenantSingleton returns external name configuration for a tenant-level
+// singleton resource whose Terraform ID is the fixed constant id.
+//
+// These resources always exist for a tenant: the Terraform provider ignores any
+// supplied identifier and sets the ID to the constant on create, its Read clears
+// the state when the ID is anything else, and its Import normalizes whatever
+// tenant UID or org name it is given to that same constant. Both directions are
+// therefore pinned to the constant here, which also makes the existing tenant
+// configuration adoptable without having to know the magic value.
+func tenantSingleton(id string) config.ExternalName {
+	e := config.IdentifierFromProvider // keeps the name initializer disabled; these resources have no name attribute
+
+	// CREATE/OBSERVE: always address the singleton by its canonical ID so the
+	// provider's Read passes its `d.Id() != <constant>` check.
+	e.GetIDFn = func(_ context.Context, _ string, _ map[string]any, _ map[string]any) (string, error) {
+		return id, nil
+	}
+
+	// IMPORT: terraform state ID → external name. Normalize to the canonical ID
+	// the same way the provider's Import does.
+	e.GetExternalNameFn = func(_ map[string]any) (string, error) {
+		return id, nil
+	}
+
+	return e
+}
+
 // cloudAccountCustom returns external name configuration for spectrocloud_cloudaccount_custom
 // Handles the special 3-part pattern: "id:context:type" (e.g., "account123:project:nutanix")
 func cloudAccountCustom() config.ExternalName {
@@ -315,12 +350,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_datavolume":                  config.IdentifierFromProvider, // Observe is not support
 	"spectrocloud_developer_setting":           config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
 	"spectrocloud_filter":                      config.IdentifierFromProvider,
+	"spectrocloud_hardened_images":             tenantSingleton(hardenedImagesID),
 	"spectrocloud_macros":                      config.IdentifierFromProvider,
 	"spectrocloud_password_policy":             config.IdentifierFromProvider,
 	"spectrocloud_platform_setting":            platformSetting(),
 	"spectrocloud_privatecloudgateway_dns_map": FormattedIdentifierPCG(),
 	"spectrocloud_privatecloudgateway_ippool":  FormattedIdentifierPCG(),
 	"spectrocloud_project":                     config.IdentifierFromProvider,
+	"spectrocloud_rate_config":                 tenantSingleton(rateConfigID),
 	"spectrocloud_registration_token":          config.IdentifierFromProvider,
 	"spectrocloud_registry_helm":               config.IdentifierFromProvider,
 	"spectrocloud_registry_oci":                config.IdentifierFromProvider,

@@ -1,0 +1,23 @@
+apiVersion: hardened.palette.m.crossplane.io/v1alpha1
+kind: Images
+metadata:
+  name: namespaced-hardened-images
+  namespace: default
+  annotations:
+    description: "Namespaced tenant-level hardened image propagation"
+    # Hardened image propagation is a tenant-level singleton that is always on, so
+    # the provider pins its external name to "default-hardened-images-id" -- there
+    # is no need to set crossplane.io/external-name.
+  labels:
+    app: hardened-images
+    environment: production
+    scope: namespaced
+spec:
+  forProvider:
+    excludedClusterUids:
+      - 6600c1b7f0b1a9a2e3f4d5c6
+
+  # Provider configuration reference for namespaced resources
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider

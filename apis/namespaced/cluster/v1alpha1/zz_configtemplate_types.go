@@ -268,6 +268,11 @@ type VariablesInitParameters struct {
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
+	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
+	// +listType=set
+	ClusterIds []*string `json:"clusterIds,omitempty" tf:"cluster_ids,omitempty"`
+
 	// (String) The name of the cluster config template.
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -282,6 +287,11 @@ type VariablesObservation struct {
 	// (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
+
+	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
+	// +listType=set
+	ClusterIds []*string `json:"clusterIds,omitempty" tf:"cluster_ids,omitempty"`
 
 	// (String) The name of the cluster config template.
 	// Name of the variable.
@@ -298,6 +308,12 @@ type VariablesParameters struct {
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	// +kubebuilder:validation:Optional
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
+
+	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ClusterIds []*string `json:"clusterIds,omitempty" tf:"cluster_ids,omitempty"`
 
 	// (String) The name of the cluster config template.
 	// Name of the variable.

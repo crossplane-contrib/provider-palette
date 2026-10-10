@@ -254,8 +254,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            generic,k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-
@@ -511,8 +511,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            generic,k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-
@@ -755,8 +755,8 @@ spec:
                           type: string
                         k8sDistribution:
                           description: |-
-                            generic,k3s and cncf_k8s.
-                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`.
+                            generic,k3s and cncf_k8s. k3s is deprecated and cannot be used for new cluster groups - existing k3s cluster groups remain supported and updatable, but should migrate to vcluster-generic or cncf_k8s.
+                            The Kubernetes distribution, allowed values are `vcluster-generic`,`k3s` and `cncf_k8s`. `k3s` is deprecated and cannot be used for new cluster groups - existing `k3s` cluster groups remain supported and updatable, but should migrate to `vcluster-generic` or `cncf_k8s`.
                           type: string
                         memoryInMb:
                           description: |-

@@ -1,0 +1,27 @@
+apiVersion: rate.palette.crossplane.io/v1alpha1
+kind: Config
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rate/v1alpha1/config
+    description: "Tenant-level cloud rate config used to estimate cluster cost"
+  labels:
+    testing.upbound.io/example-name: rate-config
+  name: rate-config
+# The rate config is a tenant-level singleton that always exists, so the provider
+# pins its external name to "default-rate-config-id". Applying this manifest
+# adopts and updates the tenant's existing config rather than creating a new one;
+# deleting it restores Palette's built-in rates.
+spec:
+  forProvider:
+    aws:
+      - computeOptimized:
+          - computeRateProportion: 70
+            memoryRateProportion: 30
+        memoryOptimized:
+          - computeRateProportion: 30
+            memoryRateProportion: 70
+    vsphere:
+      - cpuUnitPricePerHour: 0.015
+        memoryUnitPriceGibPerHour: 0.008
+        storageUnitPriceGibPerHour: 0.0002
+        gpuUnitPricePerHour: 0.5
