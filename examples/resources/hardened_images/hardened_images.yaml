@@ -1,0 +1,26 @@
+apiVersion: hardened.palette.crossplane.io/v1alpha1
+kind: Images
+metadata:
+  name: tenant-hardened-images
+  annotations:
+    description: "Tenant-level hardened image propagation and its cluster exclusions"
+    # Hardened image propagation is a tenant-level singleton that is always on, so
+    # the provider pins its external name to "default-hardened-images-id" -- there
+    # is no need to set crossplane.io/external-name. Applying this manifest adopts
+    # the tenant's existing configuration and applies the exclusions below.
+  labels:
+    app: hardened-images
+    environment: production
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    # Clusters that must NOT receive the hardened image pull secret. Every other
+    # cluster in the tenant stays enrolled; removing a UID here re-enrolls that
+    # cluster on the next apply.
+    excludedClusterUids:
+      - 6600c1b7f0b1a9a2e3f4d5c6
+      - 6600c1b7f0b1a9a2e3f4d5c7
+
+  # Provider configuration reference
+  providerConfigRef:
+    name: default

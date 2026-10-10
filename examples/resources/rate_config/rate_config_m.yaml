@@ -1,0 +1,34 @@
+apiVersion: rate.palette.m.crossplane.io/v1alpha1
+kind: Config
+metadata:
+  name: namespaced-rate-config
+  namespace: default
+  annotations:
+    description: "Namespaced tenant-level cloud rate config"
+    # The rate config is a tenant-level singleton that always exists, so the
+    # provider pins its external name to "default-rate-config-id" -- there is no
+    # need to set crossplane.io/external-name. Applying this manifest adopts and
+    # updates the tenant's existing config; deleting it restores Palette defaults.
+  labels:
+    app: rate-config
+    environment: production
+    scope: namespaced
+spec:
+  forProvider:
+    aws:
+      - computeOptimized:
+          - computeRateProportion: 70
+            memoryRateProportion: 30
+        memoryOptimized:
+          - computeRateProportion: 30
+            memoryRateProportion: 70
+    vsphere:
+      - cpuUnitPricePerHour: 0.015
+        memoryUnitPriceGibPerHour: 0.008
+        storageUnitPriceGibPerHour: 0.0002
+        gpuUnitPricePerHour: 0.5
+
+  # Provider configuration reference for namespaced resources
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: namespaced-palette-provider
