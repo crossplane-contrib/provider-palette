@@ -15,6 +15,11 @@ import (
 
 type EdgeHostInitParameters struct {
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+	// Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+	// +mapType=granular
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
 	// (Set of String) Set of DNS server IP address strings for the edge host network interface.
 	// Set of DNS server IP address strings for the edge host network interface.
 	// +listType=set
@@ -43,6 +48,9 @@ type EdgeHostInitParameters struct {
 	// (String) Subnet mask for the edge host network interface.
 	// Subnet mask for the edge host network interface.
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Taints []EdgeHostTaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
@@ -51,6 +59,11 @@ type EdgeHostInitParameters struct {
 
 type EdgeHostObservation struct {
 
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+	// Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+	// +mapType=granular
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
+
 	// (Set of String) Set of DNS server IP address strings for the edge host network interface.
 	// Set of DNS server IP address strings for the edge host network interface.
 	// +listType=set
@@ -80,12 +93,21 @@ type EdgeHostObservation struct {
 	// Subnet mask for the edge host network interface.
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
+	// (Block List) (see below for nested schema)
+	Taints []EdgeHostTaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
+
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
 	TwoNodeRole *string `json:"twoNodeRole,omitempty" tf:"two_node_role,omitempty"`
 }
 
 type EdgeHostParameters struct {
+
+	// (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
+	// Per-host labels for this edge host, merged with the machine pool's `additional_labels` (this host's values win on key collision). Combined with `taints`, this lets a single node within a pool be marked as a witness/arbiter node - e.g. schedulable primary nodes plus a non-schedulable witness for etcd quorum - without splitting the pool.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	AdditionalLabels map[string]*string `json:"additionalLabels,omitempty" tf:"additional_labels,omitempty"`
 
 	// (Set of String) Set of DNS server IP address strings for the edge host network interface.
 	// Set of DNS server IP address strings for the edge host network interface.
@@ -123,10 +145,62 @@ type EdgeHostParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetMask *string `json:"subnetMask,omitempty" tf:"subnet_mask,omitempty"`
 
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Taints []EdgeHostTaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+
 	// (String) Two node role for edge host. Valid values are primary and secondary.
 	// Two node role for edge host. Valid values are `primary` and `secondary`.
 	// +kubebuilder:validation:Optional
 	TwoNodeRole *string `json:"twoNodeRole,omitempty" tf:"two_node_role,omitempty"`
+}
+
+type EdgeHostTaintsInitParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type EdgeHostTaintsObservation struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type EdgeHostTaintsParameters struct {
+
+	// (String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.
+	// The effect of the taint. Allowed values are: `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
+	// +kubebuilder:validation:Optional
+	Effect *string `json:"effect" tf:"effect,omitempty"`
+
+	// (String) The key of the taint.
+	// The key of the taint.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// (String) The value of the taint.
+	// The value of the taint.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 type EdgeNativeBackupPolicyInitParameters struct {
@@ -901,7 +975,7 @@ type EdgeNativeInitParameters struct {
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []EdgeNativeClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1461,7 +1535,7 @@ type EdgeNativeObservation struct {
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []EdgeNativeClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1583,7 +1657,7 @@ type EdgeNativeParameters struct {
 	ClusterRbacBinding []EdgeNativeClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []EdgeNativeClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 

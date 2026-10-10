@@ -864,7 +864,7 @@ type EksInitParameters struct {
 	ClusterRbacBinding []EksClusterRbacBindingInitParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []EksClusterTemplateInitParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1090,6 +1090,9 @@ type EksMachinePoolInitParameters struct {
 	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
+	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
+	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
+
 	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
@@ -1207,6 +1210,9 @@ type EksMachinePoolObservation struct {
 	// (Number) Desired pool size sent to the API as size (node count when not using autoscaling limits). When autoscaling is enabled (min and max both greater than 0), set count equal to min: Palette persists pool size at that minimum while the autoscaler adjusts the live node count between min and max. A count greater than min is rejected by the provider and would not match persisted state or the Palette UI.
 	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
+	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
 
 	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
@@ -1332,6 +1338,10 @@ type EksMachinePoolParameters struct {
 	// Desired pool size sent to the API as `size` (node count when not using autoscaling limits). When autoscaling is enabled (`min` and `max` both greater than 0), set `count` equal to `min`: Palette persists pool `size` at that minimum while the autoscaler adjusts the live node count between `min` and `max`. A `count` greater than `min` is rejected by the provider and would not match persisted state or the Palette UI.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
+
+	// If enabled, this node pool is dedicated to Palette system pods. Palette applies the reserved taint `node.spectrocloud.com/dedicated=true:NoExecute` to the pool and its system pods carry the matching toleration. Custom taints cannot be set on a dedicated pool.
+	// +kubebuilder:validation:Optional
+	DedicateNodePoolForSystemPods *bool `json:"dedicateNodePoolForSystemPods,omitempty" tf:"dedicate_node_pool_for_system_pods,omitempty"`
 
 	// (Number) Root disk size in GB for each node in this machine pool.
 	// Root disk size in GB for each node in this machine pool.
@@ -1516,7 +1526,7 @@ type EksObservation struct {
 	ClusterRbacBinding []EksClusterRbacBindingObservation `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	ClusterTemplate []EksClusterTemplateObservation `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
 	// (String) Defines the time zone used by this cluster to interpret scheduled operations. Maintenance tasks like upgrades will follow this time zone to ensure they run at the appropriate local time for the cluster. Must be in IANA timezone format (e.g., 'America/New_York', 'Asia/Kolkata', 'Europe/London').
@@ -1658,7 +1668,7 @@ type EksParameters struct {
 	ClusterRbacBinding []EksClusterRbacBindingParameters `json:"clusterRbacBinding,omitempty" tf:"cluster_rbac_binding,omitempty"`
 
 	// (Block List, Max: 1) The cluster template of the cluster. (see below for nested schema)
-	// The cluster template of the cluster.
+	// The cluster template of the cluster. If the cluster was created with `cluster_profile` and this is populated in a later apply (with `cluster_profile` removed), the cluster is attached to the named template (Day 2 attach) - a single API call that binds the cluster to the template; the target profile set is applied by the template's batch reconciler at the next maintenance window, not synchronously. This is currently one-way: there is no supported way to detach a cluster from a template and revert to `cluster_profile`, so removing `cluster_template` after it has been set is rejected.
 	// +kubebuilder:validation:Optional
 	ClusterTemplate []EksClusterTemplateParameters `json:"clusterTemplate,omitempty" tf:"cluster_template,omitempty"`
 
