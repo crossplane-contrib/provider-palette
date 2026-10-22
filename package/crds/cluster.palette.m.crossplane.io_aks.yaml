@@ -931,7 +931,7 @@ spec:
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
-                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
                           type: string
                         overrideScaling:
                           description: |-
@@ -1967,7 +1967,7 @@ spec:
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
-                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
                           type: string
                         overrideScaling:
                           description: |-
@@ -2705,7 +2705,7 @@ spec:
                         overrideKubeadmConfiguration:
                           description: |-
                             level settings. Worker pools only.
-                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+                            YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
                           type: string
                         overrideScaling:
                           description: |-
