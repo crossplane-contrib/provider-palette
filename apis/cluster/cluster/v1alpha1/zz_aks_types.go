@@ -1149,8 +1149,8 @@ type MachinePoolInitParameters struct {
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
@@ -1224,8 +1224,8 @@ type MachinePoolObservation struct {
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
 	// (Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)
@@ -1312,8 +1312,8 @@ type MachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
-	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
+	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.
 	// +kubebuilder:validation:Optional
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
