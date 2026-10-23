@@ -1127,7 +1127,7 @@ type EksMachinePoolInitParameters struct {
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
@@ -1249,7 +1249,7 @@ type EksMachinePoolObservation struct {
 	// YAML override for CAPI properties at machine pool level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`
 
@@ -1388,7 +1388,7 @@ type EksMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
 
-	// level settings. Worker pools only.
+	// level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	// YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.
 	// +kubebuilder:validation:Optional
 	OverrideKubeadmConfiguration *string `json:"overrideKubeadmConfiguration,omitempty" tf:"override_kubeadm_configuration,omitempty"`

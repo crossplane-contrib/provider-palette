@@ -835,7 +835,7 @@ spec:
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
-                            level settings. Worker pools only.
+                            level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                             YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                           type: string
                         overrideScaling:
@@ -1762,7 +1762,7 @@ spec:
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
-                            level settings. Worker pools only.
+                            level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                             YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                           type: string
                         overrideScaling:
@@ -2451,7 +2451,7 @@ spec:
                           type: string
                         overrideKubeadmConfiguration:
                           description: |-
-                            level settings. Worker pools only.
+                            level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                             YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.
                           type: string
                         overrideScaling:

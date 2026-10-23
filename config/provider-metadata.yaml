@@ -927,7 +927,7 @@ resources:
             os_sku: (String) OS SKU for the AKS node pool. Valid values are Ubuntu, AzureLinux, and Windows2022. Immutable after creation.
             os_type: (String) Operating system type for the machine pool. Valid values are Linux and Windows. Defaults to Linux.
             override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
-            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_kubeadm_configuration: '(String, Deprecated) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed AKS clusters and will be removed in a future release.'
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
@@ -2981,7 +2981,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
-            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_kubeadm_configuration: '(String, Deprecated) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed EKS clusters and will be removed in a future release.'
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
@@ -3287,7 +3287,7 @@ resources:
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: (String) Cron schedule for OS patching. This must be in the form of 0 0 * * *.
             override_cluster_api_config: (String) YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
-            override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
+            override_kubeadm_configuration: '(String, Deprecated) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only. Deprecated: not supported by Palette for managed GKE clusters and will be removed in a future release.'
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             pause_agent_upgrades: (String) The pause agent upgrades setting allows to control the automatic upgrade of the Palette component and agent for an individual cluster. The default value is unlock, meaning upgrades occur automatically. Setting it to lock pauses automatic agent upgrades for the cluster.
