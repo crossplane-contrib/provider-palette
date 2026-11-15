@@ -268,6 +268,10 @@ type GCPClusterProfileObservation struct {
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name of the GCP cluster. Changing this forces a new resource.
+	// The name of the cluster profile, read from Palette.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []GCPClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`

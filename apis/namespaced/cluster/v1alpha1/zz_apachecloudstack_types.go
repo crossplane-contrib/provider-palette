@@ -295,6 +295,10 @@ type ApacheCloudstackClusterProfileObservation struct {
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Unique cluster name shown in Palette for this Apache CloudStack cluster.
+	// The name of the cluster profile, read from Palette.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
 	Pack []ClusterProfilePackObservation `json:"pack,omitempty" tf:"pack,omitempty"`

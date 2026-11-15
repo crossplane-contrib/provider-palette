@@ -319,6 +319,24 @@ spec:
                             (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
+                        managedIdentity:
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
+                          items:
+                            properties:
+                              aksServiceIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS control plane.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+                                type: string
+                              kubeletIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS kubelet.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+                                type: string
+                            type: object
+                          type: array
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.
@@ -1325,6 +1343,24 @@ spec:
                             (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
+                        managedIdentity:
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
+                          items:
+                            properties:
+                              aksServiceIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS control plane.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+                                type: string
+                              kubeletIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS kubelet.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+                                type: string
+                            type: object
+                          type: array
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.
@@ -2270,6 +2306,24 @@ spec:
                             (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
+                        managedIdentity:
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
+                          items:
+                            properties:
+                              aksServiceIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS control plane.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+                                type: string
+                              kubeletIdentityResourceId:
+                                description: |-
+                                  assigned managed identity used by the AKS kubelet.
+                                  Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+                                type: string
+                            type: object
+                          type: array
                         overrideClusterApiConfig:
                           description: |-
                             level and Palette-managed values.
@@ -2350,6 +2404,11 @@ spec:
                           description: |-
                             (String) The ID of this resource.
                             The ID of the cluster profile.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Name of the AKS cluster. Changing this forces a new resource.
+                            The name of the cluster profile, read from Palette.
                           type: string
                         pack:
                           description: |-

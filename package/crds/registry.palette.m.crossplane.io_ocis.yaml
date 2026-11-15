@@ -179,8 +179,8 @@ spec:
                     type: string
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf, pack and image, The default is 'helm'. zarf is allowed with type="basic". image registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
                     type: string
                   type:
                     description: |-
@@ -332,8 +332,8 @@ spec:
                     type: string
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf, pack and image, The default is 'helm'. zarf is allowed with type="basic". image registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
                     type: string
                   type:
                     description: |-
@@ -517,8 +517,8 @@ spec:
                     type: string
                   providerType:
                     description: |-
-                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+                      (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf, pack and image, The default is 'helm'. zarf is allowed with type="basic". image registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
+                      The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
                     type: string
                   type:
                     description: |-

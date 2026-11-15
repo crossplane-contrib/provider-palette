@@ -1152,6 +1152,11 @@ func (in *ApacheCloudstackClusterProfileObservation) DeepCopyInto(out *ApacheClo
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]ClusterProfilePackObservation, len(*in))
@@ -3581,6 +3586,11 @@ func (in *AwsClusterProfileObservation) DeepCopyInto(out *AwsClusterProfileObser
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -6517,6 +6527,13 @@ func (in *AzureCloudConfigInitParameters) DeepCopyInto(out *AzureCloudConfigInit
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]CloudConfigManagedIdentityInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.NetworkResourceGroup != nil {
 		in, out := &in.NetworkResourceGroup, &out.NetworkResourceGroup
 		*out = new(string)
@@ -6603,6 +6620,13 @@ func (in *AzureCloudConfigObservation) DeepCopyInto(out *AzureCloudConfigObserva
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]CloudConfigManagedIdentityObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.NetworkResourceGroup != nil {
 		in, out := &in.NetworkResourceGroup, &out.NetworkResourceGroup
 		*out = new(string)
@@ -6685,6 +6709,13 @@ func (in *AzureCloudConfigParameters) DeepCopyInto(out *AzureCloudConfigParamete
 	if in.ControlPlaneSubnet != nil {
 		in, out := &in.ControlPlaneSubnet, &out.ControlPlaneSubnet
 		*out = make([]ControlPlaneSubnetParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]CloudConfigManagedIdentityParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
@@ -6818,6 +6849,11 @@ func (in *AzureClusterProfileObservation) DeepCopyInto(out *AzureClusterProfileO
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -8092,6 +8128,11 @@ func (in *AzureMachinePoolInitParameters) DeepCopyInto(out *AzureMachinePoolInit
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ExcludeClusterIdentity != nil {
+		in, out := &in.ExcludeClusterIdentity, &out.ExcludeClusterIdentity
+		*out = new(bool)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
@@ -8162,6 +8203,17 @@ func (in *AzureMachinePoolInitParameters) DeepCopyInto(out *AzureMachinePoolInit
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserAssignedIdentities != nil {
+		in, out := &in.UserAssignedIdentities, &out.UserAssignedIdentities
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 }
 
@@ -8318,6 +8370,11 @@ func (in *AzureMachinePoolObservation) DeepCopyInto(out *AzureMachinePoolObserva
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ExcludeClusterIdentity != nil {
+		in, out := &in.ExcludeClusterIdentity, &out.ExcludeClusterIdentity
+		*out = new(bool)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
@@ -8388,6 +8445,17 @@ func (in *AzureMachinePoolObservation) DeepCopyInto(out *AzureMachinePoolObserva
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserAssignedIdentities != nil {
+		in, out := &in.UserAssignedIdentities, &out.UserAssignedIdentities
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 }
 
@@ -8544,6 +8612,11 @@ func (in *AzureMachinePoolParameters) DeepCopyInto(out *AzureMachinePoolParamete
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ExcludeClusterIdentity != nil {
+		in, out := &in.ExcludeClusterIdentity, &out.ExcludeClusterIdentity
+		*out = new(bool)
+		**out = **in
+	}
 	if in.InstanceType != nil {
 		in, out := &in.InstanceType, &out.InstanceType
 		*out = new(string)
@@ -8614,6 +8687,17 @@ func (in *AzureMachinePoolParameters) DeepCopyInto(out *AzureMachinePoolParamete
 		in, out := &in.UpdateStrategy, &out.UpdateStrategy
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserAssignedIdentities != nil {
+		in, out := &in.UserAssignedIdentities, &out.UserAssignedIdentities
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 }
 
@@ -9912,6 +9996,11 @@ func (in *BrownfieldClusterProfileObservation) DeepCopyInto(out *BrownfieldClust
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -11639,6 +11728,13 @@ func (in *CloudConfigInitParameters) DeepCopyInto(out *CloudConfigInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]ManagedIdentityInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
 		*out = new(string)
@@ -11712,6 +11808,66 @@ func (in *CloudConfigInitParameters) DeepCopy() *CloudConfigInitParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *CloudConfigManagedIdentityInitParameters) DeepCopyInto(out *CloudConfigManagedIdentityInitParameters) {
+	*out = *in
+	if in.ClusterIdentityResourceID != nil {
+		in, out := &in.ClusterIdentityResourceID, &out.ClusterIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new CloudConfigManagedIdentityInitParameters.
+func (in *CloudConfigManagedIdentityInitParameters) DeepCopy() *CloudConfigManagedIdentityInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(CloudConfigManagedIdentityInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *CloudConfigManagedIdentityObservation) DeepCopyInto(out *CloudConfigManagedIdentityObservation) {
+	*out = *in
+	if in.ClusterIdentityResourceID != nil {
+		in, out := &in.ClusterIdentityResourceID, &out.ClusterIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new CloudConfigManagedIdentityObservation.
+func (in *CloudConfigManagedIdentityObservation) DeepCopy() *CloudConfigManagedIdentityObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(CloudConfigManagedIdentityObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *CloudConfigManagedIdentityParameters) DeepCopyInto(out *CloudConfigManagedIdentityParameters) {
+	*out = *in
+	if in.ClusterIdentityResourceID != nil {
+		in, out := &in.ClusterIdentityResourceID, &out.ClusterIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new CloudConfigManagedIdentityParameters.
+func (in *CloudConfigManagedIdentityParameters) DeepCopy() *CloudConfigManagedIdentityParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(CloudConfigManagedIdentityParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *CloudConfigObservation) DeepCopyInto(out *CloudConfigObservation) {
 	*out = *in
 	if in.ControlPlaneCidr != nil {
@@ -11728,6 +11884,13 @@ func (in *CloudConfigObservation) DeepCopyInto(out *CloudConfigObservation) {
 		in, out := &in.ControlPlaneSubnetSecurityGroupName, &out.ControlPlaneSubnetSecurityGroupName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]ManagedIdentityObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
@@ -11818,6 +11981,13 @@ func (in *CloudConfigParameters) DeepCopyInto(out *CloudConfigParameters) {
 		in, out := &in.ControlPlaneSubnetSecurityGroupName, &out.ControlPlaneSubnetSecurityGroupName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ManagedIdentity != nil {
+		in, out := &in.ManagedIdentity, &out.ManagedIdentity
+		*out = make([]ManagedIdentityParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OverrideClusterAPIConfig != nil {
 		in, out := &in.OverrideClusterAPIConfig, &out.OverrideClusterAPIConfig
@@ -11949,6 +12119,11 @@ func (in *ClusterProfileObservation) DeepCopyInto(out *ClusterProfileObservation
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -14168,6 +14343,11 @@ func (in *CustomCloudClusterProfileObservation) DeepCopyInto(out *CustomCloudClu
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -16887,6 +17067,11 @@ func (in *EdgeNativeBackupPolicyParameters) DeepCopy() *EdgeNativeBackupPolicyPa
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *EdgeNativeCloudConfigInitParameters) DeepCopyInto(out *EdgeNativeCloudConfigInitParameters) {
 	*out = *in
+	if in.ImageRegistryRef != nil {
+		in, out := &in.ImageRegistryRef, &out.ImageRegistryRef
+		*out = new(string)
+		**out = **in
+	}
 	if in.IsTwoNodeCluster != nil {
 		in, out := &in.IsTwoNodeCluster, &out.IsTwoNodeCluster
 		*out = new(bool)
@@ -16918,6 +17103,11 @@ func (in *EdgeNativeCloudConfigInitParameters) DeepCopyInto(out *EdgeNativeCloud
 				**out = **in
 			}
 		}
+	}
+	if in.UpdateLock != nil {
+		in, out := &in.UpdateLock, &out.UpdateLock
+		*out = new(string)
+		**out = **in
 	}
 	if in.Vip != nil {
 		in, out := &in.Vip, &out.Vip
@@ -16939,6 +17129,11 @@ func (in *EdgeNativeCloudConfigInitParameters) DeepCopy() *EdgeNativeCloudConfig
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *EdgeNativeCloudConfigObservation) DeepCopyInto(out *EdgeNativeCloudConfigObservation) {
 	*out = *in
+	if in.ImageRegistryRef != nil {
+		in, out := &in.ImageRegistryRef, &out.ImageRegistryRef
+		*out = new(string)
+		**out = **in
+	}
 	if in.IsTwoNodeCluster != nil {
 		in, out := &in.IsTwoNodeCluster, &out.IsTwoNodeCluster
 		*out = new(bool)
@@ -16970,6 +17165,11 @@ func (in *EdgeNativeCloudConfigObservation) DeepCopyInto(out *EdgeNativeCloudCon
 				**out = **in
 			}
 		}
+	}
+	if in.UpdateLock != nil {
+		in, out := &in.UpdateLock, &out.UpdateLock
+		*out = new(string)
+		**out = **in
 	}
 	if in.Vip != nil {
 		in, out := &in.Vip, &out.Vip
@@ -16991,6 +17191,11 @@ func (in *EdgeNativeCloudConfigObservation) DeepCopy() *EdgeNativeCloudConfigObs
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *EdgeNativeCloudConfigParameters) DeepCopyInto(out *EdgeNativeCloudConfigParameters) {
 	*out = *in
+	if in.ImageRegistryRef != nil {
+		in, out := &in.ImageRegistryRef, &out.ImageRegistryRef
+		*out = new(string)
+		**out = **in
+	}
 	if in.IsTwoNodeCluster != nil {
 		in, out := &in.IsTwoNodeCluster, &out.IsTwoNodeCluster
 		*out = new(bool)
@@ -17022,6 +17227,11 @@ func (in *EdgeNativeCloudConfigParameters) DeepCopyInto(out *EdgeNativeCloudConf
 				**out = **in
 			}
 		}
+	}
+	if in.UpdateLock != nil {
+		in, out := &in.UpdateLock, &out.UpdateLock
+		*out = new(string)
+		**out = **in
 	}
 	if in.Vip != nil {
 		in, out := &in.Vip, &out.Vip
@@ -17098,6 +17308,11 @@ func (in *EdgeNativeClusterProfileObservation) DeepCopyInto(out *EdgeNativeClust
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -20100,6 +20315,11 @@ func (in *EdgeVsphereClusterProfileObservation) DeepCopyInto(out *EdgeVsphereClu
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -23177,6 +23397,11 @@ func (in *EksClusterProfileObservation) DeepCopyInto(out *EksClusterProfileObser
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -26545,6 +26770,11 @@ func (in *GCPClusterProfileObservation) DeepCopyInto(out *GCPClusterProfileObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]GCPClusterProfilePackObservation, len(*in))
@@ -29442,6 +29672,11 @@ func (in *GkeClusterProfileObservation) DeepCopyInto(out *GkeClusterProfileObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]GkeClusterProfilePackObservation, len(*in))
@@ -31920,6 +32155,11 @@ func (in *GroupClusterProfileObservation) DeepCopyInto(out *GroupClusterProfileO
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]GroupClusterProfilePackObservation, len(*in))
@@ -33429,6 +33669,11 @@ func (in *MaasClusterProfileObservation) DeepCopyInto(out *MaasClusterProfileObs
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -37081,6 +37326,81 @@ func (in *MachinePoolTaintsParameters) DeepCopy() *MachinePoolTaintsParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ManagedIdentityInitParameters) DeepCopyInto(out *ManagedIdentityInitParameters) {
+	*out = *in
+	if in.AksServiceIdentityResourceID != nil {
+		in, out := &in.AksServiceIdentityResourceID, &out.AksServiceIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+	if in.KubeletIdentityResourceID != nil {
+		in, out := &in.KubeletIdentityResourceID, &out.KubeletIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ManagedIdentityInitParameters.
+func (in *ManagedIdentityInitParameters) DeepCopy() *ManagedIdentityInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ManagedIdentityInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ManagedIdentityObservation) DeepCopyInto(out *ManagedIdentityObservation) {
+	*out = *in
+	if in.AksServiceIdentityResourceID != nil {
+		in, out := &in.AksServiceIdentityResourceID, &out.AksServiceIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+	if in.KubeletIdentityResourceID != nil {
+		in, out := &in.KubeletIdentityResourceID, &out.KubeletIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ManagedIdentityObservation.
+func (in *ManagedIdentityObservation) DeepCopy() *ManagedIdentityObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(ManagedIdentityObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ManagedIdentityParameters) DeepCopyInto(out *ManagedIdentityParameters) {
+	*out = *in
+	if in.AksServiceIdentityResourceID != nil {
+		in, out := &in.AksServiceIdentityResourceID, &out.AksServiceIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+	if in.KubeletIdentityResourceID != nil {
+		in, out := &in.KubeletIdentityResourceID, &out.KubeletIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ManagedIdentityParameters.
+func (in *ManagedIdentityParameters) DeepCopy() *ManagedIdentityParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ManagedIdentityParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *ManifestInitParameters) DeepCopyInto(out *ManifestInitParameters) {
 	*out = *in
 	if in.Content != nil {
@@ -40545,6 +40865,11 @@ func (in *VsphereClusterProfileObservation) DeepCopyInto(out *VsphereClusterProf
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

@@ -329,6 +329,19 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        managedIdentity:
+                          description: |-
+                            assigned managed identity used to authenticate to Azure. Immutable after cluster creation. (see below for nested schema)
+                            User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+                          items:
+                            properties:
+                              clusterIdentityResourceId:
+                                description: |-
+                                  assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with exclude_cluster_identity.
+                                  Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+                                type: string
+                            type: object
+                          type: array
                         networkResourceGroup:
                           description: |-
                             (String) Azure network resource group in which the cluster is to be provisioned.
@@ -945,6 +958,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        excludeClusterIdentity:
+                          description: |-
+                            (Boolean) Leaves cloud_config.managed_identity's cluster identity off the machines of this pool. Default value is false.
+                            Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+                          type: boolean
                         instanceType:
                           description: |-
                             (String) Azure instance type from the Azure portal.
@@ -1050,6 +1068,14 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
+                        userAssignedIdentities:
+                          description: |-
+                            assigned managed identities attached to the nodes of this pool, alongside cloud_config.managed_identity's cluster identity (unless exclude_cluster_identity is set).
+                            Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   name:
@@ -1433,6 +1459,19 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        managedIdentity:
+                          description: |-
+                            assigned managed identity used to authenticate to Azure. Immutable after cluster creation. (see below for nested schema)
+                            User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+                          items:
+                            properties:
+                              clusterIdentityResourceId:
+                                description: |-
+                                  assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with exclude_cluster_identity.
+                                  Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+                                type: string
+                            type: object
+                          type: array
                         networkResourceGroup:
                           description: |-
                             (String) Azure network resource group in which the cluster is to be provisioned.
@@ -2049,6 +2088,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        excludeClusterIdentity:
+                          description: |-
+                            (Boolean) Leaves cloud_config.managed_identity's cluster identity off the machines of this pool. Default value is false.
+                            Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+                          type: boolean
                         instanceType:
                           description: |-
                             (String) Azure instance type from the Azure portal.
@@ -2154,6 +2198,14 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
+                        userAssignedIdentities:
+                          description: |-
+                            assigned managed identities attached to the nodes of this pool, alongside cloud_config.managed_identity's cluster identity (unless exclude_cluster_identity is set).
+                            Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   name:
@@ -2436,6 +2488,19 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        managedIdentity:
+                          description: |-
+                            assigned managed identity used to authenticate to Azure. Immutable after cluster creation. (see below for nested schema)
+                            User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+                          items:
+                            properties:
+                              clusterIdentityResourceId:
+                                description: |-
+                                  assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with exclude_cluster_identity.
+                                  Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+                                type: string
+                            type: object
+                          type: array
                         networkResourceGroup:
                           description: |-
                             (String) Azure network resource group in which the cluster is to be provisioned.
@@ -2546,6 +2611,11 @@ spec:
                           description: |-
                             (String) The ID of this resource.
                             The ID of the cluster profile.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Name of the cluster. This name will be used to create the cluster in Azure.
+                            The name of the cluster profile, read from Palette.
                           type: string
                         pack:
                           description: |-
@@ -2855,6 +2925,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        excludeClusterIdentity:
+                          description: |-
+                            (Boolean) Leaves cloud_config.managed_identity's cluster identity off the machines of this pool. Default value is false.
+                            Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+                          type: boolean
                         instanceType:
                           description: |-
                             (String) Azure instance type from the Azure portal.
@@ -2960,6 +3035,14 @@ spec:
                             (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
                             Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
                           type: string
+                        userAssignedIdentities:
+                          description: |-
+                            assigned managed identities attached to the nodes of this pool, alongside cloud_config.managed_identity's cluster identity (unless exclude_cluster_identity is set).
+                            Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                       type: object
                     type: array
                   name:

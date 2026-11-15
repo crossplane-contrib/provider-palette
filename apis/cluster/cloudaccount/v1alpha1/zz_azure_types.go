@@ -15,13 +15,13 @@ import (
 
 type AzureInitParameters struct {
 
-	// (String) Unique client Id from Azure console.
-	// Unique client Id from Azure console.
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
+	// Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
 	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
 
-	// (String, Sensitive) Azure secret for authentication.
-	// Azure secret for authentication.
-	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
+	// (String, Sensitive) Azure secret for authentication. Required when identity_type is ServicePrincipal (the default); not used when identity_type is UserAssignedMSI.
+	// Azure secret for authentication. Required when `identity_type` is `ServicePrincipal` (the default); not used when `identity_type` is `UserAssignedMSI`.
+	AzureClientSecretSecretRef *v1.SecretKeySelector `json:"azureClientSecretSecretRef,omitempty" tf:"-"`
 
 	// (String) Unique tenant Id from Azure console.
 	// Unique tenant Id from Azure console.
@@ -43,6 +43,10 @@ type AzureInitParameters struct {
 	// Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
 	DisablePropertiesRequest *bool `json:"disablePropertiesRequest,omitempty" tf:"disable_properties_request,omitempty"`
 
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	// The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	IdentityType *string `json:"identityType,omitempty" tf:"identity_type,omitempty"`
+
 	// (String) The name of the Azure cloud account.
 	// The name of the Azure cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -62,8 +66,8 @@ type AzureInitParameters struct {
 
 type AzureObservation struct {
 
-	// (String) Unique client Id from Azure console.
-	// Unique client Id from Azure console.
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
+	// Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
 	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
 
 	// (String) Unique tenant Id from Azure console.
@@ -89,6 +93,14 @@ type AzureObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	// The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	IdentityType *string `json:"identityType,omitempty" tf:"identity_type,omitempty"`
+
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when identity_type is UserAssignedMSI.
+	// The Azure resource ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when `identity_type` is `UserAssignedMSI`.
+	ManagementIdentityResourceID *string `json:"managementIdentityResourceId,omitempty" tf:"management_identity_resource_id,omitempty"`
+
 	// (String) The name of the Azure cloud account.
 	// The name of the Azure cloud account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -108,15 +120,15 @@ type AzureObservation struct {
 
 type AzureParameters struct {
 
-	// (String) Unique client Id from Azure console.
-	// Unique client Id from Azure console.
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
+	// Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
 	// +kubebuilder:validation:Optional
 	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
 
-	// (String, Sensitive) Azure secret for authentication.
-	// Azure secret for authentication.
+	// (String, Sensitive) Azure secret for authentication. Required when identity_type is ServicePrincipal (the default); not used when identity_type is UserAssignedMSI.
+	// Azure secret for authentication. Required when `identity_type` is `ServicePrincipal` (the default); not used when `identity_type` is `UserAssignedMSI`.
 	// +kubebuilder:validation:Optional
-	AzureClientSecretSecretRef v1.SecretKeySelector `json:"azureClientSecretSecretRef" tf:"-"`
+	AzureClientSecretSecretRef *v1.SecretKeySelector `json:"azureClientSecretSecretRef,omitempty" tf:"-"`
 
 	// (String) Unique tenant Id from Azure console.
 	// Unique tenant Id from Azure console.
@@ -141,6 +153,11 @@ type AzureParameters struct {
 	// Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
 	// +kubebuilder:validation:Optional
 	DisablePropertiesRequest *bool `json:"disablePropertiesRequest,omitempty" tf:"disable_properties_request,omitempty"`
+
+	// assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	// The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+	// +kubebuilder:validation:Optional
+	IdentityType *string `json:"identityType,omitempty" tf:"identity_type,omitempty"`
 
 	// (String) The name of the Azure cloud account.
 	// The name of the Azure cloud account.
@@ -200,7 +217,6 @@ type Azure struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureClientId) || (has(self.initProvider) && has(self.initProvider.azureClientId))",message="spec.forProvider.azureClientId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureClientSecretSecretRef)",message="spec.forProvider.azureClientSecretSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.azureTenantId) || (has(self.initProvider) && has(self.initProvider.azureTenantId))",message="spec.forProvider.azureTenantId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   AzureSpec   `json:"spec"`

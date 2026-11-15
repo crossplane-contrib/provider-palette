@@ -27,7 +27,7 @@ resources:
             delete: (String)
             id: (String) The ID of this resource.
             manifest: (Block List) (see below for nested schema)
-            name: (String) The name of the pack. The name must be unique within the cluster profile.
+            name: (String) The name of the cluster profile, read from Palette.
             pack: (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
             registry_name: (String) The registry name of the pack. The registry name is the human-readable name of the registry. This attribute can be used instead of registry_uid for better readability. If uid is not provided, this field can be used along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
             registry_uid: (String) The registry UID of the pack. The registry UID is the unique identifier of the registry. This attribute is required if there is more than one registry that contains a pack with the same name. If uid is not provided, this field is required along with name and tag to resolve the pack UID internally. Either registry_uid or registry_name can be specified, but not both.
@@ -674,8 +674,8 @@ resources:
                 azure_client_secret: var.azure_client_secret
                 azure_tenant_id: var.azure_tenant_id
         argumentDocs:
-            azure_client_id: (String) Unique client Id from Azure console.
-            azure_client_secret: (String, Sensitive) Azure secret for authentication.
+            azure_client_id: (String) Unique client Id from Azure console. When identity_type is ServicePrincipal (the default), this is the service principal's application (client) ID. When identity_type is UserAssignedMSI, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
+            azure_client_secret: (String, Sensitive) Azure secret for authentication. Required when identity_type is ServicePrincipal (the default); not used when identity_type is UserAssignedMSI.
             azure_tenant_id: (String) Unique tenant Id from Azure console.
             cloud: |-
                 (String) The Azure partition in which the cloud account is located.
@@ -684,6 +684,8 @@ resources:
             context: (String) The context of the Azure configuration. Defaults to project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
             disable_properties_request: (Boolean) Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is false.
             id: (String) The ID of this resource.
+            identity_type: (String) The type of identity Palette uses to authenticate to Azure. ServicePrincipal (default) authenticates with azure_client_id/azure_client_secret. UserAssignedMSI authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+            management_identity_resource_id: (String) The Azure resource ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when identity_type is UserAssignedMSI.
             name: (String) The name of the Azure cloud account.
             private_cloud_gateway_id: (String) ID of the private cloud gateway. This is the ID of the private cloud gateway that is used to connect to the private cluster endpoint.
             tenant_name: (String) The name of the tenant. This is the name of the tenant that is used to connect to the Azure cloud.
@@ -863,6 +865,7 @@ resources:
             additional_annotations: (Map of String) Additional annotations to be applied to the machine pool. Annotations must be in the form of key:value.
             additional_labels: (Map of String) Additional labels to be applied to the machine pool. Labels must be in the form of key:value.
             admin_kube_config: (String, Sensitive) Admin kubeconfig (cluster-admin credential). Full cluster control; treat as a highly sensitive secret.
+            aks_service_identity_resource_id: (String) Azure resource ID of the user-assigned managed identity used by the AKS control plane.
             apply_setting: (String) The setting to apply the cluster profile. DownloadAndInstall will download and install packs in one action. DownloadAndInstallLater will only download artifact and postpone install for later. Default value is DownloadAndInstall.
             backup_location_id: (String) The ID of the backup location to use for the backup.
             backup_policy: '(Block List, Max: 1) The backup policy for the cluster. If not specified, no backups will be taken. (see below for nested schema)'
@@ -906,11 +909,13 @@ resources:
             is_system_node_pool: (Boolean) Whether this machine pool is marked as the AKS system node pool.
             key: (String) The key of the taint.
             kubeconfig: (String, Sensitive) Kubeconfig for the cluster (credential material). Use with kubectl and protect like any kubeconfig secret.
+            kubelet_identity_resource_id: (String) Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
             latitude: (Number)
             load_balancer_source_ranges: (String) The source ranges for the load balancer. Required if 'host_endpoint_type' is set to 'LoadBalancer'.
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
+            managed_identity: '(Block List, Max: 1) User-assigned managed identities used to authenticate to Azure. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max: (Number) Maximum number of nodes in the machine pool. This is used for autoscaling the machine pool.
             max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
@@ -1911,6 +1916,7 @@ resources:
             cloud_account_id: (String) ID of the cloud account to be used for the cluster. This cloud account must be of type azure.
             cloud_config: '(Block List, Min: 1, Max: 1) (see below for nested schema)'
             cloud_config_id: (String, Deprecated) ID of the cloud config used for the cluster. This cloud config must be of type azure.
+            cluster_identity_resource_id: (String) Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with exclude_cluster_identity.
             cluster_meta_attribute: '(String) cluster_meta_attribute can be used to set additional cluster metadata information, eg {''nic_name'': ''test'', ''env'': ''stage''}'
             cluster_profile: (Block Set) (see below for nested schema)
             cluster_rbac_binding: (Block List) The RBAC binding for the cluster. (see below for nested schema)
@@ -1933,6 +1939,7 @@ resources:
             description: (String) The description of the cluster. Default value is empty string.
             disk: '(Block List, Max: 1) Disk configuration for the machine pool. (see below for nested schema)'
             effect: '(String) The effect of the taint. Allowed values are: NoSchedule, PreferNoSchedule or NoExecute.'
+            exclude_cluster_identity: (Boolean) Leaves cloud_config.managed_identity's cluster identity off the machines of this pool. Default value is false.
             expiry_in_hour: (Number) The number of hours after which the backup will be deleted. For example, if the expiry is set to 24, the backup will be deleted after 24 hours.
             external_traffic_policy: (String) The external traffic policy for the cluster.
             force_delete: (Boolean) If set to true, the cluster will be force deleted and user has to manually clean up the provisioned cloud resources.
@@ -1954,6 +1961,7 @@ resources:
             location_config: (List of Object) The location of the cluster. (see below for nested schema)
             longitude: (Number)
             machine_pool: '(Block Set, Min: 1) (see below for nested schema)'
+            managed_identity: '(Block List, Max: 1) User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation. (see below for nested schema)'
             manifest: (Block List) (see below for nested schema)
             max_surge: (String) Max extra nodes during rolling update. Integer or percentage (e.g., '1' or '20%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
             max_unavailable: (String) Max unavailable nodes during rolling update. Integer or percentage (e.g., '0' or '10%'). Only valid when type=OverrideScaling. Both maxSurge and maxUnavailable are required.
@@ -2008,6 +2016,7 @@ resources:
             update: (String)
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
+            user_assigned_identities: (Set of String) Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside cloud_config.managed_identity's cluster identity (unless exclude_cluster_identity is set).
             value: (String) The value of the taint.
             values: (String) The values of the pack. The values are the configuration values of the pack. The values are specified in YAML format.
             variables: '(Map of String) A map of cluster profile variables, specified as key-value pairs. For example: priority = "5".'
@@ -2332,7 +2341,7 @@ resources:
             assign_strategy: (String) Assignment strategy for the variable. Allowed values are all or cluster. Default is all.
             attached_cluster: (List of Object) List of clusters attached to this template. (see below for nested schema)
             cloud_type: '(String) The cloud type for the cluster template. Examples: ''aws'', ''azure'', ''gcp'', ''vsphere'', etc.'
-            cluster_ids: (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+            cluster_ids: (Set of String) UIDs of the specific clusters value applies to when assign_strategy is cluster. Ignored when assign_strategy is all (the value applies to every cluster attached to the template).
             cluster_profile: (Block Set) Set of cluster profile references. (see below for nested schema)
             cluster_uid: (String)
             context: (String) The context of the cluster config template. Allowed values are project or tenant. Default value is project. If  the project context is specified, the project name will sourced from the provider configuration parameter project_name.
@@ -2348,8 +2357,8 @@ resources:
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
             upgrade_now: '(String) Timestamp to trigger an immediate upgrade for all clusters launched from this template. NOTE: The upgrade executes immediately when this value changes - the timestamp does NOT schedule a future upgrade. Set this to the current timestamp each time you want to trigger an upgrade. This field can also be used for tracking when upgrades were triggered by the user. Format: RFC3339 (e.g., ''2024-01-15T10:30:00Z''). Example: To trigger an upgrade now, set to current time like ''2024-11-12T15:30:00Z''.'
-            value: (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
-            variables: (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+            value: (String) Value of the variable. Applied to every attached cluster when assign_strategy is all, or to each cluster in cluster_ids when assign_strategy is cluster.
+            variables: (Block Set) Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster. (see below for nested schema)
         importStatements: []
     spectrocloud_cluster_custom_cloud:
         subCategory: ""
@@ -2652,6 +2661,7 @@ resources:
             host_name: (String) Name of the edge host.
             host_uid: (String) UID of the edge host.
             id: (String) The ID of this resource.
+            image_registry_ref: (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
             include_all_clusters: (Boolean) Whether to include all clusters in the backup. If set to false, only the clusters specified in cluster_uids will be included.
             include_cluster_resources: '(Boolean) Indicates whether to include cluster resources in the backup. If set to false, only the cluster configuration and disks will be backed up. (Note: Starting with Palette version 4.6, the include_cluster_resources attribute will be deprecated, and a new attribute, include_cluster_resources_mode, will be introduced.)'
             include_cluster_resources_mode: (String) Specifies whether to include the cluster resources in the backup. Supported values are always, never, and auto.
@@ -2679,7 +2689,7 @@ resources:
             os_patch_after: '(String) Date and time after which to patch cluster RFC3339: 2006-01-02T15:04:05Z07:00'
             os_patch_on_boot: (Boolean) Whether to apply OS patch on boot. Default is false.
             os_patch_schedule: '(String) The cron schedule for OS patching. This must be in the form of cron syntax. Ex: 0 0 * * *.'
-            overlay_cidr_range: (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+            overlay_cidr_range: (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24. If left unset, the cluster is created in DHCP mode without overlay networking, and Terraform prints a warning on creation since DHCP-assigned IP changes can cause cluster instability.
             override_health_check_configuration: (String) YAML override for Machine Health Check configuration at the node pool level (control plane and worker pools). Accepts CAPI MachineHealthCheck fields such as maxUnhealthy, nodeStartupTimeout, and unhealthyConditions. Falls back to Palette defaults when unset. Still respects the project/tenant Cluster Auto Remediation setting. Changing this value may repave your nodes.
             override_kubeadm_configuration: (String) YAML config for kubeletExtraArgs, preKubeadmCommands, postKubeadmCommands. Overrides pack-level settings. Worker pools only.
             override_scaling: '(Block List, Max: 1) Rolling update strategy for the machine pool. (see below for nested schema)'
@@ -2711,6 +2721,7 @@ resources:
             type: (String) The type of the pack. Allowed values are spectro, manifest, helm, or oci. The default value is spectro. If using an OCI registry for pack, set the type to oci.
             uid: (String) The unique identifier of the pack. The value can be looked up using the spectrocloud_pack data source. This value is required if the pack type is spectro and for helm if the chart is from a public helm registry. If not provided, all of name, tag, and registry_uid must be specified to resolve the pack UID internally.
             update: (String)
+            update_lock: (String) Profile update lock state for the edge native cluster. When enabled, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
             update_strategy: (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
             update_worker_pools_in_parallel: (Boolean) Controls whether worker pool updates occur in parallel or sequentially. When set to true, all worker pools are updated simultaneously. When set to false (default), worker pools are updated one at a time, reducing cluster disruption but taking longer to complete updates.
             value: (String) The value of the taint.
@@ -3817,6 +3828,25 @@ resources:
                 }
               references:
                 version: var.profile_version
+            - name: ck8s_oidc
+              manifest: |-
+                {
+                  "context": "project",
+                  "name": "ck8s-oidc",
+                  "pack": [
+                    {
+                      "name": "ck8s",
+                      "tag": "1.32.0",
+                      "type": "spectro",
+                      "uid": "${data.spectrocloud_pack.ck8s.id}",
+                      "values": "pack:\n  k8sHardening: false\nkubernetesVersion: \"1.32.0\"\nclusterConfig:\n  controlPlane:\n    extraKubeAPIServerArgs:\n      --oidc-issuer-url: \"{{.spectro.system.oidc.issuerurl}}\"\n      --oidc-client-id: \"{{.spectro.system.oidc.clientid}}\"\n      --oidc-username-claim: \"{{.spectro.system.oidc.usernameclaim}}\"\n      --oidc-groups-claim: \"{{.spectro.system.oidc.groupsclaim}}\"\n"
+                    }
+                  ],
+                  "type": "cluster",
+                  "version": "1.0.0"
+                }
+              references:
+                pack.uid: data.spectrocloud_pack.ck8s.id
         argumentDocs:
             Delete: honors skip_destroy = true
             POST /v1/clusterprofiles/{uid}/clone: against any existing version of the lineage, then overwriting the clone with the user's HCL content
@@ -4699,7 +4729,7 @@ resources:
             is_synchronization: (Boolean) Specifies whether the registry is synchronized.
             name: (String) The name of the OCI registry.
             password: (String, Sensitive) The password for basic authentication. Required if 'credential_type' is 'basic'.
-            provider_type: (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
+            provider_type: (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf, pack and image, The default is 'helm'. zarf is allowed with type="basic". image registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
             secret_key: (String, Sensitive) The secret key for accessing the registry. Required if 'credential_type' is set to 'secret'.
             timeouts: (Block, Optional) (see below for nested schema)
             tls_config: '(Block List, Max: 1) TLS configuration for the registry. (see below for nested schema)'

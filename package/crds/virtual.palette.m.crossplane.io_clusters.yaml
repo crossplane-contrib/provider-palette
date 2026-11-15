@@ -1535,6 +1535,11 @@ spec:
                             (String) The ID of this resource.
                             The ID of the cluster profile.
                           type: string
+                        name:
+                          description: |-
+                            (String) Name of the virtual cluster. Changing this forces a new resource.
+                            The name of the cluster profile, read from Palette.
+                          type: string
                         pack:
                           description: |-
                             (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
