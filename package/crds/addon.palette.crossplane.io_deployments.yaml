@@ -180,14 +180,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the pack. The name must be unique within the cluster profile.
+                                        (String) The name of the cluster profile, read from Palette.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the pack. The name must be unique within the cluster profile.
+                                  (String) The name of the cluster profile, read from Palette.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -363,14 +363,14 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the pack. The name must be unique within the cluster profile.
+                                        (String) The name of the cluster profile, read from Palette.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                   type: object
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the pack. The name must be unique within the cluster profile.
+                                  (String) The name of the cluster profile, read from Palette.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:
@@ -538,7 +538,7 @@ spec:
                           type: string
                         name:
                           description: |-
-                            (String) The name of the pack. The name must be unique within the cluster profile.
+                            (String) The name of the cluster profile, read from Palette.
                             The name of the cluster profile, read from Palette.
                           type: string
                         pack:
@@ -558,7 +558,7 @@ spec:
                                       type: string
                                     name:
                                       description: |-
-                                        (String) The name of the pack. The name must be unique within the cluster profile.
+                                        (String) The name of the cluster profile, read from Palette.
                                         The name of the manifest. The name must be unique within the pack.
                                       type: string
                                     uid:
@@ -575,7 +575,7 @@ spec:
                                 type: array
                               name:
                                 description: |-
-                                  (String) The name of the pack. The name must be unique within the cluster profile.
+                                  (String) The name of the cluster profile, read from Palette.
                                   The name of the pack. The name must be unique within the cluster profile.
                                 type: string
                               registryName:

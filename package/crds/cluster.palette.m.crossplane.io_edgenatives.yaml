@@ -221,11 +221,9 @@ spec:
                     items:
                       properties:
                         imageRegistryRef:
-                          description: UID of an OCI registry (`spectrocloud_registry_oci`,
-                            `provider_type = "image"`) that the Edge hosts use to
-                            pull the Edge Native provider (OS/bootstrap) image. Can
-                            be set on create or changed later without replacing the
-                            cluster.
+                          description: |-
+                            (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
+                            UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
                           type: string
                         isTwoNodeCluster:
                           description: |-
@@ -242,7 +240,7 @@ spec:
                           x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
-                            (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+                            assigned IP changes can cause cluster instability.
                             The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
                           type: string
                         sshKeys:
@@ -254,14 +252,9 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         updateLock:
-                          description: Profile update lock state for the edge native
-                            cluster. When `enabled`, cluster profile updates targeting
-                            the device are held until a local operator releases the
-                            lock from the Edge Local UI - releasing the lock is out
-                            of scope for this provider and can only be done locally
-                            on the device. Palette re-engages the lock automatically
-                            once a held update is applied. Defaults to the value set
-                            to  `disabled`.
+                          description: |-
+                            releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
+                            Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
                           type: string
                         vip:
                           description: |-
@@ -1243,11 +1236,9 @@ spec:
                     items:
                       properties:
                         imageRegistryRef:
-                          description: UID of an OCI registry (`spectrocloud_registry_oci`,
-                            `provider_type = "image"`) that the Edge hosts use to
-                            pull the Edge Native provider (OS/bootstrap) image. Can
-                            be set on create or changed later without replacing the
-                            cluster.
+                          description: |-
+                            (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
+                            UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
                           type: string
                         isTwoNodeCluster:
                           description: |-
@@ -1264,7 +1255,7 @@ spec:
                           x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
-                            (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+                            assigned IP changes can cause cluster instability.
                             The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
                           type: string
                         sshKeys:
@@ -1276,14 +1267,9 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         updateLock:
-                          description: Profile update lock state for the edge native
-                            cluster. When `enabled`, cluster profile updates targeting
-                            the device are held until a local operator releases the
-                            lock from the Edge Local UI - releasing the lock is out
-                            of scope for this provider and can only be done locally
-                            on the device. Palette re-engages the lock automatically
-                            once a held update is applied. Defaults to the value set
-                            to  `disabled`.
+                          description: |-
+                            releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
+                            Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
                           type: string
                         vip:
                           description: |-
@@ -2246,11 +2232,9 @@ spec:
                     items:
                       properties:
                         imageRegistryRef:
-                          description: UID of an OCI registry (`spectrocloud_registry_oci`,
-                            `provider_type = "image"`) that the Edge hosts use to
-                            pull the Edge Native provider (OS/bootstrap) image. Can
-                            be set on create or changed later without replacing the
-                            cluster.
+                          description: |-
+                            (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
+                            UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
                           type: string
                         isTwoNodeCluster:
                           description: |-
@@ -2267,7 +2251,7 @@ spec:
                           x-kubernetes-list-type: set
                         overlayCidrRange:
                           description: |-
-                            (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+                            assigned IP changes can cause cluster instability.
                             The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
                           type: string
                         sshKeys:
@@ -2279,14 +2263,9 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         updateLock:
-                          description: Profile update lock state for the edge native
-                            cluster. When `enabled`, cluster profile updates targeting
-                            the device are held until a local operator releases the
-                            lock from the Edge Local UI - releasing the lock is out
-                            of scope for this provider and can only be done locally
-                            on the device. Palette re-engages the lock automatically
-                            once a held update is applied. Defaults to the value set
-                            to  `disabled`.
+                          description: |-
+                            releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
+                            Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
                           type: string
                         vip:
                           description: |-

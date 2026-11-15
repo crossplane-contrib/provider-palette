@@ -44,7 +44,7 @@ type ConfigTemplateClusterProfileInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
-	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+	// (Block Set) Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster. (see below for nested schema)
 	// Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster.
 	Variables []VariablesInitParameters `json:"variables,omitempty" tf:"variables,omitempty"`
 }
@@ -55,7 +55,7 @@ type ConfigTemplateClusterProfileObservation struct {
 	// ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+	// (Block Set) Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster. (see below for nested schema)
 	// Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster.
 	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
 }
@@ -76,7 +76,7 @@ type ConfigTemplateClusterProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
-	// (Block Set) Set of profile variable values and assignment strategies. (see below for nested schema)
+	// (Block Set) Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster. (see below for nested schema)
 	// Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster.
 	// +kubebuilder:validation:Optional
 	Variables []VariablesParameters `json:"variables,omitempty" tf:"variables,omitempty"`
@@ -268,7 +268,7 @@ type VariablesInitParameters struct {
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
-	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// (Set of String) UIDs of the specific clusters value applies to when assign_strategy is cluster. Ignored when assign_strategy is all (the value applies to every cluster attached to the template).
 	// UIDs of the specific clusters `value` applies to when `assign_strategy` is `cluster`. Ignored when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
 	// +listType=set
 	ClusterIds []*string `json:"clusterIds,omitempty" tf:"cluster_ids,omitempty"`
@@ -277,7 +277,7 @@ type VariablesInitParameters struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+	// (String) Value of the variable. Applied to every attached cluster when assign_strategy is all, or to each cluster in cluster_ids when assign_strategy is cluster.
 	// Value of the variable. Applied to every attached cluster when `assign_strategy` is `all`, or to each cluster in `cluster_ids` when `assign_strategy` is `cluster`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -288,7 +288,7 @@ type VariablesObservation struct {
 	// Assignment strategy for the variable. Allowed values are `all` or `cluster`. Default is `all`.
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
-	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// (Set of String) UIDs of the specific clusters value applies to when assign_strategy is cluster. Ignored when assign_strategy is all (the value applies to every cluster attached to the template).
 	// UIDs of the specific clusters `value` applies to when `assign_strategy` is `cluster`. Ignored when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
 	// +listType=set
 	ClusterIds []*string `json:"clusterIds,omitempty" tf:"cluster_ids,omitempty"`
@@ -297,7 +297,7 @@ type VariablesObservation struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+	// (String) Value of the variable. Applied to every attached cluster when assign_strategy is all, or to each cluster in cluster_ids when assign_strategy is cluster.
 	// Value of the variable. Applied to every attached cluster when `assign_strategy` is `all`, or to each cluster in `cluster_ids` when `assign_strategy` is `cluster`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -309,7 +309,7 @@ type VariablesParameters struct {
 	// +kubebuilder:validation:Optional
 	AssignStrategy *string `json:"assignStrategy,omitempty" tf:"assign_strategy,omitempty"`
 
-	// (Set of String) UIDs of the specific clusters value applies to. Required when assign_strategy is cluster; must be empty when assign_strategy is all (the value applies to every cluster attached to the template).
+	// (Set of String) UIDs of the specific clusters value applies to when assign_strategy is cluster. Ignored when assign_strategy is all (the value applies to every cluster attached to the template).
 	// UIDs of the specific clusters `value` applies to when `assign_strategy` is `cluster`. Ignored when `assign_strategy` is `all` (the value applies to every cluster attached to the template).
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -320,7 +320,7 @@ type VariablesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.
+	// (String) Value of the variable. Applied to every attached cluster when assign_strategy is all, or to each cluster in cluster_ids when assign_strategy is cluster.
 	// Value of the variable. Applied to every attached cluster when `assign_strategy` is `all`, or to each cluster in `cluster_ids` when `assign_strategy` is `cluster`.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`

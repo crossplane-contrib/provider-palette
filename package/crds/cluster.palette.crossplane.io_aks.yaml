@@ -320,18 +320,19 @@ spec:
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         managedIdentity:
-                          description: User-assigned managed identities used to authenticate
-                            to Azure.
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
                           items:
                             properties:
                               aksServiceIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS control plane.
                                   Azure resource ID of the user-assigned managed identity used by the AKS control plane.
                                 type: string
                               kubeletIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS kubelet.
                                   Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
                                 type: string
                             type: object
@@ -1343,18 +1344,19 @@ spec:
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         managedIdentity:
-                          description: User-assigned managed identities used to authenticate
-                            to Azure.
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
                           items:
                             properties:
                               aksServiceIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS control plane.
                                   Azure resource ID of the user-assigned managed identity used by the AKS control plane.
                                 type: string
                               kubeletIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS kubelet.
                                   Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
                                 type: string
                             type: object
@@ -2305,18 +2307,19 @@ spec:
                             Security group name attached to the control plane subnet. Changing this forces a new resource.
                           type: string
                         managedIdentity:
-                          description: User-assigned managed identities used to authenticate
-                            to Azure.
+                          description: |-
+                            assigned managed identities used to authenticate to Azure. (see below for nested schema)
+                            User-assigned managed identities used to authenticate to Azure.
                           items:
                             properties:
                               aksServiceIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS control plane.
                                   Azure resource ID of the user-assigned managed identity used by the AKS control plane.
                                 type: string
                               kubeletIdentityResourceId:
                                 description: |-
-                                  (String) The ID of this resource.
+                                  assigned managed identity used by the AKS kubelet.
                                   Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
                                 type: string
                             type: object

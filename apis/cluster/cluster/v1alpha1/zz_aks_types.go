@@ -573,6 +573,7 @@ type CloudConfigInitParameters struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
+	// assigned managed identities used to authenticate to Azure. (see below for nested schema)
 	// User-assigned managed identities used to authenticate to Azure.
 	ManagedIdentity []ManagedIdentityInitParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
@@ -639,6 +640,7 @@ type CloudConfigObservation struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
+	// assigned managed identities used to authenticate to Azure. (see below for nested schema)
 	// User-assigned managed identities used to authenticate to Azure.
 	ManagedIdentity []ManagedIdentityObservation `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
@@ -708,6 +710,7 @@ type CloudConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
+	// assigned managed identities used to authenticate to Azure. (see below for nested schema)
 	// User-assigned managed identities used to authenticate to Azure.
 	// +kubebuilder:validation:Optional
 	ManagedIdentity []ManagedIdentityParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
@@ -1353,34 +1356,34 @@ type MachinePoolParameters struct {
 
 type ManagedIdentityInitParameters struct {
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS control plane.
 	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
 	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS kubelet.
 	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
 	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`
 }
 
 type ManagedIdentityObservation struct {
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS control plane.
 	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
 	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS kubelet.
 	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
 	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`
 }
 
 type ManagedIdentityParameters struct {
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS control plane.
 	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
 	// +kubebuilder:validation:Optional
 	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
 
-	// (String) The ID of this resource.
+	// assigned managed identity used by the AKS kubelet.
 	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
 	// +kubebuilder:validation:Optional
 	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`

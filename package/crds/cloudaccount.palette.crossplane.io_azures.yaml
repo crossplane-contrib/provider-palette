@@ -75,12 +75,12 @@ spec:
                 properties:
                   azureClientId:
                     description: |-
-                      (String) Unique client Id from Azure console.
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                       Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                     type: string
                   azureClientSecretSecretRef:
                     description: |-
-                      (String, Sensitive) Azure secret for authentication.
+                      (String, Sensitive) Azure secret for authentication. Required when identity_type is ServicePrincipal (the default); not used when identity_type is UserAssignedMSI.
                       Azure secret for authentication. Required when `identity_type` is `ServicePrincipal` (the default); not used when `identity_type` is `UserAssignedMSI`.
                     properties:
                       key:
@@ -122,13 +122,9 @@ spec:
                       Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
                     type: boolean
                   identityType:
-                    description: The type of identity Palette uses to authenticate
-                      to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`.
-                      `UserAssignedMSI` authenticates using a user-assigned managed
-                      identity attached to the private cloud gateway or self-hosted
-                      Palette VMs; `azure_client_secret` is not used in this mode.
-                      Changing this value forces a new resource - converting an existing
-                      cloud account between identity types is not supported.
+                    description: |-
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+                      The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
                     type: string
                   name:
                     description: |-
@@ -166,12 +162,12 @@ spec:
                 properties:
                   azureClientId:
                     description: |-
-                      (String) Unique client Id from Azure console.
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                       Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                     type: string
                   azureClientSecretSecretRef:
                     description: |-
-                      (String, Sensitive) Azure secret for authentication.
+                      (String, Sensitive) Azure secret for authentication. Required when identity_type is ServicePrincipal (the default); not used when identity_type is UserAssignedMSI.
                       Azure secret for authentication. Required when `identity_type` is `ServicePrincipal` (the default); not used when `identity_type` is `UserAssignedMSI`.
                     properties:
                       key:
@@ -213,13 +209,9 @@ spec:
                       Disable properties request. This is a boolean value that indicates whether to disable properties request or not. If not specified, the default value is `false`.
                     type: boolean
                   identityType:
-                    description: The type of identity Palette uses to authenticate
-                      to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`.
-                      `UserAssignedMSI` authenticates using a user-assigned managed
-                      identity attached to the private cloud gateway or self-hosted
-                      Palette VMs; `azure_client_secret` is not used in this mode.
-                      Changing this value forces a new resource - converting an existing
-                      cloud account between identity types is not supported.
+                    description: |-
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+                      The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
                     type: string
                   name:
                     description: |-
@@ -348,7 +340,7 @@ spec:
                 properties:
                   azureClientId:
                     description: |-
-                      (String) Unique client Id from Azure console.
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                       Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.
                     type: string
                   azureTenantId:
@@ -379,17 +371,13 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   identityType:
-                    description: The type of identity Palette uses to authenticate
-                      to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`.
-                      `UserAssignedMSI` authenticates using a user-assigned managed
-                      identity attached to the private cloud gateway or self-hosted
-                      Palette VMs; `azure_client_secret` is not used in this mode.
-                      Changing this value forces a new resource - converting an existing
-                      cloud account between identity types is not supported.
+                    description: |-
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; azure_client_secret is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
+                      The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.
                     type: string
                   managementIdentityResourceId:
                     description: |-
-                      (String) The ID of this resource.
+                      assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when identity_type is UserAssignedMSI.
                       The Azure resource ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when `identity_type` is `UserAssignedMSI`.
                     type: string
                   name:

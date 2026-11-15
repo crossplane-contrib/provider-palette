@@ -368,6 +368,7 @@ type EdgeNativeBackupPolicyParameters struct {
 
 type EdgeNativeCloudConfigInitParameters struct {
 
+	// (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	// UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	ImageRegistryRef *string `json:"imageRegistryRef,omitempty" tf:"image_registry_ref,omitempty"`
 
@@ -380,7 +381,7 @@ type EdgeNativeCloudConfigInitParameters struct {
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
-	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// assigned IP changes can cause cluster instability.
 	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
 	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
 
@@ -389,6 +390,7 @@ type EdgeNativeCloudConfigInitParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
 	// Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
 	UpdateLock *string `json:"updateLock,omitempty" tf:"update_lock,omitempty"`
 
@@ -399,6 +401,7 @@ type EdgeNativeCloudConfigInitParameters struct {
 
 type EdgeNativeCloudConfigObservation struct {
 
+	// (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	// UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	ImageRegistryRef *string `json:"imageRegistryRef,omitempty" tf:"image_registry_ref,omitempty"`
 
@@ -411,7 +414,7 @@ type EdgeNativeCloudConfigObservation struct {
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
-	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// assigned IP changes can cause cluster instability.
 	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
 	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
 
@@ -420,6 +423,7 @@ type EdgeNativeCloudConfigObservation struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
 	// Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
 	UpdateLock *string `json:"updateLock,omitempty" tf:"update_lock,omitempty"`
 
@@ -430,6 +434,7 @@ type EdgeNativeCloudConfigObservation struct {
 
 type EdgeNativeCloudConfigParameters struct {
 
+	// (String) UID of an OCI registry (spectrocloud_registry_oci, provider_type = "image") that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	// UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = "image"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.
 	// +kubebuilder:validation:Optional
 	ImageRegistryRef *string `json:"imageRegistryRef,omitempty" tf:"image_registry_ref,omitempty"`
@@ -445,7 +450,7 @@ type EdgeNativeCloudConfigParameters struct {
 	// +listType=set
 	NtpServers []*string `json:"ntpServers,omitempty" tf:"ntp_servers,omitempty"`
 
-	// (String) The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, 100.64.192.0/24
+	// assigned IP changes can cause cluster instability.
 	// The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`.
 	// +kubebuilder:validation:Optional
 	OverlayCidrRange *string `json:"overlayCidrRange,omitempty" tf:"overlay_cidr_range,omitempty"`
@@ -456,6 +461,7 @@ type EdgeNativeCloudConfigParameters struct {
 	// +listType=set
 	SSHKeys []*string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
 
+	// releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  disabled.
 	// Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.
 	// +kubebuilder:validation:Optional
 	UpdateLock *string `json:"updateLock,omitempty" tf:"update_lock,omitempty"`
