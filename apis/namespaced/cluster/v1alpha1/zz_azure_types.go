@@ -186,6 +186,9 @@ type AzureCloudConfigInitParameters struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	ControlPlaneSubnet []ControlPlaneSubnetInitParameters `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
 
+	// User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+	ManagedIdentity []CloudConfigManagedIdentityInitParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
+
 	// (String) Azure network resource group in which the cluster is to be provisioned.
 	// Azure network resource group in which the cluster is to be provisioned.
 	NetworkResourceGroup *string `json:"networkResourceGroup,omitempty" tf:"network_resource_group,omitempty"`
@@ -238,6 +241,9 @@ type AzureCloudConfigObservation struct {
 
 	// (Block List, Max: 1) (see below for nested schema)
 	ControlPlaneSubnet []ControlPlaneSubnetObservation `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
+
+	// User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+	ManagedIdentity []CloudConfigManagedIdentityObservation `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
 	// (String) Azure network resource group in which the cluster is to be provisioned.
 	// Azure network resource group in which the cluster is to be provisioned.
@@ -293,6 +299,10 @@ type AzureCloudConfigParameters struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnet []ControlPlaneSubnetParameters `json:"controlPlaneSubnet,omitempty" tf:"control_plane_subnet,omitempty"`
+
+	// User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.
+	// +kubebuilder:validation:Optional
+	ManagedIdentity []CloudConfigManagedIdentityParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
 	// (String) Azure network resource group in which the cluster is to be provisioned.
 	// Azure network resource group in which the cluster is to be provisioned.
@@ -379,6 +389,10 @@ type AzureClusterProfileObservation struct {
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Name of the cluster. This name will be used to create the cluster in Azure.
+	// The name of the cluster profile, read from Palette.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -1027,6 +1041,9 @@ type AzureMachinePoolInitParameters struct {
 	// Disk configuration for the machine pool.
 	Disk []DiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+	ExcludeClusterIdentity *bool `json:"excludeClusterIdentity,omitempty" tf:"exclude_cluster_identity,omitempty"`
+
 	// (String) Azure instance type from the Azure portal.
 	// Azure instance type from the Azure portal.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
@@ -1076,6 +1093,10 @@ type AzureMachinePoolInitParameters struct {
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+	// +listType=set
+	UserAssignedIdentities []*string `json:"userAssignedIdentities,omitempty" tf:"user_assigned_identities,omitempty"`
 }
 
 type AzureMachinePoolNodeInitParameters struct {
@@ -1146,6 +1167,9 @@ type AzureMachinePoolObservation struct {
 	// Disk configuration for the machine pool.
 	Disk []DiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+	ExcludeClusterIdentity *bool `json:"excludeClusterIdentity,omitempty" tf:"exclude_cluster_identity,omitempty"`
+
 	// (String) Azure instance type from the Azure portal.
 	// Azure instance type from the Azure portal.
 	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
@@ -1195,6 +1219,10 @@ type AzureMachinePoolObservation struct {
 	// (String) Update strategy for the machine pool. Valid values are RollingUpdateScaleOut, RollingUpdateScaleIn and OverrideScaling. If OverrideScaling is used, override_scaling must be specified with both max_surge and max_unavailable.
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+	// +listType=set
+	UserAssignedIdentities []*string `json:"userAssignedIdentities,omitempty" tf:"user_assigned_identities,omitempty"`
 }
 
 type AzureMachinePoolOverrideScalingInitParameters struct {
@@ -1272,6 +1300,10 @@ type AzureMachinePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	Disk []DiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.
+	// +kubebuilder:validation:Optional
+	ExcludeClusterIdentity *bool `json:"excludeClusterIdentity,omitempty" tf:"exclude_cluster_identity,omitempty"`
+
 	// (String) Azure instance type from the Azure portal.
 	// Azure instance type from the Azure portal.
 	// +kubebuilder:validation:Optional
@@ -1334,6 +1366,11 @@ type AzureMachinePoolParameters struct {
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+
+	// Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	UserAssignedIdentities []*string `json:"userAssignedIdentities,omitempty" tf:"user_assigned_identities,omitempty"`
 }
 
 type AzureMachinePoolTaintsInitParameters struct {
@@ -1733,6 +1770,28 @@ type AzureScanPolicyParameters struct {
 	// The schedule for penetration scan.
 	// +kubebuilder:validation:Optional
 	PenetrationScanSchedule *string `json:"penetrationScanSchedule" tf:"penetration_scan_schedule,omitempty"`
+}
+
+type CloudConfigManagedIdentityInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+	ClusterIdentityResourceID *string `json:"clusterIdentityResourceId,omitempty" tf:"cluster_identity_resource_id,omitempty"`
+}
+
+type CloudConfigManagedIdentityObservation struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+	ClusterIdentityResourceID *string `json:"clusterIdentityResourceId,omitempty" tf:"cluster_identity_resource_id,omitempty"`
+}
+
+type CloudConfigManagedIdentityParameters struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.
+	// +kubebuilder:validation:Optional
+	ClusterIdentityResourceID *string `json:"clusterIdentityResourceId" tf:"cluster_identity_resource_id,omitempty"`
 }
 
 type ControlPlaneSubnetInitParameters struct {

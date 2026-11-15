@@ -1945,6 +1945,11 @@ func (in *ClusterProfileObservation) DeepCopyInto(out *ClusterProfileObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Pack != nil {
 		in, out := &in.Pack, &out.Pack
 		*out = make([]PackObservation, len(*in))

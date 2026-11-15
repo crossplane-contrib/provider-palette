@@ -106,6 +106,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -1338,15 +1344,15 @@
             "attributes": {
               "azure_client_id": {
                 "type": "string",
-                "description": "Unique client Id from Azure console.",
+                "description": "Unique client Id from Azure console. When `identity_type` is `ServicePrincipal` (the default), this is the service principal's application (client) ID. When `identity_type` is `UserAssignedMSI`, this must be the client ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs.",
                 "description_kind": "plain",
                 "required": true
               },
               "azure_client_secret": {
                 "type": "string",
-                "description": "Azure secret for authentication.",
+                "description": "Azure secret for authentication. Required when `identity_type` is `ServicePrincipal` (the default); not used when `identity_type` is `UserAssignedMSI`.",
                 "description_kind": "plain",
-                "required": true,
+                "optional": true,
                 "sensitive": true
               },
               "azure_tenant_id": {
@@ -1377,6 +1383,18 @@
                 "type": "string",
                 "description_kind": "plain",
                 "optional": true,
+                "computed": true
+              },
+              "identity_type": {
+                "type": "string",
+                "description": "The type of identity Palette uses to authenticate to Azure. `ServicePrincipal` (default) authenticates with `azure_client_id`/`azure_client_secret`. `UserAssignedMSI` authenticates using a user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs; `azure_client_secret` is not used in this mode. Changing this value forces a new resource - converting an existing cloud account between identity types is not supported.",
+                "description_kind": "plain",
+                "optional": true
+              },
+              "management_identity_resource_id": {
+                "type": "string",
+                "description": "The Azure resource ID of the user-assigned managed identity attached to the private cloud gateway or self-hosted Palette VMs. Resolved by Palette during validation when `identity_type` is `UserAssignedMSI`.",
+                "description_kind": "plain",
                 "computed": true
               },
               "name": {
@@ -1929,6 +1947,30 @@
                       "optional": true
                     }
                   },
+                  "block_types": {
+                    "managed_identity": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "aks_service_identity_resource_id": {
+                            "type": "string",
+                            "description": "Azure resource ID of the user-assigned managed identity used by the AKS control plane.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "kubelet_identity_resource_id": {
+                            "type": "string",
+                            "description": "Azure resource ID of the user-assigned managed identity used by the AKS kubelet.",
+                            "description_kind": "plain",
+                            "optional": true
+                          }
+                        },
+                        "description": "User-assigned managed identities used to authenticate to Azure.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    }
+                  },
                   "description_kind": "plain"
                 },
                 "min_items": 1,
@@ -1943,6 +1985,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -2854,6 +2902,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -3717,6 +3771,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -4598,6 +4658,22 @@
                       },
                       "max_items": 1
                     },
+                    "managed_identity": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "cluster_identity_resource_id": {
+                            "type": "string",
+                            "description": "Azure resource ID of the user-assigned managed identity Palette authenticates to Azure with, attached to every node of the cluster by default. A worker pool can leave it off with `exclude_cluster_identity`.",
+                            "description_kind": "plain",
+                            "required": true
+                          }
+                        },
+                        "description": "User-assigned managed identity used to authenticate to Azure. Immutable after cluster creation.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    },
                     "private_api_server": {
                       "nesting_mode": "list",
                       "block": {
@@ -4668,6 +4744,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -4951,6 +5033,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "exclude_cluster_identity": {
+                      "type": "bool",
+                      "description": "Leaves `cloud_config.managed_identity`'s cluster identity off the machines of this pool. Default value is `false`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "instance_type": {
                       "type": "string",
                       "description": "Azure instance type from the Azure portal.",
@@ -5008,6 +5096,15 @@
                     "update_strategy": {
                       "type": "string",
                       "description": "Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "user_assigned_identities": {
+                      "type": [
+                        "set",
+                        "string"
+                      ],
+                      "description": "Azure resource IDs of additional user-assigned managed identities attached to the nodes of this pool, alongside `cloud_config.managed_identity`'s cluster identity (unless `exclude_cluster_identity` is set).",
                       "description_kind": "plain",
                       "optional": true
                     }
@@ -5445,6 +5542,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -5952,7 +6055,7 @@
                               "set",
                               "string"
                             ],
-                            "description": "UIDs of the specific clusters `value` applies to. Required when `assign_strategy` is `cluster`; must be empty when `assign_strategy` is `all` (the value applies to every cluster attached to the template).",
+                            "description": "UIDs of the specific clusters `value` applies to when `assign_strategy` is `cluster`. Ignored when `assign_strategy` is `all` (the value applies to every cluster attached to the template).",
                             "description_kind": "plain",
                             "optional": true
                           },
@@ -5964,12 +6067,12 @@
                           },
                           "value": {
                             "type": "string",
-                            "description": "Value of the variable to be applied to all clusters launched from this template. This value is used when assign_strategy is set to 'all'.",
+                            "description": "Value of the variable. Applied to every attached cluster when `assign_strategy` is `all`, or to each cluster in `cluster_ids` when `assign_strategy` is `cluster`.",
                             "description_kind": "plain",
                             "optional": true
                           }
                         },
-                        "description": "Set of profile variable values and assignment strategies.",
+                        "description": "Set of profile variable values and assignment strategies stored on the template. When omitted, the variables already stored on the template are kept. Only the variables listed here are managed; other variables on the template (for example, ones added by Palette or the UI) are left untouched. Values are applied to attached clusters on the next cluster profile version upgrade; a variable whose definition is unchanged keeps the value already running on each cluster.",
                         "description_kind": "plain"
                       }
                     }
@@ -6284,6 +6387,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -6910,6 +7019,12 @@
                 "nesting_mode": "list",
                 "block": {
                   "attributes": {
+                    "image_registry_ref": {
+                      "type": "string",
+                      "description": "UID of an OCI registry (`spectrocloud_registry_oci`, `provider_type = \"image\"`) that the Edge hosts use to pull the Edge Native provider (OS/bootstrap) image. Can be set on create or changed later without replacing the cluster.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
                     "is_two_node_cluster": {
                       "type": "bool",
                       "description": "Set to `true` to enable a two-node cluster.",
@@ -6927,7 +7042,7 @@
                     },
                     "overlay_cidr_range": {
                       "type": "string",
-                      "description": "The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`",
+                      "description": "The Overlay (VPN) creates a virtual network, using techniques like VxLAN. It overlays the existing network infrastructure, enhancing connectivity either at Layer 2 or Layer 3, making it flexible and adaptable for various needs. For example, `100.64.192.0/24`. If left unset, the cluster is created in DHCP mode without overlay networking, and Terraform prints a warning on creation since DHCP-assigned IP changes can cause cluster instability.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6937,6 +7052,12 @@
                         "string"
                       ],
                       "description": "List of public SSH (Secure Shell) to establish, administer, and communicate with remote clusters.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update_lock": {
+                      "type": "string",
+                      "description": "Profile update lock state for the edge native cluster. When `enabled`, cluster profile updates targeting the device are held until a local operator releases the lock from the Edge Local UI - releasing the lock is out of scope for this provider and can only be done locally on the device. Palette re-engages the lock automatically once a held update is applied. Defaults to the value set to  `disabled`.",
                       "description_kind": "plain",
                       "optional": true
                     },
@@ -6962,6 +7083,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -7858,6 +7985,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -8774,6 +8907,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -9665,6 +9804,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -10441,6 +10586,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -10950,6 +11101,12 @@
                       "description_kind": "plain",
                       "required": true
                     },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
+                    },
                     "variables": {
                       "type": [
                         "map",
@@ -11427,6 +11584,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -12701,6 +12864,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -15327,7 +15496,7 @@
               },
               "provider_type": {
                 "type": "string",
-                "description": "The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type=\"basic\"`  ",
+                "description": "The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type=\"basic\"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.",
                 "description_kind": "plain",
                 "optional": true
               },
@@ -16642,6 +16811,12 @@
                       "description": "The ID of the cluster profile.",
                       "description_kind": "plain",
                       "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the cluster profile, read from Palette.",
+                      "description_kind": "plain",
+                      "computed": true
                     },
                     "variables": {
                       "type": [
@@ -19778,6 +19953,10 @@
                           "object",
                           {
                             "assign_strategy": "string",
+                            "cluster_ids": [
+                              "set",
+                              "string"
+                            ],
                             "name": "string",
                             "value": "string"
                           }

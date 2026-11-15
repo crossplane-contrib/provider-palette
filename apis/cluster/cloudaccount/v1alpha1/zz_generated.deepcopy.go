@@ -628,7 +628,11 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.AzureClientSecretSecretRef.DeepCopyInto(&out.AzureClientSecretSecretRef)
+	if in.AzureClientSecretSecretRef != nil {
+		in, out := &in.AzureClientSecretSecretRef, &out.AzureClientSecretSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.AzureTenantID != nil {
 		in, out := &in.AzureTenantID, &out.AzureTenantID
 		*out = new(string)
@@ -647,6 +651,11 @@ func (in *AzureInitParameters) DeepCopyInto(out *AzureInitParameters) {
 	if in.DisablePropertiesRequest != nil {
 		in, out := &in.DisablePropertiesRequest, &out.DisablePropertiesRequest
 		*out = new(bool)
+		**out = **in
+	}
+	if in.IdentityType != nil {
+		in, out := &in.IdentityType, &out.IdentityType
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -746,6 +755,16 @@ func (in *AzureObservation) DeepCopyInto(out *AzureObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IdentityType != nil {
+		in, out := &in.IdentityType, &out.IdentityType
+		*out = new(string)
+		**out = **in
+	}
+	if in.ManagementIdentityResourceID != nil {
+		in, out := &in.ManagementIdentityResourceID, &out.ManagementIdentityResourceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -786,7 +805,11 @@ func (in *AzureParameters) DeepCopyInto(out *AzureParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.AzureClientSecretSecretRef.DeepCopyInto(&out.AzureClientSecretSecretRef)
+	if in.AzureClientSecretSecretRef != nil {
+		in, out := &in.AzureClientSecretSecretRef, &out.AzureClientSecretSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.AzureTenantID != nil {
 		in, out := &in.AzureTenantID, &out.AzureTenantID
 		*out = new(string)
@@ -805,6 +828,11 @@ func (in *AzureParameters) DeepCopyInto(out *AzureParameters) {
 	if in.DisablePropertiesRequest != nil {
 		in, out := &in.DisablePropertiesRequest, &out.DisablePropertiesRequest
 		*out = new(bool)
+		**out = **in
+	}
+	if in.IdentityType != nil {
+		in, out := &in.IdentityType, &out.IdentityType
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {

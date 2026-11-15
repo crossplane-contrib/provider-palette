@@ -574,6 +574,9 @@ type CloudConfigInitParameters struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
 
+	// User-assigned managed identities used to authenticate to Azure.
+	ManagedIdentity []ManagedIdentityInitParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
+
 	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
 	OverrideClusterAPIConfig *string `json:"overrideClusterApiConfig,omitempty" tf:"override_cluster_api_config,omitempty"`
@@ -636,6 +639,9 @@ type CloudConfigObservation struct {
 	// (String) Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
+
+	// User-assigned managed identities used to authenticate to Azure.
+	ManagedIdentity []ManagedIdentityObservation `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
 	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
@@ -702,6 +708,10 @@ type CloudConfigParameters struct {
 	// Security group name attached to the control plane subnet. Changing this forces a new resource.
 	// +kubebuilder:validation:Optional
 	ControlPlaneSubnetSecurityGroupName *string `json:"controlPlaneSubnetSecurityGroupName,omitempty" tf:"control_plane_subnet_security_group_name,omitempty"`
+
+	// User-assigned managed identities used to authenticate to Azure.
+	// +kubebuilder:validation:Optional
+	ManagedIdentity []ManagedIdentityParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
 
 	// level and Palette-managed values.
 	// YAML override for CAPI properties at cluster level. Overrides pack-level and Palette-managed values.
@@ -794,6 +804,10 @@ type ClusterProfileObservation struct {
 	// (String) The ID of this resource.
 	// The ID of the cluster profile.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Name of the AKS cluster. Changing this forces a new resource.
+	// The name of the cluster profile, read from Palette.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) For packs of type spectro, helm, and manifest, at least one pack must be specified. (see below for nested schema)
 	// For packs of type `spectro`, `helm`, and `manifest`, at least one pack must be specified.
@@ -1336,6 +1350,41 @@ type MachinePoolParameters struct {
 	// Update strategy for the machine pool. Valid values are `RollingUpdateScaleOut`, `RollingUpdateScaleIn` and `OverrideScaling`. If `OverrideScaling` is used, `override_scaling` must be specified with both `max_surge` and `max_unavailable`.
 	// +kubebuilder:validation:Optional
 	UpdateStrategy *string `json:"updateStrategy,omitempty" tf:"update_strategy,omitempty"`
+}
+
+type ManagedIdentityInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`
+}
+
+type ManagedIdentityObservation struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`
+}
+
+type ManagedIdentityParameters struct {
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS control plane.
+	// +kubebuilder:validation:Optional
+	AksServiceIdentityResourceID *string `json:"aksServiceIdentityResourceId,omitempty" tf:"aks_service_identity_resource_id,omitempty"`
+
+	// (String) The ID of this resource.
+	// Azure resource ID of the user-assigned managed identity used by the AKS kubelet.
+	// +kubebuilder:validation:Optional
+	KubeletIdentityResourceID *string `json:"kubeletIdentityResourceId,omitempty" tf:"kubelet_identity_resource_id,omitempty"`
 }
 
 type ManifestInitParameters struct {

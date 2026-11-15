@@ -180,7 +180,7 @@ type OciInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
@@ -229,7 +229,7 @@ type OciObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
 	// (String) The type of the registry. Possible values are 'ecr' (Amazon Elastic Container Registry) or 'basic' (for other types of OCI registries).
@@ -282,7 +282,7 @@ type OciParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The type of provider used for interacting with the registry. Supported value's are helm, zarf and pack, The default is 'helm'. zarf is allowed with type="basic"
-	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf` and `pack`, The default is 'helm'. `zarf` is allowed with `type="basic"`
+	// The type of provider used for interacting with the registry. Supported value's are `helm`, `zarf`, `pack` and `image`, The default is 'helm'. `zarf` is allowed with `type="basic"`. `image` registries are not used as a pack source and host Edge Native provider (OS/bootstrap) images instead.
 	// +kubebuilder:validation:Optional
 	ProviderType *string `json:"providerType,omitempty" tf:"provider_type,omitempty"`
 
