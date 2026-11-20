@@ -361,6 +361,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"spectrocloud_registration_token":          config.IdentifierFromProvider,
 	"spectrocloud_registry_helm":               config.IdentifierFromProvider,
 	"spectrocloud_registry_oci":                config.IdentifierFromProvider,
+	"spectrocloud_registry_pack":               config.IdentifierFromProvider,
 	"spectrocloud_resource_limit":              config.IdentifierFromProvider, // Required fix in terrafonfm provider currently observe only is not supported
 	"spectrocloud_role":                        config.IdentifierFromProvider,
 	"spectrocloud_ssh_key":                     FormattedIdentifierFromProvider(),
