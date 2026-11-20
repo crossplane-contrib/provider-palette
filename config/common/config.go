@@ -417,10 +417,6 @@ func configureRegistryResources(p *config.Provider) {
 	p.AddResourceConfigurator("spectrocloud_registry_oci", func(r *config.Resource) {
 		// Need add import(Observe) support for this resource in terraform provider
 	})
-
-	p.AddResourceConfigurator("spectrocloud_registry_pack", func(r *config.Resource) {
-		// Need add import(Observe) support for this resource in terraform provider
-	})
 }
 
 // configurePrivateCloudGatewayResources configures private cloud gateway resources

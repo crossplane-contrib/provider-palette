@@ -48,7 +48,6 @@ import (
 	token "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registration/token"
 	helm "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registry/helm"
 	oci "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registry/oci"
-	pack "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/registry/pack"
 	limit "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/resource/limit"
 	alert "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/spectrocloud/alert"
 	appliance "github.com/crossplane-contrib/provider-palette/internal/controller/namespaced/spectrocloud/appliance"
@@ -110,7 +109,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		token.Setup,
 		helm.Setup,
 		oci.Setup,
-		pack.Setup,
 		limit.Setup,
 		alert.Setup,
 		appliance.Setup,
@@ -178,7 +176,6 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		token.SetupGated,
 		helm.SetupGated,
 		oci.SetupGated,
-		pack.SetupGated,
 		limit.SetupGated,
 		alert.SetupGated,
 		appliance.SetupGated,
