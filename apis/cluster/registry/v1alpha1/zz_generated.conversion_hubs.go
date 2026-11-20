@@ -11,3 +11,6 @@ func (tr *Helm) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Oci) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Pack) Hub() {}
