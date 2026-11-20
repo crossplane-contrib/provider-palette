@@ -49,6 +49,18 @@
               "description_kind": "plain",
               "optional": true
             },
+            "request_timeout": {
+              "type": "number",
+              "description": "Maximum time, in seconds, for a single Palette API call, from sending the request to reading the whole response. It applies to every call the provider makes, including the status checks while it waits for a cluster to become ready. A timed-out read is retried up to `retry_attempts` times with exponential backoff, so with the default of 10 retries a call that keeps timing out can take tens of minutes to fail; a timed-out write is not retried, because it may already have been applied. Set to `-1` to remove the limit. Can also be set with the `SPECTROCLOUD_REQUEST_TIMEOUT` environment variable. Defaults to 300.",
+              "description_kind": "plain",
+              "optional": true
+            },
+            "response_idle_timeout": {
+              "type": "number",
+              "description": "Time, in seconds, that a Palette API response may go without sending any data before the call is cancelled. The timer starts once the response begins and restarts whenever data arrives, so a large response that keeps arriving is not cut off. Cancelled reads are retried as described for `request_timeout`. Set to `-1` to disable. Can also be set with the `SPECTROCLOUD_RESPONSE_IDLE_TIMEOUT` environment variable. Defaults to 60.",
+              "description_kind": "plain",
+              "optional": true
+            },
             "retry_attempts": {
               "type": "number",
               "description": "Number of retry attempts. Can also be set with the `SPECTROCLOUD_RETRY_ATTEMPTS` environment variable. Defaults to 10.",
@@ -15626,6 +15638,137 @@
               }
             },
             "description": "Resource for managing OCI registries in Spectro Cloud.",
+            "description_kind": "plain"
+          }
+        },
+        "spectrocloud_registry_pack": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "endpoint": {
+                "type": "string",
+                "description": "The URL of the Pack registry, for example `https://registry.example.com:5000`.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "id": {
+                "type": "string",
+                "description_kind": "plain",
+                "optional": true,
+                "computed": true
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the Pack registry. This must be unique. Changing the name creates a new registry.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "wait_for_sync": {
+                "type": "bool",
+                "description": "If `true`, Terraform waits for Palette to finish synchronizing the Pack registry before marking the resource as created or updated. Default value is `false`.",
+                "description_kind": "plain",
+                "optional": true
+              }
+            },
+            "block_types": {
+              "credentials": {
+                "nesting_mode": "list",
+                "block": {
+                  "attributes": {
+                    "credential_type": {
+                      "type": "string",
+                      "description": "The type of authentication used for the Pack registry. The only supported value is `basic` (username and password), which is also the default.",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "The password for the Pack registry.",
+                      "description_kind": "plain",
+                      "required": true,
+                      "sensitive": true
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "The username for the Pack registry.",
+                      "description_kind": "plain",
+                      "required": true
+                    }
+                  },
+                  "block_types": {
+                    "tls_config": {
+                      "nesting_mode": "list",
+                      "block": {
+                        "attributes": {
+                          "ca": {
+                            "type": "string",
+                            "description": "The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "certificate": {
+                            "type": "string",
+                            "description": "The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "enabled": {
+                            "type": "bool",
+                            "description": "Whether TLS is enabled for the connection to the Pack registry. Default value is `true`.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "insecure_skip_verify": {
+                            "type": "bool",
+                            "description": "Disables TLS certificate verification when set to `true`. ⚠️ WARNING: this makes connections vulnerable to man-in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.",
+                            "description_kind": "plain",
+                            "optional": true
+                          },
+                          "key": {
+                            "type": "string",
+                            "description": "The private key, in PEM format, for the client certificate used for mutual TLS (mTLS) authentication with the Pack registry.",
+                            "description_kind": "plain",
+                            "optional": true,
+                            "sensitive": true
+                          }
+                        },
+                        "description": "TLS configuration for the registry. If omitted, no TLS configuration is sent.",
+                        "description_kind": "plain"
+                      },
+                      "max_items": 1
+                    }
+                  },
+                  "description": "Authentication credentials for accessing the Pack registry. Pack registries support username and password (`basic`) authentication only.",
+                  "description_kind": "plain"
+                },
+                "min_items": 1,
+                "max_items": 1
+              },
+              "timeouts": {
+                "nesting_mode": "single",
+                "block": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "delete": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    },
+                    "update": {
+                      "type": "string",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "description_kind": "plain"
+                }
+              }
+            },
+            "description": "Resource for managing Pack registries in Spectro Cloud. Pack registries host Spectro Cloud packs that Palette synchronizes and makes available to cluster profiles. This is a tenant-level resource.",
             "description_kind": "plain"
           }
         },
