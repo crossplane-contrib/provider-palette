@@ -1,0 +1,20 @@
+apiVersion: registry.palette.crossplane.io/v1alpha1
+kind: Pack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: registry/v1alpha1/pack
+  labels:
+    testing.upbound.io/example-name: pack_registry
+  name: pack-registry
+spec:
+  forProvider:
+    credentials:
+    - credentialType: basic
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      username: ${var.pack_registry_username}
+    endpoint: https://registry.example.com:5000
+    name: my-pack-registry
+    waitForSync: true

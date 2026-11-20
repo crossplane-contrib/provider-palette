@@ -16,45 +16,56 @@ import (
 
 type PackCredentialsInitParameters struct {
 
+	// (String) The type of authentication used for the Pack registry. The only supported value is basic (username and password), which is also the default.
 	// The type of authentication used for the Pack registry. The only supported value is `basic` (username and password), which is also the default.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (String, Sensitive) The password for the Pack registry.
 	// The password for the Pack registry.
 	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
 	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
 	TLSConfig []PackCredentialsTLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (String) The username for the Pack registry.
 	// The username for the Pack registry.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type PackCredentialsObservation struct {
 
+	// (String) The type of authentication used for the Pack registry. The only supported value is basic (username and password), which is also the default.
 	// The type of authentication used for the Pack registry. The only supported value is `basic` (username and password), which is also the default.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
 	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
 	TLSConfig []PackCredentialsTLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (String) The username for the Pack registry.
 	// The username for the Pack registry.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type PackCredentialsParameters struct {
 
+	// (String) The type of authentication used for the Pack registry. The only supported value is basic (username and password), which is also the default.
 	// The type of authentication used for the Pack registry. The only supported value is `basic` (username and password), which is also the default.
 	// +kubebuilder:validation:Optional
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+	// (String, Sensitive) The password for the Pack registry.
 	// The password for the Pack registry.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
+	// (Block List, Max: 1) TLS configuration for the registry. If omitted, no TLS configuration is sent. (see below for nested schema)
 	// TLS configuration for the registry. If omitted, no TLS configuration is sent.
 	// +kubebuilder:validation:Optional
 	TLSConfig []PackCredentialsTLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (String) The username for the Pack registry.
 	// The username for the Pack registry.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username" tf:"username,omitempty"`
@@ -62,55 +73,69 @@ type PackCredentialsParameters struct {
 
 type PackCredentialsTLSConfigInitParameters struct {
 
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	// The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
 
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// (Boolean) Whether TLS is enabled for the connection to the Pack registry. Default value is true.
 	// Whether TLS is enabled for the connection to the Pack registry. Default value is `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	// Disables TLS certificate verification when set to `true`. ⚠️ WARNING: this makes connections vulnerable to man-in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 
+	// (String, Sensitive) The private key, in PEM format, for the client certificate used for mutual TLS (mTLS) authentication with the Pack registry.
 	// The private key, in PEM format, for the client certificate used for mutual TLS (mTLS) authentication with the Pack registry.
 	KeySecretRef *v1.LocalSecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
 }
 
 type PackCredentialsTLSConfigObservation struct {
 
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	// The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
 
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// (Boolean) Whether TLS is enabled for the connection to the Pack registry. Default value is true.
 	// Whether TLS is enabled for the connection to the Pack registry. Default value is `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	// Disables TLS certificate verification when set to `true`. ⚠️ WARNING: this makes connections vulnerable to man-in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 }
 
 type PackCredentialsTLSConfigParameters struct {
 
+	// (String) The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	// The certificate authority (CA) certificate, in PEM format, used to validate the Pack registry's TLS certificate.
 	// +kubebuilder:validation:Optional
 	CA *string `json:"ca,omitempty" tf:"ca,omitempty"`
 
+	// (String) The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	// The client certificate, in PEM format, used for mutual TLS (mTLS) authentication with the Pack registry.
 	// +kubebuilder:validation:Optional
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// (Boolean) Whether TLS is enabled for the connection to the Pack registry. Default value is true.
 	// Whether TLS is enabled for the connection to the Pack registry. Default value is `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	// Disables TLS certificate verification when set to `true`. ⚠️ WARNING: this makes connections vulnerable to man-in-the-middle attacks. Only use it for registries with self-signed certificates in trusted networks.
 	// +kubebuilder:validation:Optional
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 
+	// (String, Sensitive) The private key, in PEM format, for the client certificate used for mutual TLS (mTLS) authentication with the Pack registry.
 	// The private key, in PEM format, for the client certificate used for mutual TLS (mTLS) authentication with the Pack registry.
 	// +kubebuilder:validation:Optional
 	KeySecretRef *v1.LocalSecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
@@ -118,51 +143,61 @@ type PackCredentialsTLSConfigParameters struct {
 
 type PackInitParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Pack registry. Pack registries support username and password (basic) authentication only. (see below for nested schema)
 	// Authentication credentials for accessing the Pack registry. Pack registries support username and password (`basic`) authentication only.
 	Credentials []PackCredentialsInitParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
+	// (String) The URL of the Pack registry, for example https://registry.example.com:5000.
 	// The URL of the Pack registry, for example `https://registry.example.com:5000`.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	// The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Default value is `false`.
+	// Default value is false. Default value is `false`.
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type PackObservation struct {
 
+	// (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Pack registry. Pack registries support username and password (basic) authentication only. (see below for nested schema)
 	// Authentication credentials for accessing the Pack registry. Pack registries support username and password (`basic`) authentication only.
 	Credentials []PackCredentialsObservation `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
+	// (String) The URL of the Pack registry, for example https://registry.example.com:5000.
 	// The URL of the Pack registry, for example `https://registry.example.com:5000`.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	// The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Default value is `false`.
+	// Default value is false. Default value is `false`.
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
 
 type PackParameters struct {
 
+	// (Block List, Min: 1, Max: 1) Authentication credentials for accessing the Pack registry. Pack registries support username and password (basic) authentication only. (see below for nested schema)
 	// Authentication credentials for accessing the Pack registry. Pack registries support username and password (`basic`) authentication only.
 	// +kubebuilder:validation:Optional
 	Credentials []PackCredentialsParameters `json:"credentials,omitempty" tf:"credentials,omitempty"`
 
+	// (String) The URL of the Pack registry, for example https://registry.example.com:5000.
 	// The URL of the Pack registry, for example `https://registry.example.com:5000`.
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// (String) The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	// The name of the Pack registry. This must be unique. Changing the name creates a new registry.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Default value is `false`.
+	// Default value is false. Default value is `false`.
 	// +kubebuilder:validation:Optional
 	WaitForSync *bool `json:"waitForSync,omitempty" tf:"wait_for_sync,omitempty"`
 }
@@ -194,7 +229,7 @@ type PackStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Pack is the Schema for the Packs API. <no value>
+// Pack is the Schema for the Packs API. Resource for managing Pack registries in Spectro Cloud. Pack registries host Spectro Cloud packs that Palette synchronizes and makes available to cluster profiles. This is a tenant-level resource.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
